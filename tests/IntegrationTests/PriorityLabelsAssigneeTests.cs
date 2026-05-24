@@ -174,6 +174,74 @@ public class PriorityLabelsAssigneeTests : TestBase
         Assert.Contains("Triage issue", anyLabelsHtml);
     }
 
+    [TestMethod]
+    public async Task MyTasks_NotStartedFilter_ShowsOnlyNotStartedCards()
+    {
+        var (ownerEmail, _) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+        await LogoutAsync();
+
+        var (assigneeEmail, _) = await RegisterAndLoginAsync();
+        var assigneeId = await GetUserIdByEmailAsync(assigneeEmail);
+        await LogoutAsync();
+
+        var (boardId, todoColumnId, progressColumnId, completedColumnId) = await CreateBoardWithStatusesAsync(ownerId, "Not Started Board");
+        await CreateShareAsync(boardId, assigneeId, SharePermission.ReadOnly);
+        await CreateCardAsync(todoColumnId, "Plan sprint", assigneeId, Priority.High);
+        await CreateCardAsync(progressColumnId, "Implement API", assigneeId, Priority.Medium);
+        await CreateCardAsync(completedColumnId, "Write retrospective", assigneeId, Priority.Low);
+
+        await LoginAsync(assigneeEmail, "Test-Password-123");
+        var response = await Http.GetAsync("/MyTasks/Index?status=not-started");
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        var html = await response.Content.ReadAsStringAsync();
+        Assert.Contains("Plan sprint", html);
+        Assert.DoesNotContain("Implement API", html);
+        Assert.DoesNotContain("Write retrospective", html);
+    }
+
+    [TestMethod]
+    public async Task MyTasks_LabelToggle_VisualClassesAppliedCorrectly()
+    {
+        var (ownerEmail, _) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+        await LogoutAsync();
+
+        var (assigneeEmail, _) = await RegisterAndLoginAsync();
+        var assigneeId = await GetUserIdByEmailAsync(assigneeEmail);
+        await LogoutAsync();
+
+        var (boardId, todoColumnId, _, _) = await CreateBoardWithStatusesAsync(ownerId, "Label Toggle Board");
+        await CreateShareAsync(boardId, assigneeId, SharePermission.ReadOnly);
+
+        var backendLabel = await CreateLabelAsync("Backend", "#3B82F6");
+        var bugLabel = await CreateLabelAsync("Bug", "#EF4444");
+
+        var cardId = await CreateCardAsync(todoColumnId, "Fix API timeout", assigneeId, Priority.Urgent);
+        await AddLabelToCardAsync(cardId, backendLabel);
+        await AddLabelToCardAsync(cardId, bugLabel);
+
+        await LoginAsync(assigneeEmail, "Test-Password-123");
+
+        // No labels selected - both chips should be inactive
+        var noSelectionResponse = await Http.GetAsync("/MyTasks/Index?status=all");
+        noSelectionResponse.EnsureSuccessStatusCode();
+        var noSelectionHtml = await noSelectionResponse.Content.ReadAsStringAsync();
+
+        // Selected labels should have the "active" CSS class
+        var selectedResponse = await Http.GetAsync($"/MyTasks/Index?status=all&labelIds={backendLabel.Id}");
+        selectedResponse.EnsureSuccessStatusCode();
+        var selectedHtml = await selectedResponse.Content.ReadAsStringAsync();
+
+        // When selected, the chip gets class "active" and color is applied inline
+        Assert.Contains("label-filter-chip active", selectedHtml);
+        Assert.Contains(backendLabel.Color, selectedHtml);
+
+        // When no label is selected, chips use the default muted style (no inline color)
+        Assert.DoesNotContain("label-filter-chip active", noSelectionHtml);
+    }
+
     private async Task<string> GetUserIdByEmailAsync(string email)
     {
         using var scope = CreateScope();

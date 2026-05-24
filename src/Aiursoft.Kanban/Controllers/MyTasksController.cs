@@ -41,6 +41,7 @@ public class MyTasksController(
 
         cardsQuery = normalizedStatus switch
         {
+            "not-started" => cardsQuery.Where(card => card.Column.ColumnStatus == ColumnStatus.NotStarted),
             "in-progress" => cardsQuery.Where(card => card.Column.ColumnStatus == ColumnStatus.InProgress),
             "completed" => cardsQuery.Where(card => card.Column.ColumnStatus == ColumnStatus.Completed),
             "all" => cardsQuery,
@@ -97,6 +98,7 @@ public class MyTasksController(
             "all" => "all",
             "completed" => "completed",
             "in-progress" => "in-progress",
+            "not-started" => "not-started",
             _ => "incomplete"
         };
     }
