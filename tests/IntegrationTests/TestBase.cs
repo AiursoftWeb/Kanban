@@ -105,6 +105,26 @@ public abstract class TestBase
         Assert.AreEqual(HttpStatusCode.Found, loginResponse.StatusCode);
     }
 
+    protected async Task LoginAsync(string emailOrUserName, string password)
+    {
+        var loginResponse = await PostForm("/Account/Login", new Dictionary<string, string>
+        {
+            { "EmailOrUserName", emailOrUserName },
+            { "Password", password }
+        });
+        Assert.AreEqual(HttpStatusCode.Found, loginResponse.StatusCode);
+    }
+
+    protected async Task LogoutAsync()
+    {
+        var logOffToken = await GetAntiCsrfToken("/Manage/ChangePassword");
+        var logOffResponse = await Http.PostAsync("/Account/LogOff", new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            { "__RequestVerificationToken", logOffToken }
+        }));
+        Assert.AreEqual(HttpStatusCode.Found, logOffResponse.StatusCode);
+    }
+
     protected async Task<(string email, string password)> RegisterAndLoginAsync()
     {
         var email = $"test-{Guid.NewGuid()}@aiursoft.com";

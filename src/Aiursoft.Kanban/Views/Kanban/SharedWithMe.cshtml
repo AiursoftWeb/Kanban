@@ -1,0 +1,114 @@
+@model Aiursoft.Kanban.Models.KanbanViewModels.SharedWithMeViewModel
+@inject IViewLocalizer Localizer
+
+<style>
+    .clickable-row { cursor: pointer; }
+</style>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <h3>@Localizer["Shared with Me"]</h3>
+        <p class="text-muted">@Localizer["Boards that have been shared with you or your groups."]</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                @if (!Model.Shares.Any())
+                {
+                    <div class="text-center text-muted py-5">
+                        <i class="align-middle" data-lucide="inbox" style="width: 64px; height: 64px;"></i>
+                        <h5 class="mt-3">@Localizer["No shared boards"]</h5>
+                        <p>@Localizer["When someone shares a board with you or your role, it will appear here."]</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>@Localizer["Board"]</th>
+                                    <th>@Localizer["Shared Via"]</th>
+                                    <th>@Localizer["Permission"]</th>
+                                    <th>@Localizer["Shared At"]</th>
+                                    <th class="text-end">@Localizer["Actions"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var share in Model.Shares)
+                                {
+                                    var board = share.Board;
+                                    var rowUrl = share.Permission == Aiursoft.Kanban.Entities.SharePermission.ReadOnly
+                                        ? Url.Action("View", "PublicKanban", new { boardId = board.Id })
+                                        : Url.Action("Index", "Kanban", new { boardId = board.Id });
+                                    <tr class="clickable-row" data-href="@rowUrl">
+                                        <td><strong>@board.Name</strong></td>
+                                        <td>
+                                            @if (share.SharedWithUserId != null)
+                                            {
+                                                <span class="badge bg-info"><i class="align-middle" data-lucide="user"></i> @Localizer["Direct Share"]</span>
+                                            }
+                                            else if (share.SharedWithRoleId != null)
+                                            {
+                                                var roleName = Model.RoleNames.GetValueOrDefault(share.SharedWithRoleId, share.SharedWithRoleId);
+                                                <div>
+                                                    <span class="badge bg-primary"><i class="align-middle" data-lucide="users"></i> @Localizer["Via Role"]</span>
+                                                    <small class="text-muted d-block">@roleName</small>
+                                                </div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (share.Permission == Aiursoft.Kanban.Entities.SharePermission.ReadOnly)
+                                            {
+                                                <span class="badge bg-secondary"><i class="align-middle" data-lucide="eye"></i> @Localizer["Read Only"]</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-success"><i class="align-middle" data-lucide="edit-3"></i> @Localizer["Editable"]</span>
+                                            }
+                                        </td>
+                                        <td><small class="text-muted">@share.CreationTime.ToString("yyyy-MM-dd")</small></td>
+                                        <td class="text-end">
+                                            @if (share.Permission == Aiursoft.Kanban.Entities.SharePermission.ReadOnly)
+                                            {
+                                                <a asp-controller="PublicKanban" asp-action="View" asp-route-boardId="@board.Id" class="btn btn-sm btn-outline-primary">
+                                                    <i class="align-middle" data-lucide="eye"></i> @Localizer["View"]
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-controller="Kanban" asp-action="Index" asp-route-boardId="@board.Id" class="btn btn-sm btn-outline-success">
+                                                    <i class="align-middle" data-lucide="edit-3"></i> @Localizer["Edit"]
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const rows = document.querySelectorAll(".clickable-row");
+            rows.forEach(row => {
+                row.addEventListener("click", function (event) {
+                    const target = event.target;
+                    if (!target.matches('a, a *, button, button *')) {
+                        window.location.href = row.dataset.href;
+                    }
+                });
+            });
+        });
+    </script>
+}

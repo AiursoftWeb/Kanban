@@ -1,0 +1,190 @@
+@model Aiursoft.Kanban.Models.KanbanViewModels.ManageSharesViewModel
+@inject IViewLocalizer Localizer
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <h3>@Localizer["Manage Shares"]</h3>
+                <p class="text-muted">@Localizer["Board:"]: <strong>@Model.BoardName</strong></p>
+            </div>
+            <div>
+                <a asp-action="Index" asp-route-boardId="@Model.BoardId" class="btn btn-outline-secondary">
+                    <i class="align-middle" data-lucide="arrow-left"></i> @Localizer["Back to Board"]
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="align-middle" data-lucide="globe"></i> @Localizer["Visibility"]</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="UpdateVisibility" asp-route-id="@Model.BoardId" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="publicAccess" id="visibilityPublic" value="true" @(Model.IsPublic ? "checked" : "") onchange="this.form.submit()">
+                            <label class="form-check-label fw-bold" for="visibilityPublic">@Localizer["Allow anonymous viewing (Public)"]</label>
+                            <div class="form-text text-muted">
+                                @Localizer["Anyone with the link can view this board."]
+                                @if (!string.IsNullOrEmpty(Model.PublicLink))
+                                {
+                                    <div class="input-group input-group-sm mt-2" style="max-width: 500px;">
+                                        <span class="input-group-text">@Localizer["Share Link"]</span>
+                                        <input type="text" class="form-control" value="@Model.PublicLink" readonly id="public-link-input">
+                                        <a href="@Model.PublicLink" target="_blank" class="btn btn-outline-secondary">
+                                            <i class="align-middle" data-lucide="external-link"></i>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="publicAccess" id="visibilityPrivate" value="false" @(!Model.IsPublic ? "checked" : "") onchange="this.form.submit()">
+                            <label class="form-check-label fw-bold" for="visibilityPrivate">@Localizer["Forbid anonymous viewing (Private / Shared)"]</label>
+                            <div class="form-text text-muted">@Localizer["Only you and specific users/roles listed below can view this board."]</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!Model.IsPublic)
+{
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0"><i class="align-middle" data-lucide="user-plus"></i> @Localizer["Add New Share"]</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddShare" asp-route-id="@Model.BoardId" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="row g-3">
+                            <div class="col-md-5">
+                                <label class="form-label">@Localizer["Share with User"]</label>
+                                <select class="form-select" name="TargetUserId">
+                                    <option value="">@Localizer["(None - use role below)"]</option>
+                                    @foreach (var user in Model.AvailableUsers)
+                                    {
+                                        <option value="@user.Id">@user.UserName (@user.DisplayName)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label">@Localizer["Or Share with Role"]</label>
+                                <select class="form-select" name="TargetRoleId">
+                                    <option value="">@Localizer["(None - use user above)"]</option>
+                                    @foreach (var role in Model.AvailableRoles)
+                                    {
+                                        <option value="@role.Id">@role.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">@Localizer["Permission"]</label>
+                                <select class="form-select" name="Permission">
+                                    <option value="0">@Localizer["Read Only"]</option>
+                                    <option value="1">@Localizer["Editable"]</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="align-middle" data-lucide="plus"></i> @Localizer["Add Share"]
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="align-middle" data-lucide="users"></i> @Localizer["Current Shares"]</h5>
+            </div>
+            <div class="card-body">
+                @if (!Model.ExistingShares.Any())
+                {
+                    <div class="text-center text-muted py-4">
+                        <i class="align-middle" data-lucide="inbox" style="width:48px;height:48px;"></i>
+                        <p class="mt-2">@Localizer["No specific shares. Use the form above to share with users or roles."]</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>@Localizer["Shared With"]</th>
+                                    <th>@Localizer["Type"]</th>
+                                    <th>@Localizer["Permission"]</th>
+                                    <th>@Localizer["Since"]</th>
+                                    <th class="text-end">@Localizer["Actions"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var share in Model.ExistingShares)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (share.SharedWithUser != null)
+                                            {
+                                                <span>@share.SharedWithUser.UserName (@share.SharedWithUser.DisplayName)</span>
+                                            }
+                                            else if (share.SharedWithRoleId != null)
+                                            {
+                                                <span>@(Model.AvailableRoles.FirstOrDefault(r => r.Id == share.SharedWithRoleId)?.Name ?? share.SharedWithRoleId)</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (share.SharedWithUserId != null)
+                                            {
+                                                <span class="badge bg-info"><i class="align-middle" data-lucide="user"></i> @Localizer["User"]</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-primary"><i class="align-middle" data-lucide="users"></i> @Localizer["Role"]</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (share.Permission == Aiursoft.Kanban.Entities.SharePermission.ReadOnly)
+                                            {
+                                                <span class="badge bg-secondary"><i class="align-middle" data-lucide="eye"></i> @Localizer["Read Only"]</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-success"><i class="align-middle" data-lucide="edit-3"></i> @Localizer["Editable"]</span>
+                                            }
+                                        </td>
+                                        <td><small class="text-muted">@share.CreationTime.ToString("yyyy-MM-dd")</small></td>
+                                        <td class="text-end">
+                                            <form asp-action="RemoveShare" asp-route-id="@share.Id" method="post" style="display:inline">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('@Localizer["Remove this share?"]')">
+                                                    <i class="align-middle" data-lucide="trash-2"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

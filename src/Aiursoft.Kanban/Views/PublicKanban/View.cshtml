@@ -1,0 +1,73 @@
+@model Aiursoft.Kanban.Models.KanbanViewModels.PublicBoardViewModel
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section styles {
+<style>
+    .kanban-container { display: flex; gap: 1.25rem; overflow-x: auto; padding: 1rem 0; }
+    .kanban-column { flex: 0 0 300px; background: var(--bs-tertiary-bg, #f1f3f5); border-radius: 16px; padding: 1rem; }
+    .column-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .column-title { font-weight: 600; font-size: 0.9rem; }
+    .column-count { background: var(--bs-secondary-bg); font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 12px; }
+    .kanban-card { background: var(--bs-body-bg); border-radius: 12px; padding: 0.875rem 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--bs-border-color); margin-bottom: 0.625rem; }
+    .card-title-text { font-weight: 600; font-size: 0.875rem; }
+    .card-description { font-size: 0.8rem; color: var(--bs-secondary-color); margin-top: 0.25rem; }
+    .column-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-blue { background: #4dabf7; } .dot-orange { background: #ffa94d; } .dot-green { background: #69db7c; }
+    .dot-purple { background: #9775fa; } .dot-pink { background: #f783ac; } .dot-teal { background: #38d9a9; }
+    .dot-amber { background: #ffc078; } .dot-indigo { background: #748ffc; }
+</style>
+}
+
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <h2 class="mb-1">@Model.Board.Name</h2>
+        <span class="badge bg-secondary"><i class="align-middle" data-lucide="eye"></i> Read-only view</span>
+    </div>
+    @if (Model.CanEdit)
+    {
+        <a asp-controller="Kanban" asp-action="Index" asp-route-boardId="@Model.Board.Id" class="btn btn-primary">
+            <i class="align-middle" data-lucide="edit-3"></i> Edit Board
+        </a>
+    }
+</div>
+
+<div class="kanban-container">
+    @{
+        var dotColors = new[] { "dot-blue", "dot-orange", "dot-green", "dot-purple", "dot-pink", "dot-teal", "dot-amber", "dot-indigo" };
+        var colIdx = 0;
+    }
+    @foreach (var column in Model.Board.Columns.OrderBy(c => c.Order))
+    {
+        var dotClass = dotColors[colIdx++ % dotColors.Length];
+        <div class="kanban-column">
+            <div class="column-header">
+                <span class="column-dot @dotClass"></span>
+                <span class="column-title">@column.Name</span>
+                <span class="column-count">@column.Cards.Count</span>
+            </div>
+            @foreach (var card in column.Cards.OrderBy(c => c.Order))
+            {
+                <div class="kanban-card">
+                    <div class="card-title-text">@card.Title</div>
+                    @if (!string.IsNullOrWhiteSpace(card.Description))
+                    {
+                        <div class="card-description">@card.Description</div>
+                    }
+                </div>
+            }
+            @if (!column.Cards.Any())
+            {
+                <div class="text-center text-muted py-3 small">No cards</div>
+            }
+        </div>
+    }
+</div>
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+}

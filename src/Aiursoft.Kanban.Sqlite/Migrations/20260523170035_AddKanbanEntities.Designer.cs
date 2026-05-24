@@ -3,6 +3,7 @@ using System;
 using Aiursoft.Kanban.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,44 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aiursoft.Kanban.Sqlite.Migrations
 {
     [DbContext(typeof(SqliteContext))]
-    partial class SqliteContextModelSnapshot : ModelSnapshot
+    [Migration("20260523170035_AddKanbanEntities")]
+    partial class AddKanbanEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
-
-            modelBuilder.Entity("Aiursoft.Kanban.Entities.BoardShare", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("BoardId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Permission")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SharedWithRoleId")
-                        .HasMaxLength(450)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SharedWithUserId")
-                        .HasMaxLength(450)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BoardId");
-
-                    b.HasIndex("SharedWithUserId");
-
-                    b.ToTable("BoardShares");
-                });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.GlobalSetting", b =>
                 {
@@ -71,21 +42,12 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsPublic")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserId")
-                        .HasMaxLength(450)
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("KanbanBoards");
                 });
@@ -95,16 +57,6 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("ActualEndTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("ActualStartTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AssignedUserId")
-                        .HasMaxLength(450)
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("ColumnId")
                         .HasColumnType("INTEGER");
@@ -116,19 +68,8 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DueDate")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Order")
                         .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("PlannedStartTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Priority")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(4);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -137,26 +78,9 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssignedUserId");
-
                     b.HasIndex("ColumnId");
 
                     b.ToTable("KanbanCards");
-                });
-
-            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCardLabel", b =>
-                {
-                    b.Property<int>("CardId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("LabelId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("CardId", "LabelId");
-
-                    b.HasIndex("LabelId");
-
-                    b.ToTable("KanbanCardLabels");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>
@@ -166,9 +90,6 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("BoardId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ColumnStatus")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreationTime")
@@ -187,30 +108,6 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.HasIndex("BoardId");
 
                     b.ToTable("KanbanColumns");
-                });
-
-            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanLabel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasMaxLength(7)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("KanbanLabels");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.User", b =>
@@ -418,67 +315,15 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Aiursoft.Kanban.Entities.BoardShare", b =>
-                {
-                    b.HasOne("Aiursoft.Kanban.Entities.KanbanBoard", "Board")
-                        .WithMany("BoardShares")
-                        .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.Kanban.Entities.User", "SharedWithUser")
-                        .WithMany()
-                        .HasForeignKey("SharedWithUserId");
-
-                    b.Navigation("Board");
-
-                    b.Navigation("SharedWithUser");
-                });
-
-            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanBoard", b =>
-                {
-                    b.HasOne("Aiursoft.Kanban.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCard", b =>
                 {
-                    b.HasOne("Aiursoft.Kanban.Entities.User", "AssignedUser")
-                        .WithMany()
-                        .HasForeignKey("AssignedUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("Aiursoft.Kanban.Entities.KanbanColumn", "Column")
                         .WithMany("Cards")
                         .HasForeignKey("ColumnId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AssignedUser");
-
                     b.Navigation("Column");
-                });
-
-            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCardLabel", b =>
-                {
-                    b.HasOne("Aiursoft.Kanban.Entities.KanbanCard", "Card")
-                        .WithMany("CardLabels")
-                        .HasForeignKey("CardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.Kanban.Entities.KanbanLabel", "Label")
-                        .WithMany("CardLabels")
-                        .HasForeignKey("LabelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Card");
-
-                    b.Navigation("Label");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>
@@ -545,24 +390,12 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanBoard", b =>
                 {
-                    b.Navigation("BoardShares");
-
                     b.Navigation("Columns");
-                });
-
-            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCard", b =>
-                {
-                    b.Navigation("CardLabels");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>
                 {
                     b.Navigation("Cards");
-                });
-
-            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanLabel", b =>
-                {
-                    b.Navigation("CardLabels");
                 });
 #pragma warning restore 612, 618
         }

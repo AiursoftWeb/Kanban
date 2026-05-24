@@ -1,0 +1,235 @@
+@using Aiursoft.Kanban.Entities
+@model Aiursoft.Kanban.Models.MyTasksViewModels.IndexViewModel
+@{
+    string BuildUrl(string? status = null, IEnumerable<int>? labelIds = null, string? labelMode = null)
+    {
+        var query = new List<string>();
+        var selectedStatus = status ?? Model.SelectedStatus;
+        var selectedMode = labelMode ?? Model.SelectedLabelMode;
+        var selectedIds = (labelIds ?? Model.SelectedLabelIds).Distinct().OrderBy(id => id).ToList();
+
+        if (!string.Equals(selectedStatus, "incomplete", StringComparison.OrdinalIgnoreCase))
+        {
+            query.Add($"status={Uri.EscapeDataString(selectedStatus)}");
+        }
+
+        if (selectedIds.Count > 0)
+        {
+            query.Add($"labelIds={Uri.EscapeDataString(string.Join(',', selectedIds))}");
+        }
+
+        if (!string.Equals(selectedMode, "any", StringComparison.OrdinalIgnoreCase))
+        {
+            query.Add($"labelMode={Uri.EscapeDataString(selectedMode)}");
+        }
+
+        var baseUrl = Url.Action("Index", "MyTasks") ?? "/MyTasks/Index";
+        return query.Count == 0 ? baseUrl : $"{baseUrl}?{string.Join("&", query)}";
+    }
+
+    IEnumerable<int> ToggleLabel(int labelId)
+    {
+        return Model.SelectedLabelIds.Contains(labelId)
+            ? Model.SelectedLabelIds.Where(id => id != labelId)
+            : Model.SelectedLabelIds.Append(labelId);
+    }
+
+    string PriorityClass(Priority priority)
+    {
+        return priority switch
+        {
+            Priority.Urgent => "priority-urgent",
+            Priority.High => "priority-high",
+            Priority.Medium => "priority-medium",
+            Priority.Low => "priority-low",
+            _ => "priority-none"
+        };
+    }
+
+    string StatusText(ColumnStatus status)
+    {
+        return status switch
+        {
+            ColumnStatus.NotStarted => "Not Started",
+            ColumnStatus.InProgress => "In Progress",
+            ColumnStatus.Completed => "Completed",
+            _ => status.ToString()
+        };
+    }
+}
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section styles {
+<style>
+    .filters-card { border-radius: 18px; }
+    .filter-tab { border-radius: 999px; }
+    .task-card {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid var(--bs-border-color);
+        border-radius: 18px;
+        padding: 1.25rem;
+        background: var(--bs-body-bg);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .task-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        color: inherit;
+    }
+
+    .task-meta-row,
+    .task-footer-row,
+    .label-filter-row,
+    .task-labels {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .priority-badge,
+    .label-chip,
+    .label-filter-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.2rem 0.55rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        border: 1px solid transparent;
+    }
+
+    .priority-urgent { background: rgba(220, 53, 69, 0.14); color: #dc3545; }
+    .priority-high { background: rgba(253, 126, 20, 0.14); color: #fd7e14; }
+    .priority-medium { background: rgba(255, 193, 7, 0.18); color: #8a6d00; }
+    .priority-low { background: rgba(13, 110, 253, 0.14); color: #0d6efd; }
+    .priority-none { display: none; }
+
+    .label-filter-chip.active {
+        box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.08);
+    }
+
+    .task-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--bs-body-color);
+    }
+
+    .task-subtle {
+        color: var(--bs-secondary-color);
+        font-size: 0.9rem;
+    }
+
+    .empty-tasks {
+        border: 1px dashed var(--bs-border-color);
+        border-radius: 18px;
+        padding: 4rem 2rem;
+        text-align: center;
+        color: var(--bs-secondary-color);
+        background: var(--bs-tertiary-bg);
+    }
+</style>
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="mb-1">My Tasks</h2>
+        <p class="text-muted mb-0">Everything assigned to you, sorted by priority and due date.</p>
+    </div>
+</div>
+
+<div class="card filters-card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+        <div class="d-flex flex-wrap gap-2 mb-3">
+            <a class="btn @(Model.SelectedStatus == "incomplete" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "incomplete")">Incomplete</a>
+            <a class="btn @(Model.SelectedStatus == "in-progress" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "in-progress")">In Progress</a>
+            <a class="btn @(Model.SelectedStatus == "all" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "all")">All</a>
+            <a class="btn @(Model.SelectedStatus == "completed" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "completed")">Completed</a>
+        </div>
+
+        @if (Model.AvailableLabels.Count > 0)
+        {
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                <span class="fw-semibold">Label mode</span>
+                <a class="btn btn-sm @(Model.SelectedLabelMode == "any" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(labelMode: "any")">Any</a>
+                <a class="btn btn-sm @(Model.SelectedLabelMode == "all" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(labelMode: "all")">All</a>
+            </div>
+
+            <div class="label-filter-row">
+                @foreach (var label in Model.AvailableLabels)
+                {
+                    var isSelected = Model.SelectedLabelIds.Contains(label.Id);
+                    <a class="label-filter-chip @(isSelected ? "active" : string.Empty)"
+                       href="@BuildUrl(labelIds: ToggleLabel(label.Id))"
+                       style="background-color:@(label.Color)22;border-color:@label.Color;color:@label.Color;">
+                        @label.Name
+                        <span class="text-body-secondary">@label.UsageCount</span>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@if (!Model.Cards.Any())
+{
+    <div class="empty-tasks">
+        <h4 class="mb-2">No tasks found</h4>
+        <p class="mb-0">Try switching the status tab or adjusting your label filters.</p>
+    </div>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var card in Model.Cards)
+        {
+            <div class="col-12">
+                <a class="task-card" href="/Kanban/Index?boardId=@card.Column.BoardId">
+                    <div class="d-flex flex-wrap justify-content-between gap-3 mb-3">
+                        <div>
+                            <div class="task-meta-row mb-2">
+                                @if (card.Priority != Priority.None)
+                                {
+                                    <span class="priority-badge @PriorityClass(card.Priority)">@card.Priority</span>
+                                }
+                                <span class="badge bg-secondary-subtle text-secondary-emphasis">@StatusText(card.Column.ColumnStatus)</span>
+                            </div>
+                            <div class="task-title">@card.Title</div>
+                            @if (!string.IsNullOrWhiteSpace(card.Description))
+                            {
+                                <div class="task-subtle mt-2">@card.Description</div>
+                            }
+                        </div>
+                        <div class="text-md-end task-subtle">
+                            <div><strong>Board:</strong> @card.Column.Board.Name</div>
+                            <div><strong>Column:</strong> @card.Column.Name</div>
+                            <div><strong>Due:</strong> @(card.DueDate?.ToString("yyyy-MM-dd") ?? "—")</div>
+                        </div>
+                    </div>
+
+                    @if (card.CardLabels.Count > 0)
+                    {
+                        <div class="task-labels mb-2">
+                            @foreach (var label in card.CardLabels.OrderBy(link => link.Label.Name))
+                            {
+                                <span class="label-chip" style="background-color:@(label.Label.Color)22;border-color:@label.Label.Color;color:@label.Label.Color;">
+                                    @label.Label.Name
+                                </span>
+                            }
+                        </div>
+                    }
+
+                    <div class="task-footer-row task-subtle mt-3">
+                        <span>Planned start: @(card.PlannedStartTime?.ToString("yyyy-MM-dd") ?? "—")</span>
+                        <span>Assigned to: @(card.AssignedUser?.DisplayName ?? card.AssignedUser?.UserName ?? "You")</span>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+}
