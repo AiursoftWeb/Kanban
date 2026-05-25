@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using Aiursoft.Kanban.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
@@ -58,6 +59,35 @@ public class PriorityLabelsAssigneeTests : TestBase
         var card = await db.KanbanCards.FindAsync(cardId);
         Assert.IsNotNull(card);
         Assert.AreEqual(assigneeId, card.AssignedUserId);
+    }
+
+    [TestMethod]
+    public async Task BoardMembers_IncludesUsersFromSharedRole()
+    {
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+        var (boardId, todoColumnId, _, _) = await CreateBoardWithStatusesAsync(ownerId, "Role Assignment Board");
+        var cardId = await CreateCardAsync(todoColumnId, "Review role member access");
+        await LogoutAsync();
+
+        var (assigneeEmail, _) = await RegisterAndLoginAsync();
+        var assigneeId = await GetUserIdByEmailAsync(assigneeEmail);
+        await LogoutAsync();
+
+        var roleId = await CreateRoleWithUserAsync("employees", assigneeId);
+        await CreateRoleShareAsync(boardId, roleId, SharePermission.Editable);
+        await LoginAsync(ownerEmail, ownerPassword);
+
+        var membersResponse = await Http.GetAsync($"/Kanban/GetBoardMembers?boardId={boardId}");
+        membersResponse.EnsureSuccessStatusCode();
+
+        var membersJson = await membersResponse.Content.ReadAsStringAsync();
+        using var membersDoc = JsonDocument.Parse(membersJson);
+        Assert.IsTrue(membersDoc.RootElement.EnumerateArray().Any(member =>
+            member.GetProperty("Id").GetString() == assigneeId));
+
+        var assignResponse = await PostAsync($"/Kanban/AssignCard?cardId={cardId}&assignedUserId={Uri.EscapeDataString(assigneeId)}");
+        assignResponse.EnsureSuccessStatusCode();
     }
 
     [TestMethod]
@@ -299,6 +329,38 @@ public class PriorityLabelsAssigneeTests : TestBase
             Id = Guid.NewGuid(),
             BoardId = boardId,
             SharedWithUserId = userId,
+            Permission = permission
+        });
+        await db.SaveChangesAsync();
+    }
+
+    private async Task<string> CreateRoleWithUserAsync(string roleName, string userId)
+    {
+        using var scope = CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var role = new IdentityRole(roleName)
+        {
+            NormalizedName = roleName.ToUpperInvariant()
+        };
+        db.Roles.Add(role);
+        db.UserRoles.Add(new IdentityUserRole<string>
+        {
+            RoleId = role.Id,
+            UserId = userId
+        });
+        await db.SaveChangesAsync();
+        return role.Id;
+    }
+
+    private async Task CreateRoleShareAsync(int boardId, string roleId, SharePermission permission)
+    {
+        using var scope = CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        db.BoardShares.Add(new BoardShare
+        {
+            Id = Guid.NewGuid(),
+            BoardId = boardId,
+            SharedWithRoleId = roleId,
             Permission = permission
         });
         await db.SaveChangesAsync();
