@@ -937,12 +937,8 @@ public class KanbanController(
                 c.Id,
                 c.Content,
                 c.CreationTime,
-                AuthorName = c.Author.DisplayName ?? c.Author.UserName ?? c.Author.Email ?? c.AuthorId,
-                AuthorInitial = c.Author.DisplayName != null && c.Author.DisplayName.Length > 0
-                    ? c.Author.DisplayName.Trim()[0].ToString().ToUpperInvariant()
-                    : (c.Author.UserName != null && c.Author.UserName.Length > 0
-                        ? c.Author.UserName.Trim()[0].ToString().ToUpperInvariant()
-                        : "?")
+                AuthorName = c.Author.DisplayName,
+                AuthorInitial = c.Author.DisplayName.Trim()[0].ToString().ToUpperInvariant()
             })
             .ToListAsync();
 
