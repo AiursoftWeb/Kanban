@@ -1,11 +1,8 @@
 @using System.Text.Json
-@using Aiursoft.Kanban.Services.FileStorage
 @model Aiursoft.Kanban.Models.KanbanViewModels.IndexViewModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
-@inject StorageService Storage
 @{
     var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
-    var kanbanImageUploadUrl = Storage.GetUploadUrl("kanban-images");
 }
 
 @* ReSharper disable once Razor.SectionNotResolved *@
@@ -1313,7 +1310,6 @@
         var currentBoardId = @(Model.CurrentBoard?.Id ?? 0);
         var isDragging = false;
         var labelSearchTimeout = 0;
-        var kanbanImageUploadUrl = "@Html.Raw(kanbanImageUploadUrl)";
 
         var deleteBoardConfirmModalEl = document.getElementById("deleteBoardConfirmModal");
         var deleteBoardConfirmModal = deleteBoardConfirmModalEl ? new bootstrap.Modal(deleteBoardConfirmModalEl) : null;
@@ -1905,54 +1901,63 @@
         var btnSaveCard = document.getElementById("btnSaveCard");
         var currentColumnId = 0;
 
-        if (canEditCurrentBoard && cardDescInput) {
-            cardDescInput.addEventListener('paste', function(e) {
-                var items = (e.clipboardData || e.originalEvent.clipboardData).items;
-                for (var i = 0; i < items.length; i++) {
-                    if (items[i].type.indexOf('image') === 0) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        var blob = items[i].getAsFile();
-                        var uploadingText = '[Uploading image...]';
-                        var cursorPos = cardDescInput.selectionStart;
-                        var textBefore = cardDescInput.value.substring(0, cursorPos);
-                        var textAfter = cardDescInput.value.substring(cursorPos);
-                        cardDescInput.value = textBefore + uploadingText + textAfter;
-                        cardDescInput.selectionStart = cursorPos;
-                        cardDescInput.selectionEnd = cursorPos + uploadingText.length;
+        async function uploadPastedImage(textarea, blob) {
+            var uploadingText = '[Uploading image...]';
+            var cursorPos = textarea.selectionStart;
+            var textBefore = textarea.value.substring(0, cursorPos);
+            var textAfter = textarea.value.substring(cursorPos);
+            textarea.value = textBefore + uploadingText + textAfter;
+            textarea.selectionStart = cursorPos;
+            textarea.selectionEnd = cursorPos + uploadingText.length;
 
-                        var formData = new FormData();
-                        var ext = blob.type === 'image/png' ? 'png' :
-                                  blob.type === 'image/gif' ? 'gif' :
-                                  blob.type === 'image/webp' ? 'webp' : 'jpg';
-                        var fileName = 'paste-' + Date.now() + '.' + ext;
-                        formData.append('file', blob, fileName);
+            try {
+                var urlResp = await fetch('/get-upload-url?subfolder=kanban-images');
+                if (!urlResp.ok) throw new Error('Failed to get upload URL');
+                var urlData = await urlResp.json();
 
-                        fetch(kanbanImageUploadUrl, {
-                            method: 'POST',
-                            body: formData
-                        })
-                        .then(function(r) {
-                            if (!r.ok) return r.text().then(function(t) { throw new Error(t || 'Upload failed. Status: ' + r.status); });
-                            return r.json();
-                        })
-                        .then(function(data) {
-                            var imageMarkdown = '\n![image](' + data.InternetPath + ')\n';
-                            cardDescInput.value = cardDescInput.value.replace(uploadingText, imageMarkdown);
-                            var newCursor = cardDescInput.value.indexOf(imageMarkdown) + imageMarkdown.length;
-                            cardDescInput.selectionStart = newCursor;
-                            cardDescInput.selectionEnd = newCursor;
-                        })
-                        .catch(function(err) {
-                            cardDescInput.value = cardDescInput.value.replace(uploadingText, '');
-                            console.error('Image upload failed:', err);
-                            alert('Failed to upload pasted image: ' + (err.message || 'Unknown error'));
-                        });
+                var formData = new FormData();
+                var ext = blob.type === 'image/png' ? 'png' :
+                          blob.type === 'image/gif' ? 'gif' :
+                          blob.type === 'image/webp' ? 'webp' : 'jpg';
+                formData.append('file', blob, 'paste-' + Date.now() + '.' + ext);
 
-                        break;
-                    }
+                var uploadResp = await fetch(urlData.UploadUrl, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!uploadResp.ok) {
+                    var errText = await uploadResp.text();
+                    throw new Error(errText || 'Upload failed. Status: ' + uploadResp.status);
                 }
-            });
+                var data = await uploadResp.json();
+
+                var imageUrl = '/download/' + data.Path;
+                var imageMarkdown = '\n![image](' + imageUrl + ')\n';
+                textarea.value = textarea.value.replace(uploadingText, imageMarkdown);
+                var newCursor = textarea.value.indexOf(imageMarkdown) + imageMarkdown.length;
+                textarea.selectionStart = newCursor;
+                textarea.selectionEnd = newCursor;
+            } catch (err) {
+                textarea.value = textarea.value.replace(uploadingText, '');
+                console.error('Image upload failed:', err);
+                alert('Failed to upload pasted image: ' + (err.message || 'Unknown error'));
+            }
+        }
+
+        function handlePasteInTextarea(textarea, e) {
+            var items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf('image') === 0) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    uploadPastedImage(textarea, items[i].getAsFile());
+                    break;
+                }
+            }
+        }
+
+        if (canEditCurrentBoard && cardDescInput) {
+            cardDescInput.addEventListener('paste', function(e) { handlePasteInTextarea(cardDescInput, e); });
         }
 
         function openAddCardModal(columnId) {
@@ -2404,53 +2409,7 @@
         }
 
         if (editCardDescription && canEditCurrentBoard) {
-            editCardDescription.addEventListener('paste', function(e) {
-                var items = (e.clipboardData || e.originalEvent.clipboardData).items;
-                for (var i = 0; i < items.length; i++) {
-                    if (items[i].type.indexOf('image') === 0) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        var blob = items[i].getAsFile();
-                        var uploadingText = '[Uploading image...]';
-                        var cursorPos = editCardDescription.selectionStart;
-                        var textBefore = editCardDescription.value.substring(0, cursorPos);
-                        var textAfter = editCardDescription.value.substring(cursorPos);
-                        editCardDescription.value = textBefore + uploadingText + textAfter;
-                        editCardDescription.selectionStart = cursorPos;
-                        editCardDescription.selectionEnd = cursorPos + uploadingText.length;
-
-                        var formData = new FormData();
-                        var ext = blob.type === 'image/png' ? 'png' :
-                                  blob.type === 'image/gif' ? 'gif' :
-                                  blob.type === 'image/webp' ? 'webp' : 'jpg';
-                        var fileName = 'paste-' + Date.now() + '.' + ext;
-                        formData.append('file', blob, fileName);
-
-                        fetch(kanbanImageUploadUrl, {
-                            method: 'POST',
-                            body: formData
-                        })
-                        .then(function(r) {
-                            if (!r.ok) return r.text().then(function(t) { throw new Error(t || 'Upload failed. Status: ' + r.status); });
-                            return r.json();
-                        })
-                        .then(function(data) {
-                            var imageMarkdown = '\n![image](' + data.InternetPath + ')\n';
-                            editCardDescription.value = editCardDescription.value.replace(uploadingText, imageMarkdown);
-                            var newCursor = editCardDescription.value.indexOf(imageMarkdown) + imageMarkdown.length;
-                            editCardDescription.selectionStart = newCursor;
-                            editCardDescription.selectionEnd = newCursor;
-                        })
-                        .catch(function(err) {
-                            editCardDescription.value = editCardDescription.value.replace(uploadingText, '');
-                            console.error('Image upload failed:', err);
-                            alert('Failed to upload pasted image: ' + (err.message || 'Unknown error'));
-                        });
-
-                        break;
-                    }
-                }
-            });
+            editCardDescription.addEventListener('paste', function(e) { handlePasteInTextarea(editCardDescription, e); });
         }
 
         function openCardEditModal(cardEl) {
