@@ -1,0 +1,293 @@
+@model Aiursoft.Kanban.Models.KanbanViewModels.ManageBoardViewModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
+    var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
+}
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <h3>Edit Board</h3>
+                <p class="text-muted">Manage board name and columns.</p>
+            </div>
+            <div>
+                <a asp-action="Index" asp-route-boardId="@Model.BoardId" class="btn btn-outline-secondary">
+                    <i class="align-middle" data-lucide="arrow-left"></i> Back to Board
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="align-middle" data-lucide="edit-3"></i> Board Name</h5>
+            </div>
+            <div class="card-body">
+                <div class="input-group" style="max-width: 500px;">
+                    <input type="text" class="form-control" id="boardNameInput" value="@Model.BoardName" placeholder="Board name" style="border-radius:10px 0 0 10px">
+                    <button type="button" class="btn btn-primary" id="btnSaveBoardName" style="border-radius:0 10px 10px 0">Save</button>
+                </div>
+                <div class="form-text mt-1" id="boardNameMessage"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="align-middle" data-lucide="columns-3"></i> Columns</h5>
+            </div>
+            <div class="card-body">
+                @if (!Model.Columns.Any())
+                {
+                    <div class="text-center text-muted py-4">
+                        <i class="align-middle" data-lucide="inbox" style="width:48px;height:48px;"></i>
+                        <p class="mt-2">No columns yet.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width:50px">#</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Cards</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var column in Model.Columns)
+                                {
+                                    <tr>
+                                        <td class="text-muted">@(column.Order + 1)</td>
+                                        <td>
+                                            <span class="column-name-display" data-column-id="@column.Id">@column.Name</span>
+                                            <input type="text" class="form-control form-control-sm column-name-input d-none" data-column-id="@column.Id" value="@column.Name" style="max-width:200px">
+                                        </td>
+                                        <td>
+                                            <select class="form-select form-select-sm column-status-select-edit" data-column-id="@column.Id" style="max-width:140px">
+                                                <option value="0" selected="@(column.ColumnStatus == Aiursoft.Kanban.Entities.ColumnStatus.NotStarted)">Not Started</option>
+                                                <option value="1" selected="@(column.ColumnStatus == Aiursoft.Kanban.Entities.ColumnStatus.InProgress)">In Progress</option>
+                                                <option value="2" selected="@(column.ColumnStatus == Aiursoft.Kanban.Entities.ColumnStatus.Completed)">Completed</option>
+                                            </select>
+                                        </td>
+                                        <td><span class="badge bg-secondary">@column.Cards.Count</span></td>
+                                        <td class="text-end">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-edit-column-name me-1" data-column-id="@column.Id" title="Rename">
+                                                <i class="align-middle" data-lucide="pencil" style="width:14px;height:14px"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-primary btn-save-column-name d-none me-1" data-column-id="@column.Id" title="Save">
+                                                <i class="align-middle" data-lucide="check" style="width:14px;height:14px"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-cancel-column-name d-none me-1" data-column-id="@column.Id" title="Cancel">
+                                                <i class="align-middle" data-lucide="x" style="width:14px;height:14px"></i>
+                                            </button>
+                                            @if (column.Cards.Count == 0)
+                                            {
+                                                <button type="button" class="btn btn-sm btn-outline-danger btn-delete-column-edit" data-column-id="@column.Id" title="Delete">
+                                                    <i class="align-middle" data-lucide="trash-2" style="width:14px;height:14px"></i>
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+<script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        lucide.createIcons();
+
+        var csrfToken = "@token";
+        var boardId = @Model.BoardId;
+
+        var boardNameInput = document.getElementById("boardNameInput");
+        var btnSaveBoardName = document.getElementById("btnSaveBoardName");
+        var boardNameMessage = document.getElementById("boardNameMessage");
+
+        if (btnSaveBoardName && boardNameInput) {
+            btnSaveBoardName.addEventListener("click", function() {
+                var name = boardNameInput.value.trim();
+                if (!name) {
+                    boardNameMessage.textContent = "Board name is required.";
+                    boardNameMessage.className = "form-text mt-1 text-danger";
+                    return;
+                }
+
+                btnSaveBoardName.disabled = true;
+                btnSaveBoardName.textContent = "Saving...";
+
+                fetch("/Kanban/RenameBoard", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&boardId=" + boardId
+                        + "&name=" + encodeURIComponent(name)
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    return r.json();
+                })
+                .then(function() {
+                    boardNameMessage.textContent = "Board name updated.";
+                    boardNameMessage.className = "form-text mt-1 text-success";
+                })
+                .catch(function(err) {
+                    boardNameMessage.textContent = err.message || "Failed to save.";
+                    boardNameMessage.className = "form-text mt-1 text-danger";
+                })
+                .finally(function() {
+                    btnSaveBoardName.disabled = false;
+                    btnSaveBoardName.textContent = "Save";
+                });
+            });
+        }
+
+        document.querySelectorAll(".btn-edit-column-name").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                var columnId = this.dataset.columnId;
+                var row = this.closest("tr");
+                row.querySelector(".column-name-display[data-column-id='" + columnId + "']").classList.add("d-none");
+                row.querySelector(".column-name-input[data-column-id='" + columnId + "']").classList.remove("d-none");
+                this.classList.add("d-none");
+                row.querySelector(".btn-save-column-name[data-column-id='" + columnId + "']").classList.remove("d-none");
+                row.querySelector(".btn-cancel-column-name[data-column-id='" + columnId + "']").classList.remove("d-none");
+                row.querySelector(".column-name-input[data-column-id='" + columnId + "']").focus();
+            });
+        });
+
+        document.querySelectorAll(".btn-cancel-column-name").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                var columnId = this.dataset.columnId;
+                var row = this.closest("tr");
+                var input = row.querySelector(".column-name-input[data-column-id='" + columnId + "']");
+                input.value = row.querySelector(".column-name-display[data-column-id='" + columnId + "']").textContent;
+                input.classList.add("d-none");
+                row.querySelector(".column-name-display[data-column-id='" + columnId + "']").classList.remove("d-none");
+                this.classList.add("d-none");
+                row.querySelector(".btn-save-column-name[data-column-id='" + columnId + "']").classList.add("d-none");
+                row.querySelector(".btn-edit-column-name[data-column-id='" + columnId + "']").classList.remove("d-none");
+            });
+        });
+
+        document.querySelectorAll(".btn-save-column-name").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                var columnId = this.dataset.columnId;
+                var row = this.closest("tr");
+                var input = row.querySelector(".column-name-input[data-column-id='" + columnId + "']");
+                var name = input.value.trim();
+                if (!name) return;
+
+                saveColumnName(columnId, name, row);
+            });
+
+            var columnId = btn.dataset.columnId;
+            var row = btn.closest("tr");
+            var input = row.querySelector(".column-name-input[data-column-id='" + columnId + "']");
+            if (input) {
+                input.addEventListener("keydown", function(e) {
+                    if (e.key === "Enter") {
+                        var name = this.value.trim();
+                        if (!name) return;
+                        saveColumnName(columnId, name, this.closest("tr"));
+                    }
+                });
+            }
+        });
+
+        function saveColumnName(columnId, name, row) {
+            fetch("/Kanban/RenameColumn", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "RequestVerificationToken": csrfToken
+                },
+                body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                    + "&columnId=" + columnId
+                    + "&name=" + encodeURIComponent(name)
+            })
+            .then(function(r) {
+                if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                return r.json();
+            })
+            .then(function() {
+                var display = row.querySelector(".column-name-display[data-column-id='" + columnId + "']");
+                display.textContent = name;
+                display.classList.remove("d-none");
+                row.querySelector(".column-name-input[data-column-id='" + columnId + "']").classList.add("d-none");
+                row.querySelector(".btn-save-column-name[data-column-id='" + columnId + "']").classList.add("d-none");
+                row.querySelector(".btn-cancel-column-name[data-column-id='" + columnId + "']").classList.add("d-none");
+                row.querySelector(".btn-edit-column-name[data-column-id='" + columnId + "']").classList.remove("d-none");
+            })
+            .catch(function(err) {
+                alert("Failed to rename column: " + (err.message || "Unknown error"));
+            });
+        }
+
+        document.querySelectorAll(".column-status-select-edit").forEach(function(sel) {
+            sel.addEventListener("change", function() {
+                var columnId = parseInt(this.dataset.columnId, 10);
+                var status = parseInt(this.value, 10);
+
+                fetch("/Kanban/UpdateColumnStatus", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&columnId=" + columnId
+                        + "&status=" + status
+                }).catch(function(err) {
+                    console.error("UpdateColumnStatus failed:", err);
+                });
+            });
+        });
+
+        document.querySelectorAll(".btn-delete-column-edit").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                var columnId = parseInt(this.dataset.columnId, 10);
+                if (!confirm("Delete this column? This cannot be undone.")) return;
+
+                var row = this.closest("tr");
+                fetch("/Kanban/DeleteColumn", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&columnId=" + columnId
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    row.remove();
+                })
+                .catch(function(err) {
+                    alert("Failed to delete column: " + (err.message || "Unknown error"));
+                });
+            });
+        });
+    });
+</script>
+}

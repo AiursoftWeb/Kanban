@@ -93,6 +93,48 @@
         pointer-events: none;
     }
 
+    .btn-edit-column-title {
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+        border: none;
+        background: transparent;
+        color: var(--bs-secondary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        opacity: 0;
+        padding: 0;
+    }
+
+    .kanban-column:hover .btn-edit-column-title {
+        opacity: 0.5;
+    }
+
+    .btn-edit-column-title:hover {
+        opacity: 1 !important;
+        background: var(--bs-secondary-bg);
+        color: var(--bs-body-color);
+    }
+
+    .column-title-input {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--bs-body-color);
+        border: 1px solid var(--bs-primary);
+        border-radius: 6px;
+        padding: 2px 6px;
+        width: 140px;
+        background: var(--bs-body-bg);
+        outline: none;
+    }
+
+    .column-title-input:focus {
+        box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.25);
+    }
+
     .column-count {
         background: var(--bs-secondary-bg, #dee2e6);
         color: var(--bs-body-color);
@@ -481,15 +523,24 @@
             </div>
         </div>
         <div class="d-flex gap-2">
-            @if (Model.IsOwner && Model.CurrentBoard != null)
+            @if (Model.CurrentBoard != null)
             {
-                <a asp-action="ManageShares" asp-route-id="@Model.CurrentBoard.Id" class="btn btn-outline-secondary btn-sm">
-                    <i class="align-middle" style="width:16px;height:16px" data-lucide="share-2"></i> Share
-                </a>
+                @if (Model.IsOwner)
+                {
+                    <a asp-action="ManageBoard" asp-route-id="@Model.CurrentBoard.Id" class="btn btn-outline-secondary btn-sm">
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="settings"></i> Edit Board
+                    </a>
+                    <a asp-action="ManageShares" asp-route-id="@Model.CurrentBoard.Id" class="btn btn-outline-secondary btn-sm">
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="share-2"></i> Share
+                    </a>
+                }
             }
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createBoardModal">
-                <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> New Board
-            </button>
+            else
+            {
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createBoardModal">
+                    <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> New Board
+                </button>
+            }
         </div>
     </div>
 </div>
@@ -522,8 +573,14 @@
                     <div class="column-header @(Model.CanEditCurrentBoard ? string.Empty : "column-header-readonly")">
                         <div class="column-header-left">
                             <span class="column-dot @dotClass"></span>
-                            <span class="column-title">@column.Name</span>
+                            <span class="column-title" data-column-id="@column.Id">@column.Name</span>
                             <span class="column-count">@column.Cards.Count</span>
+                            @if (Model.CanEditCurrentBoard)
+                            {
+                                <button class="btn-edit-column-title" data-column-id="@column.Id" title="Rename column">
+                                    <i class="align-middle" style="width:12px;height:12px" data-lucide="pencil"></i>
+                                </button>
+                            }
                         </div>
                         <div class="d-flex align-items-center gap-1">
                             <select class="column-status-select" data-column-id="@column.Id" disabled="@(!Model.CanEditCurrentBoard)">
@@ -995,6 +1052,87 @@
             });
         }
 
+        function bindColumnTitleEdit(editBtn) {
+            if (!editBtn || editBtn.dataset.editBound === "1") return;
+            editBtn.dataset.editBound = "1";
+            editBtn.addEventListener("click", function(e) {
+                e.stopPropagation();
+                var columnId = this.dataset.columnId;
+                var headerLeft = this.closest(".column-header-left");
+                var titleSpan = headerLeft.querySelector(".column-title[data-column-id='" + columnId + "']");
+                if (!titleSpan || titleSpan.querySelector("input")) return;
+
+                var currentName = titleSpan.textContent;
+                var input = document.createElement("input");
+                input.type = "text";
+                input.className = "column-title-input";
+                input.value = currentName;
+                input.dataset.columnId = columnId;
+                input.dataset.originalName = currentName;
+
+                titleSpan.style.display = "none";
+                titleSpan.parentNode.insertBefore(input, titleSpan.nextSibling);
+
+                input.focus();
+                input.select();
+
+                function saveRename() {
+                    var newName = input.value.trim();
+                    if (!newName || newName === input.dataset.originalName) {
+                        cancelRename();
+                        return;
+                    }
+
+                    fetch("/Kanban/RenameColumn", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "RequestVerificationToken": csrfToken
+                        },
+                        body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                            + "&columnId=" + columnId
+                            + "&name=" + encodeURIComponent(newName)
+                    })
+                    .then(function(r) {
+                        if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                        return r.json();
+                    })
+                    .then(function() {
+                        titleSpan.textContent = newName;
+                        titleSpan.style.display = "";
+                        input.remove();
+                    })
+                    .catch(function(err) {
+                        alert("Failed to rename column: " + (err.message || "Unknown error"));
+                        cancelRename();
+                    });
+                }
+
+                function cancelRename() {
+                    titleSpan.style.display = "";
+                    input.remove();
+                }
+
+                input.addEventListener("keydown", function(ev) {
+                    if (ev.key === "Enter") {
+                        ev.preventDefault();
+                        saveRename();
+                    } else if (ev.key === "Escape") {
+                        ev.preventDefault();
+                        cancelRename();
+                    }
+                });
+
+                input.addEventListener("blur", function() {
+                    saveRename();
+                });
+            });
+        }
+
+        document.querySelectorAll(".btn-edit-column-title").forEach(function(btn) {
+            bindColumnTitleEdit(btn);
+        });
+
         function addColumnToDom(columnId, columnName, columnStatus) {
             var container = document.getElementById("kanban-container");
             var addBtn = document.getElementById("btnAddColumn");
@@ -1013,8 +1151,11 @@
                 '<div class="column-header">' +
                     '<div class="column-header-left">' +
                         '<span class="column-dot ' + dotClass + '"></span>' +
-                        '<span class="column-title">' + escapeHtml(columnName) + '</span>' +
+                        '<span class="column-title" data-column-id="' + columnId + '">' + escapeHtml(columnName) + '</span>' +
                         '<span class="column-count">0</span>' +
+                        '<button class="btn-edit-column-title" data-column-id="' + columnId + '" title="Rename column">' +
+                            '<i class="align-middle" style="width:12px;height:12px" data-lucide="pencil"></i>' +
+                        '</button>' +
                     '</div>' +
                     '<div class="d-flex align-items-center gap-1">' +
                         '<select class="column-status-select" data-column-id="' + columnId + '">' +
@@ -1061,6 +1202,9 @@
 
             container.insertBefore(col, addBtn);
             lucide.createIcons({ nodes: [col] });
+
+            var newEditBtn = col.querySelector(".btn-edit-column-title");
+            if (newEditBtn) bindColumnTitleEdit(newEditBtn);
         }
 
         if (canEditCurrentBoard && btnSaveColumn && columnNameInput && columnError) {

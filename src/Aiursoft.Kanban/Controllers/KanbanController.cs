@@ -325,6 +325,42 @@ public class KanbanController(
     }
 
     [HttpPost]
+    public async Task<IActionResult> RenameColumn(int columnId, string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return BadRequest("Column name is required.");
+
+        var column = await db.KanbanColumns
+            .Include(c => c.Board)
+            .FirstOrDefaultAsync(c => c.Id == columnId);
+        if (column == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (!await HasEditAccess(column.Board, userId)) return Forbid();
+
+        column.Name = name.Trim();
+        await db.SaveChangesAsync();
+        return Ok(new { column.Id, column.Name });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> RenameBoard(int boardId, string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return BadRequest("Board name is required.");
+
+        var board = await db.KanbanBoards.FindAsync(boardId);
+        if (board == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (board.UserId != userId) return Forbid();
+
+        board.Name = name.Trim();
+        await db.SaveChangesAsync();
+        return Ok(new { board.Id, board.Name });
+    }
+
+    [HttpPost]
     public async Task<IActionResult> UpdateColumnStatus(int columnId, int status)
     {
         var column = await db.KanbanColumns
@@ -603,6 +639,26 @@ public class KanbanController(
             .ToListAsync();
 
         return Ok(results);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> ManageBoard(int id)
+    {
+        var board = await db.KanbanBoards
+            .Include(b => b.Columns.OrderBy(c => c.Order))
+            .FirstOrDefaultAsync(b => b.Id == id);
+
+        if (board == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (board.UserId != userId) return Forbid();
+
+        return this.StackView(new ManageBoardViewModel
+        {
+            BoardId = board.Id,
+            BoardName = board.Name,
+            Columns = board.Columns.OrderBy(c => c.Order).ToList()
+        });
     }
 
     [HttpGet]
