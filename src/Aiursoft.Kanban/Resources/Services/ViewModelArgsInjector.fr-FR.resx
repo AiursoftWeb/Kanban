@@ -99,6 +99,12 @@
   <data name="Internal Server Error" xml:space="preserve">
     <value>Erreur serveur interne</value>
   </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>Kanban</value>
+  </data>
+  <data name="Kanban Board" xml:space="preserve">
+    <value>Tableau Kanban</value>
+  </data>
   <data name="Lockout" xml:space="preserve">
     <value>Verrouillage</value>
   </data>
@@ -110,6 +116,12 @@
   </data>
   <data name="Manage" xml:space="preserve">
     <value>Gérer</value>
+  </data>
+  <data name="My Boards" xml:space="preserve">
+    <value>Mes tableaux</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Mes tâches</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Non trouvé</value>
@@ -140,6 +152,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Paramètres</value>
+  </data>
+  <data name="Shared with Me" xml:space="preserve">
+    <value>Partagé avec moi</value>
   </data>
   <data name="Sign out" xml:space="preserve">
     <value>Se déconnecter</value>
