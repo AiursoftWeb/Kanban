@@ -878,6 +878,77 @@ public class KanbanController(
         return RedirectToAction(nameof(ManageShares), new { id = share.BoardId });
     }
 
+    [HttpPost]
+    public async Task<IActionResult> AddComment(int cardId, string content)
+    {
+        if (string.IsNullOrWhiteSpace(content))
+            return BadRequest("Content is required.");
+
+        if (content.Trim().Length > 2000)
+            return BadRequest("Content is too long.");
+
+        var card = await db.KanbanCards
+            .Include(c => c.Column)
+                .ThenInclude(col => col.Board)
+            .FirstOrDefaultAsync(c => c.Id == cardId);
+        if (card == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
+
+        var comment = new KanbanCardComment
+        {
+            CardId = cardId,
+            Content = content.Trim(),
+            AuthorId = userId
+        };
+        db.KanbanCardComments.Add(comment);
+        await db.SaveChangesAsync();
+
+        var author = await userManager.FindByIdAsync(userId);
+        return Ok(new
+        {
+            comment.Id,
+            comment.Content,
+            comment.CreationTime,
+            AuthorName = GetUserDisplayName(author),
+            AuthorInitial = GetUserInitial(author)
+        });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetComments(int cardId)
+    {
+        var card = await db.KanbanCards
+            .Include(c => c.Column)
+                .ThenInclude(col => col.Board)
+            .FirstOrDefaultAsync(c => c.Id == cardId);
+        if (card == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (!await HasReadAccess(card.Column.Board, userId)) return Forbid();
+
+        var comments = await db.KanbanCardComments
+            .Where(c => c.CardId == cardId)
+            .Include(c => c.Author)
+            .OrderBy(c => c.CreationTime)
+            .Select(c => new
+            {
+                c.Id,
+                c.Content,
+                c.CreationTime,
+                AuthorName = c.Author.DisplayName ?? c.Author.UserName ?? c.Author.Email ?? c.AuthorId,
+                AuthorInitial = c.Author.DisplayName != null && c.Author.DisplayName.Length > 0
+                    ? c.Author.DisplayName.Trim()[0].ToString().ToUpperInvariant()
+                    : (c.Author.UserName != null && c.Author.UserName.Length > 0
+                        ? c.Author.UserName.Trim()[0].ToString().ToUpperInvariant()
+                        : "?")
+            })
+            .ToListAsync();
+
+        return Ok(comments);
+    }
+
     private Task<KanbanBoard?> LoadBoardAsync(int boardId)
     {
         return db.KanbanBoards

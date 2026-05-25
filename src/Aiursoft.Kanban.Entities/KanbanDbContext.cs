@@ -17,6 +17,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<KanbanLabel> KanbanLabels => Set<KanbanLabel>();
     public DbSet<KanbanCardLabel> KanbanCardLabels => Set<KanbanCardLabel>();
     public DbSet<BoardShare> BoardShares => Set<BoardShare>();
+    public DbSet<KanbanCardComment> KanbanCardComments => Set<KanbanCardComment>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -34,6 +35,16 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<KanbanLabel>()
             .HasIndex(label => label.Name)
             .IsUnique();
+        builder.Entity<KanbanCardComment>()
+            .HasOne(comment => comment.Card)
+            .WithMany()
+            .HasForeignKey(comment => comment.CardId)
+            .OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<KanbanCardComment>()
+            .HasOne(comment => comment.Author)
+            .WithMany()
+            .HasForeignKey(comment => comment.AuthorId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
     public virtual Task MigrateAsync(CancellationToken cancellationToken) =>
