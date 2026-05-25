@@ -79,6 +79,12 @@ public class ViewModelArgsInjector(
         _ = localizer["Not Found"];
         _ = localizer["Permission Details"];
         _ = localizer["Register"];
+    
+        _ = localizer["Kanban"];
+        _ = localizer["Kanban Board"];
+        _ = localizer["My Boards"];
+        _ = localizer["My Tasks"];
+        _ = localizer["Shared with Me"];
     }
 
     public void InjectSimple(
