@@ -96,6 +96,12 @@
   <data name="Internal Server Error" xml:space="preserve">
     <value>Sisäinen palvelinvirhe</value>
   </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>Kanban</value>
+  </data>
+  <data name="Kanban Board" xml:space="preserve">
+    <value>Kanban-taulu</value>
+  </data>
   <data name="Lockout" xml:space="preserve">
     <value>Lukitus</value>
   </data>
@@ -107,6 +113,12 @@
   </data>
   <data name="Manage" xml:space="preserve">
     <value>Hallinnoi</value>
+  </data>
+  <data name="My Boards" xml:space="preserve">
+    <value>Omat tauluni</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Omat tehtävät</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Ei löytynyt</value>
@@ -137,6 +149,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Asetukset</value>
+  </data>
+  <data name="Shared with Me" xml:space="preserve">
+    <value>Jaettu minulle</value>
   </data>
   <data name="Sign out" xml:space="preserve">
     <value>Kirjaudu ulos</value>

@@ -96,6 +96,12 @@
   <data name="Internal Server Error" xml:space="preserve">
     <value>Помилка внутрішнього сервера</value>
   </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>Kanban</value>
+  </data>
+  <data name="Kanban Board" xml:space="preserve">
+    <value>Дошка Канбан</value>
+  </data>
   <data name="Lockout" xml:space="preserve">
     <value>Блокування</value>
   </data>
@@ -107,6 +113,12 @@
   </data>
   <data name="Manage" xml:space="preserve">
     <value>Керування</value>
+  </data>
+  <data name="My Boards" xml:space="preserve">
+    <value>Мої дошки</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Мої завдання</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Не знайдено</value>
@@ -137,6 +149,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Налаштування</value>
+  </data>
+  <data name="Shared with Me" xml:space="preserve">
+    <value>Поділено зі мною</value>
   </data>
   <data name="Sign out" xml:space="preserve">
     <value>Вийти</value>

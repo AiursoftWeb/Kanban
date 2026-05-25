@@ -27,6 +27,9 @@
   <data name="Allows assigning or removing roles for any user." xml:space="preserve">
     <value>Tillåter att tilldela eller ta bort roller för alla användare.</value>
   </data>
+  <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
+    <value>Tillåter hantering av delnings- och synlighetsinställningar för valfri tavla.</value>
+  </data>
   <data name="Allows modification of role names and their assigned permissions." xml:space="preserve">
     <value>Tillåter modifiering av rollnamn och deras tilldelade behörigheter.</value>
   </data>
@@ -80,6 +83,9 @@
   </data>
   <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
     <value>Ger tillstånd att starta om applikationsinstansen. Kan orsaka tillgänglighetsavbrott men alla inställningar och cacheminnen kommer att laddas om.</value>
+  </data>
+  <data name="Manage Any Board Share" xml:space="preserve">
+    <value>Hantera alla taveldelningar</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Hantera globala inställningar</value>

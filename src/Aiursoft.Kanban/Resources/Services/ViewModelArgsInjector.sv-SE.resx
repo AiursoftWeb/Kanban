@@ -96,6 +96,12 @@
   <data name="Internal Server Error" xml:space="preserve">
     <value>Intern serverfel</value>
   </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>Kanban</value>
+  </data>
+  <data name="Kanban Board" xml:space="preserve">
+    <value>Kanbantavla</value>
+  </data>
   <data name="Lockout" xml:space="preserve">
     <value>Låst ut</value>
   </data>
@@ -107,6 +113,12 @@
   </data>
   <data name="Manage" xml:space="preserve">
     <value>Hantera</value>
+  </data>
+  <data name="My Boards" xml:space="preserve">
+    <value>Mina tavlor</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Mina uppgifter</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Inte hittat</value>
@@ -137,6 +149,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Inställningar</value>
+  </data>
+  <data name="Shared with Me" xml:space="preserve">
+    <value>Delad med mig</value>
   </data>
   <data name="Sign out" xml:space="preserve">
     <value>Logga ut</value>

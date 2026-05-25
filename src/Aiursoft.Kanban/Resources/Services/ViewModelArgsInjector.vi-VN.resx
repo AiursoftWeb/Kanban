@@ -99,6 +99,12 @@
   <data name="Internal Server Error" xml:space="preserve">
     <value>Lỗi máy chủ nội bộ</value>
   </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>Kanban</value>
+  </data>
+  <data name="Kanban Board" xml:space="preserve">
+    <value>Bảng Kanban</value>
+  </data>
   <data name="Lockout" xml:space="preserve">
     <value>Khóa tài khoản</value>
   </data>
@@ -110,6 +116,12 @@
   </data>
   <data name="Manage" xml:space="preserve">
     <value>Quản lý</value>
+  </data>
+  <data name="My Boards" xml:space="preserve">
+    <value>Bảng của tôi</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Nhiệm vụ của tôi</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Không tìm thấy</value>
@@ -140,6 +152,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Cài đặt</value>
+  </data>
+  <data name="Shared with Me" xml:space="preserve">
+    <value>Chia sẻ với tôi</value>
   </data>
   <data name="Sign out" xml:space="preserve">
     <value>Đăng xuất</value>
