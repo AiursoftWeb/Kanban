@@ -1,8 +1,11 @@
 @using System.Text.Json
+@using Aiursoft.Kanban.Services.FileStorage
 @model Aiursoft.Kanban.Models.KanbanViewModels.IndexViewModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@inject StorageService Storage
 @{
     var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
+    var kanbanImageUploadUrl = Storage.GetUploadUrl("kanban-images");
 }
 
 @* ReSharper disable once Razor.SectionNotResolved *@
@@ -266,10 +269,18 @@
         font-size: 0.8rem;
         color: var(--bs-secondary-color, #868e96);
         line-height: 1.5;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
         overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+    }
+
+    .card-inline-img {
+        max-width: 100%;
+        max-height: 120px;
+        border-radius: 6px;
+        margin: 0.25rem 0;
+        display: block;
+        object-fit: cover;
     }
 
     .column-header-readonly,
@@ -1302,6 +1313,7 @@
         var currentBoardId = @(Model.CurrentBoard?.Id ?? 0);
         var isDragging = false;
         var labelSearchTimeout = 0;
+        var kanbanImageUploadUrl = "@Html.Raw(kanbanImageUploadUrl)";
 
         var deleteBoardConfirmModalEl = document.getElementById("deleteBoardConfirmModal");
         var deleteBoardConfirmModal = deleteBoardConfirmModalEl ? new bootstrap.Modal(deleteBoardConfirmModalEl) : null;
@@ -1395,6 +1407,20 @@
 
         function escapeAttribute(str) {
             return escapeHtml(str || "").replace(/"/g, "&quot;");
+        }
+
+        function renderDescriptionHtml(description) {
+            if (!description) return "";
+            var parts = description.split(/(!\[.*?\]\([^)]+\))/g);
+            return parts.map(function(part) {
+                var match = part.match(/^!\[(.*?)\]\(([^)]+)\)$/);
+                if (match) {
+                    var alt = escapeAttribute(match[1] || 'image');
+                    var src = escapeAttribute(match[2]);
+                    return '<img src="' + src + '" alt="' + alt + '" class="card-inline-img" loading="lazy">';
+                }
+                return escapeHtml(part);
+            }).join("");
         }
 
         function parseCardLabels(cardEl) {
@@ -1535,7 +1561,7 @@
 
             var description = cardEl.dataset.description || "";
             if (description) {
-                html += '<div class="card-description">' + escapeHtml(description) + '</div>';
+                html += '<div class="card-description">' + renderDescriptionHtml(description) + '</div>';
             }
 
             var labels = parseCardLabels(cardEl);
@@ -1878,6 +1904,56 @@
         var cardError = document.getElementById("cardError");
         var btnSaveCard = document.getElementById("btnSaveCard");
         var currentColumnId = 0;
+
+        if (canEditCurrentBoard && cardDescInput) {
+            cardDescInput.addEventListener('paste', function(e) {
+                var items = (e.clipboardData || e.originalEvent.clipboardData).items;
+                for (var i = 0; i < items.length; i++) {
+                    if (items[i].type.indexOf('image') === 0) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        var blob = items[i].getAsFile();
+                        var uploadingText = '[Uploading image...]';
+                        var cursorPos = cardDescInput.selectionStart;
+                        var textBefore = cardDescInput.value.substring(0, cursorPos);
+                        var textAfter = cardDescInput.value.substring(cursorPos);
+                        cardDescInput.value = textBefore + uploadingText + textAfter;
+                        cardDescInput.selectionStart = cursorPos;
+                        cardDescInput.selectionEnd = cursorPos + uploadingText.length;
+
+                        var formData = new FormData();
+                        var ext = blob.type === 'image/png' ? 'png' :
+                                  blob.type === 'image/gif' ? 'gif' :
+                                  blob.type === 'image/webp' ? 'webp' : 'jpg';
+                        var fileName = 'paste-' + Date.now() + '.' + ext;
+                        formData.append('file', blob, fileName);
+
+                        fetch(kanbanImageUploadUrl, {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(function(r) {
+                            if (!r.ok) return r.text().then(function(t) { throw new Error(t || 'Upload failed. Status: ' + r.status); });
+                            return r.json();
+                        })
+                        .then(function(data) {
+                            var imageMarkdown = '\n![image](' + data.InternetPath + ')\n';
+                            cardDescInput.value = cardDescInput.value.replace(uploadingText, imageMarkdown);
+                            var newCursor = cardDescInput.value.indexOf(imageMarkdown) + imageMarkdown.length;
+                            cardDescInput.selectionStart = newCursor;
+                            cardDescInput.selectionEnd = newCursor;
+                        })
+                        .catch(function(err) {
+                            cardDescInput.value = cardDescInput.value.replace(uploadingText, '');
+                            console.error('Image upload failed:', err);
+                            alert('Failed to upload pasted image: ' + (err.message || 'Unknown error'));
+                        });
+
+                        break;
+                    }
+                }
+            });
+        }
 
         function openAddCardModal(columnId) {
             if (!addCardModal || !cardTitleInput || !cardDescInput || !cardError) return;
@@ -2325,6 +2401,56 @@
 
         if (btnAddLabel) {
             btnAddLabel.addEventListener("click", submitLabelInput);
+        }
+
+        if (editCardDescription && canEditCurrentBoard) {
+            editCardDescription.addEventListener('paste', function(e) {
+                var items = (e.clipboardData || e.originalEvent.clipboardData).items;
+                for (var i = 0; i < items.length; i++) {
+                    if (items[i].type.indexOf('image') === 0) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        var blob = items[i].getAsFile();
+                        var uploadingText = '[Uploading image...]';
+                        var cursorPos = editCardDescription.selectionStart;
+                        var textBefore = editCardDescription.value.substring(0, cursorPos);
+                        var textAfter = editCardDescription.value.substring(cursorPos);
+                        editCardDescription.value = textBefore + uploadingText + textAfter;
+                        editCardDescription.selectionStart = cursorPos;
+                        editCardDescription.selectionEnd = cursorPos + uploadingText.length;
+
+                        var formData = new FormData();
+                        var ext = blob.type === 'image/png' ? 'png' :
+                                  blob.type === 'image/gif' ? 'gif' :
+                                  blob.type === 'image/webp' ? 'webp' : 'jpg';
+                        var fileName = 'paste-' + Date.now() + '.' + ext;
+                        formData.append('file', blob, fileName);
+
+                        fetch(kanbanImageUploadUrl, {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(function(r) {
+                            if (!r.ok) return r.text().then(function(t) { throw new Error(t || 'Upload failed. Status: ' + r.status); });
+                            return r.json();
+                        })
+                        .then(function(data) {
+                            var imageMarkdown = '\n![image](' + data.InternetPath + ')\n';
+                            editCardDescription.value = editCardDescription.value.replace(uploadingText, imageMarkdown);
+                            var newCursor = editCardDescription.value.indexOf(imageMarkdown) + imageMarkdown.length;
+                            editCardDescription.selectionStart = newCursor;
+                            editCardDescription.selectionEnd = newCursor;
+                        })
+                        .catch(function(err) {
+                            editCardDescription.value = editCardDescription.value.replace(uploadingText, '');
+                            console.error('Image upload failed:', err);
+                            alert('Failed to upload pasted image: ' + (err.message || 'Unknown error'));
+                        });
+
+                        break;
+                    }
+                }
+            });
         }
 
         function openCardEditModal(cardEl) {
