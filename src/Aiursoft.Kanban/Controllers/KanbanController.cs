@@ -744,6 +744,17 @@ public class KanbanController(
             .Select(share => share.SharedWithUserId!)
             .ToHashSetAsync();
 
+        var roleIds = await db.BoardShares
+            .Where(share => share.BoardId == board.Id && share.SharedWithRoleId != null)
+            .Select(share => share.SharedWithRoleId!)
+            .ToListAsync();
+
+        var roleUserIds = await db.UserRoles
+            .Where(userRole => roleIds.Contains(userRole.RoleId))
+            .Select(userRole => userRole.UserId)
+            .ToListAsync();
+        accessibleUserIds.UnionWith(roleUserIds);
+
         if (!string.IsNullOrWhiteSpace(board.UserId))
             accessibleUserIds.Add(board.UserId);
 
