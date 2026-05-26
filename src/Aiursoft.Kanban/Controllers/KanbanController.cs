@@ -320,6 +320,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> RenameColumn(int columnId, string name)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -339,6 +340,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> RenameBoard(int boardId, string name)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -356,14 +358,13 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteBoard(int boardId)
     {
         var board = await db.KanbanBoards
             .Include(b => b.Columns)
                 .ThenInclude(c => c.Cards)
                     .ThenInclude(c => c.CardLabels)
-            .Include(b => b.Columns)
-                .ThenInclude(c => c.Cards)
             .Include(b => b.BoardShares)
             .FirstOrDefaultAsync(b => b.Id == boardId);
 
