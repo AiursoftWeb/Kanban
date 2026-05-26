@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="(None - use role below)" xml:space="preserve">
+    <value>(없음 - 아래 역할 사용)</value>
+  </data>
+  <data name="(None - use user above)" xml:space="preserve">
+    <value>(없음 - 위의 사용자 사용)</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>작업</value>
+  </data>
+  <data name="Add New Share" xml:space="preserve">
+    <value>새 공유 추가</value>
+  </data>
+  <data name="Add Share" xml:space="preserve">
+    <value>공유 추가</value>
+  </data>
+  <data name="Allow anonymous viewing (Public)" xml:space="preserve">
+    <value>익명 보기 허용 (공개)</value>
+  </data>
+  <data name="Anyone with the link can view this board." xml:space="preserve">
+    <value>링크만 있으면 누구나 이 보드를 확인할 수 있습니다.</value>
+  </data>
+  <data name="Back to Board" xml:space="preserve">
+    <value>보드로 돌아가기</value>
+  </data>
+  <data name="Board:" xml:space="preserve">
+    <value>보드:</value>
+  </data>
+  <data name="Current Shares" xml:space="preserve">
+    <value>현재 공유 항목</value>
+  </data>
+  <data name="Editable" xml:space="preserve">
+    <value>수정 가능</value>
+  </data>
+  <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
+    <value>익명 조회 차단 (비공개 / 공유)</value>
+  </data>
+  <data name="Manage Shares" xml:space="preserve">
+    <value>공유 관리</value>
+  </data>
+  <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
+    <value>특정 공유가 없습니다. 위 양식을 사용하여 사용자 또는 역할과 공유하세요.</value>
+  </data>
+  <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
+    <value>이 보드는 귀하와 아래에 나열된 특정 사용자/역할만 볼 수 있습니다.</value>
+  </data>
+  <data name="Or Share with Role" xml:space="preserve">
+    <value>또는 역할로 공유</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>권한</value>
+  </data>
+  <data name="Read Only" xml:space="preserve">
+    <value>읽기 전용</value>
+  </data>
+  <data name="Remove this share?" xml:space="preserve">
+    <value>이 공유를 삭제하시겠습니까?</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>역할</value>
+  </data>
+  <data name="Share Link" xml:space="preserve">
+    <value>링크 공유</value>
+  </data>
+  <data name="Share with User" xml:space="preserve">
+    <value>사용자와 공유</value>
+  </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>공유 대상</value>
+  </data>
+  <data name="Since" xml:space="preserve">
+    <value>시작일</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>유형</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>사용자</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>공개 범위</value>
+  </data>
+
+</root>
