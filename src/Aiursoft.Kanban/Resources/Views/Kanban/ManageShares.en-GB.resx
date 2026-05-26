@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="(None - use role below)" xml:space="preserve">
+    <value>(None - use role below)</value>
+  </data>
+  <data name="(None - use user above)" xml:space="preserve">
+    <value>(None - use user above)</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Add New Share" xml:space="preserve">
+    <value>Add New Share</value>
+  </data>
+  <data name="Add Share" xml:space="preserve">
+    <value>Add Share</value>
+  </data>
+  <data name="Allow anonymous viewing (Public)" xml:space="preserve">
+    <value>Allow anonymous viewing (Public)</value>
+  </data>
+  <data name="Anyone with the link can view this board." xml:space="preserve">
+    <value>Anyone with the link can view this board.</value>
+  </data>
+  <data name="Back to Board" xml:space="preserve">
+    <value>Back to Board</value>
+  </data>
+  <data name="Board:" xml:space="preserve">
+    <value>Board:</value>
+  </data>
+  <data name="Current Shares" xml:space="preserve">
+    <value>Current Shares</value>
+  </data>
+  <data name="Editable" xml:space="preserve">
+    <value>Editable</value>
+  </data>
+  <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
+    <value>Forbid anonymous viewing (Private / Shared)</value>
+  </data>
+  <data name="Manage Shares" xml:space="preserve">
+    <value>Manage Shares</value>
+  </data>
+  <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
+    <value>No specific shares. Use the form above to share with users or roles.</value>
+  </data>
+  <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
+    <value>Only you and specific users/roles listed below can view this board.</value>
+  </data>
+  <data name="Or Share with Role" xml:space="preserve">
+    <value>Or Share with Role</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Permission</value>
+  </data>
+  <data name="Read Only" xml:space="preserve">
+    <value>Read Only</value>
+  </data>
+  <data name="Remove this share?" xml:space="preserve">
+    <value>Remove this share?</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Share Link" xml:space="preserve">
+    <value>Share Link</value>
+  </data>
+  <data name="Share with User" xml:space="preserve">
+    <value>Share with User</value>
+  </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>Shared with</value>
+  </data>
+  <data name="Since" xml:space="preserve">
+    <value>Since</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Visibility</value>
+  </data>
+
+</root>
