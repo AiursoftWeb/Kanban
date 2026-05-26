@@ -995,6 +995,7 @@
                     <div class="mb-3">
                         <label class="form-label fw-semibold">@Localizer["Description"] <span class="text-muted fw-normal">(@Localizer["optional"])</span></label>
                         <textarea id="editCardDescription" class="form-control" rows="3" style="border-radius:12px;resize:none" disabled="@(!Model.CanEditCurrentBoard)"></textarea>
+                        <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid #dee2e6;border-radius:12px;background:#f8f9fa;word-break:break-word"></div>
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-6">
@@ -1417,6 +1418,23 @@
                 }
                 return escapeHtml(part);
             }).join("");
+        }
+
+        var editCardDescriptionPreview = null;
+        function updateDescriptionPreview() {
+            if (!editCardDescriptionPreview) {
+                editCardDescriptionPreview = document.getElementById("editCardDescriptionPreview");
+            }
+            if (!editCardDescriptionPreview) return;
+            var desc = editCardDescription ? editCardDescription.value : "";
+            var html = renderDescriptionHtml(desc);
+            if (html) {
+                editCardDescriptionPreview.innerHTML = html;
+                editCardDescriptionPreview.style.display = "";
+            } else {
+                editCardDescriptionPreview.innerHTML = "";
+                editCardDescriptionPreview.style.display = "none";
+            }
         }
 
         function parseCardLabels(cardEl) {
@@ -1934,6 +1952,7 @@
                 var imageUrl = '/download/' + data.Path;
                 var imageMarkdown = '\n![image](' + imageUrl + ')\n';
                 textarea.value = textarea.value.replace(uploadingText, imageMarkdown);
+                textarea.dispatchEvent(new Event('input', { bubbles: true }));
                 var newCursor = textarea.value.indexOf(imageMarkdown) + imageMarkdown.length;
                 textarea.selectionStart = newCursor;
                 textarea.selectionEnd = newCursor;
@@ -2411,6 +2430,9 @@
         if (editCardDescription && canEditCurrentBoard) {
             editCardDescription.addEventListener('paste', function(e) { handlePasteInTextarea(editCardDescription, e); });
         }
+        if (editCardDescription) {
+            editCardDescription.addEventListener('input', updateDescriptionPreview);
+        }
 
         function openCardEditModal(cardEl) {
             if (!editCardModal || !editCardTitle || !editCardDescription || !editCardPlannedStart || !editCardDueDate || !editCardActualStart || !editCardActualEnd) {
@@ -2427,6 +2449,7 @@
             editCardTitle.classList.remove("is-invalid");
             editCardTitle.value = cardEl.dataset.title || "";
             editCardDescription.value = cardEl.dataset.description || "";
+            updateDescriptionPreview();
             editCardPlannedStart.value = cardEl.dataset.plannedStart || "";
             editCardDueDate.value = cardEl.dataset.dueDate || "";
             if (editCardPriority) {
