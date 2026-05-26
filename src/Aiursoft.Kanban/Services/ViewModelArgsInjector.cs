@@ -85,6 +85,8 @@ public class ViewModelArgsInjector(
         _ = localizer["My Boards"];
         _ = localizer["My Tasks"];
         _ = localizer["Shared with Me"];
+    
+        _ = localizer["Edit Board"];
     }
 
     public void InjectSimple(
