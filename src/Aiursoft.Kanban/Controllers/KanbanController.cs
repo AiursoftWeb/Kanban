@@ -671,6 +671,7 @@ public class KanbanController(
     {
         var board = await db.KanbanBoards
             .Include(b => b.Columns.OrderBy(c => c.Order))
+                .ThenInclude(c => c.Cards)
             .FirstOrDefaultAsync(b => b.Id == id);
 
         if (board == null) return NotFound();
