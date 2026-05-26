@@ -398,30 +398,6 @@
         font-weight: 600;
     }
 
-    .btn-add-column {
-        flex: 0 0 320px;
-        width: 320px;
-        align-self: stretch;
-        background: var(--bs-tertiary-bg, rgba(241,243,245,0.5));
-        border: 2px dashed var(--bs-border-color);
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--bs-secondary-color);
-        font-weight: 500;
-        font-size: 0.875rem;
-        padding: 1.5rem;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        min-height: 120px;
-    }
-
-    .btn-add-column:hover {
-        background: var(--bs-tertiary-bg);
-        color: var(--bs-primary);
-        border-color: var(--bs-primary);
-    }
 
     .btn-add-card {
         display: flex;
@@ -480,10 +456,6 @@
 
     @@media (max-width: 768px) {
         .kanban-column {
-            flex: 0 0 280px;
-            width: 280px;
-        }
-        .btn-add-column {
             flex: 0 0 280px;
             width: 280px;
         }
@@ -563,6 +535,12 @@
         <div class="d-flex gap-2">
             @if (Model.CurrentBoard != null)
             {
+                @if (Model.CanEditCurrentBoard)
+                {
+                    <button class="btn btn-primary btn-sm" id="btnAddColumn">
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> Add Column
+                    </button>
+                }
                 @if (Model.IsOwner)
                 {
                     <a asp-action="ManageBoard" asp-route-id="@Model.CurrentBoard.Id" class="btn btn-outline-secondary btn-sm">
@@ -731,12 +709,7 @@
                 </div>
             }
 
-            @if (Model.CanEditCurrentBoard)
-            {
-                <div class="btn-add-column" id="btnAddColumn">
-                    <i class="align-middle me-1" style="width:16px;height:16px" data-lucide="plus"></i> Add Column
-                </div>
-            }
+
         </div>
     }
 </div>
@@ -1240,7 +1213,6 @@
                     animation: 200,
                     easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                     handle: ".column-header",
-                    filter: ".btn-add-column",
                     onEnd: function(evt) {
                         var columnId = parseInt(evt.item.dataset.columnId, 10);
                         var newOrder = evt.newIndex;
@@ -1358,8 +1330,7 @@
 
         function addColumnToDom(columnId, columnName, columnStatus) {
             var container = document.getElementById("kanban-container");
-            var addBtn = document.getElementById("btnAddColumn");
-            if (!container || !addBtn) return;
+            if (!container) return;
 
             var dotColors = ["dot-blue", "dot-orange", "dot-green", "dot-purple", "dot-pink", "dot-teal", "dot-amber", "dot-indigo"];
             var existingCols = container.querySelectorAll(".kanban-column");
@@ -1417,7 +1388,7 @@
                 openAddCardModal(columnId);
             });
 
-            container.insertBefore(col, addBtn);
+            container.appendChild(col);
             lucide.createIcons({ nodes: [col] });
 
             var newEditBtn = col.querySelector(".btn-edit-column-title");
