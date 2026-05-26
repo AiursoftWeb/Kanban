@@ -109,6 +109,22 @@
     </div>
 </div>
 
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h5 class="card-title mb-0"><i class="align-middle" data-lucide="trash-2"></i> Danger Zone</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Deleting a board permanently removes all columns and cards. This action cannot be undone.</p>
+                <button type="button" class="btn btn-danger" id="btnDeleteBoard">
+                    <i class="align-middle" data-lucide="trash-2"></i> Delete Board
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts {
 <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
 <script>
@@ -288,6 +304,30 @@
                 });
             });
         });
+
+        var btnDeleteBoard = document.getElementById("btnDeleteBoard");
+        if (btnDeleteBoard) {
+            btnDeleteBoard.addEventListener("click", function() {
+                if (!confirm("Delete this entire board? This cannot be undone.")) return;
+
+                fetch("/Kanban/DeleteBoard", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&boardId=" + boardId
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    window.location.href = "/Kanban/Index";
+                })
+                .catch(function(err) {
+                    alert("Failed to delete board: " + (err.message || "Unknown error"));
+                });
+            });
+        }
     });
 </script>
 }

@@ -47,6 +47,7 @@ public class KanbanController(
 
         var boards = await db.KanbanBoards
             .Where(b => b.UserId == userId)
+            .Include(b => b.Columns)
             .OrderByDescending(b => b.CreationTime)
             .ToListAsync();
 
@@ -66,12 +67,6 @@ public class KanbanController(
                     canEditCurrentBoard = await HasEditAccess(currentBoard, userId);
                 }
             }
-        }
-
-        if (currentBoard == null && boards.Count > 0)
-        {
-            currentBoard = await LoadBoardAsync(boards[0].Id);
-            canEditCurrentBoard = currentBoard != null;
         }
 
         return this.StackView(new IndexViewModel
@@ -358,6 +353,35 @@ public class KanbanController(
         board.Name = name.Trim();
         await db.SaveChangesAsync();
         return Ok(new { board.Id, board.Name });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteBoard(int boardId)
+    {
+        var board = await db.KanbanBoards
+            .Include(b => b.Columns)
+                .ThenInclude(c => c.Cards)
+                    .ThenInclude(c => c.CardLabels)
+            .Include(b => b.Columns)
+                .ThenInclude(c => c.Cards)
+            .Include(b => b.BoardShares)
+            .FirstOrDefaultAsync(b => b.Id == boardId);
+
+        if (board == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (board.UserId != userId) return Forbid();
+
+        foreach (var column in board.Columns.ToList())
+        {
+            db.KanbanCards.RemoveRange(column.Cards);
+            db.KanbanColumns.Remove(column);
+        }
+
+        db.BoardShares.RemoveRange(board.BoardShares);
+        db.KanbanBoards.Remove(board);
+        await db.SaveChangesAsync();
+        return Ok();
     }
 
     [HttpPost]

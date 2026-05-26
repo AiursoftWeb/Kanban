@@ -17,6 +17,7 @@
         display: flex;
         flex-direction: column;
         height: calc(100vh - 130px);
+        overflow-y: auto;
     }
 
     .kanban-topbar {
@@ -492,6 +493,7 @@
     .card-due-date.overdue { color: #dc3545; font-weight: 600; }
     .column-status-select { font-size: 0.7rem; border: none; background: transparent; color: var(--bs-secondary-color); cursor: pointer; padding: 1px 2px; max-width: 90px; }
     .column-status-select:focus { outline: none; box-shadow: none; }
+    .clickable-row { cursor: pointer; }
 </style>
 }
 
@@ -500,27 +502,17 @@
     <div class="d-flex align-items-center justify-content-between mb-3">
         <div class="d-flex align-items-center gap-3">
             <h1 class="h4 mb-0">Kanban</h1>
-            @if (Model.CurrentBoard != null && !Model.CanEditCurrentBoard)
+            @if (Model.CurrentBoard != null)
             {
-                <span class="readonly-badge">
-                    <i class="align-middle" style="width:14px;height:14px" data-lucide="eye"></i>
-                    Read-only
-                </span>
-            }
-            <div class="board-tabs-scroll" id="boardTabs">
-                @foreach (var board in Model.Boards)
+                <span class="fw-semibold mb-0" style="font-size:0.95rem">@Model.CurrentBoard.Name</span>
+                @if (!Model.CanEditCurrentBoard)
                 {
-                    <a asp-action="Index" asp-route-boardId="@board.Id"
-                       class="board-tab @(Model.CurrentBoard?.Id == board.Id ? "active" : "")">
-                        <i class="align-middle" style="width:16px;height:16px" data-lucide="columns-3"></i>
-                        @board.Name
-                        @if (board.IsPublic)
-                        {
-                            <span class="badge bg-info ms-1" style="font-size:0.6rem">Public</span>
-                        }
-                    </a>
+                    <span class="readonly-badge">
+                        <i class="align-middle" style="width:14px;height:14px" data-lucide="eye"></i>
+                        Read-only
+                    </span>
                 }
-            </div>
+            }
         </div>
         <div class="d-flex gap-2">
             @if (Model.CurrentBoard != null)
@@ -534,26 +526,82 @@
                         <i class="align-middle" style="width:16px;height:16px" data-lucide="share-2"></i> Share
                     </a>
                 }
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                    <i class="align-middle" style="width:16px;height:16px" data-lucide="arrow-left"></i> All Boards
+                </a>
             }
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createBoardModal">
-                <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> New Board
-            </button>
+            @if (Model.CurrentBoard == null)
+            {
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createBoardModal">
+                    <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> New Board
+                </button>
+            }
         </div>
     </div>
 </div>
 
     @if (Model.CurrentBoard == null)
     {
-        <div class="empty-state">
-            <div class="empty-state-icon">
-                <i data-lucide="columns-3" style="width:40px;height:40px;color:#868e96"></i>
+        if (Model.Boards.Any())
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Columns</th>
+                                            <th>Created</th>
+                                            <th class="text-end">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var board in Model.Boards)
+                                        {
+                                            <tr class="clickable-row" data-href="@Url.Action("Index", new { boardId = board.Id })">
+                                                <td><strong>@board.Name</strong></td>
+                                                <td><span class="badge bg-secondary">@board.Columns.Count</span></td>
+                                                <td><small class="text-muted">@board.CreationTime.ToString("yyyy-MM-dd")</small></td>
+                                                <td class="text-end">
+                                                    <a asp-action="Index" asp-route-boardId="@board.Id" class="btn btn-sm btn-outline-primary me-1">
+                                                        <i class="align-middle" data-lucide="eye"></i> View
+                                                    </a>
+                                                    <a asp-action="ManageBoard" asp-route-id="@board.Id" class="btn btn-sm btn-outline-secondary me-1">
+                                                        <i class="align-middle" data-lucide="settings"></i> Edit
+                                                    </a>
+                                                    <a asp-action="ManageShares" asp-route-id="@board.Id" class="btn btn-sm btn-outline-secondary me-1">
+                                                        <i class="align-middle" data-lucide="share-2"></i> Share
+                                                    </a>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this board? This cannot be undone.')" data-board-id="@board.Id">
+                                                        <i class="align-middle" data-lucide="trash-2"></i> Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h2 class="h5 mb-2">No boards yet</h2>
-            <p class="text-muted mb-4">Create your first Kanban board to get started.</p>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createBoardModal">
-                <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> Create Board
-            </button>
-        </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i data-lucide="columns-3" style="width:40px;height:40px;color:#868e96"></i>
+                </div>
+                <h2 class="h5 mb-2">No boards yet</h2>
+                <p class="text-muted mb-4">Create your first Kanban board to get started.</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createBoardModal">
+                    <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> Create Board
+                </button>
+            </div>
+        }
     }
     else
     {
@@ -820,11 +868,47 @@
     document.addEventListener("DOMContentLoaded", function() {
         lucide.createIcons();
 
+        var clickableRows = document.querySelectorAll(".clickable-row");
+        clickableRows.forEach(function(row) {
+            row.addEventListener("click", function(event) {
+                var target = event.target;
+                if (!target.matches('a, a *, button, button *')) {
+                    window.location.href = row.dataset.href;
+                }
+            });
+        });
+
         var csrfToken = "@token";
         var canEditCurrentBoard = @Model.CanEditCurrentBoard.ToString().ToLowerInvariant();
         var currentBoardId = @(Model.CurrentBoard?.Id ?? 0);
         var isDragging = false;
         var labelSearchTimeout = 0;
+
+        document.querySelectorAll("[data-board-id]").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                var boardId = this.dataset.boardId;
+                fetch("/Kanban/DeleteBoard", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&boardId=" + boardId
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    var row = btn.closest("tr");
+                    row.remove();
+                    var tbody = document.querySelector("tbody");
+                    if (tbody && tbody.querySelectorAll("tr").length === 0) {
+                        window.location.reload();
+                    }
+                })
+                .catch(function(err) {
+                    alert("Failed to delete board: " + (err.message || "Unknown error"));
+                });
+            });
+        });
 
         document.querySelectorAll(".kanban-column").forEach(function(col) {
             var status = col.dataset.columnStatus || "0";
