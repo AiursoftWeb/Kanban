@@ -40,8 +40,11 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex align-items-center justify-content-between">
                 <h5 class="card-title mb-0"><i class="align-middle" data-lucide="columns-3"></i> Columns</h5>
+                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addColumnModal" style="border-radius:8px">
+                    <i class="align-middle" data-lucide="plus"></i> Add Column
+                </button>
             </div>
             <div class="card-body">
                 @if (!Model.Columns.Any())
@@ -70,8 +73,19 @@
                                     <tr>
                                         <td class="text-muted">@(column.Order + 1)</td>
                                         <td>
-                                            <span class="column-name-display" data-column-id="@column.Id">@column.Name</span>
-                                            <input type="text" class="form-control form-control-sm column-name-input d-none" data-column-id="@column.Id" value="@column.Name" style="max-width:200px">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="column-name-display" data-column-id="@column.Id">@column.Name</span>
+                                                <input type="text" class="form-control form-control-sm column-name-input d-none" data-column-id="@column.Id" value="@column.Name" style="max-width:200px">
+                                                <button type="button" class="btn btn-sm btn-link p-0 text-muted btn-edit-column-name" data-column-id="@column.Id" title="Rename">
+                                                    <i class="align-middle" data-lucide="pencil" style="width:14px;height:14px"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-link p-0 text-success btn-save-column-name d-none" data-column-id="@column.Id" title="Save">
+                                                    <i class="align-middle" data-lucide="check" style="width:14px;height:14px"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-link p-0 text-secondary btn-cancel-column-name d-none" data-column-id="@column.Id" title="Cancel">
+                                                    <i class="align-middle" data-lucide="x" style="width:14px;height:14px"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                         <td>
                                             <select class="form-select form-select-sm column-status-select-edit" data-column-id="@column.Id" style="max-width:140px">
@@ -82,15 +96,6 @@
                                         </td>
                                         <td><span class="badge bg-secondary">@column.Cards.Count</span></td>
                                         <td class="text-end">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-edit-column-name me-1" data-column-id="@column.Id" title="Rename">
-                                                <i class="align-middle" data-lucide="pencil" style="width:14px;height:14px"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-outline-primary btn-save-column-name d-none me-1" data-column-id="@column.Id" title="Save">
-                                                <i class="align-middle" data-lucide="check" style="width:14px;height:14px"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-cancel-column-name d-none me-1" data-column-id="@column.Id" title="Cancel">
-                                                <i class="align-middle" data-lucide="x" style="width:14px;height:14px"></i>
-                                            </button>
                                             @if (column.Cards.Count == 0)
                                             {
                                                 <button type="button" class="btn btn-sm btn-outline-danger btn-delete-column-edit" data-column-id="@column.Id" title="Delete">
@@ -166,6 +171,28 @@
                 <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteColumn" style="border-radius:10px">
                     Delete Column
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Column Modal -->
+<div class="modal fade" id="addColumnModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold">Add Column</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <label class="form-label fw-semibold">Column Name</label>
+                <input type="text" id="columnNameInput" class="form-control form-control-lg" placeholder="Review" autofocus
+                       style="border-radius:12px">
+                <div class="invalid-feedback" id="columnError"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
+                <button type="button" class="btn btn-primary px-4" id="btnSaveColumn" style="border-radius:10px">Add Column</button>
             </div>
         </div>
     </div>
@@ -453,6 +480,61 @@
                     btnConfirmDeleteBoard.disabled = false;
                     btnConfirmDeleteBoard.textContent = "Delete Board";
                 });
+            });
+        }
+
+        var addColumnModalEl = document.getElementById("addColumnModal");
+        var addColumnModal = addColumnModalEl ? new bootstrap.Modal(addColumnModalEl) : null;
+        var columnNameInput = document.getElementById("columnNameInput");
+        var columnError = document.getElementById("columnError");
+        var btnSaveColumn = document.getElementById("btnSaveColumn");
+
+        if (btnSaveColumn && columnNameInput && columnError) {
+            btnSaveColumn.addEventListener("click", function() {
+                var name = columnNameInput.value.trim();
+                if (!name) {
+                    columnNameInput.classList.add("is-invalid");
+                    columnError.textContent = "Column name is required.";
+                    return;
+                }
+
+                btnSaveColumn.disabled = true;
+                btnSaveColumn.textContent = "Saving...";
+
+                fetch("/Kanban/CreateColumn", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) 
+                        + "&boardId=" + boardId 
+                        + "&name=" + encodeURIComponent(name)
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    return r.json();
+                })
+                .then(function() {
+                    if (addColumnModal) {
+                        addColumnModal.hide();
+                    }
+                    window.location.reload();
+                })
+                .catch(function(err) {
+                    console.error("CreateColumn failed:", err);
+                    columnNameInput.classList.add("is-invalid");
+                    columnError.textContent = err.message || "Failed to create column.";
+                })
+                .finally(function() {
+                    btnSaveColumn.disabled = false;
+                    btnSaveColumn.textContent = "Add Column";
+                });
+            });
+            
+            columnNameInput.addEventListener("input", function() {
+                columnNameInput.classList.remove("is-invalid");
+                columnError.textContent = "";
             });
         }
     });

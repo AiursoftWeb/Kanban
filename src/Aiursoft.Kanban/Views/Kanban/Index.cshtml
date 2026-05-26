@@ -494,6 +494,44 @@
     .column-status-select { font-size: 0.7rem; border: none; background: transparent; color: var(--bs-secondary-color); cursor: pointer; padding: 1px 2px; max-width: 90px; }
     .column-status-select:focus { outline: none; box-shadow: none; }
     .clickable-row { cursor: pointer; }
+
+    .btn-edit-board-title {
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+        border: none;
+        background: transparent;
+        color: var(--bs-secondary-color);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        opacity: 0.4;
+        padding: 0;
+    }
+
+    .btn-edit-board-title:hover {
+        opacity: 1;
+        background: var(--bs-secondary-bg);
+        color: var(--bs-body-color);
+    }
+
+    .board-title-input {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--bs-body-color);
+        border: 1px solid var(--bs-primary);
+        border-radius: 6px;
+        padding: 2px 6px;
+        width: 180px;
+        background: var(--bs-body-bg);
+        outline: none;
+    }
+
+    .board-title-input:focus {
+        box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.25);
+    }
 </style>
 }
 
@@ -504,7 +542,15 @@
             <h1 class="h4 mb-0">Kanban</h1>
             @if (Model.CurrentBoard != null)
             {
-                <span class="fw-semibold mb-0" style="font-size:0.95rem">@Model.CurrentBoard.Name</span>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fw-semibold mb-0 board-title-display" style="font-size:0.95rem">@Model.CurrentBoard.Name</span>
+                    @if (Model.CanEditCurrentBoard)
+                    {
+                        <button class="btn-edit-board-title" title="Rename board">
+                            <i class="align-middle" style="width:12px;height:12px" data-lucide="pencil"></i>
+                        </button>
+                    }
+                </div>
                 @if (!Model.CanEditCurrentBoard)
                 {
                     <span class="readonly-badge">
@@ -1352,12 +1398,6 @@
                     '<i class="align-middle" style="width:14px;height:14px" data-lucide="plus"></i> Add Card' +
                 '</button>';
 
-            var delBtn = col.querySelector(".btn-delete-column");
-            delBtn.addEventListener("click", function(e) {
-                e.stopPropagation();
-                deleteColumn(columnId, col);
-            });
-
             var statusSel = col.querySelector(".column-status-select");
             statusSel.addEventListener("change", function() { handleColumnStatusChange(this); });
 
@@ -1599,13 +1639,14 @@
         }
 
         if (canEditCurrentBoard) {
-            document.querySelectorAll(".btn-delete-column.can-delete").forEach(function(btn) {
-                btn.addEventListener("click", function(e) {
+            document.addEventListener("click", function(e) {
+                var btn = e.target.closest(".btn-delete-column");
+                if (btn && btn.classList.contains("can-delete")) {
                     e.stopPropagation();
-                    var columnId = parseInt(this.dataset.columnId, 10);
-                    var columnEl = this.closest(".kanban-column");
+                    var columnId = parseInt(btn.dataset.columnId, 10);
+                    var columnEl = btn.closest(".kanban-column");
                     deleteColumn(columnId, columnEl);
-                });
+                }
             });
         }
 
@@ -1951,6 +1992,85 @@
                     btnUpdateCard.textContent = "Save";
                 });
             });
+        }
+
+        if (canEditCurrentBoard) {
+            var btnEditBoardTitle = document.querySelector(".btn-edit-board-title");
+            if (btnEditBoardTitle) {
+                btnEditBoardTitle.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    var titleSpan = document.querySelector(".board-title-display");
+                    if (!titleSpan || titleSpan.querySelector("input")) return;
+
+                    var currentName = titleSpan.textContent;
+                    var input = document.createElement("input");
+                    input.type = "text";
+                    input.className = "board-title-input";
+                    input.value = currentName;
+                    input.dataset.originalName = currentName;
+
+                    titleSpan.style.display = "none";
+                    titleSpan.parentNode.insertBefore(input, titleSpan.nextSibling);
+
+                    btnEditBoardTitle.style.display = "none";
+
+                    input.focus();
+                    input.select();
+
+                    function saveBoardRename() {
+                        var newName = input.value.trim();
+                        if (!newName || newName === input.dataset.originalName) {
+                            cancelBoardRename();
+                            return;
+                        }
+
+                        fetch("/Kanban/RenameBoard", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                                "RequestVerificationToken": csrfToken
+                            },
+                            body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                                + "&boardId=" + currentBoardId
+                                + "&name=" + encodeURIComponent(newName)
+                        })
+                        .then(function(r) {
+                            if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                            return r.json();
+                        })
+                        .then(function() {
+                            titleSpan.textContent = newName;
+                            titleSpan.style.display = "";
+                            btnEditBoardTitle.style.display = "";
+                            input.remove();
+                        })
+                        .catch(function(err) {
+                            alert("Failed to rename board: " + (err.message || "Unknown error"));
+                            cancelBoardRename();
+                        });
+                    }
+
+                    function cancelBoardRename() {
+                        titleSpan.style.display = "";
+                        btnEditBoardTitle.style.display = "";
+                        input.remove();
+                    }
+
+                    input.addEventListener("keydown", function(ev) {
+                        if (ev.key === "Enter") {
+                            ev.preventDefault();
+                            saveBoardRename();
+                        } else if (ev.key === "Escape") {
+                            ev.preventDefault();
+                            cancelBoardRename();
+                        }
+                    });
+
+                    input.addEventListener("blur", function() {
+                        saveBoardRename();
+                    });
+                });
+            }
         }
     });
 </script>
