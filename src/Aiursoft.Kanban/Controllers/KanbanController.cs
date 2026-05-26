@@ -299,6 +299,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteColumn(int columnId)
     {
         var column = await db.KanbanColumns
@@ -311,9 +312,7 @@ public class KanbanController(
         var userId = userManager.GetUserId(User)!;
         if (!await HasEditAccess(column.Board, userId)) return Forbid();
 
-        if (column.Cards.Count > 0)
-            return BadRequest("Cannot delete a column that still has cards.");
-
+        db.KanbanCards.RemoveRange(column.Cards);
         db.KanbanColumns.Remove(column);
         await db.SaveChangesAsync();
         return Ok();

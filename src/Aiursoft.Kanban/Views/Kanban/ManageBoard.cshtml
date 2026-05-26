@@ -96,12 +96,9 @@
                                         </td>
                                         <td><span class="badge bg-secondary">@column.Cards.Count</span></td>
                                         <td class="text-end">
-                                            @if (column.Cards.Count == 0)
-                                            {
-                                                <button type="button" class="btn btn-sm btn-outline-danger btn-delete-column-edit" data-column-id="@column.Id" title="Delete">
-                                                    <i class="align-middle" data-lucide="trash-2" style="width:14px;height:14px"></i>
-                                                </button>
-                                            }
+                                            <button type="button" class="btn btn-sm btn-outline-danger btn-delete-column-edit" data-column-id="@column.Id" data-cards-count="@column.Cards.Count" title="Delete">
+                                                <i class="align-middle" data-lucide="trash-2" style="width:14px;height:14px"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 }
@@ -164,6 +161,7 @@
             <div class="modal-body px-4">
                 <p>Are you sure you want to delete the column <strong id="deleteColumnNameDisplay"></strong>?</p>
                 <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> This action cannot be undone.</p>
+                <div class="alert alert-warning mt-2 d-none" id="deleteColumnWarning" role="alert"></div>
                 <div class="alert alert-danger mt-2 d-none" id="deleteColumnError" role="alert"></div>
             </div>
             <div class="modal-footer border-0 px-4 pb-4">
@@ -374,6 +372,20 @@
                     deleteColumnError.textContent = "";
                     deleteColumnError.classList.add("d-none");
                 }
+
+                // Show warning if there are cards
+                var cardsCount = parseInt(this.dataset.cardsCount, 10) || 0;
+                var warningEl = document.getElementById("deleteColumnWarning");
+                if (warningEl) {
+                    if (cardsCount > 0) {
+                        warningEl.textContent = "This column contains " + cardsCount + " card(s). Deleting the column will also permanently delete all its cards.";
+                        warningEl.classList.remove("d-none");
+                    } else {
+                        warningEl.textContent = "";
+                        warningEl.classList.add("d-none");
+                    }
+                }
+
                 if (btnConfirmDeleteColumn) {
                     btnConfirmDeleteColumn.disabled = false;
                     btnConfirmDeleteColumn.textContent = "Delete Column";
