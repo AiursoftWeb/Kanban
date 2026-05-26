@@ -125,6 +125,52 @@
     </div>
 </div>
 
+<!-- Delete Board Confirmation Modal -->
+<div class="modal fade" id="deleteBoardConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>Delete Board</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p>Are you sure you want to delete the board <strong>@Model.BoardName</strong>?</p>
+                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> This action permanently removes all columns and cards. This cannot be undone.</p>
+                <div class="alert alert-danger mt-2 d-none" id="deleteBoardError" role="alert"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
+                <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteBoard" style="border-radius:10px">
+                    Delete Board
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Column Confirmation Modal -->
+<div class="modal fade" id="deleteColumnConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>Delete Column</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p>Are you sure you want to delete the column <strong id="deleteColumnNameDisplay"></strong>?</p>
+                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> This action cannot be undone.</p>
+                <div class="alert alert-danger mt-2 d-none" id="deleteColumnError" role="alert"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
+                <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteColumn" style="border-radius:10px">
+                    Delete Column
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts {
 <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
 <script>
@@ -280,12 +326,47 @@
             });
         });
 
+        var deleteColumnConfirmModalEl = document.getElementById("deleteColumnConfirmModal");
+        var deleteColumnConfirmModal = deleteColumnConfirmModalEl ? new bootstrap.Modal(deleteColumnConfirmModalEl) : null;
+        var btnConfirmDeleteColumn = document.getElementById("btnConfirmDeleteColumn");
+        var deleteColumnError = document.getElementById("deleteColumnError");
+        var deleteColumnNameDisplay = document.getElementById("deleteColumnNameDisplay");
+        var columnIdToDelete = null;
+        var rowToDelete = null;
+
         document.querySelectorAll(".btn-delete-column-edit").forEach(function(btn) {
             btn.addEventListener("click", function() {
-                var columnId = parseInt(this.dataset.columnId, 10);
-                if (!confirm("Delete this column? This cannot be undone.")) return;
+                columnIdToDelete = parseInt(this.dataset.columnId, 10);
+                rowToDelete = this.closest("tr");
+                
+                var columnName = rowToDelete.querySelector(".column-name-display").textContent;
+                if (deleteColumnNameDisplay) {
+                    deleteColumnNameDisplay.textContent = columnName;
+                }
+                if (deleteColumnError) {
+                    deleteColumnError.textContent = "";
+                    deleteColumnError.classList.add("d-none");
+                }
+                if (btnConfirmDeleteColumn) {
+                    btnConfirmDeleteColumn.disabled = false;
+                    btnConfirmDeleteColumn.textContent = "Delete Column";
+                }
+                if (deleteColumnConfirmModal) {
+                    deleteColumnConfirmModal.show();
+                }
+            });
+        });
 
-                var row = this.closest("tr");
+        if (btnConfirmDeleteColumn) {
+            btnConfirmDeleteColumn.addEventListener("click", function() {
+                if (columnIdToDelete === null) return;
+
+                btnConfirmDeleteColumn.disabled = true;
+                btnConfirmDeleteColumn.textContent = "Deleting...";
+                if (deleteColumnError) {
+                    deleteColumnError.classList.add("d-none");
+                }
+
                 fetch("/Kanban/DeleteColumn", {
                     method: "POST",
                     headers: {
@@ -293,22 +374,58 @@
                         "RequestVerificationToken": csrfToken
                     },
                     body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
-                        + "&columnId=" + columnId
+                        + "&columnId=" + columnIdToDelete
                 })
                 .then(function(r) {
                     if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
-                    row.remove();
+                    if (rowToDelete) {
+                        rowToDelete.remove();
+                    }
+                    if (deleteColumnConfirmModal) {
+                        deleteColumnConfirmModal.hide();
+                    }
                 })
                 .catch(function(err) {
-                    alert("Failed to delete column: " + (err.message || "Unknown error"));
+                    if (deleteColumnError) {
+                        deleteColumnError.textContent = "Failed to delete column: " + (err.message || "Unknown error");
+                        deleteColumnError.classList.remove("d-none");
+                    }
+                })
+                .finally(function() {
+                    btnConfirmDeleteColumn.disabled = false;
+                    btnConfirmDeleteColumn.textContent = "Delete Column";
                 });
             });
-        });
+        }
 
-        var btnDeleteBoard = document.getElementById("btnDeleteBoard");
+        var deleteBoardConfirmModalEl = document.getElementById("deleteBoardConfirmModal");
+        var deleteBoardConfirmModal = deleteBoardConfirmModalEl ? new bootstrap.Modal(deleteBoardConfirmModalEl) : null;
+        var btnConfirmDeleteBoard = document.getElementById("btnConfirmDeleteBoard");
+        var deleteBoardError = document.getElementById("deleteBoardError");
+
         if (btnDeleteBoard) {
             btnDeleteBoard.addEventListener("click", function() {
-                if (!confirm("Delete this entire board? This cannot be undone.")) return;
+                if (deleteBoardError) {
+                    deleteBoardError.textContent = "";
+                    deleteBoardError.classList.add("d-none");
+                }
+                if (btnConfirmDeleteBoard) {
+                    btnConfirmDeleteBoard.disabled = false;
+                    btnConfirmDeleteBoard.textContent = "Delete Board";
+                }
+                if (deleteBoardConfirmModal) {
+                    deleteBoardConfirmModal.show();
+                }
+            });
+        }
+
+        if (btnConfirmDeleteBoard) {
+            btnConfirmDeleteBoard.addEventListener("click", function() {
+                btnConfirmDeleteBoard.disabled = true;
+                btnConfirmDeleteBoard.textContent = "Deleting...";
+                if (deleteBoardError) {
+                    deleteBoardError.classList.add("d-none");
+                }
 
                 fetch("/Kanban/DeleteBoard", {
                     method: "POST",
@@ -321,10 +438,20 @@
                 })
                 .then(function(r) {
                     if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    if (deleteBoardConfirmModal) {
+                        deleteBoardConfirmModal.hide();
+                    }
                     window.location.href = "/Kanban/Index";
                 })
                 .catch(function(err) {
-                    alert("Failed to delete board: " + (err.message || "Unknown error"));
+                    if (deleteBoardError) {
+                        deleteBoardError.textContent = "Failed to delete board: " + (err.message || "Unknown error");
+                        deleteBoardError.classList.remove("d-none");
+                    }
+                })
+                .finally(function() {
+                    btnConfirmDeleteBoard.disabled = false;
+                    btnConfirmDeleteBoard.textContent = "Delete Board";
                 });
             });
         }
