@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using Aiursoft.Kanban.Entities;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
 
@@ -230,7 +231,7 @@ public class KanbanControllerTests : TestBase
     }
 
     [TestMethod]
-    public async Task DeleteColumn_WithCards_ReturnsBadRequest()
+    public async Task DeleteColumn_WithCards_DeletesSuccessfully()
     {
         await LoginAsAdmin();
         var (_, columnId) = await CreateBoardAndFirstColumnAsync();
@@ -239,7 +240,12 @@ public class KanbanControllerTests : TestBase
         var response = await PostAsync(
             $"/Kanban/DeleteColumn?columnId={columnId}",
             new Dictionary<string, string>());
-        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var column = await db.KanbanColumns.FindAsync(columnId);
+        Assert.IsNull(column);
     }
 
     [TestMethod]
@@ -294,10 +300,15 @@ public class KanbanControllerTests : TestBase
                 doc.RootElement.GetProperty("Title").GetString()!);
     }
 
-    /// <summary>POSTs form data without a CSRF token (for AJAX endpoints).</summary>
+    /// <summary>POSTs form data with a CSRF token (for AJAX endpoints).</summary>
     private async Task<HttpResponseMessage> PostAsync(
         string url, Dictionary<string, string> data)
     {
+        if (!data.ContainsKey("__RequestVerificationToken"))
+        {
+            var token = await GetAntiCsrfToken("/");
+            data["__RequestVerificationToken"] = token;
+        }
         return await Http.PostAsync(url, new FormUrlEncodedContent(data));
     }
 }

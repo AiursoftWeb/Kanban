@@ -17,6 +17,7 @@
         display: flex;
         flex-direction: column;
         height: calc(100vh - 130px);
+        overflow-y: auto;
     }
 
     .kanban-topbar {
@@ -91,6 +92,48 @@
         color: var(--bs-body-color);
         margin: 0;
         pointer-events: none;
+    }
+
+    .btn-edit-column-title {
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+        border: none;
+        background: transparent;
+        color: var(--bs-secondary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        opacity: 0;
+        padding: 0;
+    }
+
+    .kanban-column:hover .btn-edit-column-title {
+        opacity: 0.5;
+    }
+
+    .btn-edit-column-title:hover {
+        opacity: 1 !important;
+        background: var(--bs-secondary-bg);
+        color: var(--bs-body-color);
+    }
+
+    .column-title-input {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--bs-body-color);
+        border: 1px solid var(--bs-primary);
+        border-radius: 6px;
+        padding: 2px 6px;
+        width: 140px;
+        background: var(--bs-body-bg);
+        outline: none;
+    }
+
+    .column-title-input:focus {
+        box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.25);
     }
 
     .column-count {
@@ -355,30 +398,6 @@
         font-weight: 600;
     }
 
-    .btn-add-column {
-        flex: 0 0 320px;
-        width: 320px;
-        align-self: stretch;
-        background: var(--bs-tertiary-bg, rgba(241,243,245,0.5));
-        border: 2px dashed var(--bs-border-color);
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--bs-secondary-color);
-        font-weight: 500;
-        font-size: 0.875rem;
-        padding: 1.5rem;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        min-height: 120px;
-    }
-
-    .btn-add-column:hover {
-        background: var(--bs-tertiary-bg);
-        color: var(--bs-primary);
-        border-color: var(--bs-primary);
-    }
 
     .btn-add-card {
         display: flex;
@@ -440,16 +459,51 @@
             flex: 0 0 280px;
             width: 280px;
         }
-        .btn-add-column {
-            flex: 0 0 280px;
-            width: 280px;
-        }
     }
 
     .card-due-date { font-size: 0.72rem; margin-top: 0.4rem; display: flex; align-items: center; gap: 3px; color: var(--bs-secondary-color); }
     .card-due-date.overdue { color: #dc3545; font-weight: 600; }
     .column-status-select { font-size: 0.7rem; border: none; background: transparent; color: var(--bs-secondary-color); cursor: pointer; padding: 1px 2px; max-width: 90px; }
     .column-status-select:focus { outline: none; box-shadow: none; }
+    .clickable-row { cursor: pointer; }
+
+    .btn-edit-board-title {
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+        border: none;
+        background: transparent;
+        color: var(--bs-secondary-color);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        opacity: 0.4;
+        padding: 0;
+    }
+
+    .btn-edit-board-title:hover {
+        opacity: 1;
+        background: var(--bs-secondary-bg);
+        color: var(--bs-body-color);
+    }
+
+    .board-title-input {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--bs-body-color);
+        border: 1px solid var(--bs-primary);
+        border-radius: 6px;
+        padding: 2px 6px;
+        width: 180px;
+        background: var(--bs-body-bg);
+        outline: none;
+    }
+
+    .board-title-input:focus {
+        box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.25);
+    }
 </style>
 }
 
@@ -458,54 +512,120 @@
     <div class="d-flex align-items-center justify-content-between mb-3">
         <div class="d-flex align-items-center gap-3">
             <h1 class="h4 mb-0">Kanban</h1>
-            @if (Model.CurrentBoard != null && !Model.CanEditCurrentBoard)
+            @if (Model.CurrentBoard != null)
             {
-                <span class="readonly-badge">
-                    <i class="align-middle" style="width:14px;height:14px" data-lucide="eye"></i>
-                    Read-only
-                </span>
-            }
-            <div class="board-tabs-scroll" id="boardTabs">
-                @foreach (var board in Model.Boards)
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fw-semibold mb-0 board-title-display" style="font-size:0.95rem">@Model.CurrentBoard.Name</span>
+                    @if (Model.CanEditCurrentBoard)
+                    {
+                        <button class="btn-edit-board-title" title="Rename board">
+                            <i class="align-middle" style="width:12px;height:12px" data-lucide="pencil"></i>
+                        </button>
+                    }
+                </div>
+                @if (!Model.CanEditCurrentBoard)
                 {
-                    <a asp-action="Index" asp-route-boardId="@board.Id"
-                       class="board-tab @(Model.CurrentBoard?.Id == board.Id ? "active" : "")">
-                        <i class="align-middle" style="width:16px;height:16px" data-lucide="columns-3"></i>
-                        @board.Name
-                        @if (board.IsPublic)
-                        {
-                            <span class="badge bg-info ms-1" style="font-size:0.6rem">Public</span>
-                        }
-                    </a>
+                    <span class="readonly-badge">
+                        <i class="align-middle" style="width:14px;height:14px" data-lucide="eye"></i>
+                        Read-only
+                    </span>
                 }
-            </div>
+            }
         </div>
         <div class="d-flex gap-2">
-            @if (Model.IsOwner && Model.CurrentBoard != null)
+            @if (Model.CurrentBoard != null)
             {
-                <a asp-action="ManageShares" asp-route-id="@Model.CurrentBoard.Id" class="btn btn-outline-secondary btn-sm">
-                    <i class="align-middle" style="width:16px;height:16px" data-lucide="share-2"></i> Share
+                @if (Model.CanEditCurrentBoard)
+                {
+                    <button class="btn btn-primary btn-sm" id="btnAddColumn">
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> Add Column
+                    </button>
+                }
+                @if (Model.IsOwner)
+                {
+                    <a asp-action="ManageBoard" asp-route-id="@Model.CurrentBoard.Id" class="btn btn-outline-secondary btn-sm">
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="settings"></i> Edit Board
+                    </a>
+                    <a asp-action="ManageShares" asp-route-id="@Model.CurrentBoard.Id" class="btn btn-outline-secondary btn-sm">
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="share-2"></i> Share
+                    </a>
+                }
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                    <i class="align-middle" style="width:16px;height:16px" data-lucide="arrow-left"></i> All Boards
                 </a>
             }
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createBoardModal">
-                <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> New Board
-            </button>
+            @if (Model.CurrentBoard == null)
+            {
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createBoardModal">
+                    <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> New Board
+                </button>
+            }
         </div>
     </div>
 </div>
 
     @if (Model.CurrentBoard == null)
     {
-        <div class="empty-state">
-            <div class="empty-state-icon">
-                <i data-lucide="columns-3" style="width:40px;height:40px;color:#868e96"></i>
+        if (Model.Boards.Any())
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Columns</th>
+                                            <th>Created</th>
+                                            <th class="text-end">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var board in Model.Boards)
+                                        {
+                                            <tr class="clickable-row" data-href="@Url.Action("Index", new { boardId = board.Id })">
+                                                <td><strong>@board.Name</strong></td>
+                                                <td><span class="badge bg-secondary">@board.Columns.Count</span></td>
+                                                <td><small class="text-muted">@board.CreationTime.ToString("yyyy-MM-dd")</small></td>
+                                                <td class="text-end">
+                                                    <a asp-action="Index" asp-route-boardId="@board.Id" class="btn btn-sm btn-outline-primary me-1">
+                                                        <i class="align-middle" data-lucide="eye"></i> View
+                                                    </a>
+                                                    <a asp-action="ManageBoard" asp-route-id="@board.Id" class="btn btn-sm btn-outline-secondary me-1">
+                                                        <i class="align-middle" data-lucide="settings"></i> Edit
+                                                    </a>
+                                                    <a asp-action="ManageShares" asp-route-id="@board.Id" class="btn btn-sm btn-outline-secondary me-1">
+                                                        <i class="align-middle" data-lucide="share-2"></i> Share
+                                                    </a>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger btn-delete-board-list" data-board-id="@board.Id" data-board-name="@board.Name">
+                                                        <i class="align-middle" data-lucide="trash-2"></i> Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h2 class="h5 mb-2">No boards yet</h2>
-            <p class="text-muted mb-4">Create your first Kanban board to get started.</p>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createBoardModal">
-                <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> Create Board
-            </button>
-        </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i data-lucide="columns-3" style="width:40px;height:40px;color:#868e96"></i>
+                </div>
+                <h2 class="h5 mb-2">No boards yet</h2>
+                <p class="text-muted mb-4">Create your first Kanban board to get started.</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createBoardModal">
+                    <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> Create Board
+                </button>
+            </div>
+        }
     }
     else
     {
@@ -522,8 +642,14 @@
                     <div class="column-header @(Model.CanEditCurrentBoard ? string.Empty : "column-header-readonly")">
                         <div class="column-header-left">
                             <span class="column-dot @dotClass"></span>
-                            <span class="column-title">@column.Name</span>
+                            <span class="column-title" data-column-id="@column.Id">@column.Name</span>
                             <span class="column-count">@column.Cards.Count</span>
+                            @if (Model.CanEditCurrentBoard)
+                            {
+                                <button class="btn-edit-column-title" data-column-id="@column.Id" title="Rename column">
+                                    <i class="align-middle" style="width:12px;height:12px" data-lucide="pencil"></i>
+                                </button>
+                            }
                         </div>
                         <div class="d-flex align-items-center gap-1">
                             <select class="column-status-select" data-column-id="@column.Id" disabled="@(!Model.CanEditCurrentBoard)">
@@ -531,9 +657,10 @@
                                 <option value="1">In Progress</option>
                                 <option value="2">Completed</option>
                             </select>
-                            <button class="btn-delete-column @((Model.CanEditCurrentBoard && column.Cards.Count == 0) ? "can-delete" : string.Empty)"
+                            <button class="btn-delete-column @(Model.CanEditCurrentBoard ? "can-delete" : string.Empty)"
                                     data-column-id="@column.Id"
-                                    title="Delete empty column"
+                                    data-cards-count="@column.Cards.Count"
+                                    title="Delete column"
                                     disabled="@(!Model.CanEditCurrentBoard)">
                                 <i class="align-middle" style="width:14px;height:14px" data-lucide="trash-2"></i>
                             </button>
@@ -583,12 +710,7 @@
                 </div>
             }
 
-            @if (Model.CanEditCurrentBoard)
-            {
-                <div class="btn-add-column" id="btnAddColumn">
-                    <i class="align-middle me-1" style="width:16px;height:16px" data-lucide="plus"></i> Add Column
-                </div>
-            }
+
         </div>
     }
 </div>
@@ -758,6 +880,53 @@
     </div>
 }
 
+<!-- Delete Board Confirmation Modal -->
+<div class="modal fade" id="deleteBoardConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>Delete Board</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p>Are you sure you want to delete the board <strong id="deleteBoardNameDisplay"></strong>?</p>
+                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> This action permanently removes all columns and cards. This cannot be undone.</p>
+                <div class="alert alert-danger mt-2 d-none" id="deleteBoardError" role="alert"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
+                <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteBoard" style="border-radius:10px">
+                    Delete Board
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Column Confirmation Modal -->
+<div class="modal fade" id="deleteColumnConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>Delete Column</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p>Are you sure you want to delete the column <strong id="deleteColumnNameDisplay"></strong>?</p>
+                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> This action cannot be undone.</p>
+                <div class="alert alert-warning mt-2 d-none" id="deleteColumnWarning" role="alert"></div>
+                <div class="alert alert-danger mt-2 d-none" id="deleteColumnError" role="alert"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
+                <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteColumn" style="border-radius:10px">
+                    Delete Column
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
 <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
@@ -766,11 +935,97 @@
     document.addEventListener("DOMContentLoaded", function() {
         lucide.createIcons();
 
+        var clickableRows = document.querySelectorAll(".clickable-row");
+        clickableRows.forEach(function(row) {
+            row.addEventListener("click", function(event) {
+                var target = event.target;
+                if (!target.matches('a, a *, button, button *')) {
+                    window.location.href = row.dataset.href;
+                }
+            });
+        });
+
         var csrfToken = "@token";
         var canEditCurrentBoard = @Model.CanEditCurrentBoard.ToString().ToLowerInvariant();
         var currentBoardId = @(Model.CurrentBoard?.Id ?? 0);
         var isDragging = false;
         var labelSearchTimeout = 0;
+
+        var deleteBoardConfirmModalEl = document.getElementById("deleteBoardConfirmModal");
+        var deleteBoardConfirmModal = deleteBoardConfirmModalEl ? new bootstrap.Modal(deleteBoardConfirmModalEl) : null;
+        var btnConfirmDeleteBoard = document.getElementById("btnConfirmDeleteBoard");
+        var deleteBoardError = document.getElementById("deleteBoardError");
+        var deleteBoardNameDisplay = document.getElementById("deleteBoardNameDisplay");
+        var boardIdToDelete = null;
+        var btnToDeleteBoard = null;
+
+        document.querySelectorAll(".btn-delete-board-list").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                boardIdToDelete = this.dataset.boardId;
+                btnToDeleteBoard = this;
+                var boardName = this.dataset.boardName;
+
+                if (deleteBoardNameDisplay) {
+                    deleteBoardNameDisplay.textContent = boardName;
+                }
+                if (deleteBoardError) {
+                    deleteBoardError.textContent = "";
+                    deleteBoardError.classList.add("d-none");
+                }
+                if (btnConfirmDeleteBoard) {
+                    btnConfirmDeleteBoard.disabled = false;
+                    btnConfirmDeleteBoard.textContent = "Delete Board";
+                }
+                if (deleteBoardConfirmModal) {
+                    deleteBoardConfirmModal.show();
+                }
+            });
+        });
+
+        if (btnConfirmDeleteBoard) {
+            btnConfirmDeleteBoard.addEventListener("click", function() {
+                if (!boardIdToDelete) return;
+
+                btnConfirmDeleteBoard.disabled = true;
+                btnConfirmDeleteBoard.textContent = "Deleting...";
+                if (deleteBoardError) {
+                    deleteBoardError.classList.add("d-none");
+                }
+
+                fetch("/Kanban/DeleteBoard", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&boardId=" + boardIdToDelete
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    if (deleteBoardConfirmModal) {
+                        deleteBoardConfirmModal.hide();
+                    }
+                    if (btnToDeleteBoard) {
+                        var row = btnToDeleteBoard.closest("tr");
+                        if (row) row.remove();
+                    }
+                    var tbody = document.querySelector("tbody");
+                    if (tbody && tbody.querySelectorAll("tr").length === 0) {
+                        window.location.reload();
+                    }
+                })
+                .catch(function(err) {
+                    if (deleteBoardError) {
+                        deleteBoardError.textContent = "Failed to delete board: " + (err.message || "Unknown error");
+                        deleteBoardError.classList.remove("d-none");
+                    }
+                })
+                .finally(function() {
+                    btnConfirmDeleteBoard.disabled = false;
+                    btnConfirmDeleteBoard.textContent = "Delete Board";
+                });
+            });
+        }
 
         document.querySelectorAll(".kanban-column").forEach(function(col) {
             var status = col.dataset.columnStatus || "0";
@@ -893,8 +1148,9 @@
 
                 var delBtn = col.querySelector(".btn-delete-column");
                 if (delBtn) {
-                    delBtn.classList.toggle("can-delete", canEditCurrentBoard && count === 0);
+                    delBtn.classList.toggle("can-delete", canEditCurrentBoard);
                     delBtn.disabled = !canEditCurrentBoard;
+                    delBtn.dataset.cardsCount = count;
                 }
 
                 var placeholder = col.querySelector(".column-empty-placeholder");
@@ -960,7 +1216,6 @@
                     animation: 200,
                     easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                     handle: ".column-header",
-                    filter: ".btn-add-column",
                     onEnd: function(evt) {
                         var columnId = parseInt(evt.item.dataset.columnId, 10);
                         var newOrder = evt.newIndex;
@@ -995,10 +1250,90 @@
             });
         }
 
+        function bindColumnTitleEdit(editBtn) {
+            if (!editBtn || editBtn.dataset.editBound === "1") return;
+            editBtn.dataset.editBound = "1";
+            editBtn.addEventListener("click", function(e) {
+                e.stopPropagation();
+                var columnId = this.dataset.columnId;
+                var headerLeft = this.closest(".column-header-left");
+                var titleSpan = headerLeft.querySelector(".column-title[data-column-id='" + columnId + "']");
+                if (!titleSpan || titleSpan.querySelector("input")) return;
+
+                var currentName = titleSpan.textContent;
+                var input = document.createElement("input");
+                input.type = "text";
+                input.className = "column-title-input";
+                input.value = currentName;
+                input.dataset.columnId = columnId;
+                input.dataset.originalName = currentName;
+
+                titleSpan.style.display = "none";
+                titleSpan.parentNode.insertBefore(input, titleSpan.nextSibling);
+
+                input.focus();
+                input.select();
+
+                function saveRename() {
+                    var newName = input.value.trim();
+                    if (!newName || newName === input.dataset.originalName) {
+                        cancelRename();
+                        return;
+                    }
+
+                    fetch("/Kanban/RenameColumn", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "RequestVerificationToken": csrfToken
+                        },
+                        body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                            + "&columnId=" + columnId
+                            + "&name=" + encodeURIComponent(newName)
+                    })
+                    .then(function(r) {
+                        if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                        return r.json();
+                    })
+                    .then(function() {
+                        titleSpan.textContent = newName;
+                        titleSpan.style.display = "";
+                        input.remove();
+                    })
+                    .catch(function(err) {
+                        alert("Failed to rename column: " + (err.message || "Unknown error"));
+                        cancelRename();
+                    });
+                }
+
+                function cancelRename() {
+                    titleSpan.style.display = "";
+                    input.remove();
+                }
+
+                input.addEventListener("keydown", function(ev) {
+                    if (ev.key === "Enter") {
+                        ev.preventDefault();
+                        saveRename();
+                    } else if (ev.key === "Escape") {
+                        ev.preventDefault();
+                        cancelRename();
+                    }
+                });
+
+                input.addEventListener("blur", function() {
+                    saveRename();
+                });
+            });
+        }
+
+        document.querySelectorAll(".btn-edit-column-title").forEach(function(btn) {
+            bindColumnTitleEdit(btn);
+        });
+
         function addColumnToDom(columnId, columnName, columnStatus) {
             var container = document.getElementById("kanban-container");
-            var addBtn = document.getElementById("btnAddColumn");
-            if (!container || !addBtn) return;
+            if (!container) return;
 
             var dotColors = ["dot-blue", "dot-orange", "dot-green", "dot-purple", "dot-pink", "dot-teal", "dot-amber", "dot-indigo"];
             var existingCols = container.querySelectorAll(".kanban-column");
@@ -1013,8 +1348,11 @@
                 '<div class="column-header">' +
                     '<div class="column-header-left">' +
                         '<span class="column-dot ' + dotClass + '"></span>' +
-                        '<span class="column-title">' + escapeHtml(columnName) + '</span>' +
+                        '<span class="column-title" data-column-id="' + columnId + '">' + escapeHtml(columnName) + '</span>' +
                         '<span class="column-count">0</span>' +
+                        '<button class="btn-edit-column-title" data-column-id="' + columnId + '" title="Rename column">' +
+                            '<i class="align-middle" style="width:12px;height:12px" data-lucide="pencil"></i>' +
+                        '</button>' +
                     '</div>' +
                     '<div class="d-flex align-items-center gap-1">' +
                         '<select class="column-status-select" data-column-id="' + columnId + '">' +
@@ -1033,12 +1371,6 @@
                 '<button class="btn-add-card" data-column-id="' + columnId + '">' +
                     '<i class="align-middle" style="width:14px;height:14px" data-lucide="plus"></i> Add Card' +
                 '</button>';
-
-            var delBtn = col.querySelector(".btn-delete-column");
-            delBtn.addEventListener("click", function(e) {
-                e.stopPropagation();
-                deleteColumn(columnId, col);
-            });
 
             var statusSel = col.querySelector(".column-status-select");
             statusSel.addEventListener("change", function() { handleColumnStatusChange(this); });
@@ -1059,8 +1391,11 @@
                 openAddCardModal(columnId);
             });
 
-            container.insertBefore(col, addBtn);
+            container.appendChild(col);
             lucide.createIcons({ nodes: [col] });
+
+            var newEditBtn = col.querySelector(".btn-edit-column-title");
+            if (newEditBtn) bindColumnTitleEdit(newEditBtn);
         }
 
         if (canEditCurrentBoard && btnSaveColumn && columnNameInput && columnError) {
@@ -1205,35 +1540,101 @@
             });
         }
 
-        function deleteColumn(columnId, columnEl) {
-            if (!confirm("Delete this column? This cannot be undone.")) return;
+        var deleteColumnConfirmModalEl = document.getElementById("deleteColumnConfirmModal");
+        var deleteColumnConfirmModal = deleteColumnConfirmModalEl ? new bootstrap.Modal(deleteColumnConfirmModalEl) : null;
+        var btnConfirmDeleteColumn = document.getElementById("btnConfirmDeleteColumn");
+        var deleteColumnError = document.getElementById("deleteColumnError");
+        var deleteColumnNameDisplay = document.getElementById("deleteColumnNameDisplay");
+        var columnIdToDelete = null;
+        var columnElToDelete = null;
 
-            fetch("/Kanban/DeleteColumn", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "RequestVerificationToken": csrfToken
-                },
-                body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&columnId=" + columnId
-            })
-            .then(function(r) {
-                if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
-                columnEl.remove();
-            })
-            .catch(function(err) {
-                console.error("DeleteColumn failed:", err);
-                alert("Failed to delete column: " + (err.message || "Unknown error"));
+        function deleteColumn(columnId, columnEl) {
+            columnIdToDelete = columnId;
+            columnElToDelete = columnEl;
+
+            var columnNameSpan = columnEl.querySelector(".column-title");
+            var columnName = columnNameSpan ? columnNameSpan.textContent : "column";
+
+            if (deleteColumnNameDisplay) {
+                deleteColumnNameDisplay.textContent = columnName;
+            }
+            if (deleteColumnError) {
+                deleteColumnError.textContent = "";
+                deleteColumnError.classList.add("d-none");
+            }
+
+            var delBtn = columnEl.querySelector(".btn-delete-column");
+            var cardsCount = delBtn ? parseInt(delBtn.dataset.cardsCount, 10) || 0 : 0;
+            var warningEl = document.getElementById("deleteColumnWarning");
+            if (warningEl) {
+                if (cardsCount > 0) {
+                    warningEl.textContent = "This column contains " + cardsCount + " card(s). Deleting the column will also permanently delete all its cards.";
+                    warningEl.classList.remove("d-none");
+                } else {
+                    warningEl.textContent = "";
+                    warningEl.classList.add("d-none");
+                }
+            }
+
+            if (btnConfirmDeleteColumn) {
+                btnConfirmDeleteColumn.disabled = false;
+                btnConfirmDeleteColumn.textContent = "Delete Column";
+            }
+            if (deleteColumnConfirmModal) {
+                deleteColumnConfirmModal.show();
+            }
+        }
+
+        if (btnConfirmDeleteColumn) {
+            btnConfirmDeleteColumn.addEventListener("click", function() {
+                if (columnIdToDelete === null) return;
+
+                btnConfirmDeleteColumn.disabled = true;
+                btnConfirmDeleteColumn.textContent = "Deleting...";
+                if (deleteColumnError) {
+                    deleteColumnError.classList.add("d-none");
+                }
+
+                fetch("/Kanban/DeleteColumn", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&columnId=" + columnIdToDelete
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    if (deleteColumnConfirmModal) {
+                        deleteColumnConfirmModal.hide();
+                    }
+                    if (columnElToDelete) {
+                        columnElToDelete.remove();
+                    }
+                })
+                .catch(function(err) {
+                    console.error("DeleteColumn failed:", err);
+                    if (deleteColumnError) {
+                        deleteColumnError.textContent = "Failed to delete column: " + (err.message || "Unknown error");
+                        deleteColumnError.classList.remove("d-none");
+                    }
+                })
+                .finally(function() {
+                    btnConfirmDeleteColumn.disabled = false;
+                    btnConfirmDeleteColumn.textContent = "Delete Column";
+                });
             });
         }
 
         if (canEditCurrentBoard) {
-            document.querySelectorAll(".btn-delete-column.can-delete").forEach(function(btn) {
-                btn.addEventListener("click", function(e) {
+            document.addEventListener("click", function(e) {
+                var btn = e.target.closest(".btn-delete-column");
+                if (btn && btn.classList.contains("can-delete")) {
                     e.stopPropagation();
-                    var columnId = parseInt(this.dataset.columnId, 10);
-                    var columnEl = this.closest(".kanban-column");
+                    var columnId = parseInt(btn.dataset.columnId, 10);
+                    var columnEl = btn.closest(".kanban-column");
                     deleteColumn(columnId, columnEl);
-                });
+                }
             });
         }
 
@@ -1579,6 +1980,85 @@
                     btnUpdateCard.textContent = "Save";
                 });
             });
+        }
+
+        if (canEditCurrentBoard) {
+            var btnEditBoardTitle = document.querySelector(".btn-edit-board-title");
+            if (btnEditBoardTitle) {
+                btnEditBoardTitle.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    var titleSpan = document.querySelector(".board-title-display");
+                    if (!titleSpan || titleSpan.querySelector("input")) return;
+
+                    var currentName = titleSpan.textContent;
+                    var input = document.createElement("input");
+                    input.type = "text";
+                    input.className = "board-title-input";
+                    input.value = currentName;
+                    input.dataset.originalName = currentName;
+
+                    titleSpan.style.display = "none";
+                    titleSpan.parentNode.insertBefore(input, titleSpan.nextSibling);
+
+                    btnEditBoardTitle.style.display = "none";
+
+                    input.focus();
+                    input.select();
+
+                    function saveBoardRename() {
+                        var newName = input.value.trim();
+                        if (!newName || newName === input.dataset.originalName) {
+                            cancelBoardRename();
+                            return;
+                        }
+
+                        fetch("/Kanban/RenameBoard", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                                "RequestVerificationToken": csrfToken
+                            },
+                            body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                                + "&boardId=" + currentBoardId
+                                + "&name=" + encodeURIComponent(newName)
+                        })
+                        .then(function(r) {
+                            if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                            return r.json();
+                        })
+                        .then(function() {
+                            titleSpan.textContent = newName;
+                            titleSpan.style.display = "";
+                            btnEditBoardTitle.style.display = "";
+                            input.remove();
+                        })
+                        .catch(function(err) {
+                            alert("Failed to rename board: " + (err.message || "Unknown error"));
+                            cancelBoardRename();
+                        });
+                    }
+
+                    function cancelBoardRename() {
+                        titleSpan.style.display = "";
+                        btnEditBoardTitle.style.display = "";
+                        input.remove();
+                    }
+
+                    input.addEventListener("keydown", function(ev) {
+                        if (ev.key === "Enter") {
+                            ev.preventDefault();
+                            saveBoardRename();
+                        } else if (ev.key === "Escape") {
+                            ev.preventDefault();
+                            cancelBoardRename();
+                        }
+                    });
+
+                    input.addEventListener("blur", function() {
+                        saveBoardRename();
+                    });
+                });
+            }
         }
     });
 </script>

@@ -47,6 +47,7 @@ public class KanbanController(
 
         var boards = await db.KanbanBoards
             .Where(b => b.UserId == userId)
+            .Include(b => b.Columns)
             .OrderByDescending(b => b.CreationTime)
             .ToListAsync();
 
@@ -66,12 +67,6 @@ public class KanbanController(
                     canEditCurrentBoard = await HasEditAccess(currentBoard, userId);
                 }
             }
-        }
-
-        if (currentBoard == null && boards.Count > 0)
-        {
-            currentBoard = await LoadBoardAsync(boards[0].Id);
-            canEditCurrentBoard = currentBoard != null;
         }
 
         return this.StackView(new IndexViewModel
@@ -304,6 +299,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteColumn(int columnId)
     {
         var column = await db.KanbanColumns
@@ -316,10 +312,74 @@ public class KanbanController(
         var userId = userManager.GetUserId(User)!;
         if (!await HasEditAccess(column.Board, userId)) return Forbid();
 
-        if (column.Cards.Count > 0)
-            return BadRequest("Cannot delete a column that still has cards.");
-
+        db.KanbanCards.RemoveRange(column.Cards);
         db.KanbanColumns.Remove(column);
+        await db.SaveChangesAsync();
+        return Ok();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> RenameColumn(int columnId, string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return BadRequest("Column name is required.");
+
+        var column = await db.KanbanColumns
+            .Include(c => c.Board)
+            .FirstOrDefaultAsync(c => c.Id == columnId);
+        if (column == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (!await HasEditAccess(column.Board, userId)) return Forbid();
+
+        column.Name = name.Trim();
+        await db.SaveChangesAsync();
+        return Ok(new { column.Id, column.Name });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> RenameBoard(int boardId, string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return BadRequest("Board name is required.");
+
+        var board = await db.KanbanBoards.FindAsync(boardId);
+        if (board == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (board.UserId != userId) return Forbid();
+
+        board.Name = name.Trim();
+        await db.SaveChangesAsync();
+        return Ok(new { board.Id, board.Name });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteBoard(int boardId)
+    {
+        var board = await db.KanbanBoards
+            .Include(b => b.Columns)
+                .ThenInclude(c => c.Cards)
+                    .ThenInclude(c => c.CardLabels)
+            .Include(b => b.BoardShares)
+            .FirstOrDefaultAsync(b => b.Id == boardId);
+
+        if (board == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (board.UserId != userId) return Forbid();
+
+        foreach (var column in board.Columns.ToList())
+        {
+            db.KanbanCards.RemoveRange(column.Cards);
+            db.KanbanColumns.Remove(column);
+        }
+
+        db.BoardShares.RemoveRange(board.BoardShares);
+        db.KanbanBoards.Remove(board);
         await db.SaveChangesAsync();
         return Ok();
     }
@@ -603,6 +663,27 @@ public class KanbanController(
             .ToListAsync();
 
         return Ok(results);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> ManageBoard(int id)
+    {
+        var board = await db.KanbanBoards
+            .Include(b => b.Columns.OrderBy(c => c.Order))
+                .ThenInclude(c => c.Cards)
+            .FirstOrDefaultAsync(b => b.Id == id);
+
+        if (board == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (board.UserId != userId) return Forbid();
+
+        return this.StackView(new ManageBoardViewModel
+        {
+            BoardId = board.Id,
+            BoardName = board.Name,
+            Columns = board.Columns.OrderBy(c => c.Order).ToList()
+        });
     }
 
     [HttpGet]

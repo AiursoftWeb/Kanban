@@ -1,0 +1,555 @@
+@model Aiursoft.Kanban.Models.KanbanViewModels.ManageBoardViewModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
+    var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
+}
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <h3>Edit Board</h3>
+                <p class="text-muted">Manage board name and columns.</p>
+            </div>
+            <div>
+                <a asp-action="Index" asp-route-boardId="@Model.BoardId" class="btn btn-outline-secondary">
+                    <i class="align-middle" data-lucide="arrow-left"></i> Back to Board
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="align-middle" data-lucide="edit-3"></i> Board Name</h5>
+            </div>
+            <div class="card-body">
+                <div class="input-group" style="max-width: 500px;">
+                    <input type="text" class="form-control" id="boardNameInput" value="@Model.BoardName" placeholder="Board name" style="border-radius:10px 0 0 10px">
+                    <button type="button" class="btn btn-primary" id="btnSaveBoardName" style="border-radius:0 10px 10px 0">Save</button>
+                </div>
+                <div class="form-text mt-1" id="boardNameMessage"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="card-title mb-0"><i class="align-middle" data-lucide="columns-3"></i> Columns</h5>
+                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addColumnModal" style="border-radius:8px">
+                    <i class="align-middle" data-lucide="plus"></i> Add Column
+                </button>
+            </div>
+            <div class="card-body">
+                @if (!Model.Columns.Any())
+                {
+                    <div class="text-center text-muted py-4">
+                        <i class="align-middle" data-lucide="inbox" style="width:48px;height:48px;"></i>
+                        <p class="mt-2">No columns yet.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width:50px">#</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Cards</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var column in Model.Columns)
+                                {
+                                    <tr>
+                                        <td class="text-muted">@(column.Order + 1)</td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="column-name-display" data-column-id="@column.Id">@column.Name</span>
+                                                <input type="text" class="form-control form-control-sm column-name-input d-none" data-column-id="@column.Id" value="@column.Name" style="max-width:200px">
+                                                <button type="button" class="btn btn-sm btn-link p-0 text-muted btn-edit-column-name" data-column-id="@column.Id" title="Rename">
+                                                    <i class="align-middle" data-lucide="pencil" style="width:14px;height:14px"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-link p-0 text-success btn-save-column-name d-none" data-column-id="@column.Id" title="Save">
+                                                    <i class="align-middle" data-lucide="check" style="width:14px;height:14px"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-link p-0 text-secondary btn-cancel-column-name d-none" data-column-id="@column.Id" title="Cancel">
+                                                    <i class="align-middle" data-lucide="x" style="width:14px;height:14px"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <select class="form-select form-select-sm column-status-select-edit" data-column-id="@column.Id" style="max-width:140px">
+                                                <option value="0" selected="@(column.ColumnStatus == Aiursoft.Kanban.Entities.ColumnStatus.NotStarted)">Not Started</option>
+                                                <option value="1" selected="@(column.ColumnStatus == Aiursoft.Kanban.Entities.ColumnStatus.InProgress)">In Progress</option>
+                                                <option value="2" selected="@(column.ColumnStatus == Aiursoft.Kanban.Entities.ColumnStatus.Completed)">Completed</option>
+                                            </select>
+                                        </td>
+                                        <td><span class="badge bg-secondary">@column.Cards.Count</span></td>
+                                        <td class="text-end">
+                                            <button type="button" class="btn btn-sm btn-outline-danger btn-delete-column-edit" data-column-id="@column.Id" data-cards-count="@column.Cards.Count" title="Delete">
+                                                <i class="align-middle" data-lucide="trash-2" style="width:14px;height:14px"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h5 class="card-title mb-0"><i class="align-middle" data-lucide="trash-2"></i> Danger Zone</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Deleting a board permanently removes all columns and cards. This action cannot be undone.</p>
+                <button type="button" class="btn btn-danger" id="btnDeleteBoard">
+                    <i class="align-middle" data-lucide="trash-2"></i> Delete Board
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Board Confirmation Modal -->
+<div class="modal fade" id="deleteBoardConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>Delete Board</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p>Are you sure you want to delete the board <strong>@Model.BoardName</strong>?</p>
+                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> This action permanently removes all columns and cards. This cannot be undone.</p>
+                <div class="alert alert-danger mt-2 d-none" id="deleteBoardError" role="alert"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
+                <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteBoard" style="border-radius:10px">
+                    Delete Board
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Column Confirmation Modal -->
+<div class="modal fade" id="deleteColumnConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>Delete Column</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p>Are you sure you want to delete the column <strong id="deleteColumnNameDisplay"></strong>?</p>
+                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> This action cannot be undone.</p>
+                <div class="alert alert-warning mt-2 d-none" id="deleteColumnWarning" role="alert"></div>
+                <div class="alert alert-danger mt-2 d-none" id="deleteColumnError" role="alert"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
+                <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteColumn" style="border-radius:10px">
+                    Delete Column
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Column Modal -->
+<div class="modal fade" id="addColumnModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold">Add Column</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <label class="form-label fw-semibold">Column Name</label>
+                <input type="text" id="columnNameInput" class="form-control form-control-lg" placeholder="Review" autofocus
+                       style="border-radius:12px">
+                <div class="invalid-feedback" id="columnError"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
+                <button type="button" class="btn btn-primary px-4" id="btnSaveColumn" style="border-radius:10px">Add Column</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+<script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        lucide.createIcons();
+
+        var csrfToken = "@token";
+        var boardId = @Model.BoardId;
+
+        var boardNameInput = document.getElementById("boardNameInput");
+        var btnSaveBoardName = document.getElementById("btnSaveBoardName");
+        var boardNameMessage = document.getElementById("boardNameMessage");
+
+        if (btnSaveBoardName && boardNameInput) {
+            btnSaveBoardName.addEventListener("click", function() {
+                var name = boardNameInput.value.trim();
+                if (!name) {
+                    boardNameMessage.textContent = "Board name is required.";
+                    boardNameMessage.className = "form-text mt-1 text-danger";
+                    return;
+                }
+
+                btnSaveBoardName.disabled = true;
+                btnSaveBoardName.textContent = "Saving...";
+
+                fetch("/Kanban/RenameBoard", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&boardId=" + boardId
+                        + "&name=" + encodeURIComponent(name)
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    return r.json();
+                })
+                .then(function() {
+                    boardNameMessage.textContent = "Board name updated.";
+                    boardNameMessage.className = "form-text mt-1 text-success";
+                })
+                .catch(function(err) {
+                    boardNameMessage.textContent = err.message || "Failed to save.";
+                    boardNameMessage.className = "form-text mt-1 text-danger";
+                })
+                .finally(function() {
+                    btnSaveBoardName.disabled = false;
+                    btnSaveBoardName.textContent = "Save";
+                });
+            });
+        }
+
+        document.querySelectorAll(".btn-edit-column-name").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                var columnId = this.dataset.columnId;
+                var row = this.closest("tr");
+                row.querySelector(".column-name-display[data-column-id='" + columnId + "']").classList.add("d-none");
+                row.querySelector(".column-name-input[data-column-id='" + columnId + "']").classList.remove("d-none");
+                this.classList.add("d-none");
+                row.querySelector(".btn-save-column-name[data-column-id='" + columnId + "']").classList.remove("d-none");
+                row.querySelector(".btn-cancel-column-name[data-column-id='" + columnId + "']").classList.remove("d-none");
+                row.querySelector(".column-name-input[data-column-id='" + columnId + "']").focus();
+            });
+        });
+
+        document.querySelectorAll(".btn-cancel-column-name").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                var columnId = this.dataset.columnId;
+                var row = this.closest("tr");
+                var input = row.querySelector(".column-name-input[data-column-id='" + columnId + "']");
+                input.value = row.querySelector(".column-name-display[data-column-id='" + columnId + "']").textContent;
+                input.classList.add("d-none");
+                row.querySelector(".column-name-display[data-column-id='" + columnId + "']").classList.remove("d-none");
+                this.classList.add("d-none");
+                row.querySelector(".btn-save-column-name[data-column-id='" + columnId + "']").classList.add("d-none");
+                row.querySelector(".btn-edit-column-name[data-column-id='" + columnId + "']").classList.remove("d-none");
+            });
+        });
+
+        document.querySelectorAll(".btn-save-column-name").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                var columnId = this.dataset.columnId;
+                var row = this.closest("tr");
+                var input = row.querySelector(".column-name-input[data-column-id='" + columnId + "']");
+                var name = input.value.trim();
+                if (!name) return;
+
+                saveColumnName(columnId, name, row);
+            });
+
+            let columnId = btn.dataset.columnId;
+            let row = btn.closest("tr");
+            let input = row.querySelector(".column-name-input[data-column-id='" + columnId + "']");
+            if (input) {
+                input.addEventListener("keydown", function(e) {
+                    if (e.key === "Enter") {
+                        var name = this.value.trim();
+                        if (!name) return;
+                        saveColumnName(columnId, name, this.closest("tr"));
+                    }
+                });
+            }
+        });
+
+        function saveColumnName(columnId, name, row) {
+            fetch("/Kanban/RenameColumn", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "RequestVerificationToken": csrfToken
+                },
+                body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                    + "&columnId=" + columnId
+                    + "&name=" + encodeURIComponent(name)
+            })
+            .then(function(r) {
+                if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                return r.json();
+            })
+            .then(function() {
+                var display = row.querySelector(".column-name-display[data-column-id='" + columnId + "']");
+                display.textContent = name;
+                display.classList.remove("d-none");
+                row.querySelector(".column-name-input[data-column-id='" + columnId + "']").classList.add("d-none");
+                row.querySelector(".btn-save-column-name[data-column-id='" + columnId + "']").classList.add("d-none");
+                row.querySelector(".btn-cancel-column-name[data-column-id='" + columnId + "']").classList.add("d-none");
+                row.querySelector(".btn-edit-column-name[data-column-id='" + columnId + "']").classList.remove("d-none");
+            })
+            .catch(function(err) {
+                alert("Failed to rename column: " + (err.message || "Unknown error"));
+            });
+        }
+
+        document.querySelectorAll(".column-status-select-edit").forEach(function(sel) {
+            sel.addEventListener("change", function() {
+                var columnId = parseInt(this.dataset.columnId, 10);
+                var status = parseInt(this.value, 10);
+
+                fetch("/Kanban/UpdateColumnStatus", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&columnId=" + columnId
+                        + "&status=" + status
+                }).catch(function(err) {
+                    console.error("UpdateColumnStatus failed:", err);
+                });
+            });
+        });
+
+        var deleteColumnConfirmModalEl = document.getElementById("deleteColumnConfirmModal");
+        var deleteColumnConfirmModal = deleteColumnConfirmModalEl ? new bootstrap.Modal(deleteColumnConfirmModalEl) : null;
+        var btnConfirmDeleteColumn = document.getElementById("btnConfirmDeleteColumn");
+        var deleteColumnError = document.getElementById("deleteColumnError");
+        var deleteColumnNameDisplay = document.getElementById("deleteColumnNameDisplay");
+        var columnIdToDelete = null;
+        var rowToDelete = null;
+
+        document.querySelectorAll(".btn-delete-column-edit").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                columnIdToDelete = parseInt(this.dataset.columnId, 10);
+                rowToDelete = this.closest("tr");
+                
+                var columnName = rowToDelete.querySelector(".column-name-display").textContent;
+                if (deleteColumnNameDisplay) {
+                    deleteColumnNameDisplay.textContent = columnName;
+                }
+                if (deleteColumnError) {
+                    deleteColumnError.textContent = "";
+                    deleteColumnError.classList.add("d-none");
+                }
+
+                // Show warning if there are cards
+                var cardsCount = parseInt(this.dataset.cardsCount, 10) || 0;
+                var warningEl = document.getElementById("deleteColumnWarning");
+                if (warningEl) {
+                    if (cardsCount > 0) {
+                        warningEl.textContent = "This column contains " + cardsCount + " card(s). Deleting the column will also permanently delete all its cards.";
+                        warningEl.classList.remove("d-none");
+                    } else {
+                        warningEl.textContent = "";
+                        warningEl.classList.add("d-none");
+                    }
+                }
+
+                if (btnConfirmDeleteColumn) {
+                    btnConfirmDeleteColumn.disabled = false;
+                    btnConfirmDeleteColumn.textContent = "Delete Column";
+                }
+                if (deleteColumnConfirmModal) {
+                    deleteColumnConfirmModal.show();
+                }
+            });
+        });
+
+        if (btnConfirmDeleteColumn) {
+            btnConfirmDeleteColumn.addEventListener("click", function() {
+                if (columnIdToDelete === null) return;
+
+                btnConfirmDeleteColumn.disabled = true;
+                btnConfirmDeleteColumn.textContent = "Deleting...";
+                if (deleteColumnError) {
+                    deleteColumnError.classList.add("d-none");
+                }
+
+                fetch("/Kanban/DeleteColumn", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&columnId=" + columnIdToDelete
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    if (rowToDelete) {
+                        rowToDelete.remove();
+                    }
+                    if (deleteColumnConfirmModal) {
+                        deleteColumnConfirmModal.hide();
+                    }
+                })
+                .catch(function(err) {
+                    if (deleteColumnError) {
+                        deleteColumnError.textContent = "Failed to delete column: " + (err.message || "Unknown error");
+                        deleteColumnError.classList.remove("d-none");
+                    }
+                })
+                .finally(function() {
+                    btnConfirmDeleteColumn.disabled = false;
+                    btnConfirmDeleteColumn.textContent = "Delete Column";
+                });
+            });
+        }
+
+        var deleteBoardConfirmModalEl = document.getElementById("deleteBoardConfirmModal");
+        var deleteBoardConfirmModal = deleteBoardConfirmModalEl ? new bootstrap.Modal(deleteBoardConfirmModalEl) : null;
+        var btnConfirmDeleteBoard = document.getElementById("btnConfirmDeleteBoard");
+        var deleteBoardError = document.getElementById("deleteBoardError");
+
+        if (btnDeleteBoard) {
+            btnDeleteBoard.addEventListener("click", function() {
+                if (deleteBoardError) {
+                    deleteBoardError.textContent = "";
+                    deleteBoardError.classList.add("d-none");
+                }
+                if (btnConfirmDeleteBoard) {
+                    btnConfirmDeleteBoard.disabled = false;
+                    btnConfirmDeleteBoard.textContent = "Delete Board";
+                }
+                if (deleteBoardConfirmModal) {
+                    deleteBoardConfirmModal.show();
+                }
+            });
+        }
+
+        if (btnConfirmDeleteBoard) {
+            btnConfirmDeleteBoard.addEventListener("click", function() {
+                btnConfirmDeleteBoard.disabled = true;
+                btnConfirmDeleteBoard.textContent = "Deleting...";
+                if (deleteBoardError) {
+                    deleteBoardError.classList.add("d-none");
+                }
+
+                fetch("/Kanban/DeleteBoard", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&boardId=" + boardId
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    if (deleteBoardConfirmModal) {
+                        deleteBoardConfirmModal.hide();
+                    }
+                    window.location.href = "/Kanban/Index";
+                })
+                .catch(function(err) {
+                    if (deleteBoardError) {
+                        deleteBoardError.textContent = "Failed to delete board: " + (err.message || "Unknown error");
+                        deleteBoardError.classList.remove("d-none");
+                    }
+                })
+                .finally(function() {
+                    btnConfirmDeleteBoard.disabled = false;
+                    btnConfirmDeleteBoard.textContent = "Delete Board";
+                });
+            });
+        }
+
+        var addColumnModalEl = document.getElementById("addColumnModal");
+        var addColumnModal = addColumnModalEl ? new bootstrap.Modal(addColumnModalEl) : null;
+        var columnNameInput = document.getElementById("columnNameInput");
+        var columnError = document.getElementById("columnError");
+        var btnSaveColumn = document.getElementById("btnSaveColumn");
+
+        if (btnSaveColumn && columnNameInput && columnError) {
+            btnSaveColumn.addEventListener("click", function() {
+                var name = columnNameInput.value.trim();
+                if (!name) {
+                    columnNameInput.classList.add("is-invalid");
+                    columnError.textContent = "Column name is required.";
+                    return;
+                }
+
+                btnSaveColumn.disabled = true;
+                btnSaveColumn.textContent = "Saving...";
+
+                fetch("/Kanban/CreateColumn", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) 
+                        + "&boardId=" + boardId 
+                        + "&name=" + encodeURIComponent(name)
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    return r.json();
+                })
+                .then(function() {
+                    if (addColumnModal) {
+                        addColumnModal.hide();
+                    }
+                    window.location.reload();
+                })
+                .catch(function(err) {
+                    console.error("CreateColumn failed:", err);
+                    columnNameInput.classList.add("is-invalid");
+                    columnError.textContent = err.message || "Failed to create column.";
+                })
+                .finally(function() {
+                    btnSaveColumn.disabled = false;
+                    btnSaveColumn.textContent = "Add Column";
+                });
+            });
+            
+            columnNameInput.addEventListener("input", function() {
+                columnNameInput.classList.remove("is-invalid");
+                columnError.textContent = "";
+            });
+        }
+    });
+</script>
+}
