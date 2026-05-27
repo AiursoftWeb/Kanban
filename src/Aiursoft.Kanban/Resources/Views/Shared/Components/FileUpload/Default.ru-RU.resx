@@ -51,5 +51,8 @@
   <data name="The image width is too small ({{ value }}px min)." xml:space="preserve">
     <value>Ширина изображения слишком мала (минимум {{ value }}px).</value>
   </data>
+  <data name="Your file is still uploading. Are you sure to quit?" xml:space="preserve">
+    <value>Загрузка файла еще не завершена. Вы уверены, что хотите выйти?</value>
+  </data>
 
 </root>
