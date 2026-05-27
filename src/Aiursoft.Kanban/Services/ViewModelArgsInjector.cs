@@ -18,6 +18,7 @@ using Aiursoft.UiStack.Views.Shared.Components.UserDropdown;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Diagnostics.CodeAnalysis;
@@ -31,7 +32,9 @@ public class ViewModelArgsInjector(
     IAuthorizationService authorizationService,
     IOptions<AppSettings> appSettings,
     GlobalSettingsService globalSettingsService,
-    SignInManager<User> signInManager) : IScopedDependency
+    SignInManager<User> signInManager,
+    UserManager<User> userManager,
+    TemplateDbContext db) : IScopedDependency
 {
 
     [ExcludeFromCodeCoverage]
@@ -85,7 +88,10 @@ public class ViewModelArgsInjector(
         _ = localizer["My Boards"];
         _ = localizer["My Tasks"];
         _ = localizer["Shared with Me"];
-    
+
+        _ = localizer["Overview Kanban"];
+        _ = localizer["My Created"];
+        _ = localizer["All Boards"];
         _ = localizer["Edit Board"];
     }
 
@@ -185,6 +191,54 @@ public class ViewModelArgsInjector(
                 {
                     Name = localizer[groupDef.Name],
                     Items = itemsForView.Select(t => (SideBarItem)t).ToList()
+                });
+            }
+        }
+
+        if (signInManager.IsSignedIn(context.User))
+        {
+            var userId = userManager.GetUserId(context.User)!;
+            var user = userManager.FindByIdAsync(userId).GetAwaiter().GetResult();
+            var userRoles = userManager.GetRolesAsync(user!).GetAwaiter().GetResult();
+            var userRoleIds = db.Roles
+                .Where(r => userRoles.Contains(r.Name!))
+                .Select(r => r.Id)
+                .ToList();
+
+            var ownedBoards = db.KanbanBoards
+                .Where(b => b.UserId == userId)
+                .OrderBy(b => b.Name)
+                .ToList();
+
+            var sharedBoardIds = db.BoardShares
+                .Where(s => s.SharedWithUserId == userId ||
+                            (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId)))
+                .Select(s => s.BoardId)
+                .Distinct()
+                .ToList();
+
+            var sharedBoards = db.KanbanBoards
+                .Where(b => sharedBoardIds.Contains(b.Id) && b.UserId != userId)
+                .OrderBy(b => b.Name)
+                .ToList();
+
+            var allBoards = ownedBoards.Concat(sharedBoards).OrderBy(b => b.Name).ToList();
+
+            if (allBoards.Any())
+            {
+                var boardItems = allBoards.Select(board => new LinkSideBarItem
+                {
+                    Text = board.Name,
+                    Href = $"/Kanban/Index?boardId={board.Id}",
+                    LucideIcon = "columns-3",
+                    IsActive = string.Equals(currentViewingController, "Kanban", StringComparison.OrdinalIgnoreCase) &&
+                               string.Equals(context.Request.Query["boardId"].ToString(), board.Id.ToString(), StringComparison.OrdinalIgnoreCase)
+                }).Cast<SideBarItem>().ToList();
+
+                navGroupsForView.Add(new NavGroup
+                {
+                    Name = localizer["All Boards"],
+                    Items = boardItems
                 });
             }
         }
