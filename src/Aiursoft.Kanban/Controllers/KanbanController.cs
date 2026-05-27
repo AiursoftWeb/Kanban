@@ -946,6 +946,27 @@ public class KanbanController(
         return Ok(comments);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> DeleteComment(int commentId)
+    {
+        var userId = userManager.GetUserId(User)!;
+        var comment = await db.KanbanCardComments.Include(c => c.Card).ThenInclude(c => c.Column).ThenInclude(col => col.Board).FirstOrDefaultAsync(c => c.Id == commentId);
+        if (comment == null) return NotFound();
+
+        if (!await HasReadAccess(comment.Card.Column.Board, userId)) return Forbid();
+
+        // Only the author or board admin can delete
+        if (comment.AuthorId != userId)
+        {
+            var boardAdminId = comment.Card.Column.Board.UserId;
+            if (userId != boardAdminId) return Forbid();
+        }
+
+        db.Remove(comment);
+        await db.SaveChangesAsync();
+        return Ok();
+    }
+
     private Task<KanbanBoard?> LoadBoardAsync(int boardId)
     {
         return db.KanbanBoards

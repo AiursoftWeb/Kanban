@@ -581,6 +581,27 @@
         font-size: 0.8rem;
     }
 
+    .comment-delete-btn {
+        margin-left: auto;
+        padding: 0.1rem 0.35rem;
+        border: none;
+        background: transparent;
+        color: var(--bs-secondary-color);
+        cursor: pointer;
+        border-radius: 6px;
+        opacity: 0;
+        transition: opacity 0.15s, background 0.15s, color 0.15s;
+    }
+
+    .comment-item:hover .comment-delete-btn {
+        opacity: 1;
+    }
+
+    .comment-delete-btn:hover {
+        background: var(--bs-danger-bg-subtle);
+        color: var(--bs-danger);
+    }
+
     .comment-add-area {
         display: flex;
         gap: 0.5rem;
@@ -1195,6 +1216,9 @@
     <span data-key="comment-too-long">@Localizer["Comment is too long (max 2000 characters)."]</span>
     <span data-key="sending">@Localizer["Sending..."]</span>
     <span data-key="send">@Localizer["Send"]</span>
+    <span data-key="delete-comment">@Localizer["Delete"]</span>
+    <span data-key="confirm-delete-comment">@Localizer["Delete this comment?"]</span>
+    <span data-key="failed-delete-comment">@Localizer["Failed to delete comment."]</span>
 </div>
 
 @* ReSharper disable once Razor.SectionNotResolved *@
@@ -1425,7 +1449,13 @@
                         return;
                     }
                     commentsList.innerHTML = comments.map(function(c) {
-                        return '<div class="comment-item">'
+                        var deleteBtn = '';
+                        if (canEditCurrentBoard) {
+                            deleteBtn = '<button type="button" class="comment-delete-btn" title="' + getLocalizedText("delete-comment", "Delete") + '">'
+                                + '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>'
+                                + '</button>';
+                        }
+                        return '<div class="comment-item" data-comment-id="' + c.Id + '">'
                             + '<div class="comment-avatar">' + escapeHtml(c.AuthorInitial || "?") + '</div>'
                             + '<div class="comment-body">'
                                 + '<div class="comment-header">'
@@ -1434,8 +1464,17 @@
                                 + '</div>'
                                 + '<div class="comment-text">' + renderMarkdownContent(c.Content) + '</div>'
                             + '</div>'
+                            + deleteBtn
                         + '</div>';
                     }).join("");
+
+                    // Attach delete handlers
+                    commentsList.querySelectorAll('.comment-delete-btn').forEach(function(btn) {
+                        btn.addEventListener('click', function() {
+                            var commentId = this.closest('.comment-item').dataset.commentId;
+                            deleteComment(commentId);
+                        });
+                    });
                 })
                 .catch(function(err) { console.error("GetComments failed:", err); });
         }
@@ -2469,6 +2508,21 @@
                     e.preventDefault();
                     submitComment();
                 }
+            });
+        }
+
+        function deleteComment(commentId) {
+            if (!confirm(getLocalizedText("confirm-delete-comment", "Delete this comment?"))) return;
+            fetch("/Kanban/DeleteComment?commentId=" + commentId, {
+                method: "POST",
+                headers: { "RequestVerificationToken": csrfToken }
+            })
+            .then(function(r) {
+                if (!r.ok) throw new Error(getLocalizedText("failed-delete-comment", "Failed to delete comment."));
+                loadComments(currentEditCardId);
+            })
+            .catch(function(err) {
+                alert(err.message || getLocalizedText("failed-delete-comment", "Failed to delete comment."));
             });
         }
     });
