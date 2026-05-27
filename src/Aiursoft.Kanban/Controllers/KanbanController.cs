@@ -48,8 +48,25 @@ public class KanbanController(
         var boards = await db.KanbanBoards
             .Where(b => b.UserId == userId)
             .Include(b => b.Columns)
+                .ThenInclude(c => c.Cards)
             .OrderByDescending(b => b.CreationTime)
             .ToListAsync();
+
+        var now = DateTime.UtcNow;
+        var summaries = new Dictionary<int, BoardSummary>();
+        foreach (var board in boards)
+        {
+            var cards = board.Columns.SelectMany(c => c.Cards).ToList();
+            summaries[board.Id] = new BoardSummary
+            {
+                BoardId = board.Id,
+                TotalIncomplete = cards.Count(c => c.Column.ColumnStatus != ColumnStatus.Completed),
+                TotalInProgress = cards.Count(c => c.Column.ColumnStatus == ColumnStatus.InProgress),
+                TotalCompleted = cards.Count(c => c.Column.ColumnStatus == ColumnStatus.Completed),
+                TotalOverdue = cards.Count(c => c.DueDate.HasValue && c.DueDate.Value < now && c.Column.ColumnStatus != ColumnStatus.Completed),
+                TotalUnassigned = cards.Count(c => string.IsNullOrEmpty(c.AssignedUserId))
+            };
+        }
 
         KanbanBoard? currentBoard = null;
         var canEditCurrentBoard = false;
@@ -72,6 +89,7 @@ public class KanbanController(
         return this.StackView(new IndexViewModel
         {
             Boards = boards,
+            BoardSummaries = summaries,
             CurrentBoard = currentBoard,
             IsOwner = currentBoard == null || currentBoard.UserId == userId,
             CanEditCurrentBoard = currentBoard == null || canEditCurrentBoard
