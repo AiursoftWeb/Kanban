@@ -79,6 +79,9 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("UserId")
                         .HasMaxLength(450)
                         .HasColumnType("TEXT");

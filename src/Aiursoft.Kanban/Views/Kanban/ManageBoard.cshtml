@@ -27,11 +27,24 @@
                 <h5 class="card-title mb-0"><i class="align-middle" data-lucide="edit-3"></i> @Localizer["Board Name"]</h5>
             </div>
             <div class="card-body">
-                <div class="input-group" style="max-width: 500px;">
-                    <input type="text" class="form-control" id="boardNameInput" value="@Model.BoardName" placeholder="@Localizer["Board name"]" style="border-radius:10px 0 0 10px">
-                    <button type="button" class="btn btn-primary" id="btnSaveBoardName" style="border-radius:0 10px 10px 0">@Localizer["Save"]</button>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">@Localizer["Board Name"]</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="boardNameInput" value="@Model.BoardName" placeholder="@Localizer["Board name"]" style="border-radius:10px 0 0 10px">
+                            <button type="button" class="btn btn-primary" id="btnSaveBoardName" style="border-radius:0 10px 10px 0">@Localizer["Save"]</button>
+                        </div>
+                        <div class="form-text mt-1" id="boardNameMessage"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">@Localizer["Sort Order"]</label>
+                        <div class="input-group" style="max-width: 300px;">
+                            <input type="number" class="form-control" id="boardOrderInput" value="@Model.BoardOrder" placeholder="100" style="border-radius:10px 0 0 10px">
+                            <button type="button" class="btn btn-primary" id="btnSaveBoardOrder" style="border-radius:0 10px 10px 0">@Localizer["Save"]</button>
+                        </div>
+                        <div class="form-text mt-1" id="boardOrderMessage"></div>
+                    </div>
                 </div>
-                <div class="form-text mt-1" id="boardNameMessage"></div>
             </div>
         </div>
     </div>
@@ -216,6 +229,8 @@
     <span data-key="add-column">@Localizer["Add Column"]</span>
     <span data-key="failed-create-column">@Localizer["Failed to create column."]</span>
     <span data-key="save">@Localizer["Save"]</span>
+    <span data-key="sort-order">@Localizer["Sort Order"]</span>
+    <span data-key="order-updated">@Localizer["Order updated."]</span>
 </div>
 
 @* ReSharper disable once Razor.SectionNotResolved *@
@@ -274,6 +289,51 @@
                 .finally(function() {
                     btnSaveBoardName.disabled = false;
                     btnSaveBoardName.textContent = getLocalizedText("save", "Save");
+                });
+            });
+        }
+
+        var boardOrderInput = document.getElementById("boardOrderInput");
+        var btnSaveBoardOrder = document.getElementById("btnSaveBoardOrder");
+        var boardOrderMessage = document.getElementById("boardOrderMessage");
+
+        if (btnSaveBoardOrder && boardOrderInput) {
+            btnSaveBoardOrder.addEventListener("click", function() {
+                var order = parseInt(boardOrderInput.value, 10);
+                if (isNaN(order)) {
+                    boardOrderMessage.textContent = getLocalizedText("sort-order", "Sort Order") + " " + getLocalizedText("board-name-required", "is required.");
+                    boardOrderMessage.className = "form-text mt-1 text-danger";
+                    return;
+                }
+
+                btnSaveBoardOrder.disabled = true;
+                btnSaveBoardOrder.textContent = getLocalizedText("saving", "Saving...");
+
+                fetch("/Kanban/UpdateBoardOrder", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&boardId=" + boardId
+                        + "&order=" + order
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
+                    return r.json();
+                })
+                .then(function() {
+                    boardOrderMessage.textContent = getLocalizedText("order-updated", "Order updated.");
+                    boardOrderMessage.className = "form-text mt-1 text-success";
+                })
+                .catch(function(err) {
+                    boardOrderMessage.textContent = err.message || getLocalizedText("failed-to-save", "Failed to save.");
+                    boardOrderMessage.className = "form-text mt-1 text-danger";
+                })
+                .finally(function() {
+                    btnSaveBoardOrder.disabled = false;
+                    btnSaveBoardOrder.textContent = getLocalizedText("save", "Save");
                 });
             });
         }

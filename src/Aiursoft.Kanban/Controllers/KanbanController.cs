@@ -49,7 +49,7 @@ public class KanbanController(
             .Where(b => b.UserId == userId)
             .Include(b => b.Columns)
                 .ThenInclude(c => c.Cards)
-            .OrderByDescending(b => b.CreationTime)
+            .OrderBy(b => b.Order)
             .ToListAsync();
 
         var now = DateTime.UtcNow;
@@ -148,7 +148,10 @@ public class KanbanController(
             return BadRequest();
 
         var userId = userManager.GetUserId(User)!;
-        var board = new KanbanBoard { Name = name.Trim(), UserId = userId };
+        var maxOrder = await db.KanbanBoards
+            .Where(b => b.UserId == userId)
+            .MaxAsync(b => (int?)b.Order) ?? 0;
+        var board = new KanbanBoard { Name = name.Trim(), UserId = userId, Order = maxOrder + 100 };
         db.KanbanBoards.Add(board);
 
         var defaultColumns = new[]
@@ -317,6 +320,42 @@ public class KanbanController(
     }
 
     [HttpPost]
+    public async Task<IActionResult> MoveBoard(int boardId, int newOrder)
+    {
+        var board = await db.KanbanBoards.FindAsync(boardId);
+        if (board == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (board.UserId != userId) return Forbid();
+
+        var boards = await db.KanbanBoards
+            .Where(b => b.UserId == userId && b.Id != boardId)
+            .OrderBy(b => b.Order)
+            .ToListAsync();
+
+        var allBoards = new List<KanbanBoard>();
+        var idx = 0;
+        foreach (var existing in boards)
+        {
+            if (idx == newOrder) allBoards.Add(board);
+            allBoards.Add(existing);
+            idx++;
+        }
+
+        if (idx <= newOrder) allBoards.Add(board);
+
+        var orderValue = 0;
+        foreach (var b in allBoards)
+        {
+            orderValue += 100;
+            b.Order = orderValue;
+        }
+
+        await db.SaveChangesAsync();
+        return Ok();
+    }
+
+    [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteColumn(int columnId)
     {
@@ -372,6 +411,21 @@ public class KanbanController(
         board.Name = name.Trim();
         await db.SaveChangesAsync();
         return Ok(new { board.Id, board.Name });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateBoardOrder(int boardId, int order)
+    {
+        var board = await db.KanbanBoards.FindAsync(boardId);
+        if (board == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (board.UserId != userId) return Forbid();
+
+        board.Order = order;
+        await db.SaveChangesAsync();
+        return Ok(new { board.Id, board.Order });
     }
 
     [HttpPost]
@@ -700,6 +754,7 @@ public class KanbanController(
         {
             BoardId = board.Id,
             BoardName = board.Name,
+            BoardOrder = board.Order,
             Columns = board.Columns.OrderBy(c => c.Order).ToList()
         });
     }
