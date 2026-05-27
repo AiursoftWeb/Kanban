@@ -176,12 +176,12 @@
   </data>
 
   <data name="Overview Kanban" xml:space="preserve">
-    <value>Overview Kanban</value>
+    <value>कानबन अवलोकन</value>
   </data>
   <data name="My Created" xml:space="preserve">
-    <value>My Created</value>
+    <value>मेरे द्वारा बनाया गया</value>
   </data>
   <data name="All Boards" xml:space="preserve">
-    <value>All Boards</value>
+    <value>सभी बोर्ड</value>
   </data>
 </root>

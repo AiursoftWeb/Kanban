@@ -179,12 +179,12 @@
   </data>
 
   <data name="Overview Kanban" xml:space="preserve">
-    <value>Overview Kanban</value>
+    <value>かんばんの概要</value>
   </data>
   <data name="My Created" xml:space="preserve">
-    <value>My Created</value>
+    <value>作成したもの</value>
   </data>
   <data name="All Boards" xml:space="preserve">
-    <value>All Boards</value>
+    <value>すべてのボード</value>
   </data>
 </root>

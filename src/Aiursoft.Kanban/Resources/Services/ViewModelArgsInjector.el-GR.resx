@@ -176,12 +176,12 @@
   </data>
 
   <data name="Overview Kanban" xml:space="preserve">
-    <value>Overview Kanban</value>
+    <value>Επισκόπηση Kanban</value>
   </data>
   <data name="My Created" xml:space="preserve">
-    <value>My Created</value>
+    <value>Δημιουργήθηκαν από Εμένα</value>
   </data>
   <data name="All Boards" xml:space="preserve">
-    <value>All Boards</value>
+    <value>Όλοι οι Πίνακες</value>
   </data>
 </root>
