@@ -65,7 +65,8 @@
 
             sizeInMb: @Model.MaxSizeInMb,
             validExtensions: ('@Model.AllowedExtensions' || '').split(' ').filter(Boolean),
-            uploadUrl: '@Model.UploadEndpoint'
+            uploadUrl: '@Model.UploadEndpoint',
+            uploadingMessage: @Json.Serialize(Localizer["Your file is still uploading. Are you sure to quit?"].Value)
         }).init({
             messages: {
                 'default': @Json.Serialize(Localizer["Drag and drop a file here or click"].Value),
@@ -97,3 +98,4 @@
 @* @Localizer["The image height is too big ({{ value }}px max)."] *@
 @* @Localizer["The image format is not allowed ({{ value }} only)."] *@
 @* @Localizer["The file is not allowed ({{ value }} only)."] *@
+@* @Localizer["Your file is still uploading. Are you sure to quit?"] *@

@@ -512,14 +512,14 @@
 <div class="kanban-topbar container-fluid px-4 pt-4 pb-0">
     <div class="d-flex align-items-center justify-content-between mb-3">
         <div class="d-flex align-items-center gap-3">
-            <h1 class="h4 mb-0">Kanban</h1>
+            <h1 class="h4 mb-0">@Localizer["Kanban"]</h1>
             @if (Model.CurrentBoard != null)
             {
                 <div class="d-flex align-items-center gap-2">
                     <span class="fw-semibold mb-0 board-title-display" style="font-size:0.95rem">@Model.CurrentBoard.Name</span>
                     @if (Model.CanEditCurrentBoard)
                     {
-                        <button class="btn-edit-board-title" title="Rename board">
+                        <button class="btn-edit-board-title" title="@Localizer["Rename board"]">
                             <i class="align-middle" style="width:12px;height:12px" data-lucide="pencil"></i>
                         </button>
                     }
@@ -528,7 +528,7 @@
                 {
                     <span class="readonly-badge">
                         <i class="align-middle" style="width:14px;height:14px" data-lucide="eye"></i>
-                        Read-only
+                        @Localizer["Read-only"]
                     </span>
                 }
             }
@@ -539,26 +539,26 @@
                 @if (Model.CanEditCurrentBoard)
                 {
                     <button class="btn btn-primary btn-sm" id="btnAddColumn">
-                        <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> Add Column
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> @Localizer["Add Column"]
                     </button>
                 }
                 @if (Model.IsOwner)
                 {
                     <a asp-action="ManageBoard" asp-route-id="@Model.CurrentBoard.Id" class="btn btn-outline-secondary btn-sm">
-                        <i class="align-middle" style="width:16px;height:16px" data-lucide="settings"></i> Edit Board
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="settings"></i> @Localizer["Edit Board"]
                     </a>
                     <a asp-action="ManageShares" asp-route-id="@Model.CurrentBoard.Id" class="btn btn-outline-secondary btn-sm">
-                        <i class="align-middle" style="width:16px;height:16px" data-lucide="share-2"></i> Share
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="share-2"></i> @Localizer["Share"]
                     </a>
                 }
                 <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
-                    <i class="align-middle" style="width:16px;height:16px" data-lucide="arrow-left"></i> All Boards
+                    <i class="align-middle" style="width:16px;height:16px" data-lucide="arrow-left"></i> @Localizer["All Boards"]
                 </a>
             }
             @if (Model.CurrentBoard == null)
             {
                 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createBoardModal">
-                    <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> New Board
+                    <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> @Localizer["New Board"]
                 </button>
             }
         </div>
@@ -577,15 +577,15 @@
                         <table class="table table-hover mb-0" id="boardsTable">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Columns</th>
-                                    <th>Incomplete</th>
-                                    <th>In Progress</th>
-                                    <th>Completed</th>
-                                    <th>Overdue</th>
-                                    <th>Unassigned</th>
-                                    <th>Created</th>
-                                    <th data-orderable="false">Actions</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Columns"]</th>
+                                    <th>@Localizer["Incomplete"]</th>
+                                    <th>@Localizer["In Progress"]</th>
+                                    <th>@Localizer["Completed"]</th>
+                                    <th>@Localizer["Overdue"]</th>
+                                    <th>@Localizer["Unassigned"]</th>
+                                    <th>@Localizer["Created"]</th>
+                                    <th data-orderable="false">@Localizer["Actions"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -626,16 +626,16 @@
                                         <td><small class="text-muted" data-sort="@board.CreationTime.ToString("yyyy-MM-dd")">@board.CreationTime.ToString("yyyy-MM-dd")</small></td>
                                         <td class="text-end text-nowrap">
                                             <a asp-action="Index" asp-route-boardId="@board.Id" class="btn btn-sm btn-outline-primary me-1">
-                                                <i class="align-middle" data-lucide="eye"></i> View
+                                                <i class="align-middle" data-lucide="eye"></i> @Localizer["View"]
                                             </a>
                                             <a asp-action="ManageBoard" asp-route-id="@board.Id" class="btn btn-sm btn-outline-secondary me-1">
-                                                <i class="align-middle" data-lucide="settings"></i> Edit
+                                                <i class="align-middle" data-lucide="settings"></i> @Localizer["Edit"]
                                             </a>
                                             <a asp-action="ManageShares" asp-route-id="@board.Id" class="btn btn-sm btn-outline-secondary me-1">
-                                                <i class="align-middle" data-lucide="share-2"></i> Share
+                                                <i class="align-middle" data-lucide="share-2"></i> @Localizer["Share"]
                                             </a>
                                             <button type="button" class="btn btn-sm btn-outline-danger btn-delete-board-list" data-board-id="@board.Id" data-board-name="@board.Name">
-                                                <i class="align-middle" data-lucide="trash-2"></i> Delete
+                                                <i class="align-middle" data-lucide="trash-2"></i> @Localizer["Delete"]
                                             </button>
                                         </td>
                                     </tr>
@@ -654,10 +654,10 @@
                 <div class="empty-state-icon">
                     <i data-lucide="columns-3" style="width:40px;height:40px;color:#868e96"></i>
                 </div>
-                <h2 class="h5 mb-2">No boards yet</h2>
-                <p class="text-muted mb-4">Create your first Kanban board to get started.</p>
+                <h2 class="h5 mb-2">@Localizer["No boards yet"]</h2>
+                <p class="text-muted mb-4">@Localizer["Create your first Kanban board to get started."]</p>
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createBoardModal">
-                    <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> Create Board
+                    <i class="align-middle" style="width:16px;height:16px" data-lucide="plus"></i> @Localizer["Create Board"]
                 </button>
             </div>
         }
@@ -681,21 +681,21 @@
                             <span class="column-count">@column.Cards.Count</span>
                             @if (Model.CanEditCurrentBoard)
                             {
-                                <button class="btn-edit-column-title" data-column-id="@column.Id" title="Rename column">
+                                <button class="btn-edit-column-title" data-column-id="@column.Id" title="@Localizer["Rename column"]">
                                     <i class="align-middle" style="width:12px;height:12px" data-lucide="pencil"></i>
                                 </button>
                             }
                         </div>
                         <div class="d-flex align-items-center gap-1">
                             <select class="column-status-select" data-column-id="@column.Id" disabled="@(!Model.CanEditCurrentBoard)">
-                                <option value="0">Not Started</option>
-                                <option value="1">In Progress</option>
-                                <option value="2">Completed</option>
+                                <option value="0">@Localizer["Not Started"]</option>
+                                <option value="1">@Localizer["In Progress"]</option>
+                                <option value="2">@Localizer["Completed"]</option>
                             </select>
                             <button class="btn-delete-column @(Model.CanEditCurrentBoard ? "can-delete" : string.Empty)"
                                     data-column-id="@column.Id"
                                     data-cards-count="@column.Cards.Count"
-                                    title="Delete column"
+                                    title="@Localizer["Delete column"]"
                                     disabled="@(!Model.CanEditCurrentBoard)">
                                 <i class="align-middle" style="width:14px;height:14px" data-lucide="trash-2"></i>
                             </button>
@@ -704,7 +704,7 @@
                     <div class="column-cards" data-column-id="@column.Id">
                         @if (!column.Cards.Any())
                         {
-                            <div class="column-empty-placeholder">Drop cards here</div>
+                            <div class="column-empty-placeholder">@Localizer["Drop cards here"]</div>
                         }
                         @foreach (var card in column.Cards.OrderBy(c => c.Order))
                         {
@@ -739,7 +739,7 @@
                     @if (Model.CanEditCurrentBoard)
                     {
                         <button class="btn-add-card" data-column-id="@column.Id">
-                            <i class="align-middle" style="width:14px;height:14px" data-lucide="plus"></i> Add Card
+                            <i class="align-middle" style="width:14px;height:14px" data-lucide="plus"></i> @Localizer["Add Card"]
                         </button>
                     }
                 </div>
@@ -755,19 +755,19 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
             <div class="modal-header border-0 px-4 pt-4">
-                <h5 class="modal-title fw-bold">Create New Board</h5>
+                <h5 class="modal-title fw-bold">@Localizer["Create New Board"]</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form asp-action="CreateBoard" method="post">
                 @Html.AntiForgeryToken()
                 <div class="modal-body px-4">
-                    <label class="form-label fw-semibold">Board Name</label>
-                    <input type="text" name="name" class="form-control form-control-lg" placeholder="My Board" autofocus required
+                    <label class="form-label fw-semibold">@Localizer["Board Name"]</label>
+                    <input type="text" name="name" class="form-control form-control-lg" placeholder="@Localizer["My Board"]" autofocus required
                            style="border-radius:12px">
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
-                    <button type="submit" class="btn btn-primary px-4" style="border-radius:10px">Create Board</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-primary px-4" style="border-radius:10px">@Localizer["Create Board"]</button>
                 </div>
             </form>
         </div>
@@ -781,18 +781,18 @@
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
                 <div class="modal-header border-0 px-4 pt-4">
-                    <h5 class="modal-title fw-bold">Add Column</h5>
+                    <h5 class="modal-title fw-bold">@Localizer["Add Column"]</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body px-4">
-                    <label class="form-label fw-semibold">Column Name</label>
-                    <input type="text" id="columnNameInput" class="form-control form-control-lg" placeholder="Review" autofocus
+                    <label class="form-label fw-semibold">@Localizer["Column Name"]</label>
+                    <input type="text" id="columnNameInput" class="form-control form-control-lg" placeholder="@Localizer["Review"]" autofocus
                            style="border-radius:12px">
                     <div class="invalid-feedback" id="columnError"></div>
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
-                    <button type="button" class="btn btn-primary px-4" id="btnSaveColumn" style="border-radius:10px">Add Column</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
+                    <button type="button" class="btn btn-primary px-4" id="btnSaveColumn" style="border-radius:10px">@Localizer["Add Column"]</button>
                 </div>
             </div>
         </div>
@@ -803,25 +803,25 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
                 <div class="modal-header border-0 px-4 pt-4">
-                    <h5 class="modal-title fw-bold">Add Card</h5>
+                    <h5 class="modal-title fw-bold">@Localizer["Add Card"]</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body px-4">
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Title</label>
-                        <input type="text" id="cardTitleInput" class="form-control form-control-lg" placeholder="What needs to be done?" autofocus
+                        <label class="form-label fw-semibold">@Localizer["Title"]</label>
+                        <input type="text" id="cardTitleInput" class="form-control form-control-lg" placeholder="@Localizer["What needs to be done?"]" autofocus
                                style="border-radius:12px">
                         <div class="invalid-feedback" id="cardError"></div>
                     </div>
                     <div class="mb-0">
-                        <label class="form-label fw-semibold">Description <span class="text-muted fw-normal">(optional)</span></label>
-                        <textarea id="cardDescInput" class="form-control" rows="3" placeholder="Add more details..."
+                        <label class="form-label fw-semibold">@Localizer["Description"] <span class="text-muted fw-normal">(@Localizer["optional"])</span></label>
+                        <textarea id="cardDescInput" class="form-control" rows="3" placeholder="@Localizer["Add more details..."]"
                                   style="border-radius:12px;resize:none"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
-                    <button type="button" class="btn btn-primary px-4" id="btnSaveCard" style="border-radius:10px">Add Card</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
+                    <button type="button" class="btn btn-primary px-4" id="btnSaveCard" style="border-radius:10px">@Localizer["Add Card"]</button>
                 </div>
             </div>
         </div>
@@ -835,79 +835,79 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
                 <div class="modal-header border-0 px-4 pt-4">
-                    <h5 class="modal-title fw-bold">Card Details</h5>
+                    <h5 class="modal-title fw-bold">@Localizer["Card Details"]</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body px-4">
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Title</label>
+                        <label class="form-label fw-semibold">@Localizer["Title"]</label>
                         <input type="text" id="editCardTitle" class="form-control" style="border-radius:12px" required disabled="@(!Model.CanEditCurrentBoard)">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Description <span class="text-muted fw-normal">(optional)</span></label>
+                        <label class="form-label fw-semibold">@Localizer["Description"] <span class="text-muted fw-normal">(@Localizer["optional"])</span></label>
                         <textarea id="editCardDescription" class="form-control" rows="3" style="border-radius:12px;resize:none" disabled="@(!Model.CanEditCurrentBoard)"></textarea>
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-6">
-                            <label class="form-label fw-semibold">Planned Start</label>
+                            <label class="form-label fw-semibold">@Localizer["Planned Start"]</label>
                             <input type="date" id="editCardPlannedStart" class="form-control" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
                         </div>
                         <div class="col-6">
-                            <label class="form-label fw-semibold">Due Date</label>
+                            <label class="form-label fw-semibold">@Localizer["Due Date"]</label>
                             <input type="date" id="editCardDueDate" class="form-control" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
                         </div>
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-6">
-                            <label class="form-label fw-semibold">Priority</label>
+                            <label class="form-label fw-semibold">@Localizer["Priority"]</label>
                             <select id="editCardPriority" class="form-select" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
-                                <option value="0">Urgent</option>
-                                <option value="1">High</option>
-                                <option value="2">Medium</option>
-                                <option value="3">Low</option>
-                                <option value="4">None</option>
+                                <option value="0">@Localizer["Urgent"]</option>
+                                <option value="1">@Localizer["High"]</option>
+                                <option value="2">@Localizer["Medium"]</option>
+                                <option value="3">@Localizer["Low"]</option>
+                                <option value="4">@Localizer["None"]</option>
                             </select>
                         </div>
                         <div class="col-6">
-                            <label class="form-label fw-semibold">Assignee</label>
+                            <label class="form-label fw-semibold">@Localizer["Assignee"]</label>
                             <select id="editCardAssignee" class="form-select" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
-                                <option value="">Unassigned</option>
+                                <option value="">@Localizer["Unassigned"]</option>
                             </select>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Labels</label>
+                        <label class="form-label fw-semibold">@Localizer["Labels"]</label>
                         @if (Model.CanEditCurrentBoard)
                         {
                             <div class="input-group mb-2">
-                                <input type="text" id="editCardLabelInput" class="form-control" list="editCardLabelSuggestions" placeholder="Search or create a label" style="border-radius:12px 0 0 12px">
-                                <button type="button" class="btn btn-outline-secondary" id="btnAddLabel" style="border-radius:0 12px 12px 0">Add</button>
+                                <input type="text" id="editCardLabelInput" class="form-control" list="editCardLabelSuggestions" placeholder="@Localizer["Search or create a label"]" style="border-radius:12px 0 0 12px">
+                                <button type="button" class="btn btn-outline-secondary" id="btnAddLabel" style="border-radius:0 12px 12px 0">@Localizer["Add"]</button>
                             </div>
                             <datalist id="editCardLabelSuggestions"></datalist>
-                            <div class="form-text">Press Enter to add a label or create a new one on the fly.</div>
+                            <div class="form-text">@Localizer["Press Enter to add a label or create a new one on the fly."]</div>
                         }
                         else
                         {
-                            <div class="form-text">Labels are read-only because you do not have edit access to this board.</div>
+                            <div class="form-text">@Localizer["Labels are read-only because you do not have edit access to this board."]</div>
                         }
                         <div id="editCardLabels" class="edit-card-labels mt-3"></div>
                     </div>
                     <div class="row g-3">
                         <div class="col-6">
-                            <label class="form-label text-muted small">Actual Start <span class="text-muted fw-normal">(auto)</span></label>
+                            <label class="form-label text-muted small">@Localizer["Actual Start"] <span class="text-muted fw-normal">(@Localizer["auto"])</span></label>
                             <div id="editCardActualStart" class="form-control bg-light text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
                         </div>
                         <div class="col-6">
-                            <label class="form-label text-muted small">Actual End <span class="text-muted fw-normal">(auto)</span></label>
+                            <label class="form-label text-muted small">@Localizer["Actual End"] <span class="text-muted fw-normal">(@Localizer["auto"])</span></label>
                             <div id="editCardActualEnd" class="form-control bg-light text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@(Model.CanEditCurrentBoard ? "Cancel" : "Close")</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@(Model.CanEditCurrentBoard ? Localizer["Cancel"].Value : Localizer["Close"].Value)</button>
                     @if (Model.CanEditCurrentBoard)
                     {
-                        <button type="button" class="btn btn-primary px-4" id="btnUpdateCard" style="border-radius:10px">Save</button>
+                        <button type="button" class="btn btn-primary px-4" id="btnUpdateCard" style="border-radius:10px">@Localizer["Save"]</button>
                     }
                 </div>
             </div>
@@ -920,18 +920,18 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
             <div class="modal-header border-0 px-4 pt-4">
-                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>Delete Board</h5>
+                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete Board"]</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body px-4">
-                <p>Are you sure you want to delete the board <strong id="deleteBoardNameDisplay"></strong>?</p>
-                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> This action permanently removes all columns and cards. This cannot be undone.</p>
+                <p>@Localizer["Are you sure you want to delete the board"] <strong id="deleteBoardNameDisplay"></strong>?</p>
+                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action permanently removes all columns and cards. This cannot be undone."]</p>
                 <div class="alert alert-danger mt-2 d-none" id="deleteBoardError" role="alert"></div>
             </div>
             <div class="modal-footer border-0 px-4 pb-4">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
                 <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteBoard" style="border-radius:10px">
-                    Delete Board
+                    @Localizer["Delete Board"]
                 </button>
             </div>
         </div>
@@ -943,23 +943,116 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
             <div class="modal-header border-0 px-4 pt-4">
-                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>Delete Column</h5>
+                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete Column"]</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body px-4">
-                <p>Are you sure you want to delete the column <strong id="deleteColumnNameDisplay"></strong>?</p>
-                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> This action cannot be undone.</p>
+                <p>@Localizer["Are you sure you want to delete the column"] <strong id="deleteColumnNameDisplay"></strong>?</p>
+                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action cannot be undone."]</p>
                 <div class="alert alert-warning mt-2 d-none" id="deleteColumnWarning" role="alert"></div>
                 <div class="alert alert-danger mt-2 d-none" id="deleteColumnError" role="alert"></div>
             </div>
             <div class="modal-footer border-0 px-4 pb-4">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
                 <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteColumn" style="border-radius:10px">
-                    Delete Column
+                    @Localizer["Delete Column"]
                 </button>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Localization Data -->
+<div id="loc-data" hidden>
+    <span data-key="kanban">@Localizer["Kanban"]</span>
+    <span data-key="read-only">@Localizer["Read-only"]</span>
+    <span data-key="add-column">@Localizer["Add Column"]</span>
+    <span data-key="edit-board">@Localizer["Edit Board"]</span>
+    <span data-key="share">@Localizer["Share"]</span>
+    <span data-key="all-boards">@Localizer["All Boards"]</span>
+    <span data-key="new-board">@Localizer["New Board"]</span>
+    <span data-key="name">@Localizer["Name"]</span>
+    <span data-key="columns">@Localizer["Columns"]</span>
+    <span data-key="incomplete">@Localizer["Incomplete"]</span>
+    <span data-key="in-progress">@Localizer["In Progress"]</span>
+    <span data-key="completed">@Localizer["Completed"]</span>
+    <span data-key="overdue">@Localizer["Overdue"]</span>
+    <span data-key="unassigned">@Localizer["Unassigned"]</span>
+    <span data-key="created">@Localizer["Created"]</span>
+    <span data-key="actions">@Localizer["Actions"]</span>
+    <span data-key="view">@Localizer["View"]</span>
+    <span data-key="edit">@Localizer["Edit"]</span>
+    <span data-key="delete">@Localizer["Delete"]</span>
+    <span data-key="no-boards-yet">@Localizer["No boards yet"]</span>
+    <span data-key="create-first-board">@Localizer["Create your first Kanban board to get started."]</span>
+    <span data-key="create-board">@Localizer["Create Board"]</span>
+    <span data-key="not-started">@Localizer["Not Started"]</span>
+    <span data-key="drop-cards-here">@Localizer["Drop cards here"]</span>
+    <span data-key="add-card">@Localizer["Add Card"]</span>
+    <span data-key="create-new-board">@Localizer["Create New Board"]</span>
+    <span data-key="board-name">@Localizer["Board Name"]</span>
+    <span data-key="my-board">@Localizer["My Board"]</span>
+    <span data-key="cancel">@Localizer["Cancel"]</span>
+    <span data-key="column-name">@Localizer["Column Name"]</span>
+    <span data-key="review">@Localizer["Review"]</span>
+    <span data-key="title">@Localizer["Title"]</span>
+    <span data-key="what-needs-to-be-done">@Localizer["What needs to be done?"]</span>
+    <span data-key="description">@Localizer["Description"]</span>
+    <span data-key="optional">@Localizer["optional"]</span>
+    <span data-key="add-more-details">@Localizer["Add more details..."]</span>
+    <span data-key="card-details">@Localizer["Card Details"]</span>
+    <span data-key="planned-start">@Localizer["Planned Start"]</span>
+    <span data-key="due-date">@Localizer["Due Date"]</span>
+    <span data-key="priority">@Localizer["Priority"]</span>
+    <span data-key="urgent">@Localizer["Urgent"]</span>
+    <span data-key="high">@Localizer["High"]</span>
+    <span data-key="medium">@Localizer["Medium"]</span>
+    <span data-key="low">@Localizer["Low"]</span>
+    <span data-key="none">@Localizer["None"]</span>
+    <span data-key="assignee">@Localizer["Assignee"]</span>
+    <span data-key="labels">@Localizer["Labels"]</span>
+    <span data-key="search-or-create-label">@Localizer["Search or create a label"]</span>
+    <span data-key="add">@Localizer["Add"]</span>
+    <span data-key="press-enter-label">@Localizer["Press Enter to add a label or create a new one on the fly."]</span>
+    <span data-key="labels-read-only">@Localizer["Labels are read-only because you do not have edit access to this board."]</span>
+    <span data-key="actual-start">@Localizer["Actual Start"]</span>
+    <span data-key="actual-end">@Localizer["Actual End"]</span>
+    <span data-key="auto">@Localizer["auto"]</span>
+    <span data-key="close">@Localizer["Close"]</span>
+    <span data-key="save">@Localizer["Save"]</span>
+    <span data-key="delete-board">@Localizer["Delete Board"]</span>
+    <span data-key="delete-column">@Localizer["Delete Column"]</span>
+    <span data-key="delete-column-title">@Localizer["Delete column"]</span>
+    <span data-key="rename-column">@Localizer["Rename column"]</span>
+    <span data-key="rename-board">@Localizer["Rename board"]</span>
+    <span data-key="are-you-sure-delete-board">@Localizer["Are you sure you want to delete the board"]</span>
+    <span data-key="delete-board-warning">@Localizer["This action permanently removes all columns and cards. This cannot be undone."]</span>
+    <span data-key="are-you-sure-delete-column">@Localizer["Are you sure you want to delete the column"]</span>
+    <span data-key="delete-column-warning">@Localizer["This action cannot be undone."]</span>
+    <span data-key="deleting">@Localizer["Deleting..."]</span>
+    <span data-key="saving">@Localizer["Saving..."]</span>
+    <span data-key="column">@Localizer["column"]</span>
+    <span data-key="column-name-required">@Localizer["Column name is required."]</span>
+    <span data-key="title-required">@Localizer["Title is required."]</span>
+    <span data-key="no-labels-yet">@Localizer["No labels yet."]</span>
+    <span data-key="change-color">@Localizer["Change {{0}} color"]</span>
+    <span data-key="remove">@Localizer["Remove {{0}}"]</span>
+    <span data-key="failed-delete-board">@Localizer["Failed to delete board:"]</span>
+    <span data-key="failed-create-column">@Localizer["Failed to create column."]</span>
+    <span data-key="failed-rename-column">@Localizer["Failed to rename column:"]</span>
+    <span data-key="failed-create-card">@Localizer["Failed to create card."]</span>
+    <span data-key="failed-delete-column">@Localizer["Failed to delete column:"]</span>
+    <span data-key="failed-remove-label">@Localizer["Failed to remove label."]</span>
+    <span data-key="failed-update-label-color">@Localizer["Failed to update label color."]</span>
+    <span data-key="failed-add-label">@Localizer["Failed to add label."]</span>
+    <span data-key="failed-load-members">@Localizer["Failed to load board members."]</span>
+    <span data-key="failed-save">@Localizer["Failed to save:"]</span>
+    <span data-key="failed-rename-board">@Localizer["Failed to rename board:"]</span>
+    <span data-key="server-error">@Localizer["Server error"]</span>
+    <span data-key="unknown-error">@Localizer["Unknown error"]</span>
+    <span data-key="delete-empty-column">@Localizer["Delete empty column"]</span>
+    <span data-key="this-column-contains">@Localizer["This column contains"]</span>
+    <span data-key="cards-delete-warning">@Localizer["card(s). Deleting the column will also permanently delete all its cards."]</span>
 </div>
 
 @* ReSharper disable once Razor.SectionNotResolved *@
@@ -969,6 +1062,11 @@
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
 <script>
+    function getLocalizedText(key, defaultText) {
+        var el = document.querySelector('#loc-data span[data-key="' + key + '"]');
+        return el ? el.innerText : (defaultText || key);
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         lucide.createIcons();
 
@@ -1023,7 +1121,7 @@
                 }
                 if (btnConfirmDeleteBoard) {
                     btnConfirmDeleteBoard.disabled = false;
-                    btnConfirmDeleteBoard.textContent = "Delete Board";
+                    btnConfirmDeleteBoard.textContent = getLocalizedText("delete-board", "Delete Board");
                 }
                 if (deleteBoardConfirmModal) {
                     deleteBoardConfirmModal.show();
@@ -1036,7 +1134,7 @@
                 if (!boardIdToDelete) return;
 
                 btnConfirmDeleteBoard.disabled = true;
-                btnConfirmDeleteBoard.textContent = "Deleting...";
+                btnConfirmDeleteBoard.textContent = getLocalizedText("deleting", "Deleting...");
                 if (deleteBoardError) {
                     deleteBoardError.classList.add("d-none");
                 }
@@ -1050,7 +1148,7 @@
                     body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&boardId=" + boardIdToDelete
                 })
                 .then(function(r) {
-                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
                     if (deleteBoardConfirmModal) {
                         deleteBoardConfirmModal.hide();
                     }
@@ -1065,13 +1163,13 @@
                 })
                 .catch(function(err) {
                     if (deleteBoardError) {
-                        deleteBoardError.textContent = "Failed to delete board: " + (err.message || "Unknown error");
+                        deleteBoardError.textContent = getLocalizedText("failed-delete-board", "Failed to delete board:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error"));
                         deleteBoardError.classList.remove("d-none");
                     }
                 })
                 .finally(function() {
                     btnConfirmDeleteBoard.disabled = false;
-                    btnConfirmDeleteBoard.textContent = "Delete Board";
+                    btnConfirmDeleteBoard.textContent = getLocalizedText("delete-board", "Delete Board");
                 });
             });
         }
@@ -1109,10 +1207,10 @@
 
         function getPriorityInfo(priorityValue) {
             switch (parseInt(priorityValue || "4", 10)) {
-                case 0: return { text: "Urgent", className: "priority-urgent" };
-                case 1: return { text: "High", className: "priority-high" };
-                case 2: return { text: "Medium", className: "priority-medium" };
-                case 3: return { text: "Low", className: "priority-low" };
+                case 0: return { text: getLocalizedText("urgent", "Urgent"), className: "priority-urgent" };
+                case 1: return { text: getLocalizedText("high", "High"), className: "priority-high" };
+                case 2: return { text: getLocalizedText("medium", "Medium"), className: "priority-medium" };
+                case 3: return { text: getLocalizedText("low", "Low"), className: "priority-low" };
                 default: return null;
             }
         }
@@ -1341,7 +1439,7 @@
                             + "&name=" + encodeURIComponent(newName)
                     })
                     .then(function(r) {
-                        if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                        if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
                         return r.json();
                     })
                     .then(function() {
@@ -1350,7 +1448,7 @@
                         input.remove();
                     })
                     .catch(function(err) {
-                        alert("Failed to rename column: " + (err.message || "Unknown error"));
+                        alert(getLocalizedText("failed-rename-column", "Failed to rename column:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
                         cancelRename();
                     });
                 }
@@ -1399,26 +1497,26 @@
                         '<span class="column-dot ' + dotClass + '"></span>' +
                         '<span class="column-title" data-column-id="' + columnId + '">' + escapeHtml(columnName) + '</span>' +
                         '<span class="column-count">0</span>' +
-                        '<button class="btn-edit-column-title" data-column-id="' + columnId + '" title="Rename column">' +
+                        '<button class="btn-edit-column-title" data-column-id="' + columnId + '" title="' + getLocalizedText("rename-column", "Rename column") + '">' +
                             '<i class="align-middle" style="width:12px;height:12px" data-lucide="pencil"></i>' +
                         '</button>' +
                     '</div>' +
                     '<div class="d-flex align-items-center gap-1">' +
                         '<select class="column-status-select" data-column-id="' + columnId + '">' +
-                            '<option value="0" selected>Not Started</option>' +
-                            '<option value="1">In Progress</option>' +
-                            '<option value="2">Completed</option>' +
+                            '<option value="0" selected>' + getLocalizedText("not-started", "Not Started") + '</option>' +
+                            '<option value="1">' + getLocalizedText("in-progress", "In Progress") + '</option>' +
+                            '<option value="2">' + getLocalizedText("completed", "Completed") + '</option>' +
                         '</select>' +
-                        '<button class="btn-delete-column can-delete" data-column-id="' + columnId + '" title="Delete empty column">' +
+                        '<button class="btn-delete-column can-delete" data-column-id="' + columnId + '" title="' + getLocalizedText("delete-empty-column", "Delete empty column") + '">' +
                             '<i class="align-middle" style="width:14px;height:14px" data-lucide="trash-2"></i>' +
                         '</button>' +
                     '</div>' +
                 '</div>' +
                 '<div class="column-cards" data-column-id="' + columnId + '">' +
-                    '<div class="column-empty-placeholder">Drop cards here</div>' +
+                    '<div class="column-empty-placeholder">' + getLocalizedText("drop-cards-here", "Drop cards here") + '</div>' +
                 '</div>' +
                 '<button class="btn-add-card" data-column-id="' + columnId + '">' +
-                    '<i class="align-middle" style="width:14px;height:14px" data-lucide="plus"></i> Add Card' +
+                    '<i class="align-middle" style="width:14px;height:14px" data-lucide="plus"></i> ' + getLocalizedText("add-card", "Add Card") +
                 '</button>';
 
             var statusSel = col.querySelector(".column-status-select");
@@ -1452,12 +1550,12 @@
                 var name = columnNameInput.value.trim();
                 if (!name) {
                     columnNameInput.classList.add("is-invalid");
-                    columnError.textContent = "Column name is required.";
+                    columnError.textContent = getLocalizedText("column-name-required", "Column name is required.");
                     return;
                 }
 
                 btnSaveColumn.disabled = true;
-                btnSaveColumn.textContent = "Saving...";
+                btnSaveColumn.textContent = getLocalizedText("saving", "Saving...");
 
                 fetch("/Kanban/CreateColumn", {
                     method: "POST",
@@ -1468,7 +1566,7 @@
                     body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&boardId=" + currentBoardId + "&name=" + encodeURIComponent(name)
                 })
                 .then(function(r) {
-                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
                     return r.json();
                 })
                 .then(function(data) {
@@ -1478,11 +1576,11 @@
                 .catch(function(err) {
                     console.error("CreateColumn failed:", err);
                     columnNameInput.classList.add("is-invalid");
-                    columnError.textContent = err.message || "Failed to create column.";
+                    columnError.textContent = err.message || getLocalizedText("failed-create-column", "Failed to create column.");
                 })
                 .finally(function() {
                     btnSaveColumn.disabled = false;
-                    btnSaveColumn.textContent = "Add Column";
+                    btnSaveColumn.textContent = getLocalizedText("add-column", "Add Column");
                 });
             });
         }
@@ -1549,12 +1647,12 @@
 
                 if (!title) {
                     cardTitleInput.classList.add("is-invalid");
-                    cardError.textContent = "Title is required.";
+                    cardError.textContent = getLocalizedText("title-required", "Title is required.");
                     return;
                 }
 
                 btnSaveCard.disabled = true;
-                btnSaveCard.textContent = "Saving...";
+                btnSaveCard.textContent = getLocalizedText("saving", "Saving...");
 
                 var body = "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
                     + "&columnId=" + currentColumnId
@@ -1570,7 +1668,7 @@
                     body: body
                 })
                 .then(function(r) {
-                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
                     return r.json();
                 })
                 .then(function(data) {
@@ -1580,11 +1678,11 @@
                 .catch(function(err) {
                     console.error("CreateCard failed:", err);
                     cardTitleInput.classList.add("is-invalid");
-                    cardError.textContent = err.message || "Failed to create card.";
+                    cardError.textContent = err.message || getLocalizedText("failed-create-card", "Failed to create card.");
                 })
                 .finally(function() {
                     btnSaveCard.disabled = false;
-                    btnSaveCard.textContent = "Add Card";
+                    btnSaveCard.textContent = getLocalizedText("add-card", "Add Card");
                 });
             });
         }
@@ -1602,7 +1700,7 @@
             columnElToDelete = columnEl;
 
             var columnNameSpan = columnEl.querySelector(".column-title");
-            var columnName = columnNameSpan ? columnNameSpan.textContent : "column";
+            var columnName = columnNameSpan ? columnNameSpan.textContent : getLocalizedText("column", "column");
 
             if (deleteColumnNameDisplay) {
                 deleteColumnNameDisplay.textContent = columnName;
@@ -1617,7 +1715,7 @@
             var warningEl = document.getElementById("deleteColumnWarning");
             if (warningEl) {
                 if (cardsCount > 0) {
-                    warningEl.textContent = "This column contains " + cardsCount + " card(s). Deleting the column will also permanently delete all its cards.";
+                    warningEl.textContent = getLocalizedText("this-column-contains", "This column contains") + " " + cardsCount + " " + getLocalizedText("cards-delete-warning", "card(s). Deleting the column will also permanently delete all its cards.");
                     warningEl.classList.remove("d-none");
                 } else {
                     warningEl.textContent = "";
@@ -1627,7 +1725,7 @@
 
             if (btnConfirmDeleteColumn) {
                 btnConfirmDeleteColumn.disabled = false;
-                btnConfirmDeleteColumn.textContent = "Delete Column";
+                btnConfirmDeleteColumn.textContent = getLocalizedText("delete-column", "Delete Column");
             }
             if (deleteColumnConfirmModal) {
                 deleteColumnConfirmModal.show();
@@ -1639,7 +1737,7 @@
                 if (columnIdToDelete === null) return;
 
                 btnConfirmDeleteColumn.disabled = true;
-                btnConfirmDeleteColumn.textContent = "Deleting...";
+                btnConfirmDeleteColumn.textContent = getLocalizedText("deleting", "Deleting...");
                 if (deleteColumnError) {
                     deleteColumnError.classList.add("d-none");
                 }
@@ -1653,7 +1751,7 @@
                     body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&columnId=" + columnIdToDelete
                 })
                 .then(function(r) {
-                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
                     if (deleteColumnConfirmModal) {
                         deleteColumnConfirmModal.hide();
                     }
@@ -1664,13 +1762,13 @@
                 .catch(function(err) {
                     console.error("DeleteColumn failed:", err);
                     if (deleteColumnError) {
-                        deleteColumnError.textContent = "Failed to delete column: " + (err.message || "Unknown error");
+                        deleteColumnError.textContent = getLocalizedText("failed-delete-column", "Failed to delete column:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error"));
                         deleteColumnError.classList.remove("d-none");
                     }
                 })
                 .finally(function() {
                     btnConfirmDeleteColumn.disabled = false;
-                    btnConfirmDeleteColumn.textContent = "Delete Column";
+                    btnConfirmDeleteColumn.textContent = getLocalizedText("delete-column", "Delete Column");
                 });
             });
         }
@@ -1762,16 +1860,16 @@
             if (!editCardLabels) return;
 
             if (currentEditLabels.length === 0) {
-                editCardLabels.innerHTML = '<div class="text-muted small">No labels yet.</div>';
+                editCardLabels.innerHTML = '<div class="text-muted small">' + getLocalizedText("no-labels-yet", "No labels yet.") + '</div>';
                 return;
             }
 
             editCardLabels.innerHTML = currentEditLabels.map(function(label) {
                 var colorPicker = canEditCurrentBoard
-                    ? '<input type="color" class="edit-label-color" value="' + escapeAttribute(label.Color) + '" data-label-color-id="' + label.Id + '" aria-label="Change ' + escapeAttribute(label.Name) + ' color">'
+                    ? '<input type="color" class="edit-label-color" value="' + escapeAttribute(label.Color) + '" data-label-color-id="' + label.Id + '" aria-label="' + getLocalizedText("change-color", "Change {0} color").replace("{0}", escapeAttribute(label.Name)) + '">'
                     : '';
                 var removeButton = canEditCurrentBoard
-                    ? '<button type="button" class="btn-remove-label" data-remove-label-id="' + label.Id + '" aria-label="Remove ' + escapeAttribute(label.Name) + '">×</button>'
+                    ? '<button type="button" class="btn-remove-label" data-remove-label-id="' + label.Id + '" aria-label="' + getLocalizedText("remove", "Remove {0}").replace("{0}", escapeAttribute(label.Name)) + '">×</button>'
                     : '';
                 return '<div class="edit-label-chip">'
                     + '<span class="edit-label-name" style="background-color:' + escapeAttribute(label.Color) + '22;border-color:' + escapeAttribute(label.Color) + ';color:' + escapeAttribute(label.Color) + ';">' + escapeHtml(label.Name) + '</span>'
@@ -1791,12 +1889,12 @@
                         body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&cardId=" + currentEditCardId + "&labelId=" + labelId
                     })
                     .then(function(r) {
-                        if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Failed to remove label."); });
+                        if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("failed-remove-label", "Failed to remove label.")); });
                         currentEditLabels = currentEditLabels.filter(function(label) { return label.Id !== labelId; });
                         syncCurrentCardLabels();
                     })
                     .catch(function(err) {
-                        alert(err.message || "Failed to remove label.");
+                        alert(err.message || getLocalizedText("failed-remove-label", "Failed to remove label."));
                     });
                 });
             });
@@ -1811,7 +1909,7 @@
                         body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&cardId=" + currentEditCardId + "&labelId=" + labelId + "&color=" + encodeURIComponent(color)
                     })
                     .then(function(r) {
-                        if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Failed to update label color."); });
+                        if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("failed-update-label-color", "Failed to update label color.")); });
                         return r.json();
                     })
                     .then(function(data) {
@@ -1824,7 +1922,7 @@
                         syncCurrentCardLabels();
                     })
                     .catch(function(err) {
-                        alert(err.message || "Failed to update label color.");
+                        alert(err.message || getLocalizedText("failed-update-label-color", "Failed to update label color."));
                     });
                 });
             });
@@ -1840,10 +1938,10 @@
                 return Promise.resolve();
             }
 
-            editCardAssignee.innerHTML = '<option value="">Unassigned</option>';
+            editCardAssignee.innerHTML = '<option value="">' + getLocalizedText("unassigned", "Unassigned") + '</option>';
             return fetch("/Kanban/GetBoardMembers?boardId=" + currentBoardId)
                 .then(function(r) {
-                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Failed to load board members."); });
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("failed-load-members", "Failed to load board members.")); });
                     return r.json();
                 })
                 .then(function(members) {
@@ -1901,7 +1999,7 @@
                 body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&cardId=" + currentEditCardId + "&name=" + encodeURIComponent(labelName)
             })
             .then(function(r) {
-                if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Failed to add label."); });
+                if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("failed-add-label", "Failed to add label.")); });
                 return r.json();
             })
             .then(function(data) {
@@ -1912,7 +2010,7 @@
                 fetchLabelSuggestions("");
             })
             .catch(function(err) {
-                alert(err.message || "Failed to add label.");
+                alert(err.message || getLocalizedText("failed-add-label", "Failed to add label."));
             });
         }
 
@@ -1958,7 +2056,7 @@
                 editCardLabelInput.value = "";
             }
             if (editCardAssignee && !canEditCurrentBoard) {
-                editCardAssignee.innerHTML = '<option value="">Unassigned</option>';
+                editCardAssignee.innerHTML = '<option value="">' + getLocalizedText("unassigned", "Unassigned") + '</option>';
                 if (cardEl.dataset.assignedUserId) {
                     var option = document.createElement("option");
                     option.value = cardEl.dataset.assignedUserId;
@@ -1989,7 +2087,7 @@
                 var assignedUserId = editCardAssignee ? editCardAssignee.value : "";
 
                 btnUpdateCard.disabled = true;
-                btnUpdateCard.textContent = "Saving...";
+                btnUpdateCard.textContent = getLocalizedText("saving", "Saving...");
 
                 fetch("/Kanban/UpdateCardDetails", {
                     method: "POST",
@@ -2004,7 +2102,7 @@
                         + "&assignedUserId=" + encodeURIComponent(assignedUserId)
                 })
                 .then(function(r) {
-                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Error " + r.status); });
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
                     return r.json();
                 })
                 .then(function(data) {
@@ -2022,11 +2120,11 @@
                     bootstrap.Modal.getInstance(editCardModal).hide();
                 })
                 .catch(function(err) {
-                    alert("Failed to save: " + (err.message || "Unknown error"));
+                    alert(getLocalizedText("failed-save", "Failed to save:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
                 })
                 .finally(function() {
                     btnUpdateCard.disabled = false;
-                    btnUpdateCard.textContent = "Save";
+                    btnUpdateCard.textContent = getLocalizedText("save", "Save");
                 });
             });
         }
@@ -2072,7 +2170,7 @@
                                 + "&name=" + encodeURIComponent(newName)
                         })
                         .then(function(r) {
-                            if (!r.ok) return r.text().then(function(t) { throw new Error(t || "Server error " + r.status); });
+                            if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
                             return r.json();
                         })
                         .then(function() {
@@ -2082,7 +2180,7 @@
                             input.remove();
                         })
                         .catch(function(err) {
-                            alert("Failed to rename board: " + (err.message || "Unknown error"));
+                            alert(getLocalizedText("failed-rename-board", "Failed to rename board:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
                             cancelBoardRename();
                         });
                     }

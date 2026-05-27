@@ -21,12 +21,12 @@
 <div class="d-flex align-items-center justify-content-between mb-4">
     <div>
         <h2 class="mb-1">@Model.Board.Name</h2>
-        <span class="badge bg-secondary"><i class="align-middle" data-lucide="eye"></i> Read-only view</span>
+        <span class="badge bg-secondary"><i class="align-middle" data-lucide="eye"></i> @Localizer["Read-only view"]</span>
     </div>
     @if (Model.CanEdit)
     {
         <a asp-controller="Kanban" asp-action="Index" asp-route-boardId="@Model.Board.Id" class="btn btn-primary">
-            <i class="align-middle" data-lucide="edit-3"></i> Edit Board
+            <i class="align-middle" data-lucide="edit-3"></i> @Localizer["Edit Board"]
         </a>
     }
 </div>
@@ -57,7 +57,7 @@
             }
             @if (!column.Cards.Any())
             {
-                <div class="text-center text-muted py-3 small">No cards</div>
+                <div class="text-center text-muted py-3 small">@Localizer["No cards"]</div>
             }
         </div>
     }
