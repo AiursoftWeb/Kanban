@@ -72,6 +72,9 @@
   <data name="Directory" xml:space="preserve">
     <value>Verzeichnis</value>
   </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>Board bearbeiten</value>
+  </data>
   <data name="Edit Role" xml:space="preserve">
     <value>Rolle bearbeiten</value>
   </data>

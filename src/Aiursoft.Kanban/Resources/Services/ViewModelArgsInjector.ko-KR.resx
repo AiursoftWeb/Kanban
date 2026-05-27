@@ -72,6 +72,9 @@
   <data name="Directory" xml:space="preserve">
     <value>디렉터리</value>
   </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>보드 편집</value>
+  </data>
   <data name="Edit Role" xml:space="preserve">
     <value>역할 편집</value>
   </data>

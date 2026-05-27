@@ -69,6 +69,9 @@
   <data name="Directory" xml:space="preserve">
     <value>Mappe</value>
   </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>Rediger tavle</value>
+  </data>
   <data name="Edit Role" xml:space="preserve">
     <value>Rediger Rolle</value>
   </data>
