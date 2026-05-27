@@ -11,6 +11,7 @@ public class IndexViewModel : UiStackLayoutViewModel
     }
 
     public List<KanbanBoard> Boards { get; set; } = [];
+    public Dictionary<int, BoardSummary> BoardSummaries { get; set; } = [];
     public KanbanBoard? CurrentBoard { get; set; }
     public bool IsOwner { get; set; } = true;
     public bool CanEditCurrentBoard { get; set; } = true;

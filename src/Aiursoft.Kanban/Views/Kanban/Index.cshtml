@@ -7,6 +7,7 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section styles {
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
 <style>
     html, body {
         height: 100%;
@@ -573,41 +574,75 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Columns</th>
-                                            <th>Created</th>
-                                            <th class="text-end">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var board in Model.Boards)
-                                        {
-                                            <tr class="clickable-row" data-href="@Url.Action("Index", new { boardId = board.Id })">
-                                                <td><strong>@board.Name</strong></td>
-                                                <td><span class="badge bg-secondary">@board.Columns.Count</span></td>
-                                                <td><small class="text-muted">@board.CreationTime.ToString("yyyy-MM-dd")</small></td>
-                                                <td class="text-end">
-                                                    <a asp-action="Index" asp-route-boardId="@board.Id" class="btn btn-sm btn-outline-primary me-1">
-                                                        <i class="align-middle" data-lucide="eye"></i> View
-                                                    </a>
-                                                    <a asp-action="ManageBoard" asp-route-id="@board.Id" class="btn btn-sm btn-outline-secondary me-1">
-                                                        <i class="align-middle" data-lucide="settings"></i> Edit
-                                                    </a>
-                                                    <a asp-action="ManageShares" asp-route-id="@board.Id" class="btn btn-sm btn-outline-secondary me-1">
-                                                        <i class="align-middle" data-lucide="share-2"></i> Share
-                                                    </a>
-                                                    <button type="button" class="btn btn-sm btn-outline-danger btn-delete-board-list" data-board-id="@board.Id" data-board-name="@board.Name">
-                                                        <i class="align-middle" data-lucide="trash-2"></i> Delete
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
+                        <table class="table table-hover mb-0" id="boardsTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Columns</th>
+                                    <th>Incomplete</th>
+                                    <th>In Progress</th>
+                                    <th>Completed</th>
+                                    <th>Overdue</th>
+                                    <th>Unassigned</th>
+                                    <th>Created</th>
+                                    <th data-orderable="false">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var board in Model.Boards)
+                                {
+                                    Model.BoardSummaries.TryGetValue(board.Id, out var summary);
+                                    var incomplete = summary?.TotalIncomplete ?? 0;
+                                    var inProgress = summary?.TotalInProgress ?? 0;
+                                    var completed = summary?.TotalCompleted ?? 0;
+                                    var overdue = summary?.TotalOverdue ?? 0;
+                                    var unassigned = summary?.TotalUnassigned ?? 0;
+                                    <tr class="clickable-row" data-href="@Url.Action("Index", new { boardId = board.Id })">
+                                        <td><strong>@board.Name</strong></td>
+                                        <td><span class="badge bg-secondary">@board.Columns.Count</span></td>
+                                        <td><span class="badge bg-secondary">@incomplete</span></td>
+                                        <td><span class="badge bg-info">@inProgress</span></td>
+                                        <td><span class="badge bg-success">@completed</span></td>
+                                        <td>
+                                            @if (overdue > 0)
+                                            {
+                                                <span class="badge bg-danger">@overdue</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">—</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (unassigned > 0)
+                                            {
+                                                <span class="badge bg-warning text-dark">@unassigned</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">—</span>
+                                            }
+                                        </td>
+                                        <td><small class="text-muted" data-sort="@board.CreationTime.ToString("yyyy-MM-dd")">@board.CreationTime.ToString("yyyy-MM-dd")</small></td>
+                                        <td class="text-end text-nowrap">
+                                            <a asp-action="Index" asp-route-boardId="@board.Id" class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="align-middle" data-lucide="eye"></i> View
+                                            </a>
+                                            <a asp-action="ManageBoard" asp-route-id="@board.Id" class="btn btn-sm btn-outline-secondary me-1">
+                                                <i class="align-middle" data-lucide="settings"></i> Edit
+                                            </a>
+                                            <a asp-action="ManageShares" asp-route-id="@board.Id" class="btn btn-sm btn-outline-secondary me-1">
+                                                <i class="align-middle" data-lucide="share-2"></i> Share
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-danger btn-delete-board-list" data-board-id="@board.Id" data-board-name="@board.Name">
+                                                <i class="align-middle" data-lucide="trash-2"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                         </div>
                     </div>
                 </div>
@@ -931,19 +966,33 @@
 @section scripts {
 <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@@1.15.6/Sortable.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         lucide.createIcons();
 
-        var clickableRows = document.querySelectorAll(".clickable-row");
-        clickableRows.forEach(function(row) {
-            row.addEventListener("click", function(event) {
+        var clickableTable = document.getElementById("boardsTable");
+        if (clickableTable) {
+            clickableTable.addEventListener("click", function(event) {
                 var target = event.target;
                 if (!target.matches('a, a *, button, button *')) {
-                    window.location.href = row.dataset.href;
+                    var row = target.closest(".clickable-row");
+                    if (row && row.dataset.href) {
+                        window.location.href = row.dataset.href;
+                    }
                 }
             });
-        });
+
+            new DataTable(clickableTable, {
+                paging: false,
+                info: false,
+                order: [[7, 'desc']],
+                language: {
+                    search: ""
+                }
+            });
+        }
 
         var csrfToken = "@token";
         var canEditCurrentBoard = @Model.CanEditCurrentBoard.ToString().ToLowerInvariant();
