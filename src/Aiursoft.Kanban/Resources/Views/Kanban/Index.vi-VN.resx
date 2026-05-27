@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Hành động</value>
+  </data>
+  <data name="Actual End" xml:space="preserve">
+    <value>Thời gian kết thúc thực tế</value>
+  </data>
+  <data name="Actual Start" xml:space="preserve">
+    <value>Ngày Bắt Đầu Thực Tế</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Thêm</value>
+  </data>
+  <data name="Add Card" xml:space="preserve">
+    <value>Thêm Thẻ</value>
+  </data>
+  <data name="Add Column" xml:space="preserve">
+    <value>Thêm cột</value>
+  </data>
+  <data name="Add more details..." xml:space="preserve">
+    <value>Thêm chi tiết...</value>
+  </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Tất cả bảng</value>
+  </data>
+  <data name="Are you sure you want to delete the board" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa bảng không</value>
+  </data>
+  <data name="Are you sure you want to delete the column" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa cột này không</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Người phụ trách</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>tự động</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>Tên bảng</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Chi tiết thẻ</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>thẻ. Việc xóa cột cũng sẽ xóa vĩnh viễn tất cả các thẻ trong đó.</value>
+  </data>
+  <data name="Change {{0}} color" xml:space="preserve">
+    <value>Đổi màu {{0}}</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>cột</value>
+  </data>
+  <data name="Column Name" xml:space="preserve">
+    <value>Tên cột</value>
+  </data>
+  <data name="Column name is required." xml:space="preserve">
+    <value>Tên cột là bắt buộc.</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Cột</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="Create Board" xml:space="preserve">
+    <value>Tạo bảng</value>
+  </data>
+  <data name="Create New Board" xml:space="preserve">
+    <value>Tạo bảng mới</value>
+  </data>
+  <data name="Create your first Kanban board to get started." xml:space="preserve">
+    <value>Tạo bảng Kanban đầu tiên của bạn để bắt đầu.</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Đã tạo</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>Xóa Bảng</value>
+  </data>
+  <data name="Delete column" xml:space="preserve">
+    <value>Xóa cột</value>
+  </data>
+  <data name="Delete empty column" xml:space="preserve">
+    <value>Xóa cột trống</value>
+  </data>
+  <data name="Deleting..." xml:space="preserve">
+    <value>Đang xóa...</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="Drop cards here" xml:space="preserve">
+    <value>Thả thẻ tại đây</value>
+  </data>
+  <data name="Due Date" xml:space="preserve">
+    <value>Hạn chót</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>Chỉnh sửa Bảng</value>
+  </data>
+  <data name="Failed to add label." xml:space="preserve">
+    <value>Không thể thêm nhãn.</value>
+  </data>
+  <data name="Failed to create card." xml:space="preserve">
+    <value>Không tạo được thẻ.</value>
+  </data>
+  <data name="Failed to create column." xml:space="preserve">
+    <value>Không thể tạo cột.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>Không thể xóa bảng:</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>Không thể xóa cột:</value>
+  </data>
+  <data name="Failed to load board members." xml:space="preserve">
+    <value>Không thể tải thành viên bảng.</value>
+  </data>
+  <data name="Failed to remove label." xml:space="preserve">
+    <value>Không thể xóa nhãn.</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>Không thể đổi tên bảng:</value>
+  </data>
+  <data name="Failed to rename column:" xml:space="preserve">
+    <value>Không thể đổi tên cột:</value>
+  </data>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>Không thể lưu:</value>
+  </data>
+  <data name="Failed to update label color." xml:space="preserve">
+    <value>Không thể cập nhật màu nhãn.</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Cao</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Đang thực hiện</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Chưa hoàn thành</value>
+  </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>Kanban</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Nhãn</value>
+  </data>
+  <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
+    <value>Nhãn chỉ có thể đọc vì bạn không có quyền chỉnh sửa bảng này.</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Thấp</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Trung bình</value>
+  </data>
+  <data name="My Board" xml:space="preserve">
+    <value>Bảng của tôi</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="New Board" xml:space="preserve">
+    <value>Bảng mới</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>Chưa có bảng nào</value>
+  </data>
+  <data name="No labels yet." xml:space="preserve">
+    <value>Chưa có nhãn nào.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Không có</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Chưa bắt đầu</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>tùy chọn</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Quá hạn</value>
+  </data>
+  <data name="Planned Start" xml:space="preserve">
+    <value>Ngày Bắt Đầu Dự Kiến</value>
+  </data>
+  <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
+    <value>Nhấn Enter để thêm nhãn hoặc tạo nhãn mới ngay lập tức.</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Ưu tiên</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Chỉ đọc</value>
+  </data>
+  <data name="Remove {{0}}" xml:space="preserve">
+    <value>Loại bỏ {{0}}</value>
+  </data>
+  <data name="Rename board" xml:space="preserve">
+    <value>Đổi tên bảng</value>
+  </data>
+  <data name="Rename column" xml:space="preserve">
+    <value>Đổi tên cột</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Duyệt</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="Saving..." xml:space="preserve">
+    <value>Đang lưu...</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Tìm kiếm hoặc tạo nhãn</value>
+  </data>
+  <data name="Server error" xml:space="preserve">
+    <value>Lỗi máy chủ</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Chia sẻ</value>
+  </data>
+  <data name="This action cannot be undone." xml:space="preserve">
+    <value>Hành động này không thể hoàn tác.</value>
+  </data>
+  <data name="This action permanently removes all columns and cards. This cannot be undone." xml:space="preserve">
+    <value>Hành động này sẽ xóa vĩnh viễn tất cả các cột và thẻ. Hành động này không thể hoàn tác.</value>
+  </data>
+  <data name="This column contains" xml:space="preserve">
+    <value>Cột này chứa</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="Title is required." xml:space="preserve">
+    <value>Tiêu đề là bắt buộc.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Chưa phân công</value>
+  </data>
+  <data name="Unknown error" xml:space="preserve">
+    <value>Lỗi không xác định</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Khẩn cấp</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="What needs to be done?" xml:space="preserve">
+    <value>Cần làm gì?</value>
+  </data>
+
+</root>
