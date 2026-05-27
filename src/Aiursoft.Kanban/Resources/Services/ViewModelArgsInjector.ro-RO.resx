@@ -30,6 +30,9 @@
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Șablon Aiursoft</value>
   </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Toate Panourile</value>
+  </data>
   <data name="Anonymous" xml:space="preserve">
     <value>Anonim</value>
   </data>
@@ -120,11 +123,17 @@
   <data name="My Boards" xml:space="preserve">
     <value>Plăcile mele</value>
   </data>
+  <data name="My Created" xml:space="preserve">
+    <value>Create de Mine</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Sarcinile mele</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Nu a fost găsit</value>
+  </data>
+  <data name="Overview Kanban" xml:space="preserve">
+    <value>Prezentare Kanban</value>
   </data>
   <data name="Permission Details" xml:space="preserve">
     <value>Detalii permisiuni</value>
@@ -178,13 +187,4 @@
     <value>Utilizatori</value>
   </data>
 
-  <data name="Overview Kanban" xml:space="preserve">
-    <value>Prezentare Kanban</value>
-  </data>
-  <data name="My Created" xml:space="preserve">
-    <value>Create de Mine</value>
-  </data>
-  <data name="All Boards" xml:space="preserve">
-    <value>Toate Panourile</value>
-  </data>
 </root>

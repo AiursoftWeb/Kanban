@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="(None - use role below)" xml:space="preserve">
+    <value>(لا شيء - استخدم الدور أدناه)</value>
+  </data>
+  <data name="(None - use user above)" xml:space="preserve">
+    <value>(لا شيء - استخدم المستخدم أعلاه)</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>الإجراءات</value>
+  </data>
+  <data name="Add New Share" xml:space="preserve">
+    <value>إضافة مشاركة جديدة</value>
+  </data>
+  <data name="Add Share" xml:space="preserve">
+    <value>إضافة مشاركة</value>
+  </data>
+  <data name="Allow anonymous viewing (Public)" xml:space="preserve">
+    <value>السماح بالعرض المجهول (عام)</value>
+  </data>
+  <data name="Anyone with the link can view this board." xml:space="preserve">
+    <value>يمكن لأي شخص يملك الرابط عرض هذه اللوحة.</value>
+  </data>
+  <data name="Back to Board" xml:space="preserve">
+    <value>العودة إلى اللوحة</value>
+  </data>
+  <data name="Board:" xml:space="preserve">
+    <value>اللوح:</value>
+  </data>
+  <data name="Current Shares" xml:space="preserve">
+    <value>المشاركة الحالية</value>
+  </data>
+  <data name="Editable" xml:space="preserve">
+    <value>قابلة للتعديل</value>
+  </data>
+  <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
+    <value>منع العرض المجهول (خاص / مشترك)</value>
+  </data>
+  <data name="Manage Shares" xml:space="preserve">
+    <value>إدارة المشاركات</value>
+  </data>
+  <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
+    <value>لا توجد مشاركات محددة. استخدم النموذج أعلاه للمشاركة مع المستخدمين أو الأدوار.</value>
+  </data>
+  <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
+    <value>يمكنك أنت والمستخدمون/الأدوار المحددة المدرجة أدناه فقط عرض هذه اللوحة.</value>
+  </data>
+  <data name="Or Share with Role" xml:space="preserve">
+    <value>أو شارك مع دور</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>الصلاحيات</value>
+  </data>
+  <data name="Read Only" xml:space="preserve">
+    <value>للقراءة فقط</value>
+  </data>
+  <data name="Remove this share?" xml:space="preserve">
+    <value>إزالة هذا المشاركة؟</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>الدور</value>
+  </data>
+  <data name="Share Link" xml:space="preserve">
+    <value>رابط المشاركة</value>
+  </data>
+  <data name="Share with User" xml:space="preserve">
+    <value>مشاركة مع مستخدم</value>
+  </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>تمت المشاركة مع</value>
+  </data>
+  <data name="Since" xml:space="preserve">
+    <value>منذ</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>النوع</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>مستخدم</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>الظهور</value>
+  </data>
+
+</root>

@@ -30,6 +30,9 @@
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft-malli</value>
   </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Kaikki Taulut</value>
+  </data>
   <data name="Anonymous" xml:space="preserve">
     <value>Anonyymi</value>
   </data>
@@ -120,11 +123,17 @@
   <data name="My Boards" xml:space="preserve">
     <value>Omat tauluni</value>
   </data>
+  <data name="My Created" xml:space="preserve">
+    <value>Luomani</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Omat tehtävät</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Ei löytynyt</value>
+  </data>
+  <data name="Overview Kanban" xml:space="preserve">
+    <value>Kanban-yleiskatsaus</value>
   </data>
   <data name="Permission Details" xml:space="preserve">
     <value>Oikeuksien tiedot</value>
@@ -178,13 +187,4 @@
     <value>Käyttäjät</value>
   </data>
 
-  <data name="Overview Kanban" xml:space="preserve">
-    <value>Kanban-yleiskatsaus</value>
-  </data>
-  <data name="My Created" xml:space="preserve">
-    <value>Luomani</value>
-  </data>
-  <data name="All Boards" xml:space="preserve">
-    <value>Kaikki Taulut</value>
-  </data>
 </root>

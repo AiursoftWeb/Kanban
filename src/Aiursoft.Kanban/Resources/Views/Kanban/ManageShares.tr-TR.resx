@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="(None - use role below)" xml:space="preserve">
+    <value>(Yok - aşağıdaki rolü kullan)</value>
+  </data>
+  <data name="(None - use user above)" xml:space="preserve">
+    <value>(Yok - yukarıdaki kullanıcıyı kullan)</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>İşlemler</value>
+  </data>
+  <data name="Add New Share" xml:space="preserve">
+    <value>Yeni Paylaşım Ekle</value>
+  </data>
+  <data name="Add Share" xml:space="preserve">
+    <value>Paylaşımı Ekle</value>
+  </data>
+  <data name="Allow anonymous viewing (Public)" xml:space="preserve">
+    <value>Anonim görüntülemeyi izin ver (Herkese Açık)</value>
+  </data>
+  <data name="Anyone with the link can view this board." xml:space="preserve">
+    <value>Bağlantısı olan herkes bu panoyu görüntüleyebilir.</value>
+  </data>
+  <data name="Back to Board" xml:space="preserve">
+    <value>Pano&apos;ya Geri Dön</value>
+  </data>
+  <data name="Board:" xml:space="preserve">
+    <value>Panoda:</value>
+  </data>
+  <data name="Current Shares" xml:space="preserve">
+    <value>Geçerli Paylaşımlar</value>
+  </data>
+  <data name="Editable" xml:space="preserve">
+    <value>Düzenlenebilir</value>
+  </data>
+  <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
+    <value>Anonim görüntülemeyi yasakla (Özel / Paylaşılan)</value>
+  </data>
+  <data name="Manage Shares" xml:space="preserve">
+    <value>Paylaşımı Yönet</value>
+  </data>
+  <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
+    <value>Belirli bir paylaşım yok. Kullanıcılar veya rollerle paylaşım yapmak için yukarıdaki formu kullanın.</value>
+  </data>
+  <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
+    <value>Bu panoyu yalnızca siz ve aşağıda listelenen belirli kullanıcılar/roller görüntüleyebilir.</value>
+  </data>
+  <data name="Or Share with Role" xml:space="preserve">
+    <value>Veya Rol ile Paylaş</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>İzin</value>
+  </data>
+  <data name="Read Only" xml:space="preserve">
+    <value>Salt Okunabilir</value>
+  </data>
+  <data name="Remove this share?" xml:space="preserve">
+    <value>Bu paylaşım kaldırılacak?</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="Share Link" xml:space="preserve">
+    <value>Paylaşım Bağlantısı</value>
+  </data>
+  <data name="Share with User" xml:space="preserve">
+    <value>Kullanıcıyla Paylaş</value>
+  </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>Paylaşılan Kişi</value>
+  </data>
+  <data name="Since" xml:space="preserve">
+    <value>Tarihinden beri</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tür</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Kullanıcı</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Görünürlük</value>
+  </data>
+
+</root>
