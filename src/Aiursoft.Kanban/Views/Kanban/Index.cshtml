@@ -561,6 +561,8 @@
     .comment-time {
         font-size: 0.72rem;
         color: var(--bs-secondary-color);
+        cursor: default;
+        border-bottom: 1px dotted var(--bs-secondary-color);
     }
 
     .comment-text {
@@ -1428,24 +1430,32 @@
             }
         }
 
+        function parseCommentDate(utcStr) {
+            if (!utcStr) return null;
+            var d = /Z|[+-]\d{2}:?\d{2}$/.test(utcStr) ? new Date(utcStr) : new Date(utcStr + "Z");
+            return isNaN(d.getTime()) ? null : d;
+        }
+
+        function formatCommentFullTime(utcStr) {
+            var d = parseCommentDate(utcStr);
+            if (!d) return utcStr || "";
+            return d.toLocaleString();
+        }
+
         function formatCommentTime(utcStr) {
             if (!utcStr) return "";
-            try {
-                var d = /Z|[+-]\d{2}:?\d{2}$/.test(utcStr) ? new Date(utcStr) : new Date(utcStr + "Z");
-                if (isNaN(d.getTime())) return utcStr;
-                var now = new Date();
-                var diffMs = now - d;
-                var diffMin = Math.floor(diffMs / 60000);
-                if (diffMin < 1) return getLocalizedText("just-now", "just now");
-                if (diffMin < 60) return diffMin + getLocalizedText("m-ago", "m ago");
-                var diffHr = Math.floor(diffMin / 60);
-                if (diffHr < 24) return diffHr + getLocalizedText("h-ago", "h ago");
-                var diffDays = Math.floor(diffHr / 24);
-                if (diffDays < 7) return diffDays + getLocalizedText("d-ago", "d ago");
-                return d.toLocaleString();
-            } catch (e) {
-                return utcStr;
-            }
+            var d = parseCommentDate(utcStr);
+            if (!d) return utcStr;
+            var now = new Date();
+            var diffMs = now - d;
+            var diffMin = Math.floor(diffMs / 60000);
+            if (diffMin < 1) return getLocalizedText("just-now", "just now");
+            if (diffMin < 60) return diffMin + getLocalizedText("m-ago", "m ago");
+            var diffHr = Math.floor(diffMin / 60);
+            if (diffHr < 24) return diffHr + getLocalizedText("h-ago", "h ago");
+            var diffDays = Math.floor(diffHr / 24);
+            if (diffDays < 7) return diffDays + getLocalizedText("d-ago", "d ago");
+            return d.toLocaleString();
         }
 
         function renderMarkdownContent(text) {
@@ -1482,7 +1492,7 @@
                             + '<div class="comment-body">'
                                 + '<div class="comment-header">'
                                     + '<span class="comment-author">' + escapeHtml(c.AuthorName || "Unknown") + '</span>'
-                                    + '<span class="comment-time">' + formatCommentTime(c.CreationTime) + '</span>'
+                                    + '<span class="comment-time" title="' + escapeHtml(formatCommentFullTime(c.CreationTime)) + '">' + formatCommentTime(c.CreationTime) + '</span>'
                                 + '</div>'
                                 + '<div class="comment-text">' + renderMarkdownContent(c.Content) + '</div>'
                             + '</div>'
