@@ -1116,6 +1116,28 @@
     </div>
 </div>
 
+<!-- Delete Comment Confirmation Modal -->
+<div class="modal fade" id="deleteCommentConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete Comment"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p>@Localizer["Are you sure you want to delete this comment?"]</p>
+                <div class="alert alert-danger mt-2 d-none" id="deleteCommentError" role="alert"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
+                <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteComment" style="border-radius:10px">
+                    @Localizer["Delete"]
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Localization Data -->
 <div id="loc-data" hidden>
     <span data-key="kanban">@Localizer["Kanban"]</span>
@@ -2083,6 +2105,11 @@
         var commentsList = document.getElementById("commentsList");
         var commentInput = document.getElementById("commentInput");
         var btnAddComment = document.getElementById("btnAddComment");
+        var deleteCommentConfirmModalEl = document.getElementById("deleteCommentConfirmModal");
+        var deleteCommentConfirmModal = deleteCommentConfirmModalEl ? new bootstrap.Modal(deleteCommentConfirmModalEl) : null;
+        var btnConfirmDeleteComment = document.getElementById("btnConfirmDeleteComment");
+        var deleteCommentError = document.getElementById("deleteCommentError");
+        var commentIdToDelete = null;
 
         function updateCardAssignment(cardEl, assignedUserId, assignedUserName, assignedUserInitial) {
             cardEl.dataset.assignedUserId = assignedUserId || "";
@@ -2512,17 +2539,53 @@
         }
 
         function deleteComment(commentId) {
-            if (!confirm(getLocalizedText("confirm-delete-comment", "Delete this comment?"))) return;
-            fetch("/Kanban/DeleteComment?commentId=" + commentId, {
-                method: "POST",
-                headers: { "RequestVerificationToken": csrfToken }
-            })
-            .then(function(r) {
-                if (!r.ok) throw new Error(getLocalizedText("failed-delete-comment", "Failed to delete comment."));
-                loadComments(currentEditCardId);
-            })
-            .catch(function(err) {
-                alert(err.message || getLocalizedText("failed-delete-comment", "Failed to delete comment."));
+            commentIdToDelete = commentId;
+            if (deleteCommentError) {
+                deleteCommentError.textContent = "";
+                deleteCommentError.classList.add("d-none");
+            }
+            if (btnConfirmDeleteComment) {
+                btnConfirmDeleteComment.disabled = false;
+                btnConfirmDeleteComment.textContent = getLocalizedText("delete-comment", "Delete");
+            }
+            if (deleteCommentConfirmModal) {
+                deleteCommentConfirmModal.show();
+            }
+        }
+
+        if (btnConfirmDeleteComment) {
+            btnConfirmDeleteComment.addEventListener("click", function() {
+                if (!commentIdToDelete) return;
+
+                btnConfirmDeleteComment.disabled = true;
+                btnConfirmDeleteComment.textContent = getLocalizedText("deleting", "Deleting...");
+                if (deleteCommentError) {
+                    deleteCommentError.classList.add("d-none");
+                }
+
+                fetch("/Kanban/DeleteComment?commentId=" + commentIdToDelete, {
+                    method: "POST",
+                    headers: { "RequestVerificationToken": csrfToken }
+                })
+                .then(function(r) {
+                    if (!r.ok) throw new Error(getLocalizedText("failed-delete-comment", "Failed to delete comment."));
+                    if (deleteCommentConfirmModal) {
+                        deleteCommentConfirmModal.hide();
+                    }
+                    loadComments(currentEditCardId);
+                })
+                .catch(function(err) {
+                    if (deleteCommentError) {
+                        deleteCommentError.textContent = err.message || getLocalizedText("failed-delete-comment", "Failed to delete comment.");
+                        deleteCommentError.classList.remove("d-none");
+                    }
+                })
+                .finally(function() {
+                    if (btnConfirmDeleteComment) {
+                        btnConfirmDeleteComment.disabled = false;
+                        btnConfirmDeleteComment.textContent = getLocalizedText("delete-comment", "Delete");
+                    }
+                });
             });
         }
     });
