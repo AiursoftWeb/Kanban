@@ -36,10 +36,10 @@ public class KanbanController(
     [RenderInNavBar(
         NavGroupName = "Features",
         NavGroupOrder = 2,
-        CascadedLinksGroupName = "Kanban",
+        CascadedLinksGroupName = "Overview Kanban",
         CascadedLinksIcon = "columns-3",
         CascadedLinksOrder = 2,
-        LinkText = "My Boards",
+        LinkText = "My Created",
         LinkOrder = 1)]
     public async Task<IActionResult> Index(int? boardId)
     {
@@ -81,7 +81,7 @@ public class KanbanController(
     [RenderInNavBar(
         NavGroupName = "Features",
         NavGroupOrder = 2,
-        CascadedLinksGroupName = "Kanban",
+        CascadedLinksGroupName = "Overview Kanban",
         CascadedLinksIcon = "columns-3",
         CascadedLinksOrder = 2,
         LinkText = "Shared with Me",

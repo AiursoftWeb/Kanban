@@ -175,4 +175,13 @@
     <value>Käyttäjät</value>
   </data>
 
+  <data name="Overview Kanban" xml:space="preserve">
+    <value>Overview Kanban</value>
+  </data>
+  <data name="My Created" xml:space="preserve">
+    <value>My Created</value>
+  </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>All Boards</value>
+  </data>
 </root>
