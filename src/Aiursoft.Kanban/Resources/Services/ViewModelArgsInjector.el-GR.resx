@@ -30,6 +30,9 @@
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Πρότυπο</value>
   </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Όλοι οι Πίνακες</value>
+  </data>
   <data name="Anonymous" xml:space="preserve">
     <value>Ανώνυμος</value>
   </data>
@@ -120,11 +123,17 @@
   <data name="My Boards" xml:space="preserve">
     <value>Οι Πίνακές μου</value>
   </data>
+  <data name="My Created" xml:space="preserve">
+    <value>Δημιουργήθηκαν από Εμένα</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Οι εργασίες μου</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Δεν βρέθηκε</value>
+  </data>
+  <data name="Overview Kanban" xml:space="preserve">
+    <value>Επισκόπηση Kanban</value>
   </data>
   <data name="Permission Details" xml:space="preserve">
     <value>Λεπτομέρειες Εξουσιοδότησης</value>
@@ -178,13 +187,4 @@
     <value>Χρήστες</value>
   </data>
 
-  <data name="Overview Kanban" xml:space="preserve">
-    <value>Επισκόπηση Kanban</value>
-  </data>
-  <data name="My Created" xml:space="preserve">
-    <value>Δημιουργήθηκαν από Εμένα</value>
-  </data>
-  <data name="All Boards" xml:space="preserve">
-    <value>Όλοι οι Πίνακες</value>
-  </data>
 </root>

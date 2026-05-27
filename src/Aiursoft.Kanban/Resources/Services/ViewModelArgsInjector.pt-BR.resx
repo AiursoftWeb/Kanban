@@ -30,6 +30,9 @@
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Modelo Aiursoft</value>
   </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Todos os Quadros</value>
+  </data>
   <data name="Anonymous" xml:space="preserve">
     <value>Anônimo</value>
   </data>
@@ -120,11 +123,17 @@
   <data name="My Boards" xml:space="preserve">
     <value>Meus Quadros</value>
   </data>
+  <data name="My Created" xml:space="preserve">
+    <value>Meus Criados</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Minhas Tarefas</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Não Encontrado</value>
+  </data>
+  <data name="Overview Kanban" xml:space="preserve">
+    <value>Visão Geral Kanban</value>
   </data>
   <data name="Permission Details" xml:space="preserve">
     <value>Detalhes da Permissão</value>
@@ -178,13 +187,4 @@
     <value>Usuários</value>
   </data>
 
-  <data name="Overview Kanban" xml:space="preserve">
-    <value>Visão Geral Kanban</value>
-  </data>
-  <data name="My Created" xml:space="preserve">
-    <value>Meus Criados</value>
-  </data>
-  <data name="All Boards" xml:space="preserve">
-    <value>Todos os Quadros</value>
-  </data>
 </root>

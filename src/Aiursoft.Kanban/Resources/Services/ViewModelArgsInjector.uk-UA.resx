@@ -30,6 +30,9 @@
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Шаблон Aiursoft</value>
   </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Усі Дошки</value>
+  </data>
   <data name="Anonymous" xml:space="preserve">
     <value>Анонімний</value>
   </data>
@@ -120,11 +123,17 @@
   <data name="My Boards" xml:space="preserve">
     <value>Мої дошки</value>
   </data>
+  <data name="My Created" xml:space="preserve">
+    <value>Створені Мною</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Мої завдання</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Не знайдено</value>
+  </data>
+  <data name="Overview Kanban" xml:space="preserve">
+    <value>Огляд Канбан</value>
   </data>
   <data name="Permission Details" xml:space="preserve">
     <value>Деталі дозволів</value>
@@ -178,13 +187,4 @@
     <value>Користувачі</value>
   </data>
 
-  <data name="Overview Kanban" xml:space="preserve">
-    <value>Огляд Канбан</value>
-  </data>
-  <data name="My Created" xml:space="preserve">
-    <value>Створені Мною</value>
-  </data>
-  <data name="All Boards" xml:space="preserve">
-    <value>Усі Дошки</value>
-  </data>
 </root>

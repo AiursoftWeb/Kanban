@@ -33,6 +33,9 @@
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft 템플릿</value>
   </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>모든 보드</value>
+  </data>
   <data name="Anonymous" xml:space="preserve">
     <value>익명</value>
   </data>
@@ -123,11 +126,17 @@
   <data name="My Boards" xml:space="preserve">
     <value>내 보드</value>
   </data>
+  <data name="My Created" xml:space="preserve">
+    <value>내가 만든 것</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>내 작업</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>찾을 수 없음</value>
+  </data>
+  <data name="Overview Kanban" xml:space="preserve">
+    <value>칸반 개요</value>
   </data>
   <data name="Permission Details" xml:space="preserve">
     <value>권한 세부 정보</value>
@@ -181,13 +190,4 @@
     <value>사용자</value>
   </data>
 
-  <data name="Overview Kanban" xml:space="preserve">
-    <value>칸반 개요</value>
-  </data>
-  <data name="My Created" xml:space="preserve">
-    <value>내가 만든 것</value>
-  </data>
-  <data name="All Boards" xml:space="preserve">
-    <value>모든 보드</value>
-  </data>
 </root>

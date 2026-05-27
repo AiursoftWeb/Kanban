@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="(None - use role below)" xml:space="preserve">
+    <value>(Nenhum - use o papel abaixo)</value>
+  </data>
+  <data name="(None - use user above)" xml:space="preserve">
+    <value>(Nenhum - use o usuário acima)</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Ações</value>
+  </data>
+  <data name="Add New Share" xml:space="preserve">
+    <value>Adicionar Nova Compartilhar</value>
+  </data>
+  <data name="Add Share" xml:space="preserve">
+    <value>Adicionar Compartilhamento</value>
+  </data>
+  <data name="Allow anonymous viewing (Public)" xml:space="preserve">
+    <value>Permitir visualização anônima (Público)</value>
+  </data>
+  <data name="Anyone with the link can view this board." xml:space="preserve">
+    <value>Qualquer pessoa com o link pode visualizar este quadro.</value>
+  </data>
+  <data name="Back to Board" xml:space="preserve">
+    <value>Voltar ao Quadro</value>
+  </data>
+  <data name="Board:" xml:space="preserve">
+    <value>Quadro:</value>
+  </data>
+  <data name="Current Shares" xml:space="preserve">
+    <value>Compartilhamentos Atuais</value>
+  </data>
+  <data name="Editable" xml:space="preserve">
+    <value>Editável</value>
+  </data>
+  <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
+    <value>Proibir visualização anônima (Privado / Compartilhado)</value>
+  </data>
+  <data name="Manage Shares" xml:space="preserve">
+    <value>Gerenciar Compartilhamentos</value>
+  </data>
+  <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
+    <value>Nenhum compartilhamento específico. Use o formulário acima para compartilhar com usuários ou funções.</value>
+  </data>
+  <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
+    <value>Apenas você e os usuários/funções específicos listados abaixo podem visualizar este quadro.</value>
+  </data>
+  <data name="Or Share with Role" xml:space="preserve">
+    <value>Ou Compartilhar com Função</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Permissão</value>
+  </data>
+  <data name="Read Only" xml:space="preserve">
+    <value>Somente leitura</value>
+  </data>
+  <data name="Remove this share?" xml:space="preserve">
+    <value>Remover esta partilha?</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Função</value>
+  </data>
+  <data name="Share Link" xml:space="preserve">
+    <value>Link de Compartilhamento</value>
+  </data>
+  <data name="Share with User" xml:space="preserve">
+    <value>Compartilhar com Usuário</value>
+  </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>Compartilhado Com</value>
+  </data>
+  <data name="Since" xml:space="preserve">
+    <value>Desde</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Usuário</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Visibilidade</value>
+  </data>
+
+</root>

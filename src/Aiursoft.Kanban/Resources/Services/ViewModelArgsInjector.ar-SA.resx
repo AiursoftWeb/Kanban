@@ -30,6 +30,9 @@
   <data name="Aiursoft Template" xml:space="preserve">
     <value>قالب Aiursoft</value>
   </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>جميع اللوحات</value>
+  </data>
   <data name="Anonymous" xml:space="preserve">
     <value>مجهول</value>
   </data>
@@ -120,11 +123,17 @@
   <data name="My Boards" xml:space="preserve">
     <value>لوحاتي</value>
   </data>
+  <data name="My Created" xml:space="preserve">
+    <value>ما أنشأته</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>مهامي</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>غير موجود</value>
+  </data>
+  <data name="Overview Kanban" xml:space="preserve">
+    <value>نظرة عامة على كانبان</value>
   </data>
   <data name="Permission Details" xml:space="preserve">
     <value>تفاصيل الصلاحيات</value>
@@ -178,13 +187,4 @@
     <value>المستخدمون</value>
   </data>
 
-  <data name="Overview Kanban" xml:space="preserve">
-    <value>نظرة عامة على كانبان</value>
-  </data>
-  <data name="My Created" xml:space="preserve">
-    <value>ما أنشأته</value>
-  </data>
-  <data name="All Boards" xml:space="preserve">
-    <value>جميع اللوحات</value>
-  </data>
 </root>
