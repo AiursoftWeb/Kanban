@@ -25,6 +25,8 @@ public class KanbanBoard
 
     public ICollection<KanbanColumn> Columns { get; set; } = new List<KanbanColumn>();
 
+    public int Order { get; set; }
+
     [InverseProperty(nameof(BoardShare.Board))]
     public IEnumerable<BoardShare> BoardShares { get; init; } = new List<BoardShare>();
 }

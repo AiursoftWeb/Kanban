@@ -12,5 +12,6 @@ public class ManageBoardViewModel : UiStackLayoutViewModel
 
     public required int BoardId { get; init; }
     public required string BoardName { get; init; }
+    public required int BoardOrder { get; init; }
     public required List<KanbanColumn> Columns { get; init; }
 }
