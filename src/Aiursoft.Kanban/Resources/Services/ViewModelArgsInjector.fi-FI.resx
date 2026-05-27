@@ -179,12 +179,12 @@
   </data>
 
   <data name="Overview Kanban" xml:space="preserve">
-    <value>Overview Kanban</value>
+    <value>Kanban-yleiskatsaus</value>
   </data>
   <data name="My Created" xml:space="preserve">
-    <value>My Created</value>
+    <value>Luomani</value>
   </data>
   <data name="All Boards" xml:space="preserve">
-    <value>All Boards</value>
+    <value>Kaikki Taulut</value>
   </data>
 </root>

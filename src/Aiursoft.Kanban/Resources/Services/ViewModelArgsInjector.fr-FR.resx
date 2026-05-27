@@ -182,12 +182,12 @@
   </data>
 
   <data name="Overview Kanban" xml:space="preserve">
-    <value>Overview Kanban</value>
+    <value>Aperçu Kanban</value>
   </data>
   <data name="My Created" xml:space="preserve">
-    <value>My Created</value>
+    <value>Mes Créations</value>
   </data>
   <data name="All Boards" xml:space="preserve">
-    <value>All Boards</value>
+    <value>Tous les Tableaux</value>
   </data>
 </root>
