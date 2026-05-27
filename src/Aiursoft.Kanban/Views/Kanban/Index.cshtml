@@ -1372,7 +1372,8 @@
         function formatDateTimeLocal(isoStr) {
             if (!isoStr) return "—";
             try {
-                return new Date(isoStr + "Z").toLocaleString();
+                var d = /Z|[+-]\d{2}:?\d{2}$/.test(isoStr) ? new Date(isoStr) : new Date(isoStr + "Z");
+                return isNaN(d.getTime()) ? isoStr : d.toLocaleString();
             } catch (e) {
                 return isoStr;
             }
@@ -1381,7 +1382,8 @@
         function formatCommentTime(utcStr) {
             if (!utcStr) return "";
             try {
-                var d = new Date(utcStr + "Z");
+                var d = /Z|[+-]\d{2}:?\d{2}$/.test(utcStr) ? new Date(utcStr) : new Date(utcStr + "Z");
+                if (isNaN(d.getTime())) return utcStr;
                 var now = new Date();
                 var diffMs = now - d;
                 var diffMin = Math.floor(diffMs / 60000);
