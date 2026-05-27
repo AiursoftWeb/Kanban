@@ -928,19 +928,20 @@ public class KanbanController(
         var userId = userManager.GetUserId(User)!;
         if (!await HasReadAccess(card.Column.Board, userId)) return Forbid();
 
-        var comments = await db.KanbanCardComments
+        var commentsList = await db.KanbanCardComments
             .Where(c => c.CardId == cardId)
             .Include(c => c.Author)
             .OrderBy(c => c.CreationTime)
-            .Select(c => new
-            {
-                c.Id,
-                c.Content,
-                c.CreationTime,
-                AuthorName = c.Author.DisplayName,
-                AuthorInitial = c.Author.DisplayName.Trim()[0].ToString().ToUpperInvariant()
-            })
             .ToListAsync();
+
+        var comments = commentsList.Select(c => new
+        {
+            c.Id,
+            c.Content,
+            c.CreationTime,
+            AuthorName = GetUserDisplayName(c.Author),
+            AuthorInitial = GetUserInitial(c.Author)
+        });
 
         return Ok(comments);
     }

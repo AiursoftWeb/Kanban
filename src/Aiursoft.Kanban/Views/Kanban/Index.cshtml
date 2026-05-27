@@ -513,6 +513,111 @@
     .board-title-input:focus {
         box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.25);
     }
+
+    .comments-section {
+        margin-top: 1.25rem;
+        border-top: 1px solid var(--bs-border-color);
+        padding-top: 1rem;
+    }
+
+    .comment-item {
+        display: flex;
+        gap: 0.65rem;
+        margin-bottom: 1rem;
+    }
+
+    .comment-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--bs-primary, #4dabf7);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .comment-body {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .comment-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .comment-author {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--bs-body-color);
+    }
+
+    .comment-time {
+        font-size: 0.72rem;
+        color: var(--bs-secondary-color);
+    }
+
+    .comment-text {
+        font-size: 0.82rem;
+        color: var(--bs-body-color);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .comment-text blockquote {
+        margin: 0.4rem 0;
+        padding: 0.3rem 0.75rem;
+        border-left: 3px solid var(--bs-primary, #4dabf7);
+        background: var(--bs-tertiary-bg);
+        border-radius: 0 6px 6px 0;
+        color: var(--bs-secondary-color);
+        font-size: 0.8rem;
+    }
+
+    .comment-add-area {
+        display: flex;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+
+    .comment-add-area textarea {
+        flex: 1;
+        border-radius: 10px;
+        resize: none;
+        font-size: 0.82rem;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--bs-border-color);
+        background: var(--bs-body-bg);
+        color: var(--bs-body-color);
+        min-height: 60px;
+    }
+
+    .comment-add-area textarea:focus {
+        outline: none;
+        border-color: var(--bs-primary, #4dabf7);
+        box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.25);
+    }
+
+    .btn-comment-submit {
+        border-radius: 10px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        padding: 0.4rem 0.9rem;
+    }
+
+    .comment-empty-hint {
+        font-size: 0.8rem;
+        color: var(--bs-secondary-color);
+        text-align: center;
+        padding: 0.5rem 0;
+    }
 </style>
 }
 
@@ -912,6 +1017,21 @@
                             <div id="editCardActualEnd" class="form-control bg-light text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
                         </div>
                     </div>
+                    <div class="comments-section">
+                        <label class="form-label fw-semibold mb-2">@Localizer["Comments"]</label>
+                        <div id="commentsList"></div>
+                        @if (Model.CanEditCurrentBoard)
+                        {
+                            <div class="comment-add-area">
+                                <textarea id="commentInput" placeholder="@Localizer["Add a comment..."]"></textarea>
+                                <button type="button" class="btn btn-primary btn-comment-submit" id="btnAddComment">@Localizer["Send"]</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-text">@Localizer["Comments are read-only because you do not have edit access to this board."]</div>
+                        }
+                    </div>
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@(Model.CanEditCurrentBoard ? Localizer["Cancel"].Value : Localizer["Close"].Value)</button>
@@ -1063,6 +1183,15 @@
     <span data-key="delete-empty-column">@Localizer["Delete empty column"]</span>
     <span data-key="this-column-contains">@Localizer["This column contains"]</span>
     <span data-key="cards-delete-warning">@Localizer["card(s). Deleting the column will also permanently delete all its cards."]</span>
+    <span data-key="just-now">@Localizer["just now"]</span>
+    <span data-key="m-ago">@Localizer["m ago"]</span>
+    <span data-key="h-ago">@Localizer["h ago"]</span>
+    <span data-key="d-ago">@Localizer["d ago"]</span>
+    <span data-key="no-comments-yet">@Localizer["No comments yet."]</span>
+    <span data-key="failed-add-comment">@Localizer["Failed to add comment."]</span>
+    <span data-key="comment-too-long">@Localizer["Comment is too long (max 2000 characters)."]</span>
+    <span data-key="sending">@Localizer["Sending..."]</span>
+    <span data-key="send">@Localizer["Send"]</span>
 </div>
 
 @* ReSharper disable once Razor.SectionNotResolved *@
@@ -1247,6 +1376,63 @@
             } catch (e) {
                 return isoStr;
             }
+        }
+
+        function formatCommentTime(utcStr) {
+            if (!utcStr) return "";
+            try {
+                var d = new Date(utcStr + "Z");
+                var now = new Date();
+                var diffMs = now - d;
+                var diffMin = Math.floor(diffMs / 60000);
+                if (diffMin < 1) return getLocalizedText("just-now", "just now");
+                if (diffMin < 60) return diffMin + getLocalizedText("m-ago", "m ago");
+                var diffHr = Math.floor(diffMin / 60);
+                if (diffHr < 24) return diffHr + getLocalizedText("h-ago", "h ago");
+                var diffDays = Math.floor(diffHr / 24);
+                if (diffDays < 7) return diffDays + getLocalizedText("d-ago", "d ago");
+                return d.toLocaleString();
+            } catch (e) {
+                return utcStr;
+            }
+        }
+
+        function renderMarkdownContent(text) {
+            if (!text) return "";
+            var result = escapeHtml(text);
+            var quoteMatch = result.match(/^&gt;\s*([\s\S]*?)(?:\n|$)/);
+            if (quoteMatch) {
+                var quoted = quoteMatch[1];
+                var afterQuote = result.substring(quoteMatch[0].length);
+                var blockquote = '<blockquote>' + quoted + '</blockquote>';
+                return blockquote + afterQuote;
+            }
+            return result;
+        }
+
+        function loadComments(cardId) {
+            if (!commentsList) return;
+            fetch("/Kanban/GetComments?cardId=" + cardId)
+                .then(function(r) { return r.ok ? r.json() : []; })
+                .then(function(comments) {
+                    if (comments.length === 0) {
+                        commentsList.innerHTML = '<div class="comment-empty-hint">' + getLocalizedText("no-comments-yet", "No comments yet.") + '</div>';
+                        return;
+                    }
+                    commentsList.innerHTML = comments.map(function(c) {
+                        return '<div class="comment-item">'
+                            + '<div class="comment-avatar">' + escapeHtml(c.AuthorInitial || "?") + '</div>'
+                            + '<div class="comment-body">'
+                                + '<div class="comment-header">'
+                                    + '<span class="comment-author">' + escapeHtml(c.AuthorName || "Unknown") + '</span>'
+                                    + '<span class="comment-time">' + formatCommentTime(c.CreationTime) + '</span>'
+                                + '</div>'
+                                + '<div class="comment-text">' + renderMarkdownContent(c.Content) + '</div>'
+                            + '</div>'
+                        + '</div>';
+                    }).join("");
+                })
+                .catch(function(err) { console.error("GetComments failed:", err); });
         }
 
         function renderCardContent(cardEl) {
@@ -1850,6 +2036,9 @@
         var editCardLabels = document.getElementById("editCardLabels");
         var btnAddLabel = document.getElementById("btnAddLabel");
         var btnUpdateCard = document.getElementById("btnUpdateCard");
+        var commentsList = document.getElementById("commentsList");
+        var commentInput = document.getElementById("commentInput");
+        var btnAddComment = document.getElementById("btnAddComment");
 
         function updateCardAssignment(cardEl, assignedUserId, assignedUserName, assignedUserInitial) {
             cardEl.dataset.assignedUserId = assignedUserId || "";
@@ -2094,6 +2283,7 @@
             editCardActualEnd.textContent = formatDateTimeLocal(cardEl.dataset.actualEnd);
             renderSelectedLabels();
             loadBoardMembers(cardEl.dataset.assignedUserId || "");
+            loadComments(currentEditCardId);
             new bootstrap.Modal(editCardModal).show();
         }
 
@@ -2231,6 +2421,50 @@
                     });
                 });
             }
+        }
+
+        if (btnAddComment && commentInput) {
+            function submitComment() {
+                var content = commentInput.value.trim();
+                if (!content) return;
+                if (content.length > 2000) {
+                    alert(getLocalizedText("comment-too-long", "Comment is too long (max 2000 characters)."));
+                    return;
+                }
+                btnAddComment.disabled = true;
+                btnAddComment.textContent = getLocalizedText("sending", "Sending...");
+                fetch("/Kanban/AddComment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded", "RequestVerificationToken": csrfToken },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&cardId=" + currentEditCardId
+                        + "&content=" + encodeURIComponent(content)
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("failed-add-comment", "Failed to add comment.")); });
+                    return r.json();
+                })
+                .then(function() {
+                    commentInput.value = "";
+                    loadComments(currentEditCardId);
+                })
+                .catch(function(err) {
+                    alert(err.message || getLocalizedText("failed-add-comment", "Failed to add comment."));
+                })
+                .finally(function() {
+                    btnAddComment.disabled = false;
+                    btnAddComment.textContent = getLocalizedText("send", "Send");
+                });
+            }
+
+            btnAddComment.addEventListener("click", submitComment);
+
+            commentInput.addEventListener("keydown", function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+                    e.preventDefault();
+                    submitComment();
+                }
+            });
         }
     });
 </script>
