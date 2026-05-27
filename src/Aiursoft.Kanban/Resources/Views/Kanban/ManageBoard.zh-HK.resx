@@ -114,6 +114,9 @@
   <data name="Not Started" xml:space="preserve">
     <value>未開始</value>
   </data>
+  <data name="Order updated." xml:space="preserve">
+    <value>次序已更新。</value>
+  </data>
   <data name="Rename" xml:space="preserve">
     <value>重新命名</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="Server error" xml:space="preserve">
     <value>伺服器錯誤</value>
+  </data>
+  <data name="Sort Order" xml:space="preserve">
+    <value>排序</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>狀態</value>

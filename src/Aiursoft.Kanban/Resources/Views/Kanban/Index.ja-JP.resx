@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Actual End" xml:space="preserve">
+    <value>実際の終了日</value>
+  </data>
+  <data name="Actual Start" xml:space="preserve">
+    <value>実開始</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="Add Card" xml:space="preserve">
+    <value>カードを追加</value>
+  </data>
+  <data name="Add Column" xml:space="preserve">
+    <value>列を追加</value>
+  </data>
+  <data name="Add more details..." xml:space="preserve">
+    <value>詳細を追加...</value>
+  </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>すべてのボード</value>
+  </data>
+  <data name="Are you sure you want to delete the board" xml:space="preserve">
+    <value>ボードを削除してもよろしいですか</value>
+  </data>
+  <data name="Are you sure you want to delete the column" xml:space="preserve">
+    <value>この列を削除してもよろしいですか</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>担当者</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>自動</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>ボード名</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>カードの詳細</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>枚のカードがあります。この列を削除すると、そのカードもすべて永久に削除されます。</value>
+  </data>
+  <data name="Change {{0}} color" xml:space="preserve">
+    <value>{{0}}の色を変更</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="Column Name" xml:space="preserve">
+    <value>列名</value>
+  </data>
+  <data name="Column name is required." xml:space="preserve">
+    <value>列名の指定は必須です。</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="Create Board" xml:space="preserve">
+    <value>ボードを作成</value>
+  </data>
+  <data name="Create New Board" xml:space="preserve">
+    <value>新しいボードを作成</value>
+  </data>
+  <data name="Create your first Kanban board to get started." xml:space="preserve">
+    <value>まず最初のKanbanボードを作成して始めましょう。</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>ボードを削除</value>
+  </data>
+  <data name="Delete column" xml:space="preserve">
+    <value>列を削除</value>
+  </data>
+  <data name="Delete empty column" xml:space="preserve">
+    <value>空のカラムを削除</value>
+  </data>
+  <data name="Deleting..." xml:space="preserve">
+    <value>削除中...</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Drop cards here" xml:space="preserve">
+    <value>ここにカードをドロップ</value>
+  </data>
+  <data name="Due Date" xml:space="preserve">
+    <value>期限</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>ボードを編集</value>
+  </data>
+  <data name="Failed to add label." xml:space="preserve">
+    <value>ラベルの追加に失敗しました。</value>
+  </data>
+  <data name="Failed to create card." xml:space="preserve">
+    <value>カードの作成に失敗しました。</value>
+  </data>
+  <data name="Failed to create column." xml:space="preserve">
+    <value>列の作成に失敗しました。</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>ボードの削除に失敗しました：</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>列の削除に失敗しました：</value>
+  </data>
+  <data name="Failed to load board members." xml:space="preserve">
+    <value>ボードメンバーの読み込みに失敗しました。</value>
+  </data>
+  <data name="Failed to remove label." xml:space="preserve">
+    <value>ラベルの削除に失敗しました。</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>ボードの名前の変更に失敗しました：</value>
+  </data>
+  <data name="Failed to rename column:" xml:space="preserve">
+    <value>カラムの名前の変更に失敗しました：</value>
+  </data>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>保存に失敗しました:</value>
+  </data>
+  <data name="Failed to update label color." xml:space="preserve">
+    <value>ラベルの色を更新できませんでした。</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>進行中</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>未完了</value>
+  </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>カンバン</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>ラベル</value>
+  </data>
+  <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
+    <value>このボードには編集権限がないため、ラベルは読み取り専用です。</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="My Board" xml:space="preserve">
+    <value>私のボード</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="New Board" xml:space="preserve">
+    <value>新規ボード</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>まだボードがありません</value>
+  </data>
+  <data name="No labels yet." xml:space="preserve">
+    <value>まだラベルがありません。</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>未着手</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>（任意）</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>期限超過</value>
+  </data>
+  <data name="Planned Start" xml:space="preserve">
+    <value>開始予定日</value>
+  </data>
+  <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
+    <value>Enter キーを押してラベルを追加するか、新しいラベルを即座に作成します。</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>優先度</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>読み取り専用</value>
+  </data>
+  <data name="Remove {{0}}" xml:space="preserve">
+    <value>{{0}} を削除</value>
+  </data>
+  <data name="Rename board" xml:space="preserve">
+    <value>ボード名を変更</value>
+  </data>
+  <data name="Rename column" xml:space="preserve">
+    <value>列の名前を変更</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>レビュー</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Saving..." xml:space="preserve">
+    <value>保存中...</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>ラベルを検索または作成</value>
+  </data>
+  <data name="Server error" xml:space="preserve">
+    <value>サーバーエラー</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>共有</value>
+  </data>
+  <data name="This action cannot be undone." xml:space="preserve">
+    <value>この操作は取り消せません。</value>
+  </data>
+  <data name="This action permanently removes all columns and cards. This cannot be undone." xml:space="preserve">
+    <value>この操作はすべての列とカードを完全に削除します。この操作は元に戻すことができません。</value>
+  </data>
+  <data name="This column contains" xml:space="preserve">
+    <value>このカラムには</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="Title is required." xml:space="preserve">
+    <value>タイトルは必須です。</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未割り当て</value>
+  </data>
+  <data name="Unknown error" xml:space="preserve">
+    <value>不明なエラー</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>緊急</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>表示</value>
+  </data>
+  <data name="What needs to be done?" xml:space="preserve">
+    <value>何をすべきですか？</value>
+  </data>
+
+</root>

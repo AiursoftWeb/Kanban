@@ -19,136 +19,136 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
       <data name="Actions" xml:space="preserve">
-    <value>操作</value>
+    <value>동작</value>
   </data>
   <data name="Add Column" xml:space="preserve">
-    <value>列の追加</value>
+    <value>열 추가</value>
   </data>
   <data name="Are you sure you want to delete the board" xml:space="preserve">
-    <value>ボードを削除してもよろしいですか</value>
+    <value>보드를 삭제하시겠습니까?</value>
   </data>
   <data name="Are you sure you want to delete the column" xml:space="preserve">
-    <value>列を削除してもよろしいですか？</value>
+    <value>열을 삭제하시겠습니까?</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
-    <value>ボードに戻る</value>
+    <value>보드 페이지로 돌아가기</value>
   </data>
   <data name="Board Name" xml:space="preserve">
-    <value>ボード名</value>
+    <value>보드 이름</value>
   </data>
   <data name="Board name is required." xml:space="preserve">
-    <value>ボード名は必須です。</value>
+    <value>보드 이름은 필수입니다.</value>
   </data>
   <data name="Board name updated." xml:space="preserve">
-    <value>ボード名が更新されました。</value>
+    <value>보드 이름이 업데이트되었습니다.</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>キャンセル</value>
+    <value>취소</value>
   </data>
   <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>枚のカードが含まれています。この列を削除すると、そのカードもすべて完全に削除されます。</value>
+    <value>개의 카드가 있습니다. 열을 삭제하면 해당 열의 모든 카드도 영구적으로 삭제됩니다.</value>
   </data>
   <data name="Cards" xml:space="preserve">
-    <value>カード</value>
+    <value>카드</value>
   </data>
   <data name="Column Name" xml:space="preserve">
-    <value>列名</value>
+    <value>컬럼 이름</value>
   </data>
   <data name="Column name is required." xml:space="preserve">
-    <value>列名は必須です。</value>
+    <value>열 이름은 필수 항목입니다.</value>
   </data>
   <data name="Columns" xml:space="preserve">
-    <value>列</value>
+    <value>열</value>
   </data>
   <data name="Completed" xml:space="preserve">
-    <value>完了</value>
+    <value>완료됨</value>
   </data>
   <data name="Danger Zone" xml:space="preserve">
-    <value>危険領域</value>
+    <value>위험 구역</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>削除</value>
+    <value>삭제</value>
   </data>
   <data name="Delete Board" xml:space="preserve">
-    <value>ボードの削除</value>
+    <value>보드 삭제</value>
   </data>
   <data name="Delete Column" xml:space="preserve">
-    <value>列を削除</value>
+    <value>열 삭제</value>
   </data>
   <data name="Deleting a board permanently removes all columns and cards. This action cannot be undone." xml:space="preserve">
-    <value>ボードを削除すると、すべての列とカードが完全に削除されます。この操作は元に戻すことができません。</value>
+    <value>보드를 삭제하면 모든 열과 카드가 영구적으로 제거됩니다. 이 작업은 되돌릴 수 없습니다.</value>
   </data>
   <data name="Deleting..." xml:space="preserve">
-    <value>削除中...</value>
+    <value>삭제 중...</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
-    <value>ボードを編集</value>
+    <value>보드 편집하기</value>
   </data>
   <data name="Failed to create column." xml:space="preserve">
-    <value>列の作成に失敗しました。</value>
+    <value>열을 생성하지 못했습니다.</value>
   </data>
   <data name="Failed to delete board:" xml:space="preserve">
-    <value>ボードの削除に失敗しました：</value>
+    <value>보드를 삭제하지 못했습니다:</value>
   </data>
   <data name="Failed to delete column:" xml:space="preserve">
-    <value>列の削除に失敗しました：</value>
+    <value>열을 삭제하지 못했습니다:</value>
   </data>
   <data name="Failed to rename column:" xml:space="preserve">
-    <value>列の名前を変更できません：</value>
+    <value>열 이름 변경에 실패했습니다:</value>
   </data>
   <data name="Failed to save." xml:space="preserve">
-    <value>保存に失敗しました。</value>
+    <value>저장하지 못했습니다.</value>
   </data>
   <data name="In Progress" xml:space="preserve">
-    <value>進行中</value>
+    <value>진행 중</value>
   </data>
   <data name="Manage board name and columns." xml:space="preserve">
-    <value>ボード名と列を管理します。</value>
+    <value>보드 이름 및 열을 관리합니다.</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>名前</value>
+    <value>이름</value>
   </data>
   <data name="No columns yet." xml:space="preserve">
-    <value>まだ列がありません。</value>
+    <value>아직 열이 없습니다.</value>
   </data>
   <data name="Not Started" xml:space="preserve">
-    <value>未開始</value>
+    <value>시작 안 함</value>
   </data>
   <data name="Order updated." xml:space="preserve">
-    <value>順序を更新しました。</value>
+    <value>순서가 업데이트되었습니다.</value>
   </data>
   <data name="Rename" xml:space="preserve">
-    <value>名前を変更</value>
+    <value>이름 바꾸기</value>
   </data>
   <data name="Review" xml:space="preserve">
-    <value>レビュー</value>
+    <value>검토</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>保存</value>
+    <value>저장</value>
   </data>
   <data name="Saving..." xml:space="preserve">
-    <value>保存中...</value>
+    <value>저장 중...</value>
   </data>
   <data name="Server error" xml:space="preserve">
-    <value>サーバーエラー</value>
+    <value>서버 오류</value>
   </data>
   <data name="Sort Order" xml:space="preserve">
-    <value>表示順序</value>
+    <value>정렬 순서</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>状態</value>
+    <value>상태</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
-    <value>この操作は元に戻せません。</value>
+    <value>이 작업은 되돌릴 수 없습니다.</value>
   </data>
   <data name="This action permanently removes all columns and cards. This cannot be undone." xml:space="preserve">
-    <value>この操作により、すべての列とカードが完全に削除されます。この操作は元に戻すことができません。</value>
+    <value>이 작업은 모든 열과 카드를 영구적으로 삭제합니다. 이 작업은 복구할 수 없습니다.</value>
   </data>
   <data name="This column contains" xml:space="preserve">
-    <value>この列には</value>
+    <value>이 열에는</value>
   </data>
   <data name="Unknown error" xml:space="preserve">
-    <value>不明なエラー</value>
+    <value>알 수 없는 오류</value>
   </data>
 
 </root>
