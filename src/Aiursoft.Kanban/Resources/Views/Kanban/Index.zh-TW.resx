@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Actual End" xml:space="preserve">
+    <value>實際結束</value>
+  </data>
+  <data name="Actual Start" xml:space="preserve">
+    <value>實際開始</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="Add Card" xml:space="preserve">
+    <value>新增卡片</value>
+  </data>
+  <data name="Add Column" xml:space="preserve">
+    <value>新增欄位</value>
+  </data>
+  <data name="Add more details..." xml:space="preserve">
+    <value>新增更多詳細資訊...</value>
+  </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>所有看板</value>
+  </data>
+  <data name="Are you sure you want to delete the board" xml:space="preserve">
+    <value>您確定要刪除看板嗎</value>
+  </data>
+  <data name="Are you sure you want to delete the column" xml:space="preserve">
+    <value>您確定要刪除這欄嗎？</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>指派對象</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>自動</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>看板名稱</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>卡片詳細資料</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>張卡片。刪除這欄也會永久刪除其中所有卡片。</value>
+  </data>
+  <data name="Change {{0}} color" xml:space="preserve">
+    <value>變更 {{0}} 色彩</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>欄位</value>
+  </data>
+  <data name="Column Name" xml:space="preserve">
+    <value>欄位名稱</value>
+  </data>
+  <data name="Column name is required." xml:space="preserve">
+    <value>必須輸入欄位名稱。</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>欄位</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Create Board" xml:space="preserve">
+    <value>建立看板</value>
+  </data>
+  <data name="Create New Board" xml:space="preserve">
+    <value>建立新看板</value>
+  </data>
+  <data name="Create your first Kanban board to get started." xml:space="preserve">
+    <value>建立您的第一個看板和看板以開始使用。</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>建立時間</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>刪除看板</value>
+  </data>
+  <data name="Delete column" xml:space="preserve">
+    <value>刪除欄位</value>
+  </data>
+  <data name="Delete empty column" xml:space="preserve">
+    <value>刪除空白欄位</value>
+  </data>
+  <data name="Deleting..." xml:space="preserve">
+    <value>刪除中...</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Drop cards here" xml:space="preserve">
+    <value>在此處放置卡片</value>
+  </data>
+  <data name="Due Date" xml:space="preserve">
+    <value>截止日期</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>編輯看板</value>
+  </data>
+  <data name="Failed to add label." xml:space="preserve">
+    <value>無法新增標籤。</value>
+  </data>
+  <data name="Failed to create card." xml:space="preserve">
+    <value>建立卡片失敗。</value>
+  </data>
+  <data name="Failed to create column." xml:space="preserve">
+    <value>建立資料欄失敗。</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>刪除看板失敗：</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>刪除欄位失敗：</value>
+  </data>
+  <data name="Failed to load board members." xml:space="preserve">
+    <value>載入看板成員失敗。</value>
+  </data>
+  <data name="Failed to remove label." xml:space="preserve">
+    <value>移除標籤失敗。</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>重新命名看板失敗：</value>
+  </data>
+  <data name="Failed to rename column:" xml:space="preserve">
+    <value>重新命名欄位失敗：</value>
+  </data>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>儲存失敗：</value>
+  </data>
+  <data name="Failed to update label color." xml:space="preserve">
+    <value>更新標籤色彩失敗。</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>進行中</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>未完成</value>
+  </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>看板</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>標籤</value>
+  </data>
+  <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
+    <value>由於您沒有此看板的編輯權限，標籤為唯讀。</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="My Board" xml:space="preserve">
+    <value>我的看板</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="New Board" xml:space="preserve">
+    <value>新增看板</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>尚未建立看板</value>
+  </data>
+  <data name="No labels yet." xml:space="preserve">
+    <value>尚無標籤。</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>尚未開始</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>選填</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>逾期</value>
+  </data>
+  <data name="Planned Start" xml:space="preserve">
+    <value>預計開始日期</value>
+  </data>
+  <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
+    <value>按 Enter 鍵以新增標籤或即時建立新標籤。</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>優先級</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>唯讀</value>
+  </data>
+  <data name="Remove {{0}}" xml:space="preserve">
+    <value>移除 {{0}}</value>
+  </data>
+  <data name="Rename board" xml:space="preserve">
+    <value>重新命名看板</value>
+  </data>
+  <data name="Rename column" xml:space="preserve">
+    <value>重新命名欄位</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>檢視</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="Saving..." xml:space="preserve">
+    <value>儲存中...</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>搜尋或建立標籤</value>
+  </data>
+  <data name="Server error" xml:space="preserve">
+    <value>伺服器錯誤</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>分享</value>
+  </data>
+  <data name="This action cannot be undone." xml:space="preserve">
+    <value>此操作無法復原。</value>
+  </data>
+  <data name="This action permanently removes all columns and cards. This cannot be undone." xml:space="preserve">
+    <value>此操作將永久刪除所有欄位與卡片，且無法復原。</value>
+  </data>
+  <data name="This column contains" xml:space="preserve">
+    <value>此資料欄包含</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="Title is required." xml:space="preserve">
+    <value>標題為必填項。</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未指派</value>
+  </data>
+  <data name="Unknown error" xml:space="preserve">
+    <value>未知錯誤</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>緊急</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>檢視</value>
+  </data>
+  <data name="What needs to be done?" xml:space="preserve">
+    <value>需要完成什麼？</value>
+  </data>
+
+</root>
