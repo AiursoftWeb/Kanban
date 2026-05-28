@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Ações</value>
+  </data>
+  <data name="Actual End" xml:space="preserve">
+    <value>Término Real</value>
+  </data>
+  <data name="Actual Start" xml:space="preserve">
+    <value>Início real</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="Add Card" xml:space="preserve">
+    <value>Adicionar Cartão</value>
+  </data>
+  <data name="Add Column" xml:space="preserve">
+    <value>Adicionar Coluna</value>
+  </data>
+  <data name="Add more details..." xml:space="preserve">
+    <value>Adicione mais detalhes...</value>
+  </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Todos os Quadros</value>
+  </data>
+  <data name="Are you sure you want to delete the board" xml:space="preserve">
+    <value>Tem certeza de que deseja excluir o quadro?</value>
+  </data>
+  <data name="Are you sure you want to delete the column" xml:space="preserve">
+    <value>Tem certeza de que deseja excluir a coluna</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Responsável</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>automático</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>Nome do Quadro</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Detalhes do Cartão</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>cartão(ões). Excluir a coluna também excluirá permanentemente todos os seus cartões.</value>
+  </data>
+  <data name="Change {{0}} color" xml:space="preserve">
+    <value>Alterar a cor de {{0}}</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>coluna</value>
+  </data>
+  <data name="Column Name" xml:space="preserve">
+    <value>Nome da Coluna</value>
+  </data>
+  <data name="Column name is required." xml:space="preserve">
+    <value>O nome da coluna é obrigatório.</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Colunas</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Concluído</value>
+  </data>
+  <data name="Create Board" xml:space="preserve">
+    <value>Criar Quadro</value>
+  </data>
+  <data name="Create New Board" xml:space="preserve">
+    <value>Criar Novo Quadro</value>
+  </data>
+  <data name="Create your first Kanban board to get started." xml:space="preserve">
+    <value>Crie seu primeiro quadro Kanban para começar.</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Criado</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>Excluir Quadro</value>
+  </data>
+  <data name="Delete column" xml:space="preserve">
+    <value>Excluir coluna</value>
+  </data>
+  <data name="Delete empty column" xml:space="preserve">
+    <value>Excluir coluna vazia</value>
+  </data>
+  <data name="Deleting..." xml:space="preserve">
+    <value>Excluindo...</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="Drop cards here" xml:space="preserve">
+    <value>Solte os cartões aqui</value>
+  </data>
+  <data name="Due Date" xml:space="preserve">
+    <value>Data de vencimento</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>Editar Quadro</value>
+  </data>
+  <data name="Failed to add label." xml:space="preserve">
+    <value>Falha ao adicionar rótulo.</value>
+  </data>
+  <data name="Failed to create card." xml:space="preserve">
+    <value>Falha ao criar cartão.</value>
+  </data>
+  <data name="Failed to create column." xml:space="preserve">
+    <value>Falha ao criar coluna.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>Falha ao excluir quadro:</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>Falha ao excluir a coluna:</value>
+  </data>
+  <data name="Failed to load board members." xml:space="preserve">
+    <value>Falha ao carregar os membros do quadro.</value>
+  </data>
+  <data name="Failed to remove label." xml:space="preserve">
+    <value>Falha ao remover a etiqueta.</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>Falha ao renomear quadro:</value>
+  </data>
+  <data name="Failed to rename column:" xml:space="preserve">
+    <value>Falha ao renomear a coluna:</value>
+  </data>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>Falha ao salvar:</value>
+  </data>
+  <data name="Failed to update label color." xml:space="preserve">
+    <value>Falha ao atualizar a cor do rótulo.</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Em Progresso</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Incompleto</value>
+  </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>Kanban</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Rótulos</value>
+  </data>
+  <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
+    <value>As etiquetas estão apenas para leitura porque você não tem permissão de edição para este quadro.</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Baixa</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Médio</value>
+  </data>
+  <data name="My Board" xml:space="preserve">
+    <value>Meu Quadro</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="New Board" xml:space="preserve">
+    <value>Novo Quadro</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>Ainda sem quadros</value>
+  </data>
+  <data name="No labels yet." xml:space="preserve">
+    <value>Ainda não há rótulos.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Não iniciado</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>opcional</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Atrasado</value>
+  </data>
+  <data name="Planned Start" xml:space="preserve">
+    <value>Início Planejado</value>
+  </data>
+  <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
+    <value>Pressione Enter para adicionar um rótulo ou criar um novo na hora.</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioridade</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Somente leitura</value>
+  </data>
+  <data name="Remove {{0}}" xml:space="preserve">
+    <value>Remover {{0}}</value>
+  </data>
+  <data name="Rename board" xml:space="preserve">
+    <value>Renomear quadro</value>
+  </data>
+  <data name="Rename column" xml:space="preserve">
+    <value>Renomear coluna</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Revisão</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="Saving..." xml:space="preserve">
+    <value>Salvando...</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Pesquisar ou criar um rótulo</value>
+  </data>
+  <data name="Server error" xml:space="preserve">
+    <value>Erro do servidor</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Compartilhar</value>
+  </data>
+  <data name="This action cannot be undone." xml:space="preserve">
+    <value>Essa ação não pode ser desfeita.</value>
+  </data>
+  <data name="This action permanently removes all columns and cards. This cannot be undone." xml:space="preserve">
+    <value>Essa ação remove permanentemente todas as colunas e cartões. Isso não pode ser desfeito.</value>
+  </data>
+  <data name="This column contains" xml:space="preserve">
+    <value>Esta coluna contém</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="Title is required." xml:space="preserve">
+    <value>Título é obrigatório.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Não atribuído</value>
+  </data>
+  <data name="Unknown error" xml:space="preserve">
+    <value>Erro desconhecido</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Urgente</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="What needs to be done?" xml:space="preserve">
+    <value>O que precisa ser feito?</value>
+  </data>
+
+</root>
