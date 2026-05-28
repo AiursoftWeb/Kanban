@@ -51,5 +51,8 @@
   <data name="The image width is too small ({{ value }}px min)." xml:space="preserve">
     <value>Görsel genişliği çok küçük (en az {{ value }}px).</value>
   </data>
+  <data name="Your file is still uploading. Are you sure to quit?" xml:space="preserve">
+    <value>Dosyanız hâlâ yükleniyor. Çıkmak istediğinize emin misiniz?</value>
+  </data>
 
 </root>

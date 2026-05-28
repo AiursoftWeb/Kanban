@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Acties</value>
+  </data>
+  <data name="Actual End" xml:space="preserve">
+    <value>Feitelijke einde</value>
+  </data>
+  <data name="Actual Start" xml:space="preserve">
+    <value>Werkelijke start</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="Add Card" xml:space="preserve">
+    <value>Kaart toevoegen</value>
+  </data>
+  <data name="Add Column" xml:space="preserve">
+    <value>Kolom toevoegen</value>
+  </data>
+  <data name="Add more details..." xml:space="preserve">
+    <value>Voeg meer details toe...</value>
+  </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Alle borden</value>
+  </data>
+  <data name="Are you sure you want to delete the board" xml:space="preserve">
+    <value>Weet u zeker dat u het bord wilt verwijderen</value>
+  </data>
+  <data name="Are you sure you want to delete the column" xml:space="preserve">
+    <value>Weet u zeker dat u de kolom wilt verwijderen</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Toegewezen aan</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>auto</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>Naam board</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Kaartgegevens</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>kaart(en). Het verwijderen van de kolom verwijdert ook alle kaarten daarin permanent.</value>
+  </data>
+  <data name="Change {{0}} color" xml:space="preserve">
+    <value>Verander de kleur van {{0}}</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>kolom</value>
+  </data>
+  <data name="Column Name" xml:space="preserve">
+    <value>Kolomnaam</value>
+  </data>
+  <data name="Column name is required." xml:space="preserve">
+    <value>Kolomnaam is vereist.</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Kolommen</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Voltooid</value>
+  </data>
+  <data name="Create Board" xml:space="preserve">
+    <value>Board aanmaken</value>
+  </data>
+  <data name="Create New Board" xml:space="preserve">
+    <value>Nieuw bord maken</value>
+  </data>
+  <data name="Create your first Kanban board to get started." xml:space="preserve">
+    <value>Maak je eerste Kanban-board om aan de slag te gaan.</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Aangemaakt</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Verwijder</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>Bord verwijderen</value>
+  </data>
+  <data name="Delete column" xml:space="preserve">
+    <value>Kolom verwijderen</value>
+  </data>
+  <data name="Delete empty column" xml:space="preserve">
+    <value>Lege kolom verwijderen</value>
+  </data>
+  <data name="Deleting..." xml:space="preserve">
+    <value>Verwijderen...</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Omschrijving</value>
+  </data>
+  <data name="Drop cards here" xml:space="preserve">
+    <value>Sleep kaarten hier</value>
+  </data>
+  <data name="Due Date" xml:space="preserve">
+    <value>Vervaldatum</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>Bewerk Board</value>
+  </data>
+  <data name="Failed to add label." xml:space="preserve">
+    <value>Label toevoegen mislukt.</value>
+  </data>
+  <data name="Failed to create card." xml:space="preserve">
+    <value>Kaarten aanmaken mislukt.</value>
+  </data>
+  <data name="Failed to create column." xml:space="preserve">
+    <value>Kolom maken mislukt.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>Kan de board niet verwijderen:</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>Fout bij verwijderen kolom:</value>
+  </data>
+  <data name="Failed to load board members." xml:space="preserve">
+    <value>Het laden van boardleden is mislukt.</value>
+  </data>
+  <data name="Failed to remove label." xml:space="preserve">
+    <value>Het is niet gelukt om het label te verwijderen.</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>Kan het bord niet hernoemen:</value>
+  </data>
+  <data name="Failed to rename column:" xml:space="preserve">
+    <value>Kan kolom niet hernoemen:</value>
+  </data>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>Opslaan mislukt:</value>
+  </data>
+  <data name="Failed to update label color." xml:space="preserve">
+    <value>Het bijwerken van de etiketkleur is mislukt.</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Hoog</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Bezig</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Niet afgerond</value>
+  </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>Kanban</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Labels</value>
+  </data>
+  <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
+    <value>Labels zijn alleen-leesbaar omdat u geen bewerkingsrechten voor dit board heeft.</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Laag</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Gemiddeld</value>
+  </data>
+  <data name="My Board" xml:space="preserve">
+    <value>Mijn bord</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="New Board" xml:space="preserve">
+    <value>Nieuw board</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>Nog geen borden</value>
+  </data>
+  <data name="No labels yet." xml:space="preserve">
+    <value>Nog geen labels.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Niet gestart</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>optioneel</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Achterstallig</value>
+  </data>
+  <data name="Planned Start" xml:space="preserve">
+    <value>Geplande start</value>
+  </data>
+  <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
+    <value>Druk op Enter om een label toe te voegen of direct een nieuw label aan te maken.</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioriteit</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Alleen lezen</value>
+  </data>
+  <data name="Remove {{0}}" xml:space="preserve">
+    <value>{{0}} verwijderen</value>
+  </data>
+  <data name="Rename board" xml:space="preserve">
+    <value>Naam van board wijzigen</value>
+  </data>
+  <data name="Rename column" xml:space="preserve">
+    <value>Kolom hernoemen</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Beoordeling</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="Saving..." xml:space="preserve">
+    <value>Opslaan...</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Zoek of maak een label</value>
+  </data>
+  <data name="Server error" xml:space="preserve">
+    <value>Serverfout</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Delen</value>
+  </data>
+  <data name="This action cannot be undone." xml:space="preserve">
+    <value>Deze actie kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="This action permanently removes all columns and cards. This cannot be undone." xml:space="preserve">
+    <value>Deze actie verwijdert alle kolommen en kaarten definitief. Dit kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="This column contains" xml:space="preserve">
+    <value>Deze kolom bevat</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Title is required." xml:space="preserve">
+    <value>Titel is vereist.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Niet toegewezen</value>
+  </data>
+  <data name="Unknown error" xml:space="preserve">
+    <value>Onbekende fout</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Dringend</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Bekijk</value>
+  </data>
+  <data name="What needs to be done?" xml:space="preserve">
+    <value>Wat moet er gedaan worden?</value>
+  </data>
+
+</root>
