@@ -30,6 +30,9 @@
   <data name="Add" xml:space="preserve">
     <value>追加</value>
   </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>コメントを追加...</value>
+  </data>
   <data name="Add Card" xml:space="preserve">
     <value>カードを追加</value>
   </data>
@@ -47,6 +50,9 @@
   </data>
   <data name="Are you sure you want to delete the column" xml:space="preserve">
     <value>この列を削除してもよろしいですか</value>
+  </data>
+  <data name="Are you sure you want to delete this comment?" xml:space="preserve">
+    <value>このコメントを削除してもよろしいですか？</value>
   </data>
   <data name="Assignee" xml:space="preserve">
     <value>担当者</value>
@@ -84,6 +90,15 @@
   <data name="Columns" xml:space="preserve">
     <value>列</value>
   </data>
+  <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
+    <value>コメントが長すぎます（最大2000文字）。</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
+    <value>このボードの編集権限がないため、コメントは読み取り専用です。</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>完了</value>
   </data>
@@ -99,6 +114,9 @@
   <data name="Created" xml:space="preserve">
     <value>作成日</value>
   </data>
+  <data name="d ago" xml:space="preserve">
+    <value>日前</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>削除</value>
   </data>
@@ -108,8 +126,14 @@
   <data name="Delete column" xml:space="preserve">
     <value>列を削除</value>
   </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>コメントを削除</value>
+  </data>
   <data name="Delete empty column" xml:space="preserve">
     <value>空のカラムを削除</value>
+  </data>
+  <data name="Delete this comment?" xml:space="preserve">
+    <value>このコメントを削除しますか？</value>
   </data>
   <data name="Deleting..." xml:space="preserve">
     <value>削除中...</value>
@@ -129,6 +153,9 @@
   <data name="Edit Board" xml:space="preserve">
     <value>ボードを編集</value>
   </data>
+  <data name="Failed to add comment." xml:space="preserve">
+    <value>コメントの追加に失敗しました。</value>
+  </data>
   <data name="Failed to add label." xml:space="preserve">
     <value>ラベルの追加に失敗しました。</value>
   </data>
@@ -143,6 +170,9 @@
   </data>
   <data name="Failed to delete column:" xml:space="preserve">
     <value>列の削除に失敗しました：</value>
+  </data>
+  <data name="Failed to delete comment." xml:space="preserve">
+    <value>コメントの削除に失敗しました。</value>
   </data>
   <data name="Failed to load board members." xml:space="preserve">
     <value>ボードメンバーの読み込みに失敗しました。</value>
@@ -162,6 +192,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>ラベルの色を更新できませんでした。</value>
   </data>
+  <data name="h ago" xml:space="preserve">
+    <value>時間前</value>
+  </data>
   <data name="High" xml:space="preserve">
     <value>高</value>
   </data>
@@ -170,6 +203,9 @@
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>未完了</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>たった今</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>カンバン</value>
@@ -182,6 +218,9 @@
   </data>
   <data name="Low" xml:space="preserve">
     <value>低</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>分前</value>
   </data>
   <data name="Medium" xml:space="preserve">
     <value>中</value>
@@ -197,6 +236,9 @@
   </data>
   <data name="No boards yet" xml:space="preserve">
     <value>まだボードがありません</value>
+  </data>
+  <data name="No comments yet." xml:space="preserve">
+    <value>まだコメントがありません。</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>まだラベルがありません。</value>
@@ -245,6 +287,12 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>ラベルを検索または作成</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>送信</value>
+  </data>
+  <data name="Sending..." xml:space="preserve">
+    <value>送信中...</value>
   </data>
   <data name="Server error" xml:space="preserve">
     <value>サーバーエラー</value>
