@@ -146,4 +146,11 @@ public abstract class TestBase
         if (Server == null) throw new InvalidOperationException("Server is not started.");
         return Server.Services.GetRequiredService<T>();
     }
+
+    protected T GetScopedService<T>() where T : notnull
+    {
+        if (Server == null) throw new InvalidOperationException("Server is not started.");
+        using var scope = Server.Services.CreateScope();
+        return scope.ServiceProvider.GetRequiredService<T>();
+    }
 }

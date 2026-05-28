@@ -1,0 +1,157 @@
+using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Models.AgentViewModels;
+using Aiursoft.Kanban.Services.Access;
+using Aiursoft.Kanban.Services.Agent;
+using Aiursoft.WebTools.Attributes;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace Aiursoft.Kanban.Controllers;
+
+[LimitPerMin]
+[Authorize]
+public class AgentController(
+    IAgentService agentService,
+    AdviceService adviceService,
+    KanbanAccessService access,
+    TemplateDbContext db,
+    UserManager<User> userManager) : Controller
+{
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.Message))
+            return BadRequest(new { error = "Message is required." });
+
+        var userId = userManager.GetUserId(User)!;
+
+        var board = await db.KanbanBoards.FindAsync(request.BoardId);
+        if (board == null)
+            return NotFound(new { error = "Board not found." });
+
+        if (!await access.HasReadAccess(board, userId))
+            return Forbid();
+
+        var conversationId = agentService.StartRun(userId, request.BoardId, request.Message);
+        return Ok(new { conversationId });
+    }
+
+    [HttpGet]
+    public IActionResult Status(Guid conversationId)
+    {
+        var conversation = agentService.GetConversation(conversationId);
+        if (conversation == null)
+            return NotFound(new { error = "Conversation not found." });
+
+        var userId = userManager.GetUserId(User)!;
+        if (conversation.UserId != userId)
+            return Forbid();
+
+        var messages = conversation.Messages
+            .Where(m => m.Role != "system")
+            .Select(m => new ChatMessageViewModel
+            {
+                Role = m.Role ?? "unknown",
+                Content = m.Content,
+                ToolCalls = m.ToolCalls?.Select(tc => new ToolCallViewModel
+                {
+                    Id = tc.Id,
+                    Name = tc.Function?.Name,
+                    Arguments = tc.Function?.Arguments
+                }).ToList(),
+                ToolCallId = m.ToolCallId
+            }).ToList();
+
+        // Annotate tool_call messages with their advice status
+        var pendingAdvice = adviceService.GetPendingForConversation(conversationId);
+        foreach (var msg in messages.Where(m => m.ToolCalls?.Count > 0))
+        {
+            if (msg.ToolCalls == null) continue;
+            foreach (var tc in msg.ToolCalls)
+            {
+                var matchingAdvice = pendingAdvice.FirstOrDefault(a => a.ToolCallId == tc.Id);
+                if (matchingAdvice != null)
+                {
+                    msg.AdviceId = matchingAdvice.Id;
+                    msg.AdviceStatus = matchingAdvice.Status.ToString();
+                }
+            }
+        }
+
+        var adviceViewModels = pendingAdvice.Select(a => new AdviceViewModel
+        {
+            AdviceId = a.Id,
+            ToolDisplayName = a.ToolDisplayName,
+            ParameterDisplay = a.ParameterDisplay,
+            Status = a.Status.ToString()
+        }).ToList();
+
+        return Ok(new AgentStatusViewModel
+        {
+            ConversationId = conversation.Id,
+            State = conversation.State.ToString(),
+            Messages = messages,
+            PendingAdvice = adviceViewModels,
+            ErrorMessage = conversation.ErrorMessage
+        });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult ApproveAdvice(Guid conversationId, Guid adviceId)
+    {
+        var conversation = agentService.GetConversation(conversationId);
+        if (conversation == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (conversation.UserId != userId) return Forbid();
+
+        agentService.ApproveAdvice(conversationId, adviceId);
+        return Ok(new { success = true });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult RejectAdvice(Guid conversationId, Guid adviceId)
+    {
+        var conversation = agentService.GetConversation(conversationId);
+        if (conversation == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (conversation.UserId != userId) return Forbid();
+
+        agentService.RejectAdvice(conversationId, adviceId);
+        return Ok(new { success = true });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult ApproveAll(Guid conversationId)
+    {
+        var conversation = agentService.GetConversation(conversationId);
+        if (conversation == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (conversation.UserId != userId) return Forbid();
+
+        agentService.ApproveAll(conversationId);
+        return Ok(new { success = true });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Cancel(Guid conversationId)
+    {
+        var conversation = agentService.GetConversation(conversationId);
+        if (conversation == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (conversation.UserId != userId) return Forbid();
+
+        agentService.CancelRun(conversationId);
+        return Ok(new { success = true });
+    }
+}

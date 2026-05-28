@@ -1,0 +1,201 @@
+using System.ComponentModel;
+using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Services.Access;
+using Aiursoft.Scanner.Abstractions;
+using Microsoft.EntityFrameworkCore;
+using ModelContextProtocol.Server;
+
+namespace Aiursoft.Kanban.Services.Tools.Read;
+
+[McpServerToolType]
+public class CardReadTools(
+    TemplateDbContext db,
+    KanbanAccessService access) : IScopedDependency
+{
+    [McpServerTool, Description("Get detailed information about a specific card")]
+    public async Task<string> GetCardById(
+        [Description("Card ID")] int cardId,
+        [Description("Current user ID")] string userId)
+    {
+        var card = await db.KanbanCards
+            .Include(c => c.Column).ThenInclude(col => col.Board)
+            .Include(c => c.AssignedUser)
+            .Include(c => c.CardLabels).ThenInclude(cl => cl.Label)
+            .FirstOrDefaultAsync(c => c.Id == cardId);
+
+        if (card == null) return "Card not found.";
+        if (!await access.HasReadAccess(card.Column.Board, userId)) return "You do not have access to this board.";
+
+        var labels = card.CardLabels.Select(cl => cl.Label.Name).ToList();
+        var labelStr = labels.Count > 0 ? string.Join(", ", labels) : "none";
+        var assignee = card.AssignedUser != null
+            ? KanbanAccessService.GetUserDisplayName(card.AssignedUser)
+            : "unassigned";
+
+        return $"Card #{card.Id} \"{card.Title}\"\n" +
+               $"  Description: {card.Description ?? "(none)"}\n" +
+               $"  Column: \"{card.Column.Name}\" (#{card.ColumnId})\n" +
+               $"  Board: \"{card.Column.Board.Name}\" (#{card.Column.BoardId})\n" +
+               $"  Priority: {card.Priority}\n" +
+               $"  Assigned: {assignee}\n" +
+               $"  Labels: {labelStr}\n" +
+               $"  Due Date: {card.DueDate?.ToString("yyyy-MM-dd") ?? "none"}\n" +
+               $"  Created: {card.CreationTime:yyyy-MM-dd}";
+    }
+
+    [McpServerTool, Description("Search cards by title or description")]
+    public async Task<string> SearchCards(
+        [Description("Search query")] string query,
+        [Description("Optional board ID to limit search")] int? boardId,
+        [Description("Current user ID")] string userId)
+    {
+        var normalized = query.Trim().ToUpperInvariant();
+        var cardsQuery = db.KanbanCards
+            .Include(c => c.Column).ThenInclude(col => col.Board)
+            .Where(c => c.Title.ToUpper().Contains(normalized) ||
+                        (c.Description != null && c.Description.ToUpper().Contains(normalized)));
+
+        if (boardId.HasValue)
+        {
+            cardsQuery = cardsQuery.Where(c => c.Column.BoardId == boardId.Value);
+        }
+
+        var cards = await cardsQuery.ToListAsync();
+
+        var accessible = new List<KanbanCard>();
+        foreach (var card in cards)
+        {
+            if (await access.HasReadAccess(card.Column.Board, userId))
+                accessible.Add(card);
+        }
+
+        if (accessible.Count == 0) return $"No cards found matching \"{query}\".";
+
+        var lines = new List<string> { $"Found {accessible.Count} card(s):" };
+        foreach (var card in accessible)
+        {
+            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{card.Column.Board.Name}\")");
+        }
+        return string.Join("\n", lines);
+    }
+
+    [McpServerTool, Description("Get all overdue cards on a board")]
+    public async Task<string> GetOverdueCards(
+        [Description("Board ID")] int boardId,
+        [Description("Current user ID")] string userId)
+    {
+        var board = await db.KanbanBoards.FindAsync(boardId);
+        if (board == null) return "Board not found.";
+        if (!await access.HasReadAccess(board, userId)) return "You do not have access to this board.";
+
+        var now = DateTime.UtcNow;
+        var cards = await db.KanbanCards
+            .Include(c => c.Column)
+            .Where(c => c.Column.BoardId == boardId &&
+                        c.DueDate.HasValue &&
+                        c.DueDate.Value < now &&
+                        c.Column.ColumnStatus != ColumnStatus.Completed)
+            .OrderBy(c => c.DueDate)
+            .ToListAsync();
+
+        if (cards.Count == 0) return "No overdue cards.";
+
+        var lines = new List<string> { $"Found {cards.Count} overdue card(s):" };
+        foreach (var card in cards)
+        {
+            var daysOverdue = (now - card.DueDate!.Value).Days;
+            lines.Add($"- #{card.Id} \"{card.Title}\" (Due: {card.DueDate:yyyy-MM-dd}, {daysOverdue} days overdue, Column: \"{card.Column.Name}\")");
+        }
+        return string.Join("\n", lines);
+    }
+
+    [McpServerTool, Description("Get cards filtered by priority level on a board")]
+    public async Task<string> GetCardsByPriority(
+        [Description("Board ID")] int boardId,
+        [Description("Priority level: Urgent, High, Medium, Low, or None")] string priority,
+        [Description("Current user ID")] string userId)
+    {
+        var board = await db.KanbanBoards.FindAsync(boardId);
+        if (board == null) return "Board not found.";
+        if (!await access.HasReadAccess(board, userId)) return "You do not have access to this board.";
+
+        if (!Enum.TryParse<Priority>(priority, true, out var priorityEnum))
+            return $"Invalid priority \"{priority}\". Valid values: Urgent, High, Medium, Low, None.";
+
+        var cards = await db.KanbanCards
+            .Include(c => c.Column)
+            .Where(c => c.Column.BoardId == boardId && c.Priority == priorityEnum)
+            .OrderBy(c => c.Order)
+            .ToListAsync();
+
+        if (cards.Count == 0) return $"No {priority} priority cards.";
+
+        var lines = new List<string> { $"Found {cards.Count} {priority} priority card(s):" };
+        foreach (var card in cards)
+        {
+            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\"");
+        }
+        return string.Join("\n", lines);
+    }
+
+    [McpServerTool, Description("Get all unassigned cards on a board")]
+    public async Task<string> GetUnassignedCards(
+        [Description("Board ID")] int boardId,
+        [Description("Current user ID")] string userId)
+    {
+        var board = await db.KanbanBoards.FindAsync(boardId);
+        if (board == null) return "Board not found.";
+        if (!await access.HasReadAccess(board, userId)) return "You do not have access to this board.";
+
+        var cards = await db.KanbanCards
+            .Include(c => c.Column)
+            .Where(c => c.Column.BoardId == boardId && c.AssignedUserId == null)
+            .OrderBy(c => c.Order)
+            .ToListAsync();
+
+        if (cards.Count == 0) return "No unassigned cards.";
+
+        var lines = new List<string> { $"Found {cards.Count} unassigned card(s):" };
+        foreach (var card in cards)
+        {
+            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\"");
+        }
+        return string.Join("\n", lines);
+    }
+
+    [McpServerTool, Description("Get cards that have a specific label")]
+    public async Task<string> GetCardsByLabel(
+        [Description("Label name to search for")] string labelName,
+        [Description("Optional board ID to limit search")] int? boardId,
+        [Description("Current user ID")] string userId)
+    {
+        var normalized = labelName.Trim().ToUpperInvariant();
+        var cardsQuery = db.KanbanCardLabels
+            .Include(cl => cl.Card).ThenInclude(c => c.Column).ThenInclude(col => col.Board)
+            .Include(cl => cl.Label)
+            .Where(cl => cl.Label.Name.ToUpper() == normalized);
+
+        if (boardId.HasValue)
+        {
+            cardsQuery = cardsQuery.Where(cl => cl.Card.Column.BoardId == boardId.Value);
+        }
+
+        var cardLabels = await cardsQuery.ToListAsync();
+
+        var accessible = new List<(KanbanCard Card, string BoardName)>();
+        foreach (var cl in cardLabels)
+        {
+            if (await access.HasReadAccess(cl.Card.Column.Board, userId))
+                accessible.Add((cl.Card, cl.Card.Column.Board.Name));
+        }
+
+        if (accessible.Count == 0) return $"No cards found with label \"{labelName}\".";
+
+        var lines = new List<string> { $"Found {accessible.Count} card(s) with label \"{labelName}\":" };
+        foreach (var (card, boardName) in accessible)
+        {
+            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{boardName}\")");
+        }
+        return string.Join("\n", lines);
+    }
+}

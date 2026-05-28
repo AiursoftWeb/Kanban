@@ -1,0 +1,49 @@
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@{
+    var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
+}
+
+<div class="agent-chat-widget collapsed" id="agent-chat-widget">
+    <div class="agent-chat-header">
+        <div>
+            <h6>@Localizer["Kanban AI Assistant"]</h6>
+            <span class="agent-status" id="agent-status-text">@Localizer["Ready"]</span>
+        </div>
+        <small style="color: var(--bs-secondary-color)">@Localizer["click to expand"]</small>
+    </div>
+    <div class="agent-chat-messages" id="agent-messages">
+        <div class="chat-message assistant">
+            @Localizer["Hi! I'm your Kanban assistant. I can help you manage cards, columns, and boards. Try saying \"Show me the board\" or \"Create a card for the login bug.\""]
+        </div>
+    </div>
+    <div class="agent-chat-input">
+        <textarea id="agent-input" rows="1" placeholder="@Localizer["Type a message..."]"></textarea>
+        <button class="btn btn-primary btn-sm" id="agent-send-btn">@Localizer["Send"]</button>
+    </div>
+</div>
+
+<div id="agent-loc-data" style="display:none">
+    <span data-key="thinking">@Localizer["Thinking..."]</span>
+    <span data-key="waiting-approval">@Localizer["Waiting for approval"]</span>
+    <span data-key="ready">@Localizer["Ready"]</span>
+    <span data-key="error">@Localizer["Error"]</span>
+    <span data-key="error-prefix">@Localizer["Error:"]</span>
+    <span data-key="network-error">@Localizer["Network error:"]</span>
+    <span data-key="approved-executing">@Localizer["Approved - executing..."]</span>
+    <span data-key="rejected">@Localizer["Rejected"]</span>
+    <span data-key="proposed-action">@Localizer["Proposed Action:"]</span>
+    <span data-key="approve">@Localizer["Approve"]</span>
+    <span data-key="reject">@Localizer["Reject"]</span>
+</div>
+
+<link rel="stylesheet" href="~/css/agent-chat.css" />
+<script src="~/js/agent-chat.js"></script>
+<script>
+    (function() {
+        var boardId = @((Model as dynamic)?.CurrentBoard?.Id ?? 0);
+        if (boardId > 0) {
+            AgentChat.init('@token', boardId);
+        }
+    })();
+</script>

@@ -1,0 +1,11 @@
+@model Aiursoft.Kanban.Models.AgentViewModels.AdviceViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+<div class="advice-card" data-advice-id="@Model.AdviceId">
+    <div class="advice-header">@Localizer["Proposed Action:"] @Model.ToolDisplayName</div>
+    <div class="advice-detail">@Model.ParameterDisplay</div>
+    <div class="advice-actions">
+        <button class="btn btn-sm btn-success" onclick="approveAdvice('@Model.AdviceId')">@Localizer["Approve"]</button>
+        <button class="btn btn-sm btn-outline-danger" onclick="rejectAdvice('@Model.AdviceId')">@Localizer["Reject"]</button>
+    </div>
+</div>

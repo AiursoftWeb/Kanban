@@ -1065,6 +1065,11 @@
     <span data-key="cards-delete-warning">@Localizer["card(s). Deleting the column will also permanently delete all its cards."]</span>
 </div>
 
+@if (Model.CurrentBoard != null)
+{
+    <partial name="~/Views/Agent/Chat.cshtml" model="Model" />
+}
+
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
 <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
