@@ -278,6 +278,27 @@
         margin: 0.25rem 0;
         display: block;
         object-fit: cover;
+        cursor: pointer;
+    }
+
+    .image-fullscreen-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.92);
+        z-index: 9999;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+    }
+    .image-fullscreen-overlay.active {
+        display: flex;
+    }
+    .image-fullscreen-overlay img {
+        max-width: 95vw;
+        max-height: 95vh;
+        object-fit: contain;
+        border-radius: 4px;
     }
 
     .column-header-readonly,
@@ -993,7 +1014,15 @@
                         <input type="text" id="editCardTitle" class="form-control" style="border-radius:12px" required disabled="@(!Model.CanEditCurrentBoard)">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">@Localizer["Description"] <span class="text-muted fw-normal">(@Localizer["optional"])</span></label>
+                        <label class="form-label fw-semibold">
+                            @Localizer["Description"] <span class="text-muted fw-normal">(@Localizer["optional"])</span>
+                            @if (Model.CanEditCurrentBoard)
+                            {
+                                <button type="button" id="btnToggleDescriptionEdit" class="btn btn-sm btn-link text-decoration-none float-end d-none" style="padding:0;font-size:0.85rem">
+                                    <i data-lucide="edit-3" style="width:14px;height:14px"></i> @Localizer["Edit"]
+                                </button>
+                            }
+                        </label>
                         <textarea id="editCardDescription" class="form-control" rows="3" style="border-radius:12px;resize:none" disabled="@(!Model.CanEditCurrentBoard)"></textarea>
                         <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid #dee2e6;border-radius:12px;background:#f8f9fa;word-break:break-word"></div>
                     </div>
@@ -1254,6 +1283,11 @@
     <span data-key="failed-delete-comment">@Localizer["Failed to delete comment."]</span>
 </div>
 
+<!-- Fullscreen Image Overlay -->
+<div id="imageFullscreenOverlay" class="image-fullscreen-overlay">
+    <img id="imageFullscreenImg" src="" alt="">
+</div>
+
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
 <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
@@ -1414,10 +1448,34 @@
                 if (match) {
                     var alt = escapeAttribute(match[1] || 'image');
                     var src = escapeAttribute(match[2]);
-                    return '<img src="' + src + '" alt="' + alt + '" class="card-inline-img" loading="lazy">';
+                    return '<img src="' + src + '" alt="' + alt + '" class="card-inline-img" loading="lazy" data-fullscreen-src="' + src + '">';
                 }
                 return escapeHtml(part);
             }).join("");
+        }
+
+        var imageFullscreenOverlay = document.getElementById("imageFullscreenOverlay");
+        var imageFullscreenImg = document.getElementById("imageFullscreenImg");
+
+        if (imageFullscreenOverlay) {
+            imageFullscreenOverlay.addEventListener("click", function() {
+                closeImageFullscreen();
+            });
+            document.addEventListener("keydown", function(e) {
+                if (e.key === "Escape" && imageFullscreenOverlay.classList.contains("active")) {
+                    closeImageFullscreen();
+                }
+            });
+        }
+        function openImageFullscreen(src) {
+            if (!imageFullscreenOverlay || !imageFullscreenImg) return;
+            imageFullscreenImg.src = src;
+            imageFullscreenOverlay.classList.add("active");
+        }
+        function closeImageFullscreen() {
+            if (imageFullscreenOverlay) {
+                imageFullscreenOverlay.classList.remove("active");
+            }
         }
 
         var editCardDescriptionPreview = null;
@@ -2434,6 +2492,57 @@
             editCardDescription.addEventListener('input', updateDescriptionPreview);
         }
 
+        var btnToggleDescriptionEdit = document.getElementById("btnToggleDescriptionEdit");
+        var isDescriptionEditing = false;
+
+        function setDescriptionEditMode(editing) {
+            isDescriptionEditing = editing;
+            if (!editCardDescriptionPreview) {
+                editCardDescriptionPreview = document.getElementById("editCardDescriptionPreview");
+            }
+            var hasContent = (editCardDescription.value || "").trim().length > 0;
+
+            if (editing) {
+                editCardDescription.style.display = "";
+                if (hasContent && editCardDescriptionPreview) {
+                    editCardDescriptionPreview.style.display = "";
+                }
+                if (btnToggleDescriptionEdit) {
+                    btnToggleDescriptionEdit.innerHTML = '<i data-lucide="eye" style="width:14px;height:14px"></i> Preview';
+                    lucide.createIcons({ nodes: [btnToggleDescriptionEdit] });
+                }
+            } else {
+                editCardDescription.style.display = "none";
+                if (hasContent) {
+                    if (editCardDescriptionPreview) editCardDescriptionPreview.style.display = "";
+                    if (btnToggleDescriptionEdit) {
+                        btnToggleDescriptionEdit.classList.remove("d-none");
+                        btnToggleDescriptionEdit.innerHTML = '<i data-lucide="edit-3" style="width:14px;height:14px"></i> Edit';
+                        lucide.createIcons({ nodes: [btnToggleDescriptionEdit] });
+                    }
+                } else {
+                    if (editCardDescriptionPreview) editCardDescriptionPreview.style.display = "none";
+                    if (btnToggleDescriptionEdit) {
+                        btnToggleDescriptionEdit.classList.add("d-none");
+                    }
+                }
+            }
+        }
+
+        if (btnToggleDescriptionEdit) {
+            btnToggleDescriptionEdit.addEventListener("click", function() {
+                setDescriptionEditMode(!isDescriptionEditing);
+            });
+        }
+
+        document.addEventListener("click", function(e) {
+            var img = e.target.closest("img[data-fullscreen-src]");
+            if (img) {
+                e.stopPropagation();
+                openImageFullscreen(img.getAttribute("data-fullscreen-src"));
+            }
+        });
+
         function openCardEditModal(cardEl) {
             if (!editCardModal || !editCardTitle || !editCardDescription || !editCardPlannedStart || !editCardDueDate || !editCardActualStart || !editCardActualEnd) {
                 return;
@@ -2450,6 +2559,16 @@
             editCardTitle.value = cardEl.dataset.title || "";
             editCardDescription.value = cardEl.dataset.description || "";
             updateDescriptionPreview();
+            if (canEditCurrentBoard) {
+                var hasDesc = (cardEl.dataset.description || "").trim().length > 0;
+                setDescriptionEditMode(!hasDesc);
+            } else if (!(cardEl.dataset.description || "").trim()) {
+                editCardDescription.style.display = "";
+                editCardDescriptionPreview.style.display = "none";
+            } else {
+                editCardDescription.style.display = "none";
+                editCardDescriptionPreview.style.display = "";
+            }
             editCardPlannedStart.value = cardEl.dataset.plannedStart || "";
             editCardDueDate.value = cardEl.dataset.dueDate || "";
             if (editCardPriority) {
