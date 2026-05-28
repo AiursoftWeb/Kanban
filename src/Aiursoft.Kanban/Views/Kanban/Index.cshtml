@@ -513,6 +513,137 @@
     .board-title-input:focus {
         box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.25);
     }
+
+    .comments-section {
+        margin-top: 1.25rem;
+        border-top: 1px solid var(--bs-border-color);
+        padding-top: 1rem;
+    }
+
+    .comment-item {
+        display: flex;
+        gap: 0.65rem;
+        margin-bottom: 1rem;
+    }
+
+    .comment-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--bs-primary, #4dabf7);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .comment-body {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .comment-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .comment-author {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--bs-body-color);
+    }
+
+    .comment-time {
+        font-size: 0.72rem;
+        color: var(--bs-secondary-color);
+        cursor: default;
+        border-bottom: 1px dotted var(--bs-secondary-color);
+    }
+
+    .comment-text {
+        font-size: 0.82rem;
+        color: var(--bs-body-color);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .comment-text blockquote {
+        margin: 0.4rem 0;
+        padding: 0.3rem 0.75rem;
+        border-left: 3px solid var(--bs-primary, #4dabf7);
+        background: var(--bs-tertiary-bg);
+        border-radius: 0 6px 6px 0;
+        color: var(--bs-secondary-color);
+        font-size: 0.8rem;
+    }
+
+    .comment-delete-btn {
+        margin-left: auto;
+        padding: 0.1rem 0.35rem;
+        border: none;
+        background: transparent;
+        color: var(--bs-secondary-color);
+        cursor: pointer;
+        border-radius: 6px;
+        opacity: 0;
+        transition: opacity 0.15s, background 0.15s, color 0.15s;
+    }
+
+    .comment-item:hover .comment-delete-btn {
+        opacity: 1;
+    }
+
+    .comment-delete-btn:hover {
+        background: var(--bs-danger-bg-subtle);
+        color: var(--bs-danger);
+    }
+
+    .comment-add-area {
+        display: flex;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+
+    .comment-add-area textarea {
+        flex: 1;
+        border-radius: 10px;
+        resize: none;
+        font-size: 0.82rem;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--bs-border-color);
+        background: var(--bs-body-bg);
+        color: var(--bs-body-color);
+        min-height: 60px;
+    }
+
+    .comment-add-area textarea:focus {
+        outline: none;
+        border-color: var(--bs-primary, #4dabf7);
+        box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.25);
+    }
+
+    .btn-comment-submit {
+        border-radius: 10px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        padding: 0.4rem 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .comment-empty-hint {
+        font-size: 0.8rem;
+        color: var(--bs-secondary-color);
+        text-align: center;
+        padding: 0.5rem 0;
+    }
 </style>
 }
 
@@ -912,6 +1043,21 @@
                             <div id="editCardActualEnd" class="form-control bg-light text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
                         </div>
                     </div>
+                    <div class="comments-section">
+                        <label class="form-label fw-semibold mb-2">@Localizer["Comments"]</label>
+                        <div id="commentsList"></div>
+                        @if (Model.CanEditCurrentBoard)
+                        {
+                            <div class="comment-add-area">
+                                <textarea id="commentInput" placeholder="@Localizer["Add a comment..."]"></textarea>
+                                <button type="button" class="btn btn-primary btn-comment-submit" id="btnAddComment">@Localizer["Send"]</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-text">@Localizer["Comments are read-only because you do not have edit access to this board."]</div>
+                        }
+                    </div>
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@(Model.CanEditCurrentBoard ? Localizer["Cancel"].Value : Localizer["Close"].Value)</button>
@@ -966,6 +1112,28 @@
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
                 <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteColumn" style="border-radius:10px">
                     @Localizer["Delete Column"]
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Comment Confirmation Modal -->
+<div class="modal fade" id="deleteCommentConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete Comment"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p>@Localizer["Are you sure you want to delete this comment?"]</p>
+                <div class="alert alert-danger mt-2 d-none" id="deleteCommentError" role="alert"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
+                <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteComment" style="border-radius:10px">
+                    @Localizer["Delete"]
                 </button>
             </div>
         </div>
@@ -1063,6 +1231,18 @@
     <span data-key="delete-empty-column">@Localizer["Delete empty column"]</span>
     <span data-key="this-column-contains">@Localizer["This column contains"]</span>
     <span data-key="cards-delete-warning">@Localizer["card(s). Deleting the column will also permanently delete all its cards."]</span>
+    <span data-key="just-now">@Localizer["just now"]</span>
+    <span data-key="m-ago">@Localizer["m ago"]</span>
+    <span data-key="h-ago">@Localizer["h ago"]</span>
+    <span data-key="d-ago">@Localizer["d ago"]</span>
+    <span data-key="no-comments-yet">@Localizer["No comments yet."]</span>
+    <span data-key="failed-add-comment">@Localizer["Failed to add comment."]</span>
+    <span data-key="comment-too-long">@Localizer["Comment is too long (max 2000 characters)."]</span>
+    <span data-key="sending">@Localizer["Sending..."]</span>
+    <span data-key="send">@Localizer["Send"]</span>
+    <span data-key="delete-comment">@Localizer["Delete"]</span>
+    <span data-key="confirm-delete-comment">@Localizer["Delete this comment?"]</span>
+    <span data-key="failed-delete-comment">@Localizer["Failed to delete comment."]</span>
 </div>
 
 @* ReSharper disable once Razor.SectionNotResolved *@
@@ -1243,10 +1423,92 @@
         function formatDateTimeLocal(isoStr) {
             if (!isoStr) return "—";
             try {
-                return new Date(isoStr + "Z").toLocaleString();
+                var d = /Z|[+-]\d{2}:?\d{2}$/.test(isoStr) ? new Date(isoStr) : new Date(isoStr + "Z");
+                return isNaN(d.getTime()) ? isoStr : d.toLocaleString();
             } catch (e) {
                 return isoStr;
             }
+        }
+
+        function parseCommentDate(utcStr) {
+            if (!utcStr) return null;
+            var d = /Z|[+-]\d{2}:?\d{2}$/.test(utcStr) ? new Date(utcStr) : new Date(utcStr + "Z");
+            return isNaN(d.getTime()) ? null : d;
+        }
+
+        function formatCommentFullTime(utcStr) {
+            var d = parseCommentDate(utcStr);
+            if (!d) return utcStr || "";
+            return d.toLocaleString();
+        }
+
+        function formatCommentTime(utcStr) {
+            if (!utcStr) return "";
+            var d = parseCommentDate(utcStr);
+            if (!d) return utcStr;
+            var now = new Date();
+            var diffMs = now - d;
+            var diffMin = Math.floor(diffMs / 60000);
+            if (diffMin < 1) return getLocalizedText("just-now", "just now");
+            if (diffMin < 60) return diffMin + getLocalizedText("m-ago", "m ago");
+            var diffHr = Math.floor(diffMin / 60);
+            if (diffHr < 24) return diffHr + getLocalizedText("h-ago", "h ago");
+            var diffDays = Math.floor(diffHr / 24);
+            if (diffDays < 7) return diffDays + getLocalizedText("d-ago", "d ago");
+            return d.toLocaleString();
+        }
+
+        function renderMarkdownContent(text) {
+            if (!text) return "";
+            var result = escapeHtml(text);
+            var quoteMatch = result.match(/^&gt;\s*([\s\S]*?)(?:\n|$)/);
+            if (quoteMatch) {
+                var quoted = quoteMatch[1];
+                var afterQuote = result.substring(quoteMatch[0].length);
+                var blockquote = '<blockquote>' + quoted + '</blockquote>';
+                return blockquote + afterQuote;
+            }
+            return result;
+        }
+
+        function loadComments(cardId) {
+            if (!commentsList) return;
+            fetch("/Kanban/GetComments?cardId=" + cardId)
+                .then(function(r) { return r.ok ? r.json() : []; })
+                .then(function(comments) {
+                    if (comments.length === 0) {
+                        commentsList.innerHTML = '<div class="comment-empty-hint">' + getLocalizedText("no-comments-yet", "No comments yet.") + '</div>';
+                        return;
+                    }
+                    commentsList.innerHTML = comments.map(function(c) {
+                        var deleteBtn = '';
+                        if (canEditCurrentBoard) {
+                            deleteBtn = '<button type="button" class="comment-delete-btn" title="' + getLocalizedText("delete-comment", "Delete") + '">'
+                                + '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>'
+                                + '</button>';
+                        }
+                        return '<div class="comment-item" data-comment-id="' + c.Id + '">'
+                            + '<div class="comment-avatar">' + escapeHtml(c.AuthorInitial || "?") + '</div>'
+                            + '<div class="comment-body">'
+                                + '<div class="comment-header">'
+                                    + '<span class="comment-author">' + escapeHtml(c.AuthorName || "Unknown") + '</span>'
+                                    + '<span class="comment-time" title="' + escapeHtml(formatCommentFullTime(c.CreationTime)) + '">' + formatCommentTime(c.CreationTime) + '</span>'
+                                + '</div>'
+                                + '<div class="comment-text">' + renderMarkdownContent(c.Content) + '</div>'
+                            + '</div>'
+                            + deleteBtn
+                        + '</div>';
+                    }).join("");
+
+                    // Attach delete handlers
+                    commentsList.querySelectorAll('.comment-delete-btn').forEach(function(btn) {
+                        btn.addEventListener('click', function() {
+                            var commentId = this.closest('.comment-item').dataset.commentId;
+                            deleteComment(commentId);
+                        });
+                    });
+                })
+                .catch(function(err) { console.error("GetComments failed:", err); });
         }
 
         function renderCardContent(cardEl) {
@@ -1850,6 +2112,14 @@
         var editCardLabels = document.getElementById("editCardLabels");
         var btnAddLabel = document.getElementById("btnAddLabel");
         var btnUpdateCard = document.getElementById("btnUpdateCard");
+        var commentsList = document.getElementById("commentsList");
+        var commentInput = document.getElementById("commentInput");
+        var btnAddComment = document.getElementById("btnAddComment");
+        var deleteCommentConfirmModalEl = document.getElementById("deleteCommentConfirmModal");
+        var deleteCommentConfirmModal = deleteCommentConfirmModalEl ? new bootstrap.Modal(deleteCommentConfirmModalEl) : null;
+        var btnConfirmDeleteComment = document.getElementById("btnConfirmDeleteComment");
+        var deleteCommentError = document.getElementById("deleteCommentError");
+        var commentIdToDelete = null;
 
         function updateCardAssignment(cardEl, assignedUserId, assignedUserName, assignedUserInitial) {
             cardEl.dataset.assignedUserId = assignedUserId || "";
@@ -2094,6 +2364,7 @@
             editCardActualEnd.textContent = formatDateTimeLocal(cardEl.dataset.actualEnd);
             renderSelectedLabels();
             loadBoardMembers(cardEl.dataset.assignedUserId || "");
+            loadComments(currentEditCardId);
             new bootstrap.Modal(editCardModal).show();
         }
 
@@ -2231,6 +2502,101 @@
                     });
                 });
             }
+        }
+
+        if (btnAddComment && commentInput) {
+            function submitComment() {
+                var content = commentInput.value.trim();
+                if (!content) return;
+                if (content.length > 2000) {
+                    alert(getLocalizedText("comment-too-long", "Comment is too long (max 2000 characters)."));
+                    return;
+                }
+                btnAddComment.disabled = true;
+                btnAddComment.textContent = getLocalizedText("sending", "Sending...");
+                fetch("/Kanban/AddComment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded", "RequestVerificationToken": csrfToken },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&cardId=" + currentEditCardId
+                        + "&content=" + encodeURIComponent(content)
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("failed-add-comment", "Failed to add comment.")); });
+                    return r.json();
+                })
+                .then(function() {
+                    commentInput.value = "";
+                    loadComments(currentEditCardId);
+                })
+                .catch(function(err) {
+                    alert(err.message || getLocalizedText("failed-add-comment", "Failed to add comment."));
+                })
+                .finally(function() {
+                    btnAddComment.disabled = false;
+                    btnAddComment.textContent = getLocalizedText("send", "Send");
+                });
+            }
+
+            btnAddComment.addEventListener("click", submitComment);
+
+            commentInput.addEventListener("keydown", function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+                    e.preventDefault();
+                    submitComment();
+                }
+            });
+        }
+
+        function deleteComment(commentId) {
+            commentIdToDelete = commentId;
+            if (deleteCommentError) {
+                deleteCommentError.textContent = "";
+                deleteCommentError.classList.add("d-none");
+            }
+            if (btnConfirmDeleteComment) {
+                btnConfirmDeleteComment.disabled = false;
+                btnConfirmDeleteComment.textContent = getLocalizedText("delete-comment", "Delete");
+            }
+            if (deleteCommentConfirmModal) {
+                deleteCommentConfirmModal.show();
+            }
+        }
+
+        if (btnConfirmDeleteComment) {
+            btnConfirmDeleteComment.addEventListener("click", function() {
+                if (!commentIdToDelete) return;
+
+                btnConfirmDeleteComment.disabled = true;
+                btnConfirmDeleteComment.textContent = getLocalizedText("deleting", "Deleting...");
+                if (deleteCommentError) {
+                    deleteCommentError.classList.add("d-none");
+                }
+
+                fetch("/Kanban/DeleteComment?commentId=" + commentIdToDelete, {
+                    method: "POST",
+                    headers: { "RequestVerificationToken": csrfToken }
+                })
+                .then(function(r) {
+                    if (!r.ok) throw new Error(getLocalizedText("failed-delete-comment", "Failed to delete comment."));
+                    if (deleteCommentConfirmModal) {
+                        deleteCommentConfirmModal.hide();
+                    }
+                    loadComments(currentEditCardId);
+                })
+                .catch(function(err) {
+                    if (deleteCommentError) {
+                        deleteCommentError.textContent = err.message || getLocalizedText("failed-delete-comment", "Failed to delete comment.");
+                        deleteCommentError.classList.remove("d-none");
+                    }
+                })
+                .finally(function() {
+                    if (btnConfirmDeleteComment) {
+                        btnConfirmDeleteComment.disabled = false;
+                        btnConfirmDeleteComment.textContent = getLocalizedText("delete-comment", "Delete");
+                    }
+                });
+            });
         }
     });
 </script>

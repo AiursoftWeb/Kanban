@@ -147,6 +147,37 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.ToTable("KanbanCards");
                 });
 
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCardComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CardId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("CardId");
+
+                    b.ToTable("KanbanCardComments");
+                });
+
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCardLabel", b =>
                 {
                     b.Property<int>("CardId")
@@ -463,6 +494,25 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.Navigation("AssignedUser");
 
                     b.Navigation("Column");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCardComment", b =>
+                {
+                    b.HasOne("Aiursoft.Kanban.Entities.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.Kanban.Entities.KanbanCard", "Card")
+                        .WithMany()
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Card");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCardLabel", b =>

@@ -311,4 +311,46 @@ public class KanbanControllerTests : TestBase
         }
         return await Http.PostAsync(url, new FormUrlEncodedContent(data));
     }
+
+    // ── Comments ───────────────────────────────────────────
+
+    [TestMethod]
+    public async Task GetComments_NonExistentCard_ReturnsNotFound()
+    {
+        await LoginAsAdmin();
+        var response = await Http.GetAsync("/Kanban/GetComments?cardId=9999");
+        Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task AddComment_ValidContent_AddsAndReturnsCommentDetails()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Card with comments");
+
+        var response = await PostAsync(
+            $"/Kanban/AddComment",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "content", "This is a comment test" }
+            });
+        response.EnsureSuccessStatusCode();
+
+        var json = await response.Content.ReadAsStringAsync();
+        using var doc = JsonDocument.Parse(json);
+        Assert.AreEqual("This is a comment test", doc.RootElement.GetProperty("Content").GetString());
+        Assert.IsNotNull(doc.RootElement.GetProperty("AuthorName").GetString());
+        Assert.IsNotNull(doc.RootElement.GetProperty("AuthorInitial").GetString());
+
+        // Now test GetComments
+        var getResponse = await Http.GetAsync($"/Kanban/GetComments?cardId={card.Id}");
+        getResponse.EnsureSuccessStatusCode();
+        var getJson = await getResponse.Content.ReadAsStringAsync();
+        using var getDoc = JsonDocument.Parse(getJson);
+        Assert.AreEqual(JsonValueKind.Array, getDoc.RootElement.ValueKind);
+        Assert.AreEqual(1, getDoc.RootElement.GetArrayLength());
+        Assert.AreEqual("This is a comment test", getDoc.RootElement[0].GetProperty("Content").GetString());
+    }
 }

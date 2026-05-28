@@ -878,6 +878,95 @@ public class KanbanController(
         return RedirectToAction(nameof(ManageShares), new { id = share.BoardId });
     }
 
+    [HttpPost]
+    public async Task<IActionResult> AddComment(int cardId, string content)
+    {
+        if (string.IsNullOrWhiteSpace(content))
+            return BadRequest("Content is required.");
+
+        if (content.Trim().Length > 2000)
+            return BadRequest("Content is too long.");
+
+        var card = await db.KanbanCards
+            .Include(c => c.Column)
+                .ThenInclude(col => col.Board)
+            .FirstOrDefaultAsync(c => c.Id == cardId);
+        if (card == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
+
+        var comment = new KanbanCardComment
+        {
+            CardId = cardId,
+            Content = content.Trim(),
+            AuthorId = userId
+        };
+        db.KanbanCardComments.Add(comment);
+        await db.SaveChangesAsync();
+
+        var author = await userManager.FindByIdAsync(userId);
+        return Ok(new
+        {
+            comment.Id,
+            comment.Content,
+            comment.CreationTime,
+            AuthorName = GetUserDisplayName(author),
+            AuthorInitial = GetUserInitial(author)
+        });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetComments(int cardId)
+    {
+        var card = await db.KanbanCards
+            .Include(c => c.Column)
+                .ThenInclude(col => col.Board)
+            .FirstOrDefaultAsync(c => c.Id == cardId);
+        if (card == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (!await HasReadAccess(card.Column.Board, userId)) return Forbid();
+
+        var commentsList = await db.KanbanCardComments
+            .Where(c => c.CardId == cardId)
+            .Include(c => c.Author)
+            .OrderBy(c => c.CreationTime)
+            .ToListAsync();
+
+        var comments = commentsList.Select(c => new
+        {
+            c.Id,
+            c.Content,
+            c.CreationTime,
+            AuthorName = GetUserDisplayName(c.Author),
+            AuthorInitial = GetUserInitial(c.Author)
+        });
+
+        return Ok(comments);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteComment(int commentId)
+    {
+        var userId = userManager.GetUserId(User)!;
+        var comment = await db.KanbanCardComments.Include(c => c.Card).ThenInclude(c => c.Column).ThenInclude(col => col.Board).FirstOrDefaultAsync(c => c.Id == commentId);
+        if (comment == null) return NotFound();
+
+        if (!await HasEditAccess(comment.Card.Column.Board, userId)) return Forbid();
+
+        // Only the author or board admin can delete
+        if (comment.AuthorId != userId)
+        {
+            var boardAdminId = comment.Card.Column.Board.UserId;
+            if (userId != boardAdminId) return Forbid();
+        }
+
+        db.Remove(comment);
+        await db.SaveChangesAsync();
+        return Ok();
+    }
+
     private Task<KanbanBoard?> LoadBoardAsync(int boardId)
     {
         return db.KanbanBoards
