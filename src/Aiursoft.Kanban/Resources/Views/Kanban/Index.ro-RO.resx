@@ -19,316 +19,316 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
       <data name="Actions" xml:space="preserve">
-    <value>İşlemler</value>
+    <value>Acțiuni</value>
   </data>
   <data name="Actual End" xml:space="preserve">
-    <value>Gerçek Bitiş</value>
+    <value>Sfârșit efectiv</value>
   </data>
   <data name="Actual Start" xml:space="preserve">
-    <value>Gerçek Başlangıç</value>
+    <value>Începere reală</value>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Ekle</value>
+    <value>Adaugă</value>
   </data>
   <data name="Add a comment..." xml:space="preserve">
-    <value>Yorum ekle...</value>
+    <value>Adaugă un comentariu...</value>
   </data>
   <data name="Add Card" xml:space="preserve">
-    <value>Kart Ekle</value>
+    <value>Adaugă card</value>
   </data>
   <data name="Add Column" xml:space="preserve">
-    <value>Sütun Ekle</value>
+    <value>Adaugă coloană</value>
   </data>
   <data name="Add more details..." xml:space="preserve">
-    <value>Daha fazla ayrıntı ekleyin...</value>
+    <value>Adăugați mai multe detalii...</value>
   </data>
   <data name="All Boards" xml:space="preserve">
-    <value>Tüm Panolar</value>
+    <value>Toate tablourile</value>
   </data>
   <data name="Are you sure you want to delete the board" xml:space="preserve">
-    <value>Tahtayı silmek istediğinize emin misiniz</value>
+    <value>Sigur doriți să ștergeți panoul</value>
   </data>
   <data name="Are you sure you want to delete the column" xml:space="preserve">
-    <value>Sütunu silmek istediğinize emin misiniz</value>
+    <value>Sigur doriți să ștergeți coloana</value>
   </data>
   <data name="Are you sure you want to delete this comment?" xml:space="preserve">
-    <value>Bu yorumu silmek istediğinize emin misiniz?</value>
+    <value>Sunteți sigur că doriți să ștergeți acest comentariu?</value>
   </data>
   <data name="Assignee" xml:space="preserve">
-    <value>Atanan</value>
+    <value>Atribuit</value>
   </data>
   <data name="auto" xml:space="preserve">
-    <value>otomatik</value>
+    <value>automat</value>
   </data>
   <data name="Board Name" xml:space="preserve">
-    <value>Pano Adı</value>
+    <value>Numele tabelei</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>İptal</value>
+    <value>Anulează</value>
   </data>
   <data name="Card Details" xml:space="preserve">
-    <value>Kart Detayları</value>
+    <value>Detalii card</value>
   </data>
   <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>kart(lar). Sütun silindiğinde, içindeki tüm kartlar da kalıcı olarak silinecektir.</value>
+    <value>carduri. Ștergerea coloanei va șterge, de asemenea, definitiv toate cardurile sale.</value>
   </data>
   <data name="Change {{0}} color" xml:space="preserve">
-    <value>{{0}} rengini değiştir</value>
+    <value>Schimbați culoarea {{0}}</value>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Kapat</value>
+    <value>Închidere</value>
   </data>
   <data name="column" xml:space="preserve">
-    <value>sütun</value>
+    <value>coloană</value>
   </data>
   <data name="Column Name" xml:space="preserve">
-    <value>Sütun Adı</value>
+    <value>Nume coloană</value>
   </data>
   <data name="Column name is required." xml:space="preserve">
-    <value>Sütun adı zorunludur.</value>
+    <value>Numele coloanei este obligatoriu.</value>
   </data>
   <data name="Columns" xml:space="preserve">
-    <value>Sütunlar</value>
+    <value>Coloane</value>
   </data>
   <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
-    <value>Yorum çok uzun (en fazla 2000 karakter).</value>
+    <value>Comentariul este prea lung (maxim 2000 de caractere).</value>
   </data>
   <data name="Comments" xml:space="preserve">
-    <value>Yorumlar</value>
+    <value>Comentarii</value>
   </data>
   <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
-    <value>Yorumlar salt okunur durumdadır, çünkü bu panele düzenleme erişiminiz yok.</value>
+    <value>Comentariile sunt doar în regim de citire, deoarece nu aveți acces de editare la acest panou.</value>
   </data>
   <data name="Completed" xml:space="preserve">
-    <value>Tamamlanan</value>
+    <value>Finalizat</value>
   </data>
   <data name="Create Board" xml:space="preserve">
-    <value>Pano Oluştur</value>
+    <value>Creează tablică</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
-    <value>Yeni Panolu Oluştur</value>
+    <value>Creează panou nou</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
-    <value>Başlamak için ilk Kanban panonuzu oluşturun.</value>
+    <value>Creați primul tabel Kanban pentru a începe.</value>
   </data>
   <data name="Created" xml:space="preserve">
-    <value>Oluşturulma</value>
+    <value>Creat</value>
   </data>
   <data name="d ago" xml:space="preserve">
-    <value>g önce</value>
+    <value>d în urmă</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Sil</value>
+    <value>Șterge</value>
   </data>
   <data name="Delete Board" xml:space="preserve">
-    <value>Panoyu Sil</value>
+    <value>Șterge panoul</value>
   </data>
   <data name="Delete column" xml:space="preserve">
-    <value>Sütunu sil</value>
+    <value>Șterge coloana</value>
   </data>
   <data name="Delete Comment" xml:space="preserve">
-    <value>Yorumu Sil</value>
+    <value>Șterge comentariul</value>
   </data>
   <data name="Delete empty column" xml:space="preserve">
-    <value>Boş sütunu sil</value>
+    <value>Șterge coloana goală</value>
   </data>
   <data name="Delete this comment?" xml:space="preserve">
-    <value>Bu yorum silinsin mi?</value>
+    <value>Ștergeți acest comentariu?</value>
   </data>
   <data name="Deleting..." xml:space="preserve">
-    <value>Siliniyor...</value>
+    <value>Se șterge...</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Açıklama</value>
+    <value>Descriere</value>
   </data>
   <data name="Drop cards here" xml:space="preserve">
-    <value>Kartları buraya sürükleyin</value>
+    <value>Trageți aici cardurile</value>
   </data>
   <data name="Due Date" xml:space="preserve">
-    <value>Son Kullanma Tarihi</value>
+    <value>Data limită</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Düzenle</value>
+    <value>Editare</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
-    <value>Panoyu Düzenle</value>
+    <value>Modificare tablou</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
-    <value>Yorum eklenemedi.</value>
+    <value>Nu s-a putut adăuga comentariul.</value>
   </data>
   <data name="Failed to add label." xml:space="preserve">
-    <value>Etiket eklenemedi.</value>
+    <value>Eșec la adăugarea etichetei.</value>
   </data>
   <data name="Failed to create card." xml:space="preserve">
-    <value>Kart oluşturulamadı.</value>
+    <value>Crearea cardului a eșuat.</value>
   </data>
   <data name="Failed to create column." xml:space="preserve">
-    <value>Sütun oluşturulamadı.</value>
+    <value>Nu s-a putut crea coloana.</value>
   </data>
   <data name="Failed to delete board:" xml:space="preserve">
-    <value>Pano silinemedi:</value>
+    <value>Nu s-a putut șterge tabloul:</value>
   </data>
   <data name="Failed to delete column:" xml:space="preserve">
-    <value>Sütun silinemedi:</value>
+    <value>Nu s-a putut șterge coloana:</value>
   </data>
   <data name="Failed to delete comment." xml:space="preserve">
-    <value>Yorum silinemedi.</value>
+    <value>Eșec la ștergerea comentariului.</value>
   </data>
   <data name="Failed to load board members." xml:space="preserve">
-    <value>Panolar üyeleri yüklenemedi.</value>
+    <value>Nu s-au putut încărca membrii tablei.</value>
   </data>
   <data name="Failed to remove label." xml:space="preserve">
-    <value>Etiket kaldırılamadı.</value>
+    <value>Eșec la ștergerea etichetei.</value>
   </data>
   <data name="Failed to rename board:" xml:space="preserve">
-    <value>Panoyu yeniden adlandırmada hata oluştu:</value>
+    <value>Nu s-a putut redenumi tabloul:</value>
   </data>
   <data name="Failed to rename column:" xml:space="preserve">
-    <value>Sütun yeniden adlandırılamadı:</value>
+    <value>Nepreîntâlnit redenumirea coloanei:</value>
   </data>
   <data name="Failed to save:" xml:space="preserve">
-    <value>Kaydedilemedi:</value>
+    <value>Salvarea a eșuat:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
-    <value>Etiket rengi güncellenemedi.</value>
+    <value>Actualizarea culorii etichetei a eșuat.</value>
   </data>
   <data name="h ago" xml:space="preserve">
-    <value>sa önce</value>
+    <value>acum o oră</value>
   </data>
   <data name="High" xml:space="preserve">
-    <value>Yüksek</value>
+    <value>Înaltă</value>
   </data>
   <data name="In Progress" xml:space="preserve">
-    <value>Devam Ediyor</value>
+    <value>În desfășurare</value>
   </data>
   <data name="Incomplete" xml:space="preserve">
-    <value>Tamamlanmamış</value>
+    <value>Neterminate</value>
   </data>
   <data name="just now" xml:space="preserve">
-    <value>az önce</value>
+    <value>acum</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>Kanban</value>
   </data>
   <data name="Labels" xml:space="preserve">
-    <value>Etiketler</value>
+    <value>Etichete</value>
   </data>
   <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
-    <value>Etiketler, bu tahtaya düzenleme erişiminiz olmadığından salt okunur durumdadır.</value>
+    <value>Etichetele sunt în regim de doar citire deoarece nu aveți acces de editare la acest tablou.</value>
   </data>
   <data name="Low" xml:space="preserve">
-    <value>Düşük</value>
+    <value>Scăzută</value>
   </data>
   <data name="m ago" xml:space="preserve">
-    <value>dk önce</value>
+    <value>min în urmă</value>
   </data>
   <data name="Medium" xml:space="preserve">
-    <value>Orta</value>
+    <value>Mediu</value>
   </data>
   <data name="My Board" xml:space="preserve">
-    <value>Panom</value>
+    <value>Panoul meu</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Ad</value>
+    <value>Nume</value>
   </data>
   <data name="New Board" xml:space="preserve">
-    <value>Yeni Panolar</value>
+    <value>Panou nou</value>
   </data>
   <data name="No boards yet" xml:space="preserve">
-    <value>Henüz pano yok</value>
+    <value>Încă nu există tablo</value>
   </data>
   <data name="No comments yet." xml:space="preserve">
-    <value>Henüz yorum yok.</value>
+    <value>Niciun comentariu încă.</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
-    <value>Henüz etiket yok.</value>
+    <value>Niciun etichetă încă.</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>Yok</value>
+    <value>Niciunul</value>
   </data>
   <data name="Not Started" xml:space="preserve">
-    <value>Başlanmadı</value>
+    <value>Neînceput</value>
   </data>
   <data name="optional" xml:space="preserve">
-    <value>isteğe bağlı</value>
+    <value>opțional</value>
   </data>
   <data name="Overdue" xml:space="preserve">
-    <value>Gecikmiş</value>
+    <value>În întârziere</value>
   </data>
   <data name="Planned Start" xml:space="preserve">
-    <value>Planlanan Başlangıç</value>
+    <value>Data început planificată</value>
   </data>
   <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
-    <value>Etiket eklemek veya anında yeni bir tane oluşturmak için Enter tuşuna basın.</value>
+    <value>Apăsați Enter pentru a adăuga o etichetă sau pentru a crea una nouă imediat.</value>
   </data>
   <data name="Priority" xml:space="preserve">
-    <value>Öncelik</value>
+    <value>Prioritate</value>
   </data>
   <data name="Read-only" xml:space="preserve">
-    <value>Salt okunabilir</value>
+    <value>Doar citire</value>
   </data>
   <data name="Remove {{0}}" xml:space="preserve">
-    <value>{{0}}&apos;i kaldır</value>
+    <value>Elimină {{0}}</value>
   </data>
   <data name="Rename board" xml:space="preserve">
-    <value>Pano adını değiştir</value>
+    <value>Redenumește panoul</value>
   </data>
   <data name="Rename column" xml:space="preserve">
-    <value>Sütunu yeniden adlandır</value>
+    <value>Redenumire coloană</value>
   </data>
   <data name="Review" xml:space="preserve">
-    <value>İnceleme</value>
+    <value>Recenzie</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Kaydet</value>
+    <value>Salvează</value>
   </data>
   <data name="Saving..." xml:space="preserve">
-    <value>Kaydediliyor...</value>
+    <value>Se salvează...</value>
   </data>
   <data name="Search or create a label" xml:space="preserve">
-    <value>Etiket arayın veya oluşturun</value>
+    <value>Căutați sau creați o etichetă</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Gönder</value>
+    <value>Trimite</value>
   </data>
   <data name="Sending..." xml:space="preserve">
-    <value>Gönderiliyor...</value>
+    <value>Se trimite...</value>
   </data>
   <data name="Server error" xml:space="preserve">
-    <value>Sunucu hatası</value>
+    <value>Eroare de server</value>
   </data>
   <data name="Share" xml:space="preserve">
-    <value>Paylaş</value>
+    <value>Distribuire</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
-    <value>Bu işlem geri alınamaz.</value>
+    <value>Această acțiune nu poate fi anulată.</value>
   </data>
   <data name="This action permanently removes all columns and cards. This cannot be undone." xml:space="preserve">
-    <value>Bu işlem tüm sütunları ve kartları kalıcı olarak kaldırır. Bu işlem geri alınamaz.</value>
+    <value>Această acțiune elimină definitiv toate coloanele și cardurile. Aceasta nu poate fi anulată.</value>
   </data>
   <data name="This column contains" xml:space="preserve">
-    <value>Bu sütun içeriyor</value>
+    <value>Această coloană conține</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Başlık</value>
+    <value>Titlu</value>
   </data>
   <data name="Title is required." xml:space="preserve">
-    <value>Başlık zorunludur.</value>
+    <value>Titlul este obligatoriu.</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
-    <value>Atanmamış</value>
+    <value>Nesemnate</value>
   </data>
   <data name="Unknown error" xml:space="preserve">
-    <value>Bilinmeyen hata</value>
+    <value>Eroare necunoscută</value>
   </data>
   <data name="Urgent" xml:space="preserve">
-    <value>Acil</value>
+    <value>Urgent</value>
   </data>
   <data name="View" xml:space="preserve">
-    <value>Görünüm</value>
+    <value>Vizualizare</value>
   </data>
   <data name="What needs to be done?" xml:space="preserve">
-    <value>Yapılması gereken nedir?</value>
+    <value>Ce trebuie făcut?</value>
   </data>
 
 </root>

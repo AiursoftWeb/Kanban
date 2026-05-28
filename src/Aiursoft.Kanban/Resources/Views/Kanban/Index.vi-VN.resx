@@ -30,6 +30,9 @@
   <data name="Add" xml:space="preserve">
     <value>Thêm</value>
   </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>Thêm bình luận...</value>
+  </data>
   <data name="Add Card" xml:space="preserve">
     <value>Thêm Thẻ</value>
   </data>
@@ -47,6 +50,9 @@
   </data>
   <data name="Are you sure you want to delete the column" xml:space="preserve">
     <value>Bạn có chắc chắn muốn xóa cột này không</value>
+  </data>
+  <data name="Are you sure you want to delete this comment?" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa bình luận này không?</value>
   </data>
   <data name="Assignee" xml:space="preserve">
     <value>Người phụ trách</value>
@@ -84,6 +90,15 @@
   <data name="Columns" xml:space="preserve">
     <value>Cột</value>
   </data>
+  <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
+    <value>Bình luận quá dài (tối đa 2000 ký tự).</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Bình luận</value>
+  </data>
+  <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
+    <value>Các bình luận ở chế độ chỉ đọc vì bạn không có quyền chỉnh sửa bảng này.</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Hoàn thành</value>
   </data>
@@ -99,6 +114,9 @@
   <data name="Created" xml:space="preserve">
     <value>Đã tạo</value>
   </data>
+  <data name="d ago" xml:space="preserve">
+    <value>ngày trước</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Xóa</value>
   </data>
@@ -108,8 +126,14 @@
   <data name="Delete column" xml:space="preserve">
     <value>Xóa cột</value>
   </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>Xóa bình luận</value>
+  </data>
   <data name="Delete empty column" xml:space="preserve">
     <value>Xóa cột trống</value>
+  </data>
+  <data name="Delete this comment?" xml:space="preserve">
+    <value>Xóa bình luận này?</value>
   </data>
   <data name="Deleting..." xml:space="preserve">
     <value>Đang xóa...</value>
@@ -129,6 +153,9 @@
   <data name="Edit Board" xml:space="preserve">
     <value>Chỉnh sửa Bảng</value>
   </data>
+  <data name="Failed to add comment." xml:space="preserve">
+    <value>Không thể thêm bình luận.</value>
+  </data>
   <data name="Failed to add label." xml:space="preserve">
     <value>Không thể thêm nhãn.</value>
   </data>
@@ -143,6 +170,9 @@
   </data>
   <data name="Failed to delete column:" xml:space="preserve">
     <value>Không thể xóa cột:</value>
+  </data>
+  <data name="Failed to delete comment." xml:space="preserve">
+    <value>Không thể xóa bình luận.</value>
   </data>
   <data name="Failed to load board members." xml:space="preserve">
     <value>Không thể tải thành viên bảng.</value>
@@ -162,6 +192,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>Không thể cập nhật màu nhãn.</value>
   </data>
+  <data name="h ago" xml:space="preserve">
+    <value>giờ trước</value>
+  </data>
   <data name="High" xml:space="preserve">
     <value>Cao</value>
   </data>
@@ -170,6 +203,9 @@
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>Chưa hoàn thành</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>vừa xong</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>Kanban</value>
@@ -182,6 +218,9 @@
   </data>
   <data name="Low" xml:space="preserve">
     <value>Thấp</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>phút trước</value>
   </data>
   <data name="Medium" xml:space="preserve">
     <value>Trung bình</value>
@@ -197,6 +236,9 @@
   </data>
   <data name="No boards yet" xml:space="preserve">
     <value>Chưa có bảng nào</value>
+  </data>
+  <data name="No comments yet." xml:space="preserve">
+    <value>Chưa có bình luận nào.</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>Chưa có nhãn nào.</value>
@@ -245,6 +287,12 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>Tìm kiếm hoặc tạo nhãn</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Gửi</value>
+  </data>
+  <data name="Sending..." xml:space="preserve">
+    <value>Đang gửi...</value>
   </data>
   <data name="Server error" xml:space="preserve">
     <value>Lỗi máy chủ</value>

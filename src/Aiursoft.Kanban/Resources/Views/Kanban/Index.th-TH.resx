@@ -30,6 +30,9 @@
   <data name="Add" xml:space="preserve">
     <value>เพิ่ม</value>
   </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>เพิ่มความคิดเห็น...</value>
+  </data>
   <data name="Add Card" xml:space="preserve">
     <value>เพิ่มการ์ด</value>
   </data>
@@ -47,6 +50,9 @@
   </data>
   <data name="Are you sure you want to delete the column" xml:space="preserve">
     <value>คุณแน่ใจหรือไม่ว่าต้องการลบคอลัมน์</value>
+  </data>
+  <data name="Are you sure you want to delete this comment?" xml:space="preserve">
+    <value>คุณแน่ใจหรือไม่ว่าต้องการลบความคิดเห็นนี้?</value>
   </data>
   <data name="Assignee" xml:space="preserve">
     <value>ผู้รับมอบหมาย</value>
@@ -84,6 +90,15 @@
   <data name="Columns" xml:space="preserve">
     <value>คอลัมน์</value>
   </data>
+  <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
+    <value>ความคิดเห็นยาวเกินไป (สูงสุด 2000 ตัวอักษร)</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>ความคิดเห็น</value>
+  </data>
+  <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
+    <value>แสดงเฉพาะข้อความเท่านั้น เนื่องจากคุณไม่มีสิทธิ์แก้ไขบอร์ดนี้</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>เสร็จสิ้น</value>
   </data>
@@ -99,6 +114,9 @@
   <data name="Created" xml:space="preserve">
     <value>สร้างเมื่อ</value>
   </data>
+  <data name="d ago" xml:space="preserve">
+    <value>วันที่แล้ว</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>ลบ</value>
   </data>
@@ -108,8 +126,14 @@
   <data name="Delete column" xml:space="preserve">
     <value>ลบคอลัมน์</value>
   </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>ลบความคิดเห็น</value>
+  </data>
   <data name="Delete empty column" xml:space="preserve">
     <value>ลบคอลัมน์ว่าง</value>
+  </data>
+  <data name="Delete this comment?" xml:space="preserve">
+    <value>ลบความเห็นนี้หรือไม่?</value>
   </data>
   <data name="Deleting..." xml:space="preserve">
     <value>กำลังลบ...</value>
@@ -129,6 +153,9 @@
   <data name="Edit Board" xml:space="preserve">
     <value>แก้ไขกระดาน</value>
   </data>
+  <data name="Failed to add comment." xml:space="preserve">
+    <value>ไม่สามารถเพิ่มความคิดเห็นได้</value>
+  </data>
   <data name="Failed to add label." xml:space="preserve">
     <value>เพิ่มป้ายกำกับไม่สำเร็จ</value>
   </data>
@@ -143,6 +170,9 @@
   </data>
   <data name="Failed to delete column:" xml:space="preserve">
     <value>ลบคอลัมน์ไม่สำเร็จ:</value>
+  </data>
+  <data name="Failed to delete comment." xml:space="preserve">
+    <value>ลบความคิดเห็นล้มเหลว</value>
   </data>
   <data name="Failed to load board members." xml:space="preserve">
     <value>ไม่สามารถโหลดสมาชิกกระดานได้</value>
@@ -162,6 +192,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>ไม่สามารถอัปเดตสีป้ายกำกับได้</value>
   </data>
+  <data name="h ago" xml:space="preserve">
+    <value>ชม.ที่ผ่านมา</value>
+  </data>
   <data name="High" xml:space="preserve">
     <value>สูง</value>
   </data>
@@ -170,6 +203,9 @@
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>ยังไม่เสร็จสมบูรณ์</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>เมื่อสักครู่</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>คานบัน</value>
@@ -182,6 +218,9 @@
   </data>
   <data name="Low" xml:space="preserve">
     <value>ต่ำ</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>mที่แล้ว</value>
   </data>
   <data name="Medium" xml:space="preserve">
     <value>ปานกลาง</value>
@@ -197,6 +236,9 @@
   </data>
   <data name="No boards yet" xml:space="preserve">
     <value>ยังไม่มีกระดานเลยครับ</value>
+  </data>
+  <data name="No comments yet." xml:space="preserve">
+    <value>ยังไม่มีความคิดเห็น</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>ยังไม่มีป้ายกำกับ</value>
@@ -245,6 +287,12 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>ค้นหาหรือสร้างป้ายกำกับ</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>ส่ง</value>
+  </data>
+  <data name="Sending..." xml:space="preserve">
+    <value>กำลังส่ง...</value>
   </data>
   <data name="Server error" xml:space="preserve">
     <value>ข้อผิดพลาดของเซิร์ฟเวอร์</value>

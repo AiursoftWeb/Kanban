@@ -30,6 +30,9 @@
   <data name="Add" xml:space="preserve">
     <value>Aggiungi</value>
   </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>Aggiungi un commento...</value>
+  </data>
   <data name="Add Card" xml:space="preserve">
     <value>Aggiungi carta</value>
   </data>
@@ -47,6 +50,9 @@
   </data>
   <data name="Are you sure you want to delete the column" xml:space="preserve">
     <value>Sei sicuro di voler eliminare la colonna</value>
+  </data>
+  <data name="Are you sure you want to delete this comment?" xml:space="preserve">
+    <value>Sei sicuro di voler eliminare questo commento?</value>
   </data>
   <data name="Assignee" xml:space="preserve">
     <value>Assegnatario</value>
@@ -84,6 +90,15 @@
   <data name="Columns" xml:space="preserve">
     <value>Colonne</value>
   </data>
+  <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
+    <value>Il commento è troppo lungo (max 2000 caratteri).</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Commenti</value>
+  </data>
+  <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
+    <value>I commenti sono in sola lettura perché non hai l&apos;accesso in modifica a questa board.</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Completato</value>
   </data>
@@ -99,6 +114,9 @@
   <data name="Created" xml:space="preserve">
     <value>Creato</value>
   </data>
+  <data name="d ago" xml:space="preserve">
+    <value>d fa</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Elimina</value>
   </data>
@@ -108,8 +126,14 @@
   <data name="Delete column" xml:space="preserve">
     <value>Elimina colonna</value>
   </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>Elimina commento</value>
+  </data>
   <data name="Delete empty column" xml:space="preserve">
     <value>Elimina colonna vuota</value>
+  </data>
+  <data name="Delete this comment?" xml:space="preserve">
+    <value>Eliminare questo commento?</value>
   </data>
   <data name="Deleting..." xml:space="preserve">
     <value>Eliminazione...</value>
@@ -129,6 +153,9 @@
   <data name="Edit Board" xml:space="preserve">
     <value>Modifica bacheca</value>
   </data>
+  <data name="Failed to add comment." xml:space="preserve">
+    <value>Impossibile aggiungere commento.</value>
+  </data>
   <data name="Failed to add label." xml:space="preserve">
     <value>Impossibile aggiungere l&apos;etichetta.</value>
   </data>
@@ -143,6 +170,9 @@
   </data>
   <data name="Failed to delete column:" xml:space="preserve">
     <value>Eliminazione della colonna non riuscita:</value>
+  </data>
+  <data name="Failed to delete comment." xml:space="preserve">
+    <value>Impossibile eliminare il commento.</value>
   </data>
   <data name="Failed to load board members." xml:space="preserve">
     <value>Impossibile caricare i membri della bacheca.</value>
@@ -162,6 +192,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>Impossibile aggiornare il colore dell&apos;etichetta.</value>
   </data>
+  <data name="h ago" xml:space="preserve">
+    <value>h fa</value>
+  </data>
   <data name="High" xml:space="preserve">
     <value>Alta</value>
   </data>
@@ -170,6 +203,9 @@
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>Completati</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>proprio ora</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>Kanban</value>
@@ -182,6 +218,9 @@
   </data>
   <data name="Low" xml:space="preserve">
     <value>Bassa</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>m fa</value>
   </data>
   <data name="Medium" xml:space="preserve">
     <value>Media</value>
@@ -197,6 +236,9 @@
   </data>
   <data name="No boards yet" xml:space="preserve">
     <value>Nessuna tabella ancora</value>
+  </data>
+  <data name="No comments yet." xml:space="preserve">
+    <value>Nessun commento per ora.</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>Nessuna etichetta ancora.</value>
@@ -245,6 +287,12 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>Cerca o crea un&apos;etichetta</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Invia</value>
+  </data>
+  <data name="Sending..." xml:space="preserve">
+    <value>Invio...</value>
   </data>
   <data name="Server error" xml:space="preserve">
     <value>Errore del server</value>
