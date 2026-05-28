@@ -51,5 +51,8 @@
   <data name="The image width is too small ({{ value }}px min)." xml:space="preserve">
     <value>عرض الصورة صغير جداً (الحد الأدنى {{ value }} بكسل).</value>
   </data>
+  <data name="Your file is still uploading. Are you sure to quit?" xml:space="preserve">
+    <value>ما زال الملف جارٍ التحميل. هل أنت متأكد من الخروج؟</value>
+  </data>
 
 </root>
