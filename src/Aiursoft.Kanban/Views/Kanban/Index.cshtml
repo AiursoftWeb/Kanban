@@ -2488,8 +2488,16 @@
         if (editCardDescription && canEditCurrentBoard) {
             editCardDescription.addEventListener('paste', function(e) { handlePasteInTextarea(editCardDescription, e); });
         }
+        function autoResizeTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 300) + 'px';
+        }
+
         if (editCardDescription) {
-            editCardDescription.addEventListener('input', updateDescriptionPreview);
+            editCardDescription.addEventListener('input', function() {
+                updateDescriptionPreview();
+                autoResizeTextarea(editCardDescription);
+            });
         }
 
         var btnToggleDescriptionEdit = document.getElementById("btnToggleDescriptionEdit");
@@ -2504,6 +2512,7 @@
 
             if (editing) {
                 editCardDescription.style.display = "";
+                autoResizeTextarea(editCardDescription);
                 if (hasContent && editCardDescriptionPreview) {
                     editCardDescriptionPreview.style.display = "";
                 }
@@ -2559,6 +2568,7 @@
             editCardTitle.value = cardEl.dataset.title || "";
             editCardDescription.value = cardEl.dataset.description || "";
             updateDescriptionPreview();
+            autoResizeTextarea(editCardDescription);
             if (canEditCurrentBoard) {
                 var hasDesc = (cardEl.dataset.description || "").trim().length > 0;
                 setDescriptionEditMode(!hasDesc);
