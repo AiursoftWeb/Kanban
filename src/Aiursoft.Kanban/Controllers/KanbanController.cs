@@ -953,7 +953,7 @@ public class KanbanController(
         var comment = await db.KanbanCardComments.Include(c => c.Card).ThenInclude(c => c.Column).ThenInclude(col => col.Board).FirstOrDefaultAsync(c => c.Id == commentId);
         if (comment == null) return NotFound();
 
-        if (!await HasReadAccess(comment.Card.Column.Board, userId)) return Forbid();
+        if (!await HasEditAccess(comment.Card.Column.Board, userId)) return Forbid();
 
         // Only the author or board admin can delete
         if (comment.AuthorId != userId)
