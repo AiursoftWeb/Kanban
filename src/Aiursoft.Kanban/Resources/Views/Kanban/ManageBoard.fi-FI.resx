@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Toiminnot</value>
+  </data>
+  <data name="Add Column" xml:space="preserve">
+    <value>Lisää sarake</value>
+  </data>
+  <data name="Are you sure you want to delete the board" xml:space="preserve">
+    <value>Haluatko varmasti poistaa taulun</value>
+  </data>
+  <data name="Are you sure you want to delete the column" xml:space="preserve">
+    <value>Haluatko varmasti poistaa sarakkeen</value>
+  </data>
+  <data name="Back to Board" xml:space="preserve">
+    <value>Takaisin taululle</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>Laudan nimi</value>
+  </data>
+  <data name="Board name is required." xml:space="preserve">
+    <value>Taulun nimi on pakollinen.</value>
+  </data>
+  <data name="Board name updated." xml:space="preserve">
+    <value>Taulun nimi päivitetty.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>korttia(-a). Sarakkeen poistaminen poistaa pysyvästi myös kaikki sen kortit.</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Kortit</value>
+  </data>
+  <data name="Column Name" xml:space="preserve">
+    <value>Sarakkeen nimi</value>
+  </data>
+  <data name="Column name is required." xml:space="preserve">
+    <value>Sarakkeen nimi on pakollinen.</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Sarakkeet</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Suoritetut</value>
+  </data>
+  <data name="Danger Zone" xml:space="preserve">
+    <value>Vaaravyöhyke</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>Poista taulu</value>
+  </data>
+  <data name="Delete Column" xml:space="preserve">
+    <value>Poista sarake</value>
+  </data>
+  <data name="Deleting a board permanently removes all columns and cards. This action cannot be undone." xml:space="preserve">
+    <value>Taulun poistaminen poistaa pysyvästi kaikki sarakkeet ja kortit. Tätä toimintoa ei voi peruuttaa.</value>
+  </data>
+  <data name="Deleting..." xml:space="preserve">
+    <value>Poistetaan...</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>Muokkaa levyä</value>
+  </data>
+  <data name="Failed to create column." xml:space="preserve">
+    <value>Sarakkeen luominen epäonnistui.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>Taulun poistaminen epäonnistui:</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>Sarakkeen poistaminen epäonnistui:</value>
+  </data>
+  <data name="Failed to rename column:" xml:space="preserve">
+    <value>Sarakkeen uudelleennimeminen epäonnistui:</value>
+  </data>
+  <data name="Failed to save." xml:space="preserve">
+    <value>Tallentaminen epäonnistui.</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Kesken</value>
+  </data>
+  <data name="Manage board name and columns." xml:space="preserve">
+    <value>Hallinnoi lautaa ja sarakkeita.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="No columns yet." xml:space="preserve">
+    <value>Ei sarakkeita vielä.</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Ei aloitettu</value>
+  </data>
+  <data name="Order updated." xml:space="preserve">
+    <value>Järjestys päivitetty.</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Nimeä uudelleen</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Arviointi</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="Saving..." xml:space="preserve">
+    <value>Tallennetaan...</value>
+  </data>
+  <data name="Server error" xml:space="preserve">
+    <value>Palvelinvirhe</value>
+  </data>
+  <data name="Sort Order" xml:space="preserve">
+    <value>Järjestys</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="This action cannot be undone." xml:space="preserve">
+    <value>Tätä toimintoa ei voi perua.</value>
+  </data>
+  <data name="This action permanently removes all columns and cards. This cannot be undone." xml:space="preserve">
+    <value>Tämä toiminto poistaa pysyvästi kaikki sarakkeet ja kortit. Tätä ei voi kumota.</value>
+  </data>
+  <data name="This column contains" xml:space="preserve">
+    <value>Tämä sarake sisältää</value>
+  </data>
+  <data name="Unknown error" xml:space="preserve">
+    <value>Tuntematon virhe</value>
+  </data>
+
+</root>
