@@ -1,6 +1,7 @@
 @using System.Text.Json
 @model Aiursoft.Kanban.Models.KanbanViewModels.IndexViewModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@inject Aiursoft.Kanban.Services.FileStorage.StorageService Storage
 @{
     var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
 }
@@ -1341,6 +1342,7 @@
         }
 
         var csrfToken = "@token";
+        var kanbanImageUploadUrl = '@Html.Raw(Storage.GetUploadUrl("kanban-images"))';
         var canEditCurrentBoard = @Model.CanEditCurrentBoard.ToString().ToLowerInvariant();
         var currentBoardId = @(Model.CurrentBoard?.Id ?? 0);
         var isDragging = false;
@@ -1987,17 +1989,13 @@
             textarea.selectionEnd = cursorPos + uploadingText.length;
 
             try {
-                var urlResp = await fetch('/get-upload-url?subfolder=kanban-images');
-                if (!urlResp.ok) throw new Error('Failed to get upload URL');
-                var urlData = await urlResp.json();
-
                 var formData = new FormData();
                 var ext = blob.type === 'image/png' ? 'png' :
                           blob.type === 'image/gif' ? 'gif' :
                           blob.type === 'image/webp' ? 'webp' : 'jpg';
                 formData.append('file', blob, 'paste-' + Date.now() + '.' + ext);
 
-                var uploadResp = await fetch(urlData.UploadUrl, {
+                var uploadResp = await fetch(kanbanImageUploadUrl, {
                     method: 'POST',
                     body: formData
                 });
@@ -2007,8 +2005,7 @@
                 }
                 var data = await uploadResp.json();
 
-                var imageUrl = '/download/' + data.Path;
-                var imageMarkdown = '\n![image](' + imageUrl + ')\n';
+                var imageMarkdown = '\n![image](' + data.InternetPath + ')\n';
                 textarea.value = textarea.value.replace(uploadingText, imageMarkdown);
                 textarea.dispatchEvent(new Event('input', { bubbles: true }));
                 var newCursor = textarea.value.indexOf(imageMarkdown) + imageMarkdown.length;

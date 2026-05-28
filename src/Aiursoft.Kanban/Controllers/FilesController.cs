@@ -16,17 +16,6 @@ public class FilesController(
     ILogger<FilesController> logger,
     StorageService storage) : ControllerBase
 {
-    [HttpGet]
-    [Route("get-upload-url")]
-    public IActionResult GetUploadUrl([FromQuery] string subfolder, [FromQuery] bool isVault = false)
-    {
-        if (string.IsNullOrWhiteSpace(subfolder))
-            return BadRequest("subfolder is required.");
-
-        var url = storage.GetUploadUrl(subfolder, isVault);
-        return Ok(new { UploadUrl = url });
-    }
-
     [HttpPost]
     [Route("upload/{**subfolder}")]
     [DisableRequestSizeLimit]
