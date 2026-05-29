@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Tindakan</value>
+  </data>
+  <data name="Actual End" xml:space="preserve">
+    <value>Tanggal Selesai Aktual</value>
+  </data>
+  <data name="Actual Start" xml:space="preserve">
+    <value>Mulai Aktual</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Tambah</value>
+  </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>Tambahkan komentar...</value>
+  </data>
+  <data name="Add Card" xml:space="preserve">
+    <value>Tambah Kartu</value>
+  </data>
+  <data name="Add Column" xml:space="preserve">
+    <value>Tambah Kolom</value>
+  </data>
+  <data name="Add more details..." xml:space="preserve">
+    <value>Tambahkan detail lainnya...</value>
+  </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Semua Papan</value>
+  </data>
+  <data name="Are you sure you want to delete the board" xml:space="preserve">
+    <value>Apakah Anda yakin ingin menghapus papan</value>
+  </data>
+  <data name="Are you sure you want to delete the column" xml:space="preserve">
+    <value>Apakah Anda yakin ingin menghapus kolom</value>
+  </data>
+  <data name="Are you sure you want to delete this comment?" xml:space="preserve">
+    <value>Apakah Anda yakin ingin menghapus komentar ini?</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Penugasan</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>otomatis</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>Nama Papan</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Detail Kartu</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>kartu. Menghapus kolom juga akan menghapus semua karte secara permanen.</value>
+  </data>
+  <data name="Change {{0}} color" xml:space="preserve">
+    <value>Ubah warna {{0}}</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>kolom</value>
+  </data>
+  <data name="Column Name" xml:space="preserve">
+    <value>Nama Kolom</value>
+  </data>
+  <data name="Column name is required." xml:space="preserve">
+    <value>Nama kolom wajib diisi.</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Kolom</value>
+  </data>
+  <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
+    <value>Komentar terlalu panjang (maks. 2000 karakter).</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
+    <value>Komentar bersifat baca-saja karena Anda tidak memiliki akses edit ke papan ini.</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Selesai</value>
+  </data>
+  <data name="Create Board" xml:space="preserve">
+    <value>Buat Papan</value>
+  </data>
+  <data name="Create New Board" xml:space="preserve">
+    <value>Buat Papan Baru</value>
+  </data>
+  <data name="Create your first Kanban board to get started." xml:space="preserve">
+    <value>Buat papan Kanban pertama Anda untuk memulai.</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Dibuat</value>
+  </data>
+  <data name="d ago" xml:space="preserve">
+    <value>d lalu</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>Hapus Papan</value>
+  </data>
+  <data name="Delete column" xml:space="preserve">
+    <value>Hapus kolom</value>
+  </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>Hapus Komentar</value>
+  </data>
+  <data name="Delete empty column" xml:space="preserve">
+    <value>Hapus kolom kosong</value>
+  </data>
+  <data name="Delete this comment?" xml:space="preserve">
+    <value>Hapus komentar ini?</value>
+  </data>
+  <data name="Deleting..." xml:space="preserve">
+    <value>Menghapus...</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Deskripsi</value>
+  </data>
+  <data name="Drop cards here" xml:space="preserve">
+    <value>Letakkan kartu di sini</value>
+  </data>
+  <data name="Due Date" xml:space="preserve">
+    <value>Tenggat Waktu</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Sunting</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>Sunting Papan</value>
+  </data>
+  <data name="Failed to add comment." xml:space="preserve">
+    <value>Gagal menambahkan komentar.</value>
+  </data>
+  <data name="Failed to add label." xml:space="preserve">
+    <value>Gagal menambahkan label.</value>
+  </data>
+  <data name="Failed to create card." xml:space="preserve">
+    <value>Gagal membuat kartu.</value>
+  </data>
+  <data name="Failed to create column." xml:space="preserve">
+    <value>Gagal membuat kolom.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>Gagal menghapus papan:</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>Gagal menghapus kolom:</value>
+  </data>
+  <data name="Failed to delete comment." xml:space="preserve">
+    <value>Gagal menghapus komentar.</value>
+  </data>
+  <data name="Failed to load board members." xml:space="preserve">
+    <value>Gagal memuat anggota papan.</value>
+  </data>
+  <data name="Failed to remove label." xml:space="preserve">
+    <value>Gagal menghapus label.</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>Gagal menamai ulang papan:</value>
+  </data>
+  <data name="Failed to rename column:" xml:space="preserve">
+    <value>Gagal mengganti nama kolom:</value>
+  </data>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>Gagal menyimpan:</value>
+  </data>
+  <data name="Failed to update label color." xml:space="preserve">
+    <value>Gagal memperbarui warna label.</value>
+  </data>
+  <data name="h ago" xml:space="preserve">
+    <value>jam yang lalu</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Tinggi</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Berlangsung</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Tidak Selesai</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>baru saja</value>
+  </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>Kanban</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
+    <value>Label bersifat read-only karena Anda tidak memiliki akses edit ke papan ini.</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Rendah</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>m lalu</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Sedang</value>
+  </data>
+  <data name="My Board" xml:space="preserve">
+    <value>Papan Saya</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nama</value>
+  </data>
+  <data name="New Board" xml:space="preserve">
+    <value>Papan Baru</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>Belum ada papan</value>
+  </data>
+  <data name="No comments yet." xml:space="preserve">
+    <value>Belum ada komentar.</value>
+  </data>
+  <data name="No labels yet." xml:space="preserve">
+    <value>Belum ada label.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Tidak ada</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Belum Dimulai</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>opsional</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Terlambat</value>
+  </data>
+  <data name="Planned Start" xml:space="preserve">
+    <value>Tanggal Mulai Rencana</value>
+  </data>
+  <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
+    <value>Tekan Enter untuk menambahkan label atau membuat yang baru secara instan.</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritas</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Saja baca</value>
+  </data>
+  <data name="Remove {{0}}" xml:space="preserve">
+    <value>Hapus {{0}}</value>
+  </data>
+  <data name="Rename board" xml:space="preserve">
+    <value>Ubah nama papan</value>
+  </data>
+  <data name="Rename column" xml:space="preserve">
+    <value>Ubah nama kolom</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Ulasan</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="Saving..." xml:space="preserve">
+    <value>Menyimpan...</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Cari atau buat label</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Kirim</value>
+  </data>
+  <data name="Sending..." xml:space="preserve">
+    <value>Mengirim...</value>
+  </data>
+  <data name="Server error" xml:space="preserve">
+    <value>Kesalahan server</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Bagikan</value>
+  </data>
+  <data name="This action cannot be undone." xml:space="preserve">
+    <value>Tindakan ini tidak dapat dibatalkan.</value>
+  </data>
+  <data name="This action permanently removes all columns and cards. This cannot be undone." xml:space="preserve">
+    <value>Tindakan ini menghapus semua kolom dan kartu secara permanen. Tindakan ini tidak dapat dibatalkan.</value>
+  </data>
+  <data name="This column contains" xml:space="preserve">
+    <value>Kolom ini berisi</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="Title is required." xml:space="preserve">
+    <value>Judul diperlukan.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Tidak Ditugaskan</value>
+  </data>
+  <data name="Unknown error" xml:space="preserve">
+    <value>Kesalahan tidak diketahui</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Mendesak</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Lihat</value>
+  </data>
+  <data name="What needs to be done?" xml:space="preserve">
+    <value>Apa yang perlu dilakukan?</value>
+  </data>
+
+</root>
