@@ -51,5 +51,8 @@
   <data name="The image width is too small ({{ value }}px min)." xml:space="preserve">
     <value>छवि की चौड़ाई बहुत कम है (न्यूनतम {{ value }}px).</value>
   </data>
+  <data name="Your file is still uploading. Are you sure to quit?" xml:space="preserve">
+    <value>आपकी फ़ाइल अभी भी अपलोड हो रही है। क्या आप सचमुच बाहर निकलना चाहते हैं?</value>
+  </data>
 
 </root>

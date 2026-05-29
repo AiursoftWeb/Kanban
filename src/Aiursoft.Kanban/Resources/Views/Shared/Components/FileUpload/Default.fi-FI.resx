@@ -51,5 +51,8 @@
   <data name="The image width is too small ({{ value }}px min)." xml:space="preserve">
     <value>Kuvan leveys on liian pieni (vähintään {{ value }}px).</value>
   </data>
+  <data name="Your file is still uploading. Are you sure to quit?" xml:space="preserve">
+    <value>Tiedoston lataus on vielä kesken. Haluatko varmasti peruuttaa?</value>
+  </data>
 
 </root>
