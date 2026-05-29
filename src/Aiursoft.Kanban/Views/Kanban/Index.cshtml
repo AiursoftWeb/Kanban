@@ -1,6 +1,7 @@
 @using System.Text.Json
 @model Aiursoft.Kanban.Models.KanbanViewModels.IndexViewModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@inject Aiursoft.Kanban.Services.FileStorage.StorageService Storage
 @{
     var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
 }
@@ -266,10 +267,39 @@
         font-size: 0.8rem;
         color: var(--bs-secondary-color, #868e96);
         line-height: 1.5;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
         overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+    }
+
+    .card-inline-img {
+        max-width: 100%;
+        max-height: 120px;
+        border-radius: 6px;
+        margin: 0.25rem 0;
+        display: block;
+        object-fit: cover;
+        cursor: pointer;
+    }
+
+    .image-fullscreen-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.92);
+        z-index: 9999;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+    }
+    .image-fullscreen-overlay.active {
+        display: flex;
+    }
+    .image-fullscreen-overlay img {
+        max-width: 95vw;
+        max-height: 95vh;
+        object-fit: contain;
+        border-radius: 4px;
     }
 
     .column-header-readonly,
@@ -985,8 +1015,17 @@
                         <input type="text" id="editCardTitle" class="form-control" style="border-radius:12px" required disabled="@(!Model.CanEditCurrentBoard)">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">@Localizer["Description"] <span class="text-muted fw-normal">(@Localizer["optional"])</span></label>
+                        <label class="form-label fw-semibold">
+                            @Localizer["Description"] <span class="text-muted fw-normal">(@Localizer["optional"])</span>
+                            @if (Model.CanEditCurrentBoard)
+                            {
+                                <button type="button" id="btnToggleDescriptionEdit" class="btn btn-sm btn-link text-decoration-none float-end d-none" style="padding:0;font-size:0.85rem">
+                                    <i data-lucide="edit-3" style="width:14px;height:14px"></i> @Localizer["Edit"]
+                                </button>
+                            }
+                        </label>
                         <textarea id="editCardDescription" class="form-control" rows="3" style="border-radius:12px;resize:none" disabled="@(!Model.CanEditCurrentBoard)"></textarea>
+                        <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid #dee2e6;border-radius:12px;background:#f8f9fa;word-break:break-word"></div>
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-6">
@@ -1245,6 +1284,11 @@
     <span data-key="failed-delete-comment">@Localizer["Failed to delete comment."]</span>
 </div>
 
+<!-- Fullscreen Image Overlay -->
+<div id="imageFullscreenOverlay" class="image-fullscreen-overlay">
+    <img id="imageFullscreenImg" src="" alt="">
+</div>
+
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
 <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
@@ -1298,6 +1342,7 @@
         }
 
         var csrfToken = "@token";
+        var kanbanImageUploadUrl = '@Html.Raw(Storage.GetUploadUrl("kanban-images"))';
         var canEditCurrentBoard = @Model.CanEditCurrentBoard.ToString().ToLowerInvariant();
         var currentBoardId = @(Model.CurrentBoard?.Id ?? 0);
         var isDragging = false;
@@ -1395,6 +1440,61 @@
 
         function escapeAttribute(str) {
             return escapeHtml(str || "").replace(/"/g, "&quot;");
+        }
+
+        function renderDescriptionHtml(description) {
+            if (!description) return "";
+            var parts = description.split(/(!\[.*?\]\([^)]+\))/g);
+            return parts.map(function(part) {
+                var match = part.match(/^!\[(.*?)\]\(([^)]+)\)$/);
+                if (match) {
+                    var alt = escapeAttribute(match[1] || 'image');
+                    var src = escapeAttribute(match[2]);
+                    return '<img src="' + src + '" alt="' + alt + '" class="card-inline-img" loading="lazy" data-fullscreen-src="' + src + '">';
+                }
+                return escapeHtml(part);
+            }).join("");
+        }
+
+        var imageFullscreenOverlay = document.getElementById("imageFullscreenOverlay");
+        var imageFullscreenImg = document.getElementById("imageFullscreenImg");
+
+        if (imageFullscreenOverlay) {
+            imageFullscreenOverlay.addEventListener("click", function() {
+                closeImageFullscreen();
+            });
+            document.addEventListener("keydown", function(e) {
+                if (e.key === "Escape" && imageFullscreenOverlay.classList.contains("active")) {
+                    closeImageFullscreen();
+                }
+            });
+        }
+        function openImageFullscreen(src) {
+            if (!imageFullscreenOverlay || !imageFullscreenImg) return;
+            imageFullscreenImg.src = src;
+            imageFullscreenOverlay.classList.add("active");
+        }
+        function closeImageFullscreen() {
+            if (imageFullscreenOverlay) {
+                imageFullscreenOverlay.classList.remove("active");
+            }
+        }
+
+        var editCardDescriptionPreview = null;
+        function updateDescriptionPreview() {
+            if (!editCardDescriptionPreview) {
+                editCardDescriptionPreview = document.getElementById("editCardDescriptionPreview");
+            }
+            if (!editCardDescriptionPreview) return;
+            var desc = editCardDescription ? editCardDescription.value : "";
+            var html = renderDescriptionHtml(desc);
+            if (html) {
+                editCardDescriptionPreview.innerHTML = html;
+                editCardDescriptionPreview.style.display = "";
+            } else {
+                editCardDescriptionPreview.innerHTML = "";
+                editCardDescriptionPreview.style.display = "none";
+            }
         }
 
         function parseCardLabels(cardEl) {
@@ -1535,7 +1635,7 @@
 
             var description = cardEl.dataset.description || "";
             if (description) {
-                html += '<div class="card-description">' + escapeHtml(description) + '</div>';
+                html += '<div class="card-description">' + renderDescriptionHtml(description) + '</div>';
             }
 
             var labels = parseCardLabels(cardEl);
@@ -1878,6 +1978,61 @@
         var cardError = document.getElementById("cardError");
         var btnSaveCard = document.getElementById("btnSaveCard");
         var currentColumnId = 0;
+
+        async function uploadPastedImage(textarea, blob) {
+            var uploadingText = '[Uploading image...]';
+            var cursorPos = textarea.selectionStart;
+            var textBefore = textarea.value.substring(0, cursorPos);
+            var textAfter = textarea.value.substring(cursorPos);
+            textarea.value = textBefore + uploadingText + textAfter;
+            textarea.selectionStart = cursorPos;
+            textarea.selectionEnd = cursorPos + uploadingText.length;
+
+            try {
+                var formData = new FormData();
+                var ext = blob.type === 'image/png' ? 'png' :
+                          blob.type === 'image/gif' ? 'gif' :
+                          blob.type === 'image/webp' ? 'webp' : 'jpg';
+                formData.append('file', blob, 'paste-' + Date.now() + '.' + ext);
+
+                var uploadResp = await fetch(kanbanImageUploadUrl, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!uploadResp.ok) {
+                    var errText = await uploadResp.text();
+                    throw new Error(errText || 'Upload failed. Status: ' + uploadResp.status);
+                }
+                var data = await uploadResp.json();
+
+                var imageMarkdown = '\n![image](' + data.InternetPath + ')\n';
+                textarea.value = textarea.value.replace(uploadingText, imageMarkdown);
+                textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                var newCursor = textarea.value.indexOf(imageMarkdown) + imageMarkdown.length;
+                textarea.selectionStart = newCursor;
+                textarea.selectionEnd = newCursor;
+            } catch (err) {
+                textarea.value = textarea.value.replace(uploadingText, '');
+                console.error('Image upload failed:', err);
+                alert('Failed to upload pasted image: ' + (err.message || 'Unknown error'));
+            }
+        }
+
+        function handlePasteInTextarea(textarea, e) {
+            var items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf('image') === 0) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    uploadPastedImage(textarea, items[i].getAsFile());
+                    break;
+                }
+            }
+        }
+
+        if (canEditCurrentBoard && cardDescInput) {
+            cardDescInput.addEventListener('paste', function(e) { handlePasteInTextarea(cardDescInput, e); });
+        }
 
         function openAddCardModal(columnId) {
             if (!addCardModal || !cardTitleInput || !cardDescInput || !cardError) return;
@@ -2327,6 +2482,73 @@
             btnAddLabel.addEventListener("click", submitLabelInput);
         }
 
+        if (editCardDescription && canEditCurrentBoard) {
+            editCardDescription.addEventListener('paste', function(e) { handlePasteInTextarea(editCardDescription, e); });
+        }
+        function autoResizeTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 300) + 'px';
+        }
+
+        if (editCardDescription) {
+            editCardDescription.addEventListener('input', function() {
+                updateDescriptionPreview();
+                autoResizeTextarea(editCardDescription);
+            });
+        }
+
+        var btnToggleDescriptionEdit = document.getElementById("btnToggleDescriptionEdit");
+        var isDescriptionEditing = false;
+
+        function setDescriptionEditMode(editing) {
+            isDescriptionEditing = editing;
+            if (!editCardDescriptionPreview) {
+                editCardDescriptionPreview = document.getElementById("editCardDescriptionPreview");
+            }
+            var hasContent = (editCardDescription.value || "").trim().length > 0;
+
+            if (editing) {
+                editCardDescription.style.display = "";
+                autoResizeTextarea(editCardDescription);
+                if (hasContent && editCardDescriptionPreview) {
+                    editCardDescriptionPreview.style.display = "";
+                }
+                if (btnToggleDescriptionEdit) {
+                    btnToggleDescriptionEdit.innerHTML = '<i data-lucide="eye" style="width:14px;height:14px"></i> Preview';
+                    lucide.createIcons({ nodes: [btnToggleDescriptionEdit] });
+                }
+            } else {
+                editCardDescription.style.display = "none";
+                if (hasContent) {
+                    if (editCardDescriptionPreview) editCardDescriptionPreview.style.display = "";
+                    if (btnToggleDescriptionEdit) {
+                        btnToggleDescriptionEdit.classList.remove("d-none");
+                        btnToggleDescriptionEdit.innerHTML = '<i data-lucide="edit-3" style="width:14px;height:14px"></i> Edit';
+                        lucide.createIcons({ nodes: [btnToggleDescriptionEdit] });
+                    }
+                } else {
+                    if (editCardDescriptionPreview) editCardDescriptionPreview.style.display = "none";
+                    if (btnToggleDescriptionEdit) {
+                        btnToggleDescriptionEdit.classList.add("d-none");
+                    }
+                }
+            }
+        }
+
+        if (btnToggleDescriptionEdit) {
+            btnToggleDescriptionEdit.addEventListener("click", function() {
+                setDescriptionEditMode(!isDescriptionEditing);
+            });
+        }
+
+        document.addEventListener("click", function(e) {
+            var img = e.target.closest("img[data-fullscreen-src]");
+            if (img) {
+                e.stopPropagation();
+                openImageFullscreen(img.getAttribute("data-fullscreen-src"));
+            }
+        });
+
         function openCardEditModal(cardEl) {
             if (!editCardModal || !editCardTitle || !editCardDescription || !editCardPlannedStart || !editCardDueDate || !editCardActualStart || !editCardActualEnd) {
                 return;
@@ -2342,6 +2564,18 @@
             editCardTitle.classList.remove("is-invalid");
             editCardTitle.value = cardEl.dataset.title || "";
             editCardDescription.value = cardEl.dataset.description || "";
+            updateDescriptionPreview();
+            autoResizeTextarea(editCardDescription);
+            if (canEditCurrentBoard) {
+                var hasDesc = (cardEl.dataset.description || "").trim().length > 0;
+                setDescriptionEditMode(!hasDesc);
+            } else if (!(cardEl.dataset.description || "").trim()) {
+                editCardDescription.style.display = "";
+                editCardDescriptionPreview.style.display = "none";
+            } else {
+                editCardDescription.style.display = "none";
+                editCardDescriptionPreview.style.display = "";
+            }
             editCardPlannedStart.value = cardEl.dataset.plannedStart || "";
             editCardDueDate.value = cardEl.dataset.dueDate || "";
             if (editCardPriority) {
