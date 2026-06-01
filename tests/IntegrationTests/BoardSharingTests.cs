@@ -174,9 +174,9 @@ public class BoardSharingTests : TestBase
         targetsResponse.EnsureSuccessStatusCode();
         Assert.Contains("Target Board", await targetsResponse.Content.ReadAsStringAsync());
 
-        var transferResponse = await Http.PostAsync(
+        var transferResponse = await PostForm(
             $"/Kanban/TransferCard?cardId={cardId}&targetBoardId={targetBoardId}&targetColumnId={targetColumnId}",
-            new FormUrlEncodedContent(new Dictionary<string, string>()));
+            new Dictionary<string, string>());
         Assert.AreEqual(HttpStatusCode.OK, transferResponse.StatusCode);
 
         using (var scope = Server!.Services.CreateScope())
@@ -236,9 +236,9 @@ public class BoardSharingTests : TestBase
         targetsResponse.EnsureSuccessStatusCode();
         Assert.DoesNotContain("Read-only Board", await targetsResponse.Content.ReadAsStringAsync());
 
-        var transferResponse = await Http.PostAsync(
+        var transferResponse = await PostForm(
             $"/Kanban/TransferCard?cardId={cardId}&targetBoardId={targetBoardId}&targetColumnId={targetColumnId}",
-            new FormUrlEncodedContent(new Dictionary<string, string>()));
+            new Dictionary<string, string>());
         Assert.IsTrue(transferResponse.StatusCode == HttpStatusCode.Forbidden ||
                       transferResponse.StatusCode == HttpStatusCode.Found);
 

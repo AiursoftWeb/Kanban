@@ -263,6 +263,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> TransferCard(int cardId, int targetBoardId, int targetColumnId)
     {
         var card = await db.KanbanCards

@@ -1139,6 +1139,9 @@
                             <option value="">@Localizer["Select a column"]</option>
                         </select>
                     </div>
+                    <div class="alert alert-warning mt-3 mb-0" role="alert">
+                        @Localizer["Comments will not be transferred and the assignee will be cleared."]
+                    </div>
                     <div class="alert alert-danger mt-3 mb-0 d-none" id="transferCardError" role="alert"></div>
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4">
@@ -2325,6 +2328,7 @@
         var transferCardError = document.getElementById("transferCardError");
         var btnConfirmTransferCard = document.getElementById("btnConfirmTransferCard");
         var transferTargets = [];
+        var restoreEditCardModalAfterTransfer = false;
         var commentsList = document.getElementById("commentsList");
         var commentInput = document.getElementById("commentInput");
         var btnAddComment = document.getElementById("btnAddComment");
@@ -2764,8 +2768,18 @@
             });
         }
 
+        if (transferCardModalEl && editCardModal) {
+            transferCardModalEl.addEventListener("hidden.bs.modal", function() {
+                if (!restoreEditCardModalAfterTransfer) return;
+
+                restoreEditCardModalAfterTransfer = false;
+                new bootstrap.Modal(editCardModal).show();
+            });
+        }
+
         if (btnTransferCard && transferCardModal && transferTargetBoard && transferTargetColumn && btnConfirmTransferCard) {
             btnTransferCard.addEventListener("click", function() {
+                restoreEditCardModalAfterTransfer = true;
                 transferTargets = [];
                 resetTransferSelect(transferTargetBoard, getLocalizedText("loading-transfer-targets", "Loading target boards..."));
                 resetTransferSelect(transferTargetColumn, getLocalizedText("select-column", "Select a column"));
@@ -2834,6 +2848,7 @@
                     }
                     currentEditCardId = 0;
                     currentEditCardElement = null;
+                    restoreEditCardModalAfterTransfer = false;
                     transferCardModal.hide();
                 })
                 .catch(function(err) {
