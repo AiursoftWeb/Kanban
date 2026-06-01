@@ -275,7 +275,7 @@ public class AgentTests : TestBase
 
         var body = await response.Content.ReadAsStringAsync();
         var result = JsonSerializer.Deserialize<JsonElement>(body);
-        Assert.IsTrue(result.TryGetProperty("conversationId", out _));
+        Assert.IsTrue(result.TryGetProperty("ConversationId", out _));
     }
 
     [TestMethod]
@@ -292,7 +292,7 @@ public class AgentTests : TestBase
         Assert.AreEqual(HttpStatusCode.OK, sendResponse.StatusCode);
         var sendResult = JsonSerializer.Deserialize<JsonElement>(
             await sendResponse.Content.ReadAsStringAsync());
-        var conversationId = sendResult.GetProperty("conversationId").GetString()!;
+        var conversationId = sendResult.GetProperty("ConversationId").GetString()!;
 
         var statusResponse = await Http.GetAsync($"/Agent/Status?conversationId={conversationId}");
         Assert.AreEqual(HttpStatusCode.OK, statusResponse.StatusCode);

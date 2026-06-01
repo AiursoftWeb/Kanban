@@ -24,19 +24,19 @@ public class AgentController(
     public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.Message))
-            return BadRequest(new { error = "Message is required." });
+            return BadRequest(new { Error = "Message is required." });
 
         var userId = userManager.GetUserId(User)!;
 
         var board = await db.KanbanBoards.FindAsync(request.BoardId);
         if (board == null)
-            return NotFound(new { error = "Board not found." });
+            return NotFound(new { Error = "Board not found." });
 
         if (!await access.HasReadAccess(board, userId))
             return Forbid();
 
         var conversationId = agentService.StartRun(userId, request.BoardId, request.Message);
-        return Ok(new { conversationId });
+        return Ok(new { ConversationId = conversationId });
     }
 
     [HttpGet]
@@ -44,7 +44,7 @@ public class AgentController(
     {
         var conversation = agentService.GetConversation(conversationId);
         if (conversation == null)
-            return NotFound(new { error = "Conversation not found." });
+            return NotFound(new { Error = "Conversation not found." });
 
         var userId = userManager.GetUserId(User)!;
         if (conversation.UserId != userId)

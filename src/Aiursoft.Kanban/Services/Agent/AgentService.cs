@@ -209,14 +209,23 @@ public class AgentService : IAgentService
                         }
                         else
                         {
-                            var result = await ExecuteTool(sp, tu, conversation.UserId);
+                            string result;
+                            try
+                            {
+                                result = await ExecuteTool(sp, tu, conversation.UserId);
+                                _logger.LogInformation("Read tool executed: {ToolName}", tu.Name);
+                            }
+                            catch (Exception ex)
+                            {
+                                result = $"Error executing {tu.Name}: {ex.Message}";
+                                _logger.LogWarning(ex, "Read tool failed: {ToolName}", tu.Name);
+                            }
                             conversation.Messages.Add(new ToolMessagesItem
                             {
                                 Role = "tool",
                                 ToolCallId = tu.Id,
                                 Content = result
                             });
-                            _logger.LogInformation("Read tool executed: {ToolName}", tu.Name);
                         }
                     }
 

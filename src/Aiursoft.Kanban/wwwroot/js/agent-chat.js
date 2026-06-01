@@ -54,12 +54,13 @@
         })
         .then(function(r) { return r.json(); })
         .then(function(data) {
-            if (data.error) {
+            if (data.Error) {
                 hideThinking();
-                appendMessage('assistant', loc('error-prefix', 'Error:') + ' ' + data.error);
+                appendMessage('assistant', loc('error-prefix', 'Error:') + ' ' + data.Error);
                 return;
             }
-            conversationId = data.conversationId;
+            conversationId = data.ConversationId;
+            pollStatus(); // Immediate first poll
             startPolling();
         })
         .catch(function(err) {
@@ -83,16 +84,18 @@
         fetch('/Agent/Status?conversationId=' + conversationId)
             .then(function(r) { return r.json(); })
             .then(function(data) {
-                if (data.error) { stopPolling(); return; }
+                if (data.Error) { stopPolling(); return; }
                 renderMessages(data);
                 renderAdvice(data);
-                updateState(data.state);
+                updateState(data.State);
 
-                if (data.state === 'Completed' || data.state === 'Error') {
+                if (data.State === 'Completed' || data.State === 'Error') {
                     stopPolling();
                     conversationId = null;
-                    if (data.errorMessage) {
-                        appendMessage('assistant', loc('error-prefix', 'Error:') + ' ' + data.errorMessage);
+                    if (data.ErrorMessage) {
+                        appendMessage('assistant', loc('error-prefix', 'Error:') + ' ' + data.ErrorMessage);
+                    } else if (data.State === 'Error') {
+                        appendMessage('assistant', loc('error', 'Error'));
                     }
                 }
             })
@@ -101,46 +104,46 @@
 
     function renderMessages(data) {
         var container = document.getElementById('agent-messages');
-        if (!container || !data.messages) return;
+        if (!container || !data.Messages) return;
 
-        for (var i = lastMessageCount; i < data.messages.length; i++) {
-            var msg = data.messages[i];
+        for (var i = lastMessageCount; i < data.Messages.length; i++) {
+            var msg = data.Messages[i];
 
-            if (msg.role === 'assistant' && msg.toolCalls && msg.toolCalls.length > 0 && !msg.content) {
+            if (msg.Role === 'assistant' && msg.ToolCalls && msg.ToolCalls.length > 0 && !msg.Content) {
                 continue;
             }
 
-            if (msg.role === 'tool') {
+            if (msg.Role === 'tool') {
                 continue;
             }
 
-            appendMessage(msg.role, msg.content);
+            appendMessage(msg.Role, msg.Content);
         }
-        lastMessageCount = data.messages.length;
+        lastMessageCount = data.Messages.length;
     }
 
     function renderAdvice(data) {
         var oldCards = document.querySelectorAll('.advice-card[data-conversation]');
         oldCards.forEach(function(card) { card.remove(); });
 
-        if (!data.pendingAdvice || data.pendingAdvice.length === 0) return;
+        if (!data.PendingAdvice || data.PendingAdvice.length === 0) return;
 
         var container = document.getElementById('agent-messages');
         if (!container) return;
 
-        data.pendingAdvice.forEach(function(advice) {
+        data.PendingAdvice.forEach(function(advice) {
             var card = document.createElement('div');
             card.className = 'advice-card';
-            card.setAttribute('data-conversation', data.conversationId);
-            card.setAttribute('data-advice-id', advice.adviceId);
+            card.setAttribute('data-conversation', data.ConversationId);
+            card.setAttribute('data-advice-id', advice.AdviceId);
 
             var header = document.createElement('div');
             header.className = 'advice-header';
-            header.textContent = loc('proposed-action', 'Proposed Action:') + ' ' + advice.toolDisplayName;
+            header.textContent = loc('proposed-action', 'Proposed Action:') + ' ' + advice.ToolDisplayName;
 
             var detail = document.createElement('div');
             detail.className = 'advice-detail';
-            detail.textContent = advice.parameterDisplay;
+            detail.textContent = advice.ParameterDisplay;
 
             var actions = document.createElement('div');
             actions.className = 'advice-actions';
@@ -149,14 +152,14 @@
             approveBtn.className = 'btn btn-sm btn-success';
             approveBtn.textContent = loc('approve', 'Approve');
             approveBtn.addEventListener('click', function() {
-                approveAdvice(advice.adviceId, card);
+                approveAdvice(advice.AdviceId, card);
             });
 
             var rejectBtn = document.createElement('button');
             rejectBtn.className = 'btn btn-sm btn-outline-danger';
             rejectBtn.textContent = loc('reject', 'Reject');
             rejectBtn.addEventListener('click', function() {
-                rejectAdvice(advice.adviceId, card);
+                rejectAdvice(advice.AdviceId, card);
             });
 
             actions.appendChild(approveBtn);
@@ -242,19 +245,18 @@
 
     function updateState(state) {
         var statusEl = document.getElementById('agent-status-text');
-        if (!statusEl) return;
 
-        if (state === 'Thinking') {
-            statusEl.textContent = loc('thinking', 'Thinking...');
-        } else if (state === 'AwaitingApproval') {
-            statusEl.textContent = loc('waiting-approval', 'Waiting for approval');
+        if (state === 'Error') {
+            if (statusEl) statusEl.textContent = loc('error', 'Error');
             hideThinking();
         } else if (state === 'Completed') {
-            statusEl.textContent = loc('ready', 'Ready');
+            if (statusEl) statusEl.textContent = loc('ready', 'Ready');
             hideThinking();
-        } else if (state === 'Error') {
-            statusEl.textContent = loc('error', 'Error');
+        } else if (state === 'AwaitingApproval') {
+            if (statusEl) statusEl.textContent = loc('waiting-approval', 'Waiting for approval');
             hideThinking();
+        } else if (state === 'Thinking') {
+            if (statusEl) statusEl.textContent = loc('thinking', 'Thinking...');
         }
     }
 
