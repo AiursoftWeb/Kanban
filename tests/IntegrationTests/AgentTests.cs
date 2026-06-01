@@ -4,6 +4,7 @@ using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
 using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Kanban.Services.Tools.Read;
+using Aiursoft.Kanban.Services.Tools.Write;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
 
@@ -17,13 +18,13 @@ public class AgentTests : TestBase
         var registry = GetService<ToolRegistry>();
         var allTools = registry.AllTools;
 
-        Assert.IsTrue(allTools.Count >= 15, $"Expected at least 15 tools, found {allTools.Count}");
+        Assert.IsTrue(allTools.Count >= 19, $"Expected at least 19 tools, found {allTools.Count}");
 
         var readTools = allTools.Where(t => !registry.IsWriteTool(t.ProtocolTool.Name)).ToList();
         var writeTools = allTools.Where(t => registry.IsWriteTool(t.ProtocolTool.Name)).ToList();
 
-        Assert.IsTrue(readTools.Count >= 8, $"Expected at least 8 read tools, found {readTools.Count}");
-        Assert.IsTrue(writeTools.Count >= 12, $"Expected at least 12 write tools, found {writeTools.Count}");
+        Assert.IsTrue(readTools.Count >= 10, $"Expected at least 10 read tools, found {readTools.Count}");
+        Assert.IsTrue(writeTools.Count >= 9, $"Expected at least 9 write tools, found {writeTools.Count}");
 
         foreach (var tool in allTools)
         {
@@ -39,7 +40,8 @@ public class AgentTests : TestBase
         var registry = GetService<ToolRegistry>();
 
         var readToolNames = new[] { "GetUserBoards", "GetBoardById", "GetColumns", "GetCardsInColumn",
-            "GetCardById", "SearchCards", "GetOverdueCards", "GetBoardMembers", "SearchUsers", "SearchLabels" };
+            "GetCardById", "SearchCards", "GetOverdueCards", "GetBoardMembers", "SearchUsers", "SearchLabels",
+            "GetBoardShares" };
 
         foreach (var name in readToolNames)
         {
@@ -54,7 +56,7 @@ public class AgentTests : TestBase
         var registry = GetService<ToolRegistry>();
 
         var writeToolNames = new[] { "CreateBoard", "CreateCard", "MoveCard", "DeleteBoard",
-            "CreateColumn", "AddLabel", "AssignCard" };
+            "CreateColumn", "AddLabel", "AssignCard", "ShareBoard", "RemoveBoardShare", "UpdateBoardVisibility" };
 
         foreach (var name in writeToolNames)
         {
@@ -524,6 +526,95 @@ public class AgentTests : TestBase
             "System prompt should NOT expose raw userId since it's server-injected");
         StringAssert.Contains(systemMsg.Content, "The server handles identity automatically",
             "System prompt should explain that identity is handled server-side");
+    }
+
+    // ── Share tools ──────────────────────────────────────
+
+    [TestMethod]
+    public async Task ShareWriteTools_ShareBoardAndGetShares()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        // Register target user
+        var (userEmail, _) = await RegisterAndLoginAsync();
+        await LoginAsAdmin();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var targetUser = db.Users.First(u => u.Email == userEmail);
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        // Share board
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+        var shareResult = await shareTools.ShareBoard(boardId, targetUser.Id, null, "ReadOnly");
+        StringAssert.Contains(shareResult, "shared with user");
+
+        // Get shares
+        var userLookupTools = scope.ServiceProvider.GetRequiredService<UserLookupTools>();
+        var sharesResult = await userLookupTools.GetBoardShares(boardId);
+        StringAssert.Contains(sharesResult, targetUser.Id);
+        StringAssert.Contains(sharesResult, "ReadOnly");
+
+        // Share ID should be in the result for removal (format: "Share #<guid>: User:...")
+        var shareIdStr = sharesResult.Split("Share #")[1].Split(":")[0];
+        var shareId = Guid.Parse(shareIdStr);
+
+        // Remove share
+        var removeResult = await shareTools.RemoveBoardShare(shareId);
+        StringAssert.Contains(removeResult, "Share removed");
+    }
+
+    [TestMethod]
+    public async Task ShareWriteTools_OnlyOwnerCanShare()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        // Register a non-owner user
+        var (otherEmail, otherPassword) = await RegisterAndLoginAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var otherUser = db.Users.First(u => u.Email == otherEmail);
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = otherUser.Id;
+
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+        var result = await shareTools.ShareBoard(boardId, adminUser.Id, null, "ReadOnly");
+
+        // Non-owner should not be able to share
+        StringAssert.Contains(result, "Only the board owner");
+    }
+
+    [TestMethod]
+    public async Task ShareWriteTools_UpdateBoardVisibility()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+
+        var result = await shareTools.UpdateBoardVisibility(boardId, true);
+        StringAssert.Contains(result, "public");
+
+        var board = await db.KanbanBoards.FindAsync(boardId);
+        Assert.IsTrue(board!.IsPublic);
+
+        result = await shareTools.UpdateBoardVisibility(boardId, false);
+        StringAssert.Contains(result, "private");
+
+        await db.Entry(board).ReloadAsync();
+        Assert.IsFalse(board.IsPublic);
     }
 
     // ── Helpers ─────────────────────────────────────────────

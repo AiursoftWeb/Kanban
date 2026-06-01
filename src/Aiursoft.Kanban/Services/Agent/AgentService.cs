@@ -405,12 +405,14 @@ public class AgentService : IAgentService
         sb.AppendLine("1. Use the available tools to read or modify the board.");
         sb.AppendLine("2. For operations that change data (create, update, delete, move), the system will ask the user to approve before executing.");
         sb.AppendLine("3. When you need more information, ask the user clarifying questions before calling tools.");
-        sb.AppendLine("4. Be precise. When searching for users to assign cards, use GetBoardMembers to find users on the current board.");
-        sb.AppendLine("5. If a card doesn't exist, create it. If it already exists, move or update it. Always check first.");
-        sb.AppendLine("6. The user may paste unstructured data. Parse it carefully and ask for clarification if ambiguous.");
-        sb.AppendLine($"7. The current board ID is {boardId}. You act on behalf of the authenticated user. The server handles identity automatically.");
+        sb.AppendLine("4. To assign cards, use GetBoardMembers to find users on the current board.");
+        sb.AppendLine("5. To share a board, use SearchUsers to find users globally, then ShareBoard with their user ID.");
+        sb.AppendLine("6. To view or remove shares, use GetBoardShares (returns share IDs needed for RemoveBoardShare).");
+        sb.AppendLine("7. If a card doesn't exist, create it. If it already exists, move or update it. Always check first.");
+        sb.AppendLine("8. The user may paste unstructured data. Parse it carefully and ask for clarification if ambiguous.");
+        sb.AppendLine($"9. The current board ID is {boardId}. You act on behalf of the authenticated user. The server handles identity automatically.");
         sb.AppendLine();
-        sb.AppendLine("Always use the tools to interact with the board. Do not guess IDs or names - use SearchCards, SearchUsers, GetColumns, etc. to look them up first.");
+        sb.AppendLine("Always use the tools to interact with the board. Do not guess IDs or names - use SearchCards, SearchUsers, GetColumns, GetBoardMembers, GetBoardShares, etc. to look them up first.");
         return sb.ToString();
     }
 
