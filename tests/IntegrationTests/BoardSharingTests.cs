@@ -155,7 +155,9 @@ public class BoardSharingTests : TestBase
                 Priority = Priority.High,
                 AssignedUserId = sourceOwnerId,
                 PlannedStartTime = DateTime.UtcNow.Date,
-                DueDate = DateTime.UtcNow.Date.AddDays(3)
+                DueDate = DateTime.UtcNow.Date.AddDays(3),
+                ActualStartTime = DateTime.UtcNow.AddDays(-2),
+                ActualEndTime = DateTime.UtcNow.AddDays(-1)
             };
             db.KanbanCards.Add(card);
             db.KanbanLabels.Add(label);
@@ -193,6 +195,8 @@ public class BoardSharingTests : TestBase
             Assert.AreEqual(1, transferredCard.Order);
             Assert.AreEqual(Priority.High, transferredCard.Priority);
             Assert.IsNull(transferredCard.AssignedUserId);
+            Assert.IsNull(transferredCard.ActualStartTime);
+            Assert.IsNull(transferredCard.ActualEndTime);
             Assert.HasCount(1, transferredCard.CardLabels);
             Assert.AreEqual(1, await db.KanbanCardLabels.CountAsync());
             Assert.IsFalse(await db.KanbanCardComments.AnyAsync());

@@ -299,9 +299,7 @@ public class KanbanController(
             Priority = card.Priority,
             AssignedUserId = null,
             PlannedStartTime = card.PlannedStartTime,
-            DueDate = card.DueDate,
-            ActualStartTime = card.ActualStartTime,
-            ActualEndTime = card.ActualEndTime
+            DueDate = card.DueDate
         };
 
         db.KanbanCards.Add(transferredCard);
@@ -335,6 +333,8 @@ public class KanbanController(
             .Include(c => c.Board)
             .FirstOrDefaultAsync(c => c.Id == targetColumnId);
         if (column == null) return NotFound();
+        if (column.BoardId != card.Column.BoardId)
+            return BadRequest("Target column must belong to the same board.");
 
         var userId = userManager.GetUserId(User)!;
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
