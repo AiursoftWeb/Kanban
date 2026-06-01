@@ -1,19 +1,13 @@
 using System.Collections.Concurrent;
 using System.Text;
+using System.Text.Json;
 using Aiursoft.Canon.TaskQueue;
-using Aiursoft.GptClient.Abstractions;
-using Aiursoft.GptClient.Services;
 using Aiursoft.Kanban.Configuration;
-using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using ModelContextProtocol.Server;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
 namespace Aiursoft.Kanban.Services.Agent;
 
@@ -24,24 +18,18 @@ public class AgentService : IAgentService
     private readonly ToolRegistry _toolRegistry;
     private readonly AdviceService _adviceService;
     private readonly OpenAIConfiguration _config;
-    private readonly ChatClient _chatClient;
+    private readonly ClaudeClient _claudeClient;
     private readonly IServiceProvider _rootServices;
     private readonly ILogger<AgentService> _logger;
 
     private const int MaxLoops = 15;
-
-    private static readonly JsonSerializerSettings JsonSettings = new()
-    {
-        ContractResolver = new DefaultContractResolver(),
-        NullValueHandling = NullValueHandling.Ignore
-    };
 
     public AgentService(
         ServiceTaskQueue taskQueue,
         ToolRegistry toolRegistry,
         AdviceService adviceService,
         IOptions<OpenAIConfiguration> config,
-        ChatClient chatClient,
+        ClaudeClient claudeClient,
         IServiceProvider rootServices,
         ILogger<AgentService> logger)
     {
@@ -49,7 +37,7 @@ public class AgentService : IAgentService
         _toolRegistry = toolRegistry;
         _adviceService = adviceService;
         _config = config.Value;
-        _chatClient = chatClient;
+        _claudeClient = claudeClient;
         _rootServices = rootServices;
         _logger = logger;
     }
@@ -166,57 +154,69 @@ public class AgentService : IAgentService
                 conversation.State = AgentState.Thinking;
                 conversation.LastActivity = DateTime.UtcNow;
 
-                var response = await CallLlmWithTools(conversation.Messages);
+                var response = await CallLlmWithTools(conversation);
 
-                if (response.ToolCalls != null && response.ToolCalls.Count > 0)
+                var toolUses = response.GetToolUses();
+                if (toolUses.Count > 0)
                 {
-                    // Add assistant message with tool calls
+                    // Record assistant message with tool calls
+                    var assistantToolCalls = toolUses.Select(tu => new ToolCallData
+                    {
+                        Id = tu.Id,
+                        Type = "function",
+                        Function = new ToolCallFunction
+                        {
+                            Name = tu.Name,
+                            Arguments = JsonConvert.SerializeObject(UnwrapJsonElements(tu.Input ?? new()))
+                        }
+                    }).ToList();
+
                     conversation.Messages.Add(new ToolMessagesItem
                     {
                         Role = "assistant",
-                        Content = response.Content ?? "",
-                        ToolCalls = response.ToolCalls
+                        Content = response.GetText(),
+                        ToolCalls = assistantToolCalls,
+                        ReasoningContent = response.ReasoningContent
                     });
 
                     var adviceIds = new List<Guid>();
 
-                    foreach (var toolCall in response.ToolCalls)
+                    foreach (var tu in toolUses)
                     {
-                        if (toolCall.Function == null) continue;
-                        var isWrite = _toolRegistry.IsWriteTool(toolCall.Function.Name!);
+                        if (string.IsNullOrEmpty(tu.Name)) continue;
+                        var isWrite = _toolRegistry.IsWriteTool(tu.Name);
 
                         if (isWrite)
                         {
-                            var tool = _toolRegistry.GetTool(toolCall.Function.Name!);
-                            var displayName = tool?.ProtocolTool.Title ?? toolCall.Function.Name!;
+                            var tool = _toolRegistry.GetTool(tu.Name);
+                            var displayName = tool?.ProtocolTool.Title ?? tu.Name;
                             var description = tool?.ProtocolTool.Description ?? "";
 
-                            var args = TryParseArgs(toolCall.Function.Arguments ?? "{}");
-                            var paramDisplay = BuildParameterDisplay(toolCall.Function.Name!, args);
+                            var args = tu.Input ?? new Dictionary<string, object?>();
+                            var paramDisplay = BuildParameterDisplay(tu.Name, args);
 
                             var advice = _adviceService.Create(
                                 conversationId: conversationId,
-                                toolName: toolCall.Function.Name!,
+                                toolName: tu.Name,
                                 toolDisplayName: displayName,
                                 toolDescription: description ?? "",
                                 parameters: args,
                                 parameterDisplay: paramDisplay,
-                                toolCallId: toolCall.Id);
+                                toolCallId: tu.Id);
 
                             adviceIds.Add(advice.Id);
-                            _logger.LogInformation("Advice created: {AdviceId} for tool {ToolName}", advice.Id, toolCall.Function.Name);
+                            _logger.LogInformation("Advice created: {AdviceId} for tool {ToolName}", advice.Id, tu.Name);
                         }
                         else
                         {
-                            // Execute read tool immediately
-                            var result = await ExecuteTool(sp, toolCall, conversation.UserId);
+                            var result = await ExecuteTool(sp, tu, conversation.UserId);
                             conversation.Messages.Add(new ToolMessagesItem
                             {
                                 Role = "tool",
-                                ToolCallId = toolCall.Id,
+                                ToolCallId = tu.Id,
                                 Content = result
                             });
-                            _logger.LogInformation("Read tool executed: {ToolName}", toolCall.Function.Name);
+                            _logger.LogInformation("Read tool executed: {ToolName}", tu.Name);
                         }
                     }
 
@@ -224,20 +224,29 @@ public class AgentService : IAgentService
                     {
                         conversation.PendingAdviceIds.AddRange(adviceIds);
                         conversation.State = AgentState.AwaitingApproval;
-                        return; // Pause for user approval
+                        return;
                     }
 
-                    // All read tools executed, continue loop
                     continue;
                 }
 
                 // Text response, conversation complete
-                if (!string.IsNullOrWhiteSpace(response.Content))
+                var text = response.GetText();
+                if (!string.IsNullOrWhiteSpace(text))
                 {
                     conversation.Messages.Add(new ToolMessagesItem
                     {
                         Role = "assistant",
-                        Content = response.Content
+                        Content = text,
+                        ReasoningContent = response.ReasoningContent
+                    });
+                }
+                else if (conversation.LoopCount == 1)
+                {
+                    conversation.Messages.Add(new ToolMessagesItem
+                    {
+                        Role = "assistant",
+                        Content = "I received an empty response from the model. Please check that the LLM endpoint is configured for the Anthropic Messages API format (/v1/messages)."
                     });
                 }
 
@@ -245,7 +254,6 @@ public class AgentService : IAgentService
                 return;
             }
 
-            // Max loops exceeded
             conversation.Messages.Add(new ToolMessagesItem
             {
                 Role = "assistant",
@@ -277,17 +285,14 @@ public class AgentService : IAgentService
                 return;
             }
 
-            // Build arguments from advice parameters
             var args = new Dictionary<string, object?>(advice.Parameters);
             if (!args.ContainsKey("userId"))
                 args["userId"] = conversation.UserId;
 
-            // Execute tool via MCP SDK
             var result = await ExecuteToolWithArgs(sp, tool, args);
 
             _adviceService.SetResult(adviceId, result, null);
 
-            // Add tool result to conversation
             conversation.Messages.Add(new ToolMessagesItem
             {
                 Role = "tool",
@@ -310,182 +315,74 @@ public class AgentService : IAgentService
             });
         }
 
-        // Resume ReAct loop
         await ExecuteReActLoop(sp, conversationId);
     }
 
-    private async Task<LlmResponse> CallLlmWithTools(List<ToolMessagesItem> messages)
+    private async Task<ClaudeResponse> CallLlmWithTools(AgentConversation conversation)
     {
-        if (string.IsNullOrWhiteSpace(_config.CompletionApiUrl))
-            throw new InvalidOperationException("OpenAI/Ollama CompletionApiUrl is not configured. Please set AppSettings:OpenAI:CompletionApiUrl in appsettings.json.");
+        var systemPrompt = conversation.Messages
+            .Where(m => m.Role == "system")
+            .Select(m => m.Content)
+            .FirstOrDefault() ?? "";
 
-        var toolsList = BuildToolsList();
+        var claudeMessages = ConvertToClaudeMessages(conversation.Messages);
+        var tools = BuildClaudeTools();
 
-        var requestModel = new OllamaRequestModel
-        {
-            Model = _config.Model,
-            Messages = messages.Cast<MessagesItem>().ToList(),
-            Tools = toolsList,
-            Stream = false,
-            Temperature = 0.3
-        };
-
-        var json = JsonConvert.SerializeObject(requestModel, JsonSettings);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-        using var httpClient = new HttpClient { Timeout = TimeSpan.FromMinutes(3) };
-        if (!string.IsNullOrWhiteSpace(_config.Token))
-        {
-            httpClient.DefaultRequestHeaders.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _config.Token);
-        }
-
-        var response = await httpClient.PostAsync(_config.CompletionApiUrl, content);
-        response.EnsureSuccessStatusCode();
-
-        var responseBody = await response.Content.ReadAsStringAsync();
-        return ParseLlmResponse(responseBody);
+        return await _claudeClient.SendAsync(systemPrompt, claudeMessages, tools);
     }
 
-    private static LlmResponse ParseLlmResponse(string responseBody)
+    private static List<ClaudeMessage> ConvertToClaudeMessages(List<ToolMessagesItem> messages)
     {
-        var doc = JsonConvert.DeserializeObject<dynamic>(responseBody);
-        if (doc == null) return new LlmResponse();
+        var result = new List<ClaudeMessage>();
 
-        var message = doc.message;
-        string? textContent = message?.content?.ToString();
-
-        var toolCalls = new List<ToolCallData>();
-        var toolCallsArray = message?.tool_calls;
-        if (toolCallsArray != null)
+        foreach (var msg in messages.Where(m => m.Role != "system"))
         {
-            foreach (var tc in toolCallsArray)
+            if (msg.Role == "user")
             {
-                toolCalls.Add(new ToolCallData
+                result.Add(ClaudeMessage.User(msg.Content ?? ""));
+            }
+            else if (msg.Role == "assistant")
+            {
+                var blocks = new List<ClaudeContentBlock>();
+
+                if (!string.IsNullOrWhiteSpace(msg.Content))
+                    blocks.Add(ClaudeContentBlock.TextBlock(msg.Content));
+
+                if (msg.ToolCalls != null)
                 {
-                    Id = tc.id?.ToString() ?? Guid.NewGuid().ToString(),
-                    Type = tc.type?.ToString() ?? "function",
-                    Function = new ToolCallFunction
+                    foreach (var tc in msg.ToolCalls)
                     {
-                        Name = tc.function?.name?.ToString(),
-                        Arguments = tc.function?.arguments?.ToString()
+                        var input = TryParseArgs(tc.Function?.Arguments ?? "{}");
+                        blocks.Add(ClaudeContentBlock.ToolUse(
+                            tc.Id ?? Guid.NewGuid().ToString(),
+                            tc.Function?.Name ?? "",
+                            input));
                     }
-                });
-            }
-        }
-
-        // Fallback: parse <function_calls> XML from text content (for models that don't support native tool calling)
-        if (toolCalls.Count == 0 && !string.IsNullOrWhiteSpace(textContent) && textContent.Contains("<function_calls>"))
-        {
-            var parsedCalls = ParseXmlFunctionCalls(textContent);
-            if (parsedCalls.Count > 0)
-            {
-                toolCalls = parsedCalls;
-                // Strip the XML block from displayed content
-                var xmlStart = textContent.IndexOf("<function_calls>");
-                var xmlEnd = textContent.IndexOf("</function_calls>") + "</function_calls>".Length;
-                if (xmlStart >= 0 && xmlEnd > xmlStart)
-                    textContent = textContent.Remove(xmlStart, xmlEnd - xmlStart).Trim();
-            }
-        }
-
-        return new LlmResponse
-        {
-            Content = textContent,
-            ToolCalls = toolCalls
-        };
-    }
-
-    private static List<ToolCallData> ParseXmlFunctionCalls(string text)
-    {
-        var result = new List<ToolCallData>();
-        var fcStart = text.IndexOf("<function_calls>");
-        var fcEnd = text.IndexOf("</function_calls>");
-        if (fcStart < 0 || fcEnd < 0) return result;
-
-        var block = text.Substring(fcStart, fcEnd - fcStart + "</function_calls>".Length);
-        var invokeRegex = new System.Text.RegularExpressions.Regex(
-            @"<invoke\s+name=""([^""]+)""\s*>(.*?)</invoke>",
-            System.Text.RegularExpressions.RegexOptions.Singleline);
-
-        foreach (System.Text.RegularExpressions.Match match in invokeRegex.Matches(block))
-        {
-            var name = match.Groups[1].Value;
-            var inner = match.Groups[2].Value;
-
-            var args = new Dictionary<string, object?>();
-            var paramRegex = new System.Text.RegularExpressions.Regex(
-                @"<parameter\s+name=""([^""]+)""\s*>(.*?)</parameter>",
-                System.Text.RegularExpressions.RegexOptions.Singleline);
-
-            foreach (System.Text.RegularExpressions.Match pm in paramRegex.Matches(inner))
-            {
-                var paramName = pm.Groups[1].Value;
-                var paramValue = pm.Groups[2].Value.Trim();
-                args[paramName] = CoerceValue(paramValue);
-            }
-
-            result.Add(new ToolCallData
-            {
-                Id = Guid.NewGuid().ToString(),
-                Type = "function",
-                Function = new ToolCallFunction
-                {
-                    Name = name,
-                    Arguments = JsonConvert.SerializeObject(args)
                 }
-            });
+
+                result.Add(ClaudeMessage.Assistant(blocks, msg.ReasoningContent));
+            }
+            else if (msg.Role == "tool")
+            {
+                result.Add(ClaudeMessage.ToolResult(msg.ToolCallId ?? "", msg.Content ?? ""));
+            }
         }
 
         return result;
     }
 
-    private static object? CoerceValue(string value)
+    private List<ClaudeTool> BuildClaudeTools()
     {
-        if (int.TryParse(value, out var i)) return i;
-        if (long.TryParse(value, out var l)) return l;
-        if (bool.TryParse(value, out var b)) return b;
-        return value;
-    }
-
-    private List<ToolsItem> BuildToolsList()
-    {
-        var result = new List<ToolsItem>();
-        foreach (var tool in _toolRegistry.AllTools)
+        return _toolRegistry.AllTools.Select(tool =>
         {
             var proto = tool.ProtocolTool;
-            var schema = NormalizeJsonSchema(proto.InputSchema);
-            var parameters = JsonConvert.DeserializeObject<ParametersDefinition>(schema);
-
-            result.Add(new ToolsItem
+            return new ClaudeTool
             {
-                Type = "function",
-                Function = new FunctionDefinition
-                {
-                    Name = proto.Name,
-                    Description = proto.Description,
-                    Parameters = parameters
-                }
-            });
-        }
-        return result;
-    }
-
-    private static string NormalizeJsonSchema(System.Text.Json.JsonElement schema)
-    {
-        var obj = JObject.Parse(schema.GetRawText());
-        if (obj["properties"] is JObject properties)
-        {
-            foreach (var prop in properties.Properties())
-            {
-                if (prop.Value is JObject propObj && propObj["type"] is JArray typeArray)
-                {
-                    var nonNull = typeArray.FirstOrDefault(t => t.Value<string>() != "null");
-                    propObj["type"] = nonNull?.Value<string>() ?? "string";
-                }
-            }
-        }
-        return obj.ToString();
+                Name = proto.Name,
+                Description = proto.Description,
+                InputSchema = System.Text.Json.JsonSerializer.Deserialize<object>(proto.InputSchema.GetRawText())!
+            };
+        }).ToList();
     }
 
     private string BuildSystemPrompt(int boardId, string userId)
@@ -502,34 +399,16 @@ public class AgentService : IAgentService
         sb.AppendLine("6. The user may paste unstructured data. Parse it carefully and ask for clarification if ambiguous.");
         sb.AppendLine($"7. The current board ID is {boardId}. The current user ID is \"{userId}\".");
         sb.AppendLine();
-        sb.AppendLine("## How to Call Tools");
-        sb.AppendLine("To call tools, use this EXACT format in your response:");
-        sb.AppendLine("<function_calls>");
-        sb.AppendLine("<invoke name=\"ToolName\">");
-        sb.AppendLine("<parameter name=\"paramName\">value</parameter>");
-        sb.AppendLine("</invoke>");
-        sb.AppendLine("</function_calls>");
-        sb.AppendLine("You can include multiple <invoke> blocks to call multiple tools at once.");
-        sb.AppendLine("The userId parameter is always the current user ID shown above.");
-        sb.AppendLine("Example:");
-        sb.AppendLine("<function_calls>");
-        sb.AppendLine($"<invoke name=\"GetBoardById\"><parameter name=\"boardId\">{boardId}</parameter><parameter name=\"userId\">{userId}</parameter></invoke>");
-        sb.AppendLine("</function_calls>");
-        sb.AppendLine();
-        sb.AppendLine("## Available Tools");
-        sb.AppendLine("- Read tools: GetBoardById, GetColumns, GetCardsInColumn, GetCardById, SearchCards, GetOverdueCards, GetCardsByPriority, GetUnassignedCards, GetCardsByLabel, GetUserBoards, SearchBoards, GetBoardMembers, SearchUsers, SearchLabels, GetLabelsForCard, GetColumnById");
-        sb.AppendLine("- Write tools (require approval): CreateBoard, RenameBoard, DeleteBoard, CreateColumn, RenameColumn, DeleteColumn, UpdateColumnStatus, MoveColumn, CreateCard, MoveCard, UpdateCardDetails, AssignCard, UpdateCardPriority, AddLabel, RemoveLabel, UpdateLabelColor, BatchCreateCards, BatchMoveCards");
-        sb.AppendLine();
         sb.AppendLine("Always use the tools to interact with the board. Do not guess IDs or names - use SearchCards, SearchUsers, GetColumns, etc. to look them up first.");
         return sb.ToString();
     }
 
-    private async Task<string> ExecuteTool(IServiceProvider sp, ToolCallData toolCall, string userId)
+    private async Task<string> ExecuteTool(IServiceProvider sp, ClaudeContentBlock toolUse, string userId)
     {
-        var tool = _toolRegistry.GetTool(toolCall.Function?.Name ?? "");
-        if (tool == null) return $"Error: Unknown tool '{toolCall.Function?.Name}'.";
+        var tool = _toolRegistry.GetTool(toolUse.Name ?? "");
+        if (tool == null) return $"Error: Unknown tool '{toolUse.Name}'.";
 
-        var args = TryParseArgs(toolCall.Function?.Arguments ?? "{}");
+        var args = UnwrapJsonElements(toolUse.Input ?? new());
         if (!args.ContainsKey("userId"))
             args["userId"] = userId;
 
@@ -553,7 +432,7 @@ public class AgentService : IAgentService
         };
 
         var request = new ModelContextProtocol.Server.RequestContext<ModelContextProtocol.Protocol.CallToolRequestParams>(
-            server: null!,
+            server: NullMcpServer.Instance,
             jsonRpcRequest: new ModelContextProtocol.Protocol.JsonRpcRequest { Method = "tools/call" },
             parameters: requestParams)
         {
@@ -565,11 +444,39 @@ public class AgentService : IAgentService
         return textContent?.Text ?? result.ToString() ?? "Tool executed.";
     }
 
+    private static Dictionary<string, object?> UnwrapJsonElements(Dictionary<string, object?> args)
+    {
+        var result = new Dictionary<string, object?>();
+        foreach (var (key, value) in args)
+        {
+            result[key] = value switch
+            {
+                System.Text.Json.JsonElement el => UnwrapJsonElement(el),
+                _ => value
+            };
+        }
+        return result;
+    }
+
+    private static object? UnwrapJsonElement(System.Text.Json.JsonElement el)
+    {
+        return el.ValueKind switch
+        {
+            System.Text.Json.JsonValueKind.String => el.GetString(),
+            System.Text.Json.JsonValueKind.Number => el.TryGetInt64(out var l) ? l : el.GetDouble(),
+            System.Text.Json.JsonValueKind.True => true,
+            System.Text.Json.JsonValueKind.False => false,
+            System.Text.Json.JsonValueKind.Null => null,
+            _ => el.GetRawText()
+        };
+    }
+
     private static Dictionary<string, object?> TryParseArgs(string json)
     {
         try
         {
-            return JsonConvert.DeserializeObject<Dictionary<string, object?>>(json) ?? new();
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, object?>>(json) ?? new();
+            return UnwrapJsonElements(dict);
         }
         catch
         {
@@ -623,11 +530,5 @@ public class AgentService : IAgentService
         }
 
         return $"{friendlyName}: {string.Join(", ", details)}";
-    }
-
-    private class LlmResponse
-    {
-        public string? Content { get; set; }
-        public List<ToolCallData> ToolCalls { get; set; } = [];
     }
 }

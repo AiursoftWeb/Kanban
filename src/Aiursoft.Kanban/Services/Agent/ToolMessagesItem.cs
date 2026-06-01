@@ -10,6 +10,9 @@ public class ToolMessagesItem : MessagesItem
 
     [JsonProperty("tool_call_id")]
     public string? ToolCallId { get; set; }
+
+    [JsonProperty("reasoning_content")]
+    public string? ReasoningContent { get; set; }
 }
 
 public class ToolCallData
