@@ -99,6 +99,9 @@
   <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Коментарі мають лише режим читання, оскільки у вас немає доступу до редагування цієї дошки.</value>
   </data>
+  <data name="Comments will not be transferred and the assignee will be cleared." xml:space="preserve">
+    <value>Коментарі не будуть перенесені, а виконавець буде скинутий.</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Виконано</value>
   </data>
@@ -177,6 +180,9 @@
   <data name="Failed to load board members." xml:space="preserve">
     <value>Не вдалося завантажити учасників дошки.</value>
   </data>
+  <data name="Failed to load transfer targets." xml:space="preserve">
+    <value>Не вдалося завантажити цілі передачі.</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Не вдалося видалити мітку.</value>
   </data>
@@ -188,6 +194,9 @@
   </data>
   <data name="Failed to save:" xml:space="preserve">
     <value>Не вдалося зберегти:</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>Не вдалося перемістити картку:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Не вдалося оновити колір мітки.</value>
@@ -216,6 +225,9 @@
   <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Мітки доступні лише для читання, оскільки у вас немає прав на редагування цієї дошки.</value>
   </data>
+  <data name="Loading target boards..." xml:space="preserve">
+    <value>Завантаження дощок для переміщення...</value>
+  </data>
   <data name="Low" xml:space="preserve">
     <value>Низький</value>
   </data>
@@ -239,6 +251,9 @@
   </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Ще немає коментарів.</value>
+  </data>
+  <data name="No editable target boards are available." xml:space="preserve">
+    <value>Немає доступних до редагування дошок для перенесення.</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>Поки що міток немає.</value>
@@ -288,6 +303,12 @@
   <data name="Search or create a label" xml:space="preserve">
     <value>Пошук або створення мітки</value>
   </data>
+  <data name="Select a board" xml:space="preserve">
+    <value>Оберіть дошку</value>
+  </data>
+  <data name="Select a column" xml:space="preserve">
+    <value>Оберіть колонку</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Надіслати</value>
   </data>
@@ -299,6 +320,12 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>Надіслати</value>
+  </data>
+  <data name="Target Board" xml:space="preserve">
+    <value>Дошка призначення</value>
+  </data>
+  <data name="Target Column" xml:space="preserve">
+    <value>Цільова колонка</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Цю дію не можна скасувати.</value>
@@ -314,6 +341,15 @@
   </data>
   <data name="Title is required." xml:space="preserve">
     <value>Назву обов’язково потрібно вказати.</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Перенести</value>
+  </data>
+  <data name="Transfer Card" xml:space="preserve">
+    <value>Перенести картку</value>
+  </data>
+  <data name="Transferring..." xml:space="preserve">
+    <value>Перенесення...</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>Непризначені</value>

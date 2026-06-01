@@ -99,6 +99,9 @@
   <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>由于您没有此看板的编辑权限，评论为只读状态。</value>
   </data>
+  <data name="Comments will not be transferred and the assignee will be cleared." xml:space="preserve">
+    <value>评论将不会迁移，且指派用户将被清空。</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>已完成</value>
   </data>
@@ -177,6 +180,9 @@
   <data name="Failed to load board members." xml:space="preserve">
     <value>加载看板成员失败。</value>
   </data>
+  <data name="Failed to load transfer targets." xml:space="preserve">
+    <value>无法加载转移目标。</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>移除标签失败。</value>
   </data>
@@ -188,6 +194,9 @@
   </data>
   <data name="Failed to save:" xml:space="preserve">
     <value>保存失败：</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>转移卡片失败：</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>更新标签颜色失败。</value>
@@ -216,6 +225,9 @@
   <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>由于您无权编辑此看板，标签为只读。</value>
   </data>
+  <data name="Loading target boards..." xml:space="preserve">
+    <value>正在加载目标看板...</value>
+  </data>
   <data name="Low" xml:space="preserve">
     <value>低</value>
   </data>
@@ -239,6 +251,9 @@
   </data>
   <data name="No comments yet." xml:space="preserve">
     <value>暂无评论。</value>
+  </data>
+  <data name="No editable target boards are available." xml:space="preserve">
+    <value>没有可编辑的目标看板。</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>暂无标签。</value>
@@ -288,6 +303,12 @@
   <data name="Search or create a label" xml:space="preserve">
     <value>搜索或创建标签</value>
   </data>
+  <data name="Select a board" xml:space="preserve">
+    <value>选择看板</value>
+  </data>
+  <data name="Select a column" xml:space="preserve">
+    <value>选择列</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>发送</value>
   </data>
@@ -299,6 +320,12 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>分享</value>
+  </data>
+  <data name="Target Board" xml:space="preserve">
+    <value>目标看板</value>
+  </data>
+  <data name="Target Column" xml:space="preserve">
+    <value>目标列</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>此操作无法撤消。</value>
@@ -314,6 +341,15 @@
   </data>
   <data name="Title is required." xml:space="preserve">
     <value>标题为必填项。</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>转移</value>
+  </data>
+  <data name="Transfer Card" xml:space="preserve">
+    <value>转移卡片</value>
+  </data>
+  <data name="Transferring..." xml:space="preserve">
+    <value>正在转移...</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>未分配</value>

@@ -99,6 +99,9 @@
   <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Komentarze są tylko do odczytu, ponieważ nie masz uprawnień do edycji tego tablica.</value>
   </data>
+  <data name="Comments will not be transferred and the assignee will be cleared." xml:space="preserve">
+    <value>Komentarze nie zostaną przeniesione, a przypisana osoba zostanie zresetowana.</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Zakończone</value>
   </data>
@@ -177,6 +180,9 @@
   <data name="Failed to load board members." xml:space="preserve">
     <value>Nie udało się załadować członków tablicy.</value>
   </data>
+  <data name="Failed to load transfer targets." xml:space="preserve">
+    <value>Nie udało się załadować miejsc docelowych transferu.</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Nie udało się usunąć etykiety.</value>
   </data>
@@ -188,6 +194,9 @@
   </data>
   <data name="Failed to save:" xml:space="preserve">
     <value>Nie udało się zapisać:</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>Nie udało się przenieść karty:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Nie udało się zaktualizować koloru etykiety.</value>
@@ -216,6 +225,9 @@
   <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Etykiety są tylko do odczytu, ponieważ nie masz uprawnień do edycji tej tablicy.</value>
   </data>
+  <data name="Loading target boards..." xml:space="preserve">
+    <value>Ładowanie tablic docelowych...</value>
+  </data>
   <data name="Low" xml:space="preserve">
     <value>Niska</value>
   </data>
@@ -239,6 +251,9 @@
   </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Brak komentarzy.</value>
+  </data>
+  <data name="No editable target boards are available." xml:space="preserve">
+    <value>Nie ma dostępnych tablic docelowych do edycji.</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>Brak etykiet.</value>
@@ -288,6 +303,12 @@
   <data name="Search or create a label" xml:space="preserve">
     <value>Wyszukaj lub utwórz etykietę</value>
   </data>
+  <data name="Select a board" xml:space="preserve">
+    <value>Wybierz tablicę</value>
+  </data>
+  <data name="Select a column" xml:space="preserve">
+    <value>Wybierz kolumnę</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Wyślij</value>
   </data>
@@ -299,6 +320,12 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>Udostępnij</value>
+  </data>
+  <data name="Target Board" xml:space="preserve">
+    <value>Tablica docelowa</value>
+  </data>
+  <data name="Target Column" xml:space="preserve">
+    <value>Kolumna docelowa</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Tej akcji nie można cofnąć.</value>
@@ -314,6 +341,15 @@
   </data>
   <data name="Title is required." xml:space="preserve">
     <value>Tytuł jest wymagany.</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Przenieś</value>
+  </data>
+  <data name="Transfer Card" xml:space="preserve">
+    <value>Przenieś kartę</value>
+  </data>
+  <data name="Transferring..." xml:space="preserve">
+    <value>Przenoszenie...</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>Nieprzypisane</value>
