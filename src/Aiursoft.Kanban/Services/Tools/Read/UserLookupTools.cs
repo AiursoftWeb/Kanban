@@ -1,8 +1,11 @@
 using System.ComponentModel;
+using System.Security.Claims;
+using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
 using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Scanner.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using ModelContextProtocol.Server;
 
@@ -12,6 +15,7 @@ namespace Aiursoft.Kanban.Services.Tools.Read;
 public class UserLookupTools(
     TemplateDbContext db,
     KanbanAccessService access,
+    IAuthorizationService authorizationService,
     CurrentUserService currentUser) : IScopedDependency
 {
     [McpServerTool, Description("Get members who have access to a board")]
@@ -48,7 +52,7 @@ public class UserLookupTools(
         var userId = currentUser.UserId;
         var board = await db.KanbanBoards.FindAsync(boardId);
         if (board == null) return "Board not found.";
-        if (board.UserId != userId) return "Error: Only the board owner can view share details.";
+        if (!await CanManageSharesAsync(board, userId)) return "Error: Only the board owner can view share details.";
 
         var shares = await db.BoardShares
             .Include(s => s.SharedWithUser)
@@ -88,5 +92,15 @@ public class UserLookupTools(
             var name = KanbanAccessService.GetUserDisplayName(u);
             return $"- {name} (ID: {u.Id})";
         }));
+    }
+
+    private async Task<bool> CanManageSharesAsync(KanbanBoard board, string userId)
+    {
+        if (board.UserId == userId) return true;
+        var principal = new ClaimsPrincipal(
+            new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, userId)]));
+        var authResult = await authorizationService.AuthorizeAsync(
+            principal, AppPermissionNames.CanManageAnyBoardShare);
+        return authResult.Succeeded;
     }
 }

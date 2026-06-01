@@ -1,7 +1,9 @@
 using System.ComponentModel;
+using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Scanner.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using ModelContextProtocol.Server;
 
@@ -10,6 +12,7 @@ namespace Aiursoft.Kanban.Services.Tools.Write;
 [McpServerToolType]
 public class ShareWriteTools(
     TemplateDbContext db,
+    IAuthorizationService authorizationService,
     CurrentUserService currentUser) : IScopedDependency
 {
     [McpServerTool, Description("Share a board with a user or role. Use SearchUsers to find user IDs.")]
@@ -26,7 +29,7 @@ public class ShareWriteTools(
 
         var board = await db.KanbanBoards.FindAsync(boardId);
         if (board == null) return "Error: Board not found.";
-        if (board.UserId != userId) return "Error: Only the board owner can manage shares.";
+        if (!await CanManageSharesAsync(board, userId)) return "Error: Only the board owner can manage shares.";
 
         if (!Enum.TryParse<SharePermission>(permission, true, out var sharePermission))
             return $"Error: Invalid permission \"{permission}\". Valid values: ReadOnly, Editable.";
@@ -67,7 +70,7 @@ public class ShareWriteTools(
         return $"Board \"{board.Name}\" shared with {target} with {sharePermission} permission.";
     }
 
-    [McpServerTool, Description("Remove a share from a board. Use GetBoardMembers to see existing shares (share IDs are available in the board details).")]
+    [McpServerTool, Description("Remove a share from a board. Use GetBoardShares to see share IDs.")]
     [Advice]
     public async Task<string> RemoveBoardShare(
         [Description("Share ID to remove")] Guid shareId)
@@ -78,7 +81,7 @@ public class ShareWriteTools(
             .FirstOrDefaultAsync(s => s.Id == shareId);
 
         if (share == null) return "Error: Share not found.";
-        if (share.Board.UserId != userId) return "Error: Only the board owner can manage shares.";
+        if (!await CanManageSharesAsync(share.Board, userId)) return "Error: Only the board owner can manage shares.";
 
         db.BoardShares.Remove(share);
         await db.SaveChangesAsync();
@@ -95,12 +98,25 @@ public class ShareWriteTools(
         var userId = currentUser.UserId;
         var board = await db.KanbanBoards.FindAsync(boardId);
         if (board == null) return "Error: Board not found.";
-        if (board.UserId != userId) return "Error: Only the board owner can change visibility.";
+        if (!await CanManageSharesAsync(board, userId)) return "Error: Only the board owner can change visibility.";
 
         board.IsPublic = isPublic;
         await db.SaveChangesAsync();
 
         var visibility = isPublic ? "public" : "private";
         return $"Board \"{board.Name}\" is now {visibility}.";
+    }
+
+    private async Task<bool> CanManageSharesAsync(KanbanBoard board, string userId)
+    {
+        if (board.UserId == userId) return true;
+        var authResult = await authorizationService.AuthorizeAsync(
+            new System.Security.Claims.ClaimsPrincipal(
+                new System.Security.Claims.ClaimsIdentity([
+                    new System.Security.Claims.Claim(
+                        System.Security.Claims.ClaimTypes.NameIdentifier, userId)
+                ])),
+            AppPermissionNames.CanManageAnyBoardShare);
+        return authResult.Succeeded;
     }
 }
