@@ -225,6 +225,102 @@ public class KanbanController(
         return Ok(new { card.Id, card.Title, card.Description, card.Order, card.ColumnId });
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetTransferTargets(int cardId)
+    {
+        var card = await db.KanbanCards
+            .Include(c => c.Column)
+                .ThenInclude(column => column.Board)
+            .FirstOrDefaultAsync(c => c.Id == cardId);
+        if (card == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
+
+        var userRoleIds = await db.UserRoles
+            .Where(userRole => userRole.UserId == userId)
+            .Select(userRole => userRole.RoleId)
+            .ToListAsync();
+        var boards = await db.KanbanBoards
+            .Where(board => board.Id != card.Column.BoardId &&
+                (board.UserId == userId ||
+                 board.BoardShares.Any(share =>
+                     share.Permission == SharePermission.Editable &&
+                     (share.SharedWithUserId == userId ||
+                      (share.SharedWithRoleId != null && userRoleIds.Contains(share.SharedWithRoleId))))))
+            .Include(board => board.Columns)
+            .OrderBy(board => board.Name)
+            .ToListAsync();
+
+        return Ok(boards.Select(board => new
+        {
+            board.Id,
+            board.Name,
+            Columns = board.Columns
+                .OrderBy(column => column.Order)
+                .Select(column => new { column.Id, column.Name })
+        }));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> TransferCard(int cardId, int targetBoardId, int targetColumnId)
+    {
+        var card = await db.KanbanCards
+            .Include(c => c.CardLabels)
+            .Include(c => c.Column)
+                .ThenInclude(column => column.Board)
+            .FirstOrDefaultAsync(c => c.Id == cardId);
+        if (card == null) return NotFound();
+
+        var targetColumn = await db.KanbanColumns
+            .Include(column => column.Board)
+            .FirstOrDefaultAsync(column => column.Id == targetColumnId && column.BoardId == targetBoardId);
+        if (targetColumn == null) return NotFound();
+        if (targetBoardId == card.Column.BoardId)
+            return BadRequest("Target board must be different from the source board.");
+
+        var userId = userManager.GetUserId(User)!;
+        if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
+        if (!await HasEditAccess(targetColumn.Board, userId)) return Forbid();
+
+        var maxOrder = await db.KanbanCards
+            .Where(c => c.ColumnId == targetColumnId)
+            .MaxAsync(c => (int?)c.Order) ?? -1;
+        var comments = await db.KanbanCardComments
+            .Where(comment => comment.CardId == cardId)
+            .ToListAsync();
+        var transferredCard = new KanbanCard
+        {
+            Title = card.Title,
+            Description = card.Description,
+            Order = maxOrder + 1,
+            ColumnId = targetColumnId,
+            Priority = card.Priority,
+            AssignedUserId = null,
+            PlannedStartTime = card.PlannedStartTime,
+            DueDate = card.DueDate,
+            ActualStartTime = card.ActualStartTime,
+            ActualEndTime = card.ActualEndTime
+        };
+
+        db.KanbanCards.Add(transferredCard);
+        db.KanbanCardLabels.AddRange(card.CardLabels.Select(link => new KanbanCardLabel
+        {
+            Card = transferredCard,
+            LabelId = link.LabelId
+        }));
+        db.KanbanCardComments.RemoveRange(comments);
+        db.KanbanCards.Remove(card);
+        await db.SaveChangesAsync();
+
+        return Ok(new
+        {
+            transferredCard.Id,
+            transferredCard.ColumnId,
+            BoardId = targetBoardId
+        });
+    }
+
     [HttpPost]
     public async Task<IActionResult> MoveCard(int cardId, int targetColumnId, int newOrder)
     {

@@ -110,6 +110,143 @@ public class BoardSharingTests : TestBase
         Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
     }
 
+    [TestMethod]
+    public async Task TransferCard_ToEditableSharedBoard_CopiesCardAndClearsAssignee()
+    {
+        var (sourceOwnerEmail, sourceOwnerPassword) = await RegisterAndLoginAsync();
+        var sourceOwnerId = await GetUserIdByEmailAsync(sourceOwnerEmail);
+        var sourceBoardId = await CreateBoardWithOwner(sourceOwnerId, "Source Board");
+        await LogoutAsync();
+
+        var targetOwnerId = await RegisterUserAndGetIdAsync();
+        var targetBoardId = await CreateBoardWithOwner(targetOwnerId, "Target Board");
+        await CreateShare(targetBoardId, sourceOwnerId, null, SharePermission.Editable);
+        await LogoutAsync();
+        await LoginAsync(sourceOwnerEmail, sourceOwnerPassword);
+
+        int cardId;
+        int targetColumnId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var sourceColumnId = await db.KanbanColumns
+                .Where(column => column.BoardId == sourceBoardId)
+                .OrderBy(column => column.Order)
+                .Select(column => column.Id)
+                .FirstAsync();
+            targetColumnId = await db.KanbanColumns
+                .Where(column => column.BoardId == targetBoardId)
+                .OrderBy(column => column.Order)
+                .Select(column => column.Id)
+                .FirstAsync();
+            var label = new KanbanLabel { Name = "Transfer", Color = "#3B82F6" };
+            db.KanbanCards.Add(new KanbanCard
+            {
+                Title = "Existing target card",
+                ColumnId = targetColumnId,
+                Order = 0
+            });
+            var card = new KanbanCard
+            {
+                Title = "Move me",
+                Description = "Keep details",
+                ColumnId = sourceColumnId,
+                Order = 0,
+                Priority = Priority.High,
+                AssignedUserId = sourceOwnerId,
+                PlannedStartTime = DateTime.UtcNow.Date,
+                DueDate = DateTime.UtcNow.Date.AddDays(3)
+            };
+            db.KanbanCards.Add(card);
+            db.KanbanLabels.Add(label);
+            db.KanbanCardLabels.Add(new KanbanCardLabel { Card = card, Label = label });
+            db.KanbanCardComments.Add(new KanbanCardComment
+            {
+                Card = card,
+                AuthorId = sourceOwnerId,
+                Content = "Do not copy history"
+            });
+            await db.SaveChangesAsync();
+            cardId = card.Id;
+        }
+
+        var targetsResponse = await Http.GetAsync($"/Kanban/GetTransferTargets?cardId={cardId}");
+        targetsResponse.EnsureSuccessStatusCode();
+        Assert.Contains("Target Board", await targetsResponse.Content.ReadAsStringAsync());
+
+        var transferResponse = await Http.PostAsync(
+            $"/Kanban/TransferCard?cardId={cardId}&targetBoardId={targetBoardId}&targetColumnId={targetColumnId}",
+            new FormUrlEncodedContent(new Dictionary<string, string>()));
+        Assert.AreEqual(HttpStatusCode.OK, transferResponse.StatusCode);
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.IsNull(await db.KanbanCards.FindAsync(cardId));
+
+            var transferredCard = await db.KanbanCards
+                .Include(card => card.CardLabels)
+                .SingleAsync(card => card.ColumnId == targetColumnId && card.Title == "Move me");
+            Assert.AreNotEqual(cardId, transferredCard.Id);
+            Assert.AreEqual("Move me", transferredCard.Title);
+            Assert.AreEqual("Keep details", transferredCard.Description);
+            Assert.AreEqual(1, transferredCard.Order);
+            Assert.AreEqual(Priority.High, transferredCard.Priority);
+            Assert.IsNull(transferredCard.AssignedUserId);
+            Assert.HasCount(1, transferredCard.CardLabels);
+            Assert.AreEqual(1, await db.KanbanCardLabels.CountAsync());
+            Assert.IsFalse(await db.KanbanCardComments.AnyAsync());
+        }
+    }
+
+    [TestMethod]
+    public async Task TransferCard_ToReadOnlySharedBoard_ReturnsForbidden()
+    {
+        var (sourceOwnerEmail, sourceOwnerPassword) = await RegisterAndLoginAsync();
+        var sourceOwnerId = await GetUserIdByEmailAsync(sourceOwnerEmail);
+        var sourceBoardId = await CreateBoardWithOwner(sourceOwnerId, "Source Board");
+        await LogoutAsync();
+
+        var targetOwnerId = await RegisterUserAndGetIdAsync();
+        var targetBoardId = await CreateBoardWithOwner(targetOwnerId, "Read-only Board");
+        await CreateShare(targetBoardId, sourceOwnerId, null, SharePermission.ReadOnly);
+        await LogoutAsync();
+        await LoginAsync(sourceOwnerEmail, sourceOwnerPassword);
+
+        int cardId;
+        int targetColumnId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var sourceColumnId = await db.KanbanColumns
+                .Where(column => column.BoardId == sourceBoardId)
+                .Select(column => column.Id)
+                .FirstAsync();
+            targetColumnId = await db.KanbanColumns
+                .Where(column => column.BoardId == targetBoardId)
+                .Select(column => column.Id)
+                .FirstAsync();
+            var card = new KanbanCard { Title = "Stay here", ColumnId = sourceColumnId };
+            db.KanbanCards.Add(card);
+            await db.SaveChangesAsync();
+            cardId = card.Id;
+        }
+
+        var targetsResponse = await Http.GetAsync($"/Kanban/GetTransferTargets?cardId={cardId}");
+        targetsResponse.EnsureSuccessStatusCode();
+        Assert.DoesNotContain("Read-only Board", await targetsResponse.Content.ReadAsStringAsync());
+
+        var transferResponse = await Http.PostAsync(
+            $"/Kanban/TransferCard?cardId={cardId}&targetBoardId={targetBoardId}&targetColumnId={targetColumnId}",
+            new FormUrlEncodedContent(new Dictionary<string, string>()));
+        Assert.IsTrue(transferResponse.StatusCode == HttpStatusCode.Forbidden ||
+                      transferResponse.StatusCode == HttpStatusCode.Found);
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsNotNull(await verificationDb.KanbanCards.FindAsync(cardId));
+    }
+
     private async Task<string> RegisterUserAndGetIdAsync()
     {
         var (email, _) = await RegisterAndLoginAsync();
