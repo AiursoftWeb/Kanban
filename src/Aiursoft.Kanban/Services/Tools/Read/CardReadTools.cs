@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
+using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Scanner.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using ModelContextProtocol.Server;
@@ -10,13 +11,14 @@ namespace Aiursoft.Kanban.Services.Tools.Read;
 [McpServerToolType]
 public class CardReadTools(
     TemplateDbContext db,
-    KanbanAccessService access) : IScopedDependency
+    KanbanAccessService access,
+    CurrentUserService currentUser) : IScopedDependency
 {
     [McpServerTool, Description("Get detailed information about a specific card")]
     public async Task<string> GetCardById(
-        [Description("Card ID")] int cardId,
-        [Description("Current user ID")] string userId)
+        [Description("Card ID")] int cardId)
     {
+        var userId = currentUser.UserId;
         var card = await db.KanbanCards
             .Include(c => c.Column).ThenInclude(col => col.Board)
             .Include(c => c.AssignedUser)
@@ -46,9 +48,9 @@ public class CardReadTools(
     [McpServerTool, Description("Search cards by title or description")]
     public async Task<string> SearchCards(
         [Description("Search query")] string query,
-        [Description("Optional board ID to limit search")] int? boardId,
-        [Description("Current user ID")] string userId)
+        [Description("Optional board ID to limit search")] int? boardId)
     {
+        var userId = currentUser.UserId;
         var normalized = query.Trim().ToUpperInvariant();
         var cardsQuery = db.KanbanCards
             .Include(c => c.Column).ThenInclude(col => col.Board)
@@ -81,9 +83,9 @@ public class CardReadTools(
 
     [McpServerTool, Description("Get all overdue cards on a board")]
     public async Task<string> GetOverdueCards(
-        [Description("Board ID")] int boardId,
-        [Description("Current user ID")] string userId)
+        [Description("Board ID")] int boardId)
     {
+        var userId = currentUser.UserId;
         var board = await db.KanbanBoards.FindAsync(boardId);
         if (board == null) return "Board not found.";
         if (!await access.HasReadAccess(board, userId)) return "You do not have access to this board.";
@@ -112,9 +114,9 @@ public class CardReadTools(
     [McpServerTool, Description("Get cards filtered by priority level on a board")]
     public async Task<string> GetCardsByPriority(
         [Description("Board ID")] int boardId,
-        [Description("Priority level: Urgent, High, Medium, Low, or None")] string priority,
-        [Description("Current user ID")] string userId)
+        [Description("Priority level: Urgent, High, Medium, Low, or None")] string priority)
     {
+        var userId = currentUser.UserId;
         var board = await db.KanbanBoards.FindAsync(boardId);
         if (board == null) return "Board not found.";
         if (!await access.HasReadAccess(board, userId)) return "You do not have access to this board.";
@@ -140,9 +142,9 @@ public class CardReadTools(
 
     [McpServerTool, Description("Get all unassigned cards on a board")]
     public async Task<string> GetUnassignedCards(
-        [Description("Board ID")] int boardId,
-        [Description("Current user ID")] string userId)
+        [Description("Board ID")] int boardId)
     {
+        var userId = currentUser.UserId;
         var board = await db.KanbanBoards.FindAsync(boardId);
         if (board == null) return "Board not found.";
         if (!await access.HasReadAccess(board, userId)) return "You do not have access to this board.";
@@ -166,9 +168,9 @@ public class CardReadTools(
     [McpServerTool, Description("Get cards that have a specific label")]
     public async Task<string> GetCardsByLabel(
         [Description("Label name to search for")] string labelName,
-        [Description("Optional board ID to limit search")] int? boardId,
-        [Description("Current user ID")] string userId)
+        [Description("Optional board ID to limit search")] int? boardId)
     {
+        var userId = currentUser.UserId;
         var normalized = labelName.Trim().ToUpperInvariant();
         var cardsQuery = db.KanbanCardLabels
             .Include(cl => cl.Card).ThenInclude(c => c.Column).ThenInclude(col => col.Board)

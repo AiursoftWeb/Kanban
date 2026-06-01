@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
+using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Scanner.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using ModelContextProtocol.Server;
@@ -10,13 +11,14 @@ namespace Aiursoft.Kanban.Services.Tools.Read;
 [McpServerToolType]
 public class ColumnReadTools(
     TemplateDbContext db,
-    KanbanAccessService access) : IScopedDependency
+    KanbanAccessService access,
+    CurrentUserService currentUser) : IScopedDependency
 {
     [McpServerTool, Description("Get all columns for a board")]
     public async Task<string> GetColumns(
-        [Description("Board ID")] int boardId,
-        [Description("Current user ID")] string userId)
+        [Description("Board ID")] int boardId)
     {
+        var userId = currentUser.UserId;
         var board = await db.KanbanBoards.FindAsync(boardId);
         if (board == null) return "Board not found.";
         if (!await access.HasReadAccess(board, userId)) return "You do not have access to this board.";
@@ -39,9 +41,9 @@ public class ColumnReadTools(
 
     [McpServerTool, Description("Get a single column by ID")]
     public async Task<string> GetColumnById(
-        [Description("Column ID")] int columnId,
-        [Description("Current user ID")] string userId)
+        [Description("Column ID")] int columnId)
     {
+        var userId = currentUser.UserId;
         var column = await db.KanbanColumns
             .Include(c => c.Board)
             .Include(c => c.Cards)
@@ -55,9 +57,9 @@ public class ColumnReadTools(
 
     [McpServerTool, Description("Get all cards in a specific column")]
     public async Task<string> GetCardsInColumn(
-        [Description("Column ID")] int columnId,
-        [Description("Current user ID")] string userId)
+        [Description("Column ID")] int columnId)
     {
+        var userId = currentUser.UserId;
         var column = await db.KanbanColumns
             .Include(c => c.Board)
             .Include(c => c.Cards.OrderBy(card => card.Order))

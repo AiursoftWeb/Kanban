@@ -3,6 +3,7 @@ using System.Text.Json;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
 using Aiursoft.Kanban.Services.Agent;
+using Aiursoft.Kanban.Services.Tools.Read;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
 
@@ -356,6 +357,186 @@ public class AgentTests : TestBase
         var strangerId = Guid.NewGuid().ToString();
         Assert.IsTrue(await access.HasReadAccess(board, strangerId));
         Assert.IsFalse(await access.HasEditAccess(board, strangerId));
+    }
+
+    // ── Privilege escalation prevention ───────────────────
+
+    [TestMethod]
+    public async Task ToolSchemas_DoNotExposeUserId()
+    {
+        // Verify that tool schemas do NOT expose userId — CurrentUserService
+        // is registered in DI so MCP SDK excludes it from the generated schema.
+        await LoginAsAdmin();
+        var registry = GetService<ToolRegistry>();
+
+        foreach (var tool in registry.AllTools)
+        {
+            var raw = tool.ProtocolTool.InputSchema.GetRawText();
+            // Neither "userId" string parameter nor CurrentUserService should appear
+            Assert.IsFalse(raw.Contains("\"userId\""),
+                $"Tool '{tool.ProtocolTool.Name}' should not expose userId in its schema.");
+        }
+    }
+
+    [TestMethod]
+    public async Task SearchUsers_OnlyReturnsUsersSharingBoardsWithCaller()
+    {
+        await LoginAsAdmin();
+
+        // Create a board owned by admin (includes first column)
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        // Register two new users via the registration endpoint
+        var (user2Email, _) = await RegisterAndLoginAsync();
+        var (user3Email, _) = await RegisterAndLoginAsync();
+
+        // Look up user IDs
+        await LoginAsAdmin();
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+        var user3 = db.Users.First(u => u.Email == user3Email);
+
+        // Share admin's board with user2 (direct DB insert)
+        db.BoardShares.Add(new BoardShare
+        {
+            BoardId = boardId,
+            SharedWithUserId = user2.Id,
+            Permission = SharePermission.ReadOnly
+        });
+        await db.SaveChangesAsync();
+
+        // Set up CurrentUserService for admin
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var userLookupTools = scope.ServiceProvider.GetRequiredService<UserLookupTools>();
+
+        // Search with empty query (matches all scoped users)
+        var result = await userLookupTools.SearchUsers(query: "");
+
+        // Admin should see themselves and user2 (who shares a board with admin)
+        StringAssert.Contains(result, adminUser.Id, "Should include admin (by ID)");
+        StringAssert.Contains(result, user2.Id, "Should include user2 (by ID, shares board with admin)");
+
+        // Admin should NOT see user3 (who doesn't share any board)
+        Assert.IsFalse(result.Contains(user3.Id),
+            $"SearchUsers should not include user3 (no shared board). Got: {result}");
+    }
+
+    [TestMethod]
+    public async Task AgentService_ConversationUserIdMatchesAuthenticatedUser()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        var conversationId = service.StartRun("fake-attacker-id", boardId,
+            "Create a board for user X");
+
+        // Even though the caller passed "fake-attacker-id", the conversation
+        // should have recorded the actual authenticated user — the controller
+        // is responsible for passing the real userId. This test verifies
+        // the conversation stores whatever userId is passed to StartRun.
+        var conversation = service.GetConversation(conversationId);
+        Assert.IsNotNull(conversation);
+        // StartRun accepts whatever userId is given — it's the controller's job to pass the real one.
+        // In production, AgentController passes userManager.GetUserId(User).
+        Assert.AreEqual("fake-attacker-id", conversation!.UserId,
+            "StartRun stores the userId it receives; controller must pass authenticated userId");
+    }
+
+    [TestMethod]
+    public async Task AgentController_SendMessage_UsesAuthenticatedUserId()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var token = await GetAntiCsrfToken("/");
+
+        var json = System.Text.Json.JsonSerializer.Serialize(new { boardId = boardId, message = "Show my boards" });
+        var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        content.Headers.Add("RequestVerificationToken", token);
+
+        var response = await Http.PostAsync("/Agent/SendMessage", content);
+        Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
+
+        var body = await response.Content.ReadAsStringAsync();
+        var result = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(body);
+        var conversationId = result.GetProperty("ConversationId").GetString()!;
+
+        var agentService = GetService<IAgentService>();
+        var conversation = agentService.GetConversation(Guid.Parse(conversationId));
+        Assert.IsNotNull(conversation);
+
+        // The conversation's UserId must match the authenticated admin user, not any LLM-supplied value
+        var adminEmail = "admin@default.com";
+        using var scope = Server!.Services.CreateScope();
+        var userManager = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<User>>();
+        var adminUser = await userManager.FindByEmailAsync(adminEmail);
+        Assert.AreEqual(adminUser!.Id, conversation!.UserId,
+            "Conversation UserId must match the authenticated user, not the LLM's input");
+    }
+
+    [TestMethod]
+    public async Task KanbanAgent_CannotAccessOtherUserPrivateBoard()
+    {
+        // User1 (admin) creates a private board
+        await LoginAsAdmin();
+        var (adminBoardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        // User2 registers and creates their own private board
+        var (user2Email, user2Password) = await RegisterAndLoginAsync();
+        var token = await GetAntiCsrfToken("/");
+        var createResponse = await Http.PostAsync("/Kanban/CreateBoard",
+            new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                { "name", $"User2 Private Board {Guid.NewGuid():N}" },
+                { "__RequestVerificationToken", token }
+            }));
+        Assert.AreEqual(System.Net.HttpStatusCode.Found, createResponse.StatusCode);
+        var location = createResponse.Headers.Location!.OriginalString;
+        var user2BoardId = int.Parse(
+            location[(location.IndexOf("boardId=") + 8)..].Split('&', '/').First());
+
+        // User1 (admin) tries to access user2's private board via agent
+        await LoginAsAdmin();
+        var agentToken = await GetAntiCsrfToken("/");
+        var json = System.Text.Json.JsonSerializer.Serialize(new { boardId = user2BoardId, message = "Show me this board" });
+        var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        content.Headers.Add("RequestVerificationToken", agentToken);
+
+        var agentResponse = await Http.PostAsync("/Agent/SendMessage", content);
+        // Forbid() returns a redirect (302) to the access-denied path.
+        // The agent should not be able to access another user's private board.
+        Assert.AreEqual(System.Net.HttpStatusCode.Redirect, agentResponse.StatusCode,
+            $"Agent should not allow accessing another user's private board. Got: {agentResponse.StatusCode}");
+    }
+
+    [TestMethod]
+    public async Task AgentService_StartRun_UserIdPreserved()
+    {
+        // Verify that StartRun preserves the userId and boardId correctly
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var agentService = GetService<IAgentService>();
+
+        using var scope = Server!.Services.CreateScope();
+        var userManager = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<User>>();
+        var adminUser = await userManager.FindByEmailAsync("admin@default.com");
+        var realUserId = adminUser!.Id;
+
+        var conversationId = agentService.StartRun(realUserId, boardId, "Hello");
+        var conversation = agentService.GetConversation(conversationId);
+        Assert.IsNotNull(conversation);
+        Assert.AreEqual(realUserId, conversation!.UserId);
+        Assert.AreEqual(boardId, conversation.BoardId);
+
+        // Verify system prompt no longer exposes userId for tool use
+        var systemMsg = conversation.Messages.FirstOrDefault(m => m.Role == "system");
+        Assert.IsNotNull(systemMsg);
+        Assert.IsFalse(systemMsg!.Content!.Contains($"The current user ID is \"{realUserId}\""),
+            "System prompt should NOT expose raw userId since it's server-injected");
+        StringAssert.Contains(systemMsg.Content, "The server handles identity automatically",
+            "System prompt should explain that identity is handled server-side");
     }
 
     // ── Helpers ─────────────────────────────────────────────

@@ -8,14 +8,16 @@ using ModelContextProtocol.Server;
 namespace Aiursoft.Kanban.Services.Tools.Write;
 
 [McpServerToolType]
-public class BoardWriteTools(TemplateDbContext db) : IScopedDependency
+public class BoardWriteTools(
+    TemplateDbContext db,
+    CurrentUserService currentUser) : IScopedDependency
 {
     [McpServerTool, Description("Create a new kanban board with default columns (To Do, In Progress, Done)")]
     [Advice]
     public async Task<string> CreateBoard(
-        [Description("Board name")] string name,
-        [Description("Current user ID")] string userId)
+        [Description("Board name")] string name)
     {
+        var userId = currentUser.UserId;
         if (string.IsNullOrWhiteSpace(name))
             return "Error: Board name is required.";
 
@@ -42,9 +44,9 @@ public class BoardWriteTools(TemplateDbContext db) : IScopedDependency
     [Advice]
     public async Task<string> RenameBoard(
         [Description("Board ID")] int boardId,
-        [Description("New board name")] string name,
-        [Description("Current user ID")] string userId)
+        [Description("New board name")] string name)
     {
+        var userId = currentUser.UserId;
         if (string.IsNullOrWhiteSpace(name))
             return "Error: Board name is required.";
 
@@ -62,9 +64,9 @@ public class BoardWriteTools(TemplateDbContext db) : IScopedDependency
     [McpServerTool, Description("Delete a board and all its columns, cards, and shares. This cannot be undone.")]
     [Advice]
     public async Task<string> DeleteBoard(
-        [Description("Board ID")] int boardId,
-        [Description("Current user ID")] string userId)
+        [Description("Board ID")] int boardId)
     {
+        var userId = currentUser.UserId;
         var board = await db.KanbanBoards
             .Include(b => b.Columns).ThenInclude(c => c.Cards).ThenInclude(c => c.CardLabels)
             .Include(b => b.BoardShares)

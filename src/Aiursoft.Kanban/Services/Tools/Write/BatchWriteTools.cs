@@ -11,16 +11,17 @@ namespace Aiursoft.Kanban.Services.Tools.Write;
 [McpServerToolType]
 public class BatchWriteTools(
     TemplateDbContext db,
-    KanbanAccessService access) : IScopedDependency
+    KanbanAccessService access,
+    CurrentUserService currentUser) : IScopedDependency
 {
     [McpServerTool, Description("Create multiple cards at once in a column")]
     [Advice]
     public async Task<string> BatchCreateCards(
         [Description("Target column ID")] int columnId,
         [Description("JSON array of cards with title and optional description. Example: [{\"title\":\"Card A\",\"description\":\"Desc\"},{\"title\":\"Card B\"}]")]
-        string cardsJson,
-        [Description("Current user ID")] string userId)
+        string cardsJson)
     {
+        var userId = currentUser.UserId;
         var column = await db.KanbanColumns.Include(c => c.Board).FirstOrDefaultAsync(c => c.Id == columnId);
         if (column == null) return "Error: Column not found.";
         if (!await access.HasEditAccess(column.Board, userId))
@@ -69,9 +70,9 @@ public class BatchWriteTools(
     public async Task<string> BatchMoveCards(
         [Description("JSON array of card IDs to move. Example: [1, 2, 3]")]
         string cardIdsJson,
-        [Description("Target column ID")] int targetColumnId,
-        [Description("Current user ID")] string userId)
+        [Description("Target column ID")] int targetColumnId)
     {
+        var userId = currentUser.UserId;
         var column = await db.KanbanColumns.Include(c => c.Board).FirstOrDefaultAsync(c => c.Id == targetColumnId);
         if (column == null) return "Error: Target column not found.";
 

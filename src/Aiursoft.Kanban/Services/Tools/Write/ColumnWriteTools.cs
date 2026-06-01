@@ -11,15 +11,16 @@ namespace Aiursoft.Kanban.Services.Tools.Write;
 [McpServerToolType]
 public class ColumnWriteTools(
     TemplateDbContext db,
-    KanbanAccessService access) : IScopedDependency
+    KanbanAccessService access,
+    CurrentUserService currentUser) : IScopedDependency
 {
     [McpServerTool, Description("Create a new column on a board")]
     [Advice]
     public async Task<string> CreateColumn(
         [Description("Board ID")] int boardId,
-        [Description("Column name")] string name,
-        [Description("Current user ID")] string userId)
+        [Description("Column name")] string name)
     {
+        var userId = currentUser.UserId;
         if (string.IsNullOrWhiteSpace(name))
             return "Error: Column name is required.";
 
@@ -42,9 +43,9 @@ public class ColumnWriteTools(
     [Advice]
     public async Task<string> RenameColumn(
         [Description("Column ID")] int columnId,
-        [Description("New column name")] string name,
-        [Description("Current user ID")] string userId)
+        [Description("New column name")] string name)
     {
+        var userId = currentUser.UserId;
         if (string.IsNullOrWhiteSpace(name))
             return "Error: Column name is required.";
 
@@ -62,9 +63,9 @@ public class ColumnWriteTools(
     [McpServerTool, Description("Delete a column and all its cards")]
     [Advice]
     public async Task<string> DeleteColumn(
-        [Description("Column ID")] int columnId,
-        [Description("Current user ID")] string userId)
+        [Description("Column ID")] int columnId)
     {
+        var userId = currentUser.UserId;
         var column = await db.KanbanColumns
             .Include(c => c.Cards)
             .Include(c => c.Board)
@@ -85,9 +86,9 @@ public class ColumnWriteTools(
     [Advice]
     public async Task<string> UpdateColumnStatus(
         [Description("Column ID")] int columnId,
-        [Description("New status: 0=NotStarted, 1=InProgress, 2=Completed")] int status,
-        [Description("Current user ID")] string userId)
+        [Description("New status: 0=NotStarted, 1=InProgress, 2=Completed")] int status)
     {
+        var userId = currentUser.UserId;
         if (!Enum.IsDefined(typeof(ColumnStatus), status))
             return "Error: Invalid column status. Use 0 (NotStarted), 1 (InProgress), or 2 (Completed).";
 
@@ -105,9 +106,9 @@ public class ColumnWriteTools(
     [Advice]
     public async Task<string> MoveColumn(
         [Description("Column ID")] int columnId,
-        [Description("New position index (0-based)")] int newOrder,
-        [Description("Current user ID")] string userId)
+        [Description("New position index (0-based)")] int newOrder)
     {
+        var userId = currentUser.UserId;
         var column = await db.KanbanColumns.Include(c => c.Board).FirstOrDefaultAsync(c => c.Id == columnId);
         if (column == null) return "Error: Column not found.";
         if (!await access.HasEditAccess(column.Board, userId)) return "Error: You do not have permission to edit this board.";

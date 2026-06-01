@@ -12,7 +12,8 @@ namespace Aiursoft.Kanban.Services.Tools.Write;
 [McpServerToolType]
 public class LabelWriteTools(
     TemplateDbContext db,
-    KanbanAccessService access) : IScopedDependency
+    KanbanAccessService access,
+    CurrentUserService currentUser) : IScopedDependency
 {
     private static readonly string[] LabelColors =
     [
@@ -26,9 +27,9 @@ public class LabelWriteTools(
     [Advice]
     public async Task<string> AddLabel(
         [Description("Card ID")] int cardId,
-        [Description("Label name")] string name,
-        [Description("Current user ID")] string userId)
+        [Description("Label name")] string name)
     {
+        var userId = currentUser.UserId;
         if (string.IsNullOrWhiteSpace(name))
             return "Error: Label name is required.";
 
@@ -73,9 +74,9 @@ public class LabelWriteTools(
     [Advice]
     public async Task<string> RemoveLabel(
         [Description("Card ID")] int cardId,
-        [Description("Label ID to remove")] int labelId,
-        [Description("Current user ID")] string userId)
+        [Description("Label ID to remove")] int labelId)
     {
+        var userId = currentUser.UserId;
         var card = await db.KanbanCards
             .Include(c => c.Column).ThenInclude(col => col.Board)
             .FirstOrDefaultAsync(c => c.Id == cardId);
@@ -98,9 +99,9 @@ public class LabelWriteTools(
     public async Task<string> UpdateLabelColor(
         [Description("Card ID")] int cardId,
         [Description("Label ID")] int labelId,
-        [Description("Hex color code, e.g. #FF5733")] string color,
-        [Description("Current user ID")] string userId)
+        [Description("Hex color code, e.g. #FF5733")] string color)
     {
+        var userId = currentUser.UserId;
         var normalizedColor = color.Trim();
         if (!HexColorRegex.IsMatch(normalizedColor))
             return "Error: Color must be a hex value like #FF5733.";

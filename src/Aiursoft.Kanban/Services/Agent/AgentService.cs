@@ -295,10 +295,10 @@ public class AgentService : IAgentService
             }
 
             var args = new Dictionary<string, object?>(advice.Parameters);
-            if (!args.ContainsKey("userId"))
-                args["userId"] = conversation.UserId;
+            // Remove any stale userId that may have been stored in advice params
+            args.Remove("userId");
 
-            var result = await ExecuteToolWithArgs(sp, tool, args);
+            var result = await ExecuteToolWithArgs(sp, tool, args, conversation.UserId);
 
             _adviceService.SetResult(adviceId, result, null);
 
@@ -382,6 +382,8 @@ public class AgentService : IAgentService
 
     private List<ClaudeTool> BuildClaudeTools()
     {
+        // CurrentUserService is registered in DI, so MCP's AIFunctionFactory
+        // automatically excludes it from InputSchema. No manual stripping needed.
         return _toolRegistry.AllTools.Select(tool =>
         {
             var proto = tool.ProtocolTool;
@@ -403,10 +405,10 @@ public class AgentService : IAgentService
         sb.AppendLine("1. Use the available tools to read or modify the board.");
         sb.AppendLine("2. For operations that change data (create, update, delete, move), the system will ask the user to approve before executing.");
         sb.AppendLine("3. When you need more information, ask the user clarifying questions before calling tools.");
-        sb.AppendLine("4. Be precise. When searching for users by name, use SearchUsers first to find the correct user ID.");
+        sb.AppendLine("4. Be precise. When searching for users to assign cards, use GetBoardMembers to find users on the current board.");
         sb.AppendLine("5. If a card doesn't exist, create it. If it already exists, move or update it. Always check first.");
         sb.AppendLine("6. The user may paste unstructured data. Parse it carefully and ask for clarification if ambiguous.");
-        sb.AppendLine($"7. The current board ID is {boardId}. The current user ID is \"{userId}\".");
+        sb.AppendLine($"7. The current board ID is {boardId}. You act on behalf of the authenticated user. The server handles identity automatically.");
         sb.AppendLine();
         sb.AppendLine("Always use the tools to interact with the board. Do not guess IDs or names - use SearchCards, SearchUsers, GetColumns, etc. to look them up first.");
         return sb.ToString();
@@ -418,15 +420,20 @@ public class AgentService : IAgentService
         if (tool == null) return $"Error: Unknown tool '{toolUse.Name}'.";
 
         var args = UnwrapJsonElements(toolUse.Input ?? new());
-        if (!args.ContainsKey("userId"))
-            args["userId"] = userId;
+        // NEVER include userId in args — user identity is injected via CurrentUserService
 
-        return await ExecuteToolWithArgs(sp, tool, args);
+        return await ExecuteToolWithArgs(sp, tool, args, userId);
     }
 
-    private async Task<string> ExecuteToolWithArgs(IServiceProvider sp, McpServerTool tool, Dictionary<string, object?> args)
+    private async Task<string> ExecuteToolWithArgs(IServiceProvider sp, McpServerTool tool, Dictionary<string, object?> args, string userId)
     {
         using var scope = sp.CreateScope();
+
+        // Set the current user on the scoped service before tool invocation.
+        // The tool class gets CurrentUserService via constructor injection
+        // (or as a method parameter excluded from schema by MCP SDK).
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = userId;
+
         var jsonArgs = new Dictionary<string, System.Text.Json.JsonElement>();
         foreach (var (key, value) in args)
         {

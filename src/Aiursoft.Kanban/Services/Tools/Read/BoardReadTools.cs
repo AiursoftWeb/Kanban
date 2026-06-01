@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
+using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Scanner.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +13,13 @@ namespace Aiursoft.Kanban.Services.Tools.Read;
 public class BoardReadTools(
     TemplateDbContext db,
     UserManager<User> userManager,
-    KanbanAccessService access) : IScopedDependency
+    KanbanAccessService access,
+    CurrentUserService currentUser) : IScopedDependency
 {
     [McpServerTool, Description("Get all kanban boards owned by the current user")]
-    public async Task<string> GetUserBoards(
-        [Description("Current user ID")] string userId)
+    public async Task<string> GetUserBoards()
     {
+        var userId = currentUser.UserId;
         var boards = await db.KanbanBoards
             .Where(b => b.UserId == userId)
             .Include(b => b.Columns)
@@ -38,9 +40,9 @@ public class BoardReadTools(
 
     [McpServerTool, Description("Get detailed information about a specific board by its ID")]
     public async Task<string> GetBoardById(
-        [Description("Board ID")] int boardId,
-        [Description("Current user ID")] string userId)
+        [Description("Board ID")] int boardId)
     {
+        var userId = currentUser.UserId;
         var board = await db.KanbanBoards
             .Include(b => b.Columns.OrderBy(c => c.Order))
                 .ThenInclude(c => c.Cards.OrderBy(card => card.Order))
@@ -66,9 +68,9 @@ public class BoardReadTools(
 
     [McpServerTool, Description("Search boards by name")]
     public async Task<string> SearchBoards(
-        [Description("Search query")] string query,
-        [Description("Current user ID")] string userId)
+        [Description("Search query")] string query)
     {
+        var userId = currentUser.UserId;
         var normalized = query.Trim().ToUpperInvariant();
         var boards = await db.KanbanBoards
             .Where(b => b.UserId == userId && b.Name.ToUpper().Contains(normalized))

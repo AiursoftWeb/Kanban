@@ -13,16 +13,17 @@ namespace Aiursoft.Kanban.Services.Tools.Write;
 public class CardWriteTools(
     TemplateDbContext db,
     UserManager<User> userManager,
-    KanbanAccessService access) : IScopedDependency
+    KanbanAccessService access,
+    CurrentUserService currentUser) : IScopedDependency
 {
     [McpServerTool, Description("Create a new card in a column")]
     [Advice]
     public async Task<string> CreateCard(
         [Description("Target column ID")] int columnId,
         [Description("Card title")] string title,
-        [Description("Optional card description")] string? description,
-        [Description("Current user ID")] string userId)
+        [Description("Optional card description")] string? description)
     {
+        var userId = currentUser.UserId;
         if (string.IsNullOrWhiteSpace(title))
             return "Error: Card title is required.";
 
@@ -52,9 +53,9 @@ public class CardWriteTools(
     public async Task<string> MoveCard(
         [Description("Card ID to move")] int cardId,
         [Description("Target column ID")] int targetColumnId,
-        [Description("New position index (0-based) in the target column")] int newOrder,
-        [Description("Current user ID")] string userId)
+        [Description("New position index (0-based) in the target column")] int newOrder)
     {
+        var userId = currentUser.UserId;
         var card = await db.KanbanCards
             .Include(c => c.Column).ThenInclude(col => col.Board)
             .FirstOrDefaultAsync(c => c.Id == cardId);
@@ -116,9 +117,9 @@ public class CardWriteTools(
         [Description("Planned start time in yyyy-MM-dd format (optional)")] string? plannedStartTime,
         [Description("Due date in yyyy-MM-dd format (optional)")] string? dueDate,
         [Description("Priority: 0=Urgent, 1=High, 2=Medium, 3=Low, 4=None")] int priority,
-        [Description("Assigned user ID (optional, empty string to unassign)")] string? assignedUserId,
-        [Description("Current user ID")] string userId)
+        [Description("Assigned user ID (optional, empty string to unassign)")] string? assignedUserId)
     {
+        var userId = currentUser.UserId;
         if (string.IsNullOrWhiteSpace(title))
             return "Error: Title is required.";
         if (!Enum.IsDefined(typeof(Priority), priority))
@@ -154,9 +155,9 @@ public class CardWriteTools(
     [Advice]
     public async Task<string> AssignCard(
         [Description("Card ID")] int cardId,
-        [Description("User ID to assign, or empty to unassign")] string? assignedUserId,
-        [Description("Current user ID")] string userId)
+        [Description("User ID to assign, or empty to unassign")] string? assignedUserId)
     {
+        var userId = currentUser.UserId;
         var card = await db.KanbanCards
             .Include(c => c.Column).ThenInclude(col => col.Board)
             .FirstOrDefaultAsync(c => c.Id == cardId);
@@ -181,9 +182,9 @@ public class CardWriteTools(
     [Advice]
     public async Task<string> UpdateCardPriority(
         [Description("Card ID")] int cardId,
-        [Description("Priority: 0=Urgent, 1=High, 2=Medium, 3=Low, 4=None")] int priority,
-        [Description("Current user ID")] string userId)
+        [Description("Priority: 0=Urgent, 1=High, 2=Medium, 3=Low, 4=None")] int priority)
     {
+        var userId = currentUser.UserId;
         if (!Enum.IsDefined(typeof(Priority), priority))
             return "Error: Invalid priority. Use 0-4.";
 
