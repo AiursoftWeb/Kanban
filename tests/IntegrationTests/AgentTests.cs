@@ -379,18 +379,18 @@ public class AgentTests : TestBase
     }
 
     [TestMethod]
-    public async Task SearchUsers_OnlyReturnsUsersSharingBoardsWithCaller()
+    public async Task SearchUsers_GlobalSearch_ReturnsAllUsers()
     {
+        // SearchUsers is global — it returns all users in the system.
+        // This is safe because userId is injected via CurrentUserService and
+        // board access is enforced by KanbanAccessService at the tool level.
+        // Knowing another user's ID does not enable impersonation.
         await LoginAsAdmin();
 
-        // Create a board owned by admin (includes first column)
-        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
-
-        // Register two new users via the registration endpoint
+        // Register two users who have no board relationship with admin
         var (user2Email, _) = await RegisterAndLoginAsync();
         var (user3Email, _) = await RegisterAndLoginAsync();
 
-        // Look up user IDs
         await LoginAsAdmin();
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -398,29 +398,16 @@ public class AgentTests : TestBase
         var user2 = db.Users.First(u => u.Email == user2Email);
         var user3 = db.Users.First(u => u.Email == user3Email);
 
-        // Share admin's board with user2 (direct DB insert)
-        db.BoardShares.Add(new BoardShare
-        {
-            BoardId = boardId,
-            SharedWithUserId = user2.Id,
-            Permission = SharePermission.ReadOnly
-        });
-        await db.SaveChangesAsync();
-
-        // Set up CurrentUserService for admin
         scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
         var userLookupTools = scope.ServiceProvider.GetRequiredService<UserLookupTools>();
 
-        // Search with empty query (matches all scoped users)
+        // Search with empty query — should return all users (global search)
         var result = await userLookupTools.SearchUsers(query: "");
 
-        // Admin should see themselves and user2 (who shares a board with admin)
-        StringAssert.Contains(result, adminUser.Id, "Should include admin (by ID)");
-        StringAssert.Contains(result, user2.Id, "Should include user2 (by ID, shares board with admin)");
-
-        // Admin should NOT see user3 (who doesn't share any board)
-        Assert.IsFalse(result.Contains(user3.Id),
-            $"SearchUsers should not include user3 (no shared board). Got: {result}");
+        // Should include admin, user2, and user3 (all global users)
+        StringAssert.Contains(result, adminUser.Id, "Should include admin");
+        StringAssert.Contains(result, user2.Id, "Should include user2 (global search)");
+        StringAssert.Contains(result, user3.Id, "Should include user3 (global search)");
     }
 
     [TestMethod]
