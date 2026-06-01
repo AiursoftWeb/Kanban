@@ -99,6 +99,9 @@
   <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Komentar bersifat baca-saja karena Anda tidak memiliki akses edit ke papan ini.</value>
   </data>
+  <data name="Comments will not be transferred and the assignee will be cleared." xml:space="preserve">
+    <value>Komentar tidak akan dipindahkan dan penugasan akan dihapus.</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Selesai</value>
   </data>
@@ -177,6 +180,9 @@
   <data name="Failed to load board members." xml:space="preserve">
     <value>Gagal memuat anggota papan.</value>
   </data>
+  <data name="Failed to load transfer targets." xml:space="preserve">
+    <value>Gagal memuat target transfer.</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Gagal menghapus label.</value>
   </data>
@@ -188,6 +194,9 @@
   </data>
   <data name="Failed to save:" xml:space="preserve">
     <value>Gagal menyimpan:</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>Gagal memindahkan kartu:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Gagal memperbarui warna label.</value>
@@ -216,6 +225,9 @@
   <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Label bersifat read-only karena Anda tidak memiliki akses edit ke papan ini.</value>
   </data>
+  <data name="Loading target boards..." xml:space="preserve">
+    <value>Memuat papan tujuan...</value>
+  </data>
   <data name="Low" xml:space="preserve">
     <value>Rendah</value>
   </data>
@@ -239,6 +251,9 @@
   </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Belum ada komentar.</value>
+  </data>
+  <data name="No editable target boards are available." xml:space="preserve">
+    <value>Tidak ada papan target yang dapat diedit tersedia.</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>Belum ada label.</value>
@@ -288,6 +303,12 @@
   <data name="Search or create a label" xml:space="preserve">
     <value>Cari atau buat label</value>
   </data>
+  <data name="Select a board" xml:space="preserve">
+    <value>Pilih papan</value>
+  </data>
+  <data name="Select a column" xml:space="preserve">
+    <value>Pilih kolom</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Kirim</value>
   </data>
@@ -299,6 +320,12 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>Bagikan</value>
+  </data>
+  <data name="Target Board" xml:space="preserve">
+    <value>Papan Sasaran</value>
+  </data>
+  <data name="Target Column" xml:space="preserve">
+    <value>Kolom Target</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Tindakan ini tidak dapat dibatalkan.</value>
@@ -314,6 +341,15 @@
   </data>
   <data name="Title is required." xml:space="preserve">
     <value>Judul diperlukan.</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="Transfer Card" xml:space="preserve">
+    <value>Pindahkan Kartu</value>
+  </data>
+  <data name="Transferring..." xml:space="preserve">
+    <value>Memindahkan...</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>Tidak Ditugaskan</value>

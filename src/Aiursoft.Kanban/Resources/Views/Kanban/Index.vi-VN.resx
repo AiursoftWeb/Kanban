@@ -99,6 +99,9 @@
   <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Các bình luận ở chế độ chỉ đọc vì bạn không có quyền chỉnh sửa bảng này.</value>
   </data>
+  <data name="Comments will not be transferred and the assignee will be cleared." xml:space="preserve">
+    <value>Bình luận sẽ không được chuyển và người được chỉ định sẽ bị xóa.</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Hoàn thành</value>
   </data>
@@ -177,6 +180,9 @@
   <data name="Failed to load board members." xml:space="preserve">
     <value>Không thể tải thành viên bảng.</value>
   </data>
+  <data name="Failed to load transfer targets." xml:space="preserve">
+    <value>Không thể tải đích chuyển đổi.</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Không thể xóa nhãn.</value>
   </data>
@@ -188,6 +194,9 @@
   </data>
   <data name="Failed to save:" xml:space="preserve">
     <value>Không thể lưu:</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>Không thể chuyển thẻ:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Không thể cập nhật màu nhãn.</value>
@@ -216,6 +225,9 @@
   <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Nhãn chỉ có thể đọc vì bạn không có quyền chỉnh sửa bảng này.</value>
   </data>
+  <data name="Loading target boards..." xml:space="preserve">
+    <value>Đang tải bảng mục tiêu...</value>
+  </data>
   <data name="Low" xml:space="preserve">
     <value>Thấp</value>
   </data>
@@ -239,6 +251,9 @@
   </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Chưa có bình luận nào.</value>
+  </data>
+  <data name="No editable target boards are available." xml:space="preserve">
+    <value>Không có bảng đích có thể chỉnh sửa nào khả dụng.</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>Chưa có nhãn nào.</value>
@@ -288,6 +303,12 @@
   <data name="Search or create a label" xml:space="preserve">
     <value>Tìm kiếm hoặc tạo nhãn</value>
   </data>
+  <data name="Select a board" xml:space="preserve">
+    <value>Chọn một bảng</value>
+  </data>
+  <data name="Select a column" xml:space="preserve">
+    <value>Chọn một cột</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Gửi</value>
   </data>
@@ -299,6 +320,12 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>Chia sẻ</value>
+  </data>
+  <data name="Target Board" xml:space="preserve">
+    <value>Bảng đích</value>
+  </data>
+  <data name="Target Column" xml:space="preserve">
+    <value>Cột đích</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Hành động này không thể hoàn tác.</value>
@@ -314,6 +341,15 @@
   </data>
   <data name="Title is required." xml:space="preserve">
     <value>Tiêu đề là bắt buộc.</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Chuyển nhượng</value>
+  </data>
+  <data name="Transfer Card" xml:space="preserve">
+    <value>Chuyển thẻ</value>
+  </data>
+  <data name="Transferring..." xml:space="preserve">
+    <value>Đang chuyển...</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>Chưa phân công</value>

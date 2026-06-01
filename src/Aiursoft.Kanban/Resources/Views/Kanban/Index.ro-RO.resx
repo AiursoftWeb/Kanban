@@ -99,6 +99,9 @@
   <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Comentariile sunt doar în regim de citire, deoarece nu aveți acces de editare la acest panou.</value>
   </data>
+  <data name="Comments will not be transferred and the assignee will be cleared." xml:space="preserve">
+    <value>Comentariile nu vor fi transferate, iar atributul va fi șters.</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Finalizat</value>
   </data>
@@ -177,6 +180,9 @@
   <data name="Failed to load board members." xml:space="preserve">
     <value>Nu s-au putut încărca membrii tablei.</value>
   </data>
+  <data name="Failed to load transfer targets." xml:space="preserve">
+    <value>Nu s-au putut încărca destinațiile de transfer.</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Eșec la ștergerea etichetei.</value>
   </data>
@@ -188,6 +194,9 @@
   </data>
   <data name="Failed to save:" xml:space="preserve">
     <value>Salvarea a eșuat:</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>Transferul cardului a eșuat:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Actualizarea culorii etichetei a eșuat.</value>
@@ -216,6 +225,9 @@
   <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Etichetele sunt în regim de doar citire deoarece nu aveți acces de editare la acest tablou.</value>
   </data>
+  <data name="Loading target boards..." xml:space="preserve">
+    <value>Se încarcă tablourile țintă...</value>
+  </data>
   <data name="Low" xml:space="preserve">
     <value>Scăzută</value>
   </data>
@@ -239,6 +251,9 @@
   </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Niciun comentariu încă.</value>
+  </data>
+  <data name="No editable target boards are available." xml:space="preserve">
+    <value>Nu sunt disponibile panouri de țintă editabile.</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>Niciun etichetă încă.</value>
@@ -288,6 +303,12 @@
   <data name="Search or create a label" xml:space="preserve">
     <value>Căutați sau creați o etichetă</value>
   </data>
+  <data name="Select a board" xml:space="preserve">
+    <value>Selectați un panou</value>
+  </data>
+  <data name="Select a column" xml:space="preserve">
+    <value>Selectați o coloană</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Trimite</value>
   </data>
@@ -299,6 +320,12 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>Distribuire</value>
+  </data>
+  <data name="Target Board" xml:space="preserve">
+    <value>Panou țintă</value>
+  </data>
+  <data name="Target Column" xml:space="preserve">
+    <value>Coloană țintă</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Această acțiune nu poate fi anulată.</value>
@@ -314,6 +341,15 @@
   </data>
   <data name="Title is required." xml:space="preserve">
     <value>Titlul este obligatoriu.</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transferă</value>
+  </data>
+  <data name="Transfer Card" xml:space="preserve">
+    <value>Transferă card</value>
+  </data>
+  <data name="Transferring..." xml:space="preserve">
+    <value>Se transferă...</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>Nesemnate</value>

@@ -99,6 +99,9 @@
   <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Kommentit ovat vain luettavia, koska sinulla ei ole muokkausoikeuksia tähän tauluun.</value>
   </data>
+  <data name="Comments will not be transferred and the assignee will be cleared." xml:space="preserve">
+    <value>Kommentteja ei siirretä ja hoitaja nollataan.</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Valmiit</value>
   </data>
@@ -177,6 +180,9 @@
   <data name="Failed to load board members." xml:space="preserve">
     <value>Luettelon jäsenten lataaminen epäonnistui.</value>
   </data>
+  <data name="Failed to load transfer targets." xml:space="preserve">
+    <value>Siirtotavoitteiden lataaminen epäonnistui.</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Tunnisteen poistaminen epäonnistui.</value>
   </data>
@@ -188,6 +194,9 @@
   </data>
   <data name="Failed to save:" xml:space="preserve">
     <value>Tallentaminen epäonnistui:</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>Kortin siirto epäonnistui:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Tunnisteen värin päivitys epäonnistui.</value>
@@ -216,6 +225,9 @@
   <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Tunnisteet ovat vain luettavissa, koska sinulla ei ole muokkausoikeuksia tähän tauluun.</value>
   </data>
+  <data name="Loading target boards..." xml:space="preserve">
+    <value>Ladataan kohdeluetteloita...</value>
+  </data>
   <data name="Low" xml:space="preserve">
     <value>Matala</value>
   </data>
@@ -239,6 +251,9 @@
   </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Ei kommentteja vielä.</value>
+  </data>
+  <data name="No editable target boards are available." xml:space="preserve">
+    <value>Muokattavia kohdekohteita ei ole saatavilla.</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>Ei vielä tunnisteita.</value>
@@ -288,6 +303,12 @@
   <data name="Search or create a label" xml:space="preserve">
     <value>Etsi tai luo tunniste</value>
   </data>
+  <data name="Select a board" xml:space="preserve">
+    <value>Valitse taulu</value>
+  </data>
+  <data name="Select a column" xml:space="preserve">
+    <value>Valitse sarake</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Lähetä</value>
   </data>
@@ -299,6 +320,12 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>Jaa</value>
+  </data>
+  <data name="Target Board" xml:space="preserve">
+    <value>Kohdelauta</value>
+  </data>
+  <data name="Target Column" xml:space="preserve">
+    <value>Kohdesarake</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Tätä toimintoa ei voi peruuttaa.</value>
@@ -314,6 +341,15 @@
   </data>
   <data name="Title is required." xml:space="preserve">
     <value>Otsikko on pakollinen.</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Siirrä</value>
+  </data>
+  <data name="Transfer Card" xml:space="preserve">
+    <value>Siirrä kortti</value>
+  </data>
+  <data name="Transferring..." xml:space="preserve">
+    <value>Siirretään...</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>Määrittelemättömät</value>

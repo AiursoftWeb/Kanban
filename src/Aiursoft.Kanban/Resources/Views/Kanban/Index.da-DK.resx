@@ -99,6 +99,9 @@
   <data name="Comments are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Kommentarer er skrivebeskyttede, da du ikke har redigeringsadgang til dette board.</value>
   </data>
+  <data name="Comments will not be transferred and the assignee will be cleared." xml:space="preserve">
+    <value>Kommentarer overføres ikke, og tildelingen nulstilles.</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Afsluttet</value>
   </data>
@@ -177,6 +180,9 @@
   <data name="Failed to load board members." xml:space="preserve">
     <value>Kunne ikke indlæse brættets medlemmer.</value>
   </data>
+  <data name="Failed to load transfer targets." xml:space="preserve">
+    <value>Kunne ikke indlæse overførselsmål.</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Kunne ikke fjerne etiket.</value>
   </data>
@@ -188,6 +194,9 @@
   </data>
   <data name="Failed to save:" xml:space="preserve">
     <value>Kunne ikke gemmes:</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>Kunne ikke overføre kort:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Kunne ikke opdatere etiketfarve.</value>
@@ -216,6 +225,9 @@
   <data name="Labels are read-only because you do not have edit access to this board." xml:space="preserve">
     <value>Etiketter er skrivebeskyttede, fordi du ikke har redigeradgang til dette board.</value>
   </data>
+  <data name="Loading target boards..." xml:space="preserve">
+    <value>Indlæser destinationstavler...</value>
+  </data>
   <data name="Low" xml:space="preserve">
     <value>Lav</value>
   </data>
@@ -239,6 +251,9 @@
   </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Ingen kommentarer endnu.</value>
+  </data>
+  <data name="No editable target boards are available." xml:space="preserve">
+    <value>Der er ikke tilgængelige målplader, der kan redigeres.</value>
   </data>
   <data name="No labels yet." xml:space="preserve">
     <value>Ingen etiketter endnu.</value>
@@ -288,6 +303,12 @@
   <data name="Search or create a label" xml:space="preserve">
     <value>Søg eller opret et etiket</value>
   </data>
+  <data name="Select a board" xml:space="preserve">
+    <value>Vælg et panel</value>
+  </data>
+  <data name="Select a column" xml:space="preserve">
+    <value>Vælg en kolonne</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
@@ -299,6 +320,12 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>Del</value>
+  </data>
+  <data name="Target Board" xml:space="preserve">
+    <value>Målbræt</value>
+  </data>
+  <data name="Target Column" xml:space="preserve">
+    <value>Mål Kolonne</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Denne handling kan ikke fortrydes.</value>
@@ -314,6 +341,15 @@
   </data>
   <data name="Title is required." xml:space="preserve">
     <value>Titel er påkrævet.</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Overfør</value>
+  </data>
+  <data name="Transfer Card" xml:space="preserve">
+    <value>Overfør kort</value>
+  </data>
+  <data name="Transferring..." xml:space="preserve">
+    <value>Overfører...</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>Ikke tildelt</value>
