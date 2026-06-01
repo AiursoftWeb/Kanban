@@ -179,6 +179,30 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
     }
 
+    [TestMethod]
+    public async Task MoveCard_ToColumnInDifferentBoard_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var (_, sourceColumnId) = await CreateBoardAndFirstColumnAsync();
+        var targetBoardId = await CreateBoardAndGetIdAsync("Target Board");
+        int targetColumnId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            targetColumnId = db.KanbanColumns.First(column => column.BoardId == targetBoardId).Id;
+        }
+        var card = await CreateCardAndGetIdAsync(sourceColumnId, "Card");
+
+        var response = await PostAsync(
+            $"/Kanban/MoveCard?cardId={card.Id}&targetColumnId={targetColumnId}&newOrder=0",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(sourceColumnId, (await verificationDb.KanbanCards.FindAsync(card.Id))!.ColumnId);
+    }
+
     // ── MoveColumn ─────────────────────────────────────────
 
     [TestMethod]
