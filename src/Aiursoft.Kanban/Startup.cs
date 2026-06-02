@@ -33,6 +33,7 @@ public class Startup : IWebStartup
         // AppSettings.
         services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
         services.Configure<OpenAIConfiguration>(configuration.GetSection("AppSettings:OpenAI"));
+        services.Configure<AgentPromptConfig>(configuration.GetSection("AppSettings:Agent"));
 
 
         // Relational database

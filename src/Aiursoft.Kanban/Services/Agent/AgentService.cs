@@ -3,7 +3,9 @@ using System.Text;
 using System.Text.Json;
 using Aiursoft.Canon.TaskQueue;
 using Aiursoft.Kanban.Configuration;
-using Aiursoft.Kanban.Services.Access;
+using Aiursoft.Kanban.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using ModelContextProtocol.Server;
@@ -17,7 +19,7 @@ public class AgentService : IAgentService
     private readonly ServiceTaskQueue _taskQueue;
     private readonly ToolRegistry _toolRegistry;
     private readonly AdviceService _adviceService;
-    private readonly OpenAIConfiguration _config;
+    private readonly AgentPromptConfig _promptConfig;
     private readonly ClaudeClient _claudeClient;
     private readonly IServiceProvider _rootServices;
     private readonly ILogger<AgentService> _logger;
@@ -28,7 +30,7 @@ public class AgentService : IAgentService
         ServiceTaskQueue taskQueue,
         ToolRegistry toolRegistry,
         AdviceService adviceService,
-        IOptions<OpenAIConfiguration> config,
+        IOptions<AgentPromptConfig> promptConfig,
         ClaudeClient claudeClient,
         IServiceProvider rootServices,
         ILogger<AgentService> logger)
@@ -36,7 +38,7 @@ public class AgentService : IAgentService
         _taskQueue = taskQueue;
         _toolRegistry = toolRegistry;
         _adviceService = adviceService;
-        _config = config.Value;
+        _promptConfig = promptConfig.Value;
         _claudeClient = claudeClient;
         _rootServices = rootServices;
         _logger = logger;
@@ -50,12 +52,16 @@ public class AgentService : IAgentService
             BoardId = boardId,
         };
 
+        // System prompt includes injected user context (name, roles, boards).
+        // The context is NOT a user-visible message — it lives in the system prompt.
+        var userContext = BuildUserContextBlock(userId, boardId);
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "system",
-            Content = BuildSystemPrompt(boardId, userId)
+            Content = _promptConfig.SystemPrompt.Replace("{userContext}", userContext)
         });
 
+        // Only the user's actual message is visible in the chat UI
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",
@@ -428,23 +434,54 @@ public class AgentService : IAgentService
         }).ToList();
     }
 
-    private string BuildSystemPrompt(int boardId, string userId)
+    /// <summary>
+    /// Builds a context block injected into the system prompt via {userContext}.
+    /// This information is NOT visible to the user in the chat UI — it lives
+    /// in the system prompt so the LLM has the facts it needs without cluttering
+    /// the conversation.
+    /// </summary>
+    private string BuildUserContextBlock(string userId, int boardId)
     {
+        using var scope = _rootServices.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+        var user = userManager.FindByIdAsync(userId).GetAwaiter().GetResult();
+        var userName = user?.DisplayName ?? user?.UserName ?? user?.Email ?? userId;
+
+        var roles = user != null
+            ? userManager.GetRolesAsync(user).GetAwaiter().GetResult()
+            : [];
+
+        var ownedBoards = db.KanbanBoards
+            .Where(b => b.UserId == userId)
+            .OrderBy(b => b.Order)
+            .Select(b => b.Name)
+            .ToList();
+
+        var currentBoardName = db.KanbanBoards
+            .Where(b => b.Id == boardId)
+            .Select(b => b.Name)
+            .FirstOrDefault();
+
         var sb = new StringBuilder();
-        sb.AppendLine("You are a Kanban board assistant. You help project managers manage their Kanban boards.");
-        sb.AppendLine();
-        sb.AppendLine("## Rules");
-        sb.AppendLine("1. Use the available tools to read or modify the board.");
-        sb.AppendLine("2. For operations that change data (create, update, delete, move), the system will ask the user to approve before executing.");
-        sb.AppendLine("3. When you need more information, ask the user clarifying questions before calling tools.");
-        sb.AppendLine("4. To assign cards, use GetBoardMembers to find users on the current board.");
-        sb.AppendLine("5. To share a board, use SearchUsers to find users globally, then ShareBoard with their user ID.");
-        sb.AppendLine("6. To view or remove shares, use GetBoardShares (returns share IDs needed for RemoveBoardShare).");
-        sb.AppendLine("7. If a card doesn't exist, create it. If it already exists, move or update it. Always check first.");
-        sb.AppendLine("8. The user may paste unstructured data. Parse it carefully and ask for clarification if ambiguous.");
-        sb.AppendLine($"9. The current board ID is {boardId}. You act on behalf of the authenticated user. The server handles identity automatically.");
-        sb.AppendLine();
-        sb.AppendLine("Always use the tools to interact with the board. Do not guess IDs or names - use SearchCards, SearchUsers, GetColumns, GetBoardMembers, GetBoardShares, etc. to look them up first.");
+        sb.Append("Current user: ").AppendLine(userName);
+        sb.Append("Your roles: ").AppendLine(roles.Count > 0 ? string.Join(", ", roles) : "(none)");
+        sb.Append("Boards you own: ");
+        if (ownedBoards.Count > 0)
+        {
+            sb.Append(ownedBoards.Count).Append(" total. ");
+            sb.AppendLine(string.Join(", ", ownedBoards));
+        }
+        else
+        {
+            sb.AppendLine("(none)");
+        }
+        sb.Append("Current board: ");
+        sb.Append(currentBoardName ?? "(unnamed)");
+        sb.Append(" (ID: ").Append(boardId).AppendLine(").");
+        sb.AppendLine("All operations are performed as this user. The server handles identity automatically.");
+
         return sb.ToString();
     }
 
