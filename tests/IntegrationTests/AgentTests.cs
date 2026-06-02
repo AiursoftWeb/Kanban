@@ -713,6 +713,61 @@ public class AgentTests : TestBase
         Assert.IsFalse(board.IsPublic);
     }
 
+    // ── Multi-tool batch approval ────────────────────────
+
+    [TestMethod]
+    public async Task AdviceService_MultiplePendingAdvice_ResumeOnlyAfterAllResolved()
+    {
+        // When an LLM response produces multiple write tool calls (e.g. CreateCard + AssignCard),
+        // multiple advice items are created. The ReAct loop should NOT resume until ALL are resolved.
+        // Otherwise Claude sees an incomplete tool_calls → tool_result chain and returns 400.
+        await LoginAsAdmin();
+        var service = GetService<AdviceService>();
+        var cid = Guid.NewGuid();
+
+        // Create 3 pending advice items (simulating 3 write tool calls in one LLM response)
+        var a1 = service.Create(cid, "CreateCard", "Create Card", "desc",
+            new Dictionary<string, object?> { ["title"] = "A" }, "title: A", "call_1");
+        var a2 = service.Create(cid, "AssignCard", "Assign Card", "desc",
+            new Dictionary<string, object?> { ["cardId"] = 1 }, "card: 1", "call_2");
+        var a3 = service.Create(cid, "AddLabel", "Add Label", "desc",
+            new Dictionary<string, object?> { ["name"] = "bug" }, "label: bug", "call_3");
+
+        // Approve one — should still have 2 pending
+        service.UpdateStatus(a1.Id, AdviceStatus.Approved);
+        var pending = service.GetPendingForConversation(cid);
+        Assert.AreEqual(2, pending.Count,
+            "After approving 1 of 3 advice items, 2 should remain pending");
+
+        // Reject one — should still have 1 pending
+        service.UpdateStatus(a2.Id, AdviceStatus.Rejected);
+        pending = service.GetPendingForConversation(cid);
+        Assert.AreEqual(1, pending.Count,
+            "After rejecting 1 of 2 remaining, 1 should remain pending");
+
+        // Approve the last — should have 0 pending
+        service.UpdateStatus(a3.Id, AdviceStatus.Approved);
+        pending = service.GetPendingForConversation(cid);
+        Assert.AreEqual(0, pending.Count,
+            "After resolving all advice items, none should remain pending");
+    }
+
+    [TestMethod]
+    public async Task AdviceService_GetPendingForConversation_OnlyReturnsMatching()
+    {
+        await LoginAsAdmin();
+        var service = GetService<AdviceService>();
+        var cidA = Guid.NewGuid();
+        var cidB = Guid.NewGuid();
+
+        service.Create(cidA, "T1", "T1", "", new(), "", "c1");
+        service.Create(cidA, "T2", "T2", "", new(), "", "c2");
+        service.Create(cidB, "T3", "T3", "", new(), "", "c3");
+
+        Assert.AreEqual(2, service.GetPendingForConversation(cidA).Count);
+        Assert.AreEqual(1, service.GetPendingForConversation(cidB).Count);
+    }
+
     // ── Helpers ─────────────────────────────────────────────
 
     private async Task<HttpResponseMessage> CreateBoardAsync(string name)

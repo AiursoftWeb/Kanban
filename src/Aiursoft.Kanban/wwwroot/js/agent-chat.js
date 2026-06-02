@@ -51,8 +51,9 @@
         }
 
         input.value = '';
-        lastMessageCount = 0; // Will recalculate after send
-        appendMessage('user', message);
+
+        // Show thinking immediately — the poll will render the user message
+        // and assistant response. No manual DOM append avoids duplication.
         showThinking();
 
         var body = { boardId: boardId, message: message };
@@ -202,7 +203,7 @@
         })
         .then(function() {
             showResult(cardElement, true, loc('approved-executing', 'Approved - executing...'));
-            lastMessageCount = 0; // Reset to get new messages after tool execution
+            // Keep lastMessageCount so only new messages are rendered — no duplicates
             startPolling();
         });
     }
@@ -217,7 +218,7 @@
         })
         .then(function() {
             showResult(cardElement, false, loc('rejected', 'Rejected'));
-            lastMessageCount = 0; // Reset to get new messages after rejection
+            // Keep lastMessageCount so only new messages are rendered — no duplicates
             startPolling();
         });
     }
@@ -288,6 +289,16 @@
         lastMessageCount = 0;
         stopPolling();
         hideThinking();
+
+        // Restore welcome message
+        var container = document.getElementById('agent-messages');
+        if (container) {
+            container.innerHTML = '';
+            var welcome = document.createElement('div');
+            welcome.className = 'chat-message assistant';
+            welcome.textContent = loc('welcome', 'Hi!');
+            container.appendChild(welcome);
+        }
 
         var container = document.getElementById('agent-messages');
         if (container) container.innerHTML = '';

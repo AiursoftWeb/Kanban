@@ -154,10 +154,20 @@ public class AgentService : IAgentService
                 Content = $"REJECTED: User rejected this operation. Do not retry."
             });
 
-            _taskQueue.QueueWithDependency<IServiceProvider>(
-                queueName: "KanbanAgent",
-                taskName: $"ResumeAfterReject-{adviceId}",
-                task: async (sp) => await ExecuteReActLoop(sp, conversationId));
+            // Only resume when all pending advice items are resolved.
+            // Otherwise the ReAct loop would send incomplete tool_calls → tool_result chain.
+            var stillPending = _adviceService.GetPendingForConversation(conversationId);
+            if (stillPending.Count > 0)
+            {
+                conversation.State = AgentState.AwaitingApproval;
+            }
+            else
+            {
+                _taskQueue.QueueWithDependency<IServiceProvider>(
+                    queueName: "KanbanAgent",
+                    taskName: $"ResumeAfterReject-{adviceId}",
+                    task: async (sp) => await ExecuteReActLoop(sp, conversationId));
+            }
         }
     }
 
@@ -347,7 +357,19 @@ public class AgentService : IAgentService
                 Content = result
             });
 
+            // Only resume the ReAct loop when ALL pending advice items are resolved.
+        // If there are still pending items, stay in AwaitingApproval so the
+        // user can approve/reject them. Otherwise the conversation history
+        // would have an incomplete tool_calls → tool_result chain.
+        var stillPending = _adviceService.GetPendingForConversation(conversationId);
+        if (stillPending.Count > 0)
+        {
+            conversation.State = AgentState.AwaitingApproval;
+        }
+        else
+        {
             conversation.State = AgentState.Thinking;
+        }
         }
         catch (Exception ex)
         {
@@ -360,6 +382,14 @@ public class AgentService : IAgentService
                 ToolCallId = advice.ToolCallId,
                 Content = $"Error executing tool: {ex.Message}"
             });
+
+            // Same logic applies after errors: only resume when all pending items resolved
+            var stillPending = _adviceService.GetPendingForConversation(conversationId);
+            if (stillPending.Count > 0)
+            {
+                conversation.State = AgentState.AwaitingApproval;
+                return;
+            }
         }
 
         await ExecuteReActLoop(sp, conversationId);
