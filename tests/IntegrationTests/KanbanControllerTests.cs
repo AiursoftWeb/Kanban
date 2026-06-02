@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using Aiursoft.Kanban.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
 
@@ -128,6 +129,56 @@ public class KanbanControllerTests : TestBase
         await LoginAsAdmin();
         var response = await PostAsync(
             "/Kanban/CreateCard?columnId=9999&title=Ghost",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
+    // ── DeleteCard ─────────────────────────────────────────
+
+    [TestMethod]
+    public async Task DeleteCard_WithRelations_DeletesSuccessfully()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Delete me");
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var cardEntity = await db.KanbanCards.FindAsync(card.Id);
+            var authorId = await db.Users
+                .Where(user => user.Email == "admin@default.com")
+                .Select(user => user.Id)
+                .SingleAsync();
+            var label = new KanbanLabel { Name = "Delete", Color = "#EF4444" };
+            db.KanbanCardLabels.Add(new KanbanCardLabel { Card = cardEntity!, Label = label });
+            db.KanbanCardComments.Add(new KanbanCardComment
+            {
+                Card = cardEntity!,
+                AuthorId = authorId,
+                Content = "Delete with card"
+            });
+            await db.SaveChangesAsync();
+        }
+
+        var response = await PostAsync(
+            $"/Kanban/DeleteCard?cardId={card.Id}",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsNull(await verificationDb.KanbanCards.FindAsync(card.Id));
+        Assert.IsFalse(await verificationDb.KanbanCardLabels.AnyAsync(link => link.CardId == card.Id));
+        Assert.IsFalse(await verificationDb.KanbanCardComments.AnyAsync(comment => comment.CardId == card.Id));
+    }
+
+    [TestMethod]
+    public async Task DeleteCard_NonExistent_ReturnsNotFound()
+    {
+        await LoginAsAdmin();
+        var response = await PostAsync(
+            "/Kanban/DeleteCard?cardId=9999",
             new Dictionary<string, string>());
         Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
     }

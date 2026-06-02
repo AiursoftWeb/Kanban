@@ -1101,7 +1101,10 @@
                 <div class="modal-footer border-0 px-4 pb-4 @(Model.CanEditCurrentBoard ? "justify-content-between" : string.Empty)">
                     @if (Model.CanEditCurrentBoard)
                     {
-                        <button type="button" class="btn btn-outline-primary" id="btnTransferCard" style="border-radius:10px">@Localizer["Transfer"]</button>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-outline-primary" id="btnTransferCard" style="border-radius:10px">@Localizer["Transfer"]</button>
+                            <button type="button" class="btn btn-outline-danger" id="btnDeleteCard" style="border-radius:10px">@Localizer["Delete"]</button>
+                        </div>
                     }
                     <div>
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@(Model.CanEditCurrentBoard ? Localizer["Cancel"].Value : Localizer["Close"].Value)</button>
@@ -1148,6 +1151,28 @@
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
                     <button type="button" class="btn btn-primary px-4" id="btnConfirmTransferCard" style="border-radius:10px" disabled>
                         @Localizer["Transfer"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Card Confirmation Modal -->
+    <div class="modal fade" id="deleteCardConfirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+                <div class="modal-header border-0 px-4 pt-4">
+                    <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete"]</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4">
+                    <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action cannot be undone."]</p>
+                    <div class="alert alert-danger mt-2 d-none" id="deleteCardError" role="alert"></div>
+                </div>
+                <div class="modal-footer border-0 px-4 pb-4">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
+                    <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteCard" style="border-radius:10px">
+                        @Localizer["Delete"]
                     </button>
                 </div>
             </div>
@@ -2321,6 +2346,12 @@
         var btnAddLabel = document.getElementById("btnAddLabel");
         var btnUpdateCard = document.getElementById("btnUpdateCard");
         var btnTransferCard = document.getElementById("btnTransferCard");
+        var btnDeleteCard = document.getElementById("btnDeleteCard");
+        var deleteCardConfirmModalEl = document.getElementById("deleteCardConfirmModal");
+        var deleteCardConfirmModal = deleteCardConfirmModalEl ? new bootstrap.Modal(deleteCardConfirmModalEl) : null;
+        var btnConfirmDeleteCard = document.getElementById("btnConfirmDeleteCard");
+        var deleteCardError = document.getElementById("deleteCardError");
+        var restoreEditCardModalAfterDelete = false;
         var transferCardModalEl = document.getElementById("transferCardModal");
         var transferCardModal = transferCardModalEl ? new bootstrap.Modal(transferCardModalEl) : null;
         var transferTargetBoard = document.getElementById("transferTargetBoard");
@@ -2717,6 +2748,78 @@
                 .finally(function() {
                     btnUpdateCard.disabled = false;
                     btnUpdateCard.textContent = getLocalizedText("save", "Save");
+                });
+            });
+        }
+
+        if (deleteCardConfirmModalEl && editCardModal) {
+            deleteCardConfirmModalEl.addEventListener("hidden.bs.modal", function() {
+                if (!restoreEditCardModalAfterDelete) return;
+
+                restoreEditCardModalAfterDelete = false;
+                new bootstrap.Modal(editCardModal).show();
+            });
+        }
+
+        if (btnDeleteCard && deleteCardConfirmModal && editCardModal) {
+            btnDeleteCard.addEventListener("click", function() {
+                restoreEditCardModalAfterDelete = true;
+                if (deleteCardError) {
+                    deleteCardError.textContent = "";
+                    deleteCardError.classList.add("d-none");
+                }
+                if (btnConfirmDeleteCard) {
+                    btnConfirmDeleteCard.disabled = false;
+                    btnConfirmDeleteCard.textContent = getLocalizedText("delete", "Delete");
+                }
+
+                var editCardModalInstance = bootstrap.Modal.getInstance(editCardModal);
+                if (editCardModalInstance) {
+                    editCardModal.addEventListener("hidden.bs.modal", function() {
+                        deleteCardConfirmModal.show();
+                    }, { once: true });
+                    editCardModalInstance.hide();
+                } else {
+                    deleteCardConfirmModal.show();
+                }
+            });
+        }
+
+        if (btnConfirmDeleteCard && deleteCardConfirmModal) {
+            btnConfirmDeleteCard.addEventListener("click", function() {
+                if (!currentEditCardId) return;
+
+                btnConfirmDeleteCard.disabled = true;
+                btnConfirmDeleteCard.textContent = getLocalizedText("deleting", "Deleting...");
+                if (deleteCardError) {
+                    deleteCardError.classList.add("d-none");
+                }
+
+                fetch("/Kanban/DeleteCard", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded", "RequestVerificationToken": csrfToken },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&cardId=" + currentEditCardId
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
+                    if (currentEditCardElement) {
+                        currentEditCardElement.remove();
+                        refreshColumnCounts();
+                    }
+                    currentEditCardId = 0;
+                    currentEditCardElement = null;
+                    restoreEditCardModalAfterDelete = false;
+                    deleteCardConfirmModal.hide();
+                })
+                .catch(function(err) {
+                    if (deleteCardError) {
+                        deleteCardError.textContent = err.message || getLocalizedText("server-error", "Server error");
+                        deleteCardError.classList.remove("d-none");
+                    }
+                })
+                .finally(function() {
+                    btnConfirmDeleteCard.disabled = false;
+                    btnConfirmDeleteCard.textContent = getLocalizedText("delete", "Delete");
                 });
             });
         }
