@@ -28,6 +28,17 @@ public class AgentController(
 
         var userId = userManager.GetUserId(User)!;
 
+        // Continue existing conversation
+        if (request.ConversationId.HasValue)
+        {
+            var conversationId = agentService.ContinueRun(
+                request.ConversationId.Value, userId, request.Message);
+            if (conversationId == null)
+                return BadRequest(new { Error = "Conversation not found, not yours, or still processing." });
+            return Ok(new { ConversationId = conversationId.Value });
+        }
+
+        // Start new conversation
         var board = await db.KanbanBoards.FindAsync(request.BoardId);
         if (board == null)
             return NotFound(new { Error = "Board not found." });
@@ -35,8 +46,8 @@ public class AgentController(
         if (!await access.HasReadAccess(board, userId))
             return Forbid();
 
-        var conversationId = agentService.StartRun(userId, request.BoardId, request.Message);
-        return Ok(new { ConversationId = conversationId });
+        var newConversationId = agentService.StartRun(userId, request.BoardId, request.Message);
+        return Ok(new { ConversationId = newConversationId });
     }
 
     [HttpGet]

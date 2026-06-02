@@ -10,7 +10,10 @@
             <h6>@Localizer["Kanban AI Assistant"]</h6>
             <span class="agent-status" id="agent-status-text">@Localizer["Ready"]</span>
         </div>
-        <small style="color: var(--bs-secondary-color)">@Localizer["click to expand"]</small>
+        <div>
+            <button class="btn btn-outline-secondary btn-sm" id="agent-new-chat-btn" title="@Localizer["Start a new conversation"]">@Localizer["New"]</button>
+            <small style="color: var(--bs-secondary-color); margin-left: 4px">@Localizer["click to expand"]</small>
+        </div>
     </div>
     <div class="agent-chat-messages" id="agent-messages">
         <div class="chat-message assistant">
@@ -25,6 +28,7 @@
 
 <div id="agent-loc-data" style="display:none">
     <span data-key="thinking">@Localizer["Thinking..."]</span>
+    <span data-key="thinking-status">@Localizer["Thinking..."]</span>
     <span data-key="waiting-approval">@Localizer["Waiting for approval"]</span>
     <span data-key="ready">@Localizer["Ready"]</span>
     <span data-key="error">@Localizer["Error"]</span>

@@ -20,6 +20,7 @@
         var sendBtn = document.getElementById('agent-send-btn');
         var input = document.getElementById('agent-input');
         var header = widget.querySelector('.agent-chat-header');
+        var newChatBtn = document.getElementById('agent-new-chat-btn');
 
         header.addEventListener('click', function() {
             widget.classList.toggle('collapsed');
@@ -32,17 +33,32 @@
                 sendMessage(boardId);
             }
         });
+
+        if (newChatBtn) {
+            newChatBtn.addEventListener('click', function() { resetConversation(); });
+        }
     }
 
     function sendMessage(boardId) {
         var input = document.getElementById('agent-input');
         var message = input.value.trim();
-        if (!message || conversationId) return;
+        if (!message) return;
+
+        // Don't send while the agent is processing
+        if (conversationId) {
+            var statusEl = document.getElementById('agent-status-text');
+            if (statusEl && statusEl.textContent === loc('thinking-status', 'Thinking...')) return;
+        }
 
         input.value = '';
-        lastMessageCount = 1; // Skip user message already appended above
+        lastMessageCount = 0; // Will recalculate after send
         appendMessage('user', message);
         showThinking();
+
+        var body = { boardId: boardId, message: message };
+        if (conversationId) {
+            body.ConversationId = conversationId;
+        }
 
         fetch('/Agent/SendMessage', {
             method: 'POST',
@@ -50,7 +66,7 @@
                 'Content-Type': 'application/json',
                 'RequestVerificationToken': token
             },
-            body: JSON.stringify({ boardId: boardId, message: message })
+            body: JSON.stringify(body)
         })
         .then(function(r) { return r.json(); })
         .then(function(data) {
@@ -89,14 +105,18 @@
                 renderAdvice(data);
                 updateState(data.State);
 
-                if (data.State === 'Completed' || data.State === 'Error') {
+                if (data.State === 'Error') {
                     stopPolling();
                     conversationId = null;
                     if (data.ErrorMessage) {
                         appendMessage('assistant', loc('error-prefix', 'Error:') + ' ' + data.ErrorMessage);
-                    } else if (data.State === 'Error') {
+                    } else {
                         appendMessage('assistant', loc('error', 'Error'));
                     }
+                } else if (data.State === 'Completed') {
+                    // Keep conversationId so the user can continue the conversation.
+                    // Only stop polling — the next message resumes the same conversation.
+                    stopPolling();
                 }
             })
             .catch(function() { /* retry on next poll */ });
@@ -256,8 +276,27 @@
             if (statusEl) statusEl.textContent = loc('waiting-approval', 'Waiting for approval');
             hideThinking();
         } else if (state === 'Thinking') {
-            if (statusEl) statusEl.textContent = loc('thinking', 'Thinking...');
+            if (statusEl) statusEl.textContent = loc('thinking-status', 'Thinking...');
         }
+    }
+
+    function resetConversation() {
+        if (conversationId) {
+            fetch('/Agent/Cancel?conversationId=' + conversationId, {
+                method: 'POST',
+                headers: { 'RequestVerificationToken': token }
+            }).catch(function() {});
+        }
+        conversationId = null;
+        lastMessageCount = 0;
+        stopPolling();
+        hideThinking();
+
+        var container = document.getElementById('agent-messages');
+        if (container) container.innerHTML = '';
+
+        var statusEl = document.getElementById('agent-status-text');
+        if (statusEl) statusEl.textContent = loc('ready', 'Ready');
     }
 
     window.AgentChat = { init: init };

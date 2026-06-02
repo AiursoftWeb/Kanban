@@ -72,6 +72,38 @@ public class AgentService : IAgentService
         return conversation.Id;
     }
 
+    public Guid? ContinueRun(Guid conversationId, string userId, string userMessage)
+    {
+        if (!_conversations.TryGetValue(conversationId, out var conversation))
+            return null;
+
+        if (conversation.UserId != userId)
+            return null;
+
+        if (conversation.State is AgentState.Thinking or AgentState.AwaitingApproval)
+            return null; // Already busy — caller should wait or cancel first
+
+        if (string.IsNullOrWhiteSpace(userMessage))
+            return null;
+
+        conversation.Messages.Add(new ToolMessagesItem
+        {
+            Role = "user",
+            Content = userMessage
+        });
+
+        conversation.State = AgentState.Thinking;
+        conversation.LastActivity = DateTime.UtcNow;
+        conversation.LoopCount = 0; // Reset loop counter for the new turn
+
+        _taskQueue.QueueWithDependency<IServiceProvider>(
+            queueName: "KanbanAgent",
+            taskName: $"AgentContinue-{conversation.Id}",
+            task: async (sp) => await ExecuteReActLoop(sp, conversation.Id));
+
+        return conversation.Id;
+    }
+
     public AgentConversation? GetConversation(Guid conversationId)
     {
         _conversations.TryGetValue(conversationId, out var conversation);

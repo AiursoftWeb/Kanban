@@ -528,6 +528,102 @@ public class AgentTests : TestBase
             "System prompt should explain that identity is handled server-side");
     }
 
+    // ── Continuous conversation ─────────────────────────
+
+    [TestMethod]
+    public async Task AgentService_ContinueRun_ExtendsConversation()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        var conversationId = service.StartRun("admin", boardId, "First message");
+        var conversation = service.GetConversation(conversationId);
+        Assert.IsNotNull(conversation);
+        var originalCount = conversation!.Messages.Count;
+        Assert.IsTrue(originalCount >= 2); // system + user (plus possibly assistant from background task)
+
+        // Simulate completion
+        conversation.State = AgentState.Completed;
+
+        // Continue with a follow-up
+        var result = service.ContinueRun(conversationId, "admin", "Follow-up question");
+        Assert.IsNotNull(result);
+        Assert.AreEqual(conversationId, result!.Value);
+
+        var continued = service.GetConversation(conversationId);
+        Assert.AreEqual(AgentState.Thinking, continued!.State);
+        Assert.AreEqual(originalCount + 1, continued.Messages.Count); // +1 for follow-up user message
+        Assert.AreEqual("Follow-up question", continued.Messages.Last().Content);
+    }
+
+    [TestMethod]
+    public async Task AgentService_ContinueRun_WrongUserReturnsNull()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        var conversationId = service.StartRun("admin", boardId, "Hello");
+        var conversation = service.GetConversation(conversationId);
+        conversation!.State = AgentState.Completed;
+
+        // Different user tries to continue
+        var result = service.ContinueRun(conversationId, "different-user", "Hijack");
+        Assert.IsNull(result, "Different user should not be able to continue another's conversation");
+    }
+
+    [TestMethod]
+    public async Task AgentService_ContinueRun_StillThinkingReturnsNull()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        var conversationId = service.StartRun("admin", boardId, "Hello");
+        // State is Thinking (not yet completed)
+
+        var result = service.ContinueRun(conversationId, "admin", "Are you done yet?");
+        Assert.IsNull(result, "Should not continue while conversation is still thinking");
+    }
+
+    [TestMethod]
+    public async Task AgentController_ContinueRun_ViaSendMessageEndpoint()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var token = await GetAntiCsrfToken("/");
+
+        // Start first message
+        var json1 = System.Text.Json.JsonSerializer.Serialize(
+            new { boardId, message = "Hello" });
+        var content1 = new StringContent(json1, System.Text.Encoding.UTF8, "application/json");
+        content1.Headers.Add("RequestVerificationToken", token);
+        var resp1 = await Http.PostAsync("/Agent/SendMessage", content1);
+        Assert.AreEqual(System.Net.HttpStatusCode.OK, resp1.StatusCode);
+        var body1 = await resp1.Content.ReadAsStringAsync();
+        var convId = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(body1)
+            .GetProperty("ConversationId").GetString()!;
+
+        // Complete the conversation manually
+        var agentService = GetService<IAgentService>();
+        var conversation = agentService.GetConversation(Guid.Parse(convId));
+        conversation!.State = AgentState.Completed;
+
+        // Continue with same conversationId
+        var json2 = $"{{ \"boardId\": {boardId}, \"message\": \"Follow-up\", \"conversationId\": \"{convId}\" }}";
+        var content2 = new StringContent(json2, System.Text.Encoding.UTF8, "application/json");
+        content2.Headers.Add("RequestVerificationToken", token);
+        var resp2 = await Http.PostAsync("/Agent/SendMessage", content2);
+        Assert.AreEqual(System.Net.HttpStatusCode.OK, resp2.StatusCode);
+        var body2 = await resp2.Content.ReadAsStringAsync();
+        var convId2 = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(body2)
+            .GetProperty("ConversationId").GetString()!;
+
+        // Same conversation should be reused
+        Assert.AreEqual(convId, convId2, "Continue should return the same conversation ID");
+    }
+
     // ── Share tools ──────────────────────────────────────
 
     [TestMethod]
