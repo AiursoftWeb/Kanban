@@ -247,20 +247,17 @@
     }
 
     function showThinking() {
-        var container = document.getElementById('agent-messages');
-        if (!container) return;
-
-        var indicator = document.createElement('div');
-        indicator.className = 'agent-thinking-indicator';
-        indicator.id = 'agent-thinking';
-        indicator.innerHTML = '<span>' + loc('thinking', 'Thinking...') + '</span><span class="dot"></span><span class="dot"></span><span class="dot"></span>';
-        container.appendChild(indicator);
-        container.scrollTop = container.scrollHeight;
+        var bar = document.getElementById('agent-thinking-bar');
+        if (bar) {
+            bar.style.display = 'flex';
+        }
     }
 
     function hideThinking() {
-        var el = document.getElementById('agent-thinking');
-        if (el) el.remove();
+        var bar = document.getElementById('agent-thinking-bar');
+        if (bar) {
+            bar.style.display = 'none';
+        }
     }
 
     function updateState(state) {
