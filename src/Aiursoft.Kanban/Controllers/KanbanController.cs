@@ -225,6 +225,33 @@ public class KanbanController(
         return Ok(new { card.Id, card.Title, card.Description, card.Order, card.ColumnId });
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteCard(int cardId)
+    {
+        var card = await db.KanbanCards
+            .Include(c => c.Column)
+                .ThenInclude(column => column.Board)
+            .FirstOrDefaultAsync(c => c.Id == cardId);
+        if (card == null) return NotFound();
+
+        var userId = userManager.GetUserId(User)!;
+        if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
+
+        var cardLabels = await db.KanbanCardLabels
+            .Where(link => link.CardId == cardId)
+            .ToListAsync();
+        var comments = await db.KanbanCardComments
+            .Where(comment => comment.CardId == cardId)
+            .ToListAsync();
+
+        db.KanbanCardLabels.RemoveRange(cardLabels);
+        db.KanbanCardComments.RemoveRange(comments);
+        db.KanbanCards.Remove(card);
+        await db.SaveChangesAsync();
+        return Ok();
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetTransferTargets(int cardId)
     {

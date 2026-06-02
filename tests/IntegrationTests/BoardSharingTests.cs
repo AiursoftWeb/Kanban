@@ -71,6 +71,51 @@ public class BoardSharingTests : TestBase
     }
 
     [TestMethod]
+    public async Task User_WithReadOnlyShare_CannotDeleteCard()
+    {
+        var ownerId = await RegisterUserAndGetIdAsync();
+        var boardId = await CreateBoardWithOwner(ownerId, "Read-only Board");
+        var cardId = await CreateCard(boardId, "Keep me");
+        await LogoutAsync();
+
+        var viewerId = await RegisterUserAndGetIdAsync();
+        await CreateShare(boardId, viewerId, null, SharePermission.ReadOnly);
+
+        var response = await PostForm(
+            $"/Kanban/DeleteCard?cardId={cardId}",
+            new Dictionary<string, string>());
+
+        Assert.IsTrue(response.StatusCode == HttpStatusCode.Forbidden ||
+                      response.StatusCode == HttpStatusCode.Found);
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsNotNull(await verificationDb.KanbanCards.FindAsync(cardId));
+    }
+
+    [TestMethod]
+    public async Task User_WithEditableShare_CanDeleteCard()
+    {
+        var ownerId = await RegisterUserAndGetIdAsync();
+        var boardId = await CreateBoardWithOwner(ownerId, "Editable Board");
+        var cardId = await CreateCard(boardId, "Delete me");
+        await LogoutAsync();
+
+        var editorId = await RegisterUserAndGetIdAsync();
+        await CreateShare(boardId, editorId, null, SharePermission.Editable);
+
+        var response = await PostForm(
+            $"/Kanban/DeleteCard?cardId={cardId}",
+            new Dictionary<string, string>());
+
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsNull(await verificationDb.KanbanCards.FindAsync(cardId));
+    }
+
+    [TestMethod]
     public async Task AnonymousUser_CanView_PublicBoard()
     {
         var ownerId = await RegisterUserAndGetIdAsync();
@@ -285,6 +330,21 @@ public class BoardSharingTests : TestBase
 
         await db.SaveChangesAsync();
         return board.Id;
+    }
+
+    private async Task<int> CreateCard(int boardId, string title)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var columnId = await db.KanbanColumns
+            .Where(column => column.BoardId == boardId)
+            .OrderBy(column => column.Order)
+            .Select(column => column.Id)
+            .FirstAsync();
+        var card = new KanbanCard { Title = title, ColumnId = columnId };
+        db.KanbanCards.Add(card);
+        await db.SaveChangesAsync();
+        return card.Id;
     }
 
     private async Task CreateShare(int boardId, string? userId, string? roleId, SharePermission permission)
