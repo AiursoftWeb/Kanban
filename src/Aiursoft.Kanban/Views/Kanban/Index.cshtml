@@ -1006,175 +1006,157 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
                 <div class="modal-header border-0 px-4 pt-4">
-                    <h5 class="modal-title fw-bold">@Localizer["Card Details"]</h5>
+                    <h5 class="modal-title fw-bold" id="editCardModalTitle">@Localizer["Card Details"]</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body px-4">
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">@Localizer["Title"]</label>
-                        <input type="text" id="editCardTitle" class="form-control" style="border-radius:12px" required disabled="@(!Model.CanEditCurrentBoard)">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">
-                            @Localizer["Description"] <span class="text-muted fw-normal">(@Localizer["optional"])</span>
+                <div id="editCardDetailsView">
+                    <div class="modal-body px-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">@Localizer["Title"]</label>
+                            <input type="text" id="editCardTitle" class="form-control" style="border-radius:12px" required disabled="@(!Model.CanEditCurrentBoard)">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                @Localizer["Description"] <span class="text-muted fw-normal">(@Localizer["optional"])</span>
+                                @if (Model.CanEditCurrentBoard)
+                                {
+                                    <button type="button" id="btnToggleDescriptionEdit" class="btn btn-sm btn-link text-decoration-none float-end d-none" style="padding:0;font-size:0.85rem">
+                                        <i data-lucide="edit-3" style="width:14px;height:14px"></i> @Localizer["Edit"]
+                                    </button>
+                                }
+                            </label>
+                            <textarea id="editCardDescription" class="form-control" rows="3" style="border-radius:12px;resize:none" disabled="@(!Model.CanEditCurrentBoard)"></textarea>
+                            <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid #dee2e6;border-radius:12px;background:#f8f9fa;word-break:break-word"></div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label class="form-label fw-semibold">@Localizer["Planned Start"]</label>
+                                <input type="date" id="editCardPlannedStart" class="form-control" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-semibold">@Localizer["Due Date"]</label>
+                                <input type="date" id="editCardDueDate" class="form-control" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
+                            </div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label class="form-label fw-semibold">@Localizer["Priority"]</label>
+                                <select id="editCardPriority" class="form-select" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
+                                    <option value="0">@Localizer["Urgent"]</option>
+                                    <option value="1">@Localizer["High"]</option>
+                                    <option value="2">@Localizer["Medium"]</option>
+                                    <option value="3">@Localizer["Low"]</option>
+                                    <option value="4">@Localizer["None"]</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-semibold">@Localizer["Assignee"]</label>
+                                <select id="editCardAssignee" class="form-select" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
+                                    <option value="">@Localizer["Unassigned"]</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">@Localizer["Labels"]</label>
                             @if (Model.CanEditCurrentBoard)
                             {
-                                <button type="button" id="btnToggleDescriptionEdit" class="btn btn-sm btn-link text-decoration-none float-end d-none" style="padding:0;font-size:0.85rem">
-                                    <i data-lucide="edit-3" style="width:14px;height:14px"></i> @Localizer["Edit"]
-                                </button>
+                                <div class="input-group mb-2">
+                                    <input type="text" id="editCardLabelInput" class="form-control" list="editCardLabelSuggestions" placeholder="@Localizer["Search or create a label"]" style="border-radius:12px 0 0 12px">
+                                    <button type="button" class="btn btn-outline-secondary" id="btnAddLabel" style="border-radius:0 12px 12px 0">@Localizer["Add"]</button>
+                                </div>
+                                <datalist id="editCardLabelSuggestions"></datalist>
+                                <div class="form-text">@Localizer["Press Enter to add a label or create a new one on the fly."]</div>
                             }
-                        </label>
-                        <textarea id="editCardDescription" class="form-control" rows="3" style="border-radius:12px;resize:none" disabled="@(!Model.CanEditCurrentBoard)"></textarea>
-                        <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid #dee2e6;border-radius:12px;background:#f8f9fa;word-break:break-word"></div>
-                    </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-6">
-                            <label class="form-label fw-semibold">@Localizer["Planned Start"]</label>
-                            <input type="date" id="editCardPlannedStart" class="form-control" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
+                            else
+                            {
+                                <div class="form-text">@Localizer["Labels are read-only because you do not have edit access to this board."]</div>
+                            }
+                            <div id="editCardLabels" class="edit-card-labels mt-3"></div>
                         </div>
-                        <div class="col-6">
-                            <label class="form-label fw-semibold">@Localizer["Due Date"]</label>
-                            <input type="date" id="editCardDueDate" class="form-control" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
-                        </div>
-                    </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-6">
-                            <label class="form-label fw-semibold">@Localizer["Priority"]</label>
-                            <select id="editCardPriority" class="form-select" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
-                                <option value="0">@Localizer["Urgent"]</option>
-                                <option value="1">@Localizer["High"]</option>
-                                <option value="2">@Localizer["Medium"]</option>
-                                <option value="3">@Localizer["Low"]</option>
-                                <option value="4">@Localizer["None"]</option>
-                            </select>
-                        </div>
-                        <div class="col-6">
-                            <label class="form-label fw-semibold">@Localizer["Assignee"]</label>
-                            <select id="editCardAssignee" class="form-select" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
-                                <option value="">@Localizer["Unassigned"]</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">@Localizer["Labels"]</label>
-                        @if (Model.CanEditCurrentBoard)
-                        {
-                            <div class="input-group mb-2">
-                                <input type="text" id="editCardLabelInput" class="form-control" list="editCardLabelSuggestions" placeholder="@Localizer["Search or create a label"]" style="border-radius:12px 0 0 12px">
-                                <button type="button" class="btn btn-outline-secondary" id="btnAddLabel" style="border-radius:0 12px 12px 0">@Localizer["Add"]</button>
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <label class="form-label text-muted small">@Localizer["Actual Start"] <span class="text-muted fw-normal">(@Localizer["auto"])</span></label>
+                                <div id="editCardActualStart" class="form-control bg-light text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
                             </div>
-                            <datalist id="editCardLabelSuggestions"></datalist>
-                            <div class="form-text">@Localizer["Press Enter to add a label or create a new one on the fly."]</div>
-                        }
-                        else
-                        {
-                            <div class="form-text">@Localizer["Labels are read-only because you do not have edit access to this board."]</div>
-                        }
-                        <div id="editCardLabels" class="edit-card-labels mt-3"></div>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-6">
-                            <label class="form-label text-muted small">@Localizer["Actual Start"] <span class="text-muted fw-normal">(@Localizer["auto"])</span></label>
-                            <div id="editCardActualStart" class="form-control bg-light text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
+                            <div class="col-6">
+                                <label class="form-label text-muted small">@Localizer["Actual End"] <span class="text-muted fw-normal">(@Localizer["auto"])</span></label>
+                                <div id="editCardActualEnd" class="form-control bg-light text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <label class="form-label text-muted small">@Localizer["Actual End"] <span class="text-muted fw-normal">(@Localizer["auto"])</span></label>
-                            <div id="editCardActualEnd" class="form-control bg-light text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
+                        <div class="comments-section">
+                            <label class="form-label fw-semibold mb-2">@Localizer["Comments"]</label>
+                            <div id="commentsList"></div>
+                            @if (Model.CanEditCurrentBoard)
+                            {
+                                <div class="comment-add-area">
+                                    <textarea id="commentInput" placeholder="@Localizer["Add a comment..."]"></textarea>
+                                    <button type="button" class="btn btn-primary btn-comment-submit" id="btnAddComment">@Localizer["Send"]</button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-text">@Localizer["Comments are read-only because you do not have edit access to this board."]</div>
+                            }
                         </div>
                     </div>
-                    <div class="comments-section">
-                        <label class="form-label fw-semibold mb-2">@Localizer["Comments"]</label>
-                        <div id="commentsList"></div>
+                    <div class="modal-footer border-0 px-4 pb-4 @(Model.CanEditCurrentBoard ? "justify-content-between" : string.Empty)">
                         @if (Model.CanEditCurrentBoard)
                         {
-                            <div class="comment-add-area">
-                                <textarea id="commentInput" placeholder="@Localizer["Add a comment..."]"></textarea>
-                                <button type="button" class="btn btn-primary btn-comment-submit" id="btnAddComment">@Localizer["Send"]</button>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-primary" id="btnTransferCard" style="border-radius:10px">@Localizer["Transfer"]</button>
+                                <button type="button" class="btn btn-outline-danger" id="btnDeleteCard" style="border-radius:10px">@Localizer["Delete"]</button>
                             </div>
                         }
-                        else
-                        {
-                            <div class="form-text">@Localizer["Comments are read-only because you do not have edit access to this board."]</div>
-                        }
-                    </div>
-                </div>
-                <div class="modal-footer border-0 px-4 pb-4 @(Model.CanEditCurrentBoard ? "justify-content-between" : string.Empty)">
-                    @if (Model.CanEditCurrentBoard)
-                    {
-                        <div class="d-flex gap-2">
-                            <button type="button" class="btn btn-outline-primary" id="btnTransferCard" style="border-radius:10px">@Localizer["Transfer"]</button>
-                            <button type="button" class="btn btn-outline-danger" id="btnDeleteCard" style="border-radius:10px">@Localizer["Delete"]</button>
+                        <div>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@(Model.CanEditCurrentBoard ? Localizer["Cancel"].Value : Localizer["Close"].Value)</button>
+                            @if (Model.CanEditCurrentBoard)
+                            {
+                                <button type="button" class="btn btn-primary px-4" id="btnUpdateCard" style="border-radius:10px">@Localizer["Save"]</button>
+                            }
                         </div>
-                    }
-                    <div>
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@(Model.CanEditCurrentBoard ? Localizer["Cancel"].Value : Localizer["Close"].Value)</button>
-                        @if (Model.CanEditCurrentBoard)
-                        {
-                            <button type="button" class="btn btn-primary px-4" id="btnUpdateCard" style="border-radius:10px">@Localizer["Save"]</button>
-                        }
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-}
-
-@if (Model.CurrentBoard != null && Model.CanEditCurrentBoard)
-{
-    <!-- Transfer Card Modal -->
-    <div class="modal fade" id="transferCardModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
-                <div class="modal-header border-0 px-4 pt-4">
-                    <h5 class="modal-title fw-bold">@Localizer["Transfer Card"]</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body px-4">
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">@Localizer["Target Board"]</label>
-                        <select id="transferTargetBoard" class="form-select" style="border-radius:12px">
-                            <option value="">@Localizer["Select a board"]</option>
-                        </select>
+                @if (Model.CanEditCurrentBoard)
+                {
+                    <div id="transferCardView" class="d-none">
+                        <div class="modal-body px-4">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">@Localizer["Target Board"]</label>
+                                <select id="transferTargetBoard" class="form-select" style="border-radius:12px">
+                                    <option value="">@Localizer["Select a board"]</option>
+                                </select>
+                            </div>
+                            <div class="mb-0">
+                                <label class="form-label fw-semibold">@Localizer["Target Column"]</label>
+                                <select id="transferTargetColumn" class="form-select" style="border-radius:12px" disabled>
+                                    <option value="">@Localizer["Select a column"]</option>
+                                </select>
+                            </div>
+                            <div class="alert alert-warning mt-3 mb-0" role="alert">
+                                @Localizer["Comments will not be transferred and the assignee will be cleared."]
+                            </div>
+                            <div class="alert alert-danger mt-3 mb-0 d-none" id="transferCardError" role="alert"></div>
+                        </div>
+                        <div class="modal-footer border-0 px-4 pb-4">
+                            <button type="button" class="btn btn-light" id="btnBackFromTransferCard" style="border-radius:10px">@Localizer["Cancel"]</button>
+                            <button type="button" class="btn btn-primary px-4" id="btnConfirmTransferCard" style="border-radius:10px" disabled>
+                                @Localizer["Transfer"]
+                            </button>
+                        </div>
                     </div>
-                    <div class="mb-0">
-                        <label class="form-label fw-semibold">@Localizer["Target Column"]</label>
-                        <select id="transferTargetColumn" class="form-select" style="border-radius:12px" disabled>
-                            <option value="">@Localizer["Select a column"]</option>
-                        </select>
+                    <div id="deleteCardView" class="d-none">
+                        <div class="modal-body px-4">
+                            <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action cannot be undone."]</p>
+                            <div class="alert alert-danger mt-2 d-none" id="deleteCardError" role="alert"></div>
+                        </div>
+                        <div class="modal-footer border-0 px-4 pb-4">
+                            <button type="button" class="btn btn-light" id="btnBackFromDeleteCard" style="border-radius:10px">@Localizer["Cancel"]</button>
+                            <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteCard" style="border-radius:10px">
+                                @Localizer["Delete"]
+                            </button>
+                        </div>
                     </div>
-                    <div class="alert alert-warning mt-3 mb-0" role="alert">
-                        @Localizer["Comments will not be transferred and the assignee will be cleared."]
-                    </div>
-                    <div class="alert alert-danger mt-3 mb-0 d-none" id="transferCardError" role="alert"></div>
-                </div>
-                <div class="modal-footer border-0 px-4 pb-4">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
-                    <button type="button" class="btn btn-primary px-4" id="btnConfirmTransferCard" style="border-radius:10px" disabled>
-                        @Localizer["Transfer"]
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Delete Card Confirmation Modal -->
-    <div class="modal fade" id="deleteCardConfirmModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
-                <div class="modal-header border-0 px-4 pt-4">
-                    <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete"]</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body px-4">
-                    <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action cannot be undone."]</p>
-                    <div class="alert alert-danger mt-2 d-none" id="deleteCardError" role="alert"></div>
-                </div>
-                <div class="modal-footer border-0 px-4 pb-4">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
-                    <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteCard" style="border-radius:10px">
-                        @Localizer["Delete"]
-                    </button>
-                </div>
+                }
             </div>
         </div>
     </div>
@@ -1308,6 +1290,7 @@
     <span data-key="close">@Localizer["Close"]</span>
     <span data-key="save">@Localizer["Save"]</span>
     <span data-key="transfer">@Localizer["Transfer"]</span>
+    <span data-key="transfer-card">@Localizer["Transfer Card"]</span>
     <span data-key="select-board">@Localizer["Select a board"]</span>
     <span data-key="select-column">@Localizer["Select a column"]</span>
     <span data-key="no-transfer-targets">@Localizer["No editable target boards are available."]</span>
@@ -2332,6 +2315,8 @@
         var currentEditLabels = [];
         var boardMembersLoaded = false;
         var editCardModal = document.getElementById("editCardModal");
+        var editCardModalTitle = document.getElementById("editCardModalTitle");
+        var editCardDetailsView = document.getElementById("editCardDetailsView");
         var editCardTitle = document.getElementById("editCardTitle");
         var editCardDescription = document.getElementById("editCardDescription");
         var editCardPlannedStart = document.getElementById("editCardPlannedStart");
@@ -2347,19 +2332,17 @@
         var btnUpdateCard = document.getElementById("btnUpdateCard");
         var btnTransferCard = document.getElementById("btnTransferCard");
         var btnDeleteCard = document.getElementById("btnDeleteCard");
-        var deleteCardConfirmModalEl = document.getElementById("deleteCardConfirmModal");
-        var deleteCardConfirmModal = deleteCardConfirmModalEl ? new bootstrap.Modal(deleteCardConfirmModalEl) : null;
+        var deleteCardView = document.getElementById("deleteCardView");
+        var btnBackFromDeleteCard = document.getElementById("btnBackFromDeleteCard");
         var btnConfirmDeleteCard = document.getElementById("btnConfirmDeleteCard");
         var deleteCardError = document.getElementById("deleteCardError");
-        var restoreEditCardModalAfterDelete = false;
-        var transferCardModalEl = document.getElementById("transferCardModal");
-        var transferCardModal = transferCardModalEl ? new bootstrap.Modal(transferCardModalEl) : null;
+        var transferCardView = document.getElementById("transferCardView");
+        var btnBackFromTransferCard = document.getElementById("btnBackFromTransferCard");
         var transferTargetBoard = document.getElementById("transferTargetBoard");
         var transferTargetColumn = document.getElementById("transferTargetColumn");
         var transferCardError = document.getElementById("transferCardError");
         var btnConfirmTransferCard = document.getElementById("btnConfirmTransferCard");
         var transferTargets = [];
-        var restoreEditCardModalAfterTransfer = false;
         var commentsList = document.getElementById("commentsList");
         var commentInput = document.getElementById("commentInput");
         var btnAddComment = document.getElementById("btnAddComment");
@@ -2368,6 +2351,30 @@
         var btnConfirmDeleteComment = document.getElementById("btnConfirmDeleteComment");
         var deleteCommentError = document.getElementById("deleteCommentError");
         var commentIdToDelete = null;
+
+        function showEditCardView(view) {
+            if (!editCardDetailsView) return;
+
+            editCardDetailsView.classList.toggle("d-none", view !== "details");
+            if (transferCardView) {
+                transferCardView.classList.toggle("d-none", view !== "transfer");
+            }
+            if (deleteCardView) {
+                deleteCardView.classList.toggle("d-none", view !== "delete");
+            }
+            if (!editCardModalTitle) return;
+
+            editCardModalTitle.classList.toggle("text-danger", view === "delete");
+            if (view === "transfer") {
+                editCardModalTitle.textContent = getLocalizedText("transfer-card", "Transfer Card");
+                return;
+            }
+            if (view === "delete") {
+                editCardModalTitle.textContent = getLocalizedText("delete", "Delete");
+                return;
+            }
+            editCardModalTitle.textContent = getLocalizedText("card-details", "Card Details");
+        }
 
         function updateCardAssignment(cardEl, assignedUserId, assignedUserName, assignedUserInitial) {
             cardEl.dataset.assignedUserId = assignedUserId || "";
@@ -2647,6 +2654,7 @@
                 return;
             }
 
+            showEditCardView("details");
             currentEditCardElement = cardEl;
             currentEditCardId = parseInt(cardEl.dataset.cardId, 10);
             currentEditLabels = parseCardLabels(cardEl).map(function(label) {
@@ -2752,18 +2760,8 @@
             });
         }
 
-        if (deleteCardConfirmModalEl && editCardModal) {
-            deleteCardConfirmModalEl.addEventListener("hidden.bs.modal", function() {
-                if (!restoreEditCardModalAfterDelete) return;
-
-                restoreEditCardModalAfterDelete = false;
-                new bootstrap.Modal(editCardModal).show();
-            });
-        }
-
-        if (btnDeleteCard && deleteCardConfirmModal && editCardModal) {
+        if (btnDeleteCard) {
             btnDeleteCard.addEventListener("click", function() {
-                restoreEditCardModalAfterDelete = true;
                 if (deleteCardError) {
                     deleteCardError.textContent = "";
                     deleteCardError.classList.add("d-none");
@@ -2773,19 +2771,17 @@
                     btnConfirmDeleteCard.textContent = getLocalizedText("delete", "Delete");
                 }
 
-                var editCardModalInstance = bootstrap.Modal.getInstance(editCardModal);
-                if (editCardModalInstance) {
-                    editCardModal.addEventListener("hidden.bs.modal", function() {
-                        deleteCardConfirmModal.show();
-                    }, { once: true });
-                    editCardModalInstance.hide();
-                } else {
-                    deleteCardConfirmModal.show();
-                }
+                showEditCardView("delete");
             });
         }
 
-        if (btnConfirmDeleteCard && deleteCardConfirmModal) {
+        if (btnBackFromDeleteCard) {
+            btnBackFromDeleteCard.addEventListener("click", function() {
+                showEditCardView("details");
+            });
+        }
+
+        if (btnConfirmDeleteCard) {
             btnConfirmDeleteCard.addEventListener("click", function() {
                 if (!currentEditCardId) return;
 
@@ -2808,8 +2804,10 @@
                     }
                     currentEditCardId = 0;
                     currentEditCardElement = null;
-                    restoreEditCardModalAfterDelete = false;
-                    deleteCardConfirmModal.hide();
+                    var editCardModalInstance = bootstrap.Modal.getInstance(editCardModal);
+                    if (editCardModalInstance) {
+                        editCardModalInstance.hide();
+                    }
                 })
                 .catch(function(err) {
                     if (deleteCardError) {
@@ -2871,18 +2869,14 @@
             });
         }
 
-        if (transferCardModalEl && editCardModal) {
-            transferCardModalEl.addEventListener("hidden.bs.modal", function() {
-                if (!restoreEditCardModalAfterTransfer) return;
-
-                restoreEditCardModalAfterTransfer = false;
-                new bootstrap.Modal(editCardModal).show();
+        if (btnBackFromTransferCard) {
+            btnBackFromTransferCard.addEventListener("click", function() {
+                showEditCardView("details");
             });
         }
 
-        if (btnTransferCard && transferCardModal && transferTargetBoard && transferTargetColumn && btnConfirmTransferCard) {
+        if (btnTransferCard && transferTargetBoard && transferTargetColumn && btnConfirmTransferCard) {
             btnTransferCard.addEventListener("click", function() {
-                restoreEditCardModalAfterTransfer = true;
                 transferTargets = [];
                 resetTransferSelect(transferTargetBoard, getLocalizedText("loading-transfer-targets", "Loading target boards..."));
                 resetTransferSelect(transferTargetColumn, getLocalizedText("select-column", "Select a column"));
@@ -2890,16 +2884,7 @@
                 transferTargetColumn.disabled = true;
                 btnConfirmTransferCard.disabled = true;
                 showTransferError("");
-
-                var editCardModalInstance = bootstrap.Modal.getInstance(editCardModal);
-                if (editCardModalInstance) {
-                    editCardModal.addEventListener("hidden.bs.modal", function() {
-                        transferCardModal.show();
-                    }, { once: true });
-                    editCardModalInstance.hide();
-                } else {
-                    transferCardModal.show();
-                }
+                showEditCardView("transfer");
 
                 fetch("/Kanban/GetTransferTargets?cardId=" + currentEditCardId)
                     .then(function(r) {
@@ -2927,7 +2912,7 @@
             });
         }
 
-        if (btnConfirmTransferCard && transferCardModal && transferTargetBoard && transferTargetColumn) {
+        if (btnConfirmTransferCard && transferTargetBoard && transferTargetColumn) {
             btnConfirmTransferCard.addEventListener("click", function() {
                 if (!transferTargetBoard.value || !transferTargetColumn.value) return;
 
@@ -2951,8 +2936,10 @@
                     }
                     currentEditCardId = 0;
                     currentEditCardElement = null;
-                    restoreEditCardModalAfterTransfer = false;
-                    transferCardModal.hide();
+                    var editCardModalInstance = bootstrap.Modal.getInstance(editCardModal);
+                    if (editCardModalInstance) {
+                        editCardModalInstance.hide();
+                    }
                 })
                 .catch(function(err) {
                     showTransferError(getLocalizedText("failed-transfer", "Failed to transfer card:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
