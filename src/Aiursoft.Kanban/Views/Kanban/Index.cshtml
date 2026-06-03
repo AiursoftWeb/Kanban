@@ -361,6 +361,13 @@
         flex-shrink: 0;
     }
 
+    .card-assignee-avatar-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
     .readonly-badge {
         display: inline-flex;
         align-items: center;
@@ -883,6 +890,9 @@
                             var assignedUserInitial = string.IsNullOrWhiteSpace(assignedUserDisplayName)
                                 ? string.Empty
                                 : assignedUserDisplayName.Trim()[0].ToString().ToUpperInvariant();
+                            var assignedUserAvatarUrl = card.AssignedUser != null && card.AssignedUser.AvatarRelativePath != Aiursoft.Kanban.Entities.User.DefaultAvatarPath
+                                ? $"{Storage.RelativePathToInternetUrl(card.AssignedUser.AvatarRelativePath)}?w=56&square=true"
+                                : string.Empty;
                             var labelsJson = JsonSerializer.Serialize(card.CardLabels
                                 .OrderBy(link => link.Label.Name)
                                 .Select(link => new { Id = link.LabelId, link.Label.Name, link.Label.Color }));
@@ -898,6 +908,7 @@
                                  data-assigned-user-id="@(card.AssignedUserId ?? string.Empty)"
                                  data-assigned-user-name="@assignedUserDisplayName"
                                  data-assigned-user-initial="@assignedUserInitial"
+                                 data-assigned-user-avatar-url="@assignedUserAvatarUrl"
                                  data-labels='@labelsJson'>
                                 <div class="card-title-text">@card.Title</div>
                                 @if (!string.IsNullOrWhiteSpace(card.Description))
@@ -1684,8 +1695,13 @@
 
             var assignedUserInitial = cardEl.dataset.assignedUserInitial || "";
             var assignedUserName = cardEl.dataset.assignedUserName || "";
+            var assignedUserAvatarUrl = cardEl.dataset.assignedUserAvatarUrl || "";
             if (assignedUserInitial) {
-                topRow.push('<span class="card-assignee-avatar" title="' + escapeAttribute(assignedUserName || assignedUserInitial) + '">' + escapeHtml(assignedUserInitial) + '</span>');
+                if (assignedUserAvatarUrl) {
+                    topRow.push('<span class="card-assignee-avatar" title="' + escapeAttribute(assignedUserName || assignedUserInitial) + '"><img class="card-assignee-avatar-image" src="' + escapeAttribute(assignedUserAvatarUrl) + '" alt="' + escapeAttribute(assignedUserName || assignedUserInitial) + '" onerror="this.classList.add(\'d-none\');this.nextElementSibling.classList.remove(\'d-none\');"><span class="card-assignee-avatar-initial d-none">' + escapeHtml(assignedUserInitial) + '</span></span>');
+                } else {
+                    topRow.push('<span class="card-assignee-avatar" title="' + escapeAttribute(assignedUserName || assignedUserInitial) + '">' + escapeHtml(assignedUserInitial) + '</span>');
+                }
             }
 
             if (topRow.length > 0) {
@@ -2376,10 +2392,11 @@
             editCardModalTitle.textContent = getLocalizedText("card-details", "Card Details");
         }
 
-        function updateCardAssignment(cardEl, assignedUserId, assignedUserName, assignedUserInitial) {
+        function updateCardAssignment(cardEl, assignedUserId, assignedUserName, assignedUserInitial, assignedUserAvatarUrl) {
             cardEl.dataset.assignedUserId = assignedUserId || "";
             cardEl.dataset.assignedUserName = assignedUserName || "";
             cardEl.dataset.assignedUserInitial = assignedUserInitial || "";
+            cardEl.dataset.assignedUserAvatarUrl = assignedUserAvatarUrl || "";
         }
 
         function syncCurrentCardLabels() {
@@ -2745,7 +2762,7 @@
                         currentEditCardElement.dataset.actualStart = data.ActualStartTime || "";
                         currentEditCardElement.dataset.actualEnd = data.ActualEndTime || "";
                         currentEditCardElement.dataset.priority = (data.Priority !== undefined ? data.Priority : 4).toString();
-                        updateCardAssignment(currentEditCardElement, data.AssignedUserId, data.AssignedUserName, data.AssignedUserInitial);
+                        updateCardAssignment(currentEditCardElement, data.AssignedUserId, data.AssignedUserName, data.AssignedUserInitial, data.AssignedUserAvatarUrl);
                         renderCardContent(currentEditCardElement);
                     }
                     bootstrap.Modal.getInstance(editCardModal).hide();
