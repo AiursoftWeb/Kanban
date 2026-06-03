@@ -51,7 +51,7 @@
 <script src="~/js/agent-chat.js"></script>
 <script>
     (function() {
-        var boardId = @(Model?.CurrentBoard?.Id ?? 0);
+        var boardId = @(Model.CurrentBoard?.Id ?? 0);
         if (boardId > 0) {
             AgentChat.init('@token', boardId);
         }

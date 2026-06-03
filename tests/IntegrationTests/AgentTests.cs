@@ -104,7 +104,7 @@ public class AgentTests : TestBase
 
         var retrieved = service.Get(advice.Id);
         Assert.IsNotNull(retrieved);
-        Assert.AreEqual("CreateCard", retrieved!.ToolName);
+        Assert.AreEqual("CreateCard", retrieved.ToolName);
 
         var pending = service.GetPendingForConversation(conversationId);
         Assert.AreEqual(1, pending.Count);
@@ -155,7 +155,7 @@ public class AgentTests : TestBase
 
         var conversation = service.GetConversation(conversationId);
         Assert.IsNotNull(conversation);
-        Assert.AreEqual(userId, conversation!.UserId);
+        Assert.AreEqual(userId, conversation.UserId);
         Assert.AreEqual(boardId, conversation.BoardId);
         Assert.IsTrue(conversation.Messages.Count >= 2); // system + user
     }
@@ -270,7 +270,7 @@ public class AgentTests : TestBase
         await LoginAsAdmin();
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var token = await GetAntiCsrfToken("/");
-        var json = JsonSerializer.Serialize(new { boardId = boardId, message = "What cards do I have?" });
+        var json = JsonSerializer.Serialize(new { boardId, message = "What cards do I have?" });
         var content = new StringContent(json, Encoding.UTF8, "application/json");
         content.Headers.Add("RequestVerificationToken", token);
 
@@ -289,7 +289,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var token = await GetAntiCsrfToken("/");
 
-        var json = JsonSerializer.Serialize(new { boardId = boardId, message = "Hello" });
+        var json = JsonSerializer.Serialize(new { boardId, message = "Hello" });
         var content = new StringContent(json, Encoding.UTF8, "application/json");
         content.Headers.Add("RequestVerificationToken", token);
         var sendResponse = await Http.PostAsync("/Agent/SendMessage", content);
@@ -309,7 +309,7 @@ public class AgentTests : TestBase
         using var scope = Server!.Services.CreateScope();
         var userManager = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<User>>();
         var adminUser = await userManager.FindByEmailAsync(adminEmail);
-        Assert.AreEqual(adminUser!.Id, conversation!.UserId,
+        Assert.AreEqual(adminUser.Id, conversation.UserId,
             "Conversation should belong to the admin user");
     }
 
@@ -354,7 +354,7 @@ public class AgentTests : TestBase
         var access = scope.ServiceProvider.GetRequiredService<KanbanAccessService>();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var board = await db.KanbanBoards.FindAsync(boardId);
-        board!.IsPublic = true;
+        board.IsPublic = true;
         await db.SaveChangesAsync();
 
         var strangerId = Guid.NewGuid().ToString();
@@ -431,7 +431,7 @@ public class AgentTests : TestBase
         Assert.IsNotNull(conversation);
         // StartRun accepts whatever userId is given — it's the controller's job to pass the real one.
         // In production, AgentController passes userManager.GetUserId(User).
-        Assert.AreEqual("fake-attacker-id", conversation!.UserId,
+        Assert.AreEqual("fake-attacker-id", conversation.UserId,
             "StartRun stores the userId it receives; controller must pass authenticated userId");
     }
 
@@ -442,7 +442,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var token = await GetAntiCsrfToken("/");
 
-        var json = JsonSerializer.Serialize(new { boardId = boardId, message = "Show my boards" });
+        var json = JsonSerializer.Serialize(new { boardId, message = "Show my boards" });
         var content = new StringContent(json, Encoding.UTF8, "application/json");
         content.Headers.Add("RequestVerificationToken", token);
 
@@ -462,7 +462,7 @@ public class AgentTests : TestBase
         using var scope = Server!.Services.CreateScope();
         var userManager = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<User>>();
         var adminUser = await userManager.FindByEmailAsync(adminEmail);
-        Assert.AreEqual(adminUser!.Id, conversation!.UserId,
+        Assert.AreEqual(adminUser.Id, conversation.UserId,
             "Conversation UserId must match the authenticated user, not the LLM's input");
     }
 
@@ -512,18 +512,18 @@ public class AgentTests : TestBase
         using var scope = Server!.Services.CreateScope();
         var userManager = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<User>>();
         var adminUser = await userManager.FindByEmailAsync("admin@default.com");
-        var realUserId = adminUser!.Id;
+        var realUserId = adminUser.Id;
 
         var conversationId = agentService.StartRun(realUserId, boardId, "Hello");
         var conversation = agentService.GetConversation(conversationId);
         Assert.IsNotNull(conversation);
-        Assert.AreEqual(realUserId, conversation!.UserId);
+        Assert.AreEqual(realUserId, conversation.UserId);
         Assert.AreEqual(boardId, conversation.BoardId);
 
         // Verify system prompt no longer exposes userId for tool use
         var systemMsg = conversation.Messages.FirstOrDefault(m => m.Role == "system");
         Assert.IsNotNull(systemMsg);
-        Assert.IsFalse(systemMsg!.Content!.Contains($"The current user ID is \"{realUserId}\""),
+        Assert.IsFalse(systemMsg.Content!.Contains($"The current user ID is \"{realUserId}\""),
             "System prompt should NOT expose raw userId since it's server-injected");
         StringAssert.Contains(systemMsg.Content, "The server handles identity automatically",
             "System prompt should explain that identity is handled server-side");
@@ -541,7 +541,7 @@ public class AgentTests : TestBase
         var conversationId = service.StartRun("admin", boardId, "First message");
         var conversation = service.GetConversation(conversationId);
         Assert.IsNotNull(conversation);
-        var originalCount = conversation!.Messages.Count;
+        var originalCount = conversation.Messages.Count;
         Assert.IsTrue(originalCount >= 2); // system + user (plus possibly assistant from background task)
 
         // Simulate completion
@@ -553,7 +553,7 @@ public class AgentTests : TestBase
         Assert.AreEqual(conversationId, result!.Value);
 
         var continued = service.GetConversation(conversationId);
-        Assert.AreEqual(AgentState.Thinking, continued!.State);
+        Assert.AreEqual(AgentState.Thinking, continued.State);
         Assert.AreEqual(originalCount + 1, continued.Messages.Count); // +1 for follow-up user message
         Assert.AreEqual("Follow-up question", continued.Messages.Last().Content);
     }
@@ -567,7 +567,7 @@ public class AgentTests : TestBase
 
         var conversationId = service.StartRun("admin", boardId, "Hello");
         var conversation = service.GetConversation(conversationId);
-        conversation!.State = AgentState.Completed;
+        conversation.State = AgentState.Completed;
 
         // Different user tries to continue
         var result = service.ContinueRun(conversationId, "different-user", "Hijack");
@@ -609,7 +609,7 @@ public class AgentTests : TestBase
         // Complete the conversation manually
         var agentService = GetService<IAgentService>();
         var conversation = agentService.GetConversation(Guid.Parse(convId));
-        conversation!.State = AgentState.Completed;
+        conversation.State = AgentState.Completed;
 
         // Continue with same conversationId
         var json2 = $"{{ \"boardId\": {boardId}, \"message\": \"Follow-up\", \"conversationId\": \"{convId}\" }}";
@@ -705,7 +705,7 @@ public class AgentTests : TestBase
         StringAssert.Contains(result, "public");
 
         var board = await db.KanbanBoards.FindAsync(boardId);
-        Assert.IsTrue(board!.IsPublic);
+        Assert.IsTrue(board.IsPublic);
 
         result = await shareTools.UpdateBoardVisibility(boardId, false);
         StringAssert.Contains(result, "private");

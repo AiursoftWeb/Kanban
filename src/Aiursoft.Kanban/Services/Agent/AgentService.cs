@@ -4,7 +4,6 @@ using Aiursoft.Canon.TaskQueue;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using ModelContextProtocol.Server;
 using Newtonsoft.Json;
@@ -249,7 +248,7 @@ public class AgentService : IAgentService
                                 conversationId: conversationId,
                                 toolName: tu.Name,
                                 toolDisplayName: displayName,
-                                toolDescription: description ?? "",
+                                toolDescription: description,
                                 parameters: args,
                                 parameterDisplay: paramDisplay,
                                 toolCallId: tu.Id);
@@ -578,7 +577,7 @@ public class AgentService : IAgentService
         };
 
         var result = await tool.InvokeAsync(request);
-        var textContent = result.Content?.OfType<ModelContextProtocol.Protocol.TextContentBlock>().FirstOrDefault();
+        var textContent = result.Content.OfType<ModelContextProtocol.Protocol.TextContentBlock>().FirstOrDefault();
         return textContent?.Text ?? result.ToString() ?? "Tool executed.";
     }
 
