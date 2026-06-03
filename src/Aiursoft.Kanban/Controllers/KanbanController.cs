@@ -3,6 +3,7 @@ using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.KanbanViewModels;
 using Aiursoft.Kanban.Services;
+using Aiursoft.Kanban.Services.FileStorage;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +18,7 @@ namespace Aiursoft.Kanban.Controllers;
 public class KanbanController(
     TemplateDbContext db,
     UserManager<User> userManager,
+    StorageService storage,
     IAuthorizationService authorizationService) : Controller
 {
     private static readonly string[] LabelColors =
@@ -654,7 +656,8 @@ public class KanbanController(
             PriorityText = card.Priority.ToString(),
             AssignedUserId = assignedUser?.Id,
             AssignedUserName = GetUserDisplayName(assignedUser),
-            AssignedUserInitial = GetUserInitial(assignedUser)
+            AssignedUserInitial = GetUserInitial(assignedUser),
+            AssignedUserAvatarUrl = GetUserAvatarUrl(assignedUser)
         });
     }
 
@@ -712,7 +715,8 @@ public class KanbanController(
             card.Id,
             AssignedUserId = assignedUser?.Id,
             AssignedUserName = GetUserDisplayName(assignedUser),
-            AssignedUserInitial = GetUserInitial(assignedUser)
+            AssignedUserInitial = GetUserInitial(assignedUser),
+            AssignedUserAvatarUrl = GetUserAvatarUrl(assignedUser)
         });
     }
 
@@ -1173,6 +1177,14 @@ public class KanbanController(
         return user == null ? null : string.IsNullOrWhiteSpace(user.DisplayName)
             ? user.UserName ?? user.Email ?? user.Id
             : user.DisplayName;
+    }
+
+    private string? GetUserAvatarUrl(User? user)
+    {
+        if (user == null || user.AvatarRelativePath == Aiursoft.Kanban.Entities.User.DefaultAvatarPath)
+            return null;
+
+        return $"{storage.RelativePathToInternetUrl(user.AvatarRelativePath)}?w=56&square=true";
     }
 
     private static string GetUserInitial(User? user)
