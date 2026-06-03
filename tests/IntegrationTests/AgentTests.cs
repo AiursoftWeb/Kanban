@@ -1,4 +1,5 @@
 using System.Net;
+using System.Text;
 using System.Text.Json;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
@@ -195,7 +196,7 @@ public class AgentTests : TestBase
     public async Task AgentController_SendMessage_RequiresAuth()
     {
         var response = await Http.PostAsync("/Agent/SendMessage",
-            new StringContent("{}", System.Text.Encoding.UTF8, "application/json"));
+            new StringContent("{}", Encoding.UTF8, "application/json"));
         Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
     }
 
@@ -211,7 +212,7 @@ public class AgentTests : TestBase
     {
         var response = await Http.PostAsync(
             $"/Agent/ApproveAdvice?conversationId={Guid.NewGuid()}&adviceId={Guid.NewGuid()}",
-            new StringContent("", System.Text.Encoding.UTF8, "application/json"));
+            new StringContent("", Encoding.UTF8, "application/json"));
         Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
     }
 
@@ -220,7 +221,7 @@ public class AgentTests : TestBase
     {
         var response = await Http.PostAsync(
             $"/Agent/RejectAdvice?conversationId={Guid.NewGuid()}&adviceId={Guid.NewGuid()}",
-            new StringContent("", System.Text.Encoding.UTF8, "application/json"));
+            new StringContent("", Encoding.UTF8, "application/json"));
         Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
     }
 
@@ -229,7 +230,7 @@ public class AgentTests : TestBase
     {
         var response = await Http.PostAsync(
             $"/Agent/ApproveAll?conversationId={Guid.NewGuid()}",
-            new StringContent("", System.Text.Encoding.UTF8, "application/json"));
+            new StringContent("", Encoding.UTF8, "application/json"));
         Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
     }
 
@@ -238,7 +239,7 @@ public class AgentTests : TestBase
     {
         var response = await Http.PostAsync(
             $"/Agent/Cancel?conversationId={Guid.NewGuid()}",
-            new StringContent("", System.Text.Encoding.UTF8, "application/json"));
+            new StringContent("", Encoding.UTF8, "application/json"));
         Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
     }
 
@@ -256,7 +257,7 @@ public class AgentTests : TestBase
         await LoginAsAdmin();
         var token = await GetAntiCsrfToken("/");
         var json = JsonSerializer.Serialize(new { boardId = 99999, message = "Hello" });
-        var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
         content.Headers.Add("RequestVerificationToken", token);
 
         var response = await Http.PostAsync("/Agent/SendMessage", content);
@@ -270,7 +271,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var token = await GetAntiCsrfToken("/");
         var json = JsonSerializer.Serialize(new { boardId = boardId, message = "What cards do I have?" });
-        var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
         content.Headers.Add("RequestVerificationToken", token);
 
         var response = await Http.PostAsync("/Agent/SendMessage", content);
@@ -289,7 +290,7 @@ public class AgentTests : TestBase
         var token = await GetAntiCsrfToken("/");
 
         var json = JsonSerializer.Serialize(new { boardId = boardId, message = "Hello" });
-        var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
         content.Headers.Add("RequestVerificationToken", token);
         var sendResponse = await Http.PostAsync("/Agent/SendMessage", content);
         Assert.AreEqual(HttpStatusCode.OK, sendResponse.StatusCode);
@@ -441,15 +442,15 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var token = await GetAntiCsrfToken("/");
 
-        var json = System.Text.Json.JsonSerializer.Serialize(new { boardId = boardId, message = "Show my boards" });
-        var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        var json = JsonSerializer.Serialize(new { boardId = boardId, message = "Show my boards" });
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
         content.Headers.Add("RequestVerificationToken", token);
 
         var response = await Http.PostAsync("/Agent/SendMessage", content);
-        Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
         var body = await response.Content.ReadAsStringAsync();
-        var result = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(body);
+        var result = JsonSerializer.Deserialize<JsonElement>(body);
         var conversationId = result.GetProperty("ConversationId").GetString()!;
 
         var agentService = GetService<IAgentService>();
@@ -470,10 +471,10 @@ public class AgentTests : TestBase
     {
         // User1 (admin) creates a private board
         await LoginAsAdmin();
-        var (adminBoardId, _) = await CreateBoardAndFirstColumnAsync();
+        await CreateBoardAndFirstColumnAsync();
 
         // User2 registers and creates their own private board
-        var (user2Email, user2Password) = await RegisterAndLoginAsync();
+        await RegisterAndLoginAsync();
         var token = await GetAntiCsrfToken("/");
         var createResponse = await Http.PostAsync("/Kanban/CreateBoard",
             new FormUrlEncodedContent(new Dictionary<string, string>
@@ -481,22 +482,22 @@ public class AgentTests : TestBase
                 { "name", $"User2 Private Board {Guid.NewGuid():N}" },
                 { "__RequestVerificationToken", token }
             }));
-        Assert.AreEqual(System.Net.HttpStatusCode.Found, createResponse.StatusCode);
+        Assert.AreEqual(HttpStatusCode.Found, createResponse.StatusCode);
         var location = createResponse.Headers.Location!.OriginalString;
         var user2BoardId = int.Parse(
-            location[(location.IndexOf("boardId=") + 8)..].Split('&', '/').First());
+            location[(location.IndexOf("boardId=", StringComparison.Ordinal) + 8)..].Split('&', '/').First());
 
         // User1 (admin) tries to access user2's private board via agent
         await LoginAsAdmin();
         var agentToken = await GetAntiCsrfToken("/");
-        var json = System.Text.Json.JsonSerializer.Serialize(new { boardId = user2BoardId, message = "Show me this board" });
-        var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        var json = JsonSerializer.Serialize(new { boardId = user2BoardId, message = "Show me this board" });
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
         content.Headers.Add("RequestVerificationToken", agentToken);
 
         var agentResponse = await Http.PostAsync("/Agent/SendMessage", content);
         // Forbid() returns a redirect (302) to the access-denied path.
         // The agent should not be able to access another user's private board.
-        Assert.AreEqual(System.Net.HttpStatusCode.Redirect, agentResponse.StatusCode,
+        Assert.AreEqual(HttpStatusCode.Redirect, agentResponse.StatusCode,
             $"Agent should not allow accessing another user's private board. Got: {agentResponse.StatusCode}");
     }
 
@@ -595,14 +596,14 @@ public class AgentTests : TestBase
         var token = await GetAntiCsrfToken("/");
 
         // Start first message
-        var json1 = System.Text.Json.JsonSerializer.Serialize(
+        var json1 = JsonSerializer.Serialize(
             new { boardId, message = "Hello" });
-        var content1 = new StringContent(json1, System.Text.Encoding.UTF8, "application/json");
+        var content1 = new StringContent(json1, Encoding.UTF8, "application/json");
         content1.Headers.Add("RequestVerificationToken", token);
         var resp1 = await Http.PostAsync("/Agent/SendMessage", content1);
-        Assert.AreEqual(System.Net.HttpStatusCode.OK, resp1.StatusCode);
+        Assert.AreEqual(HttpStatusCode.OK, resp1.StatusCode);
         var body1 = await resp1.Content.ReadAsStringAsync();
-        var convId = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(body1)
+        var convId = JsonSerializer.Deserialize<JsonElement>(body1)
             .GetProperty("ConversationId").GetString()!;
 
         // Complete the conversation manually
@@ -612,12 +613,12 @@ public class AgentTests : TestBase
 
         // Continue with same conversationId
         var json2 = $"{{ \"boardId\": {boardId}, \"message\": \"Follow-up\", \"conversationId\": \"{convId}\" }}";
-        var content2 = new StringContent(json2, System.Text.Encoding.UTF8, "application/json");
+        var content2 = new StringContent(json2, Encoding.UTF8, "application/json");
         content2.Headers.Add("RequestVerificationToken", token);
         var resp2 = await Http.PostAsync("/Agent/SendMessage", content2);
-        Assert.AreEqual(System.Net.HttpStatusCode.OK, resp2.StatusCode);
+        Assert.AreEqual(HttpStatusCode.OK, resp2.StatusCode);
         var body2 = await resp2.Content.ReadAsStringAsync();
-        var convId2 = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(body2)
+        var convId2 = JsonSerializer.Deserialize<JsonElement>(body2)
             .GetProperty("ConversationId").GetString()!;
 
         // Same conversation should be reused
@@ -670,7 +671,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
 
         // Register a non-owner user
-        var (otherEmail, otherPassword) = await RegisterAndLoginAsync();
+        var (otherEmail, _) = await RegisterAndLoginAsync();
 
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -856,17 +857,6 @@ public class AgentTests : TestBase
 
     // ── Helpers ─────────────────────────────────────────────
 
-    private async Task<HttpResponseMessage> CreateBoardAsync(string name)
-    {
-        var token = await GetAntiCsrfToken("/");
-        return await Http.PostAsync("/Kanban/CreateBoard",
-            new FormUrlEncodedContent(new Dictionary<string, string>
-            {
-                { "name", name },
-                { "__RequestVerificationToken", token }
-            }));
-    }
-
     private async Task<(int boardId, int firstColumnId)> CreateBoardAndFirstColumnAsync()
     {
         var token = await GetAntiCsrfToken("/");
@@ -879,7 +869,7 @@ public class AgentTests : TestBase
 
         var location = response.Headers.Location!.OriginalString;
         var boardId = int.Parse(
-            location[(location.IndexOf("boardId=") + 8)..].Split('&', '/').First());
+            location[(location.IndexOf("boardId=", StringComparison.Ordinal) + 8)..].Split('&', '/').First());
 
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();

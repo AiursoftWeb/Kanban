@@ -1,5 +1,5 @@
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@inject IViewLocalizer Localizer
 @{
     var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
 }
@@ -51,7 +51,7 @@
 <script src="~/js/agent-chat.js"></script>
 <script>
     (function() {
-        var boardId = @((Model as dynamic)?.CurrentBoard?.Id ?? 0);
+        var boardId = @(Model?.CurrentBoard?.Id ?? 0);
         if (boardId > 0) {
             AgentChat.init('@token', boardId);
         }

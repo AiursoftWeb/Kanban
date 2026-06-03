@@ -1,5 +1,5 @@
 @model Aiursoft.Kanban.Models.AgentViewModels.AdviceViewModel
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@inject IViewLocalizer Localizer
 
 <div class="advice-card" data-advice-id="@Model.AdviceId">
     <div class="advice-header">@Localizer["Proposed Action:"] @Model.ToolDisplayName</div>

@@ -1,5 +1,3 @@
-using Aiursoft.Kanban.Services.Agent;
-
 namespace Aiursoft.Kanban.Models.AgentViewModels;
 
 public class AgentStatusViewModel

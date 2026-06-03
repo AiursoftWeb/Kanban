@@ -1,6 +1,5 @@
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Scanner.Abstractions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.Kanban.Services.Access;
@@ -8,12 +7,10 @@ namespace Aiursoft.Kanban.Services.Access;
 public class KanbanAccessService : IScopedDependency
 {
     private readonly TemplateDbContext _db;
-    private readonly UserManager<User> _userManager;
 
-    public KanbanAccessService(TemplateDbContext db, UserManager<User> userManager)
+    public KanbanAccessService(TemplateDbContext db)
     {
         _db = db;
-        _userManager = userManager;
     }
 
     public async Task<bool> HasReadAccess(KanbanBoard board, string userId)

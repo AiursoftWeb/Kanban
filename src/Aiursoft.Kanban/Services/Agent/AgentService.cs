@@ -1,11 +1,9 @@
 using System.Collections.Concurrent;
 using System.Text;
-using System.Text.Json;
 using Aiursoft.Canon.TaskQueue;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using ModelContextProtocol.Server;
@@ -188,7 +186,7 @@ public class AgentService : IAgentService
 
     public void CancelRun(Guid conversationId)
     {
-        if (_conversations.TryRemove(conversationId, out var conversation))
+        if (_conversations.TryRemove(conversationId, out _))
         {
             _adviceService.RemoveConversationAdvice(conversationId);
         }

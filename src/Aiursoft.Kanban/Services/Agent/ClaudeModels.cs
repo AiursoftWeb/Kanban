@@ -20,7 +20,7 @@ public class ClaudeRequest
     public List<ClaudeTool>? Tools { get; set; }
 
     [JsonPropertyName("stream")]
-    public bool Stream { get; set; } = false;
+    public bool Stream { get; set; }
 }
 
 public class ClaudeMessage
