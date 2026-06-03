@@ -153,11 +153,10 @@ public class AgentTests : TestBase
 
         var conversationId = service.StartRun(userId, boardId, "Hello");
 
-        var conversation = service.GetConversation(conversationId);
-        Assert.IsNotNull(conversation);
-        Assert.AreEqual(userId, conversation!.UserId);
-        Assert.AreEqual(boardId, conversation!.BoardId);
-        Assert.IsTrue(conversation!.Messages.Count >= 2); // system + user
+        var conversation = service.GetConversation(conversationId)!;
+        Assert.AreEqual(userId, conversation.UserId);
+        Assert.AreEqual(boardId, conversation.BoardId);
+        Assert.IsTrue(conversation.Messages.Count >= 2); // system + user
     }
 
     [TestMethod]
@@ -302,14 +301,13 @@ public class AgentTests : TestBase
         Assert.AreEqual(HttpStatusCode.OK, statusResponse.StatusCode);
 
         var agentService = GetService<IAgentService>();
-        var conversation = agentService.GetConversation(Guid.Parse(conversationId));
-        Assert.IsNotNull(conversation);
+        var conversation = agentService.GetConversation(Guid.Parse(conversationId))!;
 
         var adminEmail = "admin@default.com";
         using var scope = Server!.Services.CreateScope();
         var userManager = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<User>>();
         var adminUser = await userManager.FindByEmailAsync(adminEmail);
-        Assert.AreEqual(adminUser!.Id, conversation!.UserId,
+        Assert.AreEqual(adminUser!.Id, conversation.UserId,
             "Conversation should belong to the admin user");
     }
 
@@ -401,14 +399,14 @@ public class AgentTests : TestBase
         var user2 = db.Users.First(u => u.Email == user2Email);
         var user3 = db.Users.First(u => u.Email == user3Email);
 
-        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser!.Id;
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
         var userLookupTools = scope.ServiceProvider.GetRequiredService<UserLookupTools>();
 
         // Search with empty query — should return all users (global search)
         var result = await userLookupTools.SearchUsers(query: "");
 
         // Should include admin, user2, and user3 (all global users)
-        StringAssert.Contains(result, adminUser!.Id, "Should include admin");
+        StringAssert.Contains(result, adminUser.Id, "Should include admin");
         StringAssert.Contains(result, user2.Id, "Should include user2 (global search)");
         StringAssert.Contains(result, user3.Id, "Should include user3 (global search)");
     }
@@ -427,11 +425,10 @@ public class AgentTests : TestBase
         // should have recorded the actual authenticated user — the controller
         // is responsible for passing the real userId. This test verifies
         // the conversation stores whatever userId is passed to StartRun.
-        var conversation = service.GetConversation(conversationId);
-        Assert.IsNotNull(conversation);
+        var conversation = service.GetConversation(conversationId)!;
         // StartRun accepts whatever userId is given — it's the controller's job to pass the real one.
         // In production, AgentController passes userManager.GetUserId(User).
-        Assert.AreEqual("fake-attacker-id", conversation!.UserId,
+        Assert.AreEqual("fake-attacker-id", conversation.UserId,
             "StartRun stores the userId it receives; controller must pass authenticated userId");
     }
 
@@ -454,15 +451,14 @@ public class AgentTests : TestBase
         var conversationId = result.GetProperty("ConversationId").GetString()!;
 
         var agentService = GetService<IAgentService>();
-        var conversation = agentService.GetConversation(Guid.Parse(conversationId));
-        Assert.IsNotNull(conversation);
+        var conversation = agentService.GetConversation(Guid.Parse(conversationId))!;
 
         // The conversation's UserId must match the authenticated admin user, not any LLM-supplied value
         var adminEmail = "admin@default.com";
         using var scope = Server!.Services.CreateScope();
         var userManager = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<User>>();
         var adminUser = await userManager.FindByEmailAsync(adminEmail);
-        Assert.AreEqual(adminUser!.Id, conversation!.UserId,
+        Assert.AreEqual(adminUser!.Id, conversation.UserId,
             "Conversation UserId must match the authenticated user, not the LLM's input");
     }
 
@@ -515,13 +511,12 @@ public class AgentTests : TestBase
         var realUserId = adminUser!.Id;
 
         var conversationId = agentService.StartRun(realUserId, boardId, "Hello");
-        var conversation = agentService.GetConversation(conversationId);
-        Assert.IsNotNull(conversation);
-        Assert.AreEqual(realUserId, conversation!.UserId);
-        Assert.AreEqual(boardId, conversation!.BoardId);
+        var conversation = agentService.GetConversation(conversationId)!;
+        Assert.AreEqual(realUserId, conversation.UserId);
+        Assert.AreEqual(boardId, conversation.BoardId);
 
         // Verify system prompt no longer exposes userId for tool use
-        var systemMsg = conversation!.Messages.FirstOrDefault(m => m.Role == "system");
+        var systemMsg = conversation.Messages.FirstOrDefault(m => m.Role == "system");
         Assert.IsNotNull(systemMsg);
         Assert.IsFalse(systemMsg.Content!.Contains($"The current user ID is \"{realUserId}\""),
             "System prompt should NOT expose raw userId since it's server-injected");
@@ -539,23 +534,22 @@ public class AgentTests : TestBase
         var service = GetService<IAgentService>();
 
         var conversationId = service.StartRun("admin", boardId, "First message");
-        var conversation = service.GetConversation(conversationId);
-        Assert.IsNotNull(conversation);
-        var originalCount = conversation!.Messages.Count;
+        var conversation = service.GetConversation(conversationId)!;
+        var originalCount = conversation.Messages.Count;
         Assert.IsTrue(originalCount >= 2); // system + user (plus possibly assistant from background task)
 
         // Simulate completion
-        conversation!.State = AgentState.Completed;
+        conversation.State = AgentState.Completed;
 
         // Continue with a follow-up
         var result = service.ContinueRun(conversationId, "admin", "Follow-up question");
         Assert.IsNotNull(result);
-        Assert.AreEqual(conversationId, result!.Value);
+        Assert.AreEqual(conversationId, result.Value);
 
-        var continued = service.GetConversation(conversationId);
-        Assert.AreEqual(AgentState.Thinking, continued!.State);
-        Assert.AreEqual(originalCount + 1, continued!.Messages.Count); // +1 for follow-up user message
-        Assert.AreEqual("Follow-up question", continued!.Messages.Last().Content);
+        var continued = service.GetConversation(conversationId)!;
+        Assert.AreEqual(AgentState.Thinking, continued.State);
+        Assert.AreEqual(originalCount + 1, continued.Messages.Count); // +1 for follow-up user message
+        Assert.AreEqual("Follow-up question", continued.Messages.Last().Content);
     }
 
     [TestMethod]
@@ -566,8 +560,8 @@ public class AgentTests : TestBase
         var service = GetService<IAgentService>();
 
         var conversationId = service.StartRun("admin", boardId, "Hello");
-        var conversation = service.GetConversation(conversationId);
-        conversation!.State = AgentState.Completed;
+        var conversation = service.GetConversation(conversationId)!;
+        conversation.State = AgentState.Completed;
 
         // Different user tries to continue
         var result = service.ContinueRun(conversationId, "different-user", "Hijack");
@@ -608,8 +602,8 @@ public class AgentTests : TestBase
 
         // Complete the conversation manually
         var agentService = GetService<IAgentService>();
-        var conversation = agentService.GetConversation(Guid.Parse(convId));
-        conversation!.State = AgentState.Completed;
+        var conversation = agentService.GetConversation(Guid.Parse(convId))!;
+        conversation.State = AgentState.Completed;
 
         // Continue with same conversationId
         var json2 = $"{{ \"boardId\": {boardId}, \"message\": \"Follow-up\", \"conversationId\": \"{convId}\" }}";
@@ -642,7 +636,7 @@ public class AgentTests : TestBase
         var adminUser = db.Users.First(u => u.Email == "admin@default.com");
         var targetUser = db.Users.First(u => u.Email == userEmail);
 
-        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser!.Id;
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
 
         // Share board
         var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
@@ -681,7 +675,7 @@ public class AgentTests : TestBase
         scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = otherUser.Id;
 
         var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
-        var result = await shareTools.ShareBoard(boardId, adminUser!.Id, null, "ReadOnly");
+        var result = await shareTools.ShareBoard(boardId, adminUser.Id, null, "ReadOnly");
 
         // Non-owner should not be able to share
         StringAssert.Contains(result, "Only the board owner");
@@ -697,7 +691,7 @@ public class AgentTests : TestBase
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var adminUser = db.Users.First(u => u.Email == "admin@default.com");
 
-        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser!.Id;
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
 
         var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
 
@@ -711,7 +705,7 @@ public class AgentTests : TestBase
         StringAssert.Contains(result, "private");
 
         await db.Entry(board).ReloadAsync();
-        Assert.IsFalse(board!.IsPublic);
+        Assert.IsFalse(board.IsPublic);
     }
 
     // ── Multi-tool batch approval ────────────────────────
@@ -782,7 +776,7 @@ public class AgentTests : TestBase
         var expiredId = service.StartRun("admin", boardId, "Old message");
         var expiredConv = service.GetConversation(expiredId);
         Assert.IsNotNull(expiredConv);
-        expiredConv!.LastActivity = DateTime.UtcNow - TimeSpan.FromMinutes(31);
+        expiredConv.LastActivity = DateTime.UtcNow - TimeSpan.FromMinutes(31);
 
         // Create a new conversation — this triggers cleanup
         service.StartRun("admin", boardId, "New message");

@@ -568,7 +568,7 @@ public class AgentService : IAgentService
             Arguments = jsonArgs
         };
 
-        var request = new ModelContextProtocol.Server.RequestContext<ModelContextProtocol.Protocol.CallToolRequestParams>(
+        var request = new RequestContext<ModelContextProtocol.Protocol.CallToolRequestParams>(
             server: NullMcpServer.Instance,
             jsonRpcRequest: new ModelContextProtocol.Protocol.JsonRpcRequest { Method = "tools/call" },
             parameters: requestParams)
