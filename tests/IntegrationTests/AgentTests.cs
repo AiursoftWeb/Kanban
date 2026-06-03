@@ -768,6 +768,92 @@ public class AgentTests : TestBase
         Assert.AreEqual(1, service.GetPendingForConversation(cidB).Count);
     }
 
+    // ── Conversation cleanup ─────────────────────────────
+
+    [TestMethod]
+    public async Task AgentService_Cleanup_ExpiredConversationRemoved()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        // Create a conversation and set it as expired (30+ min ago)
+        var expiredId = service.StartRun("admin", boardId, "Old message");
+        var expiredConv = service.GetConversation(expiredId);
+        Assert.IsNotNull(expiredConv);
+        expiredConv!.LastActivity = DateTime.UtcNow - TimeSpan.FromMinutes(31);
+
+        // Create a new conversation — this triggers cleanup
+        service.StartRun("admin", boardId, "New message");
+
+        // Expired conversation should be removed
+        Assert.IsNull(service.GetConversation(expiredId),
+            "Expired conversation should be removed during cleanup sweep");
+    }
+
+    [TestMethod]
+    public async Task AgentService_Cleanup_ActiveConversationPreserved()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        // Create an active conversation (just now)
+        var activeId = service.StartRun("admin", boardId, "Recent message");
+        Assert.IsNotNull(service.GetConversation(activeId));
+
+        // Trigger cleanup via another StartRun
+        service.StartRun("admin", boardId, "Another message");
+
+        // Active conversation should still exist
+        Assert.IsNotNull(service.GetConversation(activeId),
+            "Active conversation should not be removed");
+    }
+
+    [TestMethod]
+    public async Task AgentService_Cleanup_AdviceRemovedWithConversation()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        var adviceService = GetService<AdviceService>();
+
+        // Create a conversation with expired advice
+        var convId = service.StartRun("admin", boardId, "Message");
+        var advice = adviceService.Create(convId, "CreateCard", "Create Card", "",
+            new Dictionary<string, object?>(), "test", "call_1");
+
+        var conv = service.GetConversation(convId);
+        conv!.LastActivity = DateTime.UtcNow - TimeSpan.FromMinutes(31);
+
+        // Trigger cleanup
+        service.StartRun("admin", boardId, "New message");
+
+        // Both conversation and advice should be gone
+        Assert.IsNull(service.GetConversation(convId));
+        Assert.IsNull(adviceService.Get(advice.Id),
+            "Advice from expired conversation should also be removed");
+    }
+
+    [TestMethod]
+    public async Task AgentService_CancelRun_RemovesConversationAndAdvice()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        var adviceService = GetService<AdviceService>();
+
+        var convId = service.StartRun("admin", boardId, "Message");
+        adviceService.Create(convId, "T1", "T1", "", new(), "", "c1");
+        adviceService.Create(convId, "T2", "T2", "", new(), "", "c2");
+
+        service.CancelRun(convId);
+
+        Assert.IsNull(service.GetConversation(convId));
+        Assert.AreEqual(0, adviceService.GetPendingForConversation(convId).Count,
+            "All advice from cancelled conversation should be removed");
+    }
+
     // ── Helpers ─────────────────────────────────────────────
 
     private async Task<HttpResponseMessage> CreateBoardAsync(string name)

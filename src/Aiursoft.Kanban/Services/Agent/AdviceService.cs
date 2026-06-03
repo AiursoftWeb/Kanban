@@ -73,4 +73,21 @@ public class AdviceService : ISingletonDependency
             _advice.TryRemove(id, out _);
         }
     }
+
+    /// <summary>
+    /// Removes advice items older than the cutoff that belong to conversations
+    /// no longer in memory (already removed via CancelRun). Called by the lazy
+    /// cleanup sweep so orphaned advice doesn't accumulate.
+    /// </summary>
+    public void RemoveExpiredAdvice(DateTime cutoff)
+    {
+        var toRemove = _advice.Values
+            .Where(a => a.CreatedAt < cutoff)
+            .Select(a => a.Id)
+            .ToList();
+        foreach (var id in toRemove)
+        {
+            _advice.TryRemove(id, out _);
+        }
+    }
 }

@@ -25,6 +25,8 @@ public class AgentService : IAgentService
     private readonly ILogger<AgentService> _logger;
 
     private const int MaxLoops = 15;
+    private static readonly TimeSpan ConversationTtl = TimeSpan.FromMinutes(30);
+    private static readonly TimeSpan AdviceTtl = TimeSpan.FromMinutes(30);
 
     public AgentService(
         ServiceTaskQueue taskQueue,
@@ -46,6 +48,8 @@ public class AgentService : IAgentService
 
     public Guid StartRun(string userId, int boardId, string userMessage)
     {
+        CleanupExpiredConversations();
+
         var conversation = new AgentConversation
         {
             UserId = userId,
@@ -513,6 +517,25 @@ public class AgentService : IAgentService
         sb.AppendLine("All operations are performed as this user. The server handles identity automatically.");
 
         return sb.ToString();
+    }
+
+    /// <summary>
+    /// Removes conversations and their advice that have been inactive longer than the TTL.
+    /// Called on each new conversation start — lazy cleanup with zero overhead when idle.
+    /// </summary>
+    private void CleanupExpiredConversations()
+    {
+        var conversationCutoff = DateTime.UtcNow - ConversationTtl;
+        var adviceCutoff = DateTime.UtcNow - AdviceTtl;
+
+        foreach (var (id, conv) in _conversations)
+        {
+            if (conv.LastActivity < conversationCutoff && _conversations.TryRemove(id, out _))
+                _adviceService.RemoveConversationAdvice(id);
+        }
+
+        // Also sweep orphaned advice (from conversations removed by CancelRun)
+        _adviceService.RemoveExpiredAdvice(adviceCutoff);
     }
 
     private async Task<string> ExecuteTool(IServiceProvider sp, ClaudeContentBlock toolUse, string userId)
