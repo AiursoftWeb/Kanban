@@ -1,4 +1,4 @@
-# Kanban - A sample project
+# Kanban
 
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aiursoftweb/kanban/blob/master/LICENSE)
 [![Pipeline stat](https://gitlab.aiursoft.com/aiursoft/kanban/badges/master/pipeline.svg)](https://gitlab.aiursoft.com/aiursoft/kanban/-/pipelines)
@@ -7,38 +7,31 @@
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fkanban.aiursoft.com)](https://kanban.aiursoft.com)
 [![Docker](https://img.shields.io/docker/pulls/aiursoft/kanban.svg)](https://hub.docker.com/r/aiursoft/kanban)
 
-Kanban is a sample project.
+Aiursoft Kanban is a self-hosted project management and workflow planning system built on ASP.NET Core (.NET 10). It helps teams organize boards, columns, cards, labels, priorities, assignees, due dates, comments, and shared access in one lightweight web application.
 
 ![screenshot](./screenshot.png)
 
 Default user name is `admin@default.com` and default password is `Admin@123456!`.
 
-## Projects using Aiursoft Kanban
-
-* [Stathub](https://github.com/aiursoftweb/stathub)
-* [MarkToHtml](https://github.com/aiursoftweb/marktohtml)
-* [MusicTools](https://github.com/aiursoftweb/musictools)
-* [AnduinOS Home](https://github.com/aiursoftweb/AnduinOS-Home)
-* [Manhours](https://github.com/aiursoftweb/manhours)
-* [Tracer](https://github.com/aiursoftweb/tracer)
-* [Warp](https://github.com/aiursoftweb/warp)
-* [AiurDrive](https://github.com/aiursoftweb/aiurdrive)
-* [EmployeeCenter](https://github.com/aiursoftweb/employeecenter)
-* [Git Mirror Server](https://github.com/aiursoftweb/gitmirrorserver)
-* [CppRunner](https://github.com/aiursoftweb/cpprunner)
-* [Ollama Gateway](https://github.com/aiursoftweb/ollamagateway)
-* [Polls](https://github.com/aiursoftweb/polls)
-* [WeChatExam](https://github.com/aiursoftweb/wechatexam)
-* [MusicExam](https://github.com/aiursoftweb/musicexam)
-* [CoprHome](https://github.com/aiursoftweb/corphome)
-* [Events Recorder](https://github.com/aiursoftweb/eventsrecorder)
-* [Translate](https://github.com/aiursoftweb/translate)
-* [Apkg](https://github.com/aiursoftweb/apkg)
-* [HowToCook Viewer](https://github.com/aiursoftweb/howtocookviewer)
-
 ## Try
 
 Try a running Kanban [here](https://kanban.aiursoft.com).
+
+## Why Kanban for Your Organization
+
+Kanban provides a practical workspace for teams that need transparent task flow without adopting a heavyweight project management suite. It is designed for self-hosting, fast deployment, and clear ownership of your workflow data.
+
+Key features include:
+
+**Board-Centered Planning.** Create boards with ordered columns, move cards across workflow states, and keep project work visible from planning to completion.
+
+**Task Ownership and Priorities.** Assign cards to users, set priorities and due dates, track overdue work, and use the dashboard to focus on active responsibilities.
+
+**Flexible Sharing.** Share boards with specific users or roles, choose read-only or editable access, and keep private boards isolated from unrelated teams.
+
+**Team-Ready Collaboration.** Use labels, comments, card descriptions, public board links, and the built-in Kanban assistant to coordinate work across a team.
+
+**Self-Hosted Infrastructure.** Run with SQLite for small deployments, MySQL for production scale, or in-memory storage for tests while keeping authentication, RBAC, localization, Docker deployment, and system management in the same application.
 
 ## Run in Ubuntu
 
@@ -91,7 +84,7 @@ The docker image has the following context:
 
 | Properties  | Value                           |
 |-------------|---------------------------------|
-| Image       | aiursoft/kanban               |
+| Image       | aiursoft/kanban                 |
 | Ports       | 5000                            |
 | Binary path | /app                            |
 | Data path   | /data                           |
