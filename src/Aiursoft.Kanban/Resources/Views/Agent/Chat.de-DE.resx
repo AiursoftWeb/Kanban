@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Approve" xml:space="preserve">
+    <value>Genehmigen</value>
+  </data>
+  <data name="Approved - executing..." xml:space="preserve">
+    <value>Genehmigt – wird ausgeführt...</value>
+  </data>
+  <data name="click to expand" xml:space="preserve">
+    <value>Zum Ausklappen klicken</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="Error:" xml:space="preserve">
+    <value>Fehler:</value>
+  </data>
+  <data name="Hi! I&apos;m your Kanban assistant. I can help you manage cards, columns, and boards. Try saying &quot;Show me the board&quot; or &quot;Create a card for the login bug.&quot;" xml:space="preserve">
+    <value>Hallo! Ich bin Ihr Kanban-Assistent. Ich kann Ihnen helfen, Karten, Spalten und Boards zu verwalten. Versuchen Sie, „Zeig mir das Board“ oder „Erstelle eine Karte für den Login-Bug“ zu sagen.</value>
+  </data>
+  <data name="Kanban AI Assistant" xml:space="preserve">
+    <value>Kanban KI-Assistent</value>
+  </data>
+  <data name="Network error:" xml:space="preserve">
+    <value>Netzwerkfehler:</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Neu</value>
+  </data>
+  <data name="Proposed Action:" xml:space="preserve">
+    <value>Vorgeschlagene Aktion:</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Bereit</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Ablehnen</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Abgelehnt</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Senden</value>
+  </data>
+  <data name="Start a new conversation" xml:space="preserve">
+    <value>Neuen Chat starten</value>
+  </data>
+  <data name="Thinking..." xml:space="preserve">
+    <value>Denken...</value>
+  </data>
+  <data name="Type a message..." xml:space="preserve">
+    <value>Nachricht eingeben...</value>
+  </data>
+  <data name="Waiting for approval" xml:space="preserve">
+    <value>Warten auf Freigabe</value>
+  </data>
+
+</root>

@@ -30,6 +30,9 @@
   <data name="Administration" xml:space="preserve">
     <value>การจัดการ</value>
   </data>
+  <data name="AI Assistant" xml:space="preserve">
+    <value>ผู้ช่วย AI</value>
+  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>เทมเพลต Aiursoft</value>
   </data>
@@ -107,6 +110,9 @@
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>Kanban</value>
+  </data>
+  <data name="Kanban AI Assistant" xml:space="preserve">
+    <value>ผู้ช่วย AI แคนбан</value>
   </data>
   <data name="Kanban Board" xml:space="preserve">
     <value>กระดานคานบัน</value>

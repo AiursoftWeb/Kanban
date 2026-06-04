@@ -30,6 +30,9 @@
   <data name="Administration" xml:space="preserve">
     <value>Administración</value>
   </data>
+  <data name="AI Assistant" xml:space="preserve">
+    <value>Asistente de IA</value>
+  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Plantilla de Aiursoft</value>
   </data>
@@ -107,6 +110,9 @@
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>Kanban</value>
+  </data>
+  <data name="Kanban AI Assistant" xml:space="preserve">
+    <value>Asistente de IA de Kanban</value>
   </data>
   <data name="Kanban Board" xml:space="preserve">
     <value>Tablero Kanban</value>
