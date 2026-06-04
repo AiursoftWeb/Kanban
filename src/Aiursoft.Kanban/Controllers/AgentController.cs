@@ -22,6 +22,14 @@ public class AgentController(
     UserManager<User> userManager) : Controller
 {
     [HttpGet]
+    [RenderInNavBar(
+        NavGroupName = "Features",
+        NavGroupOrder = 2,
+        CascadedLinksGroupName = "Overview Kanban",
+        CascadedLinksIcon = "bot",
+        CascadedLinksOrder = 2,
+        LinkText = "AI Assistant",
+        LinkOrder = 3)]
     public async Task<IActionResult> Index(int? boardId)
     {
         var userId = userManager.GetUserId(User)!;
