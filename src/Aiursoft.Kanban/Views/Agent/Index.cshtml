@@ -1,0 +1,66 @@
+@model Aiursoft.Kanban.Models.AgentViewModels.AgentIndexViewModel
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["Kanban AI Assistant"].Value;
+}
+
+<div class="agent-chat-page container py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h4 class="mb-1">@Localizer["Kanban AI Assistant"]</h4>
+            <p class="text-muted small mb-3">@Localizer["Ask the AI to help manage your Kanban boards — create cards, move items, update details, and more."]</p>
+
+            @if (Model.UserBoards.Count > 0)
+            {
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <label for="board-selector" class="form-label mb-0 text-nowrap">@Localizer["Board:"]</label>
+                    <select id="board-selector" class="form-select" style="max-width: 320px;" onchange="switchBoard(this.value)">
+                        <option value="">@Localizer["— Select a board —"]</option>
+                        @foreach (var board in Model.UserBoards)
+                        {
+                            var selected = Model.CurrentBoard != null && board.Id == Model.CurrentBoard.Id;
+                            <option value="@board.Id" selected="@(selected ? "selected" : null)">@board.Name</option>
+                        }
+                    </select>
+                    @if (Model.CurrentBoard != null)
+                    {
+                        <a href="/Kanban/Index/@Model.CurrentBoard.Id" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">
+                            @Localizer["Open board in new tab"]
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    @Localizer["You don't have any boards yet. Create one on the Kanban page first."]
+                    <a href="/Kanban" class="alert-link">@Localizer["Go to Kanban"]</a>
+                </div>
+            }
+        </div>
+    </div>
+
+    @if (Model.CurrentBoard != null)
+    {
+        <div class="agent-chat-container">
+            <partial name="~/Views/Agent/Chat.cshtml" model="Model" />
+        </div>
+    }
+    else if (Model.UserBoards.Count > 0)
+    {
+        <div class="text-center text-muted py-5">
+            <i data-lucide="message-square" style="width: 48px; height: 48px; opacity: 0.3;"></i>
+            <p class="mt-3">@Localizer["Select a board above to start chatting with the AI assistant."]</p>
+        </div>
+    }
+</div>
+
+<script>
+    function switchBoard(boardId) {
+        if (boardId) {
+            window.location.href = '/Agent?boardId=' + boardId;
+        } else {
+            window.location.href = '/Agent';
+        }
+    }
+</script>

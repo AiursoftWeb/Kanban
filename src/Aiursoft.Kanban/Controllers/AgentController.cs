@@ -1,11 +1,14 @@
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.AgentViewModels;
+using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.Access;
 using Aiursoft.Kanban.Services.Agent;
+using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.Kanban.Controllers;
 
@@ -18,6 +21,35 @@ public class AgentController(
     TemplateDbContext db,
     UserManager<User> userManager) : Controller
 {
+    [HttpGet]
+    public async Task<IActionResult> Index(int? boardId)
+    {
+        var userId = userManager.GetUserId(User)!;
+
+        // Load boards the user owns or has access to
+        var ownedBoards = await db.KanbanBoards
+            .Where(b => b.UserId == userId)
+            .OrderBy(b => b.Order)
+            .ToListAsync();
+
+        KanbanBoard? currentBoard = null;
+        if (boardId.HasValue)
+        {
+            currentBoard = await db.KanbanBoards
+                .Include(b => b.Columns)
+                .FirstOrDefaultAsync(b => b.Id == boardId.Value);
+
+            if (currentBoard != null && !await access.HasReadAccess(currentBoard, userId))
+                return Forbid();
+        }
+
+        return this.StackView(new AgentIndexViewModel
+        {
+            CurrentBoard = currentBoard,
+            UserBoards = ownedBoards
+        });
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)

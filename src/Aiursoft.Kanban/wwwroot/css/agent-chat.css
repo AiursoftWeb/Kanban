@@ -1,3 +1,22 @@
+/* ── Agent page (standalone full-width) ────────── */
+.agent-chat-page .agent-chat-widget {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    width: 100%;
+    max-height: calc(100vh - 260px);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.agent-chat-page .agent-chat-widget.collapsed {
+    transform: none;
+}
+
+.agent-chat-page .agent-chat-messages {
+    max-height: calc(100vh - 400px);
+}
+
+/* ── Floating widget (for board page embed, kept for reference) ── */
 .agent-chat-widget {
     position: fixed;
     bottom: 20px;
