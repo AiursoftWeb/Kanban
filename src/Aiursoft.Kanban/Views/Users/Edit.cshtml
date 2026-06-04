@@ -14,14 +14,12 @@
     </div>
 </div>
 
-@* The critical OIDC warning is preserved and placed prominently at the top. *@
 @if (AppSettings.Value.OIDCEnabled)
 {
     <div class="alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        <div class="d-flex">
+        <div class="d-flex align-items-start">
             <div class="alert-icon pe-3">
-                @* Icon updated to the theme's standard Lucide icon set. *@
                 <i class="align-middle" data-lucide="alert-triangle"></i>
             </div>
             <div class="alert-message">

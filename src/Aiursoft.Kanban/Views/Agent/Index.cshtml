@@ -30,9 +30,16 @@
             }
             else
             {
-                <div class="alert alert-info">
-                    @Localizer["You don't have any boards yet. Create one on the Kanban page first."]
-                    <a asp-controller="Kanban" asp-action="Index" class="alert-link">@Localizer["Go to Kanban"]</a>
+                <div class="alert alert-info" role="alert">
+                    <div class="d-flex align-items-start">
+                        <div class="alert-icon pe-3">
+                            <i class="align-middle" data-lucide="info"></i>
+                        </div>
+                        <div class="alert-message">
+                            @Localizer["You don't have any boards yet. Create one on the Kanban page first."]
+                            <a asp-controller="Kanban" asp-action="Index" class="alert-link">@Localizer["Go to Kanban"]</a>
+                        </div>
+                    </div>
                 </div>
             }
         </div>

@@ -187,6 +187,27 @@
     </div>
 </div>
 
+<!-- Friendly Alert Modal -->
+<div class="modal fade" id="friendlyAlertModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold">
+                    <i class="align-middle me-2 text-danger" id="friendlyAlertIcon" data-lucide="alert-circle"></i>
+                    <span id="friendlyAlertTitle">@Localizer["Notice"]</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p class="mb-0" id="friendlyAlertMessage"></p>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["OK"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Add Column Modal -->
 <div class="modal fade" id="addColumnModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -247,6 +268,52 @@
 
         var csrfToken = "@token";
         var boardId = @Model.BoardId;
+        var friendlyAlertModalEl = document.getElementById("friendlyAlertModal");
+        var friendlyAlertModal = friendlyAlertModalEl ? new bootstrap.Modal(friendlyAlertModalEl) : null;
+        var friendlyAlertTitle = document.getElementById("friendlyAlertTitle");
+        var friendlyAlertMessage = document.getElementById("friendlyAlertMessage");
+        var friendlyAlertIcon = document.getElementById("friendlyAlertIcon");
+
+        function clearInlineAlert(alertEl) {
+            if (!alertEl) return;
+            alertEl.innerHTML = "";
+            alertEl.classList.add("d-none");
+        }
+
+        function showInlineAlert(alertEl, message, iconName) {
+            if (!alertEl) return;
+            alertEl.innerHTML = "";
+
+            var row = document.createElement("div");
+            row.className = "d-flex align-items-start";
+
+            var iconWrap = document.createElement("div");
+            iconWrap.className = "alert-icon pe-3";
+
+            var icon = document.createElement("i");
+            icon.className = "align-middle";
+            icon.setAttribute("data-lucide", iconName || "alert-circle");
+            iconWrap.appendChild(icon);
+
+            var messageWrap = document.createElement("div");
+            messageWrap.className = "alert-message";
+            messageWrap.textContent = message || "";
+
+            row.appendChild(iconWrap);
+            row.appendChild(messageWrap);
+            alertEl.appendChild(row);
+            alertEl.classList.remove("d-none");
+            lucide.createIcons({ nodes: [alertEl] });
+        }
+
+        function showFriendlyDialog(message, title, iconName) {
+            if (!friendlyAlertModal || !friendlyAlertMessage || !friendlyAlertTitle || !friendlyAlertIcon) return;
+            friendlyAlertTitle.textContent = title || getLocalizedText("notice", "Notice");
+            friendlyAlertMessage.textContent = message || "";
+            friendlyAlertIcon.setAttribute("data-lucide", iconName || "alert-circle");
+            lucide.createIcons({ nodes: [friendlyAlertModalEl] });
+            friendlyAlertModal.show();
+        }
 
         var boardNameInput = document.getElementById("boardNameInput");
         var btnSaveBoardName = document.getElementById("btnSaveBoardName");
@@ -415,7 +482,7 @@
                 row.querySelector(".btn-edit-column-name[data-column-id='" + columnId + "']").classList.remove("d-none");
             })
             .catch(function(err) {
-                alert(getLocalizedText("failed-rename-column", "Failed to rename column:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
+                showFriendlyDialog(getLocalizedText("failed-rename-column", "Failed to rename column:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")), getLocalizedText("error", "Error"));
             });
         }
 
@@ -457,20 +524,16 @@
                     deleteColumnNameDisplay.textContent = columnName;
                 }
                 if (deleteColumnError) {
-                    deleteColumnError.textContent = "";
-                    deleteColumnError.classList.add("d-none");
+                    clearInlineAlert(deleteColumnError);
                 }
 
-                // Show warning if there are cards
                 var cardsCount = parseInt(this.dataset.cardsCount, 10) || 0;
                 var warningEl = document.getElementById("deleteColumnWarning");
                 if (warningEl) {
                     if (cardsCount > 0) {
-                        warningEl.textContent = getLocalizedText("this-column-contains", "This column contains") + " " + cardsCount + " " + getLocalizedText("cards-delete-warning", "card(s). Deleting the column will also permanently delete all its cards.");
-                        warningEl.classList.remove("d-none");
+                        showInlineAlert(warningEl, getLocalizedText("this-column-contains", "This column contains") + " " + cardsCount + " " + getLocalizedText("cards-delete-warning", "card(s). Deleting the column will also permanently delete all its cards."), "alert-triangle");
                     } else {
-                        warningEl.textContent = "";
-                        warningEl.classList.add("d-none");
+                        clearInlineAlert(warningEl);
                     }
                 }
 
@@ -491,7 +554,7 @@
                 btnConfirmDeleteColumn.disabled = true;
                 btnConfirmDeleteColumn.textContent = getLocalizedText("deleting", "Deleting...");
                 if (deleteColumnError) {
-                    deleteColumnError.classList.add("d-none");
+                    clearInlineAlert(deleteColumnError);
                 }
 
                 fetch("/Kanban/DeleteColumn", {
@@ -514,8 +577,7 @@
                 })
                 .catch(function(err) {
                     if (deleteColumnError) {
-                        deleteColumnError.textContent = getLocalizedText("failed-delete-column", "Failed to delete column:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error"));
-                        deleteColumnError.classList.remove("d-none");
+                        showInlineAlert(deleteColumnError, getLocalizedText("failed-delete-column", "Failed to delete column:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
                     }
                 })
                 .finally(function() {
@@ -533,8 +595,7 @@
         if (btnDeleteBoard) {
             btnDeleteBoard.addEventListener("click", function() {
                 if (deleteBoardError) {
-                    deleteBoardError.textContent = "";
-                    deleteBoardError.classList.add("d-none");
+                    clearInlineAlert(deleteBoardError);
                 }
                 if (btnConfirmDeleteBoard) {
                     btnConfirmDeleteBoard.disabled = false;
@@ -551,7 +612,7 @@
                 btnConfirmDeleteBoard.disabled = true;
                 btnConfirmDeleteBoard.textContent = getLocalizedText("deleting", "Deleting...");
                 if (deleteBoardError) {
-                    deleteBoardError.classList.add("d-none");
+                    clearInlineAlert(deleteBoardError);
                 }
 
                 fetch("/Kanban/DeleteBoard", {
@@ -572,8 +633,7 @@
                 })
                 .catch(function(err) {
                     if (deleteBoardError) {
-                        deleteBoardError.textContent = getLocalizedText("failed-delete-board", "Failed to delete board:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error"));
-                        deleteBoardError.classList.remove("d-none");
+                        showInlineAlert(deleteBoardError, getLocalizedText("failed-delete-board", "Failed to delete board:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
                     }
                 })
                 .finally(function() {
