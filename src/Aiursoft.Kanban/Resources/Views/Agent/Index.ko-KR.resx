@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="— Select a board —" xml:space="preserve">
+    <value>— 보드 선택 —</value>
+  </data>
+  <data name="Ask the AI to help manage your Kanban boards — create cards, move items, update details, and more." xml:space="preserve">
+    <value>AI에게 카んばん 보드를 관리하도록 요청하세요 — 카드 생성, 항목 이동, 상세 정보 업데이트 등 다양한 작업을 수행할 수 있습니다.</value>
+  </data>
+  <data name="Board:" xml:space="preserve">
+    <value>보드:</value>
+  </data>
+  <data name="Go to Kanban" xml:space="preserve">
+    <value>칸반으로 이동</value>
+  </data>
+  <data name="Kanban AI Assistant" xml:space="preserve">
+    <value>카んばん AI 어시스턴트</value>
+  </data>
+  <data name="Open board in new tab" xml:space="preserve">
+    <value>새 탭에서 보드 열기</value>
+  </data>
+  <data name="Select a board above to start chatting with the AI assistant." xml:space="preserve">
+    <value>위에서 보드를 선택하여 AI 어시스턴트와 채팅을 시작하세요.</value>
+  </data>
+  <data name="You don&apos;t have any boards yet. Create one on the Kanban page first." xml:space="preserve">
+    <value>아직 보드가 없습니다. 먼저 칸반 페이지에서 보드를 생성하세요.</value>
+  </data>
+
+</root>

@@ -93,6 +93,9 @@ public class ViewModelArgsInjector(
         _ = localizer["My Created"];
         _ = localizer["All Boards"];
         _ = localizer["Edit Board"];
+    
+        _ = localizer["AI Assistant"];
+        _ = localizer["Kanban AI Assistant"];
     }
 
     public void InjectSimple(

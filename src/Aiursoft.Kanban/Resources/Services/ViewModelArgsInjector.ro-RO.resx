@@ -27,6 +27,9 @@
   <data name="Administration" xml:space="preserve">
     <value>Administrare</value>
   </data>
+  <data name="AI Assistant" xml:space="preserve">
+    <value>Asistent AI</value>
+  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Șablon Aiursoft</value>
   </data>
@@ -104,6 +107,9 @@
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>Kanban</value>
+  </data>
+  <data name="Kanban AI Assistant" xml:space="preserve">
+    <value>Asistent AI Kanban</value>
   </data>
   <data name="Kanban Board" xml:space="preserve">
     <value>Board Kanban</value>
