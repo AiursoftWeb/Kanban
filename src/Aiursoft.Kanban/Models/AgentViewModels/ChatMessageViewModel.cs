@@ -9,10 +9,3 @@ public class ChatMessageViewModel
     public Guid? AdviceId { get; set; }
     public string? AdviceStatus { get; set; }
 }
-
-public class ToolCallViewModel
-{
-    public string? Id { get; set; }
-    public string? Name { get; set; }
-    public string? Arguments { get; set; }
-}
