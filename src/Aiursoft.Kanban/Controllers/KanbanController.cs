@@ -219,7 +219,8 @@ public class KanbanController(
             Title = title.Trim(),
             Description = description?.Trim(),
             Order = maxOrder + 1,
-            ColumnId = columnId
+            ColumnId = columnId,
+            AssignedUserId = userId
         };
         db.KanbanCards.Add(card);
         await db.SaveChangesAsync();
