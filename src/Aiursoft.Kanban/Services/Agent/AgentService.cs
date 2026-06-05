@@ -647,6 +647,7 @@ public class AgentService : IAgentService
             "UpdateLabelColor" => "Update Label Color",
             "BatchCreateCards" => "Batch Create Cards",
             "BatchMoveCards" => "Batch Move Cards",
+            "DeleteCard" => "Delete Card",
             _ => toolName
         };
 
