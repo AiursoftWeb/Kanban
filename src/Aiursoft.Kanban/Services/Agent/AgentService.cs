@@ -490,11 +490,6 @@ public class AgentService : IAgentService
             .Select(b => b.Name)
             .ToList();
 
-        var currentBoardName = db.KanbanBoards
-            .Where(b => b.Id == boardId)
-            .Select(b => b.Name)
-            .FirstOrDefault();
-
         var sb = new StringBuilder();
         sb.Append("Current user: ").AppendLine(userName);
         sb.Append("Your roles: ").AppendLine(roles.Count > 0 ? string.Join(", ", roles) : "(none)");
@@ -508,9 +503,18 @@ public class AgentService : IAgentService
         {
             sb.AppendLine("(none)");
         }
-        sb.Append("Current board: ");
-        sb.Append(currentBoardName ?? "(unnamed)");
-        sb.Append(" (ID: ").Append(boardId).AppendLine(").");
+
+        if (boardId > 0)
+        {
+            var currentBoardName = db.KanbanBoards
+                .Where(b => b.Id == boardId)
+                .Select(b => b.Name)
+                .FirstOrDefault();
+            sb.Append("Current board: ");
+            sb.Append(currentBoardName ?? "(unnamed)");
+            sb.Append(" (ID: ").Append(boardId).AppendLine(").");
+        }
+
         sb.AppendLine("All operations are performed as this user. The server handles identity automatically.");
 
         return sb.ToString();
