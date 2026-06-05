@@ -36,6 +36,9 @@
   <data name="Open board in new tab" xml:space="preserve">
     <value>새 탭에서 보드 열기</value>
   </data>
+  <data name="Select a board above to enable board-aware tools like creating cards, moving items, and managing columns." xml:space="preserve">
+    <value>위에서 보드를 선택하면 카드 작성, 항목 이동, 열 관리 등 보드 관련 도구를 사용할 수 있습니다.</value>
+  </data>
   <data name="Select a board above to start chatting with the AI assistant." xml:space="preserve">
     <value>위에서 보드를 선택하여 AI 어시스턴트와 채팅을 시작하세요.</value>
   </data>

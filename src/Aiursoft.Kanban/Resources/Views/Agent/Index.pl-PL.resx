@@ -36,6 +36,9 @@
   <data name="Open board in new tab" xml:space="preserve">
     <value>Otwórz tablicę w nowej karcie</value>
   </data>
+  <data name="Select a board above to enable board-aware tools like creating cards, moving items, and managing columns." xml:space="preserve">
+    <value>Wybierz tablicę powyżej, aby aktywować narzędzia obsługujące tablice, takie jak tworzenie kart, przesuwanie elementów oraz zarządzanie kolumnami.</value>
+  </data>
   <data name="Select a board above to start chatting with the AI assistant." xml:space="preserve">
     <value>Wybierz tablicę powyżej, aby rozpocząć rozmowę z asystentem AI.</value>
   </data>

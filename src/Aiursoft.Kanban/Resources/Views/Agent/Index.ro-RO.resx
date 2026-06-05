@@ -19,31 +19,28 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
       <data name="— Select a board —" xml:space="preserve">
-    <value>— Välj en ruta —</value>
+    <value>— Selectează o panou —</value>
   </data>
   <data name="Ask the AI to help manage your Kanban boards — create cards, move items, update details, and more." xml:space="preserve">
-    <value>Be AI:n att hjälpa dig hantera dina Kanban-tavlor – skapa kort, flytta objekt, uppdatera detaljer och mer.</value>
+    <value>Cereți ajutorul IA pentru a vă gestiona tabelele Kanban — creați carduri, mutați elemente, actualizați detalii și multe altele.</value>
   </data>
   <data name="Board:" xml:space="preserve">
-    <value>Bräda:</value>
+    <value>Tablă:</value>
   </data>
   <data name="Go to Kanban" xml:space="preserve">
-    <value>Gå till Kanban</value>
+    <value>Mergi la Kanban</value>
   </data>
   <data name="Kanban AI Assistant" xml:space="preserve">
-    <value>Kanban AI-assistent</value>
+    <value>Asistent AI Kanban</value>
   </data>
   <data name="Open board in new tab" xml:space="preserve">
-    <value>Öppna tavla i ny flik</value>
+    <value>Deschide tabloul într-o filă nouă</value>
   </data>
   <data name="Select a board above to enable board-aware tools like creating cards, moving items, and managing columns." xml:space="preserve">
-    <value>Välj en tavla ovanför för att aktivera tavla-känsliga verktyg som att skapa kort, flytta objekt och hantera kolumner.</value>
-  </data>
-  <data name="Select a board above to start chatting with the AI assistant." xml:space="preserve">
-    <value>Välj en tavla ovanför för att börja chatta med AI-assistenten.</value>
+    <value>Selectați un tablou de mai sus pentru a activa instrumentele specifice tabloului, cum ar fi crearea de carduri, mutarea elementelor și gestionarea coloanelor.</value>
   </data>
   <data name="You don&apos;t have any boards yet. Create one on the Kanban page first." xml:space="preserve">
-    <value>Du har inga whiteboard ännu. Skapa ett på Kanban-sidan först.</value>
+    <value>Nu aveți încă nicio tablă. Creați una pe pagina Kanban mai întâi.</value>
   </data>
 
 </root>
