@@ -179,6 +179,35 @@ public class CardWriteTools(
         return $"Card #{cardId} \"{card.Title}\" assigned to {assigneeDisplay}.";
     }
 
+    [McpServerTool, Description("Delete a card permanently, including its labels and comments")]
+    [Advice]
+    public async Task<string> DeleteCard(
+        [Description("Card ID to delete")] int cardId)
+    {
+        var userId = currentUser.UserId;
+        var card = await db.KanbanCards
+            .Include(c => c.Column).ThenInclude(col => col.Board)
+            .FirstOrDefaultAsync(c => c.Id == cardId);
+        if (card == null) return "Error: Card not found.";
+        if (!await access.HasEditAccess(card.Column.Board, userId))
+            return "Error: You do not have permission to edit this board.";
+
+        var cardLabels = await db.KanbanCardLabels
+            .Where(link => link.CardId == cardId)
+            .ToListAsync();
+        var comments = await db.KanbanCardComments
+            .Where(comment => comment.CardId == cardId)
+            .ToListAsync();
+
+        var cardTitle = card.Title;
+        db.KanbanCardLabels.RemoveRange(cardLabels);
+        db.KanbanCardComments.RemoveRange(comments);
+        db.KanbanCards.Remove(card);
+        await db.SaveChangesAsync();
+
+        return $"Card #{cardId} \"{cardTitle}\" deleted permanently.";
+    }
+
     [McpServerTool, Description("Update only the priority of a card")]
     [Advice]
     public async Task<string> UpdateCardPriority(

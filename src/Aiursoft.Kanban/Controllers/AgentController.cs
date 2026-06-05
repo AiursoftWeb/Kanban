@@ -78,12 +78,15 @@ public class AgentController(
         }
 
         // Start new conversation
-        var board = await db.KanbanBoards.FindAsync(request.BoardId);
-        if (board == null)
-            return NotFound(new { Error = "Board not found." });
+        if (request.BoardId > 0)
+        {
+            var board = await db.KanbanBoards.FindAsync(request.BoardId);
+            if (board == null)
+                return NotFound(new { Error = "Board not found." });
 
-        if (!await access.HasReadAccess(board, userId))
-            return Forbid();
+            if (!await access.HasReadAccess(board, userId))
+                return Forbid();
+        }
 
         var newConversationId = agentService.StartRun(userId, request.BoardId, request.Message);
         return Ok(new { ConversationId = newConversationId });

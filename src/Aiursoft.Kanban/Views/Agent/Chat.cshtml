@@ -52,8 +52,8 @@
 <script>
     (function() {
         var boardId = @(Model.CurrentBoard?.Id ?? 0);
-        if (boardId > 0) {
-            AgentChat.init('@token', boardId);
-        }
+        var savedConvId = sessionStorage.getItem('kanban-agent-conversation');
+        sessionStorage.removeItem('kanban-agent-conversation');
+        AgentChat.init('@token', boardId, savedConvId || null);
     })();
 </script>
