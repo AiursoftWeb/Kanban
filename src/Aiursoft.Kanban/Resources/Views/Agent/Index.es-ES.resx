@@ -36,6 +36,9 @@
   <data name="Open board in new tab" xml:space="preserve">
     <value>Abrir tablero en una nueva pestaña</value>
   </data>
+  <data name="Select a board above to enable board-aware tools like creating cards, moving items, and managing columns." xml:space="preserve">
+    <value>Seleccione un tablero anterior para habilitar herramientas relacionadas con el tablero, como la creación de tarjetas, el desplazamiento de elementos y la gestión de columnas.</value>
+  </data>
   <data name="Select a board above to start chatting with the AI assistant." xml:space="preserve">
     <value>Selecciona un tablero arriba para empezar a chatear con el asistente de IA.</value>
   </data>

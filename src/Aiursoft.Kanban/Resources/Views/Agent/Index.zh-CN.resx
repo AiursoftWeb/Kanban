@@ -36,6 +36,9 @@
   <data name="Open board in new tab" xml:space="preserve">
     <value>在新标签页中打开看板</value>
   </data>
+  <data name="Select a board above to enable board-aware tools like creating cards, moving items, and managing columns." xml:space="preserve">
+    <value>在上方选择看板以启用创建卡片、移动项目和管理工作列等上下文感知工具。</value>
+  </data>
   <data name="Select a board above to start chatting with the AI assistant." xml:space="preserve">
     <value>在上方选择一个看板以开始与 AI 助手聊天。</value>
   </data>

@@ -36,6 +36,9 @@
   <data name="Open board in new tab" xml:space="preserve">
     <value>فتح اللوحة في علامة تبويب جديدة</value>
   </data>
+  <data name="Select a board above to enable board-aware tools like creating cards, moving items, and managing columns." xml:space="preserve">
+    <value>قم باختيار لوحة من الخيارات أعلاه لتفعيل أدوات مخصصة للوحة مثل إنشاء بطاقات، وتحريك العناصر، وإدارة الأعمدة.</value>
+  </data>
   <data name="Select a board above to start chatting with the AI assistant." xml:space="preserve">
     <value>حدد لوحة من الأعلى لبدء الدردشة مع مساعد الذكاء الاصطناعي.</value>
   </data>
