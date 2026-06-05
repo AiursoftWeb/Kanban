@@ -24,9 +24,9 @@ public interface IOllamaService
 public class OllamaService : IOllamaService
 {
     private readonly ChatClient _chatClient;
-    private readonly OpenAIConfiguration _configuration;
+    private readonly AnthropicConfiguration _configuration;
 
-    public OllamaService(ChatClient chatClient, IOptions<OpenAIConfiguration> configuration)
+    public OllamaService(ChatClient chatClient, IOptions<AnthropicConfiguration> configuration)
     {
         _chatClient = chatClient;
         _configuration = configuration.Value;

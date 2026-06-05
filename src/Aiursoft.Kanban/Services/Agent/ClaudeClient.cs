@@ -8,7 +8,7 @@ namespace Aiursoft.Kanban.Services.Agent;
 
 public class ClaudeClient : ISingletonDependency
 {
-    private readonly OpenAIConfiguration _config;
+    private readonly AnthropicConfiguration _config;
     private readonly ILogger<ClaudeClient> _logger;
     private readonly HttpClient _http;
 
@@ -18,7 +18,7 @@ public class ClaudeClient : ISingletonDependency
         PropertyNameCaseInsensitive = true
     };
 
-    public ClaudeClient(IOptions<OpenAIConfiguration> config, ILogger<ClaudeClient> logger)
+    public ClaudeClient(IOptions<AnthropicConfiguration> config, ILogger<ClaudeClient> logger)
     {
         _config = config.Value;
         _logger = logger;
@@ -33,7 +33,7 @@ public class ClaudeClient : ISingletonDependency
     {
         if (string.IsNullOrWhiteSpace(_config.CompletionApiUrl))
             throw new InvalidOperationException(
-                "LLM CompletionApiUrl is not configured. Set AppSettings:OpenAI:CompletionApiUrl in appsettings.json.");
+                "LLM CompletionApiUrl is not configured. Set AppSettings:Anthropic:CompletionApiUrl in appsettings.json.");
 
         var request = new ClaudeRequest
         {

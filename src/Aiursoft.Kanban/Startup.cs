@@ -31,7 +31,7 @@ public class Startup : IWebStartup
     {
         // AppSettings.
         services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
-        services.Configure<OpenAIConfiguration>(configuration.GetSection("AppSettings:OpenAI"));
+        services.Configure<AnthropicConfiguration>(configuration.GetSection("AppSettings:Anthropic"));
         services.Configure<AgentPromptConfig>(configuration.GetSection("AppSettings:Agent"));
 
 

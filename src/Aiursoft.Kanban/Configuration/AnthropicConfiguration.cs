@@ -1,9 +1,9 @@
 namespace Aiursoft.Kanban.Configuration;
 
 /// <summary>
-/// Configuration for OpenAI/Ollama integration
+/// Configuration for Anthropic Claude API integration
 /// </summary>
-public class OpenAIConfiguration
+public class AnthropicConfiguration
 {
     /// <summary>
     /// Authentication token for the API (can be empty for local Ollama)
