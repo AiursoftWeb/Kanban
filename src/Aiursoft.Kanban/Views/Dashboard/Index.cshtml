@@ -1,288 +1,329 @@
-<div class="text-center mt-5">
-    <h1 class="display-4">@Localizer["Hello World!"]</h1>
-    <p>@Localizer["This is a template project, where we start the voyager..."]</p>
-</div>
+@using Aiursoft.Kanban.Entities
+@using Aiursoft.WebTools
+@model Aiursoft.Kanban.Models.DashboardViewModels.IndexViewModel
+@{
+    string PriorityClass(Priority priority)
+    {
+        return priority switch
+        {
+            Priority.Urgent => "priority-urgent",
+            Priority.High => "priority-high",
+            Priority.Medium => "priority-medium",
+            Priority.Low => "priority-low",
+            _ => "priority-none"
+        };
+    }
 
-<div class="container-fluid p-5">
-    <div class="row mb-2 mb-xl-3">
-        <div class="col-auto d-none d-sm-block">
-            <h3>@Localizer["Welcome"]</h3>
-        </div>
+    string StatusText(ColumnStatus status)
+    {
+        return status switch
+        {
+            ColumnStatus.NotStarted => "Not Started",
+            ColumnStatus.InProgress => "In Progress",
+            ColumnStatus.Completed => "Completed",
+            _ => status.ToString()
+        };
+    }
 
-        <div class="col-auto ms-auto text-end mt-n1">
-            <a href="https://template-docs.aiursoft.com/en/Tutorial/before.html" class="btn btn-primary me-2 shadow-sm" target="_blank">
-                <i class="align-middle" data-lucide="rocket"></i> @Localizer["Start a new project"]
-            </a>
-            <a href="https://template-docs.aiursoft.com/" class="btn btn-outline-primary shadow-sm" target="_blank">
-                <i class="align-middle" data-lucide="book"></i> @Localizer["Read the document"]
-            </a>
-        </div>
+    string PermissionText(SharePermission? permission)
+    {
+        return permission switch
+        {
+            SharePermission.Editable => "Editable",
+            SharePermission.ReadOnly => "Read only",
+            _ => string.Empty
+        };
+    }
+}
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section styles {
+<style>
+    .dashboard-stat {
+        border: 1px solid var(--bs-border-color);
+        background: var(--bs-body-bg);
+        border-radius: 8px;
+    }
+
+    .dashboard-stat .stat {
+        width: 42px;
+        height: 42px;
+    }
+
+    .dashboard-board {
+        display: block;
+        height: 100%;
+        color: inherit;
+        text-decoration: none;
+        border: 1px solid var(--bs-border-color);
+        border-radius: 8px;
+        background: var(--bs-body-bg);
+        transition: box-shadow 0.2s ease, transform 0.15s ease;
+    }
+
+    .dashboard-board:hover {
+        color: inherit;
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+    }
+
+    .dashboard-meta,
+    .task-labels {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .priority-badge,
+    .label-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.2rem 0.55rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        border: 1px solid var(--bs-border-color);
+        color: var(--bs-secondary-color);
+        background: var(--bs-tertiary-bg);
+    }
+
+    .priority-urgent { background: rgba(220, 53, 69, 0.14); color: #dc3545; }
+    .priority-high { background: rgba(253, 126, 20, 0.14); color: #fd7e14; }
+    .priority-medium { background: rgba(255, 193, 7, 0.18); color: #8a6d00; }
+    .priority-low { background: rgba(13, 110, 253, 0.14); color: #0d6efd; }
+    .priority-none { display: none; }
+</style>
+}
+
+<div class="row mb-2 mb-xl-3">
+    <div class="col-auto d-none d-sm-block">
+        <h3>@Localizer["Kanban Dashboard"]</h3>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">@Localizer["Why use the Aiursoft Template?"]</h5>
-                    <p class="mb-0 text-muted mt-2">@Localizer["A modern, feature-rich, and highly extensible foundation for your next web application."]</p>
+    <div class="col-auto ms-auto text-end mt-n1">
+        <a asp-controller="Kanban" asp-action="Index" class="btn btn-primary me-2 shadow-sm">
+            <i class="align-middle" data-lucide="columns-3"></i> @Localizer["Open boards"]
+        </a>
+        <a asp-controller="MyTasks" asp-action="Index" class="btn btn-outline-primary shadow-sm">
+            <i class="align-middle" data-lucide="list-checks"></i> @Localizer["My tasks"]
+        </a>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="dashboard-stat p-3 h-100">
+            <div class="d-flex align-items-center">
+                <div class="stat me-3">
+                    <i class="align-middle" data-lucide="briefcase"></i>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="database"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Multiple Database Provider Support"]</h5>
-                                    <p>@Localizer["Easily switch between database providers, including SQLite, MySQL, SQL Server, and an in-memory database for testing."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="key-round"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["OpenID Connect Integration"]</h5>
-                                    <p>@Localizer["Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="shield-check"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["RBAC Authorization"]</h5>
-                                    <p>@Localizer["A built-in Role-Based Access Control (RBAC) system for fine-grained permission management."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="navigation"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Dynamic Navigation Bar"]</h5>
-                                    <p>@Localizer["The navigation bar automatically adjusts based on user roles and permissions."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="check-circle-2"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Consistency Validation"]</h5>
-                                    <p>@Localizer["Models are validated on both client and server sides based on data annotations."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="languages"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["AI-Powered Translations"]</h5>
-                                    <p>@Localizer["Automatic, AI-driven translation into 28 languages."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="book-open-text"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Comprehensive Documentation"]</h5>
-                                    <p>@Localizer["Includes extensive documentation and practical examples to get you started quickly."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="user-cog"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Built-in User Management"]</h5>
-                                    <p>@Localizer["A complete solution for user authentication and profile management."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="zap"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Automatic Dependency Injection"]</h5>
-                                    <p>@Localizer["All dependencies are automatically registered and always available via constructor injection."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="folder-archive"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Integrated File Management"]</h5>
-                                    <p>@Localizer["Features a built-in file management system with automatic avatar compression and privacy protection."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="airplay"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Responsive Design"]</h5>
-                                    <p>@Localizer["A fully responsive layout that looks great on both desktop and mobile devices."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="moon"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Automatic Dark Mode"]</h5>
-                                    <p>@Localizer["Smart dark mode that adapts to the user's system settings."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="ship"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Dockerized for Easy Deployment"]</h5>
-                                    <p>@Localizer["Comes with Docker support for simplified and consistent deployments."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="test-tube-2"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Robust Integration Testing"]</h5>
-                                    <p>@Localizer["Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="globe"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Automatic Time Zone Handling"]</h5>
-                                    <p>@Localizer["Develop exclusively in UTC while the system automatically converts and displays dates in the user's local time zone."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="cpu"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Background Job Processing"]</h5>
-                                    <p>@Localizer["\"Fire-and-forget\" support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="calendar-clock"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Scheduled Task Management"]</h5>
-                                    <p>@Localizer["Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs."]</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="d-flex align-items-start py-3">
-                                <div class="d-inline-block me-3">
-                                    <div class="stat">
-                                        <i class="align-middle" data-lucide="settings-2"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mt-0">@Localizer["Smart Configuration Overrides"]</h5>
-                                    <p>@Localizer["Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides."]</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                    <div class="text-muted small">@Localizer["My boards"]</div>
+                    <div class="fs-3 fw-bold">@Model.OwnedBoardCount</div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="dashboard-stat p-3 h-100">
+            <div class="d-flex align-items-center">
+                <div class="stat me-3">
+                    <i class="align-middle" data-lucide="share-2"></i>
+                </div>
+                <div>
+                    <div class="text-muted small">@Localizer["Shared boards"]</div>
+                    <div class="fs-3 fw-bold">@Model.SharedBoardCount</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="dashboard-stat p-3 h-100">
+            <div class="d-flex align-items-center">
+                <div class="stat me-3">
+                    <i class="align-middle" data-lucide="clipboard-list"></i>
+                </div>
+                <div>
+                    <div class="text-muted small">@Localizer["Assigned tasks"]</div>
+                    <div class="fs-3 fw-bold">@Model.AssignedTaskCount</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="dashboard-stat p-3 h-100">
+            <div class="d-flex align-items-center">
+                <div class="stat me-3">
+                    <i class="align-middle" data-lucide="alarm-clock"></i>
+                </div>
+                <div>
+                    <div class="text-muted small">@Localizer["Overdue"]</div>
+                    <div class="fs-3 fw-bold">@Model.OverdueTaskCount</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="row g-4 mb-4">
+    <div class="col-12 col-xl-8">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-transparent d-flex flex-wrap align-items-center gap-2 justify-content-between">
+                <h5 class="card-title mb-0"><i class="align-middle me-2 text-primary" data-lucide="list-checks"></i> @Localizer["My active tasks"]</h5>
+                <span class="badge bg-primary-subtle text-primary-emphasis">@Model.InProgressTaskCount @Localizer["in progress"]</span>
+            </div>
+            <div class="list-group list-group-flush">
+                @if (Model.AssignedTasks.Any())
+                {
+                    @foreach (var card in Model.AssignedTasks)
+                    {
+                        <a asp-controller="Kanban" asp-action="Index" asp-route-boardId="@card.Column.BoardId" class="list-group-item list-group-item-action p-3">
+                            <div class="d-flex flex-wrap justify-content-between gap-3">
+                                <div>
+                                    <div class="dashboard-meta mb-2">
+                                        @if (card.Priority != Priority.None)
+                                        {
+                                            <span class="priority-badge @PriorityClass(card.Priority)">@card.Priority</span>
+                                        }
+                                        <span class="badge bg-secondary-subtle text-secondary-emphasis">@Localizer[StatusText(card.Column.ColumnStatus)]</span>
+                                    </div>
+                                    <div class="fw-bold">@card.Title</div>
+                                    <div class="text-muted small">@card.Column.Board.Name / @card.Column.Name</div>
+                                </div>
+                                <div class="text-muted small text-md-end">
+                                    @if (card.DueDate.HasValue)
+                                    {
+                                        <span>@Localizer["Due:"] <span data-utc-time="@card.DueDate.Value.ToHtmlDateTime()"></span></span>
+                                    }
+                                    else
+                                    {
+                                        <span>@Localizer["No due date"]</span>
+                                    }
+                                </div>
+                            </div>
+                            @if (card.CardLabels.Count > 0)
+                            {
+                                <div class="task-labels mt-3">
+                                    @foreach (var label in card.CardLabels.OrderBy(link => link.Label.Name))
+                                    {
+                                        <span class="label-chip" style="background-color:@(label.Label.Color)22;border-color:@label.Label.Color;color:@label.Label.Color;">
+                                            @label.Label.Name
+                                        </span>
+                                    }
+                                </div>
+                            }
+                        </a>
+                    }
+                }
+                else
+                {
+                    <div class="list-group-item text-muted p-4 text-center">
+                        <i class="mb-2 d-block opacity-50" data-lucide="smile" style="width: 40px; height: 40px; margin: 0 auto;"></i>
+                        @Localizer["No active tasks assigned to you right now."]
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-xl-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-transparent">
+                <h5 class="card-title mb-0"><i class="align-middle me-2 text-success" data-lucide="zap"></i> @Localizer["Quick actions"]</h5>
+            </div>
+            <div class="list-group list-group-flush">
+                <a asp-controller="Kanban" asp-action="Index" class="list-group-item list-group-item-action p-3">
+                    <div class="fw-bold">@Localizer["Create or manage boards"]</div>
+                    <div class="text-muted small">@Localizer["Plan columns, cards, priorities, labels, assignees, and due dates."]</div>
+                </a>
+                <a asp-controller="Kanban" asp-action="SharedWithMe" class="list-group-item list-group-item-action p-3">
+                    <div class="fw-bold">@Localizer["Review shared boards"]</div>
+                    <div class="text-muted small">@Localizer["Open boards shared with you through direct or role-based access."]</div>
+                </a>
+                <a asp-controller="Agent" asp-action="Index" class="list-group-item list-group-item-action p-3">
+                    <div class="fw-bold">@Localizer["Ask the Kanban agent"]</div>
+                    <div class="text-muted small">@Localizer["Get help reading and updating board state with the built-in assistant."]</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-12 col-xl-6">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="mb-0">@Localizer["My boards"]</h5>
+            <a asp-controller="Kanban" asp-action="Index" class="btn btn-sm btn-outline-primary">
+                <i class="align-middle" data-lucide="arrow-right"></i>
+            </a>
+        </div>
+        <div class="row g-3">
+            @if (Model.OwnedBoards.Any())
+            {
+                @foreach (var board in Model.OwnedBoards.Take(6))
+                {
+                    <div class="col-12 col-md-6">
+                        <a asp-controller="Kanban" asp-action="Index" asp-route-boardId="@board.BoardId" class="dashboard-board p-3">
+                            <div class="d-flex justify-content-between gap-3 mb-3">
+                                <div class="fw-bold text-truncate">@board.Name</div>
+                                @if (board.OverdueCards > 0)
+                                {
+                                    <span class="badge bg-danger-subtle text-danger-emphasis">@board.OverdueCards @Localizer["overdue"]</span>
+                                }
+                            </div>
+                            <div class="dashboard-meta text-muted small">
+                                <span>@board.TotalCards @Localizer["cards"]</span>
+                                <span>@board.InProgressCards @Localizer["in progress"]</span>
+                                <span>@board.CompletedCards @Localizer["done"]</span>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="dashboard-stat text-muted p-4 text-center">@Localizer["No boards created yet."]</div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col-12 col-xl-6">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="mb-0">@Localizer["Shared with me"]</h5>
+            <a asp-controller="Kanban" asp-action="SharedWithMe" class="btn btn-sm btn-outline-primary">
+                <i class="align-middle" data-lucide="arrow-right"></i>
+            </a>
+        </div>
+        <div class="row g-3">
+            @if (Model.SharedBoards.Any())
+            {
+                @foreach (var board in Model.SharedBoards.Take(6))
+                {
+                    <div class="col-12 col-md-6">
+                        <a asp-controller="Kanban" asp-action="Index" asp-route-boardId="@board.BoardId" class="dashboard-board p-3">
+                            <div class="d-flex justify-content-between gap-3 mb-3">
+                                <div class="fw-bold text-truncate">@board.Name</div>
+                                <span class="badge bg-info-subtle text-info-emphasis">@Localizer[PermissionText(board.Permission)]</span>
+                            </div>
+                            <div class="dashboard-meta text-muted small">
+                                <span>@board.TotalCards @Localizer["cards"]</span>
+                                <span>@board.IncompleteCards @Localizer["open"]</span>
+                                <span>@board.CompletedCards @Localizer["done"]</span>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="dashboard-stat text-muted p-4 text-center">@Localizer["No boards are shared with you yet."]</div>
+                </div>
+            }
+        </div>
+    </div>
 </div>

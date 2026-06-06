@@ -3,15 +3,13 @@
 @model Aiursoft.Kanban.Models.ManageViewModels.IndexViewModel
 @inject IOptions<AppSettings> AppSettings
 
-@* Standard page title, consistent with the rest of the template. *@
 <h1 class="h3 mb-3">@Localizer["Account Management"]</h1>
 
-@* The StatusMessage logic is preserved, but the alert's icon and layout are enhanced. *@
 @if (!string.IsNullOrWhiteSpace(ViewData["StatusMessage"] as string))
 {
     <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        <div class="d-flex">
+        <div class="d-flex align-items-start">
             <div class="alert-icon pe-3">
                 <i class="align-middle" data-lucide="check-circle"></i>
             </div>

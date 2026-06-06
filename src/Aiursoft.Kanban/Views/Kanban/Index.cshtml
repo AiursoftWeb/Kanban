@@ -1144,7 +1144,14 @@
                                 </select>
                             </div>
                             <div class="alert alert-warning mt-3 mb-0" role="alert">
-                                @Localizer["Comments will not be transferred and the assignee will be cleared."]
+                                <div class="d-flex align-items-start">
+                                    <div class="alert-icon pe-3">
+                                        <i class="align-middle" data-lucide="alert-triangle"></i>
+                                    </div>
+                                    <div class="alert-message">
+                                        @Localizer["Comments will not be transferred and the assignee will be cleared."]
+                                    </div>
+                                </div>
                             </div>
                             <div class="alert alert-danger mt-3 mb-0 d-none" id="transferCardError" role="alert"></div>
                         </div>
@@ -1237,6 +1244,27 @@
                 <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteComment" style="border-radius:10px">
                     @Localizer["Delete"]
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Friendly Alert Modal -->
+<div class="modal fade" id="friendlyAlertModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold">
+                    <i class="align-middle me-2 text-danger" id="friendlyAlertIcon" data-lucide="alert-circle"></i>
+                    <span id="friendlyAlertTitle">@Localizer["Notice"]</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p class="mb-0" id="friendlyAlertMessage"></p>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["OK"]</button>
             </div>
         </div>
     </div>
@@ -1419,6 +1447,52 @@
         var currentBoardId = @(Model.CurrentBoard?.Id ?? 0);
         var isDragging = false;
         var labelSearchTimeout = 0;
+        var friendlyAlertModalEl = document.getElementById("friendlyAlertModal");
+        var friendlyAlertModal = friendlyAlertModalEl ? new bootstrap.Modal(friendlyAlertModalEl) : null;
+        var friendlyAlertTitle = document.getElementById("friendlyAlertTitle");
+        var friendlyAlertMessage = document.getElementById("friendlyAlertMessage");
+        var friendlyAlertIcon = document.getElementById("friendlyAlertIcon");
+
+        function clearInlineAlert(alertEl) {
+            if (!alertEl) return;
+            alertEl.innerHTML = "";
+            alertEl.classList.add("d-none");
+        }
+
+        function showInlineAlert(alertEl, message, iconName) {
+            if (!alertEl) return;
+            alertEl.innerHTML = "";
+
+            var row = document.createElement("div");
+            row.className = "d-flex align-items-start";
+
+            var iconWrap = document.createElement("div");
+            iconWrap.className = "alert-icon pe-3";
+
+            var icon = document.createElement("i");
+            icon.className = "align-middle";
+            icon.setAttribute("data-lucide", iconName || "alert-circle");
+            iconWrap.appendChild(icon);
+
+            var messageWrap = document.createElement("div");
+            messageWrap.className = "alert-message";
+            messageWrap.textContent = message || "";
+
+            row.appendChild(iconWrap);
+            row.appendChild(messageWrap);
+            alertEl.appendChild(row);
+            alertEl.classList.remove("d-none");
+            lucide.createIcons({ nodes: [alertEl] });
+        }
+
+        function showFriendlyDialog(message, title, iconName) {
+            if (!friendlyAlertModal || !friendlyAlertMessage || !friendlyAlertTitle || !friendlyAlertIcon) return;
+            friendlyAlertTitle.textContent = title || getLocalizedText("notice", "Notice");
+            friendlyAlertMessage.textContent = message || "";
+            friendlyAlertIcon.setAttribute("data-lucide", iconName || "alert-circle");
+            lucide.createIcons({ nodes: [friendlyAlertModalEl] });
+            friendlyAlertModal.show();
+        }
 
         var deleteBoardConfirmModalEl = document.getElementById("deleteBoardConfirmModal");
         var deleteBoardConfirmModal = deleteBoardConfirmModalEl ? new bootstrap.Modal(deleteBoardConfirmModalEl) : null;
@@ -1438,8 +1512,7 @@
                     deleteBoardNameDisplay.textContent = boardName;
                 }
                 if (deleteBoardError) {
-                    deleteBoardError.textContent = "";
-                    deleteBoardError.classList.add("d-none");
+                    clearInlineAlert(deleteBoardError);
                 }
                 if (btnConfirmDeleteBoard) {
                     btnConfirmDeleteBoard.disabled = false;
@@ -1458,7 +1531,7 @@
                 btnConfirmDeleteBoard.disabled = true;
                 btnConfirmDeleteBoard.textContent = getLocalizedText("deleting", "Deleting...");
                 if (deleteBoardError) {
-                    deleteBoardError.classList.add("d-none");
+                    clearInlineAlert(deleteBoardError);
                 }
 
                 fetch("/Kanban/DeleteBoard", {
@@ -1485,8 +1558,7 @@
                 })
                 .catch(function(err) {
                     if (deleteBoardError) {
-                        deleteBoardError.textContent = getLocalizedText("failed-delete-board", "Failed to delete board:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error"));
-                        deleteBoardError.classList.remove("d-none");
+                        showInlineAlert(deleteBoardError, getLocalizedText("failed-delete-board", "Failed to delete board:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
                     }
                 })
                 .finally(function() {
@@ -1912,7 +1984,7 @@
                         input.remove();
                     })
                     .catch(function(err) {
-                        alert(getLocalizedText("failed-rename-column", "Failed to rename column:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
+                        showFriendlyDialog(getLocalizedText("failed-rename-column", "Failed to rename column:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")), getLocalizedText("error", "Error"));
                         cancelRename();
                     });
                 }
@@ -2091,7 +2163,7 @@
             } catch (err) {
                 textarea.value = textarea.value.replace(uploadingText, '');
                 console.error('Image upload failed:', err);
-                alert('Failed to upload pasted image: ' + (err.message || 'Unknown error'));
+                showFriendlyDialog(getLocalizedText("failed-upload-pasted-image", "Failed to upload pasted image:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")), getLocalizedText("error", "Error"));
             }
         }
 
@@ -2225,8 +2297,7 @@
                 deleteColumnNameDisplay.textContent = columnName;
             }
             if (deleteColumnError) {
-                deleteColumnError.textContent = "";
-                deleteColumnError.classList.add("d-none");
+                clearInlineAlert(deleteColumnError);
             }
 
             var delBtn = columnEl.querySelector(".btn-delete-column");
@@ -2234,11 +2305,9 @@
             var warningEl = document.getElementById("deleteColumnWarning");
             if (warningEl) {
                 if (cardsCount > 0) {
-                    warningEl.textContent = getLocalizedText("this-column-contains", "This column contains") + " " + cardsCount + " " + getLocalizedText("cards-delete-warning", "card(s). Deleting the column will also permanently delete all its cards.");
-                    warningEl.classList.remove("d-none");
+                    showInlineAlert(warningEl, getLocalizedText("this-column-contains", "This column contains") + " " + cardsCount + " " + getLocalizedText("cards-delete-warning", "card(s). Deleting the column will also permanently delete all its cards."), "alert-triangle");
                 } else {
-                    warningEl.textContent = "";
-                    warningEl.classList.add("d-none");
+                    clearInlineAlert(warningEl);
                 }
             }
 
@@ -2258,7 +2327,7 @@
                 btnConfirmDeleteColumn.disabled = true;
                 btnConfirmDeleteColumn.textContent = getLocalizedText("deleting", "Deleting...");
                 if (deleteColumnError) {
-                    deleteColumnError.classList.add("d-none");
+                    clearInlineAlert(deleteColumnError);
                 }
 
                 fetch("/Kanban/DeleteColumn", {
@@ -2281,8 +2350,7 @@
                 .catch(function(err) {
                     console.error("DeleteColumn failed:", err);
                     if (deleteColumnError) {
-                        deleteColumnError.textContent = getLocalizedText("failed-delete-column", "Failed to delete column:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error"));
-                        deleteColumnError.classList.remove("d-none");
+                        showInlineAlert(deleteColumnError, getLocalizedText("failed-delete-column", "Failed to delete column:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
                     }
                 })
                 .finally(function() {
@@ -2461,7 +2529,7 @@
                         syncCurrentCardLabels();
                     })
                     .catch(function(err) {
-                        alert(err.message || getLocalizedText("failed-remove-label", "Failed to remove label."));
+                        showFriendlyDialog(err.message || getLocalizedText("failed-remove-label", "Failed to remove label."), getLocalizedText("error", "Error"));
                     });
                 });
             });
@@ -2489,7 +2557,7 @@
                         syncCurrentCardLabels();
                     })
                     .catch(function(err) {
-                        alert(err.message || getLocalizedText("failed-update-label-color", "Failed to update label color."));
+                        showFriendlyDialog(err.message || getLocalizedText("failed-update-label-color", "Failed to update label color."), getLocalizedText("error", "Error"));
                     });
                 });
             });
@@ -2577,7 +2645,7 @@
                 fetchLabelSuggestions("");
             })
             .catch(function(err) {
-                alert(err.message || getLocalizedText("failed-add-label", "Failed to add label."));
+                showFriendlyDialog(err.message || getLocalizedText("failed-add-label", "Failed to add label."), getLocalizedText("error", "Error"));
             });
         }
 
@@ -2768,7 +2836,7 @@
                     bootstrap.Modal.getInstance(editCardModal).hide();
                 })
                 .catch(function(err) {
-                    alert(getLocalizedText("failed-save", "Failed to save:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
+                    showFriendlyDialog(getLocalizedText("failed-save", "Failed to save:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")), getLocalizedText("error", "Error"));
                 })
                 .finally(function() {
                     btnUpdateCard.disabled = false;
@@ -2780,8 +2848,7 @@
         if (btnDeleteCard) {
             btnDeleteCard.addEventListener("click", function() {
                 if (deleteCardError) {
-                    deleteCardError.textContent = "";
-                    deleteCardError.classList.add("d-none");
+                    clearInlineAlert(deleteCardError);
                 }
                 if (btnConfirmDeleteCard) {
                     btnConfirmDeleteCard.disabled = false;
@@ -2805,7 +2872,7 @@
                 btnConfirmDeleteCard.disabled = true;
                 btnConfirmDeleteCard.textContent = getLocalizedText("deleting", "Deleting...");
                 if (deleteCardError) {
-                    deleteCardError.classList.add("d-none");
+                    clearInlineAlert(deleteCardError);
                 }
 
                 fetch("/Kanban/DeleteCard", {
@@ -2828,8 +2895,7 @@
                 })
                 .catch(function(err) {
                     if (deleteCardError) {
-                        deleteCardError.textContent = err.message || getLocalizedText("server-error", "Server error");
-                        deleteCardError.classList.remove("d-none");
+                        showInlineAlert(deleteCardError, err.message || getLocalizedText("server-error", "Server error"));
                     }
                 })
                 .finally(function() {
@@ -2850,8 +2916,11 @@
 
         function showTransferError(message) {
             if (!transferCardError) return;
-            transferCardError.textContent = message || "";
-            transferCardError.classList.toggle("d-none", !message);
+            if (message) {
+                showInlineAlert(transferCardError, message);
+            } else {
+                clearInlineAlert(transferCardError);
+            }
         }
 
         function updateTransferColumns() {
@@ -3019,7 +3088,7 @@
                             input.remove();
                         })
                         .catch(function(err) {
-                            alert(getLocalizedText("failed-rename-board", "Failed to rename board:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
+                            showFriendlyDialog(getLocalizedText("failed-rename-board", "Failed to rename board:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")), getLocalizedText("error", "Error"));
                             cancelBoardRename();
                         });
                     }
@@ -3052,7 +3121,7 @@
                 var content = commentInput.value.trim();
                 if (!content) return;
                 if (content.length > 2000) {
-                    alert(getLocalizedText("comment-too-long", "Comment is too long (max 2000 characters)."));
+                    showFriendlyDialog(getLocalizedText("comment-too-long", "Comment is too long (max 2000 characters)."), getLocalizedText("warning", "Warning"), "alert-triangle");
                     return;
                 }
                 btnAddComment.disabled = true;
@@ -3073,7 +3142,7 @@
                     loadComments(currentEditCardId);
                 })
                 .catch(function(err) {
-                    alert(err.message || getLocalizedText("failed-add-comment", "Failed to add comment."));
+                    showFriendlyDialog(err.message || getLocalizedText("failed-add-comment", "Failed to add comment."), getLocalizedText("error", "Error"));
                 })
                 .finally(function() {
                     btnAddComment.disabled = false;
@@ -3094,8 +3163,7 @@
         function deleteComment(commentId) {
             commentIdToDelete = commentId;
             if (deleteCommentError) {
-                deleteCommentError.textContent = "";
-                deleteCommentError.classList.add("d-none");
+                clearInlineAlert(deleteCommentError);
             }
             if (btnConfirmDeleteComment) {
                 btnConfirmDeleteComment.disabled = false;
@@ -3113,7 +3181,7 @@
                 btnConfirmDeleteComment.disabled = true;
                 btnConfirmDeleteComment.textContent = getLocalizedText("deleting", "Deleting...");
                 if (deleteCommentError) {
-                    deleteCommentError.classList.add("d-none");
+                    clearInlineAlert(deleteCommentError);
                 }
 
                 fetch("/Kanban/DeleteComment?commentId=" + commentIdToDelete, {
@@ -3129,8 +3197,7 @@
                 })
                 .catch(function(err) {
                     if (deleteCommentError) {
-                        deleteCommentError.textContent = err.message || getLocalizedText("failed-delete-comment", "Failed to delete comment.");
-                        deleteCommentError.classList.remove("d-none");
+                        showInlineAlert(deleteCommentError, err.message || getLocalizedText("failed-delete-comment", "Failed to delete comment."));
                     }
                 })
                 .finally(function() {

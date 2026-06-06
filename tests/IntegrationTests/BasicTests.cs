@@ -14,7 +14,10 @@ public class BasicTests : TestBase
     public async Task GetHome(string url)
     {
         var response = await Http.GetAsync(url);
+        var html = await response.Content.ReadAsStringAsync();
+
         response.EnsureSuccessStatusCode();
+        Assert.Contains("Aiursoft Kanban", html);
     }
 
     [TestMethod]

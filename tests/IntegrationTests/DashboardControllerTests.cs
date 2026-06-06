@@ -6,16 +6,13 @@ public class DashboardControllerTests : TestBase
     [TestMethod]
     public async Task GetIndex()
     {
-        // This is a basic test to ensure the controller is reachable.
-        // Adjust the path as necessary for specific controllers.
+        await LoginAsAdmin();
         var url = "/Dashboard/Index";
         
         var response = await Http.GetAsync(url);
+        var html = await response.Content.ReadAsStringAsync();
         
-        // Assert
-        // For some controllers, it might redirect to login, which is 302.
-        // For others, it might be 200.
-        // We just check if we get a response.
-        Assert.IsNotNull(response);
+        response.EnsureSuccessStatusCode();
+        Assert.Contains("Kanban Dashboard", html);
     }
 }
