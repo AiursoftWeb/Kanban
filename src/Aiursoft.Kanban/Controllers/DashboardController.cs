@@ -42,7 +42,7 @@ public class DashboardController(
             .ToListAsync();
 
         var sharedBoardShares = await db.BoardShares
-            .Include(share => share.Board!)
+            .Include(share => share.Board)
                 .ThenInclude(board => board.Columns)
                     .ThenInclude(column => column.Cards)
             .Where(share => share.SharedWithUserId == userId ||
@@ -51,7 +51,7 @@ public class DashboardController(
             .ToListAsync();
 
         var sharedBoards = sharedBoardShares
-            .Where(share => share.Board != null && share.Board.UserId != userId)
+            .Where(share => share.Board.UserId != userId)
             .GroupBy(share => share.BoardId)
             .Select(group =>
             {
@@ -59,7 +59,7 @@ public class DashboardController(
                     .OrderByDescending(item => item.Permission)
                     .ThenByDescending(item => item.CreationTime)
                     .First();
-                return ToBoardSummary(share.Board!, now, share.Permission);
+                return ToBoardSummary(share.Board, now, share.Permission);
             })
             .OrderBy(board => board.Name)
             .ToList();

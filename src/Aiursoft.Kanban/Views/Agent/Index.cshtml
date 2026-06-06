@@ -60,13 +60,11 @@
     }
 </div>
 
-@section scripts {
 <script>
-    document.getElementById('board-selector').addEventListener('change', function () {
+    document.getElementById('board-selector')?.addEventListener('change', function () {
         var boardId = this.value;
         var url = boardId ? '@Url.Action("Index", "Agent")' + '?boardId=' + boardId
                           : '@Url.Action("Index", "Agent")';
         window.location.href = url;
     });
 </script>
-}
