@@ -42,6 +42,12 @@
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Alla beroenden registreras automatiskt och är alltid tillgängliga via konstruktorinjektion.</value>
   </data>
+  <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>Ställ frågan till Kanban-assistenten</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Tilldelade uppgifter</value>
+  </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Automatiskt mörkt läge</value>
   </data>
@@ -63,6 +69,9 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Inbyggd användarhantering</value>
   </data>
+  <data name="cards" xml:space="preserve">
+    <value>kort</value>
+  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Kommer med Docker-stöd för enklare och konsekventa distributioner.</value>
   </data>
@@ -75,6 +84,9 @@
   <data name="Consistency Validation" xml:space="preserve">
     <value>Konsekvensvalidering</value>
   </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>Skapa eller hantera tavlor</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Utveckla uteslutande i UTC medan systemet automatiskt konverterar och visar datum i användarens lokala tidszon.</value>
   </data>
@@ -83,6 +95,12 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Dockeriserat för enkel distribution</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>klar</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>Förfallo:</value>
   </data>
   <data name="Dynamic Navigation Bar" xml:space="preserve">
     <value>Dynamiskt navigeringsfält</value>
@@ -102,17 +120,26 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>Har ett inbyggt filhanteringssystem med automatisk komprimering av avatarer.</value>
   </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>Få hjälp med att läsa och uppdatera whiteboardets status med den inbyggda assistenten.</value>
+  </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Hantera återkommande jobb som rengöring och synkronisering med en omfattande GUI för att övervaka utförandehistorik och loggar.</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>Hej Världen!</value>
   </data>
+  <data name="in progress" xml:space="preserve">
+    <value>pågående</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Innehåller omfattande dokumentation och praktiska exempel för att du snabbt ska komma igång.</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Integrerad filhantering</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Kanban-kontrollpanel</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Modeller valideras på både klient- och serversidan baserat på dataannotationer.</value>
@@ -123,8 +150,47 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Stöd för flera databaser</value>
   </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>Mina aktiva uppgifter</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Mina bräden</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Mina uppgifter</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Inga aktiva uppgifter är tilldelade dig just nu.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Inga tavlor delas med dig än.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Inga kortlistor skapade ännu.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Inget förfallodatum</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>öppna</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Öppna brädor</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>Öppna tavlor som delats med dig genom direkt eller rollbaserad åtkomst.</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect-integration</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>senarelade</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>Planera kolumner, kort, prioriteringar, etiketter, tilldelningar och deadlines.</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>Snabbåtgärder</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC-auktorisering</value>
@@ -135,6 +201,9 @@
   <data name="Responsive Design" xml:space="preserve">
     <value>Responsiv design</value>
   </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>Granska delade tavlor</value>
+  </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Robust integreringstestning</value>
   </data>
@@ -143,6 +212,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Integrera sömlöst med valfri OpenID Connect-leverantör, med automatisk rollsynkronisering.</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Delade tavlor</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Delat med mig</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Smart Configuration Overrides</value>

@@ -264,6 +264,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>Niet gestart</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Let op</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="optional" xml:space="preserve">
     <value>optioneel</value>
   </data>
