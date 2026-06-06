@@ -33,6 +33,9 @@
   <data name="A fully responsive layout that looks great on both desktop and mobile devices." xml:space="preserve">
     <value>Адаптивный макет, который отлично выглядит как на настольных компьютерах, так и на мобильных устройствах.</value>
   </data>
+  <data name="A lightweight, self-hosted Kanban workspace for planning boards, tracking cards, assigning work, and sharing progress across your team." xml:space="preserve">
+    <value>Легковесная самораспространяемая рабочая среда Kanban для планирования досок, отслеживания карточек, назначения задач и обмена прогрессом среди вашей команды.</value>
+  </data>
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Современная, многофункциональная и легко расширяемая основа для вашего следующего веб-приложения.</value>
   </data>
@@ -45,6 +48,9 @@
   <data name="Admin site included" xml:space="preserve">
     <value>Сайт администратора включен</value>
   </data>
+  <data name="Agent" xml:space="preserve">
+    <value>Агент</value>
+  </data>
   <data name="AI Driven Translation" xml:space="preserve">
     <value>Перевод на основе ИИ</value>
   </data>
@@ -53,6 +59,12 @@
   </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Переводы на основе ИИ</value>
+  </data>
+  <data name="Aiursoft Kanban" xml:space="preserve">
+    <value>Aiursoft Kanban</value>
+  </data>
+  <data name="Aiursoft Kanban." xml:space="preserve">
+    <value>Aiursoft Kanban.</value>
   </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Template</value>
@@ -71,6 +83,12 @@
   </data>
   <data name="Artificial Intelligence Translation" xml:space="preserve">
     <value>Искусственный интеллект — перевод</value>
+  </data>
+  <data name="Ask for board summaries and guided updates in plain language." xml:space="preserve">
+    <value>Запрашивайте краткие сводки по доскам и пошаговые обновления простым языком.</value>
+  </data>
+  <data name="Authentication, RBAC, OpenID Connect, localization, and system management are included." xml:space="preserve">
+    <value>Аутентификация, RBAC, OpenID Connect, локализация и управление системой уже включены.</value>
   </data>
   <data name="Authentik &amp; Okta" xml:space="preserve">
     <value>Authentik &amp; Okta</value>
@@ -120,6 +138,12 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>Двухязычные руководства</value>
   </data>
+  <data name="Board-Centered Planning" xml:space="preserve">
+    <value>Планирование на основе досок</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Доски</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>Соберите один раз, запускайте где угодно. Полностью контейнерная архитектура.</value>
   </data>
@@ -143,6 +167,9 @@
   </data>
   <data name="Built-in Auth" xml:space="preserve">
     <value>Встроенная аутентификация</value>
+  </data>
+  <data name="Built-in Identity" xml:space="preserve">
+    <value>Встроенная система идентификации</value>
   </data>
   <data name="Built-in Job Queue GUI" xml:space="preserve">
     <value>Встроенный интерфейс очереди задач</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Встроенное управление пользователями</value>
+  </data>
+  <data name="Card Discussion" xml:space="preserve">
+    <value>Обсуждение карточек</value>
   </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>Требуется Checkstyle или аналог</value>
@@ -204,6 +234,12 @@
   <data name="Coverage Report" xml:space="preserve">
     <value>Отчет о покрытии</value>
   </data>
+  <data name="Create boards, columns, cards, labels, priorities, and assignments." xml:space="preserve">
+    <value>Создавайте доски, колонки, карточки, метки, приоритеты и назначайте исполнителей.</value>
+  </data>
+  <data name="Create boards, organize columns, and move cards through clear workflow states from idea to done." xml:space="preserve">
+    <value>Создавайте доски, организуйте колонки и перемещайте карточки по понятным этапам рабочего процесса от идеи до завершения.</value>
+  </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>Кроссплатформенность</value>
   </data>
@@ -213,6 +249,9 @@
   <data name="Custom development required" xml:space="preserve">
     <value>Требуется индивидуальная разработка</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Панель управления</value>
+  </data>
   <data name="Dashboard for background and scheduled tasks" xml:space="preserve">
     <value>Панель управления для фоновых и запланированных задач</value>
   </data>
@@ -221,6 +260,9 @@
   </data>
   <data name="Dashboard Website" xml:space="preserve">
     <value>Веб-сайт панели управления</value>
+  </data>
+  <data name="Data Control" xml:space="preserve">
+    <value>Контроль данных</value>
   </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>Соответствие и безопасность с первого дня</value>
@@ -236,6 +278,9 @@
   </data>
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>База данных SQLite по умолчанию, настройка не требуется.</value>
+  </data>
+  <data name="Deploy Kanban in minutes with Docker, SQLite for small teams, or MySQL for larger installations." xml:space="preserve">
+    <value>Разверните Kanban за считанные минуты с помощью Docker, SQLite для небольших команд или MySQL для крупных установок.</value>
   </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>Разработано для всех — от новичков до экспертов.</value>
@@ -257,6 +302,9 @@
   </data>
   <data name="Discussions page" xml:space="preserve">
     <value>Страница обсуждений</value>
+  </data>
+  <data name="Docker" xml:space="preserve">
+    <value>Docker</value>
   </data>
   <data name="Docker Native" xml:space="preserve">
     <value>Docker Native</value>
@@ -300,8 +348,14 @@
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>Включен Entity Framework Core</value>
   </data>
+  <data name="Everything your team needs to move work forward." xml:space="preserve">
+    <value>Всё необходимое вашей команде для продвижения работы.</value>
+  </data>
   <data name="FAQ" xml:space="preserve">
     <value>ЧАВО</value>
+  </data>
+  <data name="Fast Deployment" xml:space="preserve">
+    <value>Быстрое развертывание</value>
   </data>
   <data name="faster" xml:space="preserve">
     <value>быстрее</value>
@@ -321,6 +375,9 @@
   <data name="File Mgmt &amp; Optimization" xml:space="preserve">
     <value>Управление файлами и оптимизация</value>
   </data>
+  <data name="Filter your assigned cards by status, labels, and priority." xml:space="preserve">
+    <value>Фильтруйте назначенные вам карточки по статусу, меткам и приоритету.</value>
+  </data>
   <data name="Fine-grained RBAC" xml:space="preserve">
     <value>Детализированный RBAC</value>
   </data>
@@ -329,6 +386,12 @@
   </data>
   <data name="Flexible API" xml:space="preserve">
     <value>Гибкая API</value>
+  </data>
+  <data name="Flexible Board Sharing" xml:space="preserve">
+    <value>Гибкий общий доступ к доскам</value>
+  </data>
+  <data name="Flexible Storage" xml:space="preserve">
+    <value>Гибкое хранилище</value>
   </data>
   <data name="for any inquiries or to report issues." xml:space="preserve">
     <value>по любым вопросам или для сообщения о проблемах.</value>
@@ -386,6 +449,9 @@
   </data>
   <data name="Go to dashboard" xml:space="preserve">
     <value>Перейти в панель управления</value>
+  </data>
+  <data name="Group cards with labels, mark priority, assign owners, and surface the most important work first." xml:space="preserve">
+    <value>Группируйте карточки по меткам, указывайте приоритеты, назначайте ответственных и выводите самые важные задачи в начало списка.</value>
   </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Обрабатывайте повторяющиеся задачи, такие как очистка и синхронизация, с помощью комплексного графического интерфейса для мониторинга истории выполнения и журналов.</value>
@@ -465,6 +531,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Бесплатно ли использовать Aiursoft Template?</value>
   </data>
+  <data name="is Open Source" xml:space="preserve">
+    <value>является открытым исходным кодом</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>Доступен API java.time</value>
   </data>
@@ -480,8 +549,20 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>Присоединяйтесь к растущему сообществу разработчиков, создающих следующее поколение веб-приложений.</value>
   </data>
+  <data name="Jump directly into your daily workflow." xml:space="preserve">
+    <value>Приступайте к повседневной работе сразу же.</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>Готово для K8s / Swarm</value>
+  </data>
+  <data name="Kanban Assistant" xml:space="preserve">
+    <value>Помощник Kanban</value>
+  </data>
+  <data name="Keep task context close to the work with descriptions, comments, and public board views." xml:space="preserve">
+    <value>Содержите контекст задачи в непосредственной близости к работе с помощью описаний, комментариев и публичных видов доски.</value>
+  </data>
+  <data name="Labels and Priorities" xml:space="preserve">
+    <value>Метки и приоритеты</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>Проверка линт-кода</value>
@@ -518,6 +599,12 @@
   </data>
   <data name="Music Tools" xml:space="preserve">
     <value>Музыкальные инструменты</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Мои задачи</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Навигация</value>
   </data>
   <data name="Needs CASL or similar" xml:space="preserve">
     <value>Требуется CASL или аналог</value>
@@ -567,14 +654,23 @@
   <data name="No dependency on any cloud vendor. Run anywhere, any time." xml:space="preserve">
     <value>Нет зависимости от любого поставщика облачных услуг. Запускайте где угодно, когда угодно.</value>
   </data>
+  <data name="No paid tiers, no hosted lock-in, and no hidden workflow limits. Run it yourself and keep ownership of your project data." xml:space="preserve">
+    <value>Никаких платных тарифов, привязки к хостингу или скрытых ограничений в рабочих процессах. Запустите его самостоятельно и сохраните полные права владения данными вашего проекта.</value>
+  </data>
   <data name="Offline Capable" xml:space="preserve">
     <value>Работа в автономном режиме</value>
   </data>
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="On Your Infrastructure" xml:space="preserve">
+    <value>На вашей инфраструктуре</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>Одно нажатие для запуска</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Открыть доски</value>
   </data>
   <data name="Open Source" xml:space="preserve">
     <value>Открытое ПО</value>
@@ -594,6 +690,9 @@
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>Обнаружение и синхронизация разрешений</value>
   </data>
+  <data name="Personal Task Focus" xml:space="preserve">
+    <value>Фокус на личных задачах</value>
+  </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>Требуется Pint или аналогичный инструмент</value>
   </data>
@@ -608,6 +707,9 @@
   </data>
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>Готовые конвейеры для dev/prod</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Частные</value>
   </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>Контроль качества</value>
@@ -624,6 +726,12 @@
   <data name="Read the document" xml:space="preserve">
     <value>Прочитать документацию</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Ready to organize your next project?" xml:space="preserve">
+    <value>Готовы организовать свой следующий проект?</value>
+  </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>Требуется настройка Laravel Socialite</value>
   </data>
@@ -632,6 +740,9 @@
   </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Адаптивный дизайн</value>
+  </data>
+  <data name="Review active tasks, owned boards, shared boards, and urgent work." xml:space="preserve">
+    <value>Просмотр активных задач, досок, находящихся в вашей ответственности, общих досок и срочных работ.</value>
   </data>
   <data name="Reviews" xml:space="preserve">
     <value>Отзывы</value>
@@ -647,6 +758,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Беспрепятственно интегрируйтесь с любым провайдером OpenID Connect с автоматической синхронизацией ролей.</value>
+  </data>
+  <data name="Self Hosted" xml:space="preserve">
+    <value>Самостоятельный хостинг</value>
+  </data>
+  <data name="Share boards with users or roles, choose read-only or editable access, and keep private work isolated." xml:space="preserve">
+    <value>Делитесь досками с пользователями или ролями, выбирайте доступ только для чтения или с возможностью редактирования и изолируйте личную работу.</value>
   </data>
   <data name="Shift with confidence" xml:space="preserve">
     <value>Смените с уверенностью</value>
@@ -680,6 +797,9 @@
   </data>
   <data name="Start with a single &apos;docker run&apos; command." xml:space="preserve">
     <value>Начните с одной команды &apos;docker run&apos;.</value>
+  </data>
+  <data name="Start with the install script or a single Docker container." xml:space="preserve">
+    <value>Начните с скрипта установки или отдельного контейнера Docker.</value>
   </data>
   <data name="Starts without any configuration" xml:space="preserve">
     <value>Запускается без какой-либо настройки</value>
@@ -750,6 +870,9 @@
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>Доступен API TimeZoneInfo</value>
   </data>
+  <data name="Track assignments, priorities, labels, due dates, overdue work, and active tasks from one dashboard." xml:space="preserve">
+    <value>Отслеживайте распределение задач, приоритеты, метки, сроки, просроченную работу и активные задачи с помощью единой панели управления.</value>
+  </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>Надёжно проверено приложениями промышленного уровня, включая AnduinOS, StatHub и Warp. Мы не просто делимся этим кодом; мы используем его для ведения всей своей бизнес-деятельности.</value>
   </data>
@@ -764,6 +887,12 @@
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>Используйте его как основу для вашего SaaS, бэкенд для мобильного приложения, корпоративный сайт или личный блог. Возможности безграничны.</value>
+  </data>
+  <data name="Use SQLite for simple hosting or MySQL when your team grows." xml:space="preserve">
+    <value>Используйте SQLite для простого развертывания или MySQL, когда ваша команда растет.</value>
+  </data>
+  <data name="Use the built-in assistant to read board state and help update routine project data." xml:space="preserve">
+    <value>Используйте встроенного помощника для анализа состояния доски и обновления рутинных данных проекта.</value>
   </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>Просмотреть на GitHub</value>
@@ -789,6 +918,12 @@
   <data name="Win/Lin/Mac" xml:space="preserve">
     <value>Win/Lin/Mac</value>
   </data>
+  <data name="Work Made Visible." xml:space="preserve">
+    <value>Работа становится видимой.</value>
+  </data>
+  <data name="Workflow Management" xml:space="preserve">
+    <value>Управление рабочими процессами</value>
+  </data>
   <data name="Yes, Aiursoft Template is completely free and open-source under the MIT License. You can use it for personal and commercial projects without any cost." xml:space="preserve">
     <value>Да, Aiursoft Template полностью бесплатен и имеет открытый исходный код под лицензией MIT. Вы можете использовать его для личных и коммерческих проектов без каких-либо затрат.</value>
   </data>
@@ -800,6 +935,9 @@
   </data>
   <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
     <value>Вам не нужно повторно регистрировать пользователей вашей компании.</value>
+  </data>
+  <data name="Your Workflow" xml:space="preserve">
+    <value>Ваш рабочий процесс</value>
   </data>
   <data name="Yubikey &amp; TOTP" xml:space="preserve">
     <value>Yubikey &amp; TOTP</value>

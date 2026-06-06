@@ -114,6 +114,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>Sin iniciar</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Aviso</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
   <data name="Order updated." xml:space="preserve">
     <value>Orden actualizada.</value>
   </data>

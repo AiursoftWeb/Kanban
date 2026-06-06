@@ -33,6 +33,9 @@
   <data name="A fully responsive layout that looks great on both desktop and mobile devices." xml:space="preserve">
     <value>Ein vollständig responsives Layout, das sowohl auf Desktop- als auch auf Mobilgeräten großartig aussieht.</value>
   </data>
+  <data name="A lightweight, self-hosted Kanban workspace for planning boards, tracking cards, assigning work, and sharing progress across your team." xml:space="preserve">
+    <value>Ein leichtgewichtiger, selbst gehosteter Kanban-Arbeitsbereich zur Planung von Boards, Verfolgung von Karten, Zuweisung von Aufgaben und Teilen des Fortschritts mit Ihrem Team.</value>
+  </data>
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Eine moderne, funktionsreiche und hochgradig erweiterbare Grundlage für Ihre nächste Webanwendung.</value>
   </data>
@@ -45,6 +48,9 @@
   <data name="Admin site included" xml:space="preserve">
     <value>Admin-Site enthalten</value>
   </data>
+  <data name="Agent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
   <data name="AI Driven Translation" xml:space="preserve">
     <value>KI-gestützte Übersetzung</value>
   </data>
@@ -53,6 +59,12 @@
   </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>KI-gestützte Übersetzungen</value>
+  </data>
+  <data name="Aiursoft Kanban" xml:space="preserve">
+    <value>Aiursoft Kanban</value>
+  </data>
+  <data name="Aiursoft Kanban." xml:space="preserve">
+    <value>Aiursoft Kanban.</value>
   </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Template</value>
@@ -71,6 +83,12 @@
   </data>
   <data name="Artificial Intelligence Translation" xml:space="preserve">
     <value>Künstliche Intelligenz-Übersetzung</value>
+  </data>
+  <data name="Ask for board summaries and guided updates in plain language." xml:space="preserve">
+    <value>Fordern Sie Boards-Zusammenfassungen und geführte Updates in einfacher Sprache an.</value>
+  </data>
+  <data name="Authentication, RBAC, OpenID Connect, localization, and system management are included." xml:space="preserve">
+    <value>Authentifizierung, RBAC, OpenID Connect, Lokalisierung und Systemverwaltung sind enthalten.</value>
   </data>
   <data name="Authentik &amp; Okta" xml:space="preserve">
     <value>Authentik &amp; Okta</value>
@@ -120,6 +138,12 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>Zweisprachige Tutorials</value>
   </data>
+  <data name="Board-Centered Planning" xml:space="preserve">
+    <value>Board-zentrierte Planung</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Board</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>Einmal erstellen, überall ausführen. Vollständig containerisierte Architektur.</value>
   </data>
@@ -143,6 +167,9 @@
   </data>
   <data name="Built-in Auth" xml:space="preserve">
     <value>Eingebaute Authentifizierung</value>
+  </data>
+  <data name="Built-in Identity" xml:space="preserve">
+    <value>Integrierte Identität</value>
   </data>
   <data name="Built-in Job Queue GUI" xml:space="preserve">
     <value>Integrierte GUI für die Job-Warteschlange</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Integriertes Benutzerverwaltungssystem</value>
+  </data>
+  <data name="Card Discussion" xml:space="preserve">
+    <value>Kartendiskussion</value>
   </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>Checkstyle oder ähnliches erforderlich</value>
@@ -204,6 +234,12 @@
   <data name="Coverage Report" xml:space="preserve">
     <value>Abdeckungsbericht</value>
   </data>
+  <data name="Create boards, columns, cards, labels, priorities, and assignments." xml:space="preserve">
+    <value>Erstellen Sie Boards, Spalten, Karten, Labels, Prioritäten und Zuordnungen.</value>
+  </data>
+  <data name="Create boards, organize columns, and move cards through clear workflow states from idea to done." xml:space="preserve">
+    <value>Erstellen Sie Boards, organisieren Sie Spalten und bewegen Sie Karten durch klare Arbeitsablaufzustände von der Idee bis zur Fertigstellung.</value>
+  </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>Plattformübergreifend</value>
   </data>
@@ -213,6 +249,9 @@
   <data name="Custom development required" xml:space="preserve">
     <value>Benutzerdefinierte Entwicklung erforderlich</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
   <data name="Dashboard for background and scheduled tasks" xml:space="preserve">
     <value>Dashboard für Hintergrund- und geplante Aufgaben</value>
   </data>
@@ -221,6 +260,9 @@
   </data>
   <data name="Dashboard Website" xml:space="preserve">
     <value>Dashboard-Website</value>
+  </data>
+  <data name="Data Control" xml:space="preserve">
+    <value>Datenkontrolle</value>
   </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>Tag 1 Compliance &amp; Sicherheit.</value>
@@ -236,6 +278,9 @@
   </data>
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>Standard-SQLite-Datenbank, keine Konfiguration erforderlich.</value>
+  </data>
+  <data name="Deploy Kanban in minutes with Docker, SQLite for small teams, or MySQL for larger installations." xml:space="preserve">
+    <value>Richten Sie Kanban in Minuten mit Docker, SQLite für kleine Teams oder MySQL für größere Installationen ein.</value>
   </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>Entwickelt für jedermann, von Anfängern bis zu Experten.</value>
@@ -257,6 +302,9 @@
   </data>
   <data name="Discussions page" xml:space="preserve">
     <value>Diskussionsseite</value>
+  </data>
+  <data name="Docker" xml:space="preserve">
+    <value>Docker</value>
   </data>
   <data name="Docker Native" xml:space="preserve">
     <value>Docker-native</value>
@@ -300,8 +348,14 @@
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>Entity Framework Core enthalten</value>
   </data>
+  <data name="Everything your team needs to move work forward." xml:space="preserve">
+    <value>Alles, was Ihr Team braucht, um die Arbeit voranzutreiben.</value>
+  </data>
   <data name="FAQ" xml:space="preserve">
     <value>FAQ</value>
+  </data>
+  <data name="Fast Deployment" xml:space="preserve">
+    <value>Schnelle Bereitstellung</value>
   </data>
   <data name="faster" xml:space="preserve">
     <value>schneller</value>
@@ -321,6 +375,9 @@
   <data name="File Mgmt &amp; Optimization" xml:space="preserve">
     <value>Dateiverwaltung &amp; -optimierung</value>
   </data>
+  <data name="Filter your assigned cards by status, labels, and priority." xml:space="preserve">
+    <value>Filtern Sie Ihre zugewiesenen Karten nach Status, Labels und Priorität.</value>
+  </data>
   <data name="Fine-grained RBAC" xml:space="preserve">
     <value>Feingranulares RBAC</value>
   </data>
@@ -329,6 +386,12 @@
   </data>
   <data name="Flexible API" xml:space="preserve">
     <value>Flexible API</value>
+  </data>
+  <data name="Flexible Board Sharing" xml:space="preserve">
+    <value>Flexible Board-Freigabe</value>
+  </data>
+  <data name="Flexible Storage" xml:space="preserve">
+    <value>Flexible Datenspeicherung</value>
   </data>
   <data name="for any inquiries or to report issues." xml:space="preserve">
     <value>für Anfragen oder zum Melden von Problemen.</value>
@@ -386,6 +449,9 @@
   </data>
   <data name="Go to dashboard" xml:space="preserve">
     <value>Zum Dashboard</value>
+  </data>
+  <data name="Group cards with labels, mark priority, assign owners, and surface the most important work first." xml:space="preserve">
+    <value>Gruppieren Sie Karten mit Labels, kennzeichnen Sie Prioritäten, weisen Sie Verantwortliche zu und stellen Sie die wichtigsten Aufgaben zuerst dar.</value>
   </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Verwalten Sie wiederkehrende Aufgaben wie Bereinigung und Synchronisation mit einer umfassenden GUI zur Überwachung der Ausführungsverlauf und Protokolle.</value>
@@ -465,6 +531,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Ist die Nutzung von Aiursoft Template kostenlos?</value>
   </data>
+  <data name="is Open Source" xml:space="preserve">
+    <value>ist Open Source</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>java.time-API verfügbar</value>
   </data>
@@ -480,8 +549,20 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>Treten Sie unserer wachsenden Community von Entwicklern bei, die die nächste Generation von Webanwendungen erstellen.</value>
   </data>
+  <data name="Jump directly into your daily workflow." xml:space="preserve">
+    <value>Steigen Sie direkt in Ihren täglichen Arbeitsablauf ein.</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>K8s / Swarm bereit</value>
+  </data>
+  <data name="Kanban Assistant" xml:space="preserve">
+    <value>Kanban-Assistent</value>
+  </data>
+  <data name="Keep task context close to the work with descriptions, comments, and public board views." xml:space="preserve">
+    <value>Behalten Sie den Aufgabenzusammenhang durch Beschreibungen, Kommentare und öffentliche Board-Ansichten nah an der Arbeit.</value>
+  </data>
+  <data name="Labels and Priorities" xml:space="preserve">
+    <value>Labels und Prioritäten</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>Lint-Prüfung</value>
@@ -518,6 +599,12 @@
   </data>
   <data name="Music Tools" xml:space="preserve">
     <value>Musik-Tools</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Meine Aufgaben</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Navigation</value>
   </data>
   <data name="Needs CASL or similar" xml:space="preserve">
     <value>Erfordert CASL oder Ähnliches</value>
@@ -567,14 +654,23 @@
   <data name="No dependency on any cloud vendor. Run anywhere, any time." xml:space="preserve">
     <value>Keine Abhängigkeit von einem Cloud-Anbieter. Überall und jederzeit ausführbar.</value>
   </data>
+  <data name="No paid tiers, no hosted lock-in, and no hidden workflow limits. Run it yourself and keep ownership of your project data." xml:space="preserve">
+    <value>Keine bezahlten Tarife, keine Abhängigkeit von Hosted-Lösungen und keine versteckten Arbeitsablaufbeschränkungen. Führen Sie es selbst aus und behalten Sie das Eigentum an Ihren Projektdaten.</value>
+  </data>
   <data name="Offline Capable" xml:space="preserve">
     <value>Offline fähig</value>
   </data>
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="On Your Infrastructure" xml:space="preserve">
+    <value>Auf Ihrer Infrastruktur</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>Einfach-Start</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Boards öffnen</value>
   </data>
   <data name="Open Source" xml:space="preserve">
     <value>Open Source</value>
@@ -594,6 +690,9 @@
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>Berechtigungsfindung und -synchronisation</value>
   </data>
+  <data name="Personal Task Focus" xml:space="preserve">
+    <value>Fokus auf persönliche Aufgaben</value>
+  </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>Pint oder ähnliches erforderlich</value>
   </data>
@@ -608,6 +707,9 @@
   </data>
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>Vorkonfigurierte Pipelines für Entwicklung/Produktion</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Privat</value>
   </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>Qualitätsgate</value>
@@ -624,6 +726,12 @@
   <data name="Read the document" xml:space="preserve">
     <value>Dokumentation lesen</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Bereit</value>
+  </data>
+  <data name="Ready to organize your next project?" xml:space="preserve">
+    <value>Bereit, Ihr nächstes Projekt zu organisieren?</value>
+  </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>Erfordert Laravel Socialite-Konfiguration</value>
   </data>
@@ -632,6 +740,9 @@
   </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Responsives Design</value>
+  </data>
+  <data name="Review active tasks, owned boards, shared boards, and urgent work." xml:space="preserve">
+    <value>Überprüfen Sie aktive Aufgaben, zugewiesene Boards, geteilte Boards und dringende Arbeiten.</value>
   </data>
   <data name="Reviews" xml:space="preserve">
     <value>Bewertungen</value>
@@ -647,6 +758,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Nahtlose Integration mit jedem OpenID Connect-Anbieter, mit automatischer Rollensynchronisierung.</value>
+  </data>
+  <data name="Self Hosted" xml:space="preserve">
+    <value>Selbst gehostet</value>
+  </data>
+  <data name="Share boards with users or roles, choose read-only or editable access, and keep private work isolated." xml:space="preserve">
+    <value>Teilen Sie Boards mit Nutzern oder Rollen, wählen Sie zwischen Schreib- oder Lesezugriff und halten Sie private Arbeiten isoliert.</value>
   </data>
   <data name="Shift with confidence" xml:space="preserve">
     <value>Sicher wechseln</value>
@@ -680,6 +797,9 @@
   </data>
   <data name="Start with a single &apos;docker run&apos; command." xml:space="preserve">
     <value>Starten Sie mit einem einzigen &apos;docker run&apos;-Befehl.</value>
+  </data>
+  <data name="Start with the install script or a single Docker container." xml:space="preserve">
+    <value>Starten Sie mit dem Installationsskript oder einem einzelnen Docker-Container.</value>
   </data>
   <data name="Starts without any configuration" xml:space="preserve">
     <value>Startet ohne Konfiguration</value>
@@ -750,6 +870,9 @@
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>TimeZoneInfo-API verfügbar</value>
   </data>
+  <data name="Track assignments, priorities, labels, due dates, overdue work, and active tasks from one dashboard." xml:space="preserve">
+    <value>Behalten Sie Zuweisungen, Prioritäten, Labels, Fälligkeitsdaten, überfällige Aufgaben und aktive Aufgaben auf einem Dashboard im Blick.</value>
+  </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>Vertraut von produktionsreifen Anwendungen wie AnduinOS, StatHub und Warp. Wir teilen diesen Code nicht nur; wir betreiben unseren gesamten Geschäftsbetrieb damit.</value>
   </data>
@@ -764,6 +887,12 @@
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>Nutzen Sie es als Grundlage für Ihr SaaS, als Backend für Ihre mobile App, als Unternehmenswebsite oder als persönlichen Blog. Die Möglichkeiten sind endlos.</value>
+  </data>
+  <data name="Use SQLite for simple hosting or MySQL when your team grows." xml:space="preserve">
+    <value>Verwenden Sie SQLite für einfacheHosting oder MySQL, wenn Ihr Team wächst.</value>
+  </data>
+  <data name="Use the built-in assistant to read board state and help update routine project data." xml:space="preserve">
+    <value>Nutzen Sie den integrierten Assistenten, um den Board-Status einzusehen und routinemäßige Projektdaten zu aktualisieren.</value>
   </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>Auf GitHub ansehen</value>
@@ -789,6 +918,12 @@
   <data name="Win/Lin/Mac" xml:space="preserve">
     <value>Win/Lin/Mac</value>
   </data>
+  <data name="Work Made Visible." xml:space="preserve">
+    <value>Arbeit sichtbar gemacht.</value>
+  </data>
+  <data name="Workflow Management" xml:space="preserve">
+    <value>Workflow-Management</value>
+  </data>
   <data name="Yes, Aiursoft Template is completely free and open-source under the MIT License. You can use it for personal and commercial projects without any cost." xml:space="preserve">
     <value>Ja, das Aiursoft Template ist unter der MIT-Lizenz vollständig kostenlos und Open-Source. Sie können es für private und kommerzielle Projekte ohne jegliche Kosten verwenden.</value>
   </data>
@@ -800,6 +935,9 @@
   </data>
   <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
     <value>Ihre Unternehmensnutzer müssen sich nicht wiederholt registrieren.</value>
+  </data>
+  <data name="Your Workflow" xml:space="preserve">
+    <value>Ihr Workflow</value>
   </data>
   <data name="Yubikey &amp; TOTP" xml:space="preserve">
     <value>Yubikey &amp; TOTP</value>

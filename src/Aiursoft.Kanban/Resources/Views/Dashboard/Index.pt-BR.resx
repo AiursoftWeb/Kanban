@@ -42,6 +42,12 @@
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Todas as dependências são registradas automaticamente e sempre disponíveis via injeção de construtor.</value>
   </data>
+  <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>Pergunte ao assistente Kanban</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Tarefas atribuídas</value>
+  </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Modo Escuro Automático</value>
   </data>
@@ -63,6 +69,9 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Gerenciamento de Usuários Integrado</value>
   </data>
+  <data name="cards" xml:space="preserve">
+    <value>cartões</value>
+  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Vem com suporte a Docker para implantações simplificadas e consistentes.</value>
   </data>
@@ -75,6 +84,9 @@
   <data name="Consistency Validation" xml:space="preserve">
     <value>Validação de Consistência</value>
   </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>Criar ou gerenciar quadros</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Desenvolva exclusivamente em UTC enquanto o sistema converte e exibe automaticamente as datas no fuso horário local do usuário.</value>
   </data>
@@ -83,6 +95,12 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Dockerizado para Implantação Fácil</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>concluídas</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>Vencimento:</value>
   </data>
   <data name="Dynamic Navigation Bar" xml:space="preserve">
     <value>Barra de Navegação Dinâmica</value>
@@ -102,17 +120,26 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>Possui um sistema de gerenciamento de arquivos integrado com compactação automática de avatares.</value>
   </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>Obtenha ajuda para ler e atualizar o estado do quadro com o assistente integrado.</value>
+  </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Gerencie tarefas recorrentes, como limpeza e sincronização, com uma interface gráfica abrangente para monitorar o histórico de execução e os logs.</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>Olá, Mundo!</value>
   </data>
+  <data name="in progress" xml:space="preserve">
+    <value>em andamento</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Inclui documentação extensa e exemplos práticos para você começar rapidamente.</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Gerenciamento Integrado de Arquivos</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Painel Kanban</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Os modelos são validados nos lados cliente e servidor com base em anotações de dados.</value>
@@ -123,8 +150,47 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Suporte a Múltiplos Bancos de Dados</value>
   </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>Minhas tarefas ativas</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Meus quadros</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Minhas tarefas</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Nenhuma tarefa ativa atribuída a você no momento.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Nenhum quadro foi compartilhado com você ainda.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Nenhum quadro criado ainda.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Sem data de vencimento</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>abertos</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Abrir quadros</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>Abra os quadros compartilhados com você por acesso direto ou baseado em função.</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>Integração OpenID Connect</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>vencidas</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>Planeje colunas, cartões, prioridades, rótulos, responsáveis e prazos.</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>Ações rápidas</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>Autorização RBAC</value>
@@ -135,6 +201,9 @@
   <data name="Responsive Design" xml:space="preserve">
     <value>Design Responsivo</value>
   </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>Revisar quadros compartilhados</value>
+  </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Testes de Integração Robustos</value>
   </data>
@@ -143,6 +212,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Integre-se perfeitamente com qualquer provedor OpenID Connect, com sincronização automática de funções.</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Quadros compartilhados</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Compartilhados comigo</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Substituição Inteligente de Configurações</value>
