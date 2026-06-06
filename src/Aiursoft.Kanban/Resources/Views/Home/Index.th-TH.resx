@@ -33,6 +33,9 @@
   <data name="A fully responsive layout that looks great on both desktop and mobile devices." xml:space="preserve">
     <value>การจัดวางที่ตอบสนองได้อย่างสมบูรณ์ ซึ่งดูดีทั้งบนเดสก์ท็อปและอุปกรณ์มือถือ</value>
   </data>
+  <data name="A lightweight, self-hosted Kanban workspace for planning boards, tracking cards, assigning work, and sharing progress across your team." xml:space="preserve">
+    <value>พื้นที่ทำงาน Kanban แบบเบาและโฮสต์เองได้ สำหรับวางแผนกระดาน ติดตามการ์ด มอบหมายงาน และแชร์ความคืบหน้าร่วมกับทีมของคุณ</value>
+  </data>
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>พื้นฐานที่ทันสมัย อุดมไปด้วยคุณสมบัติ และสามารถขยายได้สูงสำหรับเว็บแอปพลิเคชันถัดไปของคุณ</value>
   </data>
@@ -45,6 +48,9 @@
   <data name="Admin site included" xml:space="preserve">
     <value>รวมเว็บไซต์ผู้ดูแลระบบ</value>
   </data>
+  <data name="Agent" xml:space="preserve">
+    <value>เอเจนต์</value>
+  </data>
   <data name="AI Driven Translation" xml:space="preserve">
     <value>การแปลที่ขับเคลื่อนด้วย AI</value>
   </data>
@@ -53,6 +59,12 @@
   </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>การแปลด้วยพลัง AI</value>
+  </data>
+  <data name="Aiursoft Kanban" xml:space="preserve">
+    <value>Aiursoft Kanban</value>
+  </data>
+  <data name="Aiursoft Kanban." xml:space="preserve">
+    <value>Aiursoft Kanban.</value>
   </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Template</value>
@@ -71,6 +83,12 @@
   </data>
   <data name="Artificial Intelligence Translation" xml:space="preserve">
     <value>การแปลด้วยปัญญาประดิษฐ์</value>
+  </data>
+  <data name="Ask for board summaries and guided updates in plain language." xml:space="preserve">
+    <value>ขอสรุปข้อมูลบอร์ดและอัปเดตการแนะนำด้วยภาษาที่เข้าใจง่าย</value>
+  </data>
+  <data name="Authentication, RBAC, OpenID Connect, localization, and system management are included." xml:space="preserve">
+    <value>การตรวจสอบสิทธิ์ RBAC OpenID Connect การปรับให้เหมาะกับท้องถิ่น และการจัดการระบบนั้นรวมอยู่ภายใน</value>
   </data>
   <data name="Authentik &amp; Okta" xml:space="preserve">
     <value>Authentik &amp; Okta</value>
@@ -120,6 +138,12 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>คู่มือสองภาษา</value>
   </data>
+  <data name="Board-Centered Planning" xml:space="preserve">
+    <value>การวางแผนโดยยึดกระดานเป็นหลัก</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>บอร์ด</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>สร้างครั้งเดียว รันได้ทุกที่ สถาปัตยกรรมที่ถูกบรรจุในคอนเทนเนอร์อย่างสมบูรณ์</value>
   </data>
@@ -143,6 +167,9 @@
   </data>
   <data name="Built-in Auth" xml:space="preserve">
     <value>ระบบผู้ใช้ภายใน</value>
+  </data>
+  <data name="Built-in Identity" xml:space="preserve">
+    <value>ระบบจัดการตัวตนในตัว</value>
   </data>
   <data name="Built-in Job Queue GUI" xml:space="preserve">
     <value>GUI แถวคิวงานในตัว</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>การจัดการผู้ใช้ในตัว</value>
+  </data>
+  <data name="Card Discussion" xml:space="preserve">
+    <value>การอภิปรายในการ์ด</value>
   </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>จำเป็นต้องใช้ Checkstyle หรือเครื่องมือที่คล้ายกัน</value>
@@ -204,6 +234,12 @@
   <data name="Coverage Report" xml:space="preserve">
     <value>รายงานการครอบคลุม</value>
   </data>
+  <data name="Create boards, columns, cards, labels, priorities, and assignments." xml:space="preserve">
+    <value>สร้างกระดาน คอลัมน์ การ์ด ป้ายกำกับ ระดับความสำคัญ และการมอบหมายงาน</value>
+  </data>
+  <data name="Create boards, organize columns, and move cards through clear workflow states from idea to done." xml:space="preserve">
+    <value>สร้างบอร์ด จัดระเบียบคอลัมน์ และนำการ์ดผ่านขั้นตอนการทำงานที่ชัดเจนจากไอเดียจนถึงสำเร็จ</value>
+  </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>ข้ามแพลตฟอร์ม</value>
   </data>
@@ -213,6 +249,9 @@
   <data name="Custom development required" xml:space="preserve">
     <value>ต้องพัฒนาเพิ่มเติมเอง</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>แดชบอร์ด</value>
+  </data>
   <data name="Dashboard for background and scheduled tasks" xml:space="preserve">
     <value>แดชบอร์ดสำหรับงานพื้นหลังและงานตามกำหนดเวลา</value>
   </data>
@@ -221,6 +260,9 @@
   </data>
   <data name="Dashboard Website" xml:space="preserve">
     <value>เว็บไซต์แดชบอร์ด</value>
+  </data>
+  <data name="Data Control" xml:space="preserve">
+    <value>การควบคุมข้อมูล</value>
   </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>วันที่ 1 ความสอดคล้องและด้านความปลอดภัย</value>
@@ -236,6 +278,9 @@
   </data>
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>ฐานข้อมูล SQLite แบบเริ่มต้น ไม่ต้องตั้งค่า</value>
+  </data>
+  <data name="Deploy Kanban in minutes with Docker, SQLite for small teams, or MySQL for larger installations." xml:space="preserve">
+    <value>ติดตั้ง Kanban ภายในไม่กี่นาทีด้วย Docker ใช้ SQLite สำหรับทีมขนาดเล็ก หรือ MySQL สำหรับระบบขนาดใหญ่</value>
   </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>ออกแบบมาเพื่อทุกคน ตั้งแต่มือใหม่จนถึงผู้เชี่ยวชาญ</value>
@@ -257,6 +302,9 @@
   </data>
   <data name="Discussions page" xml:space="preserve">
     <value>หน้าห้องสนทนา</value>
+  </data>
+  <data name="Docker" xml:space="preserve">
+    <value>Docker</value>
   </data>
   <data name="Docker Native" xml:space="preserve">
     <value>Docker Native</value>
@@ -300,8 +348,14 @@
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>รวม Entity Framework Core แล้ว</value>
   </data>
+  <data name="Everything your team needs to move work forward." xml:space="preserve">
+    <value>ทุกสิ่งที่คุณจำเป็นสำหรับการนำงานของทีมไปสู่ความสำเร็จ</value>
+  </data>
   <data name="FAQ" xml:space="preserve">
     <value>คำถามที่พบบ่อย</value>
+  </data>
+  <data name="Fast Deployment" xml:space="preserve">
+    <value>การติดตั้งที่รวดเร็ว</value>
   </data>
   <data name="faster" xml:space="preserve">
     <value>เร็วขึ้น</value>
@@ -321,6 +375,9 @@
   <data name="File Mgmt &amp; Optimization" xml:space="preserve">
     <value>การจัดการและเพิ่มประสิทธิภาพไฟล์</value>
   </data>
+  <data name="Filter your assigned cards by status, labels, and priority." xml:space="preserve">
+    <value>กรองการ์ดที่มอบหมายให้ตามสถานะ ติดฉลาก และลำดับความสำคัญ</value>
+  </data>
   <data name="Fine-grained RBAC" xml:space="preserve">
     <value>RBAC แบบละเอียด</value>
   </data>
@@ -329,6 +386,12 @@
   </data>
   <data name="Flexible API" xml:space="preserve">
     <value>API ที่ยืดหยุ่น</value>
+  </data>
+  <data name="Flexible Board Sharing" xml:space="preserve">
+    <value>การแชร์กระดานอย่างยืดหยุ่น</value>
+  </data>
+  <data name="Flexible Storage" xml:space="preserve">
+    <value>การจัดเก็บข้อมูลที่ยืดหยุ่น</value>
   </data>
   <data name="for any inquiries or to report issues." xml:space="preserve">
     <value>สำหรับข้อสงสัยใดๆ หรือเพื่อรายงานปัญหา</value>
@@ -386,6 +449,9 @@
   </data>
   <data name="Go to dashboard" xml:space="preserve">
     <value>ไปยังแดชบอร์ด</value>
+  </data>
+  <data name="Group cards with labels, mark priority, assign owners, and surface the most important work first." xml:space="preserve">
+    <value>จัดกลุ่มการ์ดด้วยป้ายกำกับ กำหนดระดับความสำคัญ มอบหมายผู้รับผิดชอบ และแสดงผลงานที่สำคัญที่สุดก่อน</value>
   </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>จัดการงานที่เกิดซ้ำ เช่น การทำความสะอาดและซิงค์ข้อมูล พร้อมด้วยอินเทอร์เฟซผู้ใช้ที่ครอบคลุมสำหรับติดตามประวัติการดำเนินงานและบันทึก</value>
@@ -465,6 +531,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Aiursoft Template ใช้ฟรีหรือไม่?</value>
   </data>
+  <data name="is Open Source" xml:space="preserve">
+    <value>เป็นโอเพนซอร์ส</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>มี java.time API ให้ใช้</value>
   </data>
@@ -480,8 +549,20 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>ร่วมกับชุมชนนักพัฒนาที่กำลังเติบโตของเรา ในการสร้างแอปพลิเคชันเว็บรุ่นถัดไป</value>
   </data>
+  <data name="Jump directly into your daily workflow." xml:space="preserve">
+    <value>เข้าสู่ระบบการทำงานประจำวันของคุณทันที</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>พร้อมใช้งานกับ K8s / Swarm</value>
+  </data>
+  <data name="Kanban Assistant" xml:space="preserve">
+    <value>ผู้ช่วย Kanban</value>
+  </data>
+  <data name="Keep task context close to the work with descriptions, comments, and public board views." xml:space="preserve">
+    <value>เก็บบริบทของงานให้ใกล้ชิดกับงานจริงโดยใช้คำอธิบาย ความคิดเห็น และการแสดงกระดานแบบสาธารณะ</value>
+  </data>
+  <data name="Labels and Priorities" xml:space="preserve">
+    <value>ป้ายกำกับและลำดับความสำคัญ</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>ตรวจสอบลินต์</value>
@@ -518,6 +599,12 @@
   </data>
   <data name="Music Tools" xml:space="preserve">
     <value>เครื่องมือด้านดนตรี</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>งานของฉัน</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>การนำทาง</value>
   </data>
   <data name="Needs CASL or similar" xml:space="preserve">
     <value>ต้องการ CASL หรือที่คล้ายกัน</value>
@@ -567,14 +654,23 @@
   <data name="No dependency on any cloud vendor. Run anywhere, any time." xml:space="preserve">
     <value>ไม่มีการพึ่งพาผู้ให้บริการคลาวด์ใด ๆ ใช้งานได้ทุกที่ ทุกเวลา</value>
   </data>
+  <data name="No paid tiers, no hosted lock-in, and no hidden workflow limits. Run it yourself and keep ownership of your project data." xml:space="preserve">
+    <value>ไม่มีชั้นสมาชิกเสียค่าใช้ ไม่มีพันธะผูกพันกับการโฮสต์ และไม่มีข้อจำกัดเวิร์กโฟลว์ที่ซ่อนไว้ เรียกใช้งานเองและรักษาสิทธิ์การเป็นเจ้าของข้อมูลโปรเจกต์ของคุณ</value>
+  </data>
   <data name="Offline Capable" xml:space="preserve">
     <value>รองรับการทำงานแบบออฟไลน์</value>
   </data>
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="On Your Infrastructure" xml:space="preserve">
+    <value>บนโครงสร้างพื้นฐานของคุณ</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>เริ่มต้นด้วยคลิกเดียว</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>เปิดบอร์ด</value>
   </data>
   <data name="Open Source" xml:space="preserve">
     <value>โอเพนซอร์ส</value>
@@ -594,6 +690,9 @@
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>การค้นพบและการซิงค์สิทธิ์</value>
   </data>
+  <data name="Personal Task Focus" xml:space="preserve">
+    <value>โฟกัสงานส่วนบุคคล</value>
+  </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>ต้องติดตั้ง Pint หรือเครื่องมือคล้ายกัน</value>
   </data>
@@ -608,6 +707,9 @@
   </data>
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>ท่อส่งงานที่พร้อมใช้งานสำหรับ dev/prod</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>ส่วนตัว</value>
   </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>เกตเวย์คุณภาพ</value>
@@ -624,6 +726,12 @@
   <data name="Read the document" xml:space="preserve">
     <value>อ่านเอกสาร</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>พร้อมใช้งาน</value>
+  </data>
+  <data name="Ready to organize your next project?" xml:space="preserve">
+    <value>พร้อมจัดระเบียบโครงการถัดไปของคุณหรือยัง?</value>
+  </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>ต้องมีการตั้งค่า Laravel Socialite</value>
   </data>
@@ -632,6 +740,9 @@
   </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>การออกแบบที่ตอบสนองต่ออุปกรณ์</value>
+  </data>
+  <data name="Review active tasks, owned boards, shared boards, and urgent work." xml:space="preserve">
+    <value>ตรวจสอบงานที่กำลังดำเนินการ บอร์ดที่รับผิดชอบ บอร์ดที่แชร์ และงานเร่งด่วน</value>
   </data>
   <data name="Reviews" xml:space="preserve">
     <value>รีวิว</value>
@@ -647,6 +758,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>ผสานรวมได้อย่างราบรื่นกับผู้ให้บริการ OpenID Connect ใดก็ได้ พร้อมการซิงโครไนซ์บทบาทอัตโนมัติ</value>
+  </data>
+  <data name="Self Hosted" xml:space="preserve">
+    <value>โฮสต์ด้วยตนเอง</value>
+  </data>
+  <data name="Share boards with users or roles, choose read-only or editable access, and keep private work isolated." xml:space="preserve">
+    <value>แชร์บอร์ดกับผู้ใช้หรือบทบาท กำหนดสิทธิ์การเข้าถึงแบบอ่านอย่างเดียวหรือแก้ไขได้ และแยกงานส่วนตัวให้ปลอดภัย</value>
   </data>
   <data name="Shift with confidence" xml:space="preserve">
     <value>เปลี่ยนไปอย่างมั่นใจ</value>
@@ -680,6 +797,9 @@
   </data>
   <data name="Start with a single &apos;docker run&apos; command." xml:space="preserve">
     <value>เริ่มต้นด้วยคำสั่ง &apos;docker run&apos; เพียงคำสั่งเดียว</value>
+  </data>
+  <data name="Start with the install script or a single Docker container." xml:space="preserve">
+    <value>เริ่มต้นด้วยสคริปต์ติดตั้งหรือ Docker container เพียงตัวเดียว</value>
   </data>
   <data name="Starts without any configuration" xml:space="preserve">
     <value>เริ่มใช้งานได้ทันทีโดยไม่ต้องตั้งค่าใดๆ</value>
@@ -750,6 +870,9 @@
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>มี API TimeZoneInfo</value>
   </data>
+  <data name="Track assignments, priorities, labels, due dates, overdue work, and active tasks from one dashboard." xml:space="preserve">
+    <value>ติดตามการมอบหมาย งานลำดับความสำคัญ ป้ายกำกับ วันกำหนดส่ง งานเกินกำหนด และงานที่กำลังดำเนินการจากแดชบอร์ดเดียว</value>
+  </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>ได้รับการไว้วางใจจากแอปพลิเคชันระดับการผลิต รวมถึง AnduinOS, StatHub, และ Warp เรายังไม่เพียงแค่แบ่งปันโค้ดเท่านั้น แต่เราใช้โค้ดนี้ในการดำเนินธุรกิจทั้งหมดของเรา</value>
   </data>
@@ -764,6 +887,12 @@
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>ใช้เป็นพื้นฐานสำหรับ SaaS ของคุณ, แบ็กเอนด์สำหรับแอปมือถือ, เว็บไซต์องค์กร, หรือบล็อกส่วนตัว ความเป็นไปได้นั้นไม่มีที่สิ้นสุด</value>
+  </data>
+  <data name="Use SQLite for simple hosting or MySQL when your team grows." xml:space="preserve">
+    <value>ใช้ SQLite สำหรับการโฮสต์แบบเรียบง่าย หรือใช้ MySQL เมื่อทีมของคุณเติบโตขึ้น</value>
+  </data>
+  <data name="Use the built-in assistant to read board state and help update routine project data." xml:space="preserve">
+    <value>ใช้ผู้ช่วยที่ติดตั้งไว้ล่วงหน้าเพื่ออ่านสถานะกระดานและช่วยอัปเดตข้อมูลโครงการประจำ</value>
   </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>ดูบน GitHub</value>
@@ -789,6 +918,12 @@
   <data name="Win/Lin/Mac" xml:space="preserve">
     <value>Win/Lin/Mac</value>
   </data>
+  <data name="Work Made Visible." xml:space="preserve">
+    <value>มองเห็นงานที่ทำได้</value>
+  </data>
+  <data name="Workflow Management" xml:space="preserve">
+    <value>การจัดการเวิร์กโฟลว์</value>
+  </data>
   <data name="Yes, Aiursoft Template is completely free and open-source under the MIT License. You can use it for personal and commercial projects without any cost." xml:space="preserve">
     <value>ใช่แล้ว Aiursoft Template นั้นฟรีและเป็นโอเพนซอร์สสมบูรณ์ภายใต้สัญญาอนุญาต MIT คุณสามารถใช้งานสำหรับโครงการส่วนตัวและเชิงพาณิชย์ได้โดยไม่มีค่าใช้จ่ายใดๆ</value>
   </data>
@@ -800,6 +935,9 @@
   </data>
   <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
     <value>ผู้ใช้งานองค์กรของคุณไม่จำเป็นต้องลงทะเบียนซ้ำ</value>
+  </data>
+  <data name="Your Workflow" xml:space="preserve">
+    <value>ขั้นตอนการทำงานของคุณ</value>
   </data>
   <data name="Yubikey &amp; TOTP" xml:space="preserve">
     <value>Yubikey &amp; TOTP</value>

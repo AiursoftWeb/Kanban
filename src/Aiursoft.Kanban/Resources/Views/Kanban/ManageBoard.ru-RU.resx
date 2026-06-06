@@ -114,6 +114,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>Не начато</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Уведомление</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Хорошо</value>
+  </data>
   <data name="Order updated." xml:space="preserve">
     <value>Порядок изменён.</value>
   </data>
