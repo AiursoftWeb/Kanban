@@ -138,6 +138,9 @@
   <data name="Not Found" xml:space="preserve">
     <value>नहीं मिला</value>
   </data>
+  <data name="Overview" xml:space="preserve">
+    <value>अवलोकन</value>
+  </data>
   <data name="Overview Kanban" xml:space="preserve">
     <value>कानबन अवलोकन</value>
   </data>

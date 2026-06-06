@@ -114,6 +114,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>시작 안 함</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>참고</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>확인</value>
+  </data>
   <data name="Order updated." xml:space="preserve">
     <value>순서가 업데이트되었습니다.</value>
   </data>

@@ -114,6 +114,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>Chưa bắt đầu</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Thông báo</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Đồng ý</value>
+  </data>
   <data name="Order updated." xml:space="preserve">
     <value>Thứ tự đã được cập nhật.</value>
   </data>

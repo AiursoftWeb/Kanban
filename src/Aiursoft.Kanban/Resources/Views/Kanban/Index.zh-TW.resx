@@ -264,6 +264,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>尚未開始</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>注意事項</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>確定</value>
+  </data>
   <data name="optional" xml:space="preserve">
     <value>選填</value>
   </data>

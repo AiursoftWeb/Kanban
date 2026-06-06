@@ -114,6 +114,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>ยังไม่เริ่ม</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>หมายเหตุ</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>ตกลง</value>
+  </data>
   <data name="Order updated." xml:space="preserve">
     <value>ลำดับการเรียงได้รับการอัปเดตแล้ว</value>
   </data>

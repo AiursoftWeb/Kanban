@@ -42,6 +42,12 @@
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>所有依賴項都會自動註冊，並可隨時透過構造函數注入使用。</value>
   </data>
+  <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>詢問看板助理</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>指派嘅任務</value>
+  </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>自動深色模式</value>
   </data>
@@ -63,6 +69,9 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>內建用戶管理</value>
   </data>
+  <data name="cards" xml:space="preserve">
+    <value>卡片</value>
+  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>內建 Docker 支援，簡化並確保部署的一致性。</value>
   </data>
@@ -75,6 +84,9 @@
   <data name="Consistency Validation" xml:space="preserve">
     <value>一致性驗證</value>
   </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>建立或管理看板</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>在開發時一律使用 UTC，系統會自動將日期轉換並以用戶的本地時間顯示。</value>
   </data>
@@ -83,6 +95,12 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Docker 化，輕鬆部署</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>截止日期：</value>
   </data>
   <data name="Dynamic Navigation Bar" xml:space="preserve">
     <value>動態導航欄</value>
@@ -102,17 +120,26 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>內置檔案管理系統，具備自動頭像壓縮功能。</value>
   </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>透過內建助手，獲取閱讀和更新看板狀態的協助。</value>
+  </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>處理重複執行的工作，例如清理及同步，並透過全面的圖形介面監控執行歷史記錄及日誌。</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>你好世界！</value>
   </data>
+  <data name="in progress" xml:space="preserve">
+    <value>處理中</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>包含詳盡嘅說明文件同埋實用例子，助你快速上手。</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>整合式檔案管理</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>看板式儀表板</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>模型會根據資料註解，在客戶端及伺服器端同時進行驗證。</value>
@@ -123,8 +150,47 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>多種數據庫支援</value>
   </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>我嘅進行中任務</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>我的看板</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>我嘅任務</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>目前沒有分配給你的活動任務。</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>目前尚無看板與您共用。</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>暫未建立看板。</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>無到期日</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>進行中</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>開啟看板</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>開啟透過直接或基於角色的存取權與您分享的看板。</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect 整合</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>逾期</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>規劃欄位、卡片、優先級、標籤、負責人及截止日期。</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>快速操作</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>基於角色的存取控制授權</value>
@@ -135,6 +201,9 @@
   <data name="Responsive Design" xml:space="preserve">
     <value>自適應設計</value>
   </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>檢視共享看板</value>
+  </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>穩健的整合測試</value>
   </data>
@@ -143,6 +212,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>無縫整合任何 OpenID Connect 供應商，並自動同步角色權限。</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>共用看板</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>分享比我</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>智能設定覆蓋</value>

@@ -114,6 +114,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>未開始</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>お知らせ</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="Order updated." xml:space="preserve">
     <value>順序を更新しました。</value>
   </data>

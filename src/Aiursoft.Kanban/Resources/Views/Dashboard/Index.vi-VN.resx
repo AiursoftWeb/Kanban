@@ -42,6 +42,12 @@
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Tất cả các dependency đều được tự động đăng ký và luôn sẵn sàng để sử dụng thông qua constructor injection.</value>
   </data>
+  <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>Hỏi trợ lý Kanban</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Nhiệm vụ được giao</value>
+  </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Chế độ Tối Tự động</value>
   </data>
@@ -63,6 +69,9 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Quản lý Người dùng Tích hợp sẵn</value>
   </data>
+  <data name="cards" xml:space="preserve">
+    <value>thẻ</value>
+  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Được tích hợp hỗ trợ Docker để triển khai đơn giản và nhất quán.</value>
   </data>
@@ -75,6 +84,9 @@
   <data name="Consistency Validation" xml:space="preserve">
     <value>Xác thực tính nhất quán</value>
   </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>Tạo hoặc quản lý bảng</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Phát triển riêng biệt bằng múi giờ UTC, trong khi hệ thống tự động chuyển đổi và hiển thị ngày tháng theo múi giờ địa phương của người dùng.</value>
   </data>
@@ -83,6 +95,12 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Docker hóa để triển khai dễ dàng</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>hoàn thành</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>Hạn:</value>
   </data>
   <data name="Dynamic Navigation Bar" xml:space="preserve">
     <value>Thanh Điều Hướng Động</value>
@@ -102,17 +120,26 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>Tích hợp hệ thống quản lý tập tin với tính năng nén avatar tự động.</value>
   </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>Nhận hỗ trợ đọc và cập nhật trạng thái bảng với trợ lý tích hợp.</value>
+  </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Xử lý các công việc lặp lại như dọn dẹp và đồng bộ hóa với giao diện người dùng toàn diện để theo dõi lịch sử thực thi và nhật ký.</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>Xin chào Thế giới!</value>
   </data>
+  <data name="in progress" xml:space="preserve">
+    <value>đang thực hiện</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Bao gồm tài liệu phong phú và các ví dụ thực tế để giúp bạn bắt đầu nhanh chóng.</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Quản lý Tập tin Tích hợp</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Bảng điều khiển Kanban</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Các mô hình được xác thực ở cả phía client và phía server dựa trên các chú thích dữ liệu.</value>
@@ -123,8 +150,47 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Hỗ trợ Đa Cơ sở Dữ liệu</value>
   </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>Các nhiệm vụ đang hoạt động của tôi</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Bảng của tôi</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Nhiệm vụ của tôi</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Hiện không có nhiệm vụ nào được giao cho bạn.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Chưa có bảng nào được chia sẻ với bạn.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Chưa có bảng nào được tạo.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Không có hạn chót</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>mở</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Mở bảng</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>Mở các bảng được chia sẻ với bạn thông qua quyền truy cập trực tiếp hoặc dựa trên vai trò.</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>Tích hợp OpenID Connect</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>quá hạn</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>Lên kế hoạch các cột, thẻ, mức ưu tiên, nhãn, người được chỉ định và ngày hạn chót.</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>Hành động nhanh</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>Ủy quyền RBAC</value>
@@ -135,6 +201,9 @@
   <data name="Responsive Design" xml:space="preserve">
     <value>Thiết kế đáp ứng</value>
   </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>Xem lại bảng được chia sẻ</value>
+  </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Kiểm thử tích hợp mạnh mẽ</value>
   </data>
@@ -143,6 +212,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Tích hợp liền mạch với mọi nhà cung cấp OpenID Connect, kèm theo đồng bộ hóa vai trò tự động.</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Bảng được chia sẻ</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Được chia sẻ với tôi</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Ghi đè cấu hình thông minh</value>
