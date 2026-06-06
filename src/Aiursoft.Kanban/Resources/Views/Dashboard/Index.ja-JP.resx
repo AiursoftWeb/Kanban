@@ -42,6 +42,12 @@
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>すべての依存関係は自動的に登録され、コンストラクタインジェクションを通じて常に利用可能です。</value>
   </data>
+  <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>カンバンエージェントに質問する</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>割り当てられたタスク</value>
+  </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>自動ダークモード</value>
   </data>
@@ -63,6 +69,9 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>組み込みユーザー管理</value>
   </data>
+  <data name="cards" xml:space="preserve">
+    <value>カード</value>
+  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Docker対応を備えており、シンプルで一貫性のあるデプロイを実現します。</value>
   </data>
@@ -75,6 +84,9 @@
   <data name="Consistency Validation" xml:space="preserve">
     <value>整合性検証</value>
   </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>ボードの作成または管理</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>UTCで専用に開発し、システムが自動的に日付をユーザーのローカルタイムゾーンに変換して表示します。</value>
   </data>
@@ -83,6 +95,12 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Docker対応でデプロイが簡単</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>期限：</value>
   </data>
   <data name="Dynamic Navigation Bar" xml:space="preserve">
     <value>動的ナビゲーションバー</value>
@@ -102,17 +120,26 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>アバターの自動圧縮機能を備えた組み込みファイル管理システムを搭載しています。</value>
   </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>内蔵アシスタントを使用して、ボードの状態の確認と更新を支援します。</value>
+  </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>定期実行されるジョブ（クリーンアップや同期など）を、実行履歴およびログの監視が可能な包括的なGUIで管理します。</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>こんにちは、世界！</value>
   </data>
+  <data name="in progress" xml:space="preserve">
+    <value>進行中</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>豊富なドキュメントと実用的なサンプルが含まれており、素早く使い始めることができます。</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>統合ファイル管理</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>カンバン ダッシュボード</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>モデルはデータ注釈に基づいて、クライアントおよびサーバーの両方で検証されます。</value>
@@ -123,8 +150,47 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>複数データベースサポート</value>
   </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>アクティブなタスク</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>私のボード</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>マイタスク</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>現在、割り当てられているアクティブなタスクはありません。</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>現在、あなたと共有されているボードはありません。</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>まだボードが作成されていません。</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>期限なし</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>未完了</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>ボードを開く</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>直接または役割ベースのアクセスであなたと共有されたボードを開きます。</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect連携</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>期限切れ</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>列、カード、優先度、ラベル、担当者、および期日を計画します。</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>クイックアクション</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC認可</value>
@@ -135,6 +201,9 @@
   <data name="Responsive Design" xml:space="preserve">
     <value>レスポンシブデザイン</value>
   </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>共有されたボードを確認する</value>
+  </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>堅牢な統合テスト</value>
   </data>
@@ -143,6 +212,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>あらゆるOpenID Connectプロバイダーとシームレスに統合し、ロールの自動同期を実現します。</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>共有ボード</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>自分に共有された項目</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>スマート設定オーバーライド</value>

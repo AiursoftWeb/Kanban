@@ -42,6 +42,12 @@
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>การอ้างอิงทั้งหมดจะถูกลงทะเบียนโดยอัตโนมัติและพร้อมใช้งานเสมอผ่านการฉีดคอนสตรัคเตอร์</value>
   </data>
+  <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>ถามเอเจนต์ Kanban</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>งานที่ได้รับมอบหมาย</value>
+  </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>โหมดมืดอัตโนมัติ</value>
   </data>
@@ -63,6 +69,9 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>การจัดการผู้ใช้ในตัว</value>
   </data>
+  <data name="cards" xml:space="preserve">
+    <value>การ์ด</value>
+  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>มาพร้อมการรองรับ Docker สำหรับการจัดส่งที่ง่ายและสอดคล้องกัน</value>
   </data>
@@ -75,6 +84,9 @@
   <data name="Consistency Validation" xml:space="preserve">
     <value>การตรวจสอบความสอดคล้อง</value>
   </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>สร้างหรือจัดการกระดาน</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>พัฒนาเฉพาะในเวลา UTC โดยระบบจะแปลงและแสดงวันที่โดยอัตโนมัติเป็นเขตเวลาท้องถิ่นของผู้ใช้</value>
   </data>
@@ -83,6 +95,12 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>ใช้ Docker สำหรับการติดตั้งที่ง่าย</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>เสร็จสิ้น</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>กำหนดส่ง:</value>
   </data>
   <data name="Dynamic Navigation Bar" xml:space="preserve">
     <value>แถบนำทางแบบไดนามิก</value>
@@ -102,17 +120,26 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>มีระบบจัดการไฟล์ในตัวพร้อมการบีบอัดภาพโปรไฟล์อัตโนมัติ</value>
   </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>ขอความช่วยเหลือในการอ่านและอัปเดตสถานะกระดานด้วยผู้ช่วยในตัว</value>
+  </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>จัดการงานที่เกิดซ้ำ เช่น การทำความสะอาดและซิงค์ข้อมูล ด้วยอินเทอร์เฟซกราฟิกที่ครอบคลุมสำหรับติดตามประวัติการดำเนินงานและบันทึกการใช้งาน</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>สวัสดีชาวโลก!</value>
   </data>
+  <data name="in progress" xml:space="preserve">
+    <value>กำลังดำเนินการอยู่</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>ประกอบด้วยเอกสารประกอบที่ครอบคลุมและตัวอย่างเชิงปฏิบัติเพื่อช่วยให้คุณเริ่มต้นได้อย่างรวดเร็ว</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>การจัดการไฟล์แบบบูรณาการ</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>แดชบอร์ดคานบัน</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>โมเดลจะได้รับการตรวจสอบความถูกต้องทั้งในด้านไคลเอนต์และเซิร์ฟเวอร์ตามการตั้งค่าข้อมูล</value>
@@ -123,8 +150,47 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>รองรับหลายฐานข้อมูล</value>
   </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>งานที่กำลังทำของฉัน</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>กระดานของฉัน</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>งานของฉัน</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>ขณะนี้ไม่มีภารกิจที่ใช้งานอยู่ซึ่งมอบหมายให้คุณ</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>ยังไม่มีการแชร์กระดานกับคุณ</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>ยังไม่มีบอร์ดที่สร้างไว้</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>ไม่มีกำหนดส่ง</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>ที่เปิดอยู่</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>เปิดกระดาน</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>เปิดกระดานที่แชร์กับคุณผ่านการเข้าถึงโดยตรงหรือตามบทบาท</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>การผสานรวม OpenID Connect</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>เกินกำหนด</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>วางแผนคอลัมน์ การ์ด ระดับความสำคัญ ป้ายกำกับ ผู้รับผิดชอบ และกำหนดวันครบกำหนด</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>การดำเนินการอย่างรวดเร็ว</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>การอนุญาตตามบทบาท RBAC</value>
@@ -135,6 +201,9 @@
   <data name="Responsive Design" xml:space="preserve">
     <value>การออกแบบที่ตอบสนอง</value>
   </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>ตรวจสอบกระดานที่แชร์</value>
+  </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>การทดสอบการผสานรวมที่มั่นคง</value>
   </data>
@@ -143,6 +212,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>ผสานรวมได้อย่างราบรื่นกับผู้ให้บริการ OpenID Connect ใดก็ได้ พร้อมการซิงโครไนซ์บทบาทอัตโนมัติ</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>กระดานที่แชร์</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>แชร์กับฉัน</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>การแทนที่การตั้งค่าอัจฉริยะ</value>

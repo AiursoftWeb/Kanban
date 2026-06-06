@@ -42,6 +42,12 @@
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>All dependencies are automatically registered and are always available via constructor injection.</value>
   </data>
+  <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>Ask the Kanban agent</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Assigned tasks</value>
+  </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Automatic Dark Mode</value>
   </data>
@@ -63,6 +69,9 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Integrated User Management</value>
   </data>
+  <data name="cards" xml:space="preserve">
+    <value>cards</value>
+  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Comes with Docker support for simplified and consistent deployments.</value>
   </data>
@@ -75,6 +84,9 @@
   <data name="Consistency Validation" xml:space="preserve">
     <value>Consistency Validation</value>
   </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>Create or manage boards</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone.</value>
   </data>
@@ -83,6 +95,12 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Dockerised for Easy Deployment</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>done</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>Due:</value>
   </data>
   <data name="Dynamic Navigation Bar" xml:space="preserve">
     <value>Dynamic Navigation Bar</value>
@@ -102,17 +120,26 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>Features a built-in file management system with automatic profile picture compression.</value>
   </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>Get help reading and updating board state with the built-in assistant.</value>
+  </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs.</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>Hello World!</value>
   </data>
+  <data name="in progress" xml:space="preserve">
+    <value>in progress</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Includes comprehensive documentation and practical examples to get you started quickly.</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Integrated File Management</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Kanban Dashboard</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Models are validated on both client and server sides based on data annotations.</value>
@@ -123,8 +150,47 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Multiple Database Support</value>
   </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>My active tasks</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>My boards</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>My tasks</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>No active tasks assigned to you at the moment.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>No boards have been shared with you yet.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>No boards created yet.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>No due date</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>open</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Open boards</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>Open boards shared with you through direct or role-based access.</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect Integration</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>overdue</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>Plan columns, cards, priorities, labels, assignees, and due dates.</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>Quick actions</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC Authorisation</value>
@@ -135,6 +201,9 @@
   <data name="Responsive Design" xml:space="preserve">
     <value>Responsive Design</value>
   </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>Review shared boards</value>
+  </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Robust Integration Testing</value>
   </data>
@@ -143,6 +212,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Seamlessly integrate with any OpenID Connect provider, with automatic role synchronisation.</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Shared boards</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Shared with me</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Smart Configuration Overrides</value>

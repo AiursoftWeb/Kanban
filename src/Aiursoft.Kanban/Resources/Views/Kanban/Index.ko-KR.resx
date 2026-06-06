@@ -264,6 +264,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>미시작</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>공지</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>확인</value>
+  </data>
   <data name="optional" xml:space="preserve">
     <value>선택 사항</value>
   </data>

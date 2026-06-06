@@ -21,6 +21,9 @@
       <data name="Aiursoft" xml:space="preserve">
     <value>Aiursoft</value>
   </data>
+  <data name="Aiursoft Kanban - A modern, intuitive project management tool for organizing tasks and workflows." xml:space="preserve">
+    <value>Aiursoft Kanban - 작업을 관리하고 워크플로우를 구성하는 현대적이고 직관적인 프로젝트 관리 도구입니다.</value>
+  </data>
   <data name="Aiursoft Template - A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Aiursoft Template - 현대적이고 기능이 풍부하며 확장성이 뛰어난 웹 애플리케이션 기반 플랫폼입니다.</value>
   </data>

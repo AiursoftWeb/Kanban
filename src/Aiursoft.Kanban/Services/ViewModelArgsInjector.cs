@@ -96,6 +96,8 @@ public class ViewModelArgsInjector(
     
         _ = localizer["AI Assistant"];
         _ = localizer["Kanban AI Assistant"];
+    
+        _ = localizer["Overview"];
     }
 
     public void InjectSimple(

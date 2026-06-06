@@ -33,6 +33,9 @@
   <data name="A fully responsive layout that looks great on both desktop and mobile devices." xml:space="preserve">
     <value>完全响应式布局，在桌面和移动设备上均呈现出色视觉效果。</value>
   </data>
+  <data name="A lightweight, self-hosted Kanban workspace for planning boards, tracking cards, assigning work, and sharing progress across your team." xml:space="preserve">
+    <value>一个轻量级的自托管看板工作空间，用于规划看板、跟踪卡片、分配工作以及与团队共享进度。</value>
+  </data>
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>一个现代化、功能丰富且高度可扩展的基础框架，为您的下一个Web应用程序提供强大支持。</value>
   </data>
@@ -45,6 +48,9 @@
   <data name="Admin site included" xml:space="preserve">
     <value>包含管理站点</value>
   </data>
+  <data name="Agent" xml:space="preserve">
+    <value>智能助手</value>
+  </data>
   <data name="AI Driven Translation" xml:space="preserve">
     <value>AI 驱动的翻译</value>
   </data>
@@ -53,6 +59,12 @@
   </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>AI 驱动翻译</value>
+  </data>
+  <data name="Aiursoft Kanban" xml:space="preserve">
+    <value>Aiursoft 看板</value>
+  </data>
+  <data name="Aiursoft Kanban." xml:space="preserve">
+    <value>Aiursoft Kanban。</value>
   </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Template</value>
@@ -71,6 +83,12 @@
   </data>
   <data name="Artificial Intelligence Translation" xml:space="preserve">
     <value>人工智能翻译</value>
+  </data>
+  <data name="Ask for board summaries and guided updates in plain language." xml:space="preserve">
+    <value>使用通俗易懂的语言查询看板摘要和指导性更新。</value>
+  </data>
+  <data name="Authentication, RBAC, OpenID Connect, localization, and system management are included." xml:space="preserve">
+    <value>内置身份认证、RBAC、OpenID Connect、本地化及系统管理功能。</value>
   </data>
   <data name="Authentik &amp; Okta" xml:space="preserve">
     <value>Authentik &amp; Okta</value>
@@ -120,6 +138,12 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>双语教程</value>
   </data>
+  <data name="Board-Centered Planning" xml:space="preserve">
+    <value>以看板为中心的规划</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>看板</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>一次构建，随处运行。完全容器化架构。</value>
   </data>
@@ -143,6 +167,9 @@
   </data>
   <data name="Built-in Auth" xml:space="preserve">
     <value>内置认证</value>
+  </data>
+  <data name="Built-in Identity" xml:space="preserve">
+    <value>内置身份认证</value>
   </data>
   <data name="Built-in Job Queue GUI" xml:space="preserve">
     <value>内置作业队列图形界面</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>内置用户管理</value>
+  </data>
+  <data name="Card Discussion" xml:space="preserve">
+    <value>卡片讨论</value>
   </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>需要 Checkstyle 或类似工具</value>
@@ -204,6 +234,12 @@
   <data name="Coverage Report" xml:space="preserve">
     <value>覆盖率报告</value>
   </data>
+  <data name="Create boards, columns, cards, labels, priorities, and assignments." xml:space="preserve">
+    <value>创建看板、列表、卡片、标签、优先级和任务分配。</value>
+  </data>
+  <data name="Create boards, organize columns, and move cards through clear workflow states from idea to done." xml:space="preserve">
+    <value>创建看板，整理列，并将卡片从构思到完成清晰地流转于各个工作流状态中。</value>
+  </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>跨平台</value>
   </data>
@@ -213,6 +249,9 @@
   <data name="Custom development required" xml:space="preserve">
     <value>需要定制开发</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>控制面板</value>
+  </data>
   <data name="Dashboard for background and scheduled tasks" xml:space="preserve">
     <value>后台任务和计划任务的仪表板</value>
   </data>
@@ -221,6 +260,9 @@
   </data>
   <data name="Dashboard Website" xml:space="preserve">
     <value>仪表板网站</value>
+  </data>
+  <data name="Data Control" xml:space="preserve">
+    <value>数据控制</value>
   </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>起步即合规，安全无死角。</value>
@@ -236,6 +278,9 @@
   </data>
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>默认 SQLite 数据库，无需配置</value>
+  </data>
+  <data name="Deploy Kanban in minutes with Docker, SQLite for small teams, or MySQL for larger installations." xml:space="preserve">
+    <value>借助 Docker 快速部署看板，小型团队可使用 SQLite，大型部署则支持 MySQL。</value>
   </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>专为每个人设计，从新手到专家皆宜。</value>
@@ -257,6 +302,9 @@
   </data>
   <data name="Discussions page" xml:space="preserve">
     <value>讨论页面</value>
+  </data>
+  <data name="Docker" xml:space="preserve">
+    <value>Docker</value>
   </data>
   <data name="Docker Native" xml:space="preserve">
     <value>Docker 原生</value>
@@ -300,8 +348,14 @@
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>包含 Entity Framework Core</value>
   </data>
+  <data name="Everything your team needs to move work forward." xml:space="preserve">
+    <value>团队推进工作所需的一切。</value>
+  </data>
   <data name="FAQ" xml:space="preserve">
     <value>常见问题解答</value>
+  </data>
+  <data name="Fast Deployment" xml:space="preserve">
+    <value>快速部署</value>
   </data>
   <data name="faster" xml:space="preserve">
     <value>更快</value>
@@ -321,6 +375,9 @@
   <data name="File Mgmt &amp; Optimization" xml:space="preserve">
     <value>文件管理与优化</value>
   </data>
+  <data name="Filter your assigned cards by status, labels, and priority." xml:space="preserve">
+    <value>按状态、标签和优先级筛选您分配到的卡片。</value>
+  </data>
   <data name="Fine-grained RBAC" xml:space="preserve">
     <value>细粒度 RBAC</value>
   </data>
@@ -329,6 +386,12 @@
   </data>
   <data name="Flexible API" xml:space="preserve">
     <value>灵活的 API</value>
+  </data>
+  <data name="Flexible Board Sharing" xml:space="preserve">
+    <value>灵活的看板共享</value>
+  </data>
+  <data name="Flexible Storage" xml:space="preserve">
+    <value>灵活的存储</value>
   </data>
   <data name="for any inquiries or to report issues." xml:space="preserve">
     <value>如有任何疑问或报告问题。</value>
@@ -386,6 +449,9 @@
   </data>
   <data name="Go to dashboard" xml:space="preserve">
     <value>前往仪表盘</value>
+  </data>
+  <data name="Group cards with labels, mark priority, assign owners, and surface the most important work first." xml:space="preserve">
+    <value>通过标签对卡片进行分类，标记优先级，分配负责人，并优先展示最重要的工作。</value>
   </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>使用全面的GUI来监控执行历史和日志，处理像清理和同步这样的重复任务。</value>
@@ -465,6 +531,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>使用 Aiursoft Template 是否免费？</value>
   </data>
+  <data name="is Open Source" xml:space="preserve">
+    <value>是开源的</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>提供 java.time API</value>
   </data>
@@ -480,8 +549,20 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>加入我们不断壮大的开发者社区，共同构建下一代网络应用。</value>
   </data>
+  <data name="Jump directly into your daily workflow." xml:space="preserve">
+    <value>直接开始您的日常工作。</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>K8s / Swarm 就绪</value>
+  </data>
+  <data name="Kanban Assistant" xml:space="preserve">
+    <value>看板助手</value>
+  </data>
+  <data name="Keep task context close to the work with descriptions, comments, and public board views." xml:space="preserve">
+    <value>通过说明、评论和公开看板视图，让任务上下文更贴近工作。</value>
+  </data>
+  <data name="Labels and Priorities" xml:space="preserve">
+    <value>标签与优先级</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>Lint 检查</value>
@@ -518,6 +599,12 @@
   </data>
   <data name="Music Tools" xml:space="preserve">
     <value>音乐工具</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>我的任务</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>导航</value>
   </data>
   <data name="Needs CASL or similar" xml:space="preserve">
     <value>需要 CASL 或类似库</value>
@@ -567,14 +654,23 @@
   <data name="No dependency on any cloud vendor. Run anywhere, any time." xml:space="preserve">
     <value>无需依赖任何云服务提供商。随时随地运行。</value>
   </data>
+  <data name="No paid tiers, no hosted lock-in, and no hidden workflow limits. Run it yourself and keep ownership of your project data." xml:space="preserve">
+    <value>无付费等级，无托管绑定，无隐藏工作流限制。自主运行，完全掌控项目数据所有权。</value>
+  </data>
   <data name="Offline Capable" xml:space="preserve">
     <value>离线可用</value>
   </data>
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="On Your Infrastructure" xml:space="preserve">
+    <value>部署在您自己的基础设施上</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>一键启动</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>打开看板</value>
   </data>
   <data name="Open Source" xml:space="preserve">
     <value>开源</value>
@@ -594,6 +690,9 @@
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>权限发现与同步</value>
   </data>
+  <data name="Personal Task Focus" xml:space="preserve">
+    <value>个人任务聚焦</value>
+  </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>需要 Pint 或类似工具</value>
   </data>
@@ -608,6 +707,9 @@
   </data>
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>预配置的 Dev/Prod 流水线</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>私有部署</value>
   </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>质量门禁 - 强制合规</value>
@@ -624,6 +726,12 @@
   <data name="Read the document" xml:space="preserve">
     <value>阅读文档</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="Ready to organize your next project?" xml:space="preserve">
+    <value>准备好整理下一个项目了吗？</value>
+  </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>需要配置 Laravel Socialite</value>
   </data>
@@ -632,6 +740,9 @@
   </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>响应式设计</value>
+  </data>
+  <data name="Review active tasks, owned boards, shared boards, and urgent work." xml:space="preserve">
+    <value>查看活跃任务、我创建的看板、共享看板以及紧急工作。</value>
   </data>
   <data name="Reviews" xml:space="preserve">
     <value>用户评价</value>
@@ -647,6 +758,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>无缝集成任何 OpenID Connect 提供商，并支持自动角色同步。</value>
+  </data>
+  <data name="Self Hosted" xml:space="preserve">
+    <value>自托管</value>
+  </data>
+  <data name="Share boards with users or roles, choose read-only or editable access, and keep private work isolated." xml:space="preserve">
+    <value>将看板共享给用户或角色，选择只读或可编辑权限，并确保私密工作独立隔离。</value>
   </data>
   <data name="Shift with confidence" xml:space="preserve">
     <value>无忧迁移 - 发布即交付</value>
@@ -680,6 +797,9 @@
   </data>
   <data name="Start with a single &apos;docker run&apos; command." xml:space="preserve">
     <value>从一个单一的 &apos;docker run&apos; 命令开始。</value>
+  </data>
+  <data name="Start with the install script or a single Docker container." xml:space="preserve">
+    <value>从安装脚本或单个 Docker 容器开始。</value>
   </data>
   <data name="Starts without any configuration" xml:space="preserve">
     <value>无需任何配置即可启动</value>
@@ -750,6 +870,9 @@
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>提供 TimeZoneInfo API</value>
   </data>
+  <data name="Track assignments, priorities, labels, due dates, overdue work, and active tasks from one dashboard." xml:space="preserve">
+    <value>在一个仪表板中跟踪任务分配、优先级、标签、截止日期、逾期工作和活跃任务。</value>
+  </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>深受生产级应用信赖，包括 AnduinOS、StatHub 和 Warp。我们不仅分享代码，我们的核心业务也完全构建于此。</value>
   </data>
@@ -764,6 +887,12 @@
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>无论是作为SaaS应用的基础、移动应用的后端、企业官网还是个人博客，它都能胜任。无限可能，任您探索。</value>
+  </data>
+  <data name="Use SQLite for simple hosting or MySQL when your team grows." xml:space="preserve">
+    <value>简易部署使用 SQLite，团队规模扩大后切换至 MySQL。</value>
+  </data>
+  <data name="Use the built-in assistant to read board state and help update routine project data." xml:space="preserve">
+    <value>使用内置助手读取看板状态，并协助更新常规项目数据。</value>
   </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>在 GitHub 上查看</value>
@@ -789,6 +918,12 @@
   <data name="Win/Lin/Mac" xml:space="preserve">
     <value>Windows/Linux/macOS</value>
   </data>
+  <data name="Work Made Visible." xml:space="preserve">
+    <value>让工作可视化。</value>
+  </data>
+  <data name="Workflow Management" xml:space="preserve">
+    <value>工作流管理</value>
+  </data>
   <data name="Yes, Aiursoft Template is completely free and open-source under the MIT License. You can use it for personal and commercial projects without any cost." xml:space="preserve">
     <value>是的，Aiursoft Template 在 MIT 许可证下完全免费且开源。您可以在个人和商业项目中免费使用它，无需任何费用。</value>
   </data>
@@ -800,6 +935,9 @@
   </data>
   <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
     <value>您的企业用户无需重复注册。</value>
+  </data>
+  <data name="Your Workflow" xml:space="preserve">
+    <value>您的工作流</value>
   </data>
   <data name="Yubikey &amp; TOTP" xml:space="preserve">
     <value>Yubikey &amp; TOTP</value>

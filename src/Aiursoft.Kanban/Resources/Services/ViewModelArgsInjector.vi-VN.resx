@@ -141,6 +141,9 @@
   <data name="Not Found" xml:space="preserve">
     <value>Không tìm thấy</value>
   </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Tổng quan</value>
+  </data>
   <data name="Overview Kanban" xml:space="preserve">
     <value>Tổng Quan Kanban</value>
   </data>

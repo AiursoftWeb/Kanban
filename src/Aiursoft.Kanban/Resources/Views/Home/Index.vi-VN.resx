@@ -33,6 +33,9 @@
   <data name="A fully responsive layout that looks great on both desktop and mobile devices." xml:space="preserve">
     <value>Bố cục hoàn toàn thích ứng, hiển thị đẹp mắt trên cả thiết bị máy tính để bàn và thiết bị di động.</value>
   </data>
+  <data name="A lightweight, self-hosted Kanban workspace for planning boards, tracking cards, assigning work, and sharing progress across your team." xml:space="preserve">
+    <value>Không gian làm việc Kanban nhẹ, tự lưu trữ cho việc lập kế hoạch bảng, theo dõi thẻ, phân công công việc và chia sẻ tiến độ với toàn đội.</value>
+  </data>
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Một nền tảng hiện đại, giàu tính năng và có khả năng mở rộng cao cho ứng dụng web tiếp theo của bạn.</value>
   </data>
@@ -45,6 +48,9 @@
   <data name="Admin site included" xml:space="preserve">
     <value>Bao gồm trang quản trị</value>
   </data>
+  <data name="Agent" xml:space="preserve">
+    <value>Tác nhân</value>
+  </data>
   <data name="AI Driven Translation" xml:space="preserve">
     <value>Dịch thuật do AI dẫn dắt</value>
   </data>
@@ -53,6 +59,12 @@
   </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Dịch Thuật Hỗ Trợ Bởi AI</value>
+  </data>
+  <data name="Aiursoft Kanban" xml:space="preserve">
+    <value>Aiursoft Kanban</value>
+  </data>
+  <data name="Aiursoft Kanban." xml:space="preserve">
+    <value>Aiursoft Kanban.</value>
   </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Template</value>
@@ -71,6 +83,12 @@
   </data>
   <data name="Artificial Intelligence Translation" xml:space="preserve">
     <value>Dịch thuật Trí tuệ nhân tạo</value>
+  </data>
+  <data name="Ask for board summaries and guided updates in plain language." xml:space="preserve">
+    <value>Yêu cầu tóm tắt bảng và cập nhật có hướng dẫn bằng ngôn ngữ đơn giản.</value>
+  </data>
+  <data name="Authentication, RBAC, OpenID Connect, localization, and system management are included." xml:space="preserve">
+    <value>Xác thực, RBAC, OpenID Connect, bản địa hóa và quản lý hệ thống được tích hợp sẵn.</value>
   </data>
   <data name="Authentik &amp; Okta" xml:space="preserve">
     <value>Authentik &amp; Okta</value>
@@ -120,6 +138,12 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>Hướng dẫn song ngữ</value>
   </data>
+  <data name="Board-Centered Planning" xml:space="preserve">
+    <value>Lập kế hoạch theo Bảng</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Bảng</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>Xây dựng một lần, chạy ở bất kỳ đâu. Kiến trúc được đóng gói hoàn toàn trong container.</value>
   </data>
@@ -143,6 +167,9 @@
   </data>
   <data name="Built-in Auth" xml:space="preserve">
     <value>Xác thực tích hợp</value>
+  </data>
+  <data name="Built-in Identity" xml:space="preserve">
+    <value>Xác thực tích hợp sẵn</value>
   </data>
   <data name="Built-in Job Queue GUI" xml:space="preserve">
     <value>Giao diện quản lý hàng đợi tác vụ tích hợp sẵn</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Quản lý Người dùng Tích hợp sẵn</value>
+  </data>
+  <data name="Card Discussion" xml:space="preserve">
+    <value>Thảo luận thẻ</value>
   </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>Cần Checkstyle hoặc tương tự</value>
@@ -204,6 +234,12 @@
   <data name="Coverage Report" xml:space="preserve">
     <value>Báo cáo độ bao phủ</value>
   </data>
+  <data name="Create boards, columns, cards, labels, priorities, and assignments." xml:space="preserve">
+    <value>Tạo bảng, cột, thẻ, nhãn, mức độ ưu tiên và công việc được giao.</value>
+  </data>
+  <data name="Create boards, organize columns, and move cards through clear workflow states from idea to done." xml:space="preserve">
+    <value>Tạo bảng, sắp xếp cột và di chuyển thẻ qua các trạng thái quy trình làm việc rõ ràng từ ý tưởng đến hoàn thành.</value>
+  </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>Đa nền tảng</value>
   </data>
@@ -213,6 +249,9 @@
   <data name="Custom development required" xml:space="preserve">
     <value>Yêu cầu phát triển tùy chỉnh</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Bảng điều khiển</value>
+  </data>
   <data name="Dashboard for background and scheduled tasks" xml:space="preserve">
     <value>Bảng điều khiển cho các tác vụ nền và theo lịch trình</value>
   </data>
@@ -221,6 +260,9 @@
   </data>
   <data name="Dashboard Website" xml:space="preserve">
     <value>Trang Tổng quan</value>
+  </data>
+  <data name="Data Control" xml:space="preserve">
+    <value>Kiểm soát Dữ liệu</value>
   </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>Tuần lễ 1 Tuân thủ &amp; Bảo mật.</value>
@@ -236,6 +278,9 @@
   </data>
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>Cơ sở dữ liệu SQLite mặc định, không cần cấu hình</value>
+  </data>
+  <data name="Deploy Kanban in minutes with Docker, SQLite for small teams, or MySQL for larger installations." xml:space="preserve">
+    <value>Triển khai Kanban trong vài phút với Docker, SQLite cho các nhóm nhỏ, hoặc MySQL cho các cài đặt quy mô lớn hơn.</value>
   </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>Thiết kế dành cho mọi người, từ người mới bắt đầu đến chuyên gia.</value>
@@ -257,6 +302,9 @@
   </data>
   <data name="Discussions page" xml:space="preserve">
     <value>Trang Thảo luận</value>
+  </data>
+  <data name="Docker" xml:space="preserve">
+    <value>Docker</value>
   </data>
   <data name="Docker Native" xml:space="preserve">
     <value>Native Docker</value>
@@ -300,8 +348,14 @@
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>Đã bao gồm Entity Framework Core</value>
   </data>
+  <data name="Everything your team needs to move work forward." xml:space="preserve">
+    <value>Tất cả những gì nhóm của bạn cần để thúc đẩy công việc tiến về phía trước.</value>
+  </data>
   <data name="FAQ" xml:space="preserve">
     <value>Câu hỏi thường gặp</value>
+  </data>
+  <data name="Fast Deployment" xml:space="preserve">
+    <value>Triển khai nhanh chóng</value>
   </data>
   <data name="faster" xml:space="preserve">
     <value>nhanh hơn</value>
@@ -321,6 +375,9 @@
   <data name="File Mgmt &amp; Optimization" xml:space="preserve">
     <value>Quản lý &amp; Tối ưu hóa tệp</value>
   </data>
+  <data name="Filter your assigned cards by status, labels, and priority." xml:space="preserve">
+    <value>Lọc thẻ được chỉ định của bạn theo trạng thái, nhãn và mức độ ưu tiên.</value>
+  </data>
   <data name="Fine-grained RBAC" xml:space="preserve">
     <value>RBAC chi tiết</value>
   </data>
@@ -329,6 +386,12 @@
   </data>
   <data name="Flexible API" xml:space="preserve">
     <value>API linh hoạt</value>
+  </data>
+  <data name="Flexible Board Sharing" xml:space="preserve">
+    <value>Chia sẻ bảng linh hoạt</value>
+  </data>
+  <data name="Flexible Storage" xml:space="preserve">
+    <value>Lưu trữ linh hoạt</value>
   </data>
   <data name="for any inquiries or to report issues." xml:space="preserve">
     <value>để có bất kỳ thắc mắc nào hoặc để báo cáo sự cố.</value>
@@ -386,6 +449,9 @@
   </data>
   <data name="Go to dashboard" xml:space="preserve">
     <value>Truy cập bảng điều khiển</value>
+  </data>
+  <data name="Group cards with labels, mark priority, assign owners, and surface the most important work first." xml:space="preserve">
+    <value>Nhóm thẻ bằng nhãn, đánh dấu độ ưu tiên, chỉ định chủ sở hữu và đưa những công việc quan trọng nhất lên hàng đầu.</value>
   </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Xử lý các công việc lặp lại như dọn dẹp và đồng bộ hóa với một giao diện người dùng toàn diện để theo dõi lịch sử thực thi và nhật ký.</value>
@@ -465,6 +531,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Có phải Aiursoft Template được sử dụng miễn phí không?</value>
   </data>
+  <data name="is Open Source" xml:space="preserve">
+    <value>là mã nguồn mở</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>Có sẵn API java.time</value>
   </data>
@@ -480,8 +549,20 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>Tham gia cộng đồng phát triển đang ngày càng lớn mạnh của chúng tôi để xây dựng thế hệ ứng dụng web tiếp theo.</value>
   </data>
+  <data name="Jump directly into your daily workflow." xml:space="preserve">
+    <value>Bắt đầu ngay vào quy trình làm việc hàng ngày của bạn.</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>Sẵn sàng cho K8s / Swarm</value>
+  </data>
+  <data name="Kanban Assistant" xml:space="preserve">
+    <value>Trợ lý Kanban</value>
+  </data>
+  <data name="Keep task context close to the work with descriptions, comments, and public board views." xml:space="preserve">
+    <value>Giữ ngữ cảnh công việc gần với nội dung thực tế bằng mô tả, bình luận và các chế độ xem bảng công khai.</value>
+  </data>
+  <data name="Labels and Priorities" xml:space="preserve">
+    <value>Nhãn và Mức độ ưu tiên</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>Kiểm tra Lint</value>
@@ -518,6 +599,12 @@
   </data>
   <data name="Music Tools" xml:space="preserve">
     <value>Công cụ Âm nhạc</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Công việc của tôi</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Điều hướng</value>
   </data>
   <data name="Needs CASL or similar" xml:space="preserve">
     <value>Cần CASL hoặc tương tự</value>
@@ -567,14 +654,23 @@
   <data name="No dependency on any cloud vendor. Run anywhere, any time." xml:space="preserve">
     <value>Không phụ thuộc vào nhà cung cấp dịch vụ đám mây nào. Chạy ở bất kỳ đâu, bất kỳ lúc nào.</value>
   </data>
+  <data name="No paid tiers, no hosted lock-in, and no hidden workflow limits. Run it yourself and keep ownership of your project data." xml:space="preserve">
+    <value>Không có gói trả phí, không bị khóa trên nền tảng của bên thứ ba, và không có giới hạn quy trình làm việc ẩn. Tự chạy và giữ quyền sở hữu dữ liệu dự án của bạn.</value>
+  </data>
   <data name="Offline Capable" xml:space="preserve">
     <value>Khả năng hoạt động ngoại tuyến</value>
   </data>
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="On Your Infrastructure" xml:space="preserve">
+    <value>Trên Cơ sở Hạ tầng Của Bạn</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>Một Click Bắt Đầu</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Mở bảng</value>
   </data>
   <data name="Open Source" xml:space="preserve">
     <value>Mã nguồn mở</value>
@@ -594,6 +690,9 @@
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>Phát hiện và đồng bộ quyền</value>
   </data>
+  <data name="Personal Task Focus" xml:space="preserve">
+    <value>Tập Trung Công Việc Cá Nhân</value>
+  </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>Cần Pint hoặc tương tự</value>
   </data>
@@ -608,6 +707,9 @@
   </data>
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>Quy trình đã cấu hình sẵn cho môi trường phát triển/sản xuất</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Riêng tư</value>
   </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>Cổng chất lượng</value>
@@ -624,6 +726,12 @@
   <data name="Read the document" xml:space="preserve">
     <value>Đọc tài liệu</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Sẵn sàng</value>
+  </data>
+  <data name="Ready to organize your next project?" xml:space="preserve">
+    <value>Sẵn sàng sắp xếp dự án tiếp theo của bạn chưa?</value>
+  </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>Yêu cầu cấu hình Laravel Socialite</value>
   </data>
@@ -632,6 +740,9 @@
   </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Thiết kế đáp ứng</value>
+  </data>
+  <data name="Review active tasks, owned boards, shared boards, and urgent work." xml:space="preserve">
+    <value>Xem xét các tác vụ đang hoạt động, bảng sở hữu, bảng chia sẻ và công việc khẩn cấp.</value>
   </data>
   <data name="Reviews" xml:space="preserve">
     <value>Đánh giá</value>
@@ -647,6 +758,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Tích hợp liền mạch với bất kỳ nhà cung cấp OpenID Connect nào, đồng thời tự động đồng bộ hóa vai trò.</value>
+  </data>
+  <data name="Self Hosted" xml:space="preserve">
+    <value>Tự lưu trữ</value>
+  </data>
+  <data name="Share boards with users or roles, choose read-only or editable access, and keep private work isolated." xml:space="preserve">
+    <value>Chia sẻ bảng với người dùng hoặc vai trò, chọn quyền chỉ đọc hoặc có thể chỉnh sửa, và giữ công việc riêng biệt riêng tư.</value>
   </data>
   <data name="Shift with confidence" xml:space="preserve">
     <value>Chuyển đổi với sự tự tin</value>
@@ -680,6 +797,9 @@
   </data>
   <data name="Start with a single &apos;docker run&apos; command." xml:space="preserve">
     <value>Bắt đầu với một lệnh &apos;docker run&apos; duy nhất.</value>
+  </data>
+  <data name="Start with the install script or a single Docker container." xml:space="preserve">
+    <value>Bắt đầu với tập lệnh cài đặt hoặc một container Docker duy nhất.</value>
   </data>
   <data name="Starts without any configuration" xml:space="preserve">
     <value>Bắt đầu mà không cần cấu hình</value>
@@ -750,6 +870,9 @@
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>API TimeZoneInfo có sẵn</value>
   </data>
+  <data name="Track assignments, priorities, labels, due dates, overdue work, and active tasks from one dashboard." xml:space="preserve">
+    <value>Theo dõi công việc được giao, mức độ ưu tiên, nhãn, ngày đáo hạn, công việc quá hạn và tác vụ đang thực hiện từ một bảng điều khiển duy nhất.</value>
+  </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>Được tin tưởng bởi các ứng dụng sản xuất cấp độ cao, bao gồm AnduinOS, StatHub, và Warp. Chúng tôi không chỉ chia sẻ mã nguồn này; chúng tôi vận hành toàn bộ doanh nghiệp của mình dựa trên nó.</value>
   </data>
@@ -764,6 +887,12 @@
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>Hãy sử dụng nó làm nền tảng cho SaaS của bạn, backend cho ứng dụng di động, trang web doanh nghiệp, hoặc blog cá nhân. Các khả năng là vô tận.</value>
+  </data>
+  <data name="Use SQLite for simple hosting or MySQL when your team grows." xml:space="preserve">
+    <value>Sử dụng SQLite cho việc lưu trữ đơn giản hoặc MySQL khi nhóm của bạn phát triển.</value>
+  </data>
+  <data name="Use the built-in assistant to read board state and help update routine project data." xml:space="preserve">
+    <value>Sử dụng trợ lý tích hợp sẵn để đọc trạng thái bảng và hỗ trợ cập nhật dữ liệu dự án thường xuyên.</value>
   </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>Xem trên GitHub</value>
@@ -789,6 +918,12 @@
   <data name="Win/Lin/Mac" xml:space="preserve">
     <value>Win/Lin/Mac</value>
   </data>
+  <data name="Work Made Visible." xml:space="preserve">
+    <value>Hiển thị công việc.</value>
+  </data>
+  <data name="Workflow Management" xml:space="preserve">
+    <value>Quản lý quy trình làm việc</value>
+  </data>
   <data name="Yes, Aiursoft Template is completely free and open-source under the MIT License. You can use it for personal and commercial projects without any cost." xml:space="preserve">
     <value>Vâng, Aiursoft Template hoàn toàn miễn phí và mã nguồn mở theo Giấy phép MIT. Bạn có thể sử dụng nó cho các dự án cá nhân và thương mại mà không mất bất kỳ chi phí nào.</value>
   </data>
@@ -800,6 +935,9 @@
   </data>
   <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
     <value>Người dùng doanh nghiệp của bạn không cần đăng ký lặp lại.</value>
+  </data>
+  <data name="Your Workflow" xml:space="preserve">
+    <value>Quy trình làm việc của bạn</value>
   </data>
   <data name="Yubikey &amp; TOTP" xml:space="preserve">
     <value>Yubikey &amp; TOTP</value>
