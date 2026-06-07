@@ -33,6 +33,9 @@
   <data name="A fully responsive layout that looks great on both desktop and mobile devices." xml:space="preserve">
     <value>Μια πλήρως ανταποκρινόμενη διάταξη που φαίνεται εξαιρετική τόσο σε επιτραπέζιους υπολογιστές όσο και σε κινητές συσκευές.</value>
   </data>
+  <data name="A lightweight, self-hosted Kanban workspace for planning boards, tracking cards, assigning work, and sharing progress across your team." xml:space="preserve">
+    <value>Εργαζιακός χώρος Kanban, ελαφρύς και αυτο-εντός διακομιστή, για το σχεδιασμό πινάκων, την παρακολούθηση καρτών, την ανάθεση εργασιών και την κοινή χρήση της πρόοδου μεταξύ της ομάδας σας.</value>
+  </data>
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Μια σύγχρονη, πλούσια σε λειτουργίες και εξαιρετικά επεκτάσιμη βάση για την επόμενη εφαρμογή σας web.</value>
   </data>
@@ -45,6 +48,9 @@
   <data name="Admin site included" xml:space="preserve">
     <value>Περιλαμβάνεται το διαχειριστικό site</value>
   </data>
+  <data name="Agent" xml:space="preserve">
+    <value>Πράκτορας</value>
+  </data>
   <data name="AI Driven Translation" xml:space="preserve">
     <value>Μετάφραση με Βάση την Τεχνητή Νοημοσύνη</value>
   </data>
@@ -53,6 +59,12 @@
   </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Μεταφράσεις με Τεχνητή Νοημοσύνη</value>
+  </data>
+  <data name="Aiursoft Kanban" xml:space="preserve">
+    <value>Aiursoft Kanban</value>
+  </data>
+  <data name="Aiursoft Kanban." xml:space="preserve">
+    <value>Aiursoft Kanban.</value>
   </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Template</value>
@@ -71,6 +83,12 @@
   </data>
   <data name="Artificial Intelligence Translation" xml:space="preserve">
     <value>Μετάφραση της Τεχνητής Νοημοσύνης</value>
+  </data>
+  <data name="Ask for board summaries and guided updates in plain language." xml:space="preserve">
+    <value>Ζητήστε συνοπτικές περιλήψεις πίνακων και καθοδηγημένες ενημερώσεις με απλή γλώσσα.</value>
+  </data>
+  <data name="Authentication, RBAC, OpenID Connect, localization, and system management are included." xml:space="preserve">
+    <value>Ταυτοποίηση, RBAC, OpenID Connect, διεθνοποίηση και διαχείριση συστήματος περιλαμβάνονται.</value>
   </data>
   <data name="Authentik &amp; Okta" xml:space="preserve">
     <value>Authentik &amp; Okta</value>
@@ -120,6 +138,12 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>Διγλωσσικά Μαθήματα</value>
   </data>
+  <data name="Board-Centered Planning" xml:space="preserve">
+    <value>Σχεδιασμός με κέντρο το πίνακα</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Πίνακες</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>Κατασκευάστε μία φορά, εκτελέστε παντού. Πλήρως ενσωματωμένη αρχιτεκτονική με δοχεία.</value>
   </data>
@@ -143,6 +167,9 @@
   </data>
   <data name="Built-in Auth" xml:space="preserve">
     <value>Ενσωματωμένη Πιστοποίηση</value>
+  </data>
+  <data name="Built-in Identity" xml:space="preserve">
+    <value>Ενσωματωμένη Ταυτότητα</value>
   </data>
   <data name="Built-in Job Queue GUI" xml:space="preserve">
     <value>Ενσωματωμένη GUI Ουράς Εργασιών</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Ενσωματωμένη Διαχείριση Χρηστών</value>
+  </data>
+  <data name="Card Discussion" xml:space="preserve">
+    <value>Συζήτηση Κάρτας</value>
   </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>Απαιτείται Checkstyle ή παρόμοιο</value>
@@ -204,6 +234,12 @@
   <data name="Coverage Report" xml:space="preserve">
     <value>Αναφορά κάλυψης</value>
   </data>
+  <data name="Create boards, columns, cards, labels, priorities, and assignments." xml:space="preserve">
+    <value>Δημιουργήστε πίνακες, στήλες, κάρτες, ετικέτες, προτεραιότητες και αναθέσεις.</value>
+  </data>
+  <data name="Create boards, organize columns, and move cards through clear workflow states from idea to done." xml:space="preserve">
+    <value>Δημιουργήστε πίνακες, οργανώστε στήλες και μετακινήστε κάρτες μέσω σαφών καταστάσεων ροής εργασίας από την ιδέα μέχρι την ολοκλήρωση.</value>
+  </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>Διαπλατφορμικό</value>
   </data>
@@ -213,6 +249,9 @@
   <data name="Custom development required" xml:space="preserve">
     <value>Απαιτείται προσαρμοσμένη ανάπτυξη</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Πίνακας ελέγχου</value>
+  </data>
   <data name="Dashboard for background and scheduled tasks" xml:space="preserve">
     <value>Πίνακας ελέγχου για εργασίες παρασκηνίου και προγραμματισμένες εργασίες</value>
   </data>
@@ -221,6 +260,9 @@
   </data>
   <data name="Dashboard Website" xml:space="preserve">
     <value>Ιστοσελίδα Πίνακα Ελέγχου</value>
+  </data>
+  <data name="Data Control" xml:space="preserve">
+    <value>Έλεγχος Δεδομένων</value>
   </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>Ημέρα 1 Συμμόρφωση &amp; Ασφάλεια.</value>
@@ -236,6 +278,9 @@
   </data>
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>Προεπιλεγμένη βάση δεδομένων SQLite, χωρίς ανάγκη ρύθμισης.</value>
+  </data>
+  <data name="Deploy Kanban in minutes with Docker, SQLite for small teams, or MySQL for larger installations." xml:space="preserve">
+    <value>Εγκαταστήστε το Kanban σε λίγα λεπτά με Docker, SQLite για μικρές ομάδες ή MySQL για μεγαλύτερες εγκαταστάσεις.</value>
   </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>Φτιαγμένο για όλους, από αρχάριους μέχρι ειδικούς.</value>
@@ -257,6 +302,9 @@
   </data>
   <data name="Discussions page" xml:space="preserve">
     <value>Σελίδα Συζητήσεων</value>
+  </data>
+  <data name="Docker" xml:space="preserve">
+    <value>Docker</value>
   </data>
   <data name="Docker Native" xml:space="preserve">
     <value>Docker Native</value>
@@ -300,8 +348,14 @@
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>Περιλαμβάνεται το Entity Framework Core</value>
   </data>
+  <data name="Everything your team needs to move work forward." xml:space="preserve">
+    <value>Ό,τι χρειάζεται η ομάδα σας για να προχωρήσει η εργασία.</value>
+  </data>
   <data name="FAQ" xml:space="preserve">
     <value>Συχνές Ερωτήσεις</value>
+  </data>
+  <data name="Fast Deployment" xml:space="preserve">
+    <value>Γρήγορη Εγκατάσταση</value>
   </data>
   <data name="faster" xml:space="preserve">
     <value>γρηγορότερα</value>
@@ -321,6 +375,9 @@
   <data name="File Mgmt &amp; Optimization" xml:space="preserve">
     <value>Διαχείριση Αρχείων &amp; Βελτιστοποίηση</value>
   </data>
+  <data name="Filter your assigned cards by status, labels, and priority." xml:space="preserve">
+    <value>Φιλτράρετε τις ανατεθειμένες κάρτες σας με βάση την κατάσταση, τις ετικέτες και την προτεραιότητα.</value>
+  </data>
   <data name="Fine-grained RBAC" xml:space="preserve">
     <value>Λεπτομερής RBAC</value>
   </data>
@@ -329,6 +386,12 @@
   </data>
   <data name="Flexible API" xml:space="preserve">
     <value>Ευέλικτη API</value>
+  </data>
+  <data name="Flexible Board Sharing" xml:space="preserve">
+    <value>Ευέλικτο Κοινοποίηση Πινάκων</value>
+  </data>
+  <data name="Flexible Storage" xml:space="preserve">
+    <value>Ευέλικτος Αποθηκευτικός Χώρος</value>
   </data>
   <data name="for any inquiries or to report issues." xml:space="preserve">
     <value>για οποιαδήποτε ερώτηση ή για να αναφέρετε προβλήματα.</value>
@@ -386,6 +449,9 @@
   </data>
   <data name="Go to dashboard" xml:space="preserve">
     <value>Μετάβαση στον πίνακα ελέγχου</value>
+  </data>
+  <data name="Group cards with labels, mark priority, assign owners, and surface the most important work first." xml:space="preserve">
+    <value>Ομαδοποιήστε κάρτες με ετικέτες, ορίστε προτεραιότητα, αναθέστε υπευθύνους και εμφανίστε πρώτα την πιο σημαντική εργασία.</value>
   </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Διαχείριση επαναλαμβανόμενων εργασιών όπως καθαρισμός και συγχρονισμός με ολοκληρωμένη διεπαφή χρήστη για την παρακολούθηση της ιστορίας εκτέλεσης και των καταγραφών.</value>
@@ -465,6 +531,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Είναι δωρεάν η χρήση του Aiursoft Template;</value>
   </data>
+  <data name="is Open Source" xml:space="preserve">
+    <value>είναι Open Source</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>Διαθέσιμο API java.time</value>
   </data>
@@ -480,8 +549,20 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>Συμμετάσχετε στην αναπτυσσόμενη κοινότητα αναπτυσσόμενων που δημιουργούν την επόμενη γενιά εφαρμογών για το διαδίκτυο.</value>
   </data>
+  <data name="Jump directly into your daily workflow." xml:space="preserve">
+    <value>Εισέλθετε απευθείας στην καθημερινή σας ροή εργασίας.</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>Έτοιμο για K8s / Swarm</value>
+  </data>
+  <data name="Kanban Assistant" xml:space="preserve">
+    <value>Βοηθός Kanban</value>
+  </data>
+  <data name="Keep task context close to the work with descriptions, comments, and public board views." xml:space="preserve">
+    <value>Διατηρήστε το πλαίσιο των εργασιών κοντά στην εργασία με περιγραφές, σχόλια και δημόσιες προβολές πίνακα.</value>
+  </data>
+  <data name="Labels and Priorities" xml:space="preserve">
+    <value>Ετικέτες και Προτεραιότητες</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>Ελέγχους Lint</value>
@@ -518,6 +599,12 @@
   </data>
   <data name="Music Tools" xml:space="preserve">
     <value>Εργαλεία Μουσικής</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Οι εργασίες μου</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Πλοήγηση</value>
   </data>
   <data name="Needs CASL or similar" xml:space="preserve">
     <value>Απαιτεί CASL ή παρόμοιο</value>
@@ -567,14 +654,23 @@
   <data name="No dependency on any cloud vendor. Run anywhere, any time." xml:space="preserve">
     <value>Χωρίς εξάρτηση από κάποιον πάροχο cloud. Εκτελέστε παντού, παντότε.</value>
   </data>
+  <data name="No paid tiers, no hosted lock-in, and no hidden workflow limits. Run it yourself and keep ownership of your project data." xml:space="preserve">
+    <value>Χωρίς χρεώσεις, χωρίς εξάρτηση από εξυπηρέτηση, και χωρίς κρυφούς περιορισμούς ροής εργασιών. Εκτελέστε το μόνοι σας και διατηρήστε την ιδιοκτησία των δεδομένων του έργου σας.</value>
+  </data>
   <data name="Offline Capable" xml:space="preserve">
     <value>Εκτός Σύνδεσης Εφοδιασμένο</value>
   </data>
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="On Your Infrastructure" xml:space="preserve">
+    <value>Στη δική σας υποδομή</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>Μία κλικ για έναρξη</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Άνοιγμα πινακίδων</value>
   </data>
   <data name="Open Source" xml:space="preserve">
     <value>Ανοιχτού Κώδικα</value>
@@ -594,6 +690,9 @@
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>Ανίχνευση και συγχρονισμός δικαιωμάτων</value>
   </data>
+  <data name="Personal Task Focus" xml:space="preserve">
+    <value>Εστίαση σε Προσωπικά Εργασίες</value>
+  </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>Απαιτείται το Pint ή παρόμοιο</value>
   </data>
@@ -608,6 +707,9 @@
   </data>
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>Προκαθορισμένες αλυσίδες για dev/prod</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Ιδιωτικό</value>
   </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>Ποιότητα Πύλης</value>
@@ -624,6 +726,12 @@
   <data name="Read the document" xml:space="preserve">
     <value>Διαβάστε το έγγραφο</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Έτοιμο</value>
+  </data>
+  <data name="Ready to organize your next project?" xml:space="preserve">
+    <value>Έτοιμοι να οργανώσετε την επόμενη πρόκλησή σας;</value>
+  </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>Απαιτεί ρύθμιση Laravel Socialite</value>
   </data>
@@ -632,6 +740,9 @@
   </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Αποκρισιμό Σχεδιασμό</value>
+  </data>
+  <data name="Review active tasks, owned boards, shared boards, and urgent work." xml:space="preserve">
+    <value>Εξετάστε ενεργά καθήκοντα, ιδιωτικούς πίνακες, κοινόχρηστους πίνακες και επείγοντα έργο.</value>
   </data>
   <data name="Reviews" xml:space="preserve">
     <value>Κριτικές</value>
@@ -647,6 +758,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Απολαύστε απρόσκοπτη ενσωμάτωση με οποιονδήποτε πάροχο OpenID Connect, με αυτόματο συγχρονισμό ρόλων.</value>
+  </data>
+  <data name="Self Hosted" xml:space="preserve">
+    <value>Αυτοξενούμενο</value>
+  </data>
+  <data name="Share boards with users or roles, choose read-only or editable access, and keep private work isolated." xml:space="preserve">
+    <value>Κοινοποιήστε πινάκες σε χρήστες ή ρόλους, επιλέξτε πρόσβαση μόνο για ανάγνωση ή επεξεργάσιμη και διατηρήστε τα ιδιωτικά σας έργα απομονωμένα.</value>
   </data>
   <data name="Shift with confidence" xml:space="preserve">
     <value>Μετακινηθείτε με αυτοπεποίθηση</value>
@@ -680,6 +797,9 @@
   </data>
   <data name="Start with a single &apos;docker run&apos; command." xml:space="preserve">
     <value>Ξεκινήστε με μία μόνο εντολή &apos;docker run&apos;.</value>
+  </data>
+  <data name="Start with the install script or a single Docker container." xml:space="preserve">
+    <value>Ξεκινήστε με το σενάριο εγκατάστασης ή με ένα ενιαίο Docker container.</value>
   </data>
   <data name="Starts without any configuration" xml:space="preserve">
     <value>Ξεκινά χωρίς καμία ρύθμιση</value>
@@ -750,6 +870,9 @@
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>Διαθέσιμο API TimeZoneInfo</value>
   </data>
+  <data name="Track assignments, priorities, labels, due dates, overdue work, and active tasks from one dashboard." xml:space="preserve">
+    <value>Εποπτεία αναθέσεων, προτεραιοτήτων, ετικετών, προθεσίων, καθυστερημένων εργασιών και ενεργών εργασίας από ένα ενιαίο πίνακα ελέγχου.</value>
+  </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>Εμπιστεύεται εφαρμογές προσαρμοσμένες για παραγωγή, συμπεριλαμβανομένων AnduinOS, StatHub και Warp. Δεν μοιραζόμαστε απλώς αυτόν τον κώδικα· τρέχουμε την επιχείρησή μας εντελώς με αυτόν.</value>
   </data>
@@ -764,6 +887,12 @@
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>Χρησιμοποιήστε το ως θεμέλιο για το SaaS σας, ως backend για την εφαρμογή του κινητού σας, ως εταιρική ιστοσελίδα ή ως προσωπικό ιστολόγιο. Οι δυνατότητες είναι ατελείωτες.</value>
+  </data>
+  <data name="Use SQLite for simple hosting or MySQL when your team grows." xml:space="preserve">
+    <value>Χρησιμοποιήστε το SQLite για απλή φιλοξενία ή το MySQL όταν μεγαλώνει η ομάδα σας.</value>
+  </data>
+  <data name="Use the built-in assistant to read board state and help update routine project data." xml:space="preserve">
+    <value>Χρησιμοποιήστε τον ενσωματωμένο βοηθό για να διαβάσετε την κατάσταση του πίνακα και να βοηθήσετε στην ενημέρωση ρουτίνας των δεδομένων του έργου.</value>
   </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>Προβολή στο GitHub</value>
@@ -789,6 +918,12 @@
   <data name="Win/Lin/Mac" xml:space="preserve">
     <value>Win/Lin/Mac</value>
   </data>
+  <data name="Work Made Visible." xml:space="preserve">
+    <value>Η δουλειά γίνεται ορατή.</value>
+  </data>
+  <data name="Workflow Management" xml:space="preserve">
+    <value>Διαχείριση Ροών Εργασίας</value>
+  </data>
   <data name="Yes, Aiursoft Template is completely free and open-source under the MIT License. You can use it for personal and commercial projects without any cost." xml:space="preserve">
     <value>Ναι, το Aiursoft Template είναι εντελώς δωρεάν και ανοιχτού κώδικα υπό την άδεια MIT. Μπορείτε να το χρησιμοποιήσετε για προσωπικά και εμπορικά projects χωρίς κανένα κόστος.</value>
   </data>
@@ -800,6 +935,9 @@
   </data>
   <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
     <value>Οι χρήστες της επιχείρησής σας δεν χρειάζεται να εγγραφούν εκ νέου.</value>
+  </data>
+  <data name="Your Workflow" xml:space="preserve">
+    <value>Η Ροή Εργασίας Σας</value>
   </data>
   <data name="Yubikey &amp; TOTP" xml:space="preserve">
     <value>Yubikey &amp; TOTP</value>

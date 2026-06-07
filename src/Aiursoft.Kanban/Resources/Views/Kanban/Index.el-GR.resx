@@ -264,6 +264,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>Μη Εκκίνηση</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Σημείωση</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Εντάξει</value>
+  </data>
   <data name="optional" xml:space="preserve">
     <value>προαιρετικό</value>
   </data>
