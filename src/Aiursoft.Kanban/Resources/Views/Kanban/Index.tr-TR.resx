@@ -264,6 +264,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>Başlanmadı</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Bilgilendirme</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
   <data name="optional" xml:space="preserve">
     <value>isteğe bağlı</value>
   </data>

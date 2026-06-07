@@ -114,6 +114,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>لم يبدأ</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>ملاحظة</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>حسناً</value>
+  </data>
   <data name="Order updated." xml:space="preserve">
     <value>تم تحديث الترتيب.</value>
   </data>

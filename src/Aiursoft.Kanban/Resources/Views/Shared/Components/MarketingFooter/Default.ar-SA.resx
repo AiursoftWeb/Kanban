@@ -21,6 +21,9 @@
       <data name="Aiursoft" xml:space="preserve">
     <value>Aiursoft</value>
   </data>
+  <data name="Aiursoft Kanban - A modern, intuitive project management tool for organizing tasks and workflows." xml:space="preserve">
+    <value>أيويرسوف كانبان - أداة إدارة مشاريع حديثة وسهلة الاستخدام لتنظيم المهام وسير العمل.</value>
+  </data>
   <data name="Aiursoft Template - A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>قالب Aiursoft - أساس حديث، غني بالميزات، وقابل للتوسعة بشكل كبير لتطبيق الويب القادم الخاص بك.</value>
   </data>
