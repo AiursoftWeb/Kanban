@@ -264,6 +264,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>Не розпочато</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Сповіщення</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Гаразд</value>
+  </data>
   <data name="optional" xml:space="preserve">
     <value>необов&apos;язково</value>
   </data>

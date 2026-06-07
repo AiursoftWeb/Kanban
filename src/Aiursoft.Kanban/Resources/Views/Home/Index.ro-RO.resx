@@ -33,6 +33,9 @@
   <data name="A fully responsive layout that looks great on both desktop and mobile devices." xml:space="preserve">
     <value>Un layout complet responsive care arată excelent atât pe dispozitive desktop, cât și pe mobile.</value>
   </data>
+  <data name="A lightweight, self-hosted Kanban workspace for planning boards, tracking cards, assigning work, and sharing progress across your team." xml:space="preserve">
+    <value>Un spațiu de lucru Kanban ușor, auto-găzduit, pentru planificarea tablourilor, urmărirea cardurilor, atribuirea sarcinilor și partajarea progresului în cadrul echipei.</value>
+  </data>
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>O fundație modernă, bogată în funcționalități și extrem de extensibilă pentru următoarea ta aplicație web.</value>
   </data>
@@ -45,6 +48,9 @@
   <data name="Admin site included" xml:space="preserve">
     <value>Site de administrare inclus</value>
   </data>
+  <data name="Agent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
   <data name="AI Driven Translation" xml:space="preserve">
     <value>Traducere condusă de IA</value>
   </data>
@@ -53,6 +59,12 @@
   </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Traduceri alimentate de IA</value>
+  </data>
+  <data name="Aiursoft Kanban" xml:space="preserve">
+    <value>Aiursoft Kanban</value>
+  </data>
+  <data name="Aiursoft Kanban." xml:space="preserve">
+    <value>Aiursoft Kanban.</value>
   </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Template</value>
@@ -71,6 +83,12 @@
   </data>
   <data name="Artificial Intelligence Translation" xml:space="preserve">
     <value>Traducere prin Inteligență Artificială</value>
+  </data>
+  <data name="Ask for board summaries and guided updates in plain language." xml:space="preserve">
+    <value>Solicitați rezumate ale tabelelor și actualizări ghidate într-un limbaj simplu.</value>
+  </data>
+  <data name="Authentication, RBAC, OpenID Connect, localization, and system management are included." xml:space="preserve">
+    <value>Autentificarea, RBAC, OpenID Connect, localizarea și gestionarea sistemului sunt incluse.</value>
   </data>
   <data name="Authentik &amp; Okta" xml:space="preserve">
     <value>Authentik &amp; Okta</value>
@@ -120,6 +138,12 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>Tutoriale bilingve</value>
   </data>
+  <data name="Board-Centered Planning" xml:space="preserve">
+    <value>Planificare centrată pe panouri</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Tablouri</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>Construiți o dată, rulați oriunde. Arhitectură complet containerizată.</value>
   </data>
@@ -143,6 +167,9 @@
   </data>
   <data name="Built-in Auth" xml:space="preserve">
     <value>Autentificare integrată</value>
+  </data>
+  <data name="Built-in Identity" xml:space="preserve">
+    <value>Identitate integrată</value>
   </data>
   <data name="Built-in Job Queue GUI" xml:space="preserve">
     <value>Interfață GUI integrată pentru coada de sarcini</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Gestionare Utilizatori Integrată</value>
+  </data>
+  <data name="Card Discussion" xml:space="preserve">
+    <value>Discuții pe card</value>
   </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>Se necesită Checkstyle sau similar</value>
@@ -204,6 +234,12 @@
   <data name="Coverage Report" xml:space="preserve">
     <value>Raport acoperire</value>
   </data>
+  <data name="Create boards, columns, cards, labels, priorities, and assignments." xml:space="preserve">
+    <value>Creați tablouri, coloane, carduri, etichete, priorități și atribuiri.</value>
+  </data>
+  <data name="Create boards, organize columns, and move cards through clear workflow states from idea to done." xml:space="preserve">
+    <value>Creați tabele, organizați coloane și mutați cardurile prin etape de flux de lucru clare, de la idee la finalizare.</value>
+  </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>Platform Cruce</value>
   </data>
@@ -213,6 +249,9 @@
   <data name="Custom development required" xml:space="preserve">
     <value>Este necesară dezvoltarea personalizată</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Panou de comandă</value>
+  </data>
   <data name="Dashboard for background and scheduled tasks" xml:space="preserve">
     <value>Panou de control pentru sarcinile din fundal și programate</value>
   </data>
@@ -221,6 +260,9 @@
   </data>
   <data name="Dashboard Website" xml:space="preserve">
     <value>Site-ul Panoului de Control</value>
+  </data>
+  <data name="Data Control" xml:space="preserve">
+    <value>Controlul datelor</value>
   </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>Conformitate și securitate de ziua 1.</value>
@@ -236,6 +278,9 @@
   </data>
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>Bază de date SQLite implicită, fără necesitate de configurare.</value>
+  </data>
+  <data name="Deploy Kanban in minutes with Docker, SQLite for small teams, or MySQL for larger installations." xml:space="preserve">
+    <value>Instalați Kanban în câteva minute cu Docker, SQLite pentru echipe mici sau MySQL pentru instalări mai mari.</value>
   </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>Creat pentru toți, de la începători până la experți.</value>
@@ -257,6 +302,9 @@
   </data>
   <data name="Discussions page" xml:space="preserve">
     <value>Pagina de discuții</value>
+  </data>
+  <data name="Docker" xml:space="preserve">
+    <value>Docker</value>
   </data>
   <data name="Docker Native" xml:space="preserve">
     <value>Docker Native</value>
@@ -300,8 +348,14 @@
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>Entity Framework Core inclus</value>
   </data>
+  <data name="Everything your team needs to move work forward." xml:space="preserve">
+    <value>Tot ce are nevoie echipa dumneavoastră pentru a avansa munca.</value>
+  </data>
   <data name="FAQ" xml:space="preserve">
     <value>Întrebări frecvente</value>
+  </data>
+  <data name="Fast Deployment" xml:space="preserve">
+    <value>Implementare rapidă</value>
   </data>
   <data name="faster" xml:space="preserve">
     <value>mai rapid</value>
@@ -321,6 +375,9 @@
   <data name="File Mgmt &amp; Optimization" xml:space="preserve">
     <value>Gestiune și optimizare fișiere</value>
   </data>
+  <data name="Filter your assigned cards by status, labels, and priority." xml:space="preserve">
+    <value>Filtrează cardurile alocate ție după status, etichete și prioritate.</value>
+  </data>
   <data name="Fine-grained RBAC" xml:space="preserve">
     <value>RBAC cu granulație fină</value>
   </data>
@@ -329,6 +386,12 @@
   </data>
   <data name="Flexible API" xml:space="preserve">
     <value>API flexibilă</value>
+  </data>
+  <data name="Flexible Board Sharing" xml:space="preserve">
+    <value>Partajare flexibilă a panourilor</value>
+  </data>
+  <data name="Flexible Storage" xml:space="preserve">
+    <value>Stocare flexibilă</value>
   </data>
   <data name="for any inquiries or to report issues." xml:space="preserve">
     <value>pentru orice întrebări sau pentru a raporta probleme.</value>
@@ -386,6 +449,9 @@
   </data>
   <data name="Go to dashboard" xml:space="preserve">
     <value>Accesează panoul de control</value>
+  </data>
+  <data name="Group cards with labels, mark priority, assign owners, and surface the most important work first." xml:space="preserve">
+    <value>Grupati cardurile cu etichete, marcati prioritatea, atribuiti responsabili si evidentiati mai intai lucrarile cele mai importante.</value>
   </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Gestionați sarcinile periodice precum curățarea și sincronizarea cu o interfață grafică completă pentru monitorizarea istoricului de execuție și a jurnalelor.</value>
@@ -465,6 +531,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Este gratuit să folosești Aiursoft Template?</value>
   </data>
+  <data name="is Open Source" xml:space="preserve">
+    <value>este Open Source</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>API java.time disponibil</value>
   </data>
@@ -480,8 +549,20 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>Alăturați-vă comunității noastre în creștere de dezvoltatori care construiesc următoarea generație de aplicații web.</value>
   </data>
+  <data name="Jump directly into your daily workflow." xml:space="preserve">
+    <value>Intrați direct în fluxul dvs. de lucru zilnic.</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>Gata pentru K8s / Swarm</value>
+  </data>
+  <data name="Kanban Assistant" xml:space="preserve">
+    <value>Asistent Kanban</value>
+  </data>
+  <data name="Keep task context close to the work with descriptions, comments, and public board views." xml:space="preserve">
+    <value>Păstrați contextul sarcinii aproape de lucrare cu descrieri, comentarii și vizualizări publice ale panoului.</value>
+  </data>
+  <data name="Labels and Priorities" xml:space="preserve">
+    <value>Etichete și priorități</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>Verificare Lint</value>
@@ -518,6 +599,12 @@
   </data>
   <data name="Music Tools" xml:space="preserve">
     <value>Instrumente Muzicale</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Sarcinile mele</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Navigare</value>
   </data>
   <data name="Needs CASL or similar" xml:space="preserve">
     <value>Necesită CASL sau similar</value>
@@ -567,14 +654,23 @@
   <data name="No dependency on any cloud vendor. Run anywhere, any time." xml:space="preserve">
     <value>Fără dependență de niciun furnizor de cloud. Rulează oriunde, oricând.</value>
   </data>
+  <data name="No paid tiers, no hosted lock-in, and no hidden workflow limits. Run it yourself and keep ownership of your project data." xml:space="preserve">
+    <value>Fără niveluri plătite, fără dependență de hosting și fără limite ascunse ale fluxului de lucru. Executați-l singur și păstrați dreptul de proprietate asupra datelor proiectului dvs.</value>
+  </data>
   <data name="Offline Capable" xml:space="preserve">
     <value>Capabil offline</value>
   </data>
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="On Your Infrastructure" xml:space="preserve">
+    <value>Pe Infrastructura Ta</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>Un Click Start</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Deschideți panourile</value>
   </data>
   <data name="Open Source" xml:space="preserve">
     <value>Open Source</value>
@@ -594,6 +690,9 @@
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>Descoperirea și sincronizarea permisiunilor</value>
   </data>
+  <data name="Personal Task Focus" xml:space="preserve">
+    <value>Concentrare pe sarcini personale</value>
+  </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>Pint sau similar necesar</value>
   </data>
@@ -608,6 +707,9 @@
   </data>
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>Pipelines preconfigurate pentru dev/prod</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Privat</value>
   </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>Portocală de Calitate</value>
@@ -624,6 +726,12 @@
   <data name="Read the document" xml:space="preserve">
     <value>Citește documentația</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Gata</value>
+  </data>
+  <data name="Ready to organize your next project?" xml:space="preserve">
+    <value>Sigur că vrei să îți organizezi următorul proiect?</value>
+  </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>Necesită configurarea Laravel Socialite</value>
   </data>
@@ -632,6 +740,9 @@
   </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Design Responsiv</value>
+  </data>
+  <data name="Review active tasks, owned boards, shared boards, and urgent work." xml:space="preserve">
+    <value>Verificați sarcinile active, panourile deținute, panourile partajate și lucrările urgente.</value>
   </data>
   <data name="Reviews" xml:space="preserve">
     <value>Recenzii</value>
@@ -647,6 +758,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Integrați fără probleme cu orice furnizor OpenID Connect, cu sincronizare automată a rolurilor.</value>
+  </data>
+  <data name="Self Hosted" xml:space="preserve">
+    <value>Găzduit Local</value>
+  </data>
+  <data name="Share boards with users or roles, choose read-only or editable access, and keep private work isolated." xml:space="preserve">
+    <value>Partajați tabelele cu utilizatori sau roluri, alegeți accesul în doar citire sau editabil și păstrați lucrările private izolate.</value>
   </data>
   <data name="Shift with confidence" xml:space="preserve">
     <value>Mutați cu încredere</value>
@@ -680,6 +797,9 @@
   </data>
   <data name="Start with a single &apos;docker run&apos; command." xml:space="preserve">
     <value>Începe cu o singură comandă &apos;docker run&apos;.</value>
+  </data>
+  <data name="Start with the install script or a single Docker container." xml:space="preserve">
+    <value>Începeți cu scriptul de instalare sau cu un singur container Docker.</value>
   </data>
   <data name="Starts without any configuration" xml:space="preserve">
     <value>Pornește fără nicio configurare</value>
@@ -750,6 +870,9 @@
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>API TimeZoneInfo disponibilă</value>
   </data>
+  <data name="Track assignments, priorities, labels, due dates, overdue work, and active tasks from one dashboard." xml:space="preserve">
+    <value>Monitorați atribuiri, priorități, etichete, termene limită, sarcini restante și sarcini active dintr-un singur panou de control.</value>
+  </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>Încrederea aplicațiilor de tip producție, inclusiv AnduinOS, StatHub și Warp. Nu doar împărtășim acest cod; îi folosim pentru întreaga noastră afacere.</value>
   </data>
@@ -764,6 +887,12 @@
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>Folosește-l ca fundație pentru SaaS-ul tău, ca backend pentru aplicația ta mobilă, ca site corporativ sau ca blog personal. Posibilitățile sunt nelimitate.</value>
+  </data>
+  <data name="Use SQLite for simple hosting or MySQL when your team grows." xml:space="preserve">
+    <value>Folosiți SQLite pentru găzduire simplă sau MySQL pe măsură ce echipa dumneavoastră crește.</value>
+  </data>
+  <data name="Use the built-in assistant to read board state and help update routine project data." xml:space="preserve">
+    <value>Utilizați asistentul integrat pentru a citi starea tablei și pentru a ajuta la actualizarea datelor de proiect de rutină.</value>
   </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>Vizualizează pe GitHub</value>
@@ -789,6 +918,12 @@
   <data name="Win/Lin/Mac" xml:space="preserve">
     <value>Win/Lin/Mac</value>
   </data>
+  <data name="Work Made Visible." xml:space="preserve">
+    <value>Lucrul făcut vizibil.</value>
+  </data>
+  <data name="Workflow Management" xml:space="preserve">
+    <value>Gestionarea fluxurilor de lucru</value>
+  </data>
   <data name="Yes, Aiursoft Template is completely free and open-source under the MIT License. You can use it for personal and commercial projects without any cost." xml:space="preserve">
     <value>Da, Aiursoft Template este complet gratuit și open-source sub Licența MIT. Îl puteți utiliza pentru proiecte personale și comerciale fără niciun cost.</value>
   </data>
@@ -800,6 +935,9 @@
   </data>
   <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
     <value>Utilizatorii dvs. de enterprise nu trebuie să se înregistreze din nou.</value>
+  </data>
+  <data name="Your Workflow" xml:space="preserve">
+    <value>Fluxul tău de lucru</value>
   </data>
   <data name="Yubikey &amp; TOTP" xml:space="preserve">
     <value>Yubikey &amp; TOTP</value>

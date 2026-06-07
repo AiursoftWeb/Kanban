@@ -264,6 +264,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>Ei aloitettu</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Huomio</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="optional" xml:space="preserve">
     <value>valinnainen</value>
   </data>

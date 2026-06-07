@@ -114,6 +114,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>Belum Dimulai</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Pemberitahuan</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OKE</value>
+  </data>
   <data name="Order updated." xml:space="preserve">
     <value>Urutan diperbarui.</value>
   </data>
