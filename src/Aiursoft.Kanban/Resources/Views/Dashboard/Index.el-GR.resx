@@ -42,6 +42,12 @@
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Όλες οι εξαρτήσεις καταχωρούνται αυτόματα και είναι πάντα διαθέσιμες μέσω της εισαγωγής στον κατασκευαστή.</value>
   </data>
+  <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>Ρωτήστε το βοηθό Kanban</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Ανατεθειμένα καθήκοντα</value>
+  </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Αυτόματη Λειτουργία Σκούρου Θέματος</value>
   </data>
@@ -63,6 +69,9 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Ενσωματωμένη Διαχείριση Χρηστών</value>
   </data>
+  <data name="cards" xml:space="preserve">
+    <value>κάρτες</value>
+  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Διαθέτει υποστήριξη για Docker για απλοποιημένη και συνεκτική μεταφόρτωση.</value>
   </data>
@@ -75,6 +84,9 @@
   <data name="Consistency Validation" xml:space="preserve">
     <value>Έλεγχος Συνοχής</value>
   </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>Δημιουργία ή διαχείριση πινάκων</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Αναπτύξτε αποκλειστικά στο UTC, ενώ το σύστημα μετατρέπει και εμφανίζει αυτόματα τις ημερομηνίες στην τοπική ώρα του χρήστη.</value>
   </data>
@@ -83,6 +95,12 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Δοκερισμένο για εύκολη εγκατάσταση</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>ολοκληρωμένα</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>Τερμ.:</value>
   </data>
   <data name="Dynamic Navigation Bar" xml:space="preserve">
     <value>Δυναμική Γραμμή Πλοήγησης</value>
@@ -102,17 +120,26 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>Διαθέτει ένα ενσωματωμένο σύστημα διαχείρισης αρχείων με αυτόματη συμπίεση avatar.</value>
   </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>Αποκτήστε βοήθεια για την ανάγνωση και την ενημέρωση της κατάστασης του πίνακα με τη χρήση του ενσωματωμένου βοηθού.</value>
+  </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Διαχείριση επαναλαμβανόμενων εργασιών όπως καθαρισμός και συγχρονισμός με ένα εκτεταμένο GUI για την παρακολούθηση της ιστορίας εκτέλεσης και των καταγραφών.</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>Γεια σου Κόσμε!</value>
   </data>
+  <data name="in progress" xml:space="preserve">
+    <value>σε εξέλιξη</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Περιλαμβάνει εκτενή τεκμηρίωση και πρακτικά παραδείγματα για να ξεκινήσετε γρήγορα.</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Ενσωματωμένη Διαχείριση Αρχείων</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Πίνακας Kanban</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Τα μοντέλα ελέγχονται σε επίπεδο πελάτη και εξυπηρετητή βάσει σημειώσεων δεδομένων.</value>
@@ -123,8 +150,47 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Υποστήριξη Πολλαπλών Βάσεων Δεδομένων</value>
   </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>Ανεκτέλεστοι εργασιές</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Οι πλάκες μου</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Οι εργασίες μου</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Δεν υπάρχουν ενεργές εργασίες που να έχουν ανατεθεί σε εσάς αυτή τη στιγμή.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Δεν έχουν κοινοποιηθεί ακόμη πίνακες μαζί σας.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Δεν έχουν δημιουργηθεί ακόμα πίνακες.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Χωρίς ημερομηνία λήξης</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>ανοιχτά</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Άνοιγμα ομαδικών πινάκων</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>Άνοιγμα πινάκων που έχουν μοιραστεί μαζί σας μέσω άμεσων ή βασισμένων σε ρόλο δικαιωμάτων πρόσβασης.</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>Ενσωμάτωση OpenID Connect</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>ημερησία</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>Σχεδιάστε στήλες, κάρτες, προτεραιότητες, ετικέτες, αρμόδιους και ημερομηνίες λήξης.</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>Γρήγορες ενέργειες</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>Εξουσιοδότηση RBAC</value>
@@ -135,6 +201,9 @@
   <data name="Responsive Design" xml:space="preserve">
     <value>Αποκρισιμό Σχεδιασμό</value>
   </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>Επισκόπηση κοινών πλακών</value>
+  </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Ανθεκτικός Έλεγχος Ενοποίησης</value>
   </data>
@@ -143,6 +212,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Απρόσκοπτη ενσωμάτωση με οποιονδήποτε πάροχο OpenID Connect, με αυτόματο συγχρονισμό ρόλων.</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Κοινά πίνακες</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Μοιράζονται μαζί μου</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Έξυπνες Αντικαταστάσεις Ρυθμίσεων</value>
