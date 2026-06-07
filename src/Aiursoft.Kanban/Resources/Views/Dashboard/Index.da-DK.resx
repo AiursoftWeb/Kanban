@@ -42,6 +42,12 @@
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Alle afhængigheder registreres automatisk og er altid tilgængelige via konstruktor-injektion.</value>
   </data>
+  <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>Spørg Kanban-assistenten</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Tildelte opgaver</value>
+  </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Automatisk Mørk Tilstand</value>
   </data>
@@ -63,6 +69,9 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Indbygget brugeradministration</value>
   </data>
+  <data name="cards" xml:space="preserve">
+    <value>kort</value>
+  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Kommer med Docker-understøttelse til forenklet og konsistent implementering.</value>
   </data>
@@ -75,6 +84,9 @@
   <data name="Consistency Validation" xml:space="preserve">
     <value>Konsistensvalidering</value>
   </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>Opret eller administrative tavler</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Udvikl udelukkende i UTC, mens systemet automatisk konverterer og viser datoer i brugeren&apos;s lokale tidszone.</value>
   </data>
@@ -83,6 +95,12 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Dockeriseret til nem installation</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>færdig</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>Frist:</value>
   </data>
   <data name="Dynamic Navigation Bar" xml:space="preserve">
     <value>Dynamisk Navigationslinje</value>
@@ -102,17 +120,26 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>Har et indbygget filstyringssystem med automatisk avatar-komprimering.</value>
   </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>Få hjælp til at læse og opdatere brætstatus med den indbyggede assistent.</value>
+  </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Håndtér gentagende opgaver som rydning og synkronisering med en omfattende brugergrænseflade til overvågning af udførelseshistorik og logfiler.</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>Hej Verden!</value>
   </data>
+  <data name="in progress" xml:space="preserve">
+    <value>igangværende</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Inkluderer omfattende dokumentation og praktiske eksempler, så du kan komme i gang hurtigt.</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Integreret Filhåndtering</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Kanban-dashboard</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Modeller valideres på både klient- og serversiden baseret på dataanmærkninger.</value>
@@ -123,8 +150,47 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Understøttelse af flere databaser</value>
   </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>Mine aktive opgaver</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Mine tavler</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Mine opgaver</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Der er ingen aktive opgaver tildelt til dig lige nu.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Der er ikke dele boards med dig endnu.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Ingen tavler oprettet endnu.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Ingen udløbsdato</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>åbne</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Åbn tavler</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>Åbn tavler delt med dig via direkte eller rollebaseret adgang.</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect-integration</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>forfaldet</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>Plan kolonner, kort, prioriteter, etiketter, ansvarlige og udløbsdatoer.</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>Hurtige handlinger</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC-godkendelse</value>
@@ -135,6 +201,9 @@
   <data name="Responsive Design" xml:space="preserve">
     <value>Responsivt Design</value>
   </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>Gennemse delte tavler</value>
+  </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Robust integrationstest</value>
   </data>
@@ -143,6 +212,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Integrer problemfrit med enhver OpenID Connect-udbyder, med automatisk rolle-synkronisering.</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Delte tavler</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Delte med mig</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Smarte konfigurations-overskrivninger</value>

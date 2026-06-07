@@ -33,6 +33,9 @@
   <data name="A fully responsive layout that looks great on both desktop and mobile devices." xml:space="preserve">
     <value>Täysin responsiivinen ulkoasu, joka näyttää erinomaiselta sekä työpöytä- että mobiililaitteilla.</value>
   </data>
+  <data name="A lightweight, self-hosted Kanban workspace for planning boards, tracking cards, assigning work, and sharing progress across your team." xml:space="preserve">
+    <value>Kevyt, itse isännöitävä Kanban-työtila taulujen suunnitteluun, korttien seurantaan, työn jakamiseen ja edistymisen jakamiseen tiimissä.</value>
+  </data>
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Nykyaikainen, ominaisuuksiltaan monipuolinen ja erittäin laajennettava perusta seuraavaa verkkosovellustasi varten.</value>
   </data>
@@ -45,6 +48,9 @@
   <data name="Admin site included" xml:space="preserve">
     <value>Hallintaportaali sisältyy</value>
   </data>
+  <data name="Agent" xml:space="preserve">
+    <value>Agentti</value>
+  </data>
   <data name="AI Driven Translation" xml:space="preserve">
     <value>Tekoälyllä ohjattu kääntäminen</value>
   </data>
@@ -53,6 +59,12 @@
   </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Tehokäännökset tekoälyllä</value>
+  </data>
+  <data name="Aiursoft Kanban" xml:space="preserve">
+    <value>Aiursoft Kanban</value>
+  </data>
+  <data name="Aiursoft Kanban." xml:space="preserve">
+    <value>Aiursoft Kanban.</value>
   </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Template</value>
@@ -71,6 +83,12 @@
   </data>
   <data name="Artificial Intelligence Translation" xml:space="preserve">
     <value>Tekoälykäännös</value>
+  </data>
+  <data name="Ask for board summaries and guided updates in plain language." xml:space="preserve">
+    <value>Pyydä taulukoiden yhteenvetoja ja ohjattuja päivityksiä selkeällä kielellä.</value>
+  </data>
+  <data name="Authentication, RBAC, OpenID Connect, localization, and system management are included." xml:space="preserve">
+    <value>Tunnistautuminen, RBAC, OpenID Connect, lokalisointi ja järjestelmän hallinta ovat sisällytettyinä.</value>
   </data>
   <data name="Authentik &amp; Okta" xml:space="preserve">
     <value>Authentik &amp; Okta</value>
@@ -120,6 +138,12 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>Kaksikieliset oppaat</value>
   </data>
+  <data name="Board-Centered Planning" xml:space="preserve">
+    <value>Paneelikeskkinen suunnittelu</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Lautataulut</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>Rakenna kerran, suorita missä tahansa. Täysin säiliöön paketoidu arkkitehtuuri.</value>
   </data>
@@ -143,6 +167,9 @@
   </data>
   <data name="Built-in Auth" xml:space="preserve">
     <value>Sisäänrakennettu käyttäjätunnistus</value>
+  </data>
+  <data name="Built-in Identity" xml:space="preserve">
+    <value>Sisäänrakennettu identiteetti</value>
   </data>
   <data name="Built-in Job Queue GUI" xml:space="preserve">
     <value>Sisäänrakennettu työjonojen käyttöliittymä</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Sisäänrakennettu käyttäjienhallinta</value>
+  </data>
+  <data name="Card Discussion" xml:space="preserve">
+    <value>Korttikeskustelu</value>
   </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>Tarkistus tai vastaava tarvitaan</value>
@@ -204,6 +234,12 @@
   <data name="Coverage Report" xml:space="preserve">
     <value>Kattavuusraportti</value>
   </data>
+  <data name="Create boards, columns, cards, labels, priorities, and assignments." xml:space="preserve">
+    <value>Luo tauluja, sarakkeita, kortteja, tunnisteita, prioriteetteja ja tehtäväksi antoja.</value>
+  </data>
+  <data name="Create boards, organize columns, and move cards through clear workflow states from idea to done." xml:space="preserve">
+    <value>Luo tauluja, järjestä sarakkeita ja siirrä korteja selkeiden työvaiheiden läpi ideasta valmiiseen.</value>
+  </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>Useita alustoja</value>
   </data>
@@ -213,6 +249,9 @@
   <data name="Custom development required" xml:space="preserve">
     <value>Mukautettu kehitys vaaditaan</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Kojelauta</value>
+  </data>
   <data name="Dashboard for background and scheduled tasks" xml:space="preserve">
     <value>Ohjauspaneeli taustatehtäville ja ajoitetuille tehtäville</value>
   </data>
@@ -221,6 +260,9 @@
   </data>
   <data name="Dashboard Website" xml:space="preserve">
     <value>Kojelauta-sivusto</value>
+  </data>
+  <data name="Data Control" xml:space="preserve">
+    <value>Tietojen hallinta</value>
   </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>Päivä 1 täytäntöönpano ja turvallisuus.</value>
@@ -236,6 +278,9 @@
   </data>
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>Oletus SQLite-tietokanta, ei konfigurointia tarvita</value>
+  </data>
+  <data name="Deploy Kanban in minutes with Docker, SQLite for small teams, or MySQL for larger installations." xml:space="preserve">
+    <value>Asenna Kanban-minuuteissa Dockerilla, SQLite pienille tiimeille tai MySQL laajemmille asennuksille.</value>
   </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>Suunniteltu kaikille, aloittelijoista asiantuntijoihin.</value>
@@ -257,6 +302,9 @@
   </data>
   <data name="Discussions page" xml:space="preserve">
     <value>Keskustelusivu</value>
+  </data>
+  <data name="Docker" xml:space="preserve">
+    <value>Docker</value>
   </data>
   <data name="Docker Native" xml:space="preserve">
     <value>Docker-ominaisuudet</value>
@@ -300,8 +348,14 @@
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>Entity Framework Core mukana</value>
   </data>
+  <data name="Everything your team needs to move work forward." xml:space="preserve">
+    <value>Kaikki mitä tiimisi tarvitsee työn etenemiseen.</value>
+  </data>
   <data name="FAQ" xml:space="preserve">
     <value>UKK</value>
+  </data>
+  <data name="Fast Deployment" xml:space="preserve">
+    <value>Nopea käyttöönotto</value>
   </data>
   <data name="faster" xml:space="preserve">
     <value>nopeammin</value>
@@ -321,6 +375,9 @@
   <data name="File Mgmt &amp; Optimization" xml:space="preserve">
     <value>Tiedostonhallinta ja optimointi</value>
   </data>
+  <data name="Filter your assigned cards by status, labels, and priority." xml:space="preserve">
+    <value>Suodanna itsellesi määrätyt kortit tilan, tunnisteiden ja prioriteetin perusteella.</value>
+  </data>
   <data name="Fine-grained RBAC" xml:space="preserve">
     <value>Hienojakoinen RBAC</value>
   </data>
@@ -329,6 +386,12 @@
   </data>
   <data name="Flexible API" xml:space="preserve">
     <value>Joustava API</value>
+  </data>
+  <data name="Flexible Board Sharing" xml:space="preserve">
+    <value>Joustava luiden jakaminen</value>
+  </data>
+  <data name="Flexible Storage" xml:space="preserve">
+    <value>Joustava tallennustila</value>
   </data>
   <data name="for any inquiries or to report issues." xml:space="preserve">
     <value>kaikkiin kyselyihin tai ongelmien ilmoittamiseen.</value>
@@ -386,6 +449,9 @@
   </data>
   <data name="Go to dashboard" xml:space="preserve">
     <value>Siirry kojelautaan</value>
+  </data>
+  <data name="Group cards with labels, mark priority, assign owners, and surface the most important work first." xml:space="preserve">
+    <value>Ryhmitä kortteja tunnisteilla, merkitse prioriteetit, määritä omistajat ja tuo tärkein työ esiin ensimmäisenä.</value>
   </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Käsittele toistuvia tehtäviä, kuten siivouksen ja synkronoinnin, laajalla käyttöliittymällä suoritushistorian ja lokien seurantaan.</value>
@@ -465,6 +531,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Onko Aiursoft Templaten käyttö ilmaista?</value>
   </data>
+  <data name="is Open Source" xml:space="preserve">
+    <value>on avoimen lähdekoodin</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>java.time API käytettävissä</value>
   </data>
@@ -480,8 +549,20 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>Liity kasvavaan kehittäjien yhteisöömme, joka rakentaa seuraavan sukupolven web-sovelluksia.</value>
   </data>
+  <data name="Jump directly into your daily workflow." xml:space="preserve">
+    <value>Siirry suoraan päivittäiseen työskentelyyn.</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>K8s / Swarm -valmis</value>
+  </data>
+  <data name="Kanban Assistant" xml:space="preserve">
+    <value>Kanban-assistentti</value>
+  </data>
+  <data name="Keep task context close to the work with descriptions, comments, and public board views." xml:space="preserve">
+    <value>Pidä tehtävän konteksti työn lähellä kuvauksilla, kommenteilla ja julkisilla taulunäkymillä.</value>
+  </data>
+  <data name="Labels and Priorities" xml:space="preserve">
+    <value>Tunnisteet ja prioriteetit</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>Lint-tarkistus</value>
@@ -518,6 +599,12 @@
   </data>
   <data name="Music Tools" xml:space="preserve">
     <value>Musiikkityökalut</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Omat tehtävät</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Navigointi</value>
   </data>
   <data name="Needs CASL or similar" xml:space="preserve">
     <value>Vaatii CASL:n tai vastaavan</value>
@@ -567,14 +654,23 @@
   <data name="No dependency on any cloud vendor. Run anywhere, any time." xml:space="preserve">
     <value>Ei riippuvuutta mihinkään pilviliittymään. Suorita missä tahansa, milloin tahansa.</value>
   </data>
+  <data name="No paid tiers, no hosted lock-in, and no hidden workflow limits. Run it yourself and keep ownership of your project data." xml:space="preserve">
+    <value>Ei maksullisia hintatasoja, ei pilvipalveluiden lukkiutumista eikä piiloon jääviä prosessirajoituksia. Aja sovellus itse ja säilytä omistusoikeus hanketyökaluusi.</value>
+  </data>
   <data name="Offline Capable" xml:space="preserve">
     <value>Offline-kelpoisuus</value>
   </data>
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="On Your Infrastructure" xml:space="preserve">
+    <value>Oma infrastruktuuri</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>Yksi napsautus käynnistää</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Avaa taulut</value>
   </data>
   <data name="Open Source" xml:space="preserve">
     <value>Avoin lähdekoodi</value>
@@ -594,6 +690,9 @@
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>Oikeuksien havaitseminen ja synkronointi</value>
   </data>
+  <data name="Personal Task Focus" xml:space="preserve">
+    <value>Henkilökohtainen tehtäväkeskittyminen</value>
+  </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>Pint tai vastaava tarvitaan</value>
   </data>
@@ -608,6 +707,9 @@
   </data>
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>Ennalta määritellyt putket kehitys- ja tuotantoympäristöihin</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Yksityinen</value>
   </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>Laatuportti</value>
@@ -624,6 +726,12 @@
   <data name="Read the document" xml:space="preserve">
     <value>Lue dokumentti</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="Ready to organize your next project?" xml:space="preserve">
+    <value>Oletko valmis järjestämään seuraavan projektisi?</value>
+  </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>Vaatii Laravel Socialite -konfiguraation</value>
   </data>
@@ -632,6 +740,9 @@
   </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Responsiivinen suunnittelu</value>
+  </data>
+  <data name="Review active tasks, owned boards, shared boards, and urgent work." xml:space="preserve">
+    <value>Tarkista aktiiviset tehtävät, omat taulut, jaetut taulut ja kiireellinen työ.</value>
   </data>
   <data name="Reviews" xml:space="preserve">
     <value>Arvostelut</value>
@@ -647,6 +758,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Saatumattomasti integroi minkä tahansa OpenID Connect -palveluntarjoajan kanssa, automaattisen roolisynkronoinnin avulla.</value>
+  </data>
+  <data name="Self Hosted" xml:space="preserve">
+    <value>Oma palvelin</value>
+  </data>
+  <data name="Share boards with users or roles, choose read-only or editable access, and keep private work isolated." xml:space="preserve">
+    <value>Jaa taulukoita käyttäjille tai rooleille, valitse vain-luku- tai muokattava käyttöoikeus ja pidä yksityinen työ erillään.</value>
   </data>
   <data name="Shift with confidence" xml:space="preserve">
     <value>Siirry luottavasti</value>
@@ -680,6 +797,9 @@
   </data>
   <data name="Start with a single &apos;docker run&apos; command." xml:space="preserve">
     <value>Aloita yhdellä &apos;docker run&apos;-komennolla.</value>
+  </data>
+  <data name="Start with the install script or a single Docker container." xml:space="preserve">
+    <value>Aloita asennusskriptillä tai yksittäisellä Docker-kontinerilla.</value>
   </data>
   <data name="Starts without any configuration" xml:space="preserve">
     <value>Käynnistyy ilman minkäänlaista konfiguraatiota</value>
@@ -750,6 +870,9 @@
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>TimeZoneInfo API käytettävissä</value>
   </data>
+  <data name="Track assignments, priorities, labels, due dates, overdue work, and active tasks from one dashboard." xml:space="preserve">
+    <value>Seuraa tehtävänantoja, prioriteetteja, tunnisteita, eräpäiviä, myöhässä olevaa työtä ja aktiivisia tehtäviä yhdestä ohjauspaneelista.</value>
+  </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>Luotettu tuotantotasoisissa sovelluksissa, kuten AnduinOS, StatHub ja Warp. Emme vain jakaneet tätä koodia; käytämme sitä koko liiketoimintamme käynnistämiseen.</value>
   </data>
@@ -764,6 +887,12 @@
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>Käytä sitä perustana SaaS-palvelullesi, mobiilisovelluksesi taustajärjestelmänä, yrityssivustona tai henkilökohtaisena blogina. Mahdollisuudet ovat rajattomat.</value>
+  </data>
+  <data name="Use SQLite for simple hosting or MySQL when your team grows." xml:space="preserve">
+    <value>Käytä SQLiteä yksinkertaiseen majoitukseen tai MySQL:tä, kun tiimisi kasvaa.</value>
+  </data>
+  <data name="Use the built-in assistant to read board state and help update routine project data." xml:space="preserve">
+    <value>Käytä sisäänrakennettua avustajaa lukemaan projektin tilaa ja auttamaan rutiiniprojektidata päivityksessä.</value>
   </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>Näytä GitHubissa</value>
@@ -789,6 +918,12 @@
   <data name="Win/Lin/Mac" xml:space="preserve">
     <value>Win/Lin/Mac</value>
   </data>
+  <data name="Work Made Visible." xml:space="preserve">
+    <value>Työ näkyväksi.</value>
+  </data>
+  <data name="Workflow Management" xml:space="preserve">
+    <value>Työnkulun hallinta</value>
+  </data>
   <data name="Yes, Aiursoft Template is completely free and open-source under the MIT License. You can use it for personal and commercial projects without any cost." xml:space="preserve">
     <value>Kyllä, Aiursoft Template on täysin ilmainen ja avoin lähdekoodi MIT-lisenssin alla. Voit käyttää sitä henkilökohtaisiin ja kaupallisiin projekteihin ilman mitään kustannuksia.</value>
   </data>
@@ -800,6 +935,9 @@
   </data>
   <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
     <value>Yrityksen käyttäjien ei tarvitse rekisteröityä uudelleen.</value>
+  </data>
+  <data name="Your Workflow" xml:space="preserve">
+    <value>Työkykysi</value>
   </data>
   <data name="Yubikey &amp; TOTP" xml:space="preserve">
     <value>Yubikey &amp; TOTP</value>

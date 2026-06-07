@@ -42,6 +42,12 @@
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Semua dependensi terdaftar secara otomatis dan selalu tersedia melalui constructor injection.</value>
   </data>
+  <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>Tanyakan pada agen Kanban</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Tugas yang ditugaskan</value>
+  </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Mode Gelap Otomatis</value>
   </data>
@@ -63,6 +69,9 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Manajemen Pengguna Bawaan</value>
   </data>
+  <data name="cards" xml:space="preserve">
+    <value>kartu</value>
+  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Datang dengan dukungan Docker untuk penyebaran yang disederhanakan dan konsisten.</value>
   </data>
@@ -75,6 +84,9 @@
   <data name="Consistency Validation" xml:space="preserve">
     <value>Validasi Konsistensi</value>
   </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>Buat atau kelola papan</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Kembangkan secara eksklusif dalam UTC sementara sistem secara otomatis mengonversi dan menampilkan tanggal dalam zona waktu lokal pengguna.</value>
   </data>
@@ -83,6 +95,12 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Dockerized untuk Deploi yang Mudah</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>selesai</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>Batas waktu:</value>
   </data>
   <data name="Dynamic Navigation Bar" xml:space="preserve">
     <value>Bilah Navigasi Dinamis</value>
@@ -102,17 +120,26 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>Fitur sistem manajemen file bawaan dengan kompresi avatar otomatis.</value>
   </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>Dapatkan bantuan untuk membaca dan memperbarui status papan dengan asisten bawaan.</value>
+  </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Kelola pekerjaan berulang seperti pembersihan dan sinkronisasi dengan antarmuka grafis komprehensif untuk memantau riwayat eksekusi dan log.</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>Halo Dunia!</value>
   </data>
+  <data name="in progress" xml:space="preserve">
+    <value>sedang berlangsung</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Mencakup dokumentasi yang luas dan contoh-contoh praktis untuk memudahkan Anda memulai dengan cepat.</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Manajemen File Terintegrasi</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Dasbor Kanban</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Model divalidasi di sisi klien dan server berdasarkan anotasi data.</value>
@@ -123,8 +150,47 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Dukungan Banyak Basis Data</value>
   </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>Tugas aktif saya</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Papan saya</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Tugas Saya</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Saat ini tidak ada tugas aktif yang ditugaskan kepada Anda.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Belum ada papan yang dibagikan kepada Anda.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Belum ada papan yang dibuat.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Tidak ada tanggal jatuh tempo</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>terbuka</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Buka papan</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>Buka papan yang dibagikan kepada Anda melalui akses langsung atau berbasis peran.</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>Integrasi OpenID Connect</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>telat</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>Rencanakan kolom, kartu, prioritas, label, penugasan, dan tanggal jatuh tempo.</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>Tindakan cepat</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>Otorisasi RBAC</value>
@@ -135,6 +201,9 @@
   <data name="Responsive Design" xml:space="preserve">
     <value>Desain Responsif</value>
   </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>Tinjau papan bersama</value>
+  </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Pengujian Integrasi yang Kuat</value>
   </data>
@@ -143,6 +212,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Terintegrasi dengan mulus bersama penyedia OpenID Connect apa pun, dengan sinkronisasi peran otomatis.</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Papan Berbagi</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Dibagikan dengan saya</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Penggantian Konfigurasi Cerdas</value>

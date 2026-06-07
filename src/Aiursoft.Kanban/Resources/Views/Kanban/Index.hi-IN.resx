@@ -264,6 +264,12 @@
   <data name="Not Started" xml:space="preserve">
     <value>शुरू नहीं हुआ</value>
   </data>
+  <data name="Notice" xml:space="preserve">
+    <value>सूचना</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>ठीक है</value>
+  </data>
   <data name="optional" xml:space="preserve">
     <value>ऐच्छिक</value>
   </data>

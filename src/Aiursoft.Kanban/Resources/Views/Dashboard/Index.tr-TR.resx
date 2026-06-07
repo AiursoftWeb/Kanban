@@ -42,6 +42,12 @@
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Tüm bağımlılıklar otomatik olarak kaydedilir ve constructor injection yoluyla her zaman kullanılabilir.</value>
   </data>
+  <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>Kanban aracısına sorun</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Atanan Görevler</value>
+  </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Otomatik Karanlık Mod</value>
   </data>
@@ -63,6 +69,9 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Dahili Kullanıcı Yönetimi</value>
   </data>
+  <data name="cards" xml:space="preserve">
+    <value>kartlar</value>
+  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Docker desteğiyle gelir, basitleştirilmiş ve tutarlı dağıtımlar için.</value>
   </data>
@@ -75,6 +84,9 @@
   <data name="Consistency Validation" xml:space="preserve">
     <value>Tutarlılık Doğrulaması</value>
   </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>Panoları oluşturun veya yönetin</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>UTC&apos;de yalnızca geliştirin, sistem tarihleri otomatik olarak kullanıcının yerel saat dilimine dönüştürür ve görüntüler.</value>
   </data>
@@ -83,6 +95,12 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Docker ile Kolay Dağıtım İçin Hazır</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>tamamlanan</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>Son Kullanma:</value>
   </data>
   <data name="Dynamic Navigation Bar" xml:space="preserve">
     <value>Dinamik Gezinti Çubuğu</value>
@@ -102,17 +120,26 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>Otomatik avatar sıkıştırmalı yerleşik bir dosya yönetim sistemi içerir.</value>
   </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>Dahili asistanla pano durumunu okuma ve güncelleme konusunda destek alın.</value>
+  </data>
   <data name="Handle recurring jobs like cleanup and synchronization with a comprehensive GUI for monitoring execution history and logs." xml:space="preserve">
     <value>Temizlik ve senkronizasyon gibi tekrar eden görevleri, yürütme geçmişi ve günlükleri izlemek için kapsamlı bir GUI ile yönetin.</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>Merhaba Dünya!</value>
   </data>
+  <data name="in progress" xml:space="preserve">
+    <value>devam ediyor</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Kapsamlı belgeler ve hızlı bir şekilde başlamanızı sağlayacak pratik örnekler içerir.</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Entegre Dosya Yönetimi</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Kanban Gösterge Paneli</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Modeller, veri eklemelerine dayalı olarak hem istemci hem de sunucu tarafında doğrulanır.</value>
@@ -123,8 +150,47 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Çoklu Veritabanı Desteği</value>
   </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>Aktif görevlerim</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Panolarım</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Görevlerim</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Şu anda size atanmış aktif görev bulunmuyor.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Henüz sizinle paylaşılan pano bulunmuyor.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Henüz pano oluşturulmadı.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Bitiş tarihi yok</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>açık</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Açık panolar</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>Doğrudan veya rol tabanlı erişimle sizinle paylaşılan panoları açın.</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect Entegrasyonu</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>gecikmiş</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>Sütunları, kartları, öncelikleri, etiketleri, atanları ve son tarihleri planlayın.</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>Hızlı işlemler</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC Yetkilendirmesi</value>
@@ -135,6 +201,9 @@
   <data name="Responsive Design" xml:space="preserve">
     <value>Duyarlı Tasarım</value>
   </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>Paylaşılan panoları incele</value>
+  </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Güçlü Entegrasyon Testleri</value>
   </data>
@@ -143,6 +212,12 @@
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Herhangi bir OpenID Connect sağlayıcısıyla sorunsuz entegre olun, otomatik rol senkronizasyonu ile.</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Paylaşılan panolar</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Bana paylaşılanlar</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Akıllı Yapılandırma Geçersiz Kılma</value>
