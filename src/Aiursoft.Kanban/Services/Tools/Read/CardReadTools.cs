@@ -200,4 +200,69 @@ public class CardReadTools(
         }
         return string.Join("\n", lines);
     }
+
+    [McpServerTool, Description("Get cards assigned to the current user across all boards, with optional status and board filters")]
+    public async Task<string> GetMyTasks(
+        [Description("Status filter: incomplete (default), not-started, in-progress, completed, or all")] string? status,
+        [Description("Optional board ID to limit results to a specific board")] int? boardId)
+    {
+        var userId = currentUser.UserId;
+        var normalizedStatus = (status?.Trim().ToLowerInvariant()) switch
+        {
+            "all" => "all",
+            "completed" => "completed",
+            "in-progress" => "in-progress",
+            "not-started" => "not-started",
+            _ => "incomplete"
+        };
+
+        var query = db.KanbanCards
+            .Include(c => c.Column).ThenInclude(col => col.Board)
+            .Include(c => c.AssignedUser)
+            .Where(c => c.AssignedUserId == userId);
+
+        if (boardId.HasValue)
+            query = query.Where(c => c.Column.BoardId == boardId.Value);
+
+        query = normalizedStatus switch
+        {
+            "not-started" => query.Where(c => c.Column.ColumnStatus == ColumnStatus.NotStarted),
+            "in-progress" => query.Where(c => c.Column.ColumnStatus == ColumnStatus.InProgress),
+            "completed" => query.Where(c => c.Column.ColumnStatus == ColumnStatus.Completed),
+            "all" => query,
+            _ => query.Where(c =>
+                c.Column.ColumnStatus == ColumnStatus.NotStarted ||
+                c.Column.ColumnStatus == ColumnStatus.InProgress)
+        };
+
+        var cards = await query.ToListAsync();
+
+        var ordered = cards
+            .OrderBy(c => c.Priority)
+            .ThenBy(c => c.DueDate == null ? 1 : 0)
+            .ThenBy(c => c.DueDate)
+            .ThenBy(c => c.Title)
+            .ToList();
+
+        if (ordered.Count == 0)
+        {
+            var scope = boardId.HasValue ? " on this board" : "";
+            return normalizedStatus switch
+            {
+                "all" => $"You have no cards assigned to you{scope}.",
+                "completed" => $"You have no completed cards{scope}.",
+                "in-progress" => $"You have no in-progress cards{scope}.",
+                "not-started" => $"You have no not-started cards{scope}.",
+                _ => $"You have no incomplete cards{scope}."
+            };
+        }
+
+        var lines = new List<string> { $"Found {ordered.Count} card(s) assigned to you:" };
+        foreach (var card in ordered)
+        {
+            var dueStr = card.DueDate.HasValue ? $" (Due: {card.DueDate:yyyy-MM-dd})" : "";
+            lines.Add($"- [#{card.Id}] [{card.Priority}] \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{card.Column.Board.Name}\"){dueStr}");
+        }
+        return string.Join("\n", lines);
+    }
 }
