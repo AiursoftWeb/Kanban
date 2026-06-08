@@ -19,12 +19,12 @@ public class AgentTests : TestBase
         var registry = GetService<ToolRegistry>();
         var allTools = registry.AllTools;
 
-        Assert.IsTrue(allTools.Count >= 19, $"Expected at least 19 tools, found {allTools.Count}");
+        Assert.IsTrue(allTools.Count >= 22, $"Expected at least 22 tools, found {allTools.Count}");
 
         var readTools = allTools.Where(t => !registry.IsWriteTool(t.ProtocolTool.Name)).ToList();
         var writeTools = allTools.Where(t => registry.IsWriteTool(t.ProtocolTool.Name)).ToList();
 
-        Assert.IsTrue(readTools.Count >= 10, $"Expected at least 10 read tools, found {readTools.Count}");
+        Assert.IsTrue(readTools.Count >= 13, $"Expected at least 13 read tools, found {readTools.Count}");
         Assert.IsTrue(writeTools.Count >= 9, $"Expected at least 9 write tools, found {writeTools.Count}");
 
         foreach (var tool in allTools)
@@ -42,7 +42,8 @@ public class AgentTests : TestBase
 
         var readToolNames = new[] { "GetUserBoards", "GetBoardById", "GetColumns", "GetCardsInColumn",
             "GetCardById", "SearchCards", "GetOverdueCards", "GetBoardMembers", "SearchUsers", "SearchLabels",
-            "GetBoardShares" };
+            "GetBoardShares", "GetCardsByPriority", "GetUnassignedCards", "GetCardsByLabel",
+            "GetMyTasks", "GetPublicBoards", "GetSharedBoards" };
 
         foreach (var name in readToolNames)
         {
@@ -847,6 +848,216 @@ public class AgentTests : TestBase
         Assert.IsNull(service.GetConversation(convId));
         Assert.AreEqual(0, adviceService.GetPendingForConversation(convId).Count,
             "All advice from cancelled conversation should be removed");
+    }
+
+    // ── GetMyTasks ──────────────────────────────────────
+
+    [TestMethod]
+    public async Task GetMyTasks_ReturnsCardsAssignedToCurrentUser()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        // Create a card — auto-assigned to current user
+        var writeTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        var createResult = await writeTools.CreateCard(columnId, "My Assigned Task", "Test description");
+        StringAssert.Contains(createResult, "Card created:");
+
+        // Get my tasks
+        var readTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+        var result = await readTools.GetMyTasks(status: null, boardId: null);
+
+        StringAssert.Contains(result, "My Assigned Task", "Should include the assigned card");
+        StringAssert.Contains(result, "Found", "Should show count header");
+    }
+
+    [TestMethod]
+    public async Task GetMyTasks_NoAssignedCards_ReturnsEmptyMessage()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var readTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+        // Scope to the board we just created — it has no cards yet
+        var result = await readTools.GetMyTasks(status: null, boardId: boardId);
+
+        Assert.IsTrue(result.Contains("no") && result.Contains("cards"),
+            $"Should indicate no assigned cards, got: {result}");
+    }
+
+    [TestMethod]
+    public async Task GetMyTasks_StatusFilter_RespectsFilter()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        // Boards created via Kanban/CreateBoard have 3 columns: To Do, In Progress, Done
+        // Find In Progress and Done columns
+        var inProgressColumn = db.KanbanColumns.First(c => c.BoardId == boardId && c.ColumnStatus == ColumnStatus.InProgress);
+        var doneColumn = db.KanbanColumns.First(c => c.BoardId == boardId && c.ColumnStatus == ColumnStatus.Completed);
+
+        var writeTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        await writeTools.CreateCard(inProgressColumn.Id, "In Progress Task", null);
+        await writeTools.CreateCard(doneColumn.Id, "Completed Task", null);
+
+        var readTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        // Default (incomplete) — should include in-progress but not completed
+        var incompleteResult = await readTools.GetMyTasks(status: null, boardId: null);
+        StringAssert.Contains(incompleteResult, "In Progress Task", "Incomplete should include in-progress");
+        Assert.IsFalse(incompleteResult.Contains("Completed Task"), "Incomplete should exclude completed");
+
+        // Completed only
+        var completedResult = await readTools.GetMyTasks(status: "completed", boardId: null);
+        StringAssert.Contains(completedResult, "Completed Task", "Completed should include done card");
+        Assert.IsFalse(completedResult.Contains("In Progress Task"), "Completed should exclude in-progress");
+
+        // All
+        var allResult = await readTools.GetMyTasks(status: "all", boardId: null);
+        StringAssert.Contains(allResult, "In Progress Task");
+        StringAssert.Contains(allResult, "Completed Task");
+    }
+
+    [TestMethod]
+    public async Task GetMyTasks_BoardFilter_ScopesToBoard()
+    {
+        await LoginAsAdmin();
+
+        // Create two boards
+        var (board1Id, column1Id) = await CreateBoardAndFirstColumnAsync();
+        var (board2Id, _) = await CreateBoardAndFirstColumnAsync();
+        var column2Id = column1Id; // This is column from board 1 still, need board 2's column
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        // Create cards on both boards
+        var writeTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        await writeTools.CreateCard(column1Id, "Task on Board 1", null);
+
+        // Find column for board 2
+        var board2Column = db.KanbanColumns.First(c => c.BoardId == board2Id);
+        await writeTools.CreateCard(board2Column.Id, "Task on Board 2", null);
+
+        var readTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        // Scope to board 1
+        var result = await readTools.GetMyTasks(status: "all", boardId: board1Id);
+        StringAssert.Contains(result, "Task on Board 1", "Should include board 1 task");
+        Assert.IsFalse(result.Contains("Task on Board 2"), "Should not include board 2 task");
+
+        // Scope to board 2
+        var result2 = await readTools.GetMyTasks(status: "all", boardId: board2Id);
+        StringAssert.Contains(result2, "Task on Board 2", "Should include board 2 task");
+        Assert.IsFalse(result2.Contains("Task on Board 1"), "Should not include board 1 task");
+    }
+
+    // ── GetPublicBoards ─────────────────────────────────
+
+    [TestMethod]
+    public async Task GetPublicBoards_ReturnsPublicBoardsOnly()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var (privateBoardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        // Make one board public
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+        await shareTools.UpdateBoardVisibility(boardId, isPublic: true);
+
+        var readTools = scope.ServiceProvider.GetRequiredService<BoardReadTools>();
+        var result = await readTools.GetPublicBoards();
+
+        // Should include public board but not private one
+        var publicBoard = db.KanbanBoards.First(b => b.Id == boardId);
+        var privateBoard = db.KanbanBoards.First(b => b.Id == privateBoardId);
+        StringAssert.Contains(result, $"\"{publicBoard.Name}\"", "Should list public board by name");
+        Assert.IsFalse(result.Contains($"# {privateBoard.Id}"),
+            $"Should not leak private board ID, result: {result}");
+    }
+
+    // ── GetSharedBoards ─────────────────────────────────
+
+    [TestMethod]
+    public async Task GetSharedBoards_ReturnsBoardsSharedWithUser()
+    {
+        // Admin creates a board
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        // Register target user and get their ID
+        var (user2Email, _) = await RegisterAndLoginAsync();
+
+        // Admin shares board with user2
+        await LoginAsAdmin();
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+        await shareTools.ShareBoard(boardId, user2.Id, null, "ReadOnly");
+
+        // Now check from user2's perspective
+        var scope2 = Server!.Services.CreateScope();
+        scope2.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = user2.Id;
+
+        var readTools = scope2.ServiceProvider.GetRequiredService<BoardReadTools>();
+        var result = await readTools.GetSharedBoards();
+
+        var board = db.KanbanBoards.First(b => b.Id == boardId);
+        StringAssert.Contains(result, board.Name, "Should include shared board");
+        StringAssert.Contains(result, "Read-only", "Should show permission level");
+    }
+
+    [TestMethod]
+    public async Task GetSharedBoards_NoSharedBoards_ReturnsEmptyMessage()
+    {
+        // Register a new user who has no boards shared with them
+        await RegisterAndLoginAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var users = db.Users.ToList();
+
+        // Find the last registered user (current login)
+        var currentUser = users.Last();
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = currentUser.Id;
+
+        var readTools = scope.ServiceProvider.GetRequiredService<BoardReadTools>();
+        var result = await readTools.GetSharedBoards();
+
+        Assert.IsTrue(result.Contains("No boards") || result.Contains("not been shared"),
+            $"Should indicate no shared boards, got: {result}");
     }
 
     // ── Helpers ─────────────────────────────────────────────
