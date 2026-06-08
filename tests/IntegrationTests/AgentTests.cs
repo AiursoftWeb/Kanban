@@ -856,7 +856,7 @@ public class AgentTests : TestBase
     public async Task GetMyTasks_ReturnsCardsAssignedToCurrentUser()
     {
         await LoginAsAdmin();
-        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
 
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -944,7 +944,6 @@ public class AgentTests : TestBase
         // Create two boards
         var (board1Id, column1Id) = await CreateBoardAndFirstColumnAsync();
         var (board2Id, _) = await CreateBoardAndFirstColumnAsync();
-        var column2Id = column1Id; // This is column from board 1 still, need board 2's column
 
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
