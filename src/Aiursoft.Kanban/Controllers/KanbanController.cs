@@ -748,7 +748,7 @@ public class KanbanController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddLabel(int cardId, string name)
+    public async Task<IActionResult> AddLabel(int cardId, string name, string? color)
     {
         if (string.IsNullOrWhiteSpace(name))
             return BadRequest("Label name is required.");
@@ -772,10 +772,20 @@ public class KanbanController(
 
         if (label == null)
         {
+            var chosenColor = LabelColors[Random.Shared.Next(LabelColors.Length)];
+            if (!string.IsNullOrWhiteSpace(color))
+            {
+                var normalizedColor = color.Trim();
+                if (HexColorRegex.IsMatch(normalizedColor))
+                {
+                    chosenColor = normalizedColor;
+                }
+            }
+
             label = new KanbanLabel
             {
                 Name = normalizedName,
-                Color = LabelColors[Random.Shared.Next(LabelColors.Length)]
+                Color = chosenColor
             };
             db.KanbanLabels.Add(label);
         }

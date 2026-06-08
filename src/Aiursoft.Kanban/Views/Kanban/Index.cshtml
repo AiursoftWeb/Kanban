@@ -1073,6 +1073,10 @@
                             {
                                 <div class="input-group mb-2">
                                     <input type="text" id="editCardLabelInput" class="form-control" list="editCardLabelSuggestions" placeholder="@Localizer["Search or create a label"]" style="border-radius:12px 0 0 12px">
+                                    <div style="display:flex;align-items:center;border:1px solid #ced4da;border-left:0;padding:4px 6px;gap:6px;background:#fff">
+                                        <div id="labelColorPresets" style="display:flex;gap:6px"></div>
+                                        <input type="color" id="editLabelColorPicker" value="#EF4444" title="@Localizer["Custom color"]" style="width:36px;height:36px;border:none;padding:0;background:transparent">
+                                    </div>
                                     <button type="button" class="btn btn-outline-secondary" id="btnAddLabel" style="border-radius:0 12px 12px 0">@Localizer["Add"]</button>
                                 </div>
                                 <datalist id="editCardLabelSuggestions"></datalist>
@@ -2563,7 +2567,7 @@
             fetch("/Kanban/AddLabel", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded", "RequestVerificationToken": csrfToken },
-                body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&cardId=" + currentEditCardId + "&name=" + encodeURIComponent(labelName)
+                body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&cardId=" + currentEditCardId + "&name=" + encodeURIComponent(labelName) + (typeof editLabelColorPicker !== 'undefined' && editLabelColorPicker ? "&color=" + encodeURIComponent(editLabelColorPicker.value) : "")
             })
             .then(function(r) {
                 if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("failed-add-label", "Failed to add label.")); });
@@ -2597,6 +2601,35 @@
 
         if (btnAddLabel) {
             btnAddLabel.addEventListener("click", submitLabelInput);
+        }
+
+        var editLabelColorPicker = document.getElementById("editLabelColorPicker");
+        var labelColorPresetsContainer = document.getElementById("labelColorPresets");
+        var presetColors = ["#EF4444", "#F97316", "#EAB308", "#22C55E", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6"];
+        if (labelColorPresetsContainer) {
+            presetColors.forEach(function(c) {
+                var btn = document.createElement("button");
+                btn.type = "button";
+                btn.title = c;
+                btn.style.width = "20px";
+                btn.style.height = "20px";
+                btn.style.borderRadius = "4px";
+                btn.style.border = "1px solid #ddd";
+                btn.style.padding = "0";
+                btn.style.background = c;
+                btn.style.cursor = "pointer";
+                btn.addEventListener("click", function() {
+                    if (editLabelColorPicker) editLabelColorPicker.value = c;
+                    labelColorPresetsContainer.querySelectorAll('button').forEach(function(b){ b.style.outline = ''; });
+                    btn.style.outline = '2px solid rgba(0,0,0,0.15)';
+                });
+                labelColorPresetsContainer.appendChild(btn);
+            });
+        }
+        if (editLabelColorPicker) {
+            editLabelColorPicker.addEventListener('input', function() {
+                if (labelColorPresetsContainer) labelColorPresetsContainer.querySelectorAll('button').forEach(function(b){ b.style.outline = ''; });
+            });
         }
 
         if (editCardDescription && canEditCurrentBoard) {
