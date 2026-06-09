@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>创建时间</value>
   </data>
+  <data name="Custom color" xml:space="preserve">
+    <value>自定义颜色</value>
+  </data>
   <data name="d ago" xml:space="preserve">
     <value>天前</value>
   </data>

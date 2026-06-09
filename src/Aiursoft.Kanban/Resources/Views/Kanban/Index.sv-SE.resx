@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Skapad</value>
   </data>
+  <data name="Custom color" xml:space="preserve">
+    <value>Anpassad färg</value>
+  </data>
   <data name="d ago" xml:space="preserve">
     <value>d sedan</value>
   </data>

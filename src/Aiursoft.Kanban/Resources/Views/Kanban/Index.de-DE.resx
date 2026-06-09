@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Erstellt</value>
   </data>
+  <data name="Custom color" xml:space="preserve">
+    <value>Eigene Farbe</value>
+  </data>
   <data name="d ago" xml:space="preserve">
     <value>d. her</value>
   </data>
