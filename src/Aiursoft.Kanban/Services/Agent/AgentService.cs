@@ -40,8 +40,9 @@ public class AgentService : IAgentService
         "   - User expresses a seemingly unrelated need (e.g., \"I want a hamburger\") → likely intent: create a task related to team dining or social events.\n" +
         "   - Users may mention the Kanban project itself in the Kanban board(e.g., \"The Kanban apikey has been configured\") → likely intent: Move related card to done column.\n" +
         "   - ALWAYS interpret messages as Kanban board operations. Only handle Kanban card-related tasks and questions. All seemingly unrelated messages are expressions of Kanban board actions.\n" +
-        "5. Can infer the user’s actual intentions and  ask  user if it is right, but do not invoke write tools until you fully understand the context and the user's intent.\n" +
-        "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses." +
+        "5. Can infer the user’s actual intentions and  ask  user if it is right, but do not invoke write tools until you fully understand the context and the user’s intent.\n" +
+        "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses.\n" +
+        "{currentDateTime}\n" +
         "</system-reminder>";
 
     public AgentService(
@@ -78,14 +79,17 @@ public class AgentService : IAgentService
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "system",
-            Content = _promptConfig.SystemPrompt.Replace("{userContext}", userContext)
+            Content = _promptConfig.SystemPrompt
+                .Replace("{userContext}", userContext)
+                .Replace("{currentDateTime}", GetCurrentDateTimeBlock())
         });
 
         // Only the user's actual message is visible in the chat UI
+        var reminder = SystemReminder.Replace("{currentDateTime}", GetCurrentDateTimeBlock());
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",
-            Content = SystemReminder,
+            Content = reminder,
             IsMeta = true
         });
         conversation.Messages.Add(new ToolMessagesItem
@@ -118,10 +122,11 @@ public class AgentService : IAgentService
         if (string.IsNullOrWhiteSpace(userMessage))
             return null;
 
+        var reminder = SystemReminder.Replace("{currentDateTime}", GetCurrentDateTimeBlock());
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",
-            Content = SystemReminder,
+            Content = reminder,
             IsMeta = true
         });
         conversation.Messages.Add(new ToolMessagesItem
@@ -496,6 +501,16 @@ public class AgentService : IAgentService
                 InputSchema = System.Text.Json.JsonSerializer.Deserialize<object>(proto.InputSchema.GetRawText())!
             };
         }).ToList();
+    }
+
+    /// <summary>
+    /// Builds a string like "Current time: Wednesday, June 10, 2026, 03:45 PM UTC"
+    /// injected into the system-reminder via {currentDateTime}.
+    /// </summary>
+    private static string GetCurrentDateTimeBlock()
+    {
+        var now = DateTime.UtcNow;
+        return $"Current time: {now:dddd, MMMM d, yyyy, h:mm tt} UTC";
     }
 
     /// <summary>
