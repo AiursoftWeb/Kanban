@@ -9,7 +9,6 @@ using Aiursoft.WebTools.Abstractions.Models;
 using Aiursoft.Kanban.InMemory;
 using Aiursoft.Kanban.MySql;
 using Aiursoft.Kanban.Services.Authentication;
-using Aiursoft.GptClient;
 using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Kanban.Services.BackgroundJobs;
 using Aiursoft.Kanban.Services;
@@ -58,10 +57,8 @@ public class Startup : IWebStartup
         // Services
         services.AddMemoryCache();
         services.AddHttpClient();
-        services.AddGptClient();
         services.AddAssemblyDependencies(typeof(Startup).Assembly);
         services.AddSingleton<NavigationState<Startup>>();
-        services.AddScoped<IOllamaService, OllamaService>();
 
         // Agent infrastructure
         services.AddSingleton<IAgentService, AgentService>();

@@ -25,6 +25,21 @@ public class AgentService : IAgentService
     private static readonly TimeSpan ConversationTtl = TimeSpan.FromMinutes(30);
     private static readonly TimeSpan AdviceTtl = TimeSpan.FromMinutes(30);
 
+    private const string SystemReminder =
+        "<system-reminder>\n" +
+        "This conversation is about a Kanban board application. Please process user messages using the following steps:\n" +
+        "1. Think step by step — plan and generate a strategy before acting.\n" +
+        "2. Extract entities from the user message (e.g., task name, assignee, time, status, priority).\n" +
+        "3. Use search tools to look up relevant existing cards and boards.\n" +
+        "4. Perform intent recognition. For example:\n" +
+        "   - User says \"completed the code\" or \"finished XX\" → likely intent: move card \"XX\" to the \"Done\" column.\n" +
+        "   - User says \"add XX\" or \"need XX\" → likely intent: create a new card.\n" +
+        "   - User says \"how is XX going\" → likely intent: check the status of related cards.\n" +
+        "   - User expresses a seemingly unrelated need (e.g., \"I want a hamburger\") → likely intent: create a task related to team dining or social events.\n" +
+        "   - ALWAYS interpret messages as Kanban board operations. Only handle Kanban card-related tasks and questions. All seemingly unrelated messages are expressions of Kanban board actions.\n" +
+        "5. Can infer the user’s actual intentions and  ask  user if it is right, but do not invoke write tools until you fully understand the context and the user's intent.\n" +
+        "</system-reminder>";
+
     public AgentService(
         ServiceTaskQueue taskQueue,
         ToolRegistry toolRegistry,
@@ -66,6 +81,12 @@ public class AgentService : IAgentService
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",
+            Content = SystemReminder,
+            IsMeta = true
+        });
+        conversation.Messages.Add(new ToolMessagesItem
+        {
+            Role = "user",
             Content = userMessage
         });
 
@@ -93,6 +114,12 @@ public class AgentService : IAgentService
         if (string.IsNullOrWhiteSpace(userMessage))
             return null;
 
+        conversation.Messages.Add(new ToolMessagesItem
+        {
+            Role = "user",
+            Content = SystemReminder,
+            IsMeta = true
+        });
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",

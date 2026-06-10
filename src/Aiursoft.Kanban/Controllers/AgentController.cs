@@ -104,7 +104,7 @@ public class AgentController(
             return Forbid();
 
         var messages = conversation.Messages
-            .Where(m => m.Role != "system")
+            .Where(m => m.Role != "system" && !m.IsMeta)
             .Select(m => new ChatMessageViewModel
             {
                 Role = m.Role ?? "unknown",
@@ -115,7 +115,8 @@ public class AgentController(
                     Name = tc.Function?.Name,
                     Arguments = tc.Function?.Arguments
                 }).ToList(),
-                ToolCallId = m.ToolCallId
+                ToolCallId = m.ToolCallId,
+                IsMeta = m.IsMeta
             }).ToList();
 
         // Annotate tool_call messages with their advice status
