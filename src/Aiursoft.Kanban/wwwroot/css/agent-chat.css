@@ -121,6 +121,38 @@
     margin-bottom: 10px;
 }
 
+.advice-card .advice-params {
+    margin-bottom: 8px;
+}
+
+.advice-card .advice-param-row {
+    display: flex;
+    gap: 8px;
+    padding: 3px 0;
+    font-size: 13px;
+}
+
+.advice-card .advice-param-key {
+    min-width: 90px;
+    font-weight: 500;
+    color: var(--bs-secondary-color, #6c757d);
+}
+
+.advice-card .advice-param-value {
+    color: var(--bs-body-color, #212529);
+    word-break: break-word;
+}
+
+.advice-card .advice-resolved {
+    margin-bottom: 8px;
+    padding: 6px 8px;
+    background: var(--bs-light, #f8f9fa);
+    border-left: 3px solid var(--bs-info, #17a2b8);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--bs-info-text, #0c5460);
+}
+
 .advice-card .advice-actions {
     display: flex;
     gap: 8px;

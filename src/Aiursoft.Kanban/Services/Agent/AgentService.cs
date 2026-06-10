@@ -4,6 +4,8 @@ using Aiursoft.Canon.TaskQueue;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using ModelContextProtocol.Server;
 using Newtonsoft.Json;
@@ -32,10 +34,11 @@ public class AgentService : IAgentService
         "2. Extract entities from the user message (e.g., task name, assignee, time, status, priority).\n" +
         "3. Use search tools to look up relevant existing cards and boards.\n" +
         "4. Perform intent recognition. For example:\n" +
-        "   - User says \"completed the code\" or \"finished XX\" → likely intent: move card \"XX\" to the \"Done\" column.\n" +
+        "   - User says \"completed the code\" or \"finished XX\" \"XX has been configured\", \"XX has been completed.\" → likely intent: move card \"XX\" to the \"Done\" column.\n" +
         "   - User says \"add XX\" or \"need XX\" → likely intent: create a new card.\n" +
         "   - User says \"how is XX going\" → likely intent: check the status of related cards.\n" +
         "   - User expresses a seemingly unrelated need (e.g., \"I want a hamburger\") → likely intent: create a task related to team dining or social events.\n" +
+        "   - Users may mention the Kanban project itself in the Kanban board(e.g., \"The Kanban apikey has been configured\") → likely intent: Move related card to done column.\n" +
         "   - ALWAYS interpret messages as Kanban board operations. Only handle Kanban card-related tasks and questions. All seemingly unrelated messages are expressions of Kanban board actions.\n" +
         "5. Can infer the user’s actual intentions and  ask  user if it is right, but do not invoke write tools until you fully understand the context and the user's intent.\n" +
         "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses." +
@@ -270,7 +273,7 @@ public class AgentService : IAgentService
                             var description = tool?.ProtocolTool.Description ?? "";
 
                             var args = tu.Input ?? new Dictionary<string, object?>();
-                            var paramDisplay = BuildParameterDisplay(tu.Name, args);
+                            var result = await BuildParameterDisplay(sp, tu.Name, args);
 
                             var advice = _adviceService.Create(
                                 conversationId: conversationId,
@@ -278,8 +281,10 @@ public class AgentService : IAgentService
                                 toolDisplayName: displayName,
                                 toolDescription: description,
                                 parameters: args,
-                                parameterDisplay: paramDisplay,
-                                toolCallId: tu.Id);
+                                parameterDisplay: result.DisplayText,
+                                toolCallId: tu.Id,
+                                displayParameters: result.Parameters,
+                                resolvedName: result.ResolvedName);
 
                             adviceIds.Add(advice.Id);
                             _logger.LogInformation("Advice created: {AdviceId} for tool {ToolName}", advice.Id, tu.Name);
@@ -653,7 +658,15 @@ public class AgentService : IAgentService
         }
     }
 
-    private static string BuildParameterDisplay(string toolName, Dictionary<string, object?> args)
+    private sealed record ParameterDisplayResult(
+        string DisplayText,
+        List<AdviceParameterItem> Parameters,
+        string? ResolvedName);
+
+    private static async Task<ParameterDisplayResult> BuildParameterDisplay(
+        IServiceProvider sp,
+        string toolName,
+        Dictionary<string, object?> args)
     {
         var friendlyName = toolName switch
         {
@@ -679,7 +692,8 @@ public class AgentService : IAgentService
             _ => toolName
         };
 
-        var details = new List<string>();
+        // Build structured parameter list for UI rendering
+        var displayParams = new List<AdviceParameterItem>();
         foreach (var (key, value) in args)
         {
             if (key == "userId") continue;
@@ -696,9 +710,162 @@ public class AgentService : IAgentService
                 "labelId" => "Label",
                 _ => key
             };
-            details.Add($"{displayKey}: {value}");
+            displayParams.Add(new AdviceParameterItem
+            {
+                Key = key,
+                DisplayKey = displayKey,
+                Value = value?.ToString()
+            });
         }
 
-        return $"{friendlyName}: {string.Join(", ", details)}";
+        // Batch-load entity names for better readability
+        string? resolvedName = null;
+        try
+        {
+            resolvedName = await ResolveDisplayName(sp, toolName, args);
+        }
+        catch
+        {
+            // Degrade gracefully — fall back to showing IDs
+        }
+
+        // Flat summary string (compact fallback)
+        var flatParams = displayParams.Select(p => $"{p.DisplayKey}: {p.Value}");
+        var displayText = $"{friendlyName}: {string.Join(", ", flatParams)}";
+        if (!string.IsNullOrWhiteSpace(resolvedName))
+        {
+            displayText += $" | {resolvedName}";
+        }
+
+        return new ParameterDisplayResult(displayText, displayParams, resolvedName);
+    }
+
+    /// <summary>
+    /// Looks up entity names for IDs used in tool arguments,
+    /// producing a human-readable summary line (e.g. 'Card "Fix login" on Board "Sprint 1" → Column "Done"').
+    /// Returns null when no names could be resolved.
+    /// </summary>
+    private static async Task<string?> ResolveDisplayName(IServiceProvider sp, string toolName, Dictionary<string, object?> args)
+    {
+        // Only resolve for tools where the context helps
+        var relevantTools = new HashSet<string>
+        {
+            "MoveCard", "UpdateCardDetails", "AssignCard", "UpdateCardPriority",
+            "DeleteCard", "AddLabel", "RemoveLabel", "UpdateLabelColor",
+            "MoveColumn", "RenameColumn", "DeleteColumn", "UpdateColumnStatus",
+            "RenameBoard", "DeleteBoard",
+            "BatchMoveCards"
+        };
+        if (!relevantTools.Contains(toolName))
+            return null;
+
+        await using var scope = sp.CreateAsyncScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+
+        var parts = new List<string>();
+
+        // Resolve cardId
+        if (args.TryGetValue("cardId", out var cardIdObj) && cardIdObj != null)
+        {
+            if (int.TryParse(cardIdObj.ToString(), out var cardId) && cardId > 0)
+            {
+                var card = await db.KanbanCards.FindAsync(cardId);
+                if (card != null)
+                {
+                    parts.Add($"Card \"{card.Title}\"");
+                }
+            }
+        }
+
+        // Resolve cardIds (batch operations)
+        var cardIds = new List<int>();
+        if (args.TryGetValue("cardIds", out var cardIdsObj) && cardIdsObj != null)
+        {
+            if (cardIdsObj is System.Text.Json.JsonElement je && je.ValueKind == System.Text.Json.JsonValueKind.Array)
+            {
+                foreach (var el in je.EnumerateArray())
+                {
+                    if (el.TryGetInt32(out var cid))
+                        cardIds.Add(cid);
+                }
+            }
+        }
+        if (cardIds.Count > 0)
+        {
+            var cards = await db.KanbanCards.Where(c => cardIds.Contains(c.Id)).ToListAsync();
+            var titles = cards.Select(c => $"\"{c.Title}\"");
+            if (titles.Any())
+                parts.Add($"Cards: {string.Join(", ", titles)}");
+        }
+
+        // Resolve columnId
+        if (args.TryGetValue("columnId", out var colIdObj) && colIdObj != null)
+        {
+            if (int.TryParse(colIdObj.ToString(), out var colId) && colId > 0)
+            {
+                var col = await db.KanbanColumns.FindAsync(colId);
+                if (col != null)
+                {
+                    parts.Add($"Column \"{col.Name}\"");
+                }
+            }
+        }
+
+        // Resolve targetColumnId
+        if (args.TryGetValue("targetColumnId", out var tgtColIdObj) && tgtColIdObj != null)
+        {
+            if (int.TryParse(tgtColIdObj.ToString(), out var tgtColId) && tgtColId > 0)
+            {
+                var col = await db.KanbanColumns.FindAsync(tgtColId);
+                if (col != null)
+                {
+                    parts.Add($"Target \"{col.Name}\"");
+                }
+            }
+        }
+
+        // Resolve boardId
+        if (args.TryGetValue("boardId", out var boardIdObj) && boardIdObj != null)
+        {
+            if (int.TryParse(boardIdObj.ToString(), out var boardId) && boardId > 0)
+            {
+                var board = await db.KanbanBoards.FindAsync(boardId);
+                if (board != null)
+                {
+                    parts.Add($"Board \"{board.Name}\"");
+                }
+            }
+        }
+
+        // Resolve labelId
+        if (args.TryGetValue("labelId", out var labelIdObj) && labelIdObj != null)
+        {
+            if (int.TryParse(labelIdObj.ToString(), out var labelId) && labelId > 0)
+            {
+                var label = await db.KanbanLabels.FindAsync(labelId);
+                if (label != null)
+                {
+                    parts.Add($"Label \"{label.Name}\"");
+                }
+            }
+        }
+
+        // Resolve assignedUserId → user name
+        if (args.TryGetValue("assignedUserId", out var assigneeIdObj) && assigneeIdObj != null)
+        {
+            var assigneeId = assigneeIdObj.ToString();
+            if (!string.IsNullOrWhiteSpace(assigneeId))
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                var user = await userManager.FindByIdAsync(assigneeId);
+                if (user != null)
+                {
+                    var displayName = user.UserName ?? user.Email ?? assigneeId;
+                    parts.Add($"Assignee \"{displayName}\"");
+                }
+            }
+        }
+
+        return parts.Count > 0 ? string.Join(" → ", parts) : null;
     }
 }

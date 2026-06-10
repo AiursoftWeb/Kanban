@@ -140,7 +140,14 @@ public class AgentController(
             AdviceId = a.Id,
             ToolDisplayName = a.ToolDisplayName,
             ParameterDisplay = a.ParameterDisplay,
-            Status = a.Status.ToString()
+            Status = a.Status.ToString(),
+            Parameters = a.DisplayParameters.Select(p => new ParameterItemViewModel
+            {
+                Key = p.Key,
+                DisplayKey = p.DisplayKey,
+                Value = p.Value
+            }).ToList(),
+            ResolvedName = a.ResolvedName
         }).ToList();
 
         return Ok(new AgentStatusViewModel

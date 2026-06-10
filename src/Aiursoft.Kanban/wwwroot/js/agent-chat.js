@@ -160,11 +160,42 @@
 
             var header = document.createElement('div');
             header.className = 'advice-header';
-            header.textContent = loc('proposed-action', 'Proposed Action:') + ' ' + advice.ToolDisplayName;
+            header.innerHTML = loc('proposed-action', 'Proposed Action:') + ' <strong>' + escapeHtml(advice.ToolDisplayName) + '</strong>';
 
-            var detail = document.createElement('div');
-            detail.className = 'advice-detail';
-            detail.textContent = advice.ParameterDisplay;
+            // Structured parameter rows
+            if (advice.Parameters && advice.Parameters.length > 0) {
+                var paramsDiv = document.createElement('div');
+                paramsDiv.className = 'advice-params';
+                advice.Parameters.forEach(function(p) {
+                    var row = document.createElement('div');
+                    row.className = 'advice-param-row';
+                    var keySpan = document.createElement('span');
+                    keySpan.className = 'advice-param-key';
+                    keySpan.textContent = p.DisplayKey;
+                    var valSpan = document.createElement('span');
+                    valSpan.className = 'advice-param-value';
+                    valSpan.textContent = p.Value != null ? p.Value : '';
+                    row.appendChild(keySpan);
+                    row.appendChild(valSpan);
+                    paramsDiv.appendChild(row);
+                });
+                card.appendChild(header);
+                card.appendChild(paramsDiv);
+            } else {
+                var detail = document.createElement('div');
+                detail.className = 'advice-detail';
+                detail.textContent = advice.ParameterDisplay;
+                card.appendChild(header);
+                card.appendChild(detail);
+            }
+
+            // Resolved name
+            if (advice.ResolvedName) {
+                var resolved = document.createElement('div');
+                resolved.className = 'advice-resolved';
+                resolved.textContent = advice.ResolvedName;
+                card.appendChild(resolved);
+            }
 
             var actions = document.createElement('div');
             actions.className = 'advice-actions';
@@ -186,8 +217,6 @@
             actions.appendChild(approveBtn);
             actions.appendChild(rejectBtn);
 
-            card.appendChild(header);
-            card.appendChild(detail);
             card.appendChild(actions);
             container.appendChild(card);
         });
@@ -305,6 +334,12 @@
 
         var statusEl = document.getElementById('agent-status-text');
         if (statusEl) statusEl.textContent = loc('ready', 'Ready');
+    }
+
+    function escapeHtml(text) {
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(text));
+        return div.innerHTML;
     }
 
     window.AgentChat = { init: init };

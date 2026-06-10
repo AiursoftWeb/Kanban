@@ -2,8 +2,27 @@
 @inject IViewLocalizer Localizer
 
 <div class="advice-card" data-advice-id="@Model.AdviceId">
-    <div class="advice-header">@Localizer["Proposed Action:"] @Model.ToolDisplayName</div>
-    <div class="advice-detail">@Model.ParameterDisplay</div>
+    <div class="advice-header">@Localizer["Proposed Action:"] <strong>@Model.ToolDisplayName</strong></div>
+    @if (Model.Parameters.Count > 0)
+    {
+        <div class="advice-params">
+            @foreach (var p in Model.Parameters)
+            {
+                <div class="advice-param-row">
+                    <span class="advice-param-key">@p.DisplayKey</span>
+                    <span class="advice-param-value">@p.Value</span>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="advice-detail">@Model.ParameterDisplay</div>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.ResolvedName))
+    {
+        <div class="advice-resolved">@Model.ResolvedName</div>
+    }
     <div class="advice-actions">
         <button class="btn btn-sm btn-success" onclick="approveAdvice('@Model.AdviceId')">@Localizer["Approve"]</button>
         <button class="btn btn-sm btn-outline-danger" onclick="rejectAdvice('@Model.AdviceId')">@Localizer["Reject"]</button>
