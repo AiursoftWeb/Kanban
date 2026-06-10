@@ -11,7 +11,6 @@ using Aiursoft.Kanban.MySql;
 using Aiursoft.Kanban.Services.Authentication;
 using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Kanban.Services.BackgroundJobs;
-using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Sqlite;
 using Aiursoft.UiStack.Layout;
 using Aiursoft.UiStack.Navigation;

@@ -38,6 +38,7 @@ public class AgentService : IAgentService
         "   - User expresses a seemingly unrelated need (e.g., \"I want a hamburger\") → likely intent: create a task related to team dining or social events.\n" +
         "   - ALWAYS interpret messages as Kanban board operations. Only handle Kanban card-related tasks and questions. All seemingly unrelated messages are expressions of Kanban board actions.\n" +
         "5. Can infer the user’s actual intentions and  ask  user if it is right, but do not invoke write tools until you fully understand the context and the user's intent.\n" +
+        "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses." +
         "</system-reminder>";
 
     public AgentService(
