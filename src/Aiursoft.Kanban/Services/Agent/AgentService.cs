@@ -92,6 +92,26 @@ public class AgentService : IAgentService
             Content = reminder,
             IsMeta = true
         });
+        var recentCards = BuildRecentCardsBlock(userId);
+        if (!string.IsNullOrEmpty(recentCards))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = recentCards,
+                IsMeta = true
+            });
+        }
+        var assignedCards = BuildAssignedCardsBlock(userId);
+        if (!string.IsNullOrEmpty(assignedCards))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = assignedCards,
+                IsMeta = true
+            });
+        }
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",
@@ -129,6 +149,26 @@ public class AgentService : IAgentService
             Content = reminder,
             IsMeta = true
         });
+        var recentCards = BuildRecentCardsBlock(userId);
+        if (!string.IsNullOrEmpty(recentCards))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = recentCards,
+                IsMeta = true
+            });
+        }
+        var assignedCards = BuildAssignedCardsBlock(userId);
+        if (!string.IsNullOrEmpty(assignedCards))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = assignedCards,
+                IsMeta = true
+            });
+        }
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",
@@ -511,6 +551,105 @@ public class AgentService : IAgentService
     {
         var now = DateTime.UtcNow;
         return $"Current time: {now:dddd, MMMM d, yyyy, h:mm tt} UTC";
+    }
+
+    /// <summary>
+    /// Builds a system-reminder block listing the user's 10 most recently created
+    /// cards with their board context, so the agent has awareness of recent activity.
+    /// Card titles over 200 characters are truncated.
+    /// </summary>
+    private string BuildRecentCardsBlock(string userId)
+    {
+        using var scope = _rootServices.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+
+        var recentCards = db.KanbanCards
+            .Include(c => c.Column)
+            .ThenInclude(col => col.Board)
+            .Where(c => c.Column.Board.UserId == userId || c.AssignedUserId == userId)
+            .OrderByDescending(c => c.CreationTime)
+            .Take(10)
+            .Select(c => new
+            {
+                c.Title,
+                ColumnName = c.Column.Name,
+                BoardName = c.Column.Board.Name
+            })
+            .ToList();
+
+        if (recentCards.Count == 0)
+            return string.Empty;
+
+        var sb = new StringBuilder();
+        sb.AppendLine("<system-reminder>");
+        sb.AppendLine("Recently active cards (newest first):");
+        foreach (var card in recentCards)
+        {
+            var title = card.Title.Length > 200
+                ? card.Title[..200] + "..."
+                : card.Title;
+            sb.Append("- \"").Append(title).Append("\"");
+            sb.Append(" (Board: \"").Append(card.BoardName).Append('"');
+            sb.Append(", Column: \"").Append(card.ColumnName).Append("\")");
+            sb.AppendLine();
+        }
+        sb.Append("</system-reminder>");
+
+        return sb.ToString();
+    }
+
+    /// <summary>
+    /// Builds a system-reminder block listing up to 10 cards assigned to the user,
+    /// sorted by priority (urgent first) then due date (earliest first).
+    /// Card titles over 200 characters are truncated.
+    /// </summary>
+    private string BuildAssignedCardsBlock(string userId)
+    {
+        using var scope = _rootServices.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+
+        var assignedCards = db.KanbanCards
+            .Include(c => c.Column)
+            .ThenInclude(col => col.Board)
+            .Where(c => c.AssignedUserId == userId)
+            .OrderBy(c => c.Priority)                         // Urgent(0) first, None(4) last
+            .ThenBy(c => c.DueDate ?? DateTime.MaxValue)      // earliest due date first, nulls last
+            .ThenByDescending(c => c.CreationTime)            // newest first within same bucket
+            .Take(10)
+            .Select(c => new
+            {
+                c.Title,
+                c.Priority,
+                c.DueDate,
+                ColumnName = c.Column.Name,
+                BoardName = c.Column.Board.Name
+            })
+            .ToList();
+
+        if (assignedCards.Count == 0)
+            return string.Empty;
+
+        var sb = new StringBuilder();
+        sb.AppendLine("<system-reminder>");
+        sb.AppendLine("Cards assigned to you (priority order):");
+        foreach (var card in assignedCards)
+        {
+            var title = card.Title.Length > 200
+                ? card.Title[..200] + "..."
+                : card.Title;
+            sb.Append("- \"").Append(title).Append("\"");
+            sb.Append(" [").Append(card.Priority).Append(']');
+            if (card.DueDate.HasValue)
+            {
+                sb.Append(" Due: ").Append(card.DueDate.Value.ToString("yyyy-MM-dd"));
+            }
+            sb.Append(" (Board: \"").Append(card.BoardName).Append('"');
+            sb.Append(", Column: \"").Append(card.ColumnName).Append("\")");
+            sb.AppendLine();
+        }
+        sb.Append("</system-reminder>");
+
+        return sb.ToString();
     }
 
     /// <summary>
