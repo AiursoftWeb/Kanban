@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Δημιουργήθηκε</value>
   </data>
+  <data name="Custom color" xml:space="preserve">
+    <value>Προσαρμοσμένο χρώμα</value>
+  </data>
   <data name="d ago" xml:space="preserve">
     <value>ημ. πριν</value>
   </data>

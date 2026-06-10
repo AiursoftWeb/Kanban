@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>बनाया गया</value>
   </data>
+  <data name="Custom color" xml:space="preserve">
+    <value>कस्टम रंग</value>
+  </data>
   <data name="d ago" xml:space="preserve">
     <value>दिन पहले</value>
   </data>

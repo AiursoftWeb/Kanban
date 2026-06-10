@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>تم الإنشاء</value>
   </data>
+  <data name="Custom color" xml:space="preserve">
+    <value>لون مخصص</value>
+  </data>
   <data name="d ago" xml:space="preserve">
     <value>د قبل</value>
   </data>
