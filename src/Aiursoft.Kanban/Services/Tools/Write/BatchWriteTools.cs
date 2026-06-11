@@ -30,7 +30,8 @@ public class BatchWriteTools(
         List<BatchCardInput>? inputs;
         try
         {
-            inputs = System.Text.Json.JsonSerializer.Deserialize<List<BatchCardInput>>(cardsJson);
+            inputs = System.Text.Json.JsonSerializer.Deserialize<List<BatchCardInput>>(cardsJson,
+                new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
         catch
         {
