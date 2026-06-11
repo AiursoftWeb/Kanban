@@ -587,10 +587,202 @@
 
     .board-tabs-scroll::-webkit-scrollbar { display: none; }
 
+    .mobile-column-switcher {
+        display: none;
+    }
+
     @@media (max-width: 768px) {
+        html, body {
+            overflow: auto;
+        }
+
+        .kanban-page-wrapper {
+            height: calc(100dvh - 72px);
+            overflow: hidden;
+        }
+
+        .kanban-topbar {
+            padding: 1rem 1rem 0 !important;
+        }
+
+        .kanban-topbar > .d-flex {
+            align-items: flex-start !important;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem !important;
+        }
+
+        .kanban-topbar > .d-flex > .d-flex:first-child {
+            flex: 0 0 100%;
+            min-width: 0;
+            flex-wrap: wrap;
+        }
+
+        .kanban-topbar .h4 {
+            font-size: 1.05rem;
+        }
+
+        .kanban-topbar > .d-flex > .d-flex.gap-2 {
+            flex: 0 0 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            padding-bottom: 0.25rem;
+            scrollbar-width: none;
+        }
+
+        .kanban-topbar > .d-flex > .d-flex.gap-2::-webkit-scrollbar {
+            display: none;
+        }
+
+        .mobile-column-switcher {
+            display: grid;
+            grid-template-columns: 40px 1fr 40px;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 1rem 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .mobile-column-nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--bs-border-color);
+            background: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-column-nav-btn:disabled {
+            opacity: 0.35;
+        }
+
+        .mobile-column-track {
+            display: flex;
+            gap: 0.4rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .mobile-column-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .mobile-column-pill {
+            border: 1px solid var(--bs-border-color);
+            background: var(--bs-body-bg);
+            color: var(--bs-secondary-color);
+            border-radius: 999px;
+            padding: 0.45rem 0.75rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .mobile-column-pill.active {
+            background: var(--bs-primary);
+            border-color: var(--bs-primary);
+            color: #fff;
+        }
+
+        .kanban-container {
+            gap: 0;
+            padding: 0 1rem 1rem;
+            scroll-snap-type: x mandatory;
+            scroll-padding-inline: 1rem;
+            overflow-y: hidden;
+        }
+
         .kanban-column {
-            flex: 0 0 280px;
-            width: 280px;
+            flex: 0 0 calc(100vw - 2rem);
+            width: calc(100vw - 2rem);
+            max-width: calc(100vw - 2rem);
+            height: 100%;
+            border-radius: 12px;
+            scroll-snap-align: start;
+            margin-right: 1rem;
+        }
+
+        .kanban-column:hover {
+            transform: none;
+        }
+
+        .column-header {
+            cursor: default;
+        }
+
+        .btn-edit-column-title,
+        .btn-delete-column.can-delete,
+        .kanban-column:hover .btn-edit-column-title,
+        .kanban-column:hover .btn-delete-column.can-delete {
+            opacity: 1;
+        }
+
+        .column-cards {
+            overscroll-behavior: contain;
+            padding-bottom: 0.25rem;
+        }
+
+        .kanban-card {
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .kanban-card:hover {
+            transform: none;
+        }
+
+        #editCardModal .modal-dialog,
+        #addCardModal .modal-dialog,
+        #addColumnModal .modal-dialog {
+            align-items: flex-end;
+            min-height: calc(100% - 1rem);
+            margin: 0.5rem;
+        }
+
+        #editCardModal .modal-content,
+        #addCardModal .modal-content,
+        #addColumnModal .modal-content {
+            max-height: calc(100dvh - 1rem);
+            border-radius: 18px 18px 0 0 !important;
+        }
+
+        #editCardModal .modal-body {
+            max-height: calc(100dvh - 12rem);
+            overflow-y: auto;
+        }
+
+        #editCardModal .modal-footer {
+            gap: 0.6rem;
+        }
+
+        #editCardModal .modal-footer,
+        #editCardModal .modal-footer > div {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        #editCardModal .modal-footer .btn {
+            width: 100%;
+            min-height: 42px;
+        }
+
+        .label-input-wrapper {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .label-picker-controls {
+            border-left: none;
+            border-top: 1px solid var(--bs-border-color, #dde2ea);
+            padding-top: 0.5rem;
+            justify-content: space-between;
+        }
+
+        .comment-add-area {
+            flex-direction: column;
         }
     }
 
@@ -929,6 +1121,15 @@
     }
     else
     {
+        <div class="mobile-column-switcher" id="mobileColumnSwitcher">
+            <button type="button" class="mobile-column-nav-btn" id="btnMobilePrevColumn" aria-label="@Localizer["Previous column"]">
+                <i class="align-middle" data-lucide="chevron-left" style="width:18px;height:18px"></i>
+            </button>
+            <div class="mobile-column-track" id="mobileColumnTrack"></div>
+            <button type="button" class="mobile-column-nav-btn" id="btnMobileNextColumn" aria-label="@Localizer["Next column"]">
+                <i class="align-middle" data-lucide="chevron-right" style="width:18px;height:18px"></i>
+            </button>
+        </div>
         <div class="kanban-container" id="kanban-container">
             @{
                 var dotColors = new[] { "dot-blue", "dot-orange", "dot-green", "dot-purple", "dot-pink", "dot-teal", "dot-amber", "dot-indigo" };
@@ -1205,6 +1406,7 @@
                         @if (Model.CanEditCurrentBoard)
                         {
                             <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-primary" id="btnMoveCard" style="border-radius:10px">@Localizer["Move to..."]</button>
                                 <button type="button" class="btn btn-outline-primary" id="btnTransferCard" style="border-radius:10px">@Localizer["Transfer"]</button>
                                 <button type="button" class="btn btn-outline-danger" id="btnDeleteCard" style="border-radius:10px">@Localizer["Delete"]</button>
                             </div>
@@ -1220,6 +1422,23 @@
                 </div>
                 @if (Model.CanEditCurrentBoard)
                 {
+                    <div id="moveCardView" class="d-none">
+                        <div class="modal-body px-4">
+                            <div class="mb-0">
+                                <label class="form-label fw-semibold">@Localizer["Target Column"]</label>
+                                <select id="moveTargetColumn" class="form-select" style="border-radius:12px">
+                                    <option value="">@Localizer["Select a column"]</option>
+                                </select>
+                            </div>
+                            <div class="alert alert-danger mt-3 mb-0 d-none" id="moveCardError" role="alert"></div>
+                        </div>
+                        <div class="modal-footer border-0 px-4 pb-4">
+                            <button type="button" class="btn btn-light" id="btnBackFromMoveCard" style="border-radius:10px">@Localizer["Cancel"]</button>
+                            <button type="button" class="btn btn-primary px-4" id="btnConfirmMoveCard" style="border-radius:10px" disabled>
+                                @Localizer["Move"]
+                            </button>
+                        </div>
+                    </div>
                     <div id="transferCardView" class="d-none">
                         <div class="modal-body px-4">
                             <div class="mb-3">
@@ -1419,6 +1638,11 @@
     <span data-key="auto">@Localizer["auto"]</span>
     <span data-key="close">@Localizer["Close"]</span>
     <span data-key="save">@Localizer["Save"]</span>
+    <span data-key="move">@Localizer["Move"]</span>
+    <span data-key="move-card">@Localizer["Move Card"]</span>
+    <span data-key="move-to">@Localizer["Move to..."]</span>
+    <span data-key="moving">@Localizer["Moving..."]</span>
+    <span data-key="failed-move">@Localizer["Failed to move card:"]</span>
     <span data-key="transfer">@Localizer["Transfer"]</span>
     <span data-key="transfer-card">@Localizer["Transfer Card"]</span>
     <span data-key="select-board">@Localizer["Select a board"]</span>
@@ -1924,6 +2148,103 @@
             });
         }
 
+        var mobileColumnTrack = document.getElementById("mobileColumnTrack");
+        var btnMobilePrevColumn = document.getElementById("btnMobilePrevColumn");
+        var btnMobileNextColumn = document.getElementById("btnMobileNextColumn");
+        var activeMobileColumnIndex = 0;
+        var mobileScrollTimer = 0;
+
+        function getKanbanColumns() {
+            return Array.from(document.querySelectorAll(".kanban-column"));
+        }
+
+        function getColumnTitle(columnEl) {
+            var titleEl = columnEl ? columnEl.querySelector(".column-title") : null;
+            return titleEl ? titleEl.textContent.trim() : "";
+        }
+
+        function scrollToMobileColumn(index) {
+            var columns = getKanbanColumns();
+            if (columns.length === 0) return;
+            var nextIndex = Math.max(0, Math.min(index, columns.length - 1));
+            columns[nextIndex].scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+            updateMobileColumnState(nextIndex);
+        }
+
+        function updateMobileColumnState(index) {
+            var columns = getKanbanColumns();
+            if (columns.length === 0) return;
+
+            activeMobileColumnIndex = Math.max(0, Math.min(index, columns.length - 1));
+            if (btnMobilePrevColumn) {
+                btnMobilePrevColumn.disabled = activeMobileColumnIndex === 0;
+            }
+            if (btnMobileNextColumn) {
+                btnMobileNextColumn.disabled = activeMobileColumnIndex === columns.length - 1;
+            }
+            if (!mobileColumnTrack) return;
+
+            mobileColumnTrack.querySelectorAll(".mobile-column-pill").forEach(function(pill) {
+                var pillIndex = parseInt(pill.dataset.columnIndex, 10);
+                pill.classList.toggle("active", pillIndex === activeMobileColumnIndex);
+                if (pillIndex === activeMobileColumnIndex) {
+                    pill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                }
+            });
+        }
+
+        function updateMobileColumnSwitcher() {
+            if (!mobileColumnTrack) return;
+
+            var columns = getKanbanColumns();
+            mobileColumnTrack.innerHTML = "";
+            columns.forEach(function(column, index) {
+                var pill = document.createElement("button");
+                pill.type = "button";
+                pill.className = "mobile-column-pill";
+                pill.dataset.columnIndex = index;
+                pill.textContent = getColumnTitle(column) || (getLocalizedText("column", "column") + " " + (index + 1));
+                pill.addEventListener("click", function() {
+                    scrollToMobileColumn(index);
+                });
+                mobileColumnTrack.appendChild(pill);
+            });
+            updateMobileColumnState(Math.min(activeMobileColumnIndex, Math.max(columns.length - 1, 0)));
+        }
+
+        var kanbanContainer = document.getElementById("kanban-container");
+        if (kanbanContainer) {
+            kanbanContainer.addEventListener("scroll", function() {
+                clearTimeout(mobileScrollTimer);
+                mobileScrollTimer = setTimeout(function() {
+                    var columns = getKanbanColumns();
+                    if (columns.length === 0) return;
+
+                    var containerLeft = kanbanContainer.getBoundingClientRect().left;
+                    var closestIndex = 0;
+                    var closestDistance = Number.MAX_VALUE;
+                    columns.forEach(function(column, index) {
+                        var distance = Math.abs(column.getBoundingClientRect().left - containerLeft);
+                        if (distance < closestDistance) {
+                            closestDistance = distance;
+                            closestIndex = index;
+                        }
+                    });
+                    updateMobileColumnState(closestIndex);
+                }, 80);
+            });
+        }
+        if (btnMobilePrevColumn) {
+            btnMobilePrevColumn.addEventListener("click", function() {
+                scrollToMobileColumn(activeMobileColumnIndex - 1);
+            });
+        }
+        if (btnMobileNextColumn) {
+            btnMobileNextColumn.addEventListener("click", function() {
+                scrollToMobileColumn(activeMobileColumnIndex + 1);
+            });
+        }
+
         function refreshColumnCounts() {
             document.querySelectorAll(".kanban-column").forEach(function(col) {
                 var count = col.querySelectorAll(".kanban-card").length;
@@ -1944,6 +2265,7 @@
                     placeholder.style.display = count === 0 ? "" : "none";
                 }
             });
+            updateMobileColumnSwitcher();
         }
 
         document.querySelectorAll(".kanban-card").forEach(function(card) {
@@ -2016,6 +2338,7 @@
                         }).catch(function(err) {
                             console.error("MoveColumn failed:", err);
                         });
+                        updateMobileColumnSwitcher();
                     }
                 });
             }
@@ -2085,6 +2408,7 @@
                         titleSpan.textContent = newName;
                         titleSpan.style.display = "";
                         input.remove();
+                        updateMobileColumnSwitcher();
                     })
                     .catch(function(err) {
                         showFriendlyDialog(getLocalizedText("failed-rename-column", "Failed to rename column:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")), getLocalizedText("error", "Error"));
@@ -2182,6 +2506,7 @@
 
             var newEditBtn = col.querySelector(".btn-edit-column-title");
             if (newEditBtn) bindColumnTitleEdit(newEditBtn);
+            updateMobileColumnSwitcher();
         }
 
         if (canEditCurrentBoard && btnSaveColumn && columnNameInput && columnError) {
@@ -2448,6 +2773,7 @@
                     }
                     if (columnElToDelete) {
                         columnElToDelete.remove();
+                        updateMobileColumnSwitcher();
                     }
                 })
                 .catch(function(err) {
@@ -2517,8 +2843,14 @@
         var editCardLabels = document.getElementById("editCardLabels");
         var btnAddLabel = document.getElementById("btnAddLabel");
         var btnUpdateCard = document.getElementById("btnUpdateCard");
+        var btnMoveCard = document.getElementById("btnMoveCard");
         var btnTransferCard = document.getElementById("btnTransferCard");
         var btnDeleteCard = document.getElementById("btnDeleteCard");
+        var moveCardView = document.getElementById("moveCardView");
+        var btnBackFromMoveCard = document.getElementById("btnBackFromMoveCard");
+        var moveTargetColumn = document.getElementById("moveTargetColumn");
+        var moveCardError = document.getElementById("moveCardError");
+        var btnConfirmMoveCard = document.getElementById("btnConfirmMoveCard");
         var deleteCardView = document.getElementById("deleteCardView");
         var btnBackFromDeleteCard = document.getElementById("btnBackFromDeleteCard");
         var btnConfirmDeleteCard = document.getElementById("btnConfirmDeleteCard");
@@ -2543,6 +2875,9 @@
             if (!editCardDetailsView) return;
 
             editCardDetailsView.classList.toggle("d-none", view !== "details");
+            if (moveCardView) {
+                moveCardView.classList.toggle("d-none", view !== "move");
+            }
             if (transferCardView) {
                 transferCardView.classList.toggle("d-none", view !== "transfer");
             }
@@ -2552,6 +2887,10 @@
             if (!editCardModalTitle) return;
 
             editCardModalTitle.classList.toggle("text-danger", view === "delete");
+            if (view === "move") {
+                editCardModalTitle.textContent = getLocalizedText("move-card", "Move Card");
+                return;
+            }
             if (view === "transfer") {
                 editCardModalTitle.textContent = getLocalizedText("transfer-card", "Transfer Card");
                 return;
@@ -2971,6 +3310,118 @@
                 .finally(function() {
                     btnUpdateCard.disabled = false;
                     btnUpdateCard.textContent = getLocalizedText("save", "Save");
+                });
+            });
+        }
+
+        function getCurrentCardColumn() {
+            return currentEditCardElement ? currentEditCardElement.closest(".kanban-column") : null;
+        }
+
+        function resetMoveTargetColumns() {
+            if (!moveTargetColumn || !btnConfirmMoveCard) return;
+
+            moveTargetColumn.innerHTML = "";
+            var placeholder = document.createElement("option");
+            placeholder.value = "";
+            placeholder.textContent = getLocalizedText("select-column", "Select a column");
+            moveTargetColumn.appendChild(placeholder);
+
+            var currentColumn = getCurrentCardColumn();
+            var currentColumnId = currentColumn ? currentColumn.dataset.columnId : "";
+            getKanbanColumns().forEach(function(column) {
+                if (column.dataset.columnId === currentColumnId) return;
+
+                var option = document.createElement("option");
+                option.value = column.dataset.columnId;
+                option.textContent = getColumnTitle(column);
+                moveTargetColumn.appendChild(option);
+            });
+
+            moveTargetColumn.value = "";
+            btnConfirmMoveCard.disabled = true;
+            if (moveCardError) {
+                clearInlineAlert(moveCardError);
+            }
+        }
+
+        function moveCurrentCardToColumn(targetColumnId, data) {
+            if (!currentEditCardElement) return;
+
+            var targetList = document.querySelector('.column-cards[data-column-id="' + targetColumnId + '"]');
+            if (!targetList) return;
+
+            targetList.appendChild(currentEditCardElement);
+            currentEditCardElement.dataset.actualStart = data.ActualStartTime || "";
+            currentEditCardElement.dataset.actualEnd = data.ActualEndTime || "";
+            renderCardContent(currentEditCardElement);
+            refreshColumnCounts();
+            var targetColumn = targetList.closest(".kanban-column");
+            var columns = getKanbanColumns();
+            var targetIndex = columns.indexOf(targetColumn);
+            if (targetIndex >= 0) {
+                scrollToMobileColumn(targetIndex);
+            }
+        }
+
+        if (btnMoveCard && moveTargetColumn && btnConfirmMoveCard) {
+            btnMoveCard.addEventListener("click", function() {
+                resetMoveTargetColumns();
+                showEditCardView("move");
+            });
+
+            moveTargetColumn.addEventListener("change", function() {
+                btnConfirmMoveCard.disabled = !moveTargetColumn.value;
+            });
+        }
+
+        if (btnBackFromMoveCard) {
+            btnBackFromMoveCard.addEventListener("click", function() {
+                showEditCardView("details");
+            });
+        }
+
+        if (btnConfirmMoveCard && moveTargetColumn) {
+            btnConfirmMoveCard.addEventListener("click", function() {
+                if (!currentEditCardId || !moveTargetColumn.value) return;
+
+                var targetColumnId = moveTargetColumn.value;
+                var targetList = document.querySelector('.column-cards[data-column-id="' + targetColumnId + '"]');
+                var newOrder = targetList ? targetList.querySelectorAll(".kanban-card").length : 0;
+
+                btnConfirmMoveCard.disabled = true;
+                btnConfirmMoveCard.textContent = getLocalizedText("moving", "Moving...");
+                if (moveCardError) {
+                    clearInlineAlert(moveCardError);
+                }
+
+                fetch("/Kanban/MoveCard", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded", "RequestVerificationToken": csrfToken },
+                    body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
+                        + "&cardId=" + currentEditCardId
+                        + "&targetColumnId=" + encodeURIComponent(targetColumnId)
+                        + "&newOrder=" + newOrder
+                })
+                .then(function(r) {
+                    if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
+                    return r.json();
+                })
+                .then(function(data) {
+                    moveCurrentCardToColumn(targetColumnId, data);
+                    var editCardModalInstance = bootstrap.Modal.getInstance(editCardModal);
+                    if (editCardModalInstance) {
+                        editCardModalInstance.hide();
+                    }
+                })
+                .catch(function(err) {
+                    if (moveCardError) {
+                        showInlineAlert(moveCardError, getLocalizedText("failed-move", "Failed to move card:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")));
+                    }
+                })
+                .finally(function() {
+                    btnConfirmMoveCard.disabled = !moveTargetColumn.value;
+                    btnConfirmMoveCard.textContent = getLocalizedText("move", "Move");
                 });
             });
         }
