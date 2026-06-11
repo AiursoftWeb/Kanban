@@ -337,8 +337,6 @@ public class KanbanController(
             DueDate = card.DueDate
         };
 
-        var sourceBoardId = card.Column.BoardId;
-
         db.KanbanCards.Add(transferredCard);
         db.KanbanCardLabels.AddRange(card.CardLabels.Select(link => new KanbanCardLabel
         {
