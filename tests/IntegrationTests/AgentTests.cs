@@ -709,6 +709,202 @@ public class AgentTests : TestBase
         Assert.IsFalse(board.IsPublic);
     }
 
+    // ── Batch write tools ─────────────────────────────────
+
+    [TestMethod]
+    public async Task BatchCreateCards_CreatesCardsSuccessfully()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"Card A","description":"Desc A"},{"title":"Card B","description":"Desc B"},{"title":"Card C"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 3 card(s)");
+
+        var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).ToList();
+        Assert.AreEqual(3, cards.Count, "Should create exactly 3 cards in the database");
+        Assert.IsTrue(cards.Any(c => c.Title == "Card A"), "Card A should exist");
+        Assert.IsTrue(cards.Any(c => c.Title == "Card B"), "Card B should exist");
+        Assert.IsTrue(cards.Any(c => c.Title == "Card C"), "Card C should exist");
+        CollectionAssert.AreEqual(
+            new[] { 0, 1, 2 },
+            cards.OrderBy(c => c.Order).Select(c => c.Order).ToArray(),
+            "Cards should have sequential order starting from 0");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_CaseInsensitivePropertyNames()
+    {
+        // Verifies the fix: System.Text.Json deserializes with PropertyNameCaseInsensitive = true
+        // The LLM sends lowercase "title" and "description" in the JSON.
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        // Exact format the LLM sends: lowercase property names
+        var cardsJson = """[{"title":"Lowercase Title Works","description":"Lowercase description works"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 1 card(s)");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual("Lowercase Title Works", card.Title,
+            "Title should be populated from lowercase 'title' JSON key");
+        Assert.AreEqual("Lowercase description works", card.Description,
+            "Description should be populated from lowercase 'description' JSON key");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_MixedCasePropertyNames()
+    {
+        // Also verify PascalCase and mixed case still work
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"Title":"PascalCase Title","Description":"PascalCase desc"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 1 card(s)");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual("PascalCase Title", card.Title);
+        Assert.AreEqual("PascalCase desc", card.Description);
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_EmptyArrayReturnsError()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchCreateCards(columnId, "[]");
+
+        StringAssert.Contains(result, "Error: No cards specified.");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_InvalidJsonReturnsError()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchCreateCards(columnId, "not-json-at-all");
+
+        StringAssert.Contains(result, "Error: Invalid JSON format.");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_SkipsEmptyTitles()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"Valid Card"},{"title":"  "},{"title":""},{"title":"Another Valid"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 2 card(s)");
+
+        var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).ToList();
+        Assert.AreEqual(2, cards.Count, "Only non-empty title cards should be created");
+        Assert.IsTrue(cards.Any(c => c.Title == "Valid Card"));
+        Assert.IsTrue(cards.Any(c => c.Title == "Another Valid"));
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_NoPermissionReturnsError()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        // Register a non-owner user
+        var (otherEmail, _) = await RegisterAndLoginAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var otherUser = db.Users.First(u => u.Email == otherEmail);
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = otherUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchCreateCards(columnId, """[{"title":"Should Not Create"}]""");
+
+        StringAssert.Contains(result, "Error: You do not have permission");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_ColumnNotFoundReturnsError()
+    {
+        await LoginAsAdmin();
+        await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchCreateCards(999999, """[{"title":"Card"}]""");
+
+        StringAssert.Contains(result, "Error: Column not found.");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_TrimsTitleAndDescription()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"  Padded Title  ","description":"  Padded Desc  "}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 1 card(s)");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual("Padded Title", card.Title, "Title should be trimmed");
+        Assert.AreEqual("Padded Desc", card.Description, "Description should be trimmed");
+    }
+
     // ── Multi-tool batch approval ────────────────────────
 
     [TestMethod]
