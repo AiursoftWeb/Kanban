@@ -14,10 +14,14 @@ using Aiursoft.UiStack.Views.Shared.Components.SideAdvertisement;
 using Aiursoft.UiStack.Views.Shared.Components.Sidebar;
 using Aiursoft.UiStack.Views.Shared.Components.SideLogo;
 using Aiursoft.UiStack.Views.Shared.Components.SideMenu;
+using Aiursoft.UiStack.Views.Shared.Components.NotificationsDropdown;
 using Aiursoft.UiStack.Views.Shared.Components.UserDropdown;
+using UiStackNotification = Aiursoft.UiStack.Views.Shared.Components.NotificationsDropdown.Notification;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+
+using Microsoft.EntityFrameworkCore;
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -87,6 +91,8 @@ public class ViewModelArgsInjector(
         _ = localizer["Kanban Board"];
         _ = localizer["My Boards"];
         _ = localizer["My Tasks"];
+        _ = localizer["View All Notifications"];
+        _ = localizer["View All"];
         _ = localizer["Shared with Me"];
 
         _ = localizer["Overview Kanban"];
@@ -311,6 +317,35 @@ public class ViewModelArgsInjector(
                         ]
                     }
                 ]
+            };
+
+            // Populate notification dropdown for the navbar bell icon
+            var userId = userManager.GetUserId(context.User)!;
+            var recentNotifications = db.Notifications
+                .Where(n => n.UserId == userId && !n.IsRead)
+                .Include(n => n.Comment)
+                .Include(n => n.Card)
+                .OrderByDescending(n => n.CreationTime)
+                .Take(10)
+                .ToList();
+
+            toInject.Navbar.NotificationsDropdown = new NotificationsDropdownViewModel
+            {
+                Notifications = recentNotifications.Select(n => new UiStackNotification
+                {
+                    Title = $"New comment on \"{n.Card.Title}\"",
+                    Message = n.Comment.Content.Length > 100
+                        ? n.Comment.Content[..100] + "..."
+                        : n.Comment.Content,
+                    TriggerTime = n.CreationTime,
+                    Icon = "message-circle",
+                    IconClass = "text-primary"
+                }).ToList(),
+                ViewAllLink = new Link
+                {
+                    Text = localizer["View All"],
+                    Href = "/Notifications/Index"
+                }
             };
         }
         else
