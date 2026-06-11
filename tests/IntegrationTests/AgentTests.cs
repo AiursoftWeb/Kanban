@@ -850,7 +850,7 @@ public class AgentTests : TestBase
     public async Task BatchCreateCards_NoPermissionReturnsError()
     {
         await LoginAsAdmin();
-        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
 
         // Register a non-owner user
         var (otherEmail, _) = await RegisterAndLoginAsync();
