@@ -132,11 +132,17 @@
   <data name="My Created" xml:space="preserve">
     <value>Yang Saya Buat</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>Notifikasi Saya</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Tugas Saya</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Tidak Ditemukan</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifikasi</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Ikhtisar</value>
@@ -194,6 +200,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Pengguna</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>Lihat Semua</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>Lihat Semua Notifikasi</value>
   </data>
 
 </root>

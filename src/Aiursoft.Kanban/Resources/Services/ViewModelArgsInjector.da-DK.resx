@@ -132,11 +132,17 @@
   <data name="My Created" xml:space="preserve">
     <value>Mine Oprettelser</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>Mine beskeder</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Mine opgaver</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Ikke fundet</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifikationer</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Oversigt</value>
@@ -194,6 +200,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Brugere</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>Se alle</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>Se alle notifikationer</value>
   </data>
 
 </root>

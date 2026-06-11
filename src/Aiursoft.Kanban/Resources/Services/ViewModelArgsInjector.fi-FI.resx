@@ -132,11 +132,17 @@
   <data name="My Created" xml:space="preserve">
     <value>Luomani</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>Ilmoitukset</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Omat tehtävät</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Ei löytynyt</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Ilmoitukset</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Yleiskatsaus</value>
@@ -194,6 +200,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Käyttäjät</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>Näytä kaikki</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>Näytä kaikki ilmoitukset</value>
   </data>
 
 </root>

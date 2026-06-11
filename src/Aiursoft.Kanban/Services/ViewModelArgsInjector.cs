@@ -104,6 +104,9 @@ public class ViewModelArgsInjector(
         _ = localizer["Kanban AI Assistant"];
     
         _ = localizer["Overview"];
+    
+        _ = localizer["My Notifications"];
+        _ = localizer["Notifications"];
     }
 
     public void InjectSimple(

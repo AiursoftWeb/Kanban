@@ -132,11 +132,17 @@
   <data name="My Created" xml:space="preserve">
     <value>मेरे द्वारा बनाया गया</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>मेरे सूचनाएं</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>मेरी कार्यसूची</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>नहीं मिला</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>सूचनाएं</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>अवलोकन</value>
@@ -194,6 +200,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>उपयोगकर्ता</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>सभी देखें</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>सभी सूचनाएं देखें</value>
   </data>
 
 </root>

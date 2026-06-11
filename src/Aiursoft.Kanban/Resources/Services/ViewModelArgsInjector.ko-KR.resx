@@ -135,11 +135,17 @@
   <data name="My Created" xml:space="preserve">
     <value>내가 만든 것</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>내 알림</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>내 작업</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>찾을 수 없음</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>알림</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>개요</value>
@@ -197,6 +203,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>사용자</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>전체 보기</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>모든 알림 보기</value>
   </data>
 
 </root>
