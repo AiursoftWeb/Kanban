@@ -1079,7 +1079,8 @@ public class KanbanController(
             c.Content,
             c.CreationTime,
             AuthorName = GetUserDisplayName(c.Author),
-            AuthorInitial = GetUserInitial(c.Author)
+            AuthorInitial = GetUserInitial(c.Author),
+            Avatar = GetUserAvatarUrl(c.Author)
         });
 
         return Ok(comments);

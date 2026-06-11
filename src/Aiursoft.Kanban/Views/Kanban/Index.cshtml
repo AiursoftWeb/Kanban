@@ -654,7 +654,7 @@
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background: var(--bs-primary, #4dabf7);
+        /* background: var(--bs-primary, #4dabf7); */
         color: #fff;
         display: flex;
         align-items: center;
@@ -1822,8 +1822,20 @@
                                 + '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>'
                                 + '</button>';
                         }
+
+						let avatarUrl;
+						if (c.Avatar) {
+							avatarUrl = '<img src="'+
+								c.Avatar
+							+'" class="img-fluid rounded-circle me-1 mt-n2 mb-n2" alt="Super Administrator" style="width: 32px; height: 32px;">';
+						} else {
+								avatarUrl = c.AuthorInitial
+						}
+
                         return '<div class="comment-item" data-comment-id="' + c.Id + '">'
-                            + '<div class="comment-avatar">' + escapeHtml(c.AuthorInitial || "?") + '</div>'
+							+ '<div class="card-assignee-avatar">' +
+								avatarUrl
+							+ '</div>'
                             + '<div class="comment-body">'
                                 + '<div class="comment-header">'
                                     + '<span class="comment-author">' + escapeHtml(c.AuthorName || "Unknown") + '</span>'
