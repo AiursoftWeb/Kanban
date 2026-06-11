@@ -14,7 +14,9 @@ public class AdviceService : ISingletonDependency
         string toolDescription,
         Dictionary<string, object?> parameters,
         string parameterDisplay,
-        string? toolCallId = null)
+        string? toolCallId = null,
+        List<AdviceParameterItem>? displayParameters = null,
+        string? resolvedName = null)
     {
         var advice = new Advice
         {
@@ -24,7 +26,9 @@ public class AdviceService : ISingletonDependency
             ToolDescription = toolDescription,
             Parameters = parameters,
             ParameterDisplay = parameterDisplay,
-            ToolCallId = toolCallId
+            ToolCallId = toolCallId,
+            DisplayParameters = displayParameters ?? [],
+            ResolvedName = resolvedName
         };
         _advice[advice.Id] = advice;
         return advice;

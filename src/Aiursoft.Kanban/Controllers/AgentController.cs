@@ -104,7 +104,7 @@ public class AgentController(
             return Forbid();
 
         var messages = conversation.Messages
-            .Where(m => m.Role != "system")
+            .Where(m => m.Role != "system" && !m.IsMeta)
             .Select(m => new ChatMessageViewModel
             {
                 Role = m.Role ?? "unknown",
@@ -115,7 +115,8 @@ public class AgentController(
                     Name = tc.Function?.Name,
                     Arguments = tc.Function?.Arguments
                 }).ToList(),
-                ToolCallId = m.ToolCallId
+                ToolCallId = m.ToolCallId,
+                IsMeta = m.IsMeta
             }).ToList();
 
         // Annotate tool_call messages with their advice status
@@ -139,7 +140,14 @@ public class AgentController(
             AdviceId = a.Id,
             ToolDisplayName = a.ToolDisplayName,
             ParameterDisplay = a.ParameterDisplay,
-            Status = a.Status.ToString()
+            Status = a.Status.ToString(),
+            Parameters = a.DisplayParameters.Select(p => new ParameterItemViewModel
+            {
+                Key = p.Key,
+                DisplayKey = p.DisplayKey,
+                Value = p.Value
+            }).ToList(),
+            ResolvedName = a.ResolvedName
         }).ToList();
 
         return Ok(new AgentStatusViewModel
