@@ -29,6 +29,12 @@ public class KanbanCard
     [ForeignKey(nameof(AssignedUserId))]
     public User? AssignedUser { get; set; }
 
+    [StringLength(450)]
+    public string? CreatorUserId { get; set; }
+
+    [ForeignKey(nameof(CreatorUserId))]
+    public User? CreatorUser { get; set; }
+
     public List<KanbanCardLabel> CardLabels { get; set; } = [];
 
     public DateTime? PlannedStartTime { get; set; }

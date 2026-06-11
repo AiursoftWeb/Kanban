@@ -220,6 +220,7 @@ public class KanbanController(
             Description = description?.Trim(),
             Order = maxOrder + 1,
             ColumnId = columnId,
+            CreatorUserId = userId,
             AssignedUserId = userId
         };
         db.KanbanCards.Add(card);
@@ -327,6 +328,7 @@ public class KanbanController(
             Order = maxOrder + 1,
             ColumnId = targetColumnId,
             Priority = card.Priority,
+            CreatorUserId = card.CreatorUserId ?? userId,
             AssignedUserId = null,
             PlannedStartTime = card.PlannedStartTime,
             DueDate = card.DueDate
@@ -1043,6 +1045,26 @@ public class KanbanController(
         };
         db.KanbanCardComments.Add(comment);
         await db.SaveChangesAsync();
+
+        // Create notifications for the card creator and assignee (excluding the comment author)
+        var notifyUserIds = new HashSet<string>();
+        if (!string.IsNullOrEmpty(card.CreatorUserId) && card.CreatorUserId != userId)
+            notifyUserIds.Add(card.CreatorUserId);
+        if (!string.IsNullOrEmpty(card.AssignedUserId) && card.AssignedUserId != userId)
+            notifyUserIds.Add(card.AssignedUserId);
+
+        foreach (var notifyUserId in notifyUserIds)
+        {
+            db.Notifications.Add(new Notification
+            {
+                CardId = cardId,
+                CommentId = comment.Id,
+                UserId = notifyUserId
+            });
+        }
+
+        if (notifyUserIds.Count > 0)
+            await db.SaveChangesAsync();
 
         var author = await userManager.FindByIdAsync(userId);
         return Ok(new
