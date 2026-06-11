@@ -132,11 +132,17 @@
   <data name="My Created" xml:space="preserve">
     <value>Мои Созданные</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>Мои уведомления</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Мои задачи</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Не найдено</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Уведомления</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Обзор</value>
@@ -194,6 +200,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Пользователи</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>Посмотреть все</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>Просмотреть все уведомления</value>
   </data>
 
 </root>

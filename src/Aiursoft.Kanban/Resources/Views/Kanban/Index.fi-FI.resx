@@ -186,6 +186,9 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>Siirtotavoitteiden lataaminen epäonnistui.</value>
   </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>Kortin siirtäminen epäonnistui:</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Tunnisteen poistaminen epäonnistui.</value>
   </data>
@@ -240,6 +243,18 @@
   <data name="Medium" xml:space="preserve">
     <value>Keski</value>
   </data>
+  <data name="Move" xml:space="preserve">
+    <value>Siirrä</value>
+  </data>
+  <data name="Move Card" xml:space="preserve">
+    <value>Siirrä kortti</value>
+  </data>
+  <data name="Move to..." xml:space="preserve">
+    <value>Siirrä kohteeseen...</value>
+  </data>
+  <data name="Moving..." xml:space="preserve">
+    <value>Siirretään...</value>
+  </data>
   <data name="My Board" xml:space="preserve">
     <value>Oma lautani</value>
   </data>
@@ -248,6 +263,9 @@
   </data>
   <data name="New Board" xml:space="preserve">
     <value>Uusi taulu</value>
+  </data>
+  <data name="Next column" xml:space="preserve">
+    <value>Seuraava sarake</value>
   </data>
   <data name="No boards yet" xml:space="preserve">
     <value>Ei levyjä vielä</value>
@@ -284,6 +302,9 @@
   </data>
   <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
     <value>Paina Enter-näppäintä lisätäksesi tunnisteen tai luodaksesi uuden valmiiksi.</value>
+  </data>
+  <data name="Previous column" xml:space="preserve">
+    <value>Edellinen sarake</value>
   </data>
   <data name="Priority" xml:space="preserve">
     <value>Prioriteetti</value>

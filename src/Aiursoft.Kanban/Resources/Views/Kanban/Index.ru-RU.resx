@@ -186,6 +186,9 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>Не удалось загрузить целевые доски для переноса.</value>
   </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>Не удалось переместить карточку:</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Не удалось удалить метку.</value>
   </data>
@@ -240,6 +243,18 @@
   <data name="Medium" xml:space="preserve">
     <value>Средний</value>
   </data>
+  <data name="Move" xml:space="preserve">
+    <value>Переместить</value>
+  </data>
+  <data name="Move Card" xml:space="preserve">
+    <value>Переместить карточку</value>
+  </data>
+  <data name="Move to..." xml:space="preserve">
+    <value>Переместить в...</value>
+  </data>
+  <data name="Moving..." xml:space="preserve">
+    <value>Перемещение...</value>
+  </data>
   <data name="My Board" xml:space="preserve">
     <value>Моя доска</value>
   </data>
@@ -248,6 +263,9 @@
   </data>
   <data name="New Board" xml:space="preserve">
     <value>Новая доска</value>
+  </data>
+  <data name="Next column" xml:space="preserve">
+    <value>Следующая колонка</value>
   </data>
   <data name="No boards yet" xml:space="preserve">
     <value>Пока нет досок</value>
@@ -284,6 +302,9 @@
   </data>
   <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
     <value>Нажмите Enter, чтобы добавить метку или создать новую на лету.</value>
+  </data>
+  <data name="Previous column" xml:space="preserve">
+    <value>Предыдущий столбец</value>
   </data>
   <data name="Priority" xml:space="preserve">
     <value>Приоритет</value>
