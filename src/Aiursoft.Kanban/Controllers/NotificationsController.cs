@@ -39,20 +39,24 @@ public class NotificationsController(
             .Include(n => n.Card)
                 .ThenInclude(c => c.Column)
                     .ThenInclude(col => col.Board)
+            .Include(n => n.ActorUser)
             .OrderByDescending(n => n.CreationTime)
             .ToListAsync();
 
         var items = notifications.Select(n => new NotificationItem
         {
             Id = n.Id,
-            CardId = n.CardId,
-            BoardId = n.Card.Column.BoardId,
-            CardTitle = n.Card.Title,
-            BoardName = n.Card.Column.Board.Name,
-            ColumnName = n.Card.Column.Name,
-            CommentContent = n.Comment.Content,
-            CommentAuthorName = GetUserDisplayName(n.Comment.Author),
-            CommentAuthorInitial = GetUserInitial(n.Comment.Author),
+            CardId = n.CardId ?? 0,
+            BoardId = n.Card?.Column?.BoardId ?? 0,
+            CardTitle = n.Card?.Title ?? "(deleted card)",
+            BoardName = n.Card?.Column?.Board?.Name ?? "(unknown board)",
+            ColumnName = n.Card?.Column?.Name ?? "(unknown column)",
+            CommentContent = n.Comment?.Content,
+            CommentAuthorName = n.Comment != null ? GetUserDisplayName(n.Comment.Author) : null,
+            CommentAuthorInitial = n.Comment != null ? GetUserInitial(n.Comment.Author) : string.Empty,
+            Type = n.Type,
+            Message = n.Message,
+            ActorUserName = GetUserDisplayName(n.ActorUser),
             CreationTime = n.CreationTime
         }).ToList();
 

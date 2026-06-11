@@ -323,23 +323,36 @@ public class ViewModelArgsInjector(
             var userId = userManager.GetUserId(context.User)!;
             var recentNotifications = db.Notifications
                 .Where(n => n.UserId == userId && !n.IsRead)
-                .Include(n => n.Comment)
-                .Include(n => n.Card)
                 .OrderByDescending(n => n.CreationTime)
                 .Take(10)
                 .ToList();
 
             toInject.Navbar.NotificationsDropdown = new NotificationsDropdownViewModel
             {
-                Notifications = recentNotifications.Select(n => new UiStackNotification
+                Notifications = recentNotifications.Select(n =>
                 {
-                    Title = $"New comment on \"{n.Card.Title}\"",
-                    Message = n.Comment.Content.Length > 100
-                        ? n.Comment.Content[..100] + "..."
-                        : n.Comment.Content,
-                    TriggerTime = n.CreationTime,
-                    Icon = "message-circle",
-                    IconClass = "text-primary"
+                    var icon = n.Type switch
+                    {
+                        Entities.NotificationType.CommentAdded => "message-circle",
+                        Entities.NotificationType.CardAssigned => "user-plus",
+                        Entities.NotificationType.CardUnassigned => "user-minus",
+                        Entities.NotificationType.CardMoved => "arrow-right-circle",
+                        Entities.NotificationType.CardTransferred => "repeat",
+                        Entities.NotificationType.CardUpdated => "edit",
+                        Entities.NotificationType.BoardShared => "share-2",
+                        _ => "bell"
+                    };
+                    var message = n.Message.Length > 100
+                        ? n.Message[..100] + "..."
+                        : n.Message;
+                    return new UiStackNotification
+                    {
+                        Title = n.Message,
+                        Message = message,
+                        TriggerTime = n.CreationTime,
+                        Icon = icon,
+                        IconClass = "text-primary"
+                    };
                 }).ToList(),
                 ViewAllLink = new Link
                 {

@@ -1,11 +1,13 @@
 using System.Text.RegularExpressions;
 using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Events;
 using Aiursoft.Kanban.Models.KanbanViewModels;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +21,8 @@ public class KanbanController(
     TemplateDbContext db,
     UserManager<User> userManager,
     StorageService storage,
-    IAuthorizationService authorizationService) : Controller
+    IAuthorizationService authorizationService,
+    IMediator mediator) : Controller
 {
     private static readonly string[] LabelColors =
     [
@@ -334,6 +337,8 @@ public class KanbanController(
             DueDate = card.DueDate
         };
 
+        var sourceBoardId = card.Column.BoardId;
+
         db.KanbanCards.Add(transferredCard);
         db.KanbanCardLabels.AddRange(card.CardLabels.Select(link => new KanbanCardLabel
         {
@@ -343,6 +348,12 @@ public class KanbanController(
         db.KanbanCardComments.RemoveRange(comments);
         db.KanbanCards.Remove(card);
         await db.SaveChangesAsync();
+
+        await mediator.Publish(new CardTransferredEvent(
+            CardId: transferredCard.Id,
+            ActorUserId: userId,
+            SourceBoardId: sourceBoardId,
+            TargetBoardId: targetBoardId));
 
         return Ok(new
         {
@@ -370,6 +381,8 @@ public class KanbanController(
 
         var userId = userManager.GetUserId(User)!;
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
+
+        var fromColumnId = card.ColumnId;
 
         var now = DateTime.UtcNow;
         switch (column.ColumnStatus)
@@ -406,6 +419,16 @@ public class KanbanController(
             allCards[i].Order = i;
 
         await db.SaveChangesAsync();
+
+        if (fromColumnId != targetColumnId)
+        {
+            await mediator.Publish(new CardMovedEvent(
+                CardId: cardId,
+                ActorUserId: userId,
+                FromColumnId: fromColumnId,
+                ToColumnId: targetColumnId));
+        }
+
         return Ok(new
         {
             card.Id,
@@ -633,14 +656,48 @@ public class KanbanController(
         if (!await CanAssignUserToBoardAsync(card.Column.Board, normalizedAssignedUserId))
             return BadRequest("Assigned user does not have access to this board.");
 
+        var changedFields = new List<string>();
+        if (!string.Equals(card.Title, title.Trim(), StringComparison.Ordinal))
+            changedFields.Add("title");
+        var newDescription = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
+        if (!string.Equals(card.Description, newDescription, StringComparison.Ordinal))
+            changedFields.Add("description");
+        var newPlanned = plannedStartTime?.ToUniversalTime();
+        if (card.PlannedStartTime != newPlanned)
+            changedFields.Add("planned start time");
+        var newDue = dueDate?.ToUniversalTime();
+        if (card.DueDate != newDue)
+            changedFields.Add("due date");
+        if (card.Priority != (Priority)priority)
+            changedFields.Add("priority");
+
+        var oldAssigneeId = card.AssignedUserId;
+
         card.Title = title.Trim();
-        card.Description = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
-        card.PlannedStartTime = plannedStartTime?.ToUniversalTime();
-        card.DueDate = dueDate?.ToUniversalTime();
+        card.Description = newDescription;
+        card.PlannedStartTime = newPlanned;
+        card.DueDate = newDue;
         card.Priority = (Priority)priority;
         card.AssignedUserId = normalizedAssignedUserId;
 
         await db.SaveChangesAsync();
+
+        if (changedFields.Count > 0)
+        {
+            await mediator.Publish(new CardUpdatedEvent(
+                CardId: cardId,
+                ActorUserId: userId,
+                ChangedFields: changedFields));
+        }
+
+        if (oldAssigneeId != normalizedAssignedUserId)
+        {
+            await mediator.Publish(new CardAssignedEvent(
+                CardId: cardId,
+                ActorUserId: userId,
+                OldAssigneeId: oldAssigneeId,
+                NewAssigneeId: normalizedAssignedUserId));
+        }
 
         var assignedUser = normalizedAssignedUserId == null
             ? null
@@ -706,8 +763,18 @@ public class KanbanController(
         if (!await CanAssignUserToBoardAsync(card.Column.Board, normalizedAssignedUserId))
             return BadRequest("Assigned user does not have access to this board.");
 
+        var oldAssigneeId = card.AssignedUserId;
         card.AssignedUserId = normalizedAssignedUserId;
         await db.SaveChangesAsync();
+
+        if (oldAssigneeId != normalizedAssignedUserId)
+        {
+            await mediator.Publish(new CardAssignedEvent(
+                CardId: cardId,
+                ActorUserId: userId,
+                OldAssigneeId: oldAssigneeId,
+                NewAssigneeId: normalizedAssignedUserId));
+        }
 
         var assignedUser = normalizedAssignedUserId == null
             ? null
@@ -993,6 +1060,15 @@ public class KanbanController(
         });
         await db.SaveChangesAsync();
 
+        if (targetUserId != null)
+        {
+            await mediator.Publish(new BoardSharedEvent(
+                BoardId: id,
+                ActorUserId: userId,
+                SharedWithUserId: targetUserId,
+                Permission: model.Permission));
+        }
+
         return RedirectToAction(nameof(ManageShares), new { id });
     }
 
@@ -1046,25 +1122,11 @@ public class KanbanController(
         db.KanbanCardComments.Add(comment);
         await db.SaveChangesAsync();
 
-        // Create notifications for the card creator and assignee (excluding the comment author)
-        var notifyUserIds = new HashSet<string>();
-        if (!string.IsNullOrEmpty(card.CreatorUserId) && card.CreatorUserId != userId)
-            notifyUserIds.Add(card.CreatorUserId);
-        if (!string.IsNullOrEmpty(card.AssignedUserId) && card.AssignedUserId != userId)
-            notifyUserIds.Add(card.AssignedUserId);
-
-        foreach (var notifyUserId in notifyUserIds)
-        {
-            db.Notifications.Add(new Notification
-            {
-                CardId = cardId,
-                CommentId = comment.Id,
-                UserId = notifyUserId
-            });
-        }
-
-        if (notifyUserIds.Count > 0)
-            await db.SaveChangesAsync();
+        await mediator.Publish(new CardCommentAddedEvent(
+            CardId: cardId,
+            CommentId: comment.Id,
+            ActorUserId: userId,
+            CommentContent: content.Trim()));
 
         var author = await userManager.FindByIdAsync(userId);
         return Ok(new
