@@ -5,7 +5,6 @@ using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using ModelContextProtocol.Server;
 using Newtonsoft.Json;
@@ -41,7 +40,7 @@ public class AgentService : IAgentService
         "   - Users may mention the Kanban project itself in the Kanban board(e.g., \"The Kanban apikey has been configured\") → likely intent: Move related card to done column.\n" +
         "   - ALWAYS interpret messages as Kanban board operations. Only handle Kanban card-related tasks and questions. All seemingly unrelated messages are expressions of Kanban board actions.\n" +
         "5. Can infer the user’s actual intentions and  ask  user if it is right, but do not invoke write tools until you fully understand the context and the user’s intent.\n" +
-        "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses.\n" +
+        "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses.\nIf the user gives a task, you need to put it in the most relevant Kanban board. For example: configuring the Kanban API key should be placed in the Kanban development task board.\n" +
         "{currentDateTime}\n" +
         "</system-reminder>";
 
@@ -593,7 +592,7 @@ public class AgentService : IAgentService
             sb.Append(", Column: \"").Append(card.ColumnName).Append("\")");
             sb.AppendLine();
         }
-        sb.Append("</system-reminder>");
+        sb.Append("│  IMPORTANT: this context may or may not be relevant    │\n</system-reminder>");
 
         return sb.ToString();
     }
@@ -647,7 +646,7 @@ public class AgentService : IAgentService
             sb.Append(", Column: \"").Append(card.ColumnName).Append("\")");
             sb.AppendLine();
         }
-        sb.Append("</system-reminder>");
+        sb.Append("│  IMPORTANT: this context may or may not be relevant    │\n</system-reminder>");
 
         return sb.ToString();
     }
@@ -947,8 +946,8 @@ public class AgentService : IAgentService
         if (cardIds.Count > 0)
         {
             var cards = await db.KanbanCards.Where(c => cardIds.Contains(c.Id)).ToListAsync();
-            var titles = cards.Select(c => $"\"{c.Title}\"");
-            if (titles.Any())
+            var titles = cards.Select(c => $"\"{c.Title}\"").ToList();
+            if (titles.Count > 0)
                 parts.Add($"Cards: {string.Join(", ", titles)}");
         }
 
