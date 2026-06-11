@@ -352,7 +352,6 @@ public class KanbanController(
         await mediator.Publish(new CardTransferredEvent(
             CardId: transferredCard.Id,
             ActorUserId: userId,
-            SourceBoardId: sourceBoardId,
             TargetBoardId: targetBoardId));
 
         return Ok(new
@@ -424,9 +423,7 @@ public class KanbanController(
         {
             await mediator.Publish(new CardMovedEvent(
                 CardId: cardId,
-                ActorUserId: userId,
-                FromColumnId: fromColumnId,
-                ToColumnId: targetColumnId));
+                ActorUserId: userId));
         }
 
         return Ok(new
@@ -1065,8 +1062,7 @@ public class KanbanController(
             await mediator.Publish(new BoardSharedEvent(
                 BoardId: id,
                 ActorUserId: userId,
-                SharedWithUserId: targetUserId,
-                Permission: model.Permission));
+                SharedWithUserId: targetUserId));
         }
 
         return RedirectToAction(nameof(ManageShares), new { id });
@@ -1125,8 +1121,7 @@ public class KanbanController(
         await mediator.Publish(new CardCommentAddedEvent(
             CardId: cardId,
             CommentId: comment.Id,
-            ActorUserId: userId,
-            CommentContent: content.Trim()));
+            ActorUserId: userId));
 
         var author = await userManager.FindByIdAsync(userId);
         return Ok(new

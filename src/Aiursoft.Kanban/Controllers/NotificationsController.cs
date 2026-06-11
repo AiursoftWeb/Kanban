@@ -34,9 +34,9 @@ public class NotificationsController(
 
         var notifications = await db.Notifications
             .Where(n => n.UserId == userId && !n.IsRead)
-            .Include(n => n.Comment)
+            .Include(n => n.Comment!)
                 .ThenInclude(c => c.Author)
-            .Include(n => n.Card)
+            .Include(n => n.Card!)
                 .ThenInclude(c => c.Column)
                     .ThenInclude(col => col.Board)
             .Include(n => n.ActorUser)
@@ -47,10 +47,10 @@ public class NotificationsController(
         {
             Id = n.Id,
             CardId = n.CardId ?? 0,
-            BoardId = n.Card?.Column?.BoardId ?? 0,
-            CardTitle = n.Card?.Title ?? "(deleted card)",
-            BoardName = n.Card?.Column?.Board?.Name ?? "(unknown board)",
-            ColumnName = n.Card?.Column?.Name ?? "(unknown column)",
+            BoardId = n.Card!.Column.BoardId,
+            CardTitle = n.Card.Title,
+            BoardName = n.Card.Column.Board.Name,
+            ColumnName = n.Card.Column.Name,
             CommentContent = n.Comment?.Content,
             CommentAuthorName = n.Comment != null ? GetUserDisplayName(n.Comment.Author) : null,
             CommentAuthorInitial = n.Comment != null ? GetUserInitial(n.Comment.Author) : string.Empty,

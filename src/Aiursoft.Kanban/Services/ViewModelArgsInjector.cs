@@ -21,8 +21,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 
-using Microsoft.EntityFrameworkCore;
-
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Diagnostics.CodeAnalysis;
@@ -333,13 +331,13 @@ public class ViewModelArgsInjector(
                 {
                     var icon = n.Type switch
                     {
-                        Entities.NotificationType.CommentAdded => "message-circle",
-                        Entities.NotificationType.CardAssigned => "user-plus",
-                        Entities.NotificationType.CardUnassigned => "user-minus",
-                        Entities.NotificationType.CardMoved => "arrow-right-circle",
-                        Entities.NotificationType.CardTransferred => "repeat",
-                        Entities.NotificationType.CardUpdated => "edit",
-                        Entities.NotificationType.BoardShared => "share-2",
+                        NotificationType.CommentAdded => "message-circle",
+                        NotificationType.CardAssigned => "user-plus",
+                        NotificationType.CardUnassigned => "user-minus",
+                        NotificationType.CardMoved => "arrow-right-circle",
+                        NotificationType.CardTransferred => "repeat",
+                        NotificationType.CardUpdated => "edit",
+                        NotificationType.BoardShared => "share-2",
                         _ => "bell"
                     };
                     var message = n.Message.Length > 100
