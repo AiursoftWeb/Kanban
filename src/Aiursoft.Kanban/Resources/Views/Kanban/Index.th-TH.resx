@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>สร้างเมื่อ</value>
   </data>
+  <data name="Custom color" xml:space="preserve">
+    <value>สีแบบกำหนดเอง</value>
+  </data>
   <data name="d ago" xml:space="preserve">
     <value>วันที่แล้ว</value>
   </data>

@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Oluşturulma</value>
   </data>
+  <data name="Custom color" xml:space="preserve">
+    <value>Özel renk</value>
+  </data>
   <data name="d ago" xml:space="preserve">
     <value>g önce</value>
   </data>

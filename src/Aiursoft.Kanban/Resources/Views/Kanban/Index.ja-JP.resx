@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>作成日</value>
   </data>
+  <data name="Custom color" xml:space="preserve">
+    <value>カスタムカラー</value>
+  </data>
   <data name="d ago" xml:space="preserve">
     <value>日前</value>
   </data>

@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Luotu</value>
   </data>
+  <data name="Custom color" xml:space="preserve">
+    <value>Mukautettu väri</value>
+  </data>
   <data name="d ago" xml:space="preserve">
     <value>pv sitten</value>
   </data>
