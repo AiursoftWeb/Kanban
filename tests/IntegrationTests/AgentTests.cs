@@ -549,7 +549,7 @@ public class AgentTests : TestBase
 
         var continued = service.GetConversation(conversationId)!;
         Assert.AreEqual(AgentState.Thinking, continued.State);
-        Assert.AreEqual(originalCount + 2, continued.Messages.Count); // +2: meta system-reminder + follow-up user message
+        Assert.AreEqual(originalCount + 1, continued.Messages.Count); // +1: follow-up user message (system-reminder no longer re-injected)
         Assert.AreEqual("Follow-up question", continued.Messages.Last().Content);
     }
 
@@ -903,6 +903,160 @@ public class AgentTests : TestBase
         var card = db.KanbanCards.First(c => c.ColumnId == columnId);
         Assert.AreEqual("Padded Title", card.Title, "Title should be trimmed");
         Assert.AreEqual("Padded Desc", card.Description, "Description should be trimmed");
+    }
+
+    // ── GetCardsByDateRange ──────────────────────────────
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_CompletedThisWeek_ReturnsOnlyCompletedCards()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        // Create a "Done" column with Completed status
+        var maxColOrder = db.KanbanColumns.Where(c => c.BoardId == boardId).Max(c => (int?)c.Order) ?? 0;
+        var doneColumn = new KanbanColumn { Name = "Done", Order = maxColOrder + 1, BoardId = boardId, ColumnStatus = ColumnStatus.Completed };
+        db.KanbanColumns.Add(doneColumn);
+        await db.SaveChangesAsync();
+        var doneColumnId = doneColumn.Id;
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        // Create cards completed this week
+        var thisWeekMonday = GetThisWeekMonday();
+        db.KanbanCards.Add(new KanbanCard { Title = "This Week Task A", ColumnId = doneColumnId, Order = 0, ActualEndTime = thisWeekMonday });
+        db.KanbanCards.Add(new KanbanCard { Title = "This Week Task B", ColumnId = doneColumnId, Order = 1, ActualEndTime = thisWeekMonday.AddDays(3) });
+        db.KanbanCards.Add(new KanbanCard { Title = "Old Task", ColumnId = doneColumnId, Order = 2, ActualEndTime = thisWeekMonday.AddDays(-30) });
+        await db.SaveChangesAsync();
+
+        var start = thisWeekMonday.ToString("yyyy-MM-dd");
+        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd");
+        var result = await cardTools.GetCardsByDateRange(start, end, boardId, "completed");
+
+        StringAssert.Contains(result, "This Week Task A");
+        StringAssert.Contains(result, "This Week Task B");
+        Assert.IsFalse(result.Contains("Old Task"), "Old task should not appear in this week's range");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_InvalidDateFormat_ReturnsError()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var adminUser = scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var result = await cardTools.GetCardsByDateRange("not-a-date", "2026-01-01", boardId);
+        StringAssert.Contains(result, "Invalid start date");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_StartAfterEnd_ReturnsError()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var adminUser = scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var result = await cardTools.GetCardsByDateRange("2026-06-15", "2026-06-01", boardId);
+        StringAssert.Contains(result, "is after end date");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_NoBoardId_ReturnsCardsFromAllAccessibleBoards()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        // Create a "Done" column with Completed status
+        var maxColOrder = db.KanbanColumns.Where(c => c.BoardId == boardId).Max(c => (int?)c.Order) ?? 0;
+        var doneColumn = new KanbanColumn { Name = "Done", Order = maxColOrder + 1, BoardId = boardId, ColumnStatus = ColumnStatus.Completed };
+        db.KanbanColumns.Add(doneColumn);
+        await db.SaveChangesAsync();
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var thisWeekMonday = GetThisWeekMonday();
+        db.KanbanCards.Add(new KanbanCard { Title = "Completed Card", ColumnId = doneColumn.Id, Order = 0, ActualEndTime = thisWeekMonday });
+        await db.SaveChangesAsync();
+
+        var start = thisWeekMonday.ToString("yyyy-MM-dd");
+        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd");
+        var result = await cardTools.GetCardsByDateRange(start, end, dateType: "completed");
+
+        StringAssert.Contains(result, "Completed Card");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_NoCardsInRange_ReturnsEmptyMessage()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        // Create a "Done" column with Completed status
+        var maxColOrder = db.KanbanColumns.Where(c => c.BoardId == boardId).Max(c => (int?)c.Order) ?? 0;
+        var doneColumn = new KanbanColumn { Name = "Done", Order = maxColOrder + 1, BoardId = boardId, ColumnStatus = ColumnStatus.Completed };
+        db.KanbanColumns.Add(doneColumn);
+        await db.SaveChangesAsync();
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        // Card completed way in the past
+        db.KanbanCards.Add(new KanbanCard { Title = "Ancient Task", ColumnId = doneColumn.Id, Order = 0, ActualEndTime = new DateTime(2020, 1, 1) });
+        await db.SaveChangesAsync();
+
+        var result = await cardTools.GetCardsByDateRange("2026-06-01", "2026-06-07", boardId, "completed");
+        StringAssert.Contains(result, "No completed cards found");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_FilterByCreatedDate()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        // Card created now should match today's range
+        db.KanbanCards.Add(new KanbanCard { Title = "Fresh Card", ColumnId = columnId, Order = 0 });
+        await db.SaveChangesAsync();
+
+        var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
+        var result = await cardTools.GetCardsByDateRange(today, today, boardId, "created");
+
+        StringAssert.Contains(result, "Fresh Card");
+    }
+
+    private static DateTime GetThisWeekMonday()
+    {
+        var now = DateTime.UtcNow;
+        var daysSinceMonday = ((int)now.DayOfWeek + 6) % 7;
+        return now.Date.AddDays(-daysSinceMonday);
     }
 
     // ── Multi-tool batch approval ────────────────────────

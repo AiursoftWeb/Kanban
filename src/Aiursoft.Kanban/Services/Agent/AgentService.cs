@@ -41,7 +41,6 @@ public class AgentService : IAgentService
         "   - ALWAYS interpret messages as Kanban board operations. Only handle Kanban card-related tasks and questions. All seemingly unrelated messages are expressions of Kanban board actions.\n" +
         "5. Can infer the user’s actual intentions and  ask  user if it is right, but do not invoke write tools until you fully understand the context and the user’s intent.\n" +
         "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses.\nIf the user gives a task, you need to put it in the most relevant Kanban board. For example: configuring the Kanban API key should be placed in the Kanban development task board.\n" +
-        "{currentDateTime}\n" +
         "</system-reminder>";
 
     public AgentService(
@@ -84,14 +83,13 @@ public class AgentService : IAgentService
         });
 
         // Only the user's actual message is visible in the chat UI
-        var reminder = SystemReminder.Replace("{currentDateTime}", GetCurrentDateTimeBlock());
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",
-            Content = reminder,
+            Content = SystemReminder,
             IsMeta = true
         });
-        var recentCards = BuildRecentCardsBlock(userId);
+        var recentCards = BuildRecentCardsBlock(userId, count: 10);
         if (!string.IsNullOrEmpty(recentCards))
         {
             conversation.Messages.Add(new ToolMessagesItem
@@ -108,6 +106,16 @@ public class AgentService : IAgentService
             {
                 Role = "user",
                 Content = assignedCards,
+                IsMeta = true
+            });
+        }
+        var weeklyGuidance = BuildWeeklyGuidanceBlock(userMessage);
+        if (!string.IsNullOrEmpty(weeklyGuidance))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = weeklyGuidance,
                 IsMeta = true
             });
         }
@@ -141,14 +149,10 @@ public class AgentService : IAgentService
         if (string.IsNullOrWhiteSpace(userMessage))
             return null;
 
-        var reminder = SystemReminder.Replace("{currentDateTime}", GetCurrentDateTimeBlock());
-        conversation.Messages.Add(new ToolMessagesItem
-        {
-            Role = "user",
-            Content = reminder,
-            IsMeta = true
-        });
-        var recentCards = BuildRecentCardsBlock(userId);
+        // SystemReminder and assigned cards are injected once in StartRun.
+        // Each turn: inject current time + 3 most recent cards (keeps agent
+        // aware of real-time changes) and the conditional WeeklyGuidance.
+        var recentCards = BuildRecentCardsBlock(userId, count: 3);
         if (!string.IsNullOrEmpty(recentCards))
         {
             conversation.Messages.Add(new ToolMessagesItem
@@ -158,13 +162,13 @@ public class AgentService : IAgentService
                 IsMeta = true
             });
         }
-        var assignedCards = BuildAssignedCardsBlock(userId);
-        if (!string.IsNullOrEmpty(assignedCards))
+        var weeklyGuidance = BuildWeeklyGuidanceBlock(userMessage);
+        if (!string.IsNullOrEmpty(weeklyGuidance))
         {
             conversation.Messages.Add(new ToolMessagesItem
             {
                 Role = "user",
-                Content = assignedCards,
+                Content = weeklyGuidance,
                 IsMeta = true
             });
         }
@@ -549,15 +553,44 @@ public class AgentService : IAgentService
     private static string GetCurrentDateTimeBlock()
     {
         var now = DateTime.UtcNow;
-        return $"Current time: {now:dddd, MMMM d, yyyy, h:mm tt} UTC";
+        var daysSinceMonday = ((int)now.DayOfWeek + 6) % 7;
+        var monday = now.Date.AddDays(-daysSinceMonday);
+        var sunday = monday.AddDays(6);
+        return $"Current time: {now:dddd, MMMM d, yyyy, h:mm tt} UTC\n" +
+               $"This week: {monday:yyyy-MM-dd} (Monday) – {sunday:yyyy-MM-dd} (Sunday)";
     }
 
     /// <summary>
-    /// Builds a system-reminder block listing the user's 10 most recently created
-    /// cards with their board context, so the agent has awareness of recent activity.
-    /// Card titles over 200 characters are truncated.
+    /// Builds a standalone &lt;system-reminder&gt; block with weekly-summary
+    /// guidance. Injected only when the user message contains "周" or "week"
+    /// keywords, saving tokens on unrelated conversations.
+    /// Returns an empty string when no weekly keywords are detected.
     /// </summary>
-    private string BuildRecentCardsBlock(string userId)
+    private static string BuildWeeklyGuidanceBlock(string userMessage)
+    {
+        if (string.IsNullOrWhiteSpace(userMessage))
+            return string.Empty;
+
+        var lower = userMessage.ToLowerInvariant();
+        if (!lower.Contains("周") && !lower.Contains("week"))
+            return string.Empty;
+
+        return "<system-reminder>\n" +
+               "The user is asking about a weekly summary or time period. To answer accurately:\n" +
+               "- Use GetCardsByDateRange with dateType=\"completed\" and the Monday–Sunday range shown in the first system-reminder above.\n" +
+               "- If user intend to summarize weekly report or this week's work, use GetCardsByDateRange tool instead of going through all the boards and cards.\n" +
+               "- Do NOT guess dates — always use the exact week boundary from the system-reminder.\n" +
+               "- If the user asks about a different week (e.g. \"last week\"), adjust the date range accordingly.\n" +
+               "│  IMPORTANT: this context may or may not be relevant    │\n" +
+               "</system-reminder>";
+    }
+
+    /// <summary>
+    /// Builds a system-reminder block with current date/time and the user's most
+    /// recently created cards (newest first). Card titles over 200 characters are
+    /// truncated.
+    /// </summary>
+    private string BuildRecentCardsBlock(string userId, int count = 10)
     {
         using var scope = _rootServices.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -567,7 +600,7 @@ public class AgentService : IAgentService
             .ThenInclude(col => col.Board)
             .Where(c => c.Column.Board.UserId == userId || c.AssignedUserId == userId)
             .OrderByDescending(c => c.CreationTime)
-            .Take(10)
+            .Take(count)
             .Select(c => new
             {
                 c.Title,
@@ -579,8 +612,11 @@ public class AgentService : IAgentService
         if (recentCards.Count == 0)
             return string.Empty;
 
+        var dateTimeBlock = GetCurrentDateTimeBlock();
         var sb = new StringBuilder();
         sb.AppendLine("<system-reminder>");
+        sb.AppendLine(dateTimeBlock);
+        sb.AppendLine();
         sb.AppendLine("Recently active cards (newest first):");
         foreach (var card in recentCards)
         {
@@ -748,7 +784,11 @@ public class AgentService : IAgentService
         var jsonArgs = new Dictionary<string, System.Text.Json.JsonElement>();
         foreach (var (key, value) in args)
         {
-            var json = System.Text.Json.JsonSerializer.SerializeToElement(value);
+            // LLMs often send "" for optional parameters instead of omitting them
+            // or sending null. Treat empty strings as null so nullable types (int?,
+            // bool?, etc.) deserialize correctly.
+            var sanitized = value is string s && s.Length == 0 ? null : value;
+            var json = System.Text.Json.JsonSerializer.SerializeToElement(sanitized);
             jsonArgs[key] = json;
         }
 
