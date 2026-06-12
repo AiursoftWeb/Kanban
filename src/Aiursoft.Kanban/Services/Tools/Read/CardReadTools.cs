@@ -265,4 +265,88 @@ public class CardReadTools(
         }
         return string.Join("\n", lines);
     }
+
+    [McpServerTool, Description("Get cards within a date range. Essential for weekly reports — use dateType='completed' to find cards finished this week. Also useful for checking work completed in any time period.")]
+    public async Task<string> GetCardsByDateRange(
+        [Description("Start date in yyyy-MM-dd format, inclusive")] string startDate,
+        [Description("End date in yyyy-MM-dd format, inclusive")] string endDate,
+        [Description("Optional board ID to limit results")] int? boardId,
+        [Description("Which date field to filter: 'completed' (ActualEndTime, use for weekly summaries), 'created' (CreationTime), or empty/'any' for either")] string? dateType)
+    {
+        var userId = currentUser.UserId;
+
+        if (!DateTime.TryParse(startDate, out var start))
+            return $"Error: Invalid start date \"{startDate}\". Use yyyy-MM-dd format.";
+        if (!DateTime.TryParse(endDate, out var end))
+            return $"Error: Invalid end date \"{endDate}\". Use yyyy-MM-dd format.";
+        if (start > end)
+            return $"Error: Start date \"{startDate}\" is after end date \"{endDate}\".";
+
+        // Make end date inclusive (end of day)
+        var endInclusive = end.Date.AddDays(1);
+
+        var normalizedType = (dateType?.Trim().ToLowerInvariant()) switch
+        {
+            "completed" => "completed",
+            "created" => "created",
+            _ => "any"
+        };
+
+        var query = db.KanbanCards
+            .Include(c => c.Column).ThenInclude(col => col.Board)
+            .AsQueryable();
+
+        if (boardId.HasValue)
+        {
+            query = query.Where(c => c.Column.BoardId == boardId.Value);
+        }
+
+        query = normalizedType switch
+        {
+            "completed" => query.Where(c => c.ActualEndTime >= start.Date && c.ActualEndTime < endInclusive),
+            "created" => query.Where(c => c.CreationTime >= start.Date && c.CreationTime < endInclusive),
+            _ => query.Where(c =>
+                (c.ActualEndTime.HasValue && c.ActualEndTime >= start.Date && c.ActualEndTime < endInclusive) ||
+                (c.CreationTime >= start.Date && c.CreationTime < endInclusive))
+        };
+
+        var cards = await query.ToListAsync();
+
+        var accessible = new List<KanbanCard>();
+        foreach (var card in cards)
+        {
+            if (await access.HasReadAccess(card.Column.Board, userId))
+                accessible.Add(card);
+        }
+
+        if (accessible.Count == 0)
+        {
+            var filterDesc = normalizedType switch
+            {
+                "completed" => "completed ",
+                "created" => "created ",
+                _ => ""
+            };
+            return $"No {filterDesc}cards found between {start:yyyy-MM-dd} and {end:yyyy-MM-dd}.";
+        }
+
+        var ordered = accessible
+            .OrderBy(c => c.Column.Board.Name)
+            .ThenBy(c => c.Column.Order)
+            .ThenBy(c => c.Order)
+            .ToList();
+
+        var lines = new List<string>
+        {
+            $"Found {ordered.Count} card(s) between {start:yyyy-MM-dd} and {end:yyyy-MM-dd}:"
+        };
+        foreach (var card in ordered)
+        {
+            var completedStr = card.ActualEndTime.HasValue
+                ? $" Completed: {card.ActualEndTime:yyyy-MM-dd}"
+                : "";
+            lines.Add($"- [#{card.Id}] \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{card.Column.Board.Name}\"){completedStr}");
+        }
+        return string.Join("\n", lines);
+    }
 }

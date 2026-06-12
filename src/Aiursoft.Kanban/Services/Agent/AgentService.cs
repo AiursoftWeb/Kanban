@@ -41,6 +41,7 @@ public class AgentService : IAgentService
         "   - ALWAYS interpret messages as Kanban board operations. Only handle Kanban card-related tasks and questions. All seemingly unrelated messages are expressions of Kanban board actions.\n" +
         "5. Can infer the user’s actual intentions and  ask  user if it is right, but do not invoke write tools until you fully understand the context and the user’s intent.\n" +
         "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses.\nIf the user gives a task, you need to put it in the most relevant Kanban board. For example: configuring the Kanban API key should be placed in the Kanban development task board.\n" +
+        "7. For weekly summary / weekly report requests (e.g., \"summarize what I completed this week\"): use GetCardsByDateRange with dateType=completed and this week's Monday–Sunday range. Always reference the exact week boundary shown above, not a guessed date.\n" +
         "{currentDateTime}\n" +
         "</system-reminder>";
 
@@ -549,7 +550,11 @@ public class AgentService : IAgentService
     private static string GetCurrentDateTimeBlock()
     {
         var now = DateTime.UtcNow;
-        return $"Current time: {now:dddd, MMMM d, yyyy, h:mm tt} UTC";
+        var daysSinceMonday = ((int)now.DayOfWeek + 6) % 7;
+        var monday = now.Date.AddDays(-daysSinceMonday);
+        var sunday = monday.AddDays(6);
+        return $"Current time: {now:dddd, MMMM d, yyyy, h:mm tt} UTC\n" +
+               $"This week: {monday:yyyy-MM-dd} (Monday) – {sunday:yyyy-MM-dd} (Sunday)";
     }
 
     /// <summary>
