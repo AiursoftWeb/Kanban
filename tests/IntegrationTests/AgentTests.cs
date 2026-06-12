@@ -549,7 +549,7 @@ public class AgentTests : TestBase
 
         var continued = service.GetConversation(conversationId)!;
         Assert.AreEqual(AgentState.Thinking, continued.State);
-        Assert.AreEqual(originalCount + 2, continued.Messages.Count); // +2: meta system-reminder + follow-up user message
+        Assert.AreEqual(originalCount + 1, continued.Messages.Count); // +1: follow-up user message (system-reminder no longer re-injected)
         Assert.AreEqual("Follow-up question", continued.Messages.Last().Content);
     }
 

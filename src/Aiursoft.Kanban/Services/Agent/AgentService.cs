@@ -41,7 +41,6 @@ public class AgentService : IAgentService
         "   - ALWAYS interpret messages as Kanban board operations. Only handle Kanban card-related tasks and questions. All seemingly unrelated messages are expressions of Kanban board actions.\n" +
         "5. Can infer the user’s actual intentions and  ask  user if it is right, but do not invoke write tools until you fully understand the context and the user’s intent.\n" +
         "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses.\nIf the user gives a task, you need to put it in the most relevant Kanban board. For example: configuring the Kanban API key should be placed in the Kanban development task board.\n" +
-        "{currentDateTime}\n" +
         "</system-reminder>";
 
     public AgentService(
@@ -151,33 +150,9 @@ public class AgentService : IAgentService
         if (string.IsNullOrWhiteSpace(userMessage))
             return null;
 
-        var reminder = SystemReminder.Replace("{currentDateTime}", GetCurrentDateTimeBlock());
-        conversation.Messages.Add(new ToolMessagesItem
-        {
-            Role = "user",
-            Content = reminder,
-            IsMeta = true
-        });
-        var recentCards = BuildRecentCardsBlock(userId);
-        if (!string.IsNullOrEmpty(recentCards))
-        {
-            conversation.Messages.Add(new ToolMessagesItem
-            {
-                Role = "user",
-                Content = recentCards,
-                IsMeta = true
-            });
-        }
-        var assignedCards = BuildAssignedCardsBlock(userId);
-        if (!string.IsNullOrEmpty(assignedCards))
-        {
-            conversation.Messages.Add(new ToolMessagesItem
-            {
-                Role = "user",
-                Content = assignedCards,
-                IsMeta = true
-            });
-        }
+        // SystemReminder, recent cards, and assigned cards are injected once
+        // in StartRun — not re-injected here to avoid duplication across turns.
+        // Only the conditional WeeklyGuidance is re-evaluated per message.
         var weeklyGuidance = BuildWeeklyGuidanceBlock(userMessage);
         if (!string.IsNullOrEmpty(weeklyGuidance))
         {
