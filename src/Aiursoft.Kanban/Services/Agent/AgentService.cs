@@ -83,14 +83,13 @@ public class AgentService : IAgentService
         });
 
         // Only the user's actual message is visible in the chat UI
-        var reminder = SystemReminder.Replace("{currentDateTime}", GetCurrentDateTimeBlock());
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",
-            Content = reminder,
+            Content = SystemReminder,
             IsMeta = true
         });
-        var recentCards = BuildRecentCardsBlock(userId);
+        var recentCards = BuildRecentCardsBlock(userId, count: 10);
         if (!string.IsNullOrEmpty(recentCards))
         {
             conversation.Messages.Add(new ToolMessagesItem
@@ -150,9 +149,19 @@ public class AgentService : IAgentService
         if (string.IsNullOrWhiteSpace(userMessage))
             return null;
 
-        // SystemReminder, recent cards, and assigned cards are injected once
-        // in StartRun — not re-injected here to avoid duplication across turns.
-        // Only the conditional WeeklyGuidance is re-evaluated per message.
+        // SystemReminder and assigned cards are injected once in StartRun.
+        // Each turn: inject current time + 3 most recent cards (keeps agent
+        // aware of real-time changes) and the conditional WeeklyGuidance.
+        var recentCards = BuildRecentCardsBlock(userId, count: 3);
+        if (!string.IsNullOrEmpty(recentCards))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = recentCards,
+                IsMeta = true
+            });
+        }
         var weeklyGuidance = BuildWeeklyGuidanceBlock(userMessage);
         if (!string.IsNullOrEmpty(weeklyGuidance))
         {
@@ -576,11 +585,11 @@ public class AgentService : IAgentService
     }
 
     /// <summary>
-    /// Builds a system-reminder block listing the user's 10 most recently created
-    /// cards with their board context, so the agent has awareness of recent activity.
-    /// Card titles over 200 characters are truncated.
+    /// Builds a system-reminder block with current date/time and the user's most
+    /// recently created cards (newest first). Card titles over 200 characters are
+    /// truncated.
     /// </summary>
-    private string BuildRecentCardsBlock(string userId)
+    private string BuildRecentCardsBlock(string userId, int count = 10)
     {
         using var scope = _rootServices.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -590,7 +599,7 @@ public class AgentService : IAgentService
             .ThenInclude(col => col.Board)
             .Where(c => c.Column.Board.UserId == userId || c.AssignedUserId == userId)
             .OrderByDescending(c => c.CreationTime)
-            .Take(10)
+            .Take(count)
             .Select(c => new
             {
                 c.Title,
@@ -602,8 +611,11 @@ public class AgentService : IAgentService
         if (recentCards.Count == 0)
             return string.Empty;
 
+        var dateTimeBlock = GetCurrentDateTimeBlock();
         var sb = new StringBuilder();
         sb.AppendLine("<system-reminder>");
+        sb.AppendLine(dateTimeBlock);
+        sb.AppendLine();
         sb.AppendLine("Recently active cards (newest first):");
         foreach (var card in recentCards)
         {
