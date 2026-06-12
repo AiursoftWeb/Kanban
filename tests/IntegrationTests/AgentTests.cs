@@ -954,7 +954,7 @@ public class AgentTests : TestBase
         scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
         var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
 
-        var result = await cardTools.GetCardsByDateRange("not-a-date", "2026-01-01", boardId, null);
+        var result = await cardTools.GetCardsByDateRange("not-a-date", "2026-01-01", boardId);
         StringAssert.Contains(result, "Invalid start date");
     }
 
@@ -969,7 +969,7 @@ public class AgentTests : TestBase
         scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
         var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
 
-        var result = await cardTools.GetCardsByDateRange("2026-06-15", "2026-06-01", boardId, null);
+        var result = await cardTools.GetCardsByDateRange("2026-06-15", "2026-06-01", boardId);
         StringAssert.Contains(result, "is after end date");
     }
 
@@ -998,7 +998,7 @@ public class AgentTests : TestBase
 
         var start = thisWeekMonday.ToString("yyyy-MM-dd");
         var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd");
-        var result = await cardTools.GetCardsByDateRange(start, end, null, "completed");
+        var result = await cardTools.GetCardsByDateRange(start, end, dateType: "completed");
 
         StringAssert.Contains(result, "Completed Card");
     }
