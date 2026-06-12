@@ -48,7 +48,7 @@ public class CardReadTools(
     [McpServerTool, Description("Search cards by title or description")]
     public async Task<string> SearchCards(
         [Description("Search query")] string query,
-        [Description("Optional board ID to limit search")] int? boardId)
+        [Description("Optional board ID to limit search. Omit or leave empty to search all boards.")] int? boardId = null)
     {
         var userId = currentUser.UserId;
         var normalized = query.Trim().ToUpperInvariant();
@@ -168,7 +168,7 @@ public class CardReadTools(
     [McpServerTool, Description("Get cards that have a specific label")]
     public async Task<string> GetCardsByLabel(
         [Description("Label name to search for")] string labelName,
-        [Description("Optional board ID to limit search")] int? boardId)
+        [Description("Optional board ID to limit search. Omit or leave empty to search all boards.")] int? boardId = null)
     {
         var userId = currentUser.UserId;
         var normalized = labelName.Trim().ToUpperInvariant();
@@ -203,8 +203,8 @@ public class CardReadTools(
 
     [McpServerTool, Description("Get cards assigned to the current user across all boards, with optional status and board filters")]
     public async Task<string> GetMyTasks(
-        [Description("Status filter: incomplete (default), not-started, in-progress, completed, or all")] string? status,
-        [Description("Optional board ID to limit results to a specific board")] int? boardId)
+        [Description("Status filter: incomplete (default), not-started, in-progress, completed, or all")] string? status = null,
+        [Description("Optional board ID to limit results to a specific board. Omit or leave empty to search all boards.")] int? boardId = null)
     {
         var userId = currentUser.UserId;
         var normalizedStatus = (status?.Trim().ToLowerInvariant()) switch
@@ -270,8 +270,8 @@ public class CardReadTools(
     public async Task<string> GetCardsByDateRange(
         [Description("Start date in yyyy-MM-dd format, inclusive")] string startDate,
         [Description("End date in yyyy-MM-dd format, inclusive")] string endDate,
-        [Description("Optional board ID to limit results")] int? boardId,
-        [Description("Which date field to filter: 'completed' (ActualEndTime, use for weekly summaries), 'created' (CreationTime), or empty/'any' for either")] string? dateType)
+        [Description("Optional board ID to limit results. Omit or leave empty to search all boards.")] int? boardId = null,
+        [Description("Which date field to filter: 'completed' (ActualEndTime, use for weekly summaries), 'created' (CreationTime), or omit/empty for either")] string? dateType = null)
     {
         var userId = currentUser.UserId;
 

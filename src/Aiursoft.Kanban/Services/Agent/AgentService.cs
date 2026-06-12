@@ -578,6 +578,7 @@ public class AgentService : IAgentService
         return "<system-reminder>\n" +
                "The user is asking about a weekly summary or time period. To answer accurately:\n" +
                "- Use GetCardsByDateRange with dateType=\"completed\" and the Monday–Sunday range shown in the first system-reminder above.\n" +
+               "- If user intend to summarize weekly report or this week's work, use GetCardsByDateRange tool instead of going through all the boards and cards.\n" +
                "- Do NOT guess dates — always use the exact week boundary from the system-reminder.\n" +
                "- If the user asks about a different week (e.g. \"last week\"), adjust the date range accordingly.\n" +
                "│  IMPORTANT: this context may or may not be relevant    │\n" +
@@ -783,7 +784,11 @@ public class AgentService : IAgentService
         var jsonArgs = new Dictionary<string, System.Text.Json.JsonElement>();
         foreach (var (key, value) in args)
         {
-            var json = System.Text.Json.JsonSerializer.SerializeToElement(value);
+            // LLMs often send "" for optional parameters instead of omitting them
+            // or sending null. Treat empty strings as null so nullable types (int?,
+            // bool?, etc.) deserialize correctly.
+            var sanitized = value is string s && s.Length == 0 ? null : value;
+            var json = System.Text.Json.JsonSerializer.SerializeToElement(sanitized);
             jsonArgs[key] = json;
         }
 
