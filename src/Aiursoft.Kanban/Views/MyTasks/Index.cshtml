@@ -210,7 +210,7 @@ else
                             <div class="task-title">@card.Title</div>
                             @if (!string.IsNullOrWhiteSpace(card.Description))
                             {
-                                <div class="task-subtle mt-2">@card.Description</div>
+                                <div class="task-subtle mt-2">@Html.Raw(System.Net.WebUtility.HtmlEncode(card.Description).Replace("\n", "<br>"))</div>
                             }
                         </div>
                         <div class="text-md-end task-subtle">
