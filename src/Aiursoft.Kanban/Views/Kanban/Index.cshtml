@@ -277,6 +277,7 @@
         overflow: hidden;
         max-height: 4.5em;
         word-break: break-word;
+        white-space: pre-wrap;
     }
 
     .card-inline-img {
@@ -1201,7 +1202,7 @@
                                 <div class="card-title-text">@card.Title</div>
                                 @if (!string.IsNullOrWhiteSpace(card.Description))
                                 {
-                                    <div class="card-description">@card.Description</div>
+                                    <div class="card-description">@Html.Raw(System.Net.WebUtility.HtmlEncode(card.Description).Replace("\n", "<br>"))</div>
                                 }
                             </div>
                         }
@@ -1325,7 +1326,7 @@
                                 }
                             </label>
                             <textarea id="editCardDescription" class="form-control" rows="3" style="border-radius:12px;resize:none" disabled="@(!Model.CanEditCurrentBoard)"></textarea>
-                            <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid #dee2e6;border-radius:12px;background:#f8f9fa;word-break:break-word"></div>
+                            <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid #dee2e6;border-radius:12px;background:#f8f9fa;word-break:break-word;white-space:pre-wrap"></div>
                         </div>
                         <div class="row g-3 mb-3">
                             <div class="col-6">
@@ -1904,7 +1905,7 @@
         function renderDescriptionHtml(description) {
             if (!description) return "";
             var parts = description.split(/(!\[.*?\]\([^)]+\))/g);
-            return parts.map(function(part) {
+            var html = parts.map(function(part) {
                 var match = part.match(/^!\[(.*?)\]\(([^)]+)\)$/);
                 if (match) {
                     var alt = escapeAttribute(match[1] || 'image');
@@ -1913,6 +1914,8 @@
                 }
                 return escapeHtml(part);
             }).join("");
+            // 将换行符转换为 <br> 标签
+            return html.replace(/\n/g, '<br>');
         }
 
         var imageFullscreenOverlay = document.getElementById("imageFullscreenOverlay");
