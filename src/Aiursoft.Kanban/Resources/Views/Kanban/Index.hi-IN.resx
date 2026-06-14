@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>बनाया गया</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>निर्माता</value>
+  </data>
   <data name="Custom color" xml:space="preserve">
     <value>कस्टम रंग</value>
   </data>

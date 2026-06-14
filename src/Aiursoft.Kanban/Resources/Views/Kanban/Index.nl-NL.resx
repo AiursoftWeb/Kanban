@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Aangemaakt</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Maker</value>
+  </data>
   <data name="Custom color" xml:space="preserve">
     <value>Aangepaste kleur</value>
   </data>

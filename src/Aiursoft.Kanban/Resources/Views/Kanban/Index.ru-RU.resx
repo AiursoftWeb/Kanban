@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Создано</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Создатель</value>
+  </data>
   <data name="Custom color" xml:space="preserve">
     <value>Пользовательский цвет</value>
   </data>
