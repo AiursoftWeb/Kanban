@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Dibuat</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Pembuat</value>
+  </data>
   <data name="Custom color" xml:space="preserve">
     <value>Warna khusus</value>
   </data>

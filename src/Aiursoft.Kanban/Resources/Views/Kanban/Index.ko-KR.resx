@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>생성일</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>생성자</value>
+  </data>
   <data name="Custom color" xml:space="preserve">
     <value>사용자 정의 색상</value>
   </data>

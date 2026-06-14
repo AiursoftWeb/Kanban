@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>建立時間</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>建立者</value>
+  </data>
   <data name="Custom color" xml:space="preserve">
     <value>自訂色彩</value>
   </data>
