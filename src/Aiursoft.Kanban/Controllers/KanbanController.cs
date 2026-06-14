@@ -226,7 +226,20 @@ public class KanbanController(
         db.KanbanCards.Add(card);
         await db.SaveChangesAsync();
 
-        return Ok(new { card.Id, card.Title, card.Description, card.Order, card.ColumnId });
+        var creator = await userManager.FindByIdAsync(userId);
+
+        return Ok(new
+        {
+            card.Id,
+            card.Title,
+            card.Description,
+            card.Order,
+            card.ColumnId,
+            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mm"),
+            CreatorUserName = GetUserDisplayName(creator),
+            CreatorUserInitial = GetUserInitial(creator),
+            CreatorUserAvatarUrl = GetUserAvatarUrl(creator)
+        });
     }
 
     [HttpPost]
@@ -623,6 +636,7 @@ public class KanbanController(
         var card = await db.KanbanCards
             .Include(c => c.Column)
                 .ThenInclude(col => col.Board)
+            .Include(c => c.CreatorUser)
             .FirstOrDefaultAsync(c => c.Id == cardId);
         if (card == null) return NotFound();
 
@@ -655,12 +669,17 @@ public class KanbanController(
             DueDate = card.DueDate?.ToString("yyyy-MM-dd"),
             ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm"),
             ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm"),
+            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mm"),
             Priority = (int)card.Priority,
             PriorityText = card.Priority.ToString(),
             AssignedUserId = assignedUser?.Id,
             AssignedUserName = GetUserDisplayName(assignedUser),
             AssignedUserInitial = GetUserInitial(assignedUser),
-            AssignedUserAvatarUrl = GetUserAvatarUrl(assignedUser)
+            AssignedUserAvatarUrl = GetUserAvatarUrl(assignedUser),
+            CreatorUserId = card.CreatorUser?.Id,
+            CreatorUserName = GetUserDisplayName(card.CreatorUser),
+            CreatorUserInitial = GetUserInitial(card.CreatorUser),
+            CreatorUserAvatarUrl = GetUserAvatarUrl(card.CreatorUser)
         });
     }
 
@@ -1139,6 +1158,9 @@ public class KanbanController(
             .Include(b => b.Columns.OrderBy(c => c.Order))
                 .ThenInclude(c => c.Cards.OrderBy(card => card.Order))
                     .ThenInclude(card => card.AssignedUser)
+            .Include(b => b.Columns.OrderBy(c => c.Order))
+                .ThenInclude(c => c.Cards.OrderBy(card => card.Order))
+                    .ThenInclude(card => card.CreatorUser)
             .FirstOrDefaultAsync(b => b.Id == boardId);
     }
 
