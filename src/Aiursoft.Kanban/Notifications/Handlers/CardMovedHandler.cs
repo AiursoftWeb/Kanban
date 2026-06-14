@@ -23,6 +23,7 @@ public class CardMovedHandler(TemplateDbContext db) : INotificationHandler<CardM
             notifyIds.Add(card.AssignedUserId);
 
         notifyIds.Remove(e.ActorUserId);
+        notifyIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(db, card.Column.BoardId, notifyIds, ct);
 
         foreach (var userId in notifyIds)
         {

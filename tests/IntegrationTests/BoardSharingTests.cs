@@ -249,7 +249,7 @@ public class BoardSharingTests : TestBase
     }
 
     [TestMethod]
-    public async Task TransferCard_NotifiesOriginalAssignee()
+    public async Task TransferCard_DoesNotNotifyOriginalAssigneeWithoutTargetBoardAccess()
     {
         var (sourceOwnerEmail, sourceOwnerPassword) = await RegisterAndLoginAsync();
         var sourceOwnerId = await GetUserIdByEmailAsync(sourceOwnerEmail);
@@ -299,7 +299,7 @@ public class BoardSharingTests : TestBase
 
         using var verificationScope = Server!.Services.CreateScope();
         var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-        Assert.IsTrue(await verificationDb.Notifications.AnyAsync(notification =>
+        Assert.IsFalse(await verificationDb.Notifications.AnyAsync(notification =>
             notification.UserId == assigneeId &&
             notification.Type == NotificationType.CardTransferred));
     }

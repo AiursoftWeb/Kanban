@@ -10,13 +10,19 @@ public class CardAssignedHandler(TemplateDbContext db) : INotificationHandler<Ca
     public async Task Handle(CardAssignedEvent e, CancellationToken ct)
     {
         var card = await db.KanbanCards
+            .Include(c => c.Column)
             .FirstOrDefaultAsync(c => c.Id == e.CardId, ct);
         if (card == null) return;
 
         var actorName = await CardCommentAddedHandler.GetUserDisplayName(db, e.ActorUserId);
+        var allowedIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(
+            db,
+            card.Column.BoardId,
+            new[] { e.NewAssigneeId, e.OldAssigneeId }.OfType<string>(),
+            ct);
 
         // Notify new assignee
-        if (!string.IsNullOrEmpty(e.NewAssigneeId) && e.NewAssigneeId != e.ActorUserId)
+        if (!string.IsNullOrEmpty(e.NewAssigneeId) && e.NewAssigneeId != e.ActorUserId && allowedIds.Contains(e.NewAssigneeId))
         {
             db.Notifications.Add(new Notification
             {
@@ -36,7 +42,8 @@ public class CardAssignedHandler(TemplateDbContext db) : INotificationHandler<Ca
         // Notify old assignee about removal
         if (!string.IsNullOrEmpty(e.OldAssigneeId)
             && e.OldAssigneeId != e.NewAssigneeId
-            && e.OldAssigneeId != e.ActorUserId)
+            && e.OldAssigneeId != e.ActorUserId
+            && allowedIds.Contains(e.OldAssigneeId))
         {
             db.Notifications.Add(new Notification
             {

@@ -10,6 +10,7 @@ public class CardCommentAddedHandler(TemplateDbContext db) : INotificationHandle
     public async Task Handle(CardCommentAddedEvent e, CancellationToken ct)
     {
         var card = await db.KanbanCards
+            .Include(c => c.Column)
             .FirstOrDefaultAsync(c => c.Id == e.CardId, ct);
         if (card == null) return;
 
@@ -30,6 +31,7 @@ public class CardCommentAddedHandler(TemplateDbContext db) : INotificationHandle
             notifyIds.Add(id);
 
         notifyIds.Remove(e.ActorUserId);
+        notifyIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(db, card.Column.BoardId, notifyIds, ct);
 
         foreach (var userId in notifyIds)
         {

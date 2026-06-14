@@ -27,6 +27,7 @@ public class CardTransferredHandler(TemplateDbContext db) : INotificationHandler
             notifyIds.Add(e.OriginalAssigneeUserId);
 
         notifyIds.Remove(e.ActorUserId);
+        notifyIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(db, targetBoard.Id, notifyIds, ct);
 
         foreach (var userId in notifyIds)
         {
