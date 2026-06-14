@@ -1182,6 +1182,13 @@
                             var assignedUserAvatarUrl = card.AssignedUser != null && card.AssignedUser.AvatarRelativePath != Aiursoft.Kanban.Entities.User.DefaultAvatarPath
                                 ? $"{Storage.RelativePathToInternetUrl(card.AssignedUser.AvatarRelativePath)}?w=56&square=true"
                                 : string.Empty;
+                            var creatorUserDisplayName = card.CreatorUser?.DisplayName ?? card.CreatorUser?.UserName ?? string.Empty;
+                            var creatorUserInitial = string.IsNullOrWhiteSpace(creatorUserDisplayName)
+                                ? string.Empty
+                                : creatorUserDisplayName.Trim()[0].ToString().ToUpperInvariant();
+                            var creatorUserAvatarUrl = card.CreatorUser != null && card.CreatorUser.AvatarRelativePath != Aiursoft.Kanban.Entities.User.DefaultAvatarPath
+                                ? $"{Storage.RelativePathToInternetUrl(card.CreatorUser.AvatarRelativePath)}?w=56&square=true"
+                                : string.Empty;
                             var labelsJson = JsonSerializer.Serialize(card.CardLabels
                                 .OrderBy(link => link.Label.Name)
                                 .Select(link => new { Id = link.LabelId, link.Label.Name, link.Label.Color }));
@@ -1198,6 +1205,10 @@
                                  data-assigned-user-name="@assignedUserDisplayName"
                                  data-assigned-user-initial="@assignedUserInitial"
                                  data-assigned-user-avatar-url="@assignedUserAvatarUrl"
+                                 data-creator-user-name="@creatorUserDisplayName"
+                                 data-creator-user-initial="@creatorUserInitial"
+                                 data-creator-user-avatar-url="@creatorUserAvatarUrl"
+                                 data-creation-time="@card.CreationTime.ToString("yyyy-MM-ddTHH:mm")"
                                  data-labels='@labelsJson'>
                                 <div class="card-title-text">@card.Title</div>
                                 @if (!string.IsNullOrWhiteSpace(card.Description))
@@ -1327,6 +1338,21 @@
                             </label>
                             <textarea id="editCardDescription" class="form-control" rows="3" style="border-radius:12px;resize:none" disabled="@(!Model.CanEditCurrentBoard)"></textarea>
                             <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid #dee2e6;border-radius:12px;background:#f8f9fa;word-break:break-word;white-space:pre-wrap"></div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label class="form-label fw-semibold text-muted">@Localizer["Creator"]</label>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="card-assignee-avatar" id="editCardCreatorAvatar" title="">
+                                        <span id="editCardCreatorInitial"></span>
+                                    </span>
+                                    <span id="editCardCreatorName" class="text-muted small">—</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-semibold text-muted">@Localizer["Created"]</label>
+                                <div id="editCardCreationTime" class="form-control bg-light text-muted" style="border-radius:12px;font-size:0.85rem">—</div>
+                            </div>
                         </div>
                         <div class="row g-3 mb-3">
                             <div class="col-6">
@@ -2632,7 +2658,7 @@
             });
         }
 
-        function addCardToDom(cardId, title, description, columnId) {
+        function addCardToDom(cardId, title, description, columnId, creationTime, creatorInitial, creatorAvatarUrl, creatorUserName) {
             var cardList = document.querySelector('.column-cards[data-column-id="' + columnId + '"]');
             if (!cardList) {
                 console.error("addCardToDom: column-cards not found for columnId=" + columnId);
@@ -2655,6 +2681,11 @@
             card.dataset.assignedUserId = "";
             card.dataset.assignedUserName = "";
             card.dataset.assignedUserInitial = "";
+            card.dataset.assignedUserAvatarUrl = "";
+            card.dataset.creatorUserName = creatorUserName || "";
+            card.dataset.creatorUserInitial = creatorInitial || "";
+            card.dataset.creatorUserAvatarUrl = creatorAvatarUrl || "";
+            card.dataset.creationTime = creationTime || "";
             card.dataset.labels = "[]";
             renderCardContent(card);
             bindCardClick(card);
@@ -2694,7 +2725,8 @@
                     return r.json();
                 })
                 .then(function(data) {
-                    addCardToDom(data.Id, data.Title, data.Description, data.ColumnId);
+                    addCardToDom(data.Id, data.Title, data.Description, data.ColumnId,
+                        data.CreationTime, data.CreatorUserInitial, data.CreatorUserAvatarUrl, data.CreatorUserName);
                     bootstrap.Modal.getInstance(addCardModal).hide();
                 })
                 .catch(function(err) {
@@ -2841,6 +2873,10 @@
         var editCardAssignee = document.getElementById("editCardAssignee");
         var editCardActualStart = document.getElementById("editCardActualStart");
         var editCardActualEnd = document.getElementById("editCardActualEnd");
+        var editCardCreatorAvatar = document.getElementById("editCardCreatorAvatar");
+        var editCardCreatorInitial = document.getElementById("editCardCreatorInitial");
+        var editCardCreatorName = document.getElementById("editCardCreatorName");
+        var editCardCreationTime = document.getElementById("editCardCreationTime");
         var editCardLabelInput = document.getElementById("editCardLabelInput");
         var editCardLabelSuggestions = document.getElementById("editCardLabelSuggestions");
         var editCardLabels = document.getElementById("editCardLabels");
@@ -3254,6 +3290,35 @@
             }
             editCardActualStart.textContent = formatDateTimeLocal(cardEl.dataset.actualStart);
             editCardActualEnd.textContent = formatDateTimeLocal(cardEl.dataset.actualEnd);
+
+            // Populate creator info
+            var creatorInitial = cardEl.dataset.creatorUserInitial || "";
+            var creatorAvatarUrl = cardEl.dataset.creatorUserAvatarUrl || "";
+            var creatorName = cardEl.dataset.creatorUserName || creatorInitial || "";
+            var creationTime = formatDateTimeLocal(cardEl.dataset.creationTime);
+            if (editCardCreatorName) editCardCreatorName.textContent = creatorName || "—";
+            if (editCardCreationTime) editCardCreationTime.textContent = creationTime;
+            if (editCardCreatorAvatar) {
+                editCardCreatorAvatar.title = creatorName || "";
+                var avatarInner = editCardCreatorAvatar.querySelector("img");
+                if (creatorAvatarUrl) {
+                    if (!avatarInner) {
+                        avatarInner = document.createElement("img");
+                        avatarInner.className = "card-assignee-avatar-image";
+                        editCardCreatorAvatar.insertBefore(avatarInner, editCardCreatorInitial);
+                    }
+                    avatarInner.src = creatorAvatarUrl;
+                    avatarInner.alt = creatorName;
+                    avatarInner.onerror = function() { this.classList.add("d-none"); editCardCreatorInitial.classList.remove("d-none"); };
+                    avatarInner.classList.remove("d-none");
+                    editCardCreatorInitial.classList.add("d-none");
+                } else {
+                    if (avatarInner) avatarInner.classList.add("d-none");
+                    editCardCreatorInitial.classList.remove("d-none");
+                    editCardCreatorInitial.textContent = creatorInitial;
+                }
+            }
+
             renderSelectedLabels();
             loadBoardMembers(cardEl.dataset.assignedUserId || "");
             loadComments(currentEditCardId);
