@@ -2,6 +2,7 @@ using Aiursoft.Scanner.Abstractions;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Controllers;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services.Authentication;
 using Aiursoft.Kanban.Services.FileStorage;
 using Aiursoft.UiStack.Layout;
@@ -20,6 +21,7 @@ using UiStackNotification = Aiursoft.UiStack.Views.Shared.Components.Notificatio
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -321,6 +323,11 @@ public class ViewModelArgsInjector(
             var userId = userManager.GetUserId(context.User)!;
             var recentNotifications = db.Notifications
                 .Where(n => n.UserId == userId && !n.IsRead)
+                .Include(n => n.Comment!)
+                    .ThenInclude(c => c.Author)
+                .Include(n => n.Card!)
+                    .ThenInclude(c => c.Column)
+                .Include(n => n.ActorUser)
                 .OrderByDescending(n => n.CreationTime)
                 .Take(10)
                 .ToList();
@@ -340,12 +347,13 @@ public class ViewModelArgsInjector(
                         NotificationType.BoardShared => "share-2",
                         _ => "bell"
                     };
-                    var message = n.Message.Length > 100
-                        ? n.Message[..100] + "..."
-                        : n.Message;
+                    var title = NotificationTemplateService.BuildMessage(n);
+                    var message = title.Length > 100
+                        ? title[..100] + "..."
+                        : title;
                     return new UiStackNotification
                     {
-                        Title = n.Message,
+                        Title = title,
                         Message = message,
                         TriggerTime = n.CreationTime,
                         Icon = icon,

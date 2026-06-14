@@ -321,6 +321,8 @@ public class KanbanController(
         var maxOrder = await db.KanbanCards
             .Where(c => c.ColumnId == targetColumnId)
             .MaxAsync(c => (int?)c.Order) ?? -1;
+        var originalCreatorUserId = card.CreatorUserId;
+        var originalAssigneeUserId = card.AssignedUserId;
         var comments = await db.KanbanCardComments
             .Where(comment => comment.CardId == cardId)
             .ToListAsync();
@@ -350,7 +352,9 @@ public class KanbanController(
         await mediator.Publish(new CardTransferredEvent(
             CardId: transferredCard.Id,
             ActorUserId: userId,
-            TargetBoardId: targetBoardId));
+            TargetBoardId: targetBoardId,
+            OriginalCreatorUserId: originalCreatorUserId,
+            OriginalAssigneeUserId: originalAssigneeUserId));
 
         return Ok(new
         {

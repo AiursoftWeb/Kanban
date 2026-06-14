@@ -159,7 +159,9 @@ else
         @foreach (var notification in Model.Notifications)
         {
             var isCommentType = notification.Type == Aiursoft.Kanban.Entities.NotificationType.CommentAdded;
-            var actorInitial = notification.ActorUserName?.Trim()[0].ToString().ToUpperInvariant() ?? "?";
+            var actorInitial = string.IsNullOrWhiteSpace(notification.ActorUserName)
+                ? "?"
+                : notification.ActorUserName.Trim()[0].ToString().ToUpperInvariant();
             <div class="col-12">
                 <div class="notification-card" data-notification-id="@notification.Id">
                     <div class="notification-header">
@@ -184,7 +186,7 @@ else
                         <button type="button" class="btn btn-outline-primary btn-mark-read mark-read-btn">
                             <i class="align-middle me-1" data-lucide="check"></i> Mark as Read
                         </button>
-                        @if (notification.CardId > 0)
+                        @if (notification.CardId.HasValue && notification.BoardId.HasValue)
                         {
                             <a href="/Kanban/Index?boardId=@notification.BoardId" class="btn btn-outline-secondary btn-card-link">
                                 <i class="align-middle me-1" data-lucide="external-link"></i> Open Card

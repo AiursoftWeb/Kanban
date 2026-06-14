@@ -5,11 +5,11 @@ namespace Aiursoft.Kanban.Models.NotificationsViewModels;
 public class NotificationItem
 {
     public int Id { get; set; }
-    public int CardId { get; set; }
-    public int BoardId { get; set; }
-    public required string CardTitle { get; set; }
-    public required string BoardName { get; set; }
-    public required string ColumnName { get; set; }
+    public int? CardId { get; set; }
+    public int? BoardId { get; set; }
+    public string? CardTitle { get; set; }
+    public string? BoardName { get; set; }
+    public string? ColumnName { get; set; }
     public string? CommentContent { get; set; }
     public string? CommentAuthorName { get; set; }
     public string CommentAuthorInitial { get; set; } = string.Empty;

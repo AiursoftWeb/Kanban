@@ -1,5 +1,6 @@
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.NotificationsViewModels;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
@@ -46,16 +47,16 @@ public class NotificationsController(
         var items = notifications.Select(n => new NotificationItem
         {
             Id = n.Id,
-            CardId = n.CardId ?? 0,
-            BoardId = n.Card!.Column.BoardId,
-            CardTitle = n.Card.Title,
-            BoardName = n.Card.Column.Board.Name,
-            ColumnName = n.Card.Column.Name,
+            CardId = n.CardId,
+            BoardId = n.Card?.Column.BoardId,
+            CardTitle = n.Card?.Title,
+            BoardName = n.Card?.Column.Board.Name,
+            ColumnName = n.Card?.Column.Name,
             CommentContent = n.Comment?.Content,
             CommentAuthorName = n.Comment != null ? GetUserDisplayName(n.Comment.Author) : null,
             CommentAuthorInitial = n.Comment != null ? GetUserInitial(n.Comment.Author) : string.Empty,
             Type = n.Type,
-            Message = n.Message,
+            Message = NotificationTemplateService.BuildMessage(n),
             ActorUserName = GetUserDisplayName(n.ActorUser),
             CreationTime = n.CreationTime
         }).ToList();

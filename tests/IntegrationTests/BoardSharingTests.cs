@@ -249,6 +249,91 @@ public class BoardSharingTests : TestBase
     }
 
     [TestMethod]
+    public async Task TransferCard_NotifiesOriginalAssignee()
+    {
+        var (sourceOwnerEmail, sourceOwnerPassword) = await RegisterAndLoginAsync();
+        var sourceOwnerId = await GetUserIdByEmailAsync(sourceOwnerEmail);
+        var sourceBoardId = await CreateBoardWithOwner(sourceOwnerId, "Source Board");
+        await LogoutAsync();
+
+        var assigneeId = await RegisterUserAndGetIdAsync();
+        await LogoutAsync();
+
+        var targetOwnerId = await RegisterUserAndGetIdAsync();
+        var targetBoardId = await CreateBoardWithOwner(targetOwnerId, "Target Board");
+        await CreateShare(targetBoardId, sourceOwnerId, null, SharePermission.Editable);
+        await LogoutAsync();
+        await LoginAsync(sourceOwnerEmail, sourceOwnerPassword);
+
+        int cardId;
+        int targetColumnId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var sourceColumnId = await db.KanbanColumns
+                .Where(column => column.BoardId == sourceBoardId)
+                .OrderBy(column => column.Order)
+                .Select(column => column.Id)
+                .FirstAsync();
+            targetColumnId = await db.KanbanColumns
+                .Where(column => column.BoardId == targetBoardId)
+                .OrderBy(column => column.Order)
+                .Select(column => column.Id)
+                .FirstAsync();
+            var card = new KanbanCard
+            {
+                Title = "Notify assignee",
+                ColumnId = sourceColumnId,
+                CreatorUserId = sourceOwnerId,
+                AssignedUserId = assigneeId
+            };
+            db.KanbanCards.Add(card);
+            await db.SaveChangesAsync();
+            cardId = card.Id;
+        }
+
+        var transferResponse = await PostForm(
+            $"/Kanban/TransferCard?cardId={cardId}&targetBoardId={targetBoardId}&targetColumnId={targetColumnId}",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.OK, transferResponse.StatusCode);
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsTrue(await verificationDb.Notifications.AnyAsync(notification =>
+            notification.UserId == assigneeId &&
+            notification.Type == NotificationType.CardTransferred));
+    }
+
+    [TestMethod]
+    public async Task NotificationsIndex_BoardSharedWithoutCard_ReturnsOk()
+    {
+        var ownerId = await RegisterUserAndGetIdAsync();
+        await LogoutAsync();
+
+        var (viewerEmail, viewerPassword) = await RegisterAndLoginAsync();
+        var viewerId = await GetUserIdByEmailAsync(viewerEmail);
+        await LogoutAsync();
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.Notifications.Add(new Notification
+            {
+                UserId = viewerId,
+                ActorUserId = ownerId,
+                Type = NotificationType.BoardShared
+            });
+            await db.SaveChangesAsync();
+        }
+
+        await LoginAsync(viewerEmail, viewerPassword);
+        var response = await Http.GetAsync("/Notifications/Index");
+
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        Assert.Contains("shared a board with you", await response.Content.ReadAsStringAsync());
+    }
+
+    [TestMethod]
     public async Task TransferCard_ToReadOnlySharedBoard_ReturnsForbidden()
     {
         var (sourceOwnerEmail, sourceOwnerPassword) = await RegisterAndLoginAsync();

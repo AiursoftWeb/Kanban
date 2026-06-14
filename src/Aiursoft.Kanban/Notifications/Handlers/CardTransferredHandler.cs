@@ -21,10 +21,10 @@ public class CardTransferredHandler(TemplateDbContext db) : INotificationHandler
         var actorName = await CardCommentAddedHandler.GetUserDisplayName(db, e.ActorUserId);
 
         var notifyIds = new HashSet<string>();
-        if (!string.IsNullOrEmpty(card.CreatorUserId))
-            notifyIds.Add(card.CreatorUserId);
-        if (!string.IsNullOrEmpty(card.AssignedUserId))
-            notifyIds.Add(card.AssignedUserId);
+        if (!string.IsNullOrEmpty(e.OriginalCreatorUserId))
+            notifyIds.Add(e.OriginalCreatorUserId);
+        if (!string.IsNullOrEmpty(e.OriginalAssigneeUserId))
+            notifyIds.Add(e.OriginalAssigneeUserId);
 
         notifyIds.Remove(e.ActorUserId);
 
