@@ -1130,7 +1130,7 @@ public class AgentTests : TestBase
     public async Task FilterCards_AssignedToMe_OnlyReturnsMyCards()
     {
         await LoginAsAdmin();
-        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
 
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -1152,7 +1152,7 @@ public class AgentTests : TestBase
     public async Task FilterCards_InvalidPriority_ReturnsError()
     {
         await LoginAsAdmin();
-        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        await CreateBoardAndFirstColumnAsync();
 
         using var scope = Server!.Services.CreateScope();
         var adminUser = scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Users.First(u => u.Email == "admin@default.com");
