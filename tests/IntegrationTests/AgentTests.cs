@@ -929,9 +929,9 @@ public class AgentTests : TestBase
 
         // Create cards completed this week
         var thisWeekMonday = GetThisWeekMonday();
-        db.KanbanCards.Add(new KanbanCard { Title = "This Week Task A", ColumnId = doneColumnId, Order = 0, ActualEndTime = thisWeekMonday });
-        db.KanbanCards.Add(new KanbanCard { Title = "This Week Task B", ColumnId = doneColumnId, Order = 1, ActualEndTime = thisWeekMonday.AddDays(3) });
-        db.KanbanCards.Add(new KanbanCard { Title = "Old Task", ColumnId = doneColumnId, Order = 2, ActualEndTime = thisWeekMonday.AddDays(-30) });
+        db.KanbanCards.Add(new KanbanCard { Title = "This Week Task A", ColumnId = doneColumnId, Order = 0, ActualEndTime = thisWeekMonday, AssignedUserId = adminUser.Id });
+        db.KanbanCards.Add(new KanbanCard { Title = "This Week Task B", ColumnId = doneColumnId, Order = 1, ActualEndTime = thisWeekMonday.AddDays(3), AssignedUserId = adminUser.Id });
+        db.KanbanCards.Add(new KanbanCard { Title = "Old Task", ColumnId = doneColumnId, Order = 2, ActualEndTime = thisWeekMonday.AddDays(-30), AssignedUserId = adminUser.Id });
         await db.SaveChangesAsync();
 
         var start = thisWeekMonday.ToString("yyyy-MM-dd");
@@ -993,7 +993,7 @@ public class AgentTests : TestBase
         var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
 
         var thisWeekMonday = GetThisWeekMonday();
-        db.KanbanCards.Add(new KanbanCard { Title = "Completed Card", ColumnId = doneColumn.Id, Order = 0, ActualEndTime = thisWeekMonday });
+        db.KanbanCards.Add(new KanbanCard { Title = "Completed Card", ColumnId = doneColumn.Id, Order = 0, ActualEndTime = thisWeekMonday, AssignedUserId = adminUser.Id });
         await db.SaveChangesAsync();
 
         var start = thisWeekMonday.ToString("yyyy-MM-dd");
@@ -1023,7 +1023,7 @@ public class AgentTests : TestBase
         var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
 
         // Card completed way in the past
-        db.KanbanCards.Add(new KanbanCard { Title = "Ancient Task", ColumnId = doneColumn.Id, Order = 0, ActualEndTime = new DateTime(2020, 1, 1) });
+        db.KanbanCards.Add(new KanbanCard { Title = "Ancient Task", ColumnId = doneColumn.Id, Order = 0, ActualEndTime = new DateTime(2020, 1, 1), AssignedUserId = adminUser.Id });
         await db.SaveChangesAsync();
 
         var result = await cardTools.GetCardsByDateRange("2026-06-01", "2026-06-07", boardId, "completed");
@@ -1043,13 +1043,46 @@ public class AgentTests : TestBase
         var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
 
         // Card created now should match today's range
-        db.KanbanCards.Add(new KanbanCard { Title = "Fresh Card", ColumnId = columnId, Order = 0 });
+        db.KanbanCards.Add(new KanbanCard { Title = "Fresh Card", ColumnId = columnId, Order = 0, AssignedUserId = adminUser.Id });
         await db.SaveChangesAsync();
 
         var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
         var result = await cardTools.GetCardsByDateRange(today, today, boardId, "created");
 
         StringAssert.Contains(result, "Fresh Card");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_AssignedToAny_ReturnsAllUsersCards()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        var maxColOrder = db.KanbanColumns.Where(c => c.BoardId == boardId).Max(c => (int?)c.Order) ?? 0;
+        var doneColumn = new KanbanColumn { Name = "Done", Order = maxColOrder + 1, BoardId = boardId, ColumnStatus = ColumnStatus.Completed };
+        db.KanbanColumns.Add(doneColumn);
+        await db.SaveChangesAsync();
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var thisWeekMonday = GetThisWeekMonday();
+        // Card assigned to admin
+        db.KanbanCards.Add(new KanbanCard { Title = "Admin Task", ColumnId = doneColumn.Id, Order = 0, ActualEndTime = thisWeekMonday, AssignedUserId = adminUser.Id });
+        // Unassigned card
+        db.KanbanCards.Add(new KanbanCard { Title = "Unassigned Task", ColumnId = doneColumn.Id, Order = 1, ActualEndTime = thisWeekMonday });
+        await db.SaveChangesAsync();
+
+        var start = thisWeekMonday.ToString("yyyy-MM-dd");
+        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd");
+        var result = await cardTools.GetCardsByDateRange(start, end, dateType: "completed", assignedTo: "any");
+
+        StringAssert.Contains(result, "Admin Task");
+        StringAssert.Contains(result, "Unassigned Task");
     }
 
     private static DateTime GetThisWeekMonday()

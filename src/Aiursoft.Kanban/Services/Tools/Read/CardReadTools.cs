@@ -266,12 +266,13 @@ public class CardReadTools(
         return string.Join("\n", lines);
     }
 
-    [McpServerTool, Description("Get cards within a date range. Essential for weekly reports — use dateType='completed' to find cards finished this week. Also useful for checking work completed in any time period.")]
+    [McpServerTool, Description("Get cards within a date range, filtered by assigned user. Essential for weekly reports — defaults to cards assigned to you. Use assignedTo='any' to see everyone's work.")]
     public async Task<string> GetCardsByDateRange(
         [Description("Start date in yyyy-MM-dd format, inclusive")] string startDate,
         [Description("End date in yyyy-MM-dd format, inclusive")] string endDate,
         [Description("Optional board ID to limit results. Omit or leave empty to search all boards.")] int? boardId = null,
-        [Description("Which date field to filter: 'completed' (ActualEndTime, use for weekly summaries), 'created' (CreationTime), or omit/empty for either")] string? dateType = null)
+        [Description("Which date field to filter: 'completed' (ActualEndTime, use for weekly summaries), 'created' (CreationTime), or omit/empty for either")] string? dateType = null,
+        [Description("Filter by assigned user: 'me' or omit for current user (default), 'any' for all users, or a specific user display name.")] string? assignedTo = null)
     {
         var userId = currentUser.UserId;
 
@@ -309,6 +310,26 @@ public class CardReadTools(
                 (c.ActualEndTime.HasValue && c.ActualEndTime >= start.Date && c.ActualEndTime < endInclusive) ||
                 (c.CreationTime >= start.Date && c.CreationTime < endInclusive))
         };
+
+        // Resolve assigned-to filter: default to current user
+        var assignedToNorm = assignedTo?.Trim().ToLowerInvariant();
+        if (string.IsNullOrEmpty(assignedToNorm) || assignedToNorm == "me")
+        {
+            query = query.Where(c => c.AssignedUserId == userId);
+        }
+        else if (assignedToNorm != "any")
+        {
+            // Try to find user by display name, username, or email
+            var targetUser = await db.Users
+                .FirstOrDefaultAsync(u =>
+                    u.DisplayName.ToUpper() == assignedToNorm.ToUpperInvariant() ||
+                    (u.UserName != null && u.UserName.ToUpper() == assignedToNorm.ToUpperInvariant()) ||
+                    (u.Email != null && u.Email.ToUpper() == assignedToNorm.ToUpperInvariant()));
+            if (targetUser == null)
+                return $"Error: No user found matching \"{assignedTo}\".";
+            query = query.Where(c => c.AssignedUserId == targetUser.Id);
+        }
+        // "any" → no filter
 
         var cards = await query.ToListAsync();
 
