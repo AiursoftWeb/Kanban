@@ -1027,7 +1027,7 @@ public class AgentTests : TestBase
         await db.SaveChangesAsync();
 
         var result = await cardTools.GetCardsByDateRange("2026-06-01", "2026-06-07", boardId, "completed");
-        StringAssert.Contains(result, "No completed cards found");
+        StringAssert.Contains(result, "No cards assigned to");
     }
 
     [TestMethod]
@@ -1090,6 +1090,77 @@ public class AgentTests : TestBase
         var now = DateTime.UtcNow;
         var daysSinceMonday = ((int)now.DayOfWeek + 6) % 7;
         return now.Date.AddDays(-daysSinceMonday);
+    }
+
+    // ── FilterCards (advanced query) ────────────────────
+
+    [TestMethod]
+    public async Task FilterCards_CombinedFilters_ReturnsMatchingCards()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var doneCol = new KanbanColumn { Name = "Done", Order = 1, BoardId = boardId, ColumnStatus = ColumnStatus.Completed };
+        db.KanbanColumns.Add(doneCol);
+        await db.SaveChangesAsync();
+
+        var monday = GetThisWeekMonday();
+        db.KanbanCards.Add(new KanbanCard { Title = "Urgent API Fix", ColumnId = doneCol.Id, Order = 0, Priority = Priority.Urgent, ActualEndTime = monday, AssignedUserId = adminUser.Id });
+        db.KanbanCards.Add(new KanbanCard { Title = "Low Priority Doc", ColumnId = doneCol.Id, Order = 1, Priority = Priority.Low, ActualEndTime = monday, AssignedUserId = adminUser.Id });
+        await db.SaveChangesAsync();
+
+        var start = monday.ToString("yyyy-MM-dd");
+        var end = monday.AddDays(6).ToString("yyyy-MM-dd");
+        var result = await cardTools.FilterCards(
+            keyword: "API", assignedTo: "me", priority: "Urgent",
+            columnStatus: "Completed", dateType: "completed",
+            dateFrom: start, dateTo: end);
+
+        StringAssert.Contains(result, "Urgent API Fix");
+        Assert.IsFalse(result.Contains("Low Priority Doc"));
+    }
+
+    [TestMethod]
+    public async Task FilterCards_AssignedToMe_OnlyReturnsMyCards()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        db.KanbanCards.Add(new KanbanCard { Title = "My Card", ColumnId = columnId, Order = 0, AssignedUserId = adminUser.Id });
+        db.KanbanCards.Add(new KanbanCard { Title = "Unassigned", ColumnId = columnId, Order = 1, AssignedUserId = null });
+        await db.SaveChangesAsync();
+
+        var result = await cardTools.FilterCards(assignedTo: "me");
+
+        StringAssert.Contains(result, "My Card");
+        Assert.IsFalse(result.Contains("Unassigned"));
+    }
+
+    [TestMethod]
+    public async Task FilterCards_InvalidPriority_ReturnsError()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var adminUser = scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var result = await cardTools.FilterCards(priority: "SuperUrgent");
+        StringAssert.Contains(result, "Invalid priority");
     }
 
     // ── Multi-tool batch approval ────────────────────────

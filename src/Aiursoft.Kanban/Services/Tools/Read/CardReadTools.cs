@@ -340,15 +340,23 @@ public class CardReadTools(
                 accessible.Add(card);
         }
 
+        // Build assigned-to description for query summary
+        var assignedDesc = assignedToNorm switch
+        {
+            null or "" or "me" => $"you ({KanbanAccessService.GetUserDisplayName(await db.Users.FindAsync(userId))})",
+            "any" => "anyone",
+            _ => $"\"{assignedTo}\""
+        };
+
         if (accessible.Count == 0)
         {
-            var filterDesc = normalizedType switch
+            var noResultDesc = normalizedType switch
             {
-                "completed" => "completed ",
-                "created" => "created ",
-                _ => ""
+                "completed" => $"completed between {start:yyyy-MM-dd} and {end:yyyy-MM-dd}",
+                "created" => $"created between {start:yyyy-MM-dd} and {end:yyyy-MM-dd}",
+                _ => $"between {start:yyyy-MM-dd} and {end:yyyy-MM-dd}"
             };
-            return $"No {filterDesc}cards found between {start:yyyy-MM-dd} and {end:yyyy-MM-dd}.";
+            return $"No cards assigned to {assignedDesc}, {noResultDesc}.";
         }
 
         var ordered = accessible
@@ -356,10 +364,20 @@ public class CardReadTools(
             .ThenBy(c => c.Column.Order)
             .ThenBy(c => c.Order)
             .ToList();
+        var boardName = boardId.HasValue
+            ? $"board \"{(await db.KanbanBoards.FindAsync(boardId.Value))?.Name ?? "(unknown)"}\""
+            : "all boards";
+        var dateDesc = normalizedType switch
+        {
+            "completed" => $"completed between {start:yyyy-MM-dd} and {end:yyyy-MM-dd}",
+            "created" => $"created between {start:yyyy-MM-dd} and {end:yyyy-MM-dd}",
+            _ => $"with activity between {start:yyyy-MM-dd} and {end:yyyy-MM-dd}"
+        };
 
         var lines = new List<string>
         {
-            $"Found {ordered.Count} card(s) between {start:yyyy-MM-dd} and {end:yyyy-MM-dd}:"
+            $"Query: cards assigned to {assignedDesc}, {dateDesc}, on {boardName}.",
+            $"Found {ordered.Count} card(s):"
         };
         foreach (var card in ordered)
         {
@@ -369,5 +387,178 @@ public class CardReadTools(
             lines.Add($"- [#{card.Id}] \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{card.Column.Board.Name}\"){completedStr}");
         }
         return string.Join("\n", lines);
+    }
+
+    [McpServerTool, Description("Advanced card filter — combine keyword, assignee, priority, label, status, and date range in one query. Use for complex tasks like 'find all urgent cards assigned to me with the API label completed this week'. Each filter is optional and combined with AND logic.")]
+    public async Task<string> FilterCards(
+        [Description("Keyword to search in card title and description")] string? keyword = null,
+        [Description("Optional board ID to limit results")] int? boardId = null,
+        [Description("Filter by assigned user: 'me' for current user, 'any' for all, or a specific user display name. Omit to skip assignment filter.")] string? assignedTo = null,
+        [Description("Priority level: Urgent, High, Medium, Low, or None")] string? priority = null,
+        [Description("Label name to filter by (exact match)")] string? label = null,
+        [Description("Column status: NotStarted, InProgress, or Completed")] string? columnStatus = null,
+        [Description("Date type: 'completed' (ActualEndTime) or 'created' (CreationTime). Required if dateFrom/dateTo are set.")] string? dateType = null,
+        [Description("Start date in yyyy-MM-dd format, inclusive. Requires dateType.")] string? dateFrom = null,
+        [Description("End date in yyyy-MM-dd format, inclusive. Requires dateType.")] string? dateTo = null)
+    {
+        var userId = currentUser.UserId;
+
+        var query = db.KanbanCards
+            .Include(c => c.Column).ThenInclude(col => col.Board)
+            .Include(c => c.CardLabels).ThenInclude(cl => cl.Label)
+            .AsQueryable();
+
+        // Board filter
+        if (boardId.HasValue)
+            query = query.Where(c => c.Column.BoardId == boardId.Value);
+
+        // Keyword filter (title or description)
+        if (!string.IsNullOrWhiteSpace(keyword))
+        {
+            var kw = keyword.Trim().ToUpperInvariant();
+            query = query.Where(c =>
+                c.Title.ToUpper().Contains(kw) ||
+                (c.Description != null && c.Description.ToUpper().Contains(kw)));
+        }
+
+        // Assigned-to filter
+        if (!string.IsNullOrWhiteSpace(assignedTo))
+        {
+            var assignedNorm = assignedTo.Trim().ToLowerInvariant();
+            if (assignedNorm == "me")
+                query = query.Where(c => c.AssignedUserId == userId);
+            else if (assignedNorm != "any")
+            {
+                var targetUser = await db.Users
+                    .FirstOrDefaultAsync(u =>
+                        u.DisplayName.ToUpper() == assignedNorm.ToUpperInvariant() ||
+                        (u.UserName != null && u.UserName.ToUpper() == assignedNorm.ToUpperInvariant()) ||
+                        (u.Email != null && u.Email.ToUpper() == assignedNorm.ToUpperInvariant()));
+                if (targetUser == null)
+                    return $"Error: No user found matching \"{assignedTo}\".";
+                query = query.Where(c => c.AssignedUserId == targetUser.Id);
+            }
+        }
+
+        // Priority filter
+        if (!string.IsNullOrWhiteSpace(priority))
+        {
+            if (!Enum.TryParse<Priority>(priority.Trim(), true, out var prio))
+                return $"Error: Invalid priority \"{priority}\". Valid values: Urgent, High, Medium, Low, None.";
+            query = query.Where(c => c.Priority == prio);
+        }
+
+        // Label filter
+        if (!string.IsNullOrWhiteSpace(label))
+        {
+            var labelNorm = label.Trim().ToUpperInvariant();
+            query = query.Where(c =>
+                c.CardLabels.Any(cl => cl.Label.Name.ToUpper() == labelNorm));
+        }
+
+        // Column status filter
+        if (!string.IsNullOrWhiteSpace(columnStatus))
+        {
+            if (!Enum.TryParse<ColumnStatus>(columnStatus.Trim(), true, out var status))
+                return $"Error: Invalid column status \"{columnStatus}\". Valid values: NotStarted, InProgress, Completed.";
+            query = query.Where(c => c.Column.ColumnStatus == status);
+        }
+
+        // Date range filter
+        if (!string.IsNullOrWhiteSpace(dateFrom) || !string.IsNullOrWhiteSpace(dateTo))
+        {
+            if (string.IsNullOrWhiteSpace(dateType))
+                return "Error: dateType is required when dateFrom or dateTo is set. Use 'completed' or 'created'.";
+
+            DateTime from, to;
+            if (!string.IsNullOrWhiteSpace(dateFrom) && !DateTime.TryParse(dateFrom, out from))
+                return $"Error: Invalid dateFrom \"{dateFrom}\". Use yyyy-MM-dd format.";
+            if (!string.IsNullOrWhiteSpace(dateTo) && !DateTime.TryParse(dateTo, out to))
+                return $"Error: Invalid dateTo \"{dateTo}\". Use yyyy-MM-dd format.";
+
+            from = string.IsNullOrWhiteSpace(dateFrom) ? DateTime.MinValue : DateTime.Parse(dateFrom).Date;
+            to = string.IsNullOrWhiteSpace(dateTo) ? DateTime.MaxValue : DateTime.Parse(dateTo).Date.AddDays(1);
+
+            if (from > to)
+                return $"Error: dateFrom \"{dateFrom}\" is after dateTo \"{dateTo}\".";
+
+            var dtNorm = dateType.Trim().ToLowerInvariant();
+            if (dtNorm == "completed")
+                query = query.Where(c => c.ActualEndTime >= from && c.ActualEndTime < to);
+            else if (dtNorm == "created")
+                query = query.Where(c => c.CreationTime >= from && c.CreationTime < to);
+            else
+                return $"Error: Invalid dateType \"{dateType}\". Use 'completed' or 'created'.";
+        }
+
+        var cards = await query.OrderBy(c => c.Column.Board.Name)
+            .ThenBy(c => c.Column.Order)
+            .ThenBy(c => c.Order)
+            .Take(100)
+            .ToListAsync();
+
+        // Access check
+        var accessible = new List<KanbanCard>();
+        foreach (var card in cards)
+        {
+            if (await access.HasReadAccess(card.Column.Board, userId))
+                accessible.Add(card);
+        }
+
+        if (accessible.Count == 0)
+        {
+            var filterSummary = BuildFilterSummary(
+                keyword, assignedTo, priority, label, columnStatus,
+                dateType, dateFrom, dateTo, boardId);
+            return $"No cards match the specified filters.\n{filterSummary}";
+        }
+
+        var lines = new List<string>
+        {
+            BuildFilterSummary(keyword, assignedTo, priority, label, columnStatus,
+                dateType, dateFrom, dateTo, boardId),
+            $"Found {accessible.Count} card(s):"
+        };
+        foreach (var card in accessible)
+        {
+            var parts = new List<string>();
+            parts.Add($"- [#{card.Id}] [{card.Priority}] \"{card.Title}\"");
+            parts.Add($"in \"{card.Column.Name}\"");
+            parts.Add($"(Board: \"{card.Column.Board.Name}\")");
+            var assignee = card.AssignedUserId != null ? "Assigned" : "Unassigned";
+            parts.Add($"({assignee})");
+            if (card.ActualEndTime.HasValue)
+                parts.Add($"Completed: {card.ActualEndTime:yyyy-MM-dd}");
+            lines.Add(string.Join(" ", parts));
+        }
+        return string.Join("\n", lines);
+    }
+
+    private static string BuildFilterSummary(
+        string? keyword, string? assignedTo, string? priority, string? label,
+        string? columnStatus, string? dateType, string? dateFrom, string? dateTo,
+        int? boardId)
+    {
+        var parts = new List<string>();
+        if (!string.IsNullOrWhiteSpace(keyword)) parts.Add($"keyword=\"{keyword}\"");
+        if (!string.IsNullOrWhiteSpace(assignedTo)) parts.Add($"assignedTo={assignedTo}");
+        if (!string.IsNullOrWhiteSpace(priority)) parts.Add($"priority={priority}");
+        if (!string.IsNullOrWhiteSpace(label)) parts.Add($"label=\"{label}\"");
+        if (!string.IsNullOrWhiteSpace(columnStatus)) parts.Add($"status={columnStatus}");
+        if (!string.IsNullOrWhiteSpace(dateType))
+        {
+            var range = (dateFrom, dateTo) switch
+            {
+                (not null, not null) => $"{dateFrom}–{dateTo}",
+                (not null, null) => $"since {dateFrom}",
+                (null, not null) => $"until {dateTo}",
+                _ => ""
+            };
+            parts.Add($"date={dateType}({range})");
+        }
+        if (boardId.HasValue) parts.Add($"boardId={boardId}");
+        return parts.Count > 0
+            ? $"Query: {string.Join(", ", parts)}."
+            : "Query: all cards (no filters).";
     }
 }
