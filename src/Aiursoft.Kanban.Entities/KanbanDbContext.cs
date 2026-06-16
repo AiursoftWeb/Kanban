@@ -56,17 +56,31 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasOne(n => n.Card)
             .WithMany()
             .HasForeignKey(n => n.CardId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(false);
         builder.Entity<Notification>()
             .HasOne(n => n.Comment)
             .WithMany()
             .HasForeignKey(n => n.CommentId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(false);
+        builder.Entity<Notification>()
+            .HasOne(n => n.Board)
+            .WithMany()
+            .HasForeignKey(n => n.BoardId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(false);
         builder.Entity<Notification>()
             .HasOne(n => n.User)
             .WithMany()
             .HasForeignKey(n => n.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<Notification>()
+            .HasOne(n => n.ActorUser)
+            .WithMany()
+            .HasForeignKey(n => n.ActorUserId)
+            .OnDelete(DeleteBehavior.SetNull)
+            .IsRequired(false);
     }
 
     public virtual Task MigrateAsync(CancellationToken cancellationToken) =>
