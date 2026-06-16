@@ -2153,12 +2153,10 @@
             var dueDate = cardEl.dataset.dueDate || "";
             if (dueDate) {
                 var due = new Date(dueDate + "T00:00:00Z");
-                var today = new Date();
-                today.setHours(0, 0, 0, 0);
                 var dueUtc = new Date(Date.UTC(due.getUTCFullYear(), due.getUTCMonth(), due.getUTCDate()));
                 var column = cardEl.closest(".kanban-column");
                 var isCompleted = column && column.dataset.columnStatus === "2";
-                var isOverdue = !isCompleted && dueUtc < today;
+                var isOverdue = !isCompleted && dueUtc.getTime() < Date.now();
                 var formattedDue = (due.getUTCMonth() + 1).toString().padStart(2, "0") + "/" + due.getUTCDate().toString().padStart(2, "0");
                 html += '<div class="card-due-date' + (isOverdue ? ' overdue' : '') + '"><i data-lucide="calendar" style="width:11px;height:11px"></i>' + formattedDue + '</div>';
             }
