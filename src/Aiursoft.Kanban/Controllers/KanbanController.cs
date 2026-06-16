@@ -22,7 +22,8 @@ public class KanbanController(
     UserManager<User> userManager,
     StorageService storage,
     IAuthorizationService authorizationService,
-    IMediator mediator) : Controller
+    IMediator mediator,
+    ILogger<KanbanController> logger) : Controller
 {
     private static readonly string[] LabelColors =
     [
@@ -362,7 +363,7 @@ public class KanbanController(
         db.KanbanCards.Remove(card);
         await db.SaveChangesAsync();
 
-        await mediator.Publish(new CardTransferredEvent(
+        await PublishNotificationEventAsync(new CardTransferredEvent(
             CardId: transferredCard.Id,
             ActorUserId: userId,
             TargetBoardId: targetBoardId,
@@ -436,7 +437,7 @@ public class KanbanController(
 
         if (fromColumnId != targetColumnId)
         {
-            await mediator.Publish(new CardMovedEvent(
+            await PublishNotificationEventAsync(new CardMovedEvent(
                 CardId: cardId,
                 ActorUserId: userId));
         }
@@ -697,7 +698,7 @@ public class KanbanController(
 
         if (changedFields.Count > 0)
         {
-            await mediator.Publish(new CardUpdatedEvent(
+            await PublishNotificationEventAsync(new CardUpdatedEvent(
                 CardId: cardId,
                 ActorUserId: userId,
                 ChangedFields: changedFields));
@@ -705,7 +706,7 @@ public class KanbanController(
 
         if (oldAssigneeId != normalizedAssignedUserId)
         {
-            await mediator.Publish(new CardAssignedEvent(
+            await PublishNotificationEventAsync(new CardAssignedEvent(
                 CardId: cardId,
                 ActorUserId: userId,
                 OldAssigneeId: oldAssigneeId,
@@ -787,7 +788,7 @@ public class KanbanController(
 
         if (oldAssigneeId != normalizedAssignedUserId)
         {
-            await mediator.Publish(new CardAssignedEvent(
+            await PublishNotificationEventAsync(new CardAssignedEvent(
                 CardId: cardId,
                 ActorUserId: userId,
                 OldAssigneeId: oldAssigneeId,
@@ -1080,7 +1081,7 @@ public class KanbanController(
 
         if (targetUserId != null)
         {
-            await mediator.Publish(new BoardSharedEvent(
+            await PublishNotificationEventAsync(new BoardSharedEvent(
                 BoardId: id,
                 ActorUserId: userId,
                 SharedWithUserId: targetUserId));
@@ -1139,7 +1140,7 @@ public class KanbanController(
         db.KanbanCardComments.Add(comment);
         await db.SaveChangesAsync();
 
-        await mediator.Publish(new CardCommentAddedEvent(
+        await PublishNotificationEventAsync(new CardCommentAddedEvent(
             CardId: cardId,
             CommentId: comment.Id,
             ActorUserId: userId));
@@ -1285,6 +1286,19 @@ public class KanbanController(
     private static string? NormalizeAssignedUserId(string? assignedUserId)
     {
         return string.IsNullOrWhiteSpace(assignedUserId) ? null : assignedUserId.Trim();
+    }
+
+    private async Task PublishNotificationEventAsync<TNotification>(TNotification notification)
+        where TNotification : INotification
+    {
+        try
+        {
+            await mediator.Publish(notification);
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Failed to publish notification event {NotificationEvent}", typeof(TNotification).Name);
+        }
     }
 
     private static string? GetUserDisplayName(User? user)

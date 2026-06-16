@@ -10,6 +10,14 @@ namespace Aiursoft.Kanban.MySql.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Notifications_KanbanCardComments_CommentId",
+                table: "Notifications");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Notifications_KanbanCards_CardId",
+                table: "Notifications");
+
             migrationBuilder.AlterColumn<int>(
                 name: "CommentId",
                 table: "Notifications",
@@ -81,6 +89,22 @@ namespace Aiursoft.Kanban.MySql.Migrations
                 principalTable: "KanbanBoards",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Notifications_KanbanCardComments_CommentId",
+                table: "Notifications",
+                column: "CommentId",
+                principalTable: "KanbanCardComments",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Notifications_KanbanCards_CardId",
+                table: "Notifications",
+                column: "CardId",
+                principalTable: "KanbanCards",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
@@ -92,6 +116,14 @@ namespace Aiursoft.Kanban.MySql.Migrations
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Notifications_KanbanBoards_BoardId",
+                table: "Notifications");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Notifications_KanbanCardComments_CommentId",
+                table: "Notifications");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Notifications_KanbanCards_CardId",
                 table: "Notifications");
 
             migrationBuilder.DropIndex(
@@ -137,6 +169,22 @@ namespace Aiursoft.Kanban.MySql.Migrations
                 oldClrType: typeof(int),
                 oldType: "int",
                 oldNullable: true);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Notifications_KanbanCardComments_CommentId",
+                table: "Notifications",
+                column: "CommentId",
+                principalTable: "KanbanCardComments",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Notifications_KanbanCards_CardId",
+                table: "Notifications",
+                column: "CardId",
+                principalTable: "KanbanCards",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
     }
 }
