@@ -17,6 +17,7 @@ public class BoardSharedHandler(TemplateDbContext db) : INotificationHandler<Boa
 
         db.Notifications.Add(new Notification
         {
+            BoardId = e.BoardId,
             UserId = e.SharedWithUserId,
             ActorUserId = e.ActorUserId,
             Type = NotificationType.BoardShared,

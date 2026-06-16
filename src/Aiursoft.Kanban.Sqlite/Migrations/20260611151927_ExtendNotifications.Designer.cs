@@ -266,6 +266,9 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("BoardId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("CardId")
                         .HasColumnType("INTEGER");
 
@@ -294,6 +297,8 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ActorUserId");
+
+                    b.HasIndex("BoardId");
 
                     b.HasIndex("CardId");
 
@@ -616,6 +621,11 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .HasForeignKey("ActorUserId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("Aiursoft.Kanban.Entities.KanbanBoard", "Board")
+                        .WithMany()
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Aiursoft.Kanban.Entities.KanbanCard", "Card")
                         .WithMany()
                         .HasForeignKey("CardId")
@@ -633,6 +643,8 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .IsRequired();
 
                     b.Navigation("ActorUser");
+
+                    b.Navigation("Board");
 
                     b.Navigation("Card");
 

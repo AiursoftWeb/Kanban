@@ -283,6 +283,9 @@ namespace Aiursoft.Kanban.MySql.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("varchar(450)");
 
+                    b.Property<int?>("BoardId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CardId")
                         .HasColumnType("int");
 
@@ -311,6 +314,8 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ActorUserId");
+
+                    b.HasIndex("BoardId");
 
                     b.HasIndex("CardId");
 
@@ -637,6 +642,11 @@ namespace Aiursoft.Kanban.MySql.Migrations
                         .HasForeignKey("ActorUserId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("Aiursoft.Kanban.Entities.KanbanBoard", "Board")
+                        .WithMany()
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Aiursoft.Kanban.Entities.KanbanCard", "Card")
                         .WithMany()
                         .HasForeignKey("CardId")
@@ -654,6 +664,8 @@ namespace Aiursoft.Kanban.MySql.Migrations
                         .IsRequired();
 
                     b.Navigation("ActorUser");
+
+                    b.Navigation("Board");
 
                     b.Navigation("Card");
 

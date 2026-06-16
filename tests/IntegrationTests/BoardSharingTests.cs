@@ -408,6 +408,7 @@ public class BoardSharingTests : TestBase
     public async Task NotificationsIndex_BoardSharedWithoutCard_ReturnsOk()
     {
         var ownerId = await RegisterUserAndGetIdAsync();
+        var boardId = await CreateBoardWithOwner(ownerId, "Shared notification board");
         await LogoutAsync();
 
         var (viewerEmail, viewerPassword) = await RegisterAndLoginAsync();
@@ -419,6 +420,7 @@ public class BoardSharingTests : TestBase
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             db.Notifications.Add(new Notification
             {
+                BoardId = boardId,
                 UserId = viewerId,
                 ActorUserId = ownerId,
                 Type = NotificationType.BoardShared
@@ -430,7 +432,10 @@ public class BoardSharingTests : TestBase
         var response = await Http.GetAsync("/Notifications/Index");
 
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-        Assert.Contains("shared a board with you", await response.Content.ReadAsStringAsync());
+        var content = await response.Content.ReadAsStringAsync();
+        Assert.Contains("shared a board with you", content);
+        Assert.Contains($"/Kanban/Index?boardId={boardId}", content);
+        Assert.Contains("Open Board", content);
     }
 
     [TestMethod]

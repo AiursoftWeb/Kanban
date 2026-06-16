@@ -19,6 +19,11 @@ public class Notification
     [ForeignKey(nameof(CommentId))]
     public KanbanCardComment? Comment { get; set; }
 
+    public int? BoardId { get; set; }
+
+    [ForeignKey(nameof(BoardId))]
+    public KanbanBoard? Board { get; set; }
+
     [StringLength(450)]
     public required string UserId { get; set; }
 

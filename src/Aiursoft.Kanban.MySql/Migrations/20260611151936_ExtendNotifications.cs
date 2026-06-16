@@ -34,6 +34,12 @@ namespace Aiursoft.Kanban.MySql.Migrations
                 nullable: true)
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.AddColumn<int>(
+                name: "BoardId",
+                table: "Notifications",
+                type: "int",
+                nullable: true);
+
             migrationBuilder.AddColumn<string>(
                 name: "Message",
                 table: "Notifications",
@@ -55,6 +61,11 @@ namespace Aiursoft.Kanban.MySql.Migrations
                 table: "Notifications",
                 column: "ActorUserId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_BoardId",
+                table: "Notifications",
+                column: "BoardId");
+
             migrationBuilder.AddForeignKey(
                 name: "FK_Notifications_AspNetUsers_ActorUserId",
                 table: "Notifications",
@@ -62,6 +73,14 @@ namespace Aiursoft.Kanban.MySql.Migrations
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.SetNull);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Notifications_KanbanBoards_BoardId",
+                table: "Notifications",
+                column: "BoardId",
+                principalTable: "KanbanBoards",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
@@ -71,12 +90,24 @@ namespace Aiursoft.Kanban.MySql.Migrations
                 name: "FK_Notifications_AspNetUsers_ActorUserId",
                 table: "Notifications");
 
+            migrationBuilder.DropForeignKey(
+                name: "FK_Notifications_KanbanBoards_BoardId",
+                table: "Notifications");
+
             migrationBuilder.DropIndex(
                 name: "IX_Notifications_ActorUserId",
                 table: "Notifications");
 
+            migrationBuilder.DropIndex(
+                name: "IX_Notifications_BoardId",
+                table: "Notifications");
+
             migrationBuilder.DropColumn(
                 name: "ActorUserId",
+                table: "Notifications");
+
+            migrationBuilder.DropColumn(
+                name: "BoardId",
                 table: "Notifications");
 
             migrationBuilder.DropColumn(

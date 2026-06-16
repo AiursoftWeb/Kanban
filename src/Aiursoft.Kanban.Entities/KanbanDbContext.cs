@@ -65,6 +65,12 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired(false);
         builder.Entity<Notification>()
+            .HasOne(n => n.Board)
+            .WithMany()
+            .HasForeignKey(n => n.BoardId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(false);
+        builder.Entity<Notification>()
             .HasOne(n => n.User)
             .WithMany()
             .HasForeignKey(n => n.UserId)

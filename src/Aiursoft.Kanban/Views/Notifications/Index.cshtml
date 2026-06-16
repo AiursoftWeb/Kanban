@@ -186,10 +186,10 @@ else
                         <button type="button" class="btn btn-outline-primary btn-mark-read mark-read-btn">
                             <i class="align-middle me-1" data-lucide="check"></i> Mark as Read
                         </button>
-                        @if (notification.CardId.HasValue && notification.BoardId.HasValue)
+                        @if (notification.BoardId.HasValue)
                         {
                             <a href="/Kanban/Index?boardId=@notification.BoardId" class="btn btn-outline-secondary btn-card-link">
-                                <i class="align-middle me-1" data-lucide="external-link"></i> Open Card
+                                <i class="align-middle me-1" data-lucide="external-link"></i> @(notification.CardId.HasValue ? "Open Card" : "Open Board")
                             </a>
                         }
                     </div>

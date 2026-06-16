@@ -40,6 +40,7 @@ public class NotificationsController(
             .Include(n => n.Card!)
                 .ThenInclude(c => c.Column)
                     .ThenInclude(col => col.Board)
+            .Include(n => n.Board)
             .Include(n => n.ActorUser)
             .OrderByDescending(n => n.CreationTime)
             .ToListAsync();
@@ -48,9 +49,9 @@ public class NotificationsController(
         {
             Id = n.Id,
             CardId = n.CardId,
-            BoardId = n.Card?.Column.BoardId,
+            BoardId = n.BoardId ?? n.Card?.Column.BoardId,
             CardTitle = n.Card?.Title,
-            BoardName = n.Card?.Column.Board.Name,
+            BoardName = n.Board?.Name ?? n.Card?.Column.Board.Name,
             ColumnName = n.Card?.Column.Name,
             CommentContent = n.Comment?.Content,
             CommentAuthorName = n.Comment != null ? GetUserDisplayName(n.Comment.Author) : null,

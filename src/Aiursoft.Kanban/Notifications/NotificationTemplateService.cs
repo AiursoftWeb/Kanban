@@ -11,7 +11,7 @@ public static class NotificationTemplateService
         NotificationType.CardUnassigned => $"{args["ActorName"]} removed you from card \"{args["CardTitle"]}\"",
         NotificationType.CardMoved => $"{args["ActorName"]} moved card \"{args["CardTitle"]}\" to {args["ColumnName"]}",
         NotificationType.CardTransferred => $"{args["ActorName"]} transferred card \"{args["CardTitle"]}\" to board \"{args["BoardName"]}\"",
-        NotificationType.CardUpdated => $"{args["ActorName"]} updated {string.Join(", ", args["ChangedFields"].Split(','))} on card \"{args["CardTitle"]}\"",
+        NotificationType.CardUpdated => $"{args["ActorName"]} updated {args["ChangedFields"]} on card \"{args["CardTitle"]}\"",
         NotificationType.BoardShared => $"{args["ActorName"]} shared board \"{args["BoardName"]}\" with you",
         _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
     };

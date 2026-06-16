@@ -327,6 +327,7 @@ public class ViewModelArgsInjector(
                     .ThenInclude(c => c.Author)
                 .Include(n => n.Card!)
                     .ThenInclude(c => c.Column)
+                .Include(n => n.Board)
                 .Include(n => n.ActorUser)
                 .OrderByDescending(n => n.CreationTime)
                 .Take(10)
