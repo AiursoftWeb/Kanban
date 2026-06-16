@@ -158,32 +158,40 @@ else
     <div class="row g-3" id="notificationsList">
         @foreach (var notification in Model.Notifications)
         {
+            var isCommentType = notification.Type == Aiursoft.Kanban.Entities.NotificationType.CommentAdded;
+            var actorInitial = string.IsNullOrWhiteSpace(notification.ActorUserName)
+                ? "?"
+                : notification.ActorUserName.Trim()[0].ToString().ToUpperInvariant();
             <div class="col-12">
                 <div class="notification-card" data-notification-id="@notification.Id">
                     <div class="notification-header">
-                        <div class="notification-avatar" title="@notification.CommentAuthorName">
-                            @notification.CommentAuthorInitial
+                        <div class="notification-avatar" title="@notification.ActorUserName">
+                            @actorInitial
                         </div>
                         <div class="notification-meta">
-                            <span class="notification-author">@notification.CommentAuthorName</span>
+                            <span class="notification-author">@notification.ActorUserName</span>
                             <span class="notification-context">
-                                commented on
-                                <strong>@notification.CardTitle</strong>
-                                in @notification.BoardName / @notification.ColumnName
+                                @notification.Message
                             </span>
                         </div>
                         <span class="notification-time" title="@notification.CreationTime.ToString("yyyy-MM-dd HH:mm")">
                             @FormatRelativeTime(notification.CreationTime)
                         </span>
                     </div>
-                    <div class="notification-comment">@notification.CommentContent</div>
+                    @if (isCommentType && !string.IsNullOrEmpty(notification.CommentContent))
+                    {
+                        <div class="notification-comment">@notification.CommentContent</div>
+                    }
                     <div class="notification-actions">
                         <button type="button" class="btn btn-outline-primary btn-mark-read mark-read-btn">
                             <i class="align-middle me-1" data-lucide="check"></i> Mark as Read
                         </button>
-                        <a href="/Kanban/Index?boardId=@notification.BoardId" class="btn btn-outline-secondary btn-card-link">
-                            <i class="align-middle me-1" data-lucide="external-link"></i> Open Card
-                        </a>
+                        @if (notification.BoardId.HasValue)
+                        {
+                            <a href="/Kanban/Index?boardId=@notification.BoardId" class="btn btn-outline-secondary btn-card-link">
+                                <i class="align-middle me-1" data-lucide="external-link"></i> @(notification.CardId.HasValue ? "Open Card" : "Open Board")
+                            </a>
+                        }
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.NotificationsViewModels;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
@@ -34,11 +35,13 @@ public class NotificationsController(
 
         var notifications = await db.Notifications
             .Where(n => n.UserId == userId && !n.IsRead)
-            .Include(n => n.Comment)
+            .Include(n => n.Comment!)
                 .ThenInclude(c => c.Author)
-            .Include(n => n.Card)
+            .Include(n => n.Card!)
                 .ThenInclude(c => c.Column)
                     .ThenInclude(col => col.Board)
+            .Include(n => n.Board)
+            .Include(n => n.ActorUser)
             .OrderByDescending(n => n.CreationTime)
             .ToListAsync();
 
@@ -46,13 +49,16 @@ public class NotificationsController(
         {
             Id = n.Id,
             CardId = n.CardId,
-            BoardId = n.Card.Column.BoardId,
-            CardTitle = n.Card.Title,
-            BoardName = n.Card.Column.Board.Name,
-            ColumnName = n.Card.Column.Name,
-            CommentContent = n.Comment.Content,
-            CommentAuthorName = GetUserDisplayName(n.Comment.Author),
-            CommentAuthorInitial = GetUserInitial(n.Comment.Author),
+            BoardId = n.BoardId ?? n.Card?.Column.BoardId,
+            CardTitle = n.Card?.Title,
+            BoardName = n.Board?.Name ?? n.Card?.Column.Board.Name,
+            ColumnName = n.Card?.Column.Name,
+            CommentContent = n.Comment?.Content,
+            CommentAuthorName = n.Comment != null ? GetUserDisplayName(n.Comment.Author) : null,
+            CommentAuthorInitial = n.Comment != null ? GetUserInitial(n.Comment.Author) : string.Empty,
+            Type = n.Type,
+            Message = NotificationTemplateService.BuildMessage(n),
+            ActorUserName = GetUserDisplayName(n.ActorUser),
             CreationTime = n.CreationTime
         }).ToList();
 

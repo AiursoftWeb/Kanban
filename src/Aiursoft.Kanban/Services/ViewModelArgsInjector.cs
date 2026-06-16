@@ -2,6 +2,7 @@ using Aiursoft.Scanner.Abstractions;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Controllers;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services.Authentication;
 using Aiursoft.Kanban.Services.FileStorage;
 using Aiursoft.UiStack.Layout;
@@ -20,7 +21,6 @@ using UiStackNotification = Aiursoft.UiStack.Views.Shared.Components.Notificatio
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
-
 using Microsoft.EntityFrameworkCore;
 
 using Microsoft.Extensions.Localization;
@@ -326,23 +326,43 @@ public class ViewModelArgsInjector(
             var userId = userManager.GetUserId(context.User)!;
             var recentNotifications = db.Notifications
                 .Where(n => n.UserId == userId && !n.IsRead)
-                .Include(n => n.Comment)
-                .Include(n => n.Card)
+                .Include(n => n.Comment!)
+                    .ThenInclude(c => c.Author)
+                .Include(n => n.Card!)
+                    .ThenInclude(c => c.Column)
+                .Include(n => n.Board)
+                .Include(n => n.ActorUser)
                 .OrderByDescending(n => n.CreationTime)
                 .Take(10)
                 .ToList();
 
             toInject.Navbar.NotificationsDropdown = new NotificationsDropdownViewModel
             {
-                Notifications = recentNotifications.Select(n => new UiStackNotification
+                Notifications = recentNotifications.Select(n =>
                 {
-                    Title = $"New comment on \"{n.Card.Title}\"",
-                    Message = n.Comment.Content.Length > 100
-                        ? n.Comment.Content[..100] + "..."
-                        : n.Comment.Content,
-                    TriggerTime = n.CreationTime,
-                    Icon = "message-circle",
-                    IconClass = "text-primary"
+                    var icon = n.Type switch
+                    {
+                        NotificationType.CommentAdded => "message-circle",
+                        NotificationType.CardAssigned => "user-plus",
+                        NotificationType.CardUnassigned => "user-minus",
+                        NotificationType.CardMoved => "arrow-right-circle",
+                        NotificationType.CardTransferred => "repeat",
+                        NotificationType.CardUpdated => "edit",
+                        NotificationType.BoardShared => "share-2",
+                        _ => "bell"
+                    };
+                    var title = NotificationTemplateService.BuildMessage(n);
+                    var message = title.Length > 100
+                        ? title[..100] + "..."
+                        : title;
+                    return new UiStackNotification
+                    {
+                        Title = title,
+                        Message = message,
+                        TriggerTime = n.CreationTime,
+                        Icon = icon,
+                        IconClass = "text-primary"
+                    };
                 }).ToList(),
                 ViewAllLink = new Link
                 {
