@@ -8,6 +8,7 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section styles {
+    <link rel="stylesheet" href="~/node_modules/katex/dist/katex.min.css" asp-append-version="true" />
 	<style>
 	.drag-handle {
 		cursor: grab;
@@ -288,6 +289,58 @@
         display: block;
         object-fit: cover;
         cursor: pointer;
+    }
+
+    .description-preview {
+        color: var(--bs-body-color);
+        line-height: 1.55;
+    }
+
+    .description-preview > :last-child {
+        margin-bottom: 0;
+    }
+
+    .description-preview pre {
+        padding: 0.75rem;
+        border-radius: 8px;
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        overflow-x: auto;
+    }
+
+    .description-preview code {
+        font-size: 0.85em;
+    }
+
+    .description-preview table {
+        width: 100%;
+        margin-bottom: 1rem;
+        border-collapse: collapse;
+    }
+
+    .description-preview th,
+    .description-preview td {
+        padding: 0.4rem 0.55rem;
+        border: 1px solid var(--bs-border-color, #dee2e6);
+    }
+
+    .description-preview blockquote {
+        margin: 0 0 1rem;
+        padding: 0.5rem 0.8rem;
+        border-left: 4px solid var(--bs-primary, #4dabf7);
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        color: var(--bs-secondary-color);
+        border-radius: 0 8px 8px 0;
+    }
+
+    .description-preview img,
+    .description-preview svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .description-preview .mermaid {
+        text-align: center;
+        overflow-x: auto;
     }
 
     .image-fullscreen-overlay {
@@ -1337,7 +1390,7 @@
                                 }
                             </label>
                             <textarea id="editCardDescription" class="form-control" rows="3" style="border-radius:12px;resize:none" disabled="@(!Model.CanEditCurrentBoard)"></textarea>
-                            <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid #dee2e6;border-radius:12px;background:#f8f9fa;word-break:break-word;white-space:pre-wrap"></div>
+                            <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid #dee2e6;border-radius:12px;background:#f8f9fa;word-break:break-word"></div>
                         </div>
                         <div class="row g-3 mb-3">
                             <div class="col-6">
@@ -1735,6 +1788,10 @@
 @section scripts {
 <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@@1.15.6/Sortable.min.js"></script>
+<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+<script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
+<script src="~/node_modules/katex/dist/katex.min.js" asp-append-version="true"></script>
+<script src="~/node_modules/mermaid/dist/mermaid.min.js" asp-append-version="true"></script>
 <script>
     function getLocalizedText(key, defaultText) {
         var el = document.querySelector('#loc-data span[data-key="' + key + '"]');
@@ -1743,6 +1800,12 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         lucide.createIcons();
+        if (window.mermaid) {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: "strict"
+            });
+        }
 
         var boardList = document.getElementById("boardList");
         if (boardList) {
@@ -1940,8 +2003,184 @@
                 }
                 return escapeHtml(part);
             }).join("");
-            // 将换行符转换为 <br> 标签
             return html.replace(/\n/g, '<br>');
+        }
+
+        function createMathPlaceholder(mathItems, tex, displayMode) {
+            var token = "KANBAN_MATH_" + mathItems.length + "_TOKEN";
+            mathItems.push({
+                token: token,
+                tex: tex,
+                displayMode: displayMode
+            });
+            return token;
+        }
+
+        function protectInlineMath(line, mathItems) {
+            var result = "";
+            var index = 0;
+
+            while (index < line.length) {
+                var start = line.indexOf("$", index);
+                if (start < 0) {
+                    result += line.substring(index);
+                    break;
+                }
+
+                var nextChar = line[start + 1] || "";
+                if ((start > 0 && line[start - 1] === "\\") || nextChar === "$" || /\s|\d/.test(nextChar)) {
+                    result += line.substring(index, start + 1);
+                    index = start + 1;
+                    continue;
+                }
+
+                var end = line.indexOf("$", start + 1);
+                while (end > start && line[end - 1] === "\\") {
+                    end = line.indexOf("$", end + 1);
+                }
+
+                if (end < 0 || /\s/.test(line[end - 1])) {
+                    result += line.substring(index, start + 1);
+                    index = start + 1;
+                    continue;
+                }
+
+                result += line.substring(index, start);
+                result += createMathPlaceholder(mathItems, line.substring(start + 1, end), false);
+                index = end + 1;
+            }
+
+            return result;
+        }
+
+        function protectMathInMarkdown(description, mathItems) {
+            var lines = description.split(/\r?\n/);
+            var inFence = false;
+
+            return lines.map(function(line) {
+                if (/^\s*(```|~~~)/.test(line)) {
+                    inFence = !inFence;
+                    return line;
+                }
+                if (inFence) return line;
+
+                var protectedLine = line.replace(/\$\$([\s\S]*?)\$\$/g, function(_, tex) {
+                    return createMathPlaceholder(mathItems, tex, true);
+                });
+                return protectInlineMath(protectedLine, mathItems);
+            }).join("\n");
+        }
+
+        function renderSafeMarkdownHtml(description, mathItems) {
+            if (!description) return "";
+            if (!window.marked || !window.DOMPurify) {
+                return renderDescriptionHtml(description);
+            }
+
+            marked.setOptions({
+                breaks: true,
+                gfm: true
+            });
+
+            var protectedDescription = protectMathInMarkdown(description, mathItems);
+            var rawHtml = marked.parse(protectedDescription);
+            return DOMPurify.sanitize(rawHtml, {
+                ADD_ATTR: ["target"],
+                FORBID_TAGS: ["script", "style"],
+                FORBID_ATTR: ["style"]
+            });
+        }
+
+        function renderMathPlaceholders(container, mathItems) {
+            if (!window.katex || mathItems.length === 0) return;
+
+            var walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+            var textNodes = [];
+            while (walker.nextNode()) {
+                textNodes.push(walker.currentNode);
+            }
+
+            textNodes.forEach(function(textNode) {
+                var value = textNode.nodeValue || "";
+                var matchedItems = mathItems.filter(function(item) {
+                    return value.indexOf(item.token) >= 0;
+                });
+                if (matchedItems.length === 0) return;
+
+                var fragment = document.createDocumentFragment();
+                var remaining = value;
+                matchedItems.forEach(function(item) {
+                    var tokenIndex = remaining.indexOf(item.token);
+                    if (tokenIndex < 0) return;
+
+                    fragment.appendChild(document.createTextNode(remaining.substring(0, tokenIndex)));
+                    var mathNode = document.createElement(item.displayMode ? "div" : "span");
+                    katex.render(item.tex, mathNode, {
+                        displayMode: item.displayMode,
+                        throwOnError: false
+                    });
+                    fragment.appendChild(mathNode);
+                    remaining = remaining.substring(tokenIndex + item.token.length);
+                });
+                fragment.appendChild(document.createTextNode(remaining));
+                textNode.replaceWith(fragment);
+            });
+        }
+
+        function normalizeMermaidSource(source) {
+            return (source || "").replace(/\{([^}"\n]*\?[^}"\n]*)\}/g, function(_, label) {
+                return '{"' + label.replace(/"/g, '\\"') + '"}';
+            });
+        }
+
+        function restoreMermaidCodeBlock(node, source) {
+            var pre = document.createElement("pre");
+            var code = document.createElement("code");
+            code.className = "language-mermaid";
+            code.textContent = source || "";
+            pre.appendChild(code);
+            node.replaceWith(pre);
+        }
+
+        function renderMermaidInDescription(container) {
+            if (!window.mermaid) return;
+
+            container.querySelectorAll("pre > code.language-mermaid, pre > code.lang-mermaid").forEach(function(code) {
+                var pre = code.closest("pre");
+                if (!pre) return;
+
+                var diagram = document.createElement("div");
+                var source = code.textContent || "";
+                var renderSource = normalizeMermaidSource(source);
+                var renderId = "card-description-mermaid-" + Date.now() + "-" + Math.random().toString(16).slice(2);
+                diagram.className = "mermaid";
+                diagram.textContent = source;
+                pre.replaceWith(diagram);
+
+                mermaid.render(renderId, renderSource).then(function(result) {
+                    diagram.innerHTML = result.svg;
+                    if (result.bindFunctions) {
+                        result.bindFunctions(diagram);
+                    }
+                }).catch(function(err) {
+                    console.error("Mermaid render failed:", err);
+                    restoreMermaidCodeBlock(diagram, source);
+                });
+            });
+        }
+
+        function renderDescriptionPreview(description, container) {
+            var mathItems = [];
+            var html = renderSafeMarkdownHtml(description, mathItems);
+            container.innerHTML = html;
+            if (!html) return false;
+
+            renderMathPlaceholders(container, mathItems);
+            renderMermaidInDescription(container);
+            container.querySelectorAll("a[href]").forEach(function(link) {
+                link.rel = "noopener noreferrer";
+            });
+            return true;
         }
 
         var imageFullscreenOverlay = document.getElementById("imageFullscreenOverlay");
@@ -1975,9 +2214,7 @@
             }
             if (!editCardDescriptionPreview) return;
             var desc = editCardDescription ? editCardDescription.value : "";
-            var html = renderDescriptionHtml(desc);
-            if (html) {
-                editCardDescriptionPreview.innerHTML = html;
+            if (renderDescriptionPreview(desc, editCardDescriptionPreview)) {
                 editCardDescriptionPreview.style.display = "";
             } else {
                 editCardDescriptionPreview.innerHTML = "";
