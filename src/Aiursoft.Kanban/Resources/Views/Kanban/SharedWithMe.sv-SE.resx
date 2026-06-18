@@ -27,6 +27,15 @@
   <data name="Boards that have been shared with you or your groups." xml:space="preserve">
     <value>Brädor som delats med dig eller dina grupper.</value>
   </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Kolumner</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Slutförd</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Skapad</value>
+  </data>
   <data name="Direct Share" xml:space="preserve">
     <value>Direkt delad</value>
   </data>
@@ -36,8 +45,17 @@
   <data name="Editable" xml:space="preserve">
     <value>Redigerbar</value>
   </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Pågår</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Ofullständig</value>
+  </data>
   <data name="No shared boards" xml:space="preserve">
     <value>Inga delade whiteboard</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Försenat</value>
   </data>
   <data name="Permission" xml:space="preserve">
     <value>Behörighet</value>
@@ -53,6 +71,9 @@
   </data>
   <data name="Shared with Me" xml:space="preserve">
     <value>Delat med mig</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Otilldelad</value>
   </data>
   <data name="Via Role" xml:space="preserve">
     <value>Via roll</value>
