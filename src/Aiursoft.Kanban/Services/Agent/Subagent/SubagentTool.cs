@@ -47,27 +47,39 @@ public class SubagentTool : IScopedDependency
         var subagent = _subagents.FirstOrDefault(s => s.Name == "TaskPlanning");
         if (subagent == null)
         {
-            _logger.LogError("TaskPlanning subagent not found in DI container");
+            _logger.LogError("[SubagentTool] TaskPlanning subagent not found in DI container");
             return "Error: TaskPlanning subagent is not available.";
         }
 
-        _logger.LogInformation("Invoking TaskPlanning subagent for user '{UserId}'", _currentUser.UserId);
+        _logger.LogInformation(
+            "[SubagentTool] Dispatching to TaskPlanning subagent | RequestLen={ReqLen} chars | User={UserId}",
+            request.Length, _currentUser.UserId);
 
         try
         {
             var result = await subagent.ExecuteAsync(_currentUser.UserId, request, ct);
-            _logger.LogInformation("TaskPlanning subagent completed");
+
+            _logger.LogInformation(
+                "[SubagentTool] TaskPlanning returned | ResultLen={ResultLen} chars | Result preview: {Preview}",
+                result.Length, Truncate(result, 500));
+
             return result;
         }
         catch (OperationCanceledException)
         {
-            _logger.LogWarning("TaskPlanning subagent was cancelled");
+            _logger.LogWarning("[SubagentTool] TaskPlanning CANCELLED (timeout or user abort)");
             return "Task planning was cancelled due to timeout.";
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "TaskPlanning subagent failed");
+            _logger.LogError(ex, "[SubagentTool] TaskPlanning FAILED");
             return $"Task planning failed: {ex.Message}";
         }
+    }
+
+    private static string Truncate(string value, int maxLen)
+    {
+        if (string.IsNullOrEmpty(value)) return "(empty)";
+        return value.Length <= maxLen ? value : value[..maxLen] + "…";
     }
 }

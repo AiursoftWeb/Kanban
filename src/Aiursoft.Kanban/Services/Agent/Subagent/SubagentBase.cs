@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 using ModelContextProtocol.Protocol;
 using ModelContextProtocol.Server;
@@ -43,6 +44,14 @@ public abstract class SubagentBase : ISubagent
     /// <inheritdoc />
     public async Task<string> ExecuteAsync(string userId, string input, CancellationToken ct)
     {
+        var totalStopwatch = Stopwatch.StartNew();
+        var totalInputTokens = 0;
+        var totalOutputTokens = 0;
+
+        _logger.LogInformation(
+            "[Subagent:{Name}] Started | InputLength={InputLen} chars | Tools=[{ToolList}] | MaxIterations={MaxIter}",
+            Name, input.Length, string.Join(", ", ToolNames), MaxIterations);
+
         // Subagent has its own isolated conversation — it never mixes with the
         // main agent's messages. This keeps the subagent focused on its task.
         var messages = new List<ClaudeMessage>
@@ -56,7 +65,9 @@ public abstract class SubagentBase : ISubagent
         {
             ct.ThrowIfCancellationRequested();
 
-            _logger.LogDebug("Subagent '{Name}' iteration {Iteration}/{Max}", Name, i + 1, MaxIterations);
+            var iterStopwatch = Stopwatch.StartNew();
+
+            _logger.LogDebug("[Subagent:{Name}] Iteration {Iter}/{Max} starting", Name, i + 1, MaxIterations);
 
             ClaudeResponse response;
             try
@@ -66,18 +77,39 @@ public abstract class SubagentBase : ISubagent
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "Subagent '{Name}' LLM call failed on iteration {Iteration}", Name, i + 1);
+                _logger.LogError(ex,
+                    "[Subagent:{Name}] LLM call FAILED at iteration {Iter}/{Max} after {Elapsed}ms",
+                    Name, i + 1, MaxIterations, iterStopwatch.ElapsedMilliseconds);
                 return $"Subagent '{Name}' failed: {ex.Message}";
             }
+
+            iterStopwatch.Stop();
+
+            // Track token usage for observability
+            var iterInputTokens = response.Usage?.InputTokens ?? 0;
+            var iterOutputTokens = response.Usage?.OutputTokens ?? 0;
+            totalInputTokens += iterInputTokens;
+            totalOutputTokens += iterOutputTokens;
+
+            _logger.LogInformation(
+                "[Subagent:{Name}] Iteration {Iter}/{Max} | LLM: {InputTok}+{OutputTok} tokens | {Elapsed}ms | StopReason={StopReason}",
+                Name, i + 1, MaxIterations, iterInputTokens, iterOutputTokens,
+                iterStopwatch.ElapsedMilliseconds, response.StopReason);
 
             var toolUses = response.GetToolUses();
             if (toolUses.Count > 0)
             {
+                var thoughtText = response.GetText();
+                if (!string.IsNullOrWhiteSpace(thoughtText))
+                {
+                    _logger.LogDebug("[Subagent:{Name}] Thought: {Thought}",
+                        Name, Truncate(thoughtText, 300));
+                }
+
                 // Append assistant message with tool_call blocks
                 var assistantBlocks = new List<ClaudeContentBlock>();
-                var text = response.GetText();
-                if (!string.IsNullOrWhiteSpace(text))
-                    assistantBlocks.Add(ClaudeContentBlock.TextBlock(text));
+                if (!string.IsNullOrWhiteSpace(thoughtText))
+                    assistantBlocks.Add(ClaudeContentBlock.TextBlock(thoughtText));
 
                 foreach (var tu in toolUses)
                 {
@@ -93,14 +125,24 @@ public abstract class SubagentBase : ISubagent
                 {
                     if (string.IsNullOrEmpty(tu.Name)) continue;
 
+                    var toolStopwatch = Stopwatch.StartNew();
                     string toolResult;
                     try
                     {
                         toolResult = await ExecuteTool(userId, tu);
+                        toolStopwatch.Stop();
+
+                        _logger.LogInformation(
+                            "[Subagent:{Name}] Tool call: {ToolName}({Args}) → {ResultLen} chars | {Elapsed}ms",
+                            Name, tu.Name, SummarizeArgs(tu.Input), toolResult.Length,
+                            toolStopwatch.ElapsedMilliseconds);
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogWarning(ex, "Subagent '{Name}' tool '{ToolName}' failed", Name, tu.Name);
+                        toolStopwatch.Stop();
+                        _logger.LogError(ex,
+                            "[Subagent:{Name}] Tool call FAILED: {ToolName} | {Elapsed}ms",
+                            Name, tu.Name, toolStopwatch.ElapsedMilliseconds);
                         toolResult = $"Error executing {tu.Name}: {ex.Message}";
                     }
 
@@ -114,17 +156,25 @@ public abstract class SubagentBase : ISubagent
             var finalText = response.GetText();
             if (!string.IsNullOrWhiteSpace(finalText))
             {
-                _logger.LogDebug("Subagent '{Name}' completed after {Iteration} iteration(s)", Name, i + 1);
+                totalStopwatch.Stop();
+                _logger.LogInformation(
+                    "[Subagent:{Name}] COMPLETED | Iterations={Iter} | Total tokens: {InTok}+{OutTok} | Output={OutLen} chars | Total {TotalMs}ms\n" +
+                    "── Subagent Output ──\n{Output}",
+                    Name, i + 1, totalInputTokens, totalOutputTokens,
+                    finalText.Length, totalStopwatch.ElapsedMilliseconds,
+                    Truncate(finalText, 2000));
                 return finalText;
             }
 
             // Empty response without tool calls — shouldn't normally happen
-            _logger.LogWarning("Subagent '{Name}' returned empty response on iteration {Iteration}", Name, i + 1);
+            _logger.LogWarning("[Subagent:{Name}] Empty response at iteration {Iter}", Name, i + 1);
             return $"Subagent '{Name}' returned an empty response.";
         }
 
         // Max iterations reached — ask the LLM one final time using accumulated context
-        _logger.LogWarning("Subagent '{Name}' reached max iterations ({Max})", Name, MaxIterations);
+        _logger.LogWarning(
+            "[Subagent:{Name}] MAX ITERATIONS ({Max}) reached | Total tokens so far: {InTok}+{OutTok}",
+            Name, MaxIterations, totalInputTokens, totalOutputTokens);
 
         // Try to get one final summary without tools
         try
@@ -133,15 +183,34 @@ public abstract class SubagentBase : ISubagent
                 SystemPrompt + "\n\nYou have reached the maximum number of steps. " +
                 "Summarize your findings and produce the best plan you can with the information you have.",
                 messages, tools: null, ct, maxTokens: 2048);
+
+            var summaryTokens = (finalResponse.Usage?.InputTokens ?? 0) + (finalResponse.Usage?.OutputTokens ?? 0);
+            totalInputTokens += finalResponse.Usage?.InputTokens ?? 0;
+            totalOutputTokens += finalResponse.Usage?.OutputTokens ?? 0;
+
             var summary = finalResponse.GetText();
             if (!string.IsNullOrWhiteSpace(summary))
+            {
+                totalStopwatch.Stop();
+                _logger.LogInformation(
+                    "[Subagent:{Name}] COMPLETED (forced summary) | Total iterations={Iter} | Total tokens: {InTok}+{OutTok} | Output={OutLen} chars | Total {TotalMs}ms\n" +
+                    "── Subagent Output ──\n{Output}",
+                    Name, MaxIterations, totalInputTokens, totalOutputTokens,
+                    summary.Length, totalStopwatch.ElapsedMilliseconds,
+                    Truncate(summary, 2000));
                 return summary;
+            }
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Subagent '{Name}' final summary call failed", Name);
+            _logger.LogError(ex,
+                "[Subagent:{Name}] Final summary call FAILED after reaching max iterations", Name);
         }
 
+        totalStopwatch.Stop();
+        _logger.LogError(
+            "[Subagent:{Name}] FAILED — no output after {Max} iterations and forced summary | Total {TotalMs}ms",
+            Name, MaxIterations, totalStopwatch.ElapsedMilliseconds);
         return $"Subagent '{Name}' reached the maximum number of steps without producing a complete plan.";
     }
 
@@ -213,5 +282,34 @@ public abstract class SubagentBase : ISubagent
         var result = await tool.InvokeAsync(request);
         var textContent = result.Content.OfType<TextContentBlock>().FirstOrDefault();
         return textContent?.Text ?? result.ToString() ?? "Tool executed.";
+    }
+
+    // ── Logging helpers ────────────────────────────────────────
+
+    /// <summary>Truncate a string for log display, adding "…" when cut.</summary>
+    private static string Truncate(string value, int maxLen)
+    {
+        if (string.IsNullOrEmpty(value)) return "(empty)";
+        return value.Length <= maxLen ? value : value[..maxLen] + "…";
+    }
+
+    /// <summary>Build a compact human-readable summary of tool arguments.</summary>
+    private static string SummarizeArgs(Dictionary<string, object?>? args)
+    {
+        if (args == null || args.Count == 0) return "";
+        var parts = new List<string>();
+        foreach (var (k, v) in args)
+        {
+            var valStr = v switch
+            {
+                null => "null",
+                string s when s.Length == 0 => "\"\"",
+                string s when s.Length > 60 => $"\"{s[..60]}…\"",
+                string s => $"\"{s}\"",
+                _ => v.ToString() ?? "?"
+            };
+            parts.Add($"{k}={valStr}");
+        }
+        return string.Join(", ", parts);
     }
 }
