@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using Aiursoft.Scanner.Abstractions;
-using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Server;
 
 namespace Aiursoft.Kanban.Services.Agent.Subagent;
