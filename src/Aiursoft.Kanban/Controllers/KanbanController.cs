@@ -146,9 +146,7 @@ public class KanbanController(
         foreach (var share in shares)
         {
             var board = share.Board;
-            if (board?.Columns == null) continue;
-
-            var cards = board.Columns.SelectMany(c => c.Cards ?? []).ToList();
+            var cards = board.Columns.SelectMany(c => c.Cards).ToList();
             summaries[board.Id] = new BoardSummary
             {
                 BoardId = board.Id,
