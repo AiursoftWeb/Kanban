@@ -184,7 +184,6 @@ public abstract class SubagentBase : ISubagent
                 "Summarize your findings and produce the best plan you can with the information you have.",
                 messages, tools: null, ct, maxTokens: 2048);
 
-            var summaryTokens = (finalResponse.Usage?.InputTokens ?? 0) + (finalResponse.Usage?.OutputTokens ?? 0);
             totalInputTokens += finalResponse.Usage?.InputTokens ?? 0;
             totalOutputTokens += finalResponse.Usage?.OutputTokens ?? 0;
 
