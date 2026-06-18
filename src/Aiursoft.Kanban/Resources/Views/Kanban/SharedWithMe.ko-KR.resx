@@ -27,6 +27,15 @@
   <data name="Boards that have been shared with you or your groups." xml:space="preserve">
     <value>귀하 또는 소속 그룹과 공유된 보드</value>
   </data>
+  <data name="Columns" xml:space="preserve">
+    <value>열</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>완료됨</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>생성됨</value>
+  </data>
   <data name="Direct Share" xml:space="preserve">
     <value>직접 공유</value>
   </data>
@@ -36,8 +45,17 @@
   <data name="Editable" xml:space="preserve">
     <value>편집 가능</value>
   </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>진행 중</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>미완료</value>
+  </data>
   <data name="No shared boards" xml:space="preserve">
     <value>공유된 보드가 없습니다</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>기한 만료</value>
   </data>
   <data name="Permission" xml:space="preserve">
     <value>권한</value>
@@ -53,6 +71,9 @@
   </data>
   <data name="Shared with Me" xml:space="preserve">
     <value>나와 공유됨</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>미배정</value>
   </data>
   <data name="Via Role" xml:space="preserve">
     <value>역할 기준</value>

@@ -27,6 +27,15 @@
   <data name="Boards that have been shared with you or your groups." xml:space="preserve">
     <value>Taulut, jotka on jaettu sinulle tai ryhmissäsi.</value>
   </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Sarakkeet</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Valmiit</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Luotu</value>
+  </data>
   <data name="Direct Share" xml:space="preserve">
     <value>Suora jako</value>
   </data>
@@ -36,8 +45,17 @@
   <data name="Editable" xml:space="preserve">
     <value>Muokattava</value>
   </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Käynnissä</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Valmistumatta</value>
+  </data>
   <data name="No shared boards" xml:space="preserve">
     <value>Ei jaettuja tauluja</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Myöhässä</value>
   </data>
   <data name="Permission" xml:space="preserve">
     <value>Oikeudet</value>
@@ -53,6 +71,9 @@
   </data>
   <data name="Shared with Me" xml:space="preserve">
     <value>Jaetut minulle</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Määrittämätön</value>
   </data>
   <data name="Via Role" xml:space="preserve">
     <value>Roolin kautta</value>
