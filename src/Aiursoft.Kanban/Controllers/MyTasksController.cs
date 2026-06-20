@@ -24,11 +24,12 @@ public class MyTasksController(
         CascadedLinksOrder = 3,
         LinkText = "My Tasks",
         LinkOrder = 10)]
-    public async Task<IActionResult> Index(string status = "incomplete", string? labelIds = null, string labelMode = "any")
+    public async Task<IActionResult> Index(string status = "incomplete", string? labelIds = null, string labelMode = "any", string sort = "due-date-desc")
     {
         var userId = userManager.GetUserId(User)!;
         var normalizedStatus = NormalizeStatus(status);
         var normalizedLabelMode = NormalizeLabelMode(labelMode);
+        var normalizedSort = NormalizeSort(sort);
         var selectedLabelIds = ParseLabelIds(labelIds);
 
         var cardsQuery = db.KanbanCards
@@ -74,12 +75,7 @@ public class MyTasksController(
                 : filteredCards.Where(card => card.CardLabels.Any(link => selectedLabelIds.Contains(link.LabelId)));
         }
 
-        var orderedCards = filteredCards
-            .OrderBy(card => card.Priority)
-            .ThenBy(card => card.DueDate == null ? 1 : 0)
-            .ThenBy(card => card.DueDate)
-            .ThenBy(card => card.Title)
-            .ToList();
+        var orderedCards = ApplySort(filteredCards, normalizedSort);
 
         return this.StackView(new IndexViewModel
         {
@@ -87,7 +83,8 @@ public class MyTasksController(
             AvailableLabels = availableLabels,
             SelectedLabelIds = selectedLabelIds,
             SelectedStatus = normalizedStatus,
-            SelectedLabelMode = normalizedLabelMode
+            SelectedLabelMode = normalizedLabelMode,
+            SelectedSort = normalizedSort
         });
     }
 
@@ -103,6 +100,89 @@ public class MyTasksController(
         };
     }
 
+    private static string NormalizeSort(string? sort)
+    {
+        return sort?.Trim().ToLowerInvariant() switch
+        {
+            "priority-asc" => "priority-asc",
+            "priority-desc" => "priority-desc",
+            "due-date-asc" => "due-date-asc",
+            "actual-start-desc" => "actual-start-desc",
+            "actual-start-asc" => "actual-start-asc",
+            "creation-desc" => "creation-desc",
+            "creation-asc" => "creation-asc",
+            "title-asc" => "title-asc",
+            "title-desc" => "title-desc",
+            _ => "due-date-desc"
+        };
+    }
+
+    private static List<KanbanCard> ApplySort(IEnumerable<KanbanCard> cards, string sort)
+    {
+        var now = DateTime.UtcNow;
+        return sort switch
+        {
+            "priority-asc" => cards
+                .OrderBy(card => card.Priority)
+                .ThenBy(card => card.DueDate == null ? 1 : 0)
+                .ThenBy(card => card.DueDate)
+                .ThenBy(card => card.Title)
+                .ToList(),
+            "priority-desc" => cards
+                .OrderByDescending(card => card.Priority)
+                .ThenBy(card => card.DueDate == null ? 1 : 0)
+                .ThenBy(card => card.DueDate)
+                .ThenBy(card => card.Title)
+                .ToList(),
+            "due-date-asc" => cards
+                .OrderBy(card => card.DueDate == null ? 1 : 0)
+                .ThenBy(card => card.DueDate)
+                .ThenBy(card => card.Priority)
+                .ThenBy(card => card.Title)
+                .ToList(),
+            "actual-start-desc" => cards
+                .OrderBy(card => card.ActualStartTime == null ? 1 : 0)
+                .ThenByDescending(card => card.ActualStartTime)
+                .ThenBy(card => card.Priority)
+                .ThenBy(card => card.Title)
+                .ToList(),
+            "actual-start-asc" => cards
+                .OrderBy(card => card.ActualStartTime == null ? 1 : 0)
+                .ThenBy(card => card.ActualStartTime)
+                .ThenBy(card => card.Priority)
+                .ThenBy(card => card.Title)
+                .ToList(),
+            "creation-desc" => cards
+                .OrderByDescending(card => card.CreationTime)
+                .ThenBy(card => card.Priority)
+                .ThenBy(card => card.Title)
+                .ToList(),
+            "creation-asc" => cards
+                .OrderBy(card => card.CreationTime)
+                .ThenBy(card => card.Priority)
+                .ThenBy(card => card.Title)
+                .ToList(),
+            "title-asc" => cards
+                .OrderBy(card => card.Title)
+                .ThenBy(card => card.Priority)
+                .ThenBy(card => card.DueDate == null ? 1 : 0)
+                .ThenBy(card => card.DueDate)
+                .ToList(),
+            "title-desc" => cards
+                .OrderByDescending(card => card.Title)
+                .ThenBy(card => card.Priority)
+                .ThenBy(card => card.DueDate == null ? 1 : 0)
+                .ThenBy(card => card.DueDate)
+                .ToList(),
+            _ => cards // due-date-desc (default): overdue first, then upcoming, then no due date
+                .OrderBy(card => card.DueDate == null ? 1 : 0)
+                .ThenBy(card => card.DueDate.HasValue && card.DueDate.Value < now ? 0 : 1)
+                .ThenBy(card => card.DueDate)
+                .ThenBy(card => card.Priority)
+                .ThenBy(card => card.Title)
+                .ToList()
+        };
+    }
     private static string NormalizeLabelMode(string? labelMode)
     {
         return labelMode?.Trim().ToLowerInvariant() == "all" ? "all" : "any";

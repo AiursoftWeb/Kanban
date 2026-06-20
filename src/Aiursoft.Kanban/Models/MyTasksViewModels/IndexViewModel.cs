@@ -15,4 +15,5 @@ public class IndexViewModel : UiStackLayoutViewModel
     public required HashSet<int> SelectedLabelIds { get; init; }
     public required string SelectedStatus { get; init; }
     public required string SelectedLabelMode { get; init; }
+    public required string SelectedSort { get; init; }
 }
