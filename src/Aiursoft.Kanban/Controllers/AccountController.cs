@@ -2,6 +2,7 @@ using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.AccountViewModels;
 using Aiursoft.Kanban.Services;
+using Aiursoft.Kanban.Services.Auditing;
 using Aiursoft.WebTools.Attributes;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -23,6 +24,7 @@ public class AccountController(
     IOptions<AppSettings> appSettings,
     UserManager<User> userManager,
     SignInManager<User> signInManager,
+    AuditLogService auditLogService,
     ILogger<AccountController> logger)
     : Controller
 {
@@ -77,6 +79,8 @@ public class AccountController(
             if (result.Succeeded)
             {
                 logger.LogInformation(1, "User logged in");
+                auditLogService.Record("Account.Login", "Account", "Logged in locally", source: "Web",
+                    userId: possibleUser.Id, userName: possibleUser.DisplayName);
                 return RedirectToLocal(returnUrl ?? "/Dashboard/Index");
             }
 
@@ -143,6 +147,8 @@ public class AccountController(
 
                 await signInManager.SignInAsync(user, isPersistent: false);
                 logger.LogInformation(3, "User created a new account with password");
+                auditLogService.Record("Account.Register", "Account", "Registered a local account", source: "Web",
+                    userId: user.Id, userName: user.DisplayName);
                 return RedirectToLocal(returnUrl ?? "/Dashboard/Index");
             }
 
@@ -156,15 +162,21 @@ public class AccountController(
     [Authorize]
     public async Task<IActionResult> LogOff()
     {
+        var userId = userManager.GetUserId(User);
+        var userName = User.Identity?.Name;
         if (_appSettings.OIDCEnabled)
         {
             logger.LogInformation(4, "User logged out with OIDC.");
+            auditLogService.Record("Account.LogOff", "Account", "Logged out from OIDC", source: "Web",
+                userId: userId, userName: userName);
             var properties = new AuthenticationProperties { RedirectUri = "/" };
             return SignOut(properties, IdentityConstants.ApplicationScheme, OpenIdConnectDefaults.AuthenticationScheme);
         }
 
         await signInManager.SignOutAsync();
         logger.LogInformation(4, "User logged out locally.");
+        auditLogService.Record("Account.LogOff", "Account", "Logged out locally", source: "Web",
+            userId: userId, userName: userName);
         return RedirectToAction(nameof(HomeController.Index), "Home");
     }
 
@@ -189,6 +201,9 @@ public class AccountController(
         if (result.Succeeded)
         {
             logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
+            var user = await userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+            auditLogService.Record("Account.Login", "Account", $"Logged in with {info.LoginProvider}", source: "Web",
+                userId: user?.Id, userName: user?.DisplayName ?? user?.UserName);
             return RedirectToLocal(returnUrl ?? "/Dashboard/Index");
         }
 

@@ -4,6 +4,7 @@ using Aiursoft.Canon.TaskQueue;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Notifications;
+using Aiursoft.Kanban.Services.Auditing;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -978,7 +979,32 @@ public class AgentService : IAgentService
 
         var result = await tool.InvokeAsync(request);
         var textContent = result.Content.OfType<ModelContextProtocol.Protocol.TextContentBlock>().FirstOrDefault();
-        return textContent?.Text ?? result.ToString() ?? "Tool executed.";
+        var resultText = textContent?.Text ?? result.ToString() ?? "Tool executed.";
+        if (_toolRegistry.IsWriteTool(tool.ProtocolTool.Name) &&
+            !resultText.StartsWith("Error:", StringComparison.OrdinalIgnoreCase))
+        {
+            var safeArgs = args
+                .Where(pair => !IsSensitiveAuditArgument(pair.Key))
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
+            var user = await scope.ServiceProvider.GetRequiredService<UserManager<User>>().FindByIdAsync(userId);
+            scope.ServiceProvider.GetRequiredService<AuditLogService>().Record(
+                action: $"Agent.{tool.ProtocolTool.Name}",
+                category: "Kanban",
+                summary: resultText,
+                details: safeArgs,
+                source: "Agent",
+                userId: userId,
+                userName: user?.DisplayName ?? user?.UserName ?? userId);
+        }
+
+        return resultText;
+    }
+
+    private static bool IsSensitiveAuditArgument(string name)
+    {
+        return name.Contains("password", StringComparison.OrdinalIgnoreCase) ||
+               name.Contains("token", StringComparison.OrdinalIgnoreCase) ||
+               name.Contains("secret", StringComparison.OrdinalIgnoreCase);
     }
 
     private static Dictionary<string, object?> UnwrapJsonElements(Dictionary<string, object?> args)

@@ -5,6 +5,7 @@ using Aiursoft.Kanban.Events;
 using Aiursoft.Kanban.Models.KanbanViewModels;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
+using Aiursoft.Kanban.Services.Auditing;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
 using MediatR;
@@ -23,6 +24,7 @@ public class KanbanController(
     StorageService storage,
     IAuthorizationService authorizationService,
     IMediator mediator,
+    AuditLogService auditLogService,
     ILogger<KanbanController> logger) : Controller
 {
     private static readonly string[] LabelColors =
@@ -352,6 +354,9 @@ public class KanbanController(
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
         if (!await HasEditAccess(targetColumn.Board, userId)) return Forbid();
 
+        var sourceBoardName = card.Column.Board.Name;
+        var sourceColumnName = card.Column.Name;
+
         var maxOrder = await db.KanbanCards
             .Where(c => c.ColumnId == targetColumnId)
             .MaxAsync(c => (int?)c.Order) ?? -1;
@@ -392,6 +397,12 @@ public class KanbanController(
             OriginalCreatorUserId: originalCreatorUserId,
             OriginalAssigneeUserId: originalAssigneeUserId));
 
+        auditLogService.Record(
+            "Kanban.TransferCard",
+            "Kanban",
+            $"Transferred card \"{card.Title}\" from {sourceBoardName}/{sourceColumnName} to {targetColumn.Board.Name}/{targetColumn.Name}",
+            new { OriginalCardId = cardId, NewCardId = transferredCard.Id, SourceBoard = sourceBoardName, SourceColumn = sourceColumnName, TargetBoard = targetColumn.Board.Name, TargetColumn = targetColumn.Name });
+
         return Ok(new
         {
             transferredCard.Id,
@@ -420,6 +431,7 @@ public class KanbanController(
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
 
         var fromColumnId = card.ColumnId;
+        var fromColumnName = card.Column.Name;
 
         var now = DateTime.UtcNow;
         var wasCompleted = card.Column.ColumnStatus == ColumnStatus.Completed;
@@ -527,6 +539,14 @@ public class KanbanController(
                 CardId: cardId,
                 ActorUserId: userId));
         }
+
+        auditLogService.Record(
+            "Kanban.MoveCard",
+            "Kanban",
+            fromColumnId == targetColumnId
+                ? $"Reordered card \"{card.Title}\" in column {column.Name} to position {newOrder}"
+                : $"Moved card \"{card.Title}\" from {fromColumnName} to {column.Name}",
+            new { CardId = cardId, FromColumn = fromColumnName, ToColumn = column.Name, NewOrder = newOrder, Board = column.Board.Name });
 
         return Ok(new
         {
@@ -777,6 +797,15 @@ public class KanbanController(
         if (!await CanAssignUserToBoardAsync(card.Column.Board, normalizedAssignedUserId))
             return BadRequest("Assigned user does not have access to this board.");
 
+        var oldValues = new
+        {
+            card.Title,
+            card.Description,
+            card.PlannedStartTime,
+            card.DueDate,
+            Priority = card.Priority.ToString(),
+            card.AssignedUserId
+        };
         var changedFields = new List<string>();
         if (!string.Equals(card.Title, title.Trim(), StringComparison.Ordinal))
             changedFields.Add("title");
@@ -831,6 +860,18 @@ public class KanbanController(
             ? null
             : await userManager.FindByIdAsync(normalizedAssignedUserId);
 
+        auditLogService.Record(
+            "Kanban.UpdateCardDetails",
+            "Kanban",
+            $"Updated card \"{card.Title}\": {string.Join(", ", changedFields.Concat(oldAssigneeId == normalizedAssignedUserId ? [] : ["assignee"]))}",
+            new
+            {
+                CardId = card.Id,
+                Board = card.Column.Board.Name,
+                Old = oldValues,
+                New = new { card.Title, card.Description, card.PlannedStartTime, card.DueDate, Priority = card.Priority.ToString(), card.AssignedUserId }
+            });
+
         return Ok(new
         {
             card.Id,
@@ -871,8 +912,15 @@ public class KanbanController(
         var userId = userManager.GetUserId(User)!;
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
 
+        var oldPriority = card.Priority;
         card.Priority = (Priority)priority;
         await db.SaveChangesAsync();
+
+        auditLogService.Record(
+            "Kanban.UpdateCardPriority",
+            "Kanban",
+            $"Changed priority of card \"{card.Title}\" from {oldPriority} to {card.Priority}",
+            new { CardId = card.Id, Board = card.Column.Board.Name, OldPriority = oldPriority.ToString(), NewPriority = card.Priority.ToString() });
 
         return Ok(new
         {
@@ -914,6 +962,13 @@ public class KanbanController(
         var assignedUser = normalizedAssignedUserId == null
             ? null
             : await userManager.FindByIdAsync(normalizedAssignedUserId);
+        var oldAssignee = oldAssigneeId == null ? null : await userManager.FindByIdAsync(oldAssigneeId);
+
+        auditLogService.Record(
+            "Kanban.AssignCard",
+            "Kanban",
+            $"Changed assignee of card \"{card.Title}\" from {GetUserDisplayName(oldAssignee)} to {GetUserDisplayName(assignedUser)}",
+            new { CardId = card.Id, Board = card.Column.Board.Name, OldAssigneeId = oldAssigneeId, NewAssigneeId = normalizedAssignedUserId });
 
         return Ok(new
         {
@@ -1264,6 +1319,12 @@ public class KanbanController(
             CommentId: comment.Id,
             ActorUserId: userId));
 
+        auditLogService.Record(
+            "Kanban.AddComment",
+            "Kanban",
+            $"Commented on card \"{card.Title}\"",
+            new { CardId = card.Id, CommentId = comment.Id, Board = card.Column.Board.Name, comment.Content });
+
         var author = await userManager.FindByIdAsync(userId);
         return Ok(new
         {
@@ -1326,6 +1387,11 @@ public class KanbanController(
 
         db.Remove(comment);
         await db.SaveChangesAsync();
+        auditLogService.Record(
+            "Kanban.DeleteComment",
+            "Kanban",
+            $"Deleted a comment from card \"{comment.Card.Title}\"",
+            new { comment.CardId, CommentId = comment.Id, Board = comment.Card.Column.Board.Name, comment.Content });
         return Ok();
     }
 

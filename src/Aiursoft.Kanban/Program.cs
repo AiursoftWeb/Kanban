@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using Aiursoft.ClickhouseLoggerProvider;
 using Aiursoft.DbTools;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Extensions;
 using static Aiursoft.WebTools.Extends;
 
 namespace Aiursoft.Kanban;
@@ -13,6 +14,7 @@ public abstract class Program
     {
         var app = await AppAsync<Startup>(args);
         await app.Services.InitLoggingTableAsync();
+        await app.InitAuditClickhouseAsync();
         await app.UpdateDbAsync<TemplateDbContext>();
         await app.SeedAsync();
         await app.CopyAvatarFileAsync();
