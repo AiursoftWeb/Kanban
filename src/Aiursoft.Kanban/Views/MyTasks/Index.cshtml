@@ -1,11 +1,12 @@
 @using Aiursoft.Kanban.Entities
 @model Aiursoft.Kanban.Models.MyTasksViewModels.IndexViewModel
 @{
-    string BuildUrl(string? status = null, IEnumerable<int>? labelIds = null, string? labelMode = null)
+    string BuildUrl(string? status = null, IEnumerable<int>? labelIds = null, string? labelMode = null, string? sort = null)
     {
         var query = new List<string>();
         var selectedStatus = status ?? Model.SelectedStatus;
         var selectedMode = labelMode ?? Model.SelectedLabelMode;
+        var selectedSort = sort ?? Model.SelectedSort;
         var selectedIds = (labelIds ?? Model.SelectedLabelIds).Distinct().OrderBy(id => id).ToList();
 
         if (!string.Equals(selectedStatus, "incomplete", StringComparison.OrdinalIgnoreCase))
@@ -21,6 +22,11 @@
         if (!string.Equals(selectedMode, "any", StringComparison.OrdinalIgnoreCase))
         {
             query.Add($"labelMode={Uri.EscapeDataString(selectedMode)}");
+        }
+
+        if (!string.Equals(selectedSort, "due-date-desc", StringComparison.OrdinalIgnoreCase))
+        {
+            query.Add($"sort={Uri.EscapeDataString(selectedSort)}");
         }
 
         var baseUrl = Url.Action("Index", "MyTasks") ?? "/MyTasks/Index";
@@ -140,13 +146,29 @@
         color: var(--bs-secondary-color);
         background: var(--bs-tertiary-bg);
     }
+
+    .card-due-date { font-size: 0.78rem; display: flex; align-items: center; gap: 3px; color: var(--bs-secondary-color); }
+    .card-due-date.overdue { color: #dc3545; font-weight: 600; }
+    .sort-select { border-radius: 999px; border-color: var(--bs-border-color); font-size: 0.82rem; padding: 0.35rem 0.75rem; }
 </style>
 }
 
 <div class="row mb-4">
     <div class="col-12">
         <h2 class="mb-1">My Tasks</h2>
-        <p class="text-muted mb-0">Everything assigned to you, sorted by priority and due date.</p>
+        <p class="text-muted mb-0">Everything assigned to you@(new Dictionary<string, string>
+        {
+            ["due-date-desc"] = " — overdue first.",
+            ["due-date-asc"] = " — due date ascending.",
+            ["priority-asc"] = " — most urgent first.",
+            ["priority-desc"] = " — least urgent first.",
+            ["actual-start-desc"] = " — recently started first.",
+            ["actual-start-asc"] = " — actual start ascending.",
+            ["creation-desc"] = " — newest first.",
+            ["creation-asc"] = " — oldest first.",
+            ["title-asc"] = " — title A–Z.",
+            ["title-desc"] = " — title Z–A.",
+        }.TryGetValue(Model.SelectedSort, out var desc) ? desc : "")</p>
     </div>
 </div>
 
@@ -158,6 +180,38 @@
             <a class="btn @(Model.SelectedStatus == "in-progress" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "in-progress")">In Progress</a>
             <a class="btn @(Model.SelectedStatus == "all" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "all")">All</a>
             <a class="btn @(Model.SelectedStatus == "completed" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "completed")">Completed</a>
+        </div>
+
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+            <span class="fw-semibold">Sort</span>
+            <select class="form-select sort-select" style="width:auto" onchange="window.location=this.value">
+                @{
+                    var sortOptions = new (string Value, string Label)[]
+                    {
+                        ("due-date-desc", "⏳ Due Soon / Overdue"),
+                        ("due-date-asc", "📅 Due Date ↑"),
+                        ("priority-asc", "🔥 Urgency ↑"),
+                        ("priority-desc", "🔽 Urgency ↓"),
+                        ("actual-start-desc", "▶️ Actual Start ↓"),
+                        ("actual-start-asc", "▶️ Actual Start ↑"),
+                        ("creation-desc", "🆕 Newest First"),
+                        ("creation-asc", "📜 Oldest First"),
+                        ("title-asc", "🔤 Title A-Z"),
+                        ("title-desc", "🔤 Title Z-A"),
+                    };
+                }
+                @foreach (var opt in sortOptions)
+                {
+                    if (Model.SelectedSort == opt.Value)
+                    {
+                        <option value="@BuildUrl(sort: opt.Value)" selected>@opt.Label</option>
+                    }
+                    else
+                    {
+                        <option value="@BuildUrl(sort: opt.Value)">@opt.Label</option>
+                    }
+                }
+            </select>
         </div>
 
         @if (Model.AvailableLabels.Count > 0)
@@ -216,7 +270,23 @@ else
                         <div class="text-md-end task-subtle">
                             <div><strong>Board:</strong> @card.Column.Board.Name</div>
                             <div><strong>Column:</strong> @card.Column.Name</div>
-                            <div><strong>Due:</strong> @(card.DueDate?.ToString("yyyy-MM-dd") ?? "—")</div>
+                            <div>
+                                <strong>Due:</strong>
+                                @if (card.DueDate.HasValue)
+                                {
+                                    var isOverdue = card.Column.ColumnStatus != ColumnStatus.Completed && card.DueDate.Value < DateTime.UtcNow;
+                                    <span class="@(isOverdue ? "overdue" : "")" style="@(isOverdue ? "color:#dc3545;font-weight:600;" : "")">@card.DueDate.Value.ToString("yyyy-MM-dd")</span>
+                                    if (isOverdue)
+                                    {
+                                        var daysOverdue = (int)(DateTime.UtcNow.Date - card.DueDate.Value.Date).TotalDays;
+                                        <span style="color:#dc3545;font-weight:600;"> (@daysOverdue day@(daysOverdue != 1 ? "s" : "") overdue)</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span>—</span>
+                                }
+                            </div>
                         </div>
                     </div>
 
