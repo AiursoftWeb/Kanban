@@ -158,11 +158,12 @@ public abstract class SubagentBase : ISubagent
             {
                 totalStopwatch.Stop();
                 _logger.LogInformation(
-                    "[Subagent:{Name}] COMPLETED | Iterations={Iter} | Total tokens: {InTok}+{OutTok} | Output={OutLen} chars | Total {TotalMs}ms\n" +
-                    "── Subagent Output ──\n{Output}",
+                    "[Subagent:{Name}] COMPLETED | Iterations={Iter} | Total tokens: {InTok}+{OutTok} | Output={OutLen} chars | Total {TotalMs}ms",
                     Name, i + 1, totalInputTokens, totalOutputTokens,
-                    finalText.Length, totalStopwatch.ElapsedMilliseconds,
-                    Truncate(finalText, 2000));
+                    finalText.Length, totalStopwatch.ElapsedMilliseconds);
+                _logger.LogInformation(
+                    "[Subagent:{Name}] Output: {Output}",
+                    Name, Truncate(finalText, 2000));
                 return finalText;
             }
 
@@ -192,11 +193,12 @@ public abstract class SubagentBase : ISubagent
             {
                 totalStopwatch.Stop();
                 _logger.LogInformation(
-                    "[Subagent:{Name}] COMPLETED (forced summary) | Total iterations={Iter} | Total tokens: {InTok}+{OutTok} | Output={OutLen} chars | Total {TotalMs}ms\n" +
-                    "── Subagent Output ──\n{Output}",
+                    "[Subagent:{Name}] COMPLETED (forced summary) | Total iterations={Iter} | Total tokens: {InTok}+{OutTok} | Output={OutLen} chars | Total {TotalMs}ms",
                     Name, MaxIterations, totalInputTokens, totalOutputTokens,
-                    summary.Length, totalStopwatch.ElapsedMilliseconds,
-                    Truncate(summary, 2000));
+                    summary.Length, totalStopwatch.ElapsedMilliseconds);
+                _logger.LogInformation(
+                    "[Subagent:{Name}] Output: {Output}",
+                    Name, Truncate(summary, 2000));
                 return summary;
             }
         }
