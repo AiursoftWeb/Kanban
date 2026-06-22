@@ -27,6 +27,15 @@
   <data name="Boards that have been shared with you or your groups." xml:space="preserve">
     <value>あなたまたはグループと共有されたボード。</value>
   </data>
+  <data name="Columns" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>作成日</value>
+  </data>
   <data name="Direct Share" xml:space="preserve">
     <value>直接共有</value>
   </data>
@@ -36,8 +45,17 @@
   <data name="Editable" xml:space="preserve">
     <value>編集可能</value>
   </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>進行中</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>未完了</value>
+  </data>
   <data name="No shared boards" xml:space="preserve">
     <value>共有ボードがありません</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>期限切れ</value>
   </data>
   <data name="Permission" xml:space="preserve">
     <value>権限</value>
@@ -53,6 +71,9 @@
   </data>
   <data name="Shared with Me" xml:space="preserve">
     <value>共有されたもの</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未割り当て</value>
   </data>
   <data name="Via Role" xml:space="preserve">
     <value>ロール経由</value>

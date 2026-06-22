@@ -124,6 +124,8 @@ public class KanbanController(
 
         var shares = await db.BoardShares
             .Include(s => s.Board)
+                .ThenInclude(b => b.Columns)
+                    .ThenInclude(c => c.Cards)
             .Where(s => s.SharedWithUserId == userId ||
                         (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId)))
             .OrderByDescending(s => s.CreationTime)
@@ -139,10 +141,28 @@ public class KanbanController(
             .Where(r => roleIds.Contains(r.Id))
             .ToDictionaryAsync(r => r.Id, r => r.Name ?? r.Id);
 
+        var now = DateTime.UtcNow;
+        var summaries = new Dictionary<int, BoardSummary>();
+        foreach (var share in shares)
+        {
+            var board = share.Board;
+            var cards = board.Columns.SelectMany(c => c.Cards).ToList();
+            summaries[board.Id] = new BoardSummary
+            {
+                BoardId = board.Id,
+                TotalIncomplete = cards.Count(c => c.Column.ColumnStatus != ColumnStatus.Completed),
+                TotalInProgress = cards.Count(c => c.Column.ColumnStatus == ColumnStatus.InProgress),
+                TotalCompleted = cards.Count(c => c.Column.ColumnStatus == ColumnStatus.Completed),
+                TotalOverdue = cards.Count(c => c.DueDate.HasValue && c.DueDate.Value < now && c.Column.ColumnStatus != ColumnStatus.Completed),
+                TotalUnassigned = cards.Count(c => string.IsNullOrEmpty(c.AssignedUserId))
+            };
+        }
+
         return this.StackView(new SharedWithMeViewModel
         {
             Shares = shares,
-            RoleNames = roleNames
+            RoleNames = roleNames,
+            BoardSummaries = summaries
         });
     }
 

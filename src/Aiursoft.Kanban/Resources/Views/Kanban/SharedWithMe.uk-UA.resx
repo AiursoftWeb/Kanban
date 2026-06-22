@@ -27,6 +27,15 @@
   <data name="Boards that have been shared with you or your groups." xml:space="preserve">
     <value>Дощки, які були надіслані вам або вашим групам.</value>
   </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Стовпці</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Виконано</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Створено</value>
+  </data>
   <data name="Direct Share" xml:space="preserve">
     <value>Прямий доступ</value>
   </data>
@@ -36,8 +45,17 @@
   <data name="Editable" xml:space="preserve">
     <value>Змінний</value>
   </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>В процесі</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Незавершено</value>
+  </data>
   <data name="No shared boards" xml:space="preserve">
     <value>Немає спільних дошок</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Просрочено</value>
   </data>
   <data name="Permission" xml:space="preserve">
     <value>Дозвіл</value>
@@ -53,6 +71,9 @@
   </data>
   <data name="Shared with Me" xml:space="preserve">
     <value>Спільні зі мною</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Непризначені</value>
   </data>
   <data name="Via Role" xml:space="preserve">
     <value>Через роль</value>

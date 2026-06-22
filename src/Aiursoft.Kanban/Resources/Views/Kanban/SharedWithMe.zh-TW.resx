@@ -27,6 +27,15 @@
   <data name="Boards that have been shared with you or your groups." xml:space="preserve">
     <value>已分享給您或您所在群組的看板。</value>
   </data>
+  <data name="Columns" xml:space="preserve">
+    <value>欄位</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>建立</value>
+  </data>
   <data name="Direct Share" xml:space="preserve">
     <value>直接分享</value>
   </data>
@@ -36,8 +45,17 @@
   <data name="Editable" xml:space="preserve">
     <value>可編輯</value>
   </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>進行中</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>未完成</value>
+  </data>
   <data name="No shared boards" xml:space="preserve">
     <value>暫無共享看板</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>逾期</value>
   </data>
   <data name="Permission" xml:space="preserve">
     <value>權限</value>
@@ -53,6 +71,9 @@
   </data>
   <data name="Shared with Me" xml:space="preserve">
     <value>與我共用</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未指派</value>
   </data>
   <data name="Via Role" xml:space="preserve">
     <value>透過角色</value>

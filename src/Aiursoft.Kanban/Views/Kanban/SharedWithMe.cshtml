@@ -33,6 +33,13 @@
                                     <th>@Localizer["Board"]</th>
                                     <th>@Localizer["Shared Via"]</th>
                                     <th>@Localizer["Permission"]</th>
+                                    <th>@Localizer["Columns"]</th>
+                                    <th>@Localizer["Incomplete"]</th>
+                                    <th>@Localizer["In Progress"]</th>
+                                    <th>@Localizer["Completed"]</th>
+                                    <th>@Localizer["Overdue"]</th>
+                                    <th>@Localizer["Unassigned"]</th>
+                                    <th>@Localizer["Created"]</th>
                                     <th>@Localizer["Shared At"]</th>
                                     <th class="text-end">@Localizer["Actions"]</th>
                                 </tr>
@@ -41,6 +48,12 @@
                                 @foreach (var share in Model.Shares)
                                 {
                                     var board = share.Board;
+                                    Model.BoardSummaries.TryGetValue(board.Id, out var summary);
+                                    var incomplete = summary?.TotalIncomplete ?? 0;
+                                    var inProgress = summary?.TotalInProgress ?? 0;
+                                    var completed = summary?.TotalCompleted ?? 0;
+                                    var overdue = summary?.TotalOverdue ?? 0;
+                                    var unassigned = summary?.TotalUnassigned ?? 0;
                                     var rowUrl = share.Permission == Aiursoft.Kanban.Entities.SharePermission.ReadOnly
                                         ? Url.Action("View", "PublicKanban", new { boardId = board.Id })
                                         : Url.Action("Index", "Kanban", new { boardId = board.Id });
@@ -70,6 +83,31 @@
                                                 <span class="badge bg-success"><i class="align-middle" data-lucide="edit-3"></i> @Localizer["Editable"]</span>
                                             }
                                         </td>
+                                        <td><span class="badge bg-secondary">@board.Columns.Count</span></td>
+                                        <td><span class="badge bg-secondary">@incomplete</span></td>
+                                        <td><span class="badge bg-info">@inProgress</span></td>
+                                        <td><span class="badge bg-success">@completed</span></td>
+                                        <td>
+                                            @if (overdue > 0)
+                                            {
+                                                <span class="badge bg-danger">@overdue</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">—</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (unassigned > 0)
+                                            {
+                                                <span class="badge bg-warning text-dark">@unassigned</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">—</span>
+                                            }
+                                        </td>
+                                        <td><small class="text-muted">@board.CreationTime.ToString("yyyy-MM-dd")</small></td>
                                         <td><small class="text-muted">@share.CreationTime.ToString("yyyy-MM-dd")</small></td>
                                         <td class="text-end">
                                             @if (share.Permission == Aiursoft.Kanban.Entities.SharePermission.ReadOnly)

@@ -27,6 +27,15 @@
   <data name="Boards that have been shared with you or your groups." xml:space="preserve">
     <value>กระดานที่แชร์กับคุณหรือกลุ่มของคุณ</value>
   </data>
+  <data name="Columns" xml:space="preserve">
+    <value>คอลัมน์</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>เสร็จสมบูรณ์แล้ว</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>สร้างเมื่อ</value>
+  </data>
   <data name="Direct Share" xml:space="preserve">
     <value>แชร์โดยตรง</value>
   </data>
@@ -36,8 +45,17 @@
   <data name="Editable" xml:space="preserve">
     <value>แก้ไขได้</value>
   </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>กำลังดำเนินการ</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>ยังไม่เสร็จ</value>
+  </data>
   <data name="No shared boards" xml:space="preserve">
     <value>ไม่มีกระดานที่แชร์</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>ค้างชำระ</value>
   </data>
   <data name="Permission" xml:space="preserve">
     <value>สิทธิ์</value>
@@ -53,6 +71,9 @@
   </data>
   <data name="Shared with Me" xml:space="preserve">
     <value>แชร์ให้ฉัน</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>ไม่ได้กำหนด</value>
   </data>
   <data name="Via Role" xml:space="preserve">
     <value>ผ่านบทบาท</value>
