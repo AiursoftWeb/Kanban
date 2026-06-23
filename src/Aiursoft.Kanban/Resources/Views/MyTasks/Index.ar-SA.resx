@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="All" xml:space="preserve">
+    <value>الكل</value>
+  </data>
+  <data name="Any" xml:space="preserve">
+    <value>أي</value>
+  </data>
+  <data name="Assigned to:" xml:space="preserve">
+    <value>محدد لـ:</value>
+  </data>
+  <data name="Board:" xml:space="preserve">
+    <value>لوحة:</value>
+  </data>
+  <data name="Column:" xml:space="preserve">
+    <value>العمود:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>مكتمل</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>الموعد النهائي:</value>
+  </data>
+  <data name="Everything assigned to you" xml:space="preserve">
+    <value>كل ما تم تعيينه لك</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>قيد التنفيذ</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>غير مكتمل</value>
+  </data>
+  <data name="Label mode" xml:space="preserve">
+    <value>وضع التسمية</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>مهامي</value>
+  </data>
+  <data name="No tasks found" xml:space="preserve">
+    <value>لم يتم العثور على مهام</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>لم يبدأ</value>
+  </data>
+  <data name="Planned start:" xml:space="preserve">
+    <value>بدء مخطط:</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>ترتيب</value>
+  </data>
+  <data name="Try switching the status tab or adjusting your label filters." xml:space="preserve">
+    <value>يمكنك محاولة التبديل إلى علامة تبويب الحالة أو تعديل عوامل تصفية التسميات الخاصة بك.</value>
+  </data>
+
+</root>
