@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="All" xml:space="preserve">
+    <value>전체</value>
+  </data>
+  <data name="Any" xml:space="preserve">
+    <value>모두</value>
+  </data>
+  <data name="Assigned to:" xml:space="preserve">
+    <value>담당자:</value>
+  </data>
+  <data name="Board:" xml:space="preserve">
+    <value>보드:</value>
+  </data>
+  <data name="Column:" xml:space="preserve">
+    <value>열:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>완료됨</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>마감일:</value>
+  </data>
+  <data name="Everything assigned to you" xml:space="preserve">
+    <value>저희에게 할당된 모든 작업</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>진행 중</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>미완료</value>
+  </data>
+  <data name="Label mode" xml:space="preserve">
+    <value>레이블 모드</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>내 작업</value>
+  </data>
+  <data name="No tasks found" xml:space="preserve">
+    <value>작업을 찾을 수 없습니다.</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>시작 안됨</value>
+  </data>
+  <data name="Planned start:" xml:space="preserve">
+    <value>예상 시작일:</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>정렬</value>
+  </data>
+  <data name="Try switching the status tab or adjusting your label filters." xml:space="preserve">
+    <value>상태 탭을 전환하거나 레이블 필터를 조정해 보세요.</value>
+  </data>
+
+</root>

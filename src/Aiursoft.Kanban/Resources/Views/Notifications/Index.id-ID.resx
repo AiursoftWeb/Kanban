@@ -18,47 +18,23 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0}d ago" xml:space="preserve">
-    <value>{0} 天前</value>
-  </data>
-  <data name="{0}h ago" xml:space="preserve">
-    <value>{0} 小时前</value>
-  </data>
-  <data name="{0}m ago" xml:space="preserve">
-    <value>{0} 分钟前</value>
-  </data>
-  <data name="All caught up!" xml:space="preserve">
-    <value>全部处理完了！</value>
-  </data>
-  <data name="just now" xml:space="preserve">
-    <value>刚刚</value>
+      <data name="All caught up!" xml:space="preserve">
+    <value>Tidak ada pemberitahuan baru!</value>
   </data>
   <data name="Mark All as Read" xml:space="preserve">
-    <value>全部标为已读</value>
+    <value>Tandai Semua Sudah Dibaca</value>
   </data>
   <data name="Mark as Read" xml:space="preserve">
-    <value>标为已读</value>
+    <value>Tandai Sudah Dibaca</value>
   </data>
   <data name="No unread notifications." xml:space="preserve">
-    <value>没有未读通知。</value>
+    <value>Tidak ada pemberitahuan yang belum dibaca.</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>通知</value>
-  </data>
-  <data name="Open Board" xml:space="preserve">
-    <value>打开看板</value>
-  </data>
-  <data name="Open Card" xml:space="preserve">
-    <value>打开卡片</value>
-  </data>
-  <data name="You have &lt;strong&gt;{0}&lt;/strong&gt; unread notification." xml:space="preserve">
-    <value>您有 &lt;strong&gt;{0}&lt;/strong&gt; 条未读通知。</value>
-  </data>
-  <data name="You have &lt;strong&gt;{0}&lt;/strong&gt; unread notifications." xml:space="preserve">
-    <value>您有 &lt;strong&gt;{0}&lt;/strong&gt; 条未读通知。</value>
+    <value>Notifikasi</value>
   </data>
   <data name="You have no unread notifications." xml:space="preserve">
-    <value>您没有未读通知。</value>
+    <value>Anda tidak memiliki pemberitahuan yang belum dibaca.</value>
   </data>
 
 </root>

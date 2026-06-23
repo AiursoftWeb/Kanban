@@ -18,7 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-  <data name=" - actual start ascending." xml:space="preserve">
+      <data name=" - actual start ascending." xml:space="preserve">
     <value> - 实际开始时间升序。</value>
   </data>
   <data name=" - due date ascending." xml:space="preserve">
@@ -48,26 +48,14 @@
   <data name=" - title Z-A." xml:space="preserve">
     <value> - 标题 Z-A。</value>
   </data>
-  <data name="🔥 Urgency ↑" xml:space="preserve">
-    <value>🔥 紧急程度 ↑</value>
+  <data name="{0} day overdue" xml:space="preserve">
+    <value>逾期 {0} 天</value>
   </data>
-  <data name="🔤 Title A-Z" xml:space="preserve">
-    <value>🔤 标题 A-Z</value>
+  <data name="{0} days overdue" xml:space="preserve">
+    <value>逾期 {0} 天</value>
   </data>
-  <data name="🔤 Title Z-A" xml:space="preserve">
-    <value>🔤 标题 Z-A</value>
-  </data>
-  <data name="🔽 Urgency ↓" xml:space="preserve">
-    <value>🔽 紧急程度 ↓</value>
-  </data>
-  <data name="🆕 Newest First" xml:space="preserve">
-    <value>🆕 最新优先</value>
-  </data>
-  <data name="📅 Due Date ↑" xml:space="preserve">
-    <value>📅 到期时间 ↑</value>
-  </data>
-  <data name="📜 Oldest First" xml:space="preserve">
-    <value>📜 最早优先</value>
+  <data name="⏳ Due Soon / Overdue" xml:space="preserve">
+    <value>⏳ 即将到期 / 已逾期</value>
   </data>
   <data name="▶️ Actual Start ↑" xml:space="preserve">
     <value>▶️ 实际开始 ↑</value>
@@ -75,8 +63,23 @@
   <data name="▶️ Actual Start ↓" xml:space="preserve">
     <value>▶️ 实际开始 ↓</value>
   </data>
-  <data name="⏳ Due Soon / Overdue" xml:space="preserve">
-    <value>⏳ 即将到期 / 已逾期</value>
+  <data name="📅 Due Date ↑" xml:space="preserve">
+    <value>📅 到期时间 ↑</value>
+  </data>
+  <data name="📜 Oldest First" xml:space="preserve">
+    <value>📜 最早优先</value>
+  </data>
+  <data name="🔤 Title A-Z" xml:space="preserve">
+    <value>🔤 标题 A-Z</value>
+  </data>
+  <data name="🔤 Title Z-A" xml:space="preserve">
+    <value>🔤 标题 Z-A</value>
+  </data>
+  <data name="🔥 Urgency ↑" xml:space="preserve">
+    <value>🔥 紧急程度 ↑</value>
+  </data>
+  <data name="🔽 Urgency ↓" xml:space="preserve">
+    <value>🔽 紧急程度 ↓</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>全部</value>
@@ -123,6 +126,9 @@
   <data name="My Tasks" xml:space="preserve">
     <value>我的任务</value>
   </data>
+  <data name="🆕 Newest First" xml:space="preserve">
+    <value>🆕 最新优先</value>
+  </data>
   <data name="No tasks found" xml:space="preserve">
     <value>未找到任务</value>
   </data>
@@ -143,12 +149,6 @@
   </data>
   <data name="You" xml:space="preserve">
     <value>您</value>
-  </data>
-  <data name="{0} day overdue" xml:space="preserve">
-    <value>逾期 {0} 天</value>
-  </data>
-  <data name="{0} days overdue" xml:space="preserve">
-    <value>逾期 {0} 天</value>
   </data>
 
 </root>
