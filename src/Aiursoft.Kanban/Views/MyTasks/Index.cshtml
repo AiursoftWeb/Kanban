@@ -62,6 +62,24 @@
             _ => status.ToString()
         };
     }
+
+    string SortDescription(string sort)
+    {
+        return sort switch
+        {
+            "due-date-desc" => " - overdue first.",
+            "due-date-asc" => " - due date ascending.",
+            "priority-asc" => " - most urgent first.",
+            "priority-desc" => " - least urgent first.",
+            "actual-start-desc" => " - recently started first.",
+            "actual-start-asc" => " - actual start ascending.",
+            "creation-desc" => " - newest first.",
+            "creation-asc" => " - oldest first.",
+            "title-asc" => " - title A-Z.",
+            "title-desc" => " - title Z-A.",
+            _ => string.Empty
+        };
+    }
 }
 
 @* ReSharper disable once Razor.SectionNotResolved *@
@@ -155,35 +173,23 @@
 
 <div class="row mb-4">
     <div class="col-12">
-        <h2 class="mb-1">My Tasks</h2>
-        <p class="text-muted mb-0">Everything assigned to you@(new Dictionary<string, string>
-        {
-            ["due-date-desc"] = " — overdue first.",
-            ["due-date-asc"] = " — due date ascending.",
-            ["priority-asc"] = " — most urgent first.",
-            ["priority-desc"] = " — least urgent first.",
-            ["actual-start-desc"] = " — recently started first.",
-            ["actual-start-asc"] = " — actual start ascending.",
-            ["creation-desc"] = " — newest first.",
-            ["creation-asc"] = " — oldest first.",
-            ["title-asc"] = " — title A–Z.",
-            ["title-desc"] = " — title Z–A.",
-        }.TryGetValue(Model.SelectedSort, out var desc) ? desc : "")</p>
+        <h2 class="mb-1">@Localizer["My Tasks"]</h2>
+        <p class="text-muted mb-0">@Localizer["Everything assigned to you"]@Localizer[SortDescription(Model.SelectedSort)]</p>
     </div>
 </div>
 
 <div class="card filters-card border-0 shadow-sm mb-4">
     <div class="card-body p-4">
         <div class="d-flex flex-wrap gap-2 mb-3">
-            <a class="btn @(Model.SelectedStatus == "incomplete" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "incomplete")">Incomplete</a>
-            <a class="btn @(Model.SelectedStatus == "not-started" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "not-started")">Not Started</a>
-            <a class="btn @(Model.SelectedStatus == "in-progress" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "in-progress")">In Progress</a>
-            <a class="btn @(Model.SelectedStatus == "all" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "all")">All</a>
-            <a class="btn @(Model.SelectedStatus == "completed" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "completed")">Completed</a>
+            <a class="btn @(Model.SelectedStatus == "incomplete" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "incomplete")">@Localizer["Incomplete"]</a>
+            <a class="btn @(Model.SelectedStatus == "not-started" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "not-started")">@Localizer["Not Started"]</a>
+            <a class="btn @(Model.SelectedStatus == "in-progress" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "in-progress")">@Localizer["In Progress"]</a>
+            <a class="btn @(Model.SelectedStatus == "all" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "all")">@Localizer["All"]</a>
+            <a class="btn @(Model.SelectedStatus == "completed" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "completed")">@Localizer["Completed"]</a>
         </div>
 
         <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-            <span class="fw-semibold">Sort</span>
+            <span class="fw-semibold">@Localizer["Sort"]</span>
             <select class="form-select sort-select" style="width:auto" onchange="window.location=this.value">
                 @{
                     var sortOptions = new (string Value, string Label)[]
@@ -204,11 +210,11 @@
                 {
                     if (Model.SelectedSort == opt.Value)
                     {
-                        <option value="@BuildUrl(sort: opt.Value)" selected>@opt.Label</option>
+                        <option value="@BuildUrl(sort: opt.Value)" selected>@Localizer[opt.Label]</option>
                     }
                     else
                     {
-                        <option value="@BuildUrl(sort: opt.Value)">@opt.Label</option>
+                        <option value="@BuildUrl(sort: opt.Value)">@Localizer[opt.Label]</option>
                     }
                 }
             </select>
@@ -217,9 +223,9 @@
         @if (Model.AvailableLabels.Count > 0)
         {
             <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-                <span class="fw-semibold">Label mode</span>
-                <a class="btn btn-sm @(Model.SelectedLabelMode == "any" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(labelMode: "any")">Any</a>
-                <a class="btn btn-sm @(Model.SelectedLabelMode == "all" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(labelMode: "all")">All</a>
+                <span class="fw-semibold">@Localizer["Label mode"]</span>
+                <a class="btn btn-sm @(Model.SelectedLabelMode == "any" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(labelMode: "any")">@Localizer["Any"]</a>
+                <a class="btn btn-sm @(Model.SelectedLabelMode == "all" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(labelMode: "all")">@Localizer["All"]</a>
             </div>
 
             <div class="label-filter-row">
@@ -241,8 +247,8 @@
 @if (!Model.Cards.Any())
 {
     <div class="empty-tasks">
-        <h4 class="mb-2">No tasks found</h4>
-        <p class="mb-0">Try switching the status tab or adjusting your label filters.</p>
+        <h4 class="mb-2">@Localizer["No tasks found"]</h4>
+        <p class="mb-0">@Localizer["Try switching the status tab or adjusting your label filters."]</p>
     </div>
 }
 else
@@ -257,9 +263,9 @@ else
                             <div class="task-meta-row mb-2">
                                 @if (card.Priority != Priority.None)
                                 {
-                                    <span class="priority-badge @PriorityClass(card.Priority)">@card.Priority</span>
+                                    <span class="priority-badge @PriorityClass(card.Priority)">@Localizer[card.Priority.ToString()]</span>
                                 }
-                                <span class="badge bg-secondary-subtle text-secondary-emphasis">@StatusText(card.Column.ColumnStatus)</span>
+                                <span class="badge bg-secondary-subtle text-secondary-emphasis">@Localizer[StatusText(card.Column.ColumnStatus)]</span>
                             </div>
                             <div class="task-title">@card.Title</div>
                             @if (!string.IsNullOrWhiteSpace(card.Description))
@@ -268,10 +274,10 @@ else
                             }
                         </div>
                         <div class="text-md-end task-subtle">
-                            <div><strong>Board:</strong> @card.Column.Board.Name</div>
-                            <div><strong>Column:</strong> @card.Column.Name</div>
+                            <div><strong>@Localizer["Board:"]</strong> @card.Column.Board.Name</div>
+                            <div><strong>@Localizer["Column:"]</strong> @card.Column.Name</div>
                             <div>
-                                <strong>Due:</strong>
+                                <strong>@Localizer["Due:"]</strong>
                                 @if (card.DueDate.HasValue)
                                 {
                                     var isOverdue = card.Column.ColumnStatus != ColumnStatus.Completed && card.DueDate.Value < DateTime.UtcNow;
@@ -279,7 +285,7 @@ else
                                     if (isOverdue)
                                     {
                                         var daysOverdue = (int)(DateTime.UtcNow.Date - card.DueDate.Value.Date).TotalDays;
-                                        <span style="color:#dc3545;font-weight:600;"> (@daysOverdue day@(daysOverdue != 1 ? "s" : "") overdue)</span>
+                                        <span style="color:#dc3545;font-weight:600;"> (@(daysOverdue == 1 ? Localizer["{0} day overdue", daysOverdue] : Localizer["{0} days overdue", daysOverdue]))</span>
                                     }
                                 }
                                 else
@@ -303,8 +309,8 @@ else
                     }
 
                     <div class="task-footer-row task-subtle mt-3">
-                        <span>Planned start: @(card.PlannedStartTime?.ToString("yyyy-MM-dd") ?? "—")</span>
-                        <span>Assigned to: @(card.AssignedUser?.DisplayName ?? card.AssignedUser?.UserName ?? "You")</span>
+                        <span>@Localizer["Planned start:"] @(card.PlannedStartTime?.ToString("yyyy-MM-dd") ?? "—")</span>
+                        <span>@Localizer["Assigned to:"] @(card.AssignedUser?.DisplayName ?? card.AssignedUser?.UserName ?? Localizer["You"].Value)</span>
                     </div>
                 </a>
             </div>

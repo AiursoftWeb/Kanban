@@ -124,22 +124,22 @@
     <div class="col-12">
         <div class="top-bar">
             <div>
-                <h2 class="mb-1">Notifications</h2>
+                <h2 class="mb-1">@Localizer["Notifications"]</h2>
                 <p class="text-muted mb-0">
                     @if (Model.UnreadCount > 0)
                     {
-                        <span>You have <strong>@Model.UnreadCount</strong> unread notification@(Model.UnreadCount > 1 ? "s" : "").</span>
+                        <span>@(Model.UnreadCount == 1 ? Localizer["You have <strong>{0}</strong> unread notification.", Model.UnreadCount] : Localizer["You have <strong>{0}</strong> unread notifications.", Model.UnreadCount])</span>
                     }
                     else
                     {
-                        <span>No unread notifications.</span>
+                        <span>@Localizer["No unread notifications."]</span>
                     }
                 </p>
             </div>
             @if (Model.UnreadCount > 0)
             {
                 <button type="button" class="btn btn-outline-secondary mark-all-btn" id="btnMarkAllRead">
-                    <i class="align-middle me-1" data-lucide="check-check"></i> Mark All as Read
+                    <i class="align-middle me-1" data-lucide="check-check"></i> @Localizer["Mark All as Read"]
                 </button>
             }
         </div>
@@ -149,8 +149,8 @@
 @if (!Model.Notifications.Any())
 {
     <div class="empty-notifications">
-        <h4 class="mb-2">All caught up!</h4>
-        <p class="mb-0">You have no unread notifications.</p>
+        <h4 class="mb-2">@Localizer["All caught up!"]</h4>
+        <p class="mb-0">@Localizer["You have no unread notifications."]</p>
     </div>
 }
 else
@@ -184,12 +184,12 @@ else
                     }
                     <div class="notification-actions">
                         <button type="button" class="btn btn-outline-primary btn-mark-read mark-read-btn">
-                            <i class="align-middle me-1" data-lucide="check"></i> Mark as Read
+                            <i class="align-middle me-1" data-lucide="check"></i> @Localizer["Mark as Read"]
                         </button>
                         @if (notification.BoardId.HasValue)
                         {
                             <a href="/Kanban/Index?boardId=@notification.BoardId" class="btn btn-outline-secondary btn-card-link">
-                                <i class="align-middle me-1" data-lucide="external-link"></i> @(notification.CardId.HasValue ? "Open Card" : "Open Board")
+                                <i class="align-middle me-1" data-lucide="external-link"></i> @(notification.CardId.HasValue ? Localizer["Open Card"] : Localizer["Open Board"])
                             </a>
                         }
                     </div>
@@ -204,10 +204,10 @@ else
     {
         var now = DateTime.UtcNow;
         var diff = now - utcTime;
-        if (diff.TotalMinutes < 1) return "just now";
-        if (diff.TotalMinutes < 60) return $"{(int)diff.TotalMinutes}m ago";
-        if (diff.TotalHours < 24) return $"{(int)diff.TotalHours}h ago";
-        if (diff.TotalDays < 7) return $"{(int)diff.TotalDays}d ago";
+        if (diff.TotalMinutes < 1) return Localizer["just now"].Value;
+        if (diff.TotalMinutes < 60) return Localizer["{0}m ago", (int)diff.TotalMinutes].Value;
+        if (diff.TotalHours < 24) return Localizer["{0}h ago", (int)diff.TotalHours].Value;
+        if (diff.TotalDays < 7) return Localizer["{0}d ago", (int)diff.TotalDays].Value;
         return utcTime.ToString("MMM dd");
     }
 }
@@ -265,7 +265,10 @@ else
         function updateHeader(count) {
             var p = document.querySelector('.text-muted span');
             if (p) {
-                p.innerHTML = 'You have <strong>' + count + '</strong> unread notification' + (count > 1 ? 's' : '') + '.';
+                var template = count === 1
+                    ? '@Localizer["You have <strong>{0}</strong> unread notification.", "__COUNT__"]'
+                    : '@Localizer["You have <strong>{0}</strong> unread notifications.", "__COUNT__"]';
+                p.innerHTML = template.replace('__COUNT__', count);
             }
             if (count === 0) {
                 var btn = document.getElementById('btnMarkAllRead');
