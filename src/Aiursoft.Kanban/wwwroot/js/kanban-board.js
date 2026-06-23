@@ -1691,6 +1691,8 @@
                 return;
             }
 
+            commentsList.innerHTML = '<div class="comment-empty-hint">' + getLocalizedText("no-comments-yet", "No comments yet.") + '</div>';
+
             showEditCardView("details");
             currentEditCardElement = cardEl;
             currentEditCardId = parseInt(cardEl.dataset.cardId, 10);
