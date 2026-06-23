@@ -1593,6 +1593,10 @@
         var presetColors = ["#EF4444", "#F97316", "#EAB308", "#22C55E", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6"];
         if (labelColorPresetsContainer) {
             presetColors.forEach(function(c, index) {
+                if (Array.from(labelColorPresetsContainer.children).some(t => t.title === c)) {
+                    return;
+                }
+
                 var btn = document.createElement("button");
                 btn.type = "button";
                 btn.className = "label-color-swatch";
