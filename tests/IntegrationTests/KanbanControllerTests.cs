@@ -409,13 +409,15 @@ public class KanbanControllerTests : TestBase
             new Dictionary<string, string>
             {
                 { "cardId", card.Id.ToString() },
-                { "content", "This is a comment test" }
+                { "content", "This is a comment test" },
+                { "images", "This is a images url" }
             });
         response.EnsureSuccessStatusCode();
 
         var json = await response.Content.ReadAsStringAsync();
         using var doc = JsonDocument.Parse(json);
         Assert.AreEqual("This is a comment test", doc.RootElement.GetProperty("Content").GetString());
+        Assert.AreEqual("This is a images url", doc.RootElement.GetProperty("Images").GetString());
         Assert.IsNotNull(doc.RootElement.GetProperty("AuthorName").GetString());
         Assert.IsNotNull(doc.RootElement.GetProperty("AuthorInitial").GetString());
 
@@ -427,5 +429,6 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(JsonValueKind.Array, getDoc.RootElement.ValueKind);
         Assert.AreEqual(1, getDoc.RootElement.GetArrayLength());
         Assert.AreEqual("This is a comment test", getDoc.RootElement[0].GetProperty("Content").GetString());
+        Assert.AreEqual("This is a images url", getDoc.RootElement[0].GetProperty("Images").GetString());
     }
 }

@@ -17,6 +17,8 @@ public class KanbanCardComment
     [MaxLength(2000)]
     [MinLength(1)]
     public required string Content { get; set; }
+    [MaxLength(2000)]
+    public string Images { get; set; } = "";
 
     [StringLength(450)]
     public required string AuthorId { get; set; }

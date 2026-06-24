@@ -1472,7 +1472,9 @@
                             {
                                 <div class="comment-add-area">
                                     <textarea id="commentInput" placeholder="@Localizer["Add a comment..."]"></textarea>
-                                    <button type="button" class="btn btn-primary btn-comment-submit" id="btnAddComment">@Localizer["Send"]</button>
+									<div class="d-flex align-items-end">
+										<button type="button" class="btn btn-primary btn-comment-submit" id="btnAddComment">@Localizer["Send"]</button>
+									</div>
                                 </div>
                             }
                             else
@@ -1791,11 +1793,13 @@
 <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
 <script src="~/node_modules/katex/dist/katex.min.js" asp-append-version="true"></script>
 <script src="~/node_modules/mermaid/dist/mermaid.min.js" asp-append-version="true"></script>
-	<script>
-	    window.kanbanCsrfToken = "@token";
-	    window.kanbanImageUploadUrl = '@Html.Raw(Storage.GetUploadUrl("kanban-images"))';
-	    window.kanbanCanEditCurrentBoard = @Model.CanEditCurrentBoard.ToString().ToLowerInvariant();
-	    window.kanbanCurrentBoardId = @(Model.CurrentBoard?.Id ?? 0);
-	</script>
-	<script src="~/js/kanban-board.js" asp-append-version="true"></script>
+<script>
+    window.kanbanCsrfToken = "@token";
+    window.kanbanImageUploadUrl = '@Html.Raw(Storage.GetUploadUrl("kanban-images"))';
+    window.kanbanCanEditCurrentBoard = @Model.CanEditCurrentBoard.ToString().ToLowerInvariant();
+    window.kanbanCurrentBoardId = @(Model.CurrentBoard?.Id ?? 0);
+</script>
+<script src="~/js/enhance.js"></script>
+<script src="~/js/upload-image.js"></script>
+<script src="~/js/kanban-board.js" asp-append-version="true"></script>
 }

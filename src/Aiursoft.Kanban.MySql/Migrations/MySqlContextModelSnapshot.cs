@@ -186,6 +186,11 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Images")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
