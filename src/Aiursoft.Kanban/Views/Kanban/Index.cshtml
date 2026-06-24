@@ -445,6 +445,7 @@
     }
 
     .priority-badge,
+    .recurrence-badge,
     .card-label-chip,
     .edit-label-name {
         display: inline-flex;
@@ -461,6 +462,12 @@
     .priority-high { background: rgba(253, 126, 20, 0.14); color: #fd7e14; }
     .priority-medium { background: rgba(255, 193, 7, 0.18); color: #8a6d00; }
     .priority-low { background: rgba(13, 110, 253, 0.14); color: #0d6efd; }
+
+    .recurrence-badge {
+        background: rgba(102, 16, 242, 0.10);
+        color: #6610f2;
+        border-color: rgba(102, 16, 242, 0.25);
+    }
 
     .card-labels {
         margin-top: 0.75rem;
@@ -1253,6 +1260,8 @@
                                  data-actual-start="@(card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm") ?? "")"
                                  data-actual-end="@(card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm") ?? "")"
                                  data-priority="@((int)card.Priority)"
+                                 data-recurrence-interval="@(card.RecurrenceInterval?.ToString() ?? "")"
+                                 data-recurrence-unit="@((int)card.RecurrenceUnit)"
                                  data-assigned-user-id="@(card.AssignedUserId ?? string.Empty)"
                                  data-assigned-user-name="@assignedUserDisplayName"
                                  data-assigned-user-initial="@assignedUserInitial"
@@ -1432,6 +1441,26 @@
                                 <select id="editCardAssignee" class="form-select" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
                                     <option value="">@Localizer["Unassigned"]</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="editCardRecurring" disabled="@(!Model.CanEditCurrentBoard)">
+                                <label class="form-check-label fw-semibold" for="editCardRecurring">@Localizer["Recurring task"]</label>
+                            </div>
+                            <div id="editCardRecurrenceFields" class="mt-2 d-none">
+                                <div class="input-group" style="max-width:320px">
+                                    <span class="input-group-text" style="border-radius:12px 0 0 12px">@Localizer["Every"]</span>
+                                    <input type="number" id="editCardRecurrenceInterval" min="1" max="365" class="form-control" placeholder="1" style="border-radius:0" disabled="@(!Model.CanEditCurrentBoard)">
+                                    <select id="editCardRecurrenceUnit" class="form-select" style="border-radius:0 12px 12px 0" disabled="@(!Model.CanEditCurrentBoard)">
+                                        <option value="0">@Localizer["Select unit"]</option>
+                                        <option value="1">@Localizer["Days"]</option>
+                                        <option value="2">@Localizer["Weeks"]</option>
+                                        <option value="3">@Localizer["Months"]</option>
+                                        <option value="4">@Localizer["Years"]</option>
+                                    </select>
+                                </div>
+                                <div class="form-text">@Localizer["Due date, interval, and unit are required for recurring tasks."]</div>
                             </div>
                         </div>
                         <div class="mb-3">

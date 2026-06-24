@@ -203,7 +203,9 @@ public class BoardSharingTests : TestBase
                 PlannedStartTime = DateTime.UtcNow.Date,
                 DueDate = DateTime.UtcNow.Date.AddDays(3),
                 ActualStartTime = DateTime.UtcNow.AddDays(-2),
-                ActualEndTime = DateTime.UtcNow.AddDays(-1)
+                ActualEndTime = DateTime.UtcNow.AddDays(-1),
+                RecurrenceInterval = 2,
+                RecurrenceUnit = RecurrenceUnit.Week
             };
             db.KanbanCards.Add(card);
             db.KanbanLabels.Add(label);
@@ -243,6 +245,8 @@ public class BoardSharingTests : TestBase
             Assert.IsNull(transferredCard.AssignedUserId);
             Assert.IsNull(transferredCard.ActualStartTime);
             Assert.IsNull(transferredCard.ActualEndTime);
+            Assert.AreEqual(2, transferredCard.RecurrenceInterval);
+            Assert.AreEqual(RecurrenceUnit.Week, transferredCard.RecurrenceUnit);
             Assert.HasCount(1, transferredCard.CardLabels);
             Assert.AreEqual(1, await db.KanbanCardLabels.CountAsync());
             Assert.IsFalse(await db.KanbanCardComments.AnyAsync());
