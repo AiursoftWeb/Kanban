@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>d în urmă</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Zile</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Șterge</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>Data limită</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>Data limită, intervalul și unitatea sunt obligatorii pentru sarcinile periodice.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Editare</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Modificare tablou</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Fiecare</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>Nu s-a putut adăuga comentariul.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Mediu</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>Luni</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>Mutare</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>Doar citire</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Sarcină recurentă</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>Elimină {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>Selectați o coloană</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Selectați unitatea</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Trimite</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>Vizualizare</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Săptămâni</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>Ce trebuie făcut?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Ani</value>
   </data>
 
 </root>

@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>d temu</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Dni</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Usuń</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>Termin wykonania</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>Data wykonania, interwał i jednostka są wymagane dla zadań cyklicznych.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edytuj</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Edytuj planszę</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Co</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>Nie udało się dodać komentarza.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Średni</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>Miesiące</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>Przenieś</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>Tylko do odczytu</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Zadanie powtarzalne</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>Usuń {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>Wybierz kolumnę</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Wybierz jednostkę</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Wyślij</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>Widok</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Tygodniom</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>Co należy zrobić?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Roków</value>
   </data>
 
 </root>

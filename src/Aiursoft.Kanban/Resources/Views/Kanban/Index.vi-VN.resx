@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>ngày trước</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Xóa</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>Hạn chót</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>Ngày đáo hạn, khoảng thời gian và đơn vị là bắt buộc đối với tác vụ lặp lại.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Chỉnh sửa</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Chỉnh sửa Bảng</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Mỗi</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>Không thể thêm bình luận.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Trung bình</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>Di chuyển</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>Chỉ đọc</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Tác vụ lặp lại</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>Loại bỏ {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>Chọn một cột</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Chọn đơn vị</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Gửi</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>Xem</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Tuần</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>Cần làm gì?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Năm</value>
   </data>
 
 </root>

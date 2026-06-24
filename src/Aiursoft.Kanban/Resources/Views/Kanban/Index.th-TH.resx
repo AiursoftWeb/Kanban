@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>วันที่แล้ว</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>วัน</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>ลบ</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>กำหนดส่ง</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>วันครบกำหนด ช่วงเวลา และหน่วยเป็นข้อมูลที่ต้องระบุสำหรับงานที่ซ้ำกัน</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>แก้ไข</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>แก้ไขกระดาน</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>ทุก</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>ไม่สามารถเพิ่มความคิดเห็นได้</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>ปานกลาง</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>เดือน</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>ย้าย</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>อ่านอย่างเดียว</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>งานที่ повторяется</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>ลบ {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>เลือกคอลัมน์</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>เลือกหน่วย</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>ส่ง</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>มุมมอง</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>สัปดาห์</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>ต้องทำอะไรบ้าง?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>ปี</value>
   </data>
 
 </root>

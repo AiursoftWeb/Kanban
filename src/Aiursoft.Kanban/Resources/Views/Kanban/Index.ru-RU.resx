@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>дн. назад</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Дни</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>Срок выполнения</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>Для повторяющихся задач требуются дата выполнения, интервал и единица измерения.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Редактировать</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Редактировать доску</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Каждые</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>Не удалось добавить комментарий.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Средний</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>Месяцев</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>Переместить</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>Только для чтения</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Повторяющаяся задача</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>Удалить {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>Выберите колонку</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Выберите единицу</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Отправить</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>Просмотр</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Недели</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>Что нужно сделать?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Годы</value>
   </data>
 
 </root>

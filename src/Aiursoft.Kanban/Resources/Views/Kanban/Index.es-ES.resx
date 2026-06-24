@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>d</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Días</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Eliminar</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>Fecha de vencimiento</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>La fecha de vencimiento, el intervalo y la unidad son obligatorios para las tareas recurrentes.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Editar</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Editar tablero</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Cada</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>Error al añadir el comentario.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Media</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>Meses</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>Mover</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>Solo lectura</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Tarea recurrente</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>Eliminar {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>Selecciona una columna</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Seleccionar unidad</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Enviar</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>Ver</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Semanas</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>¿Qué hay que hacer?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Años</value>
   </data>
 
 </root>

@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>pv sitten</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Päiviä</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Poista</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>Eräpäivä</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>Toistuvat tehtävät vaativat eräpäivän, välistä ja yksikön.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Muokkaa</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Muokkaa lautaa</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Joka</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>Kommenttia ei voitu lisätä.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Keski</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>Kuukausia</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>Siirrä</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>Vain lukuoikeus</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Toistuva tehtävä</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>Poista {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>Valitse sarake</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Valitse yksikkö</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Lähetä</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>Näkymä</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Viikkoa</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>Mitä tulee tehdä?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Vuodet</value>
   </data>
 
 </root>

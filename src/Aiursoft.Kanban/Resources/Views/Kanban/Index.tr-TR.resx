@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>g önce</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Günler</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Sil</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>Son Kullanma Tarihi</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>Tekrarlanan görevler için bitiş tarihi, aralık ve birim gereklidir.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Düzenle</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Panoyu Düzenle</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Her</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>Yorum eklenemedi.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Orta</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>Ay</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>Taşı</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>Salt okunabilir</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Yinelenen görev</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>{{0}}&apos;i kaldır</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>Bir sütun seçin</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Birim seçin</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Gönder</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>Görünüm</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Haftalar</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>Yapılması gereken nedir?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Yıl</value>
   </data>
 
 </root>
