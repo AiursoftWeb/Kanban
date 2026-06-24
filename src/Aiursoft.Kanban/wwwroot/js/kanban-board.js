@@ -527,6 +527,18 @@
 								avatarUrl = c.AuthorInitial
 						}
 
+                        var imagesHtml = '';
+                        if (c.Images) {
+                            var images = c.Images.split(';').filter(function (url) { return url.trim().length > 0; });
+                            if (images.length > 0) {
+                                imagesHtml = '<div class="comment-images" style="margin-top: 0.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">' +
+                                    images.map(function (url) {
+                                        return '<img src="' + escapeHtml(url) + '" data-url="' + escapeHtml(url) + '" class="comment-image-thumb" style="height: 60px; max-width: 100px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 1px solid var(--bs-border-color, #dee2e6); box-shadow: 0 1px 3px rgba(0,0,0,0.1);" title="View image" />';
+                                    }).join("") +
+                                    '</div>';
+                            }
+                        }
+
                         return '<div class="comment-item" data-comment-id="' + c.Id + '">'
 							+ '<div class="card-assignee-avatar">' +
 								avatarUrl
@@ -537,6 +549,7 @@
                                     + '<span class="comment-time" title="' + escapeHtml(formatCommentFullTime(c.CreationTime)) + '">' + formatCommentTime(c.CreationTime) + '</span>'
                                 + '</div>'
                                 + '<div class="comment-text">' + renderMarkdownContent(c.Content) + '</div>'
+                                + imagesHtml
                             + '</div>'
                             + deleteBtn
                         + '</div>';
@@ -549,6 +562,14 @@
                             deleteComment(commentId);
                         });
                     });
+
+                    // Attach image click handlers
+                    commentsList.querySelectorAll('.comment-image-thumb').forEach(function (img) {
+                        img.addEventListener('click', function () {
+                            openImageFullscreen(this.dataset.url);
+                        });
+                    });
+
                 })
                 .catch(function(err) { console.error("GetComments failed:", err); });
         }
@@ -1035,21 +1056,7 @@
             textarea.selectionEnd = cursorPos + uploadingText.length;
 
             try {
-                var formData = new FormData();
-                var ext = blob.type === 'image/png' ? 'png' :
-                          blob.type === 'image/gif' ? 'gif' :
-                          blob.type === 'image/webp' ? 'webp' : 'jpg';
-                formData.append('file', blob, 'paste-' + Date.now() + '.' + ext);
-
-                var uploadResp = await fetch(kanbanImageUploadUrl, {
-                    method: 'POST',
-                    body: formData
-                });
-                if (!uploadResp.ok) {
-                    var errText = await uploadResp.text();
-                    throw new Error(errText || 'Upload failed. Status: ' + uploadResp.status);
-                }
-                var data = await uploadResp.json();
+                var data = await uploadImageToServer(blob, kanbanImageUploadUrl);
 
                 var imageMarkdown = '\n![image](' + data.InternetPath + ')\n';
                 textarea.value = textarea.value.replace(uploadingText, imageMarkdown);
@@ -2212,7 +2219,12 @@
         }
 
         if (btnAddComment && commentInput) {
-            function submitComment() {
+            let { getFiles, clearFiles } = setupImageDropzone(commentInput, {
+                onImagesChange: (list) => {
+                }
+            });
+
+            async function submitComment() {
                 var content = commentInput.value.trim();
                 if (!content) return;
                 if (content.length > 2000) {
@@ -2220,6 +2232,27 @@
                     return;
                 }
                 btnAddComment.disabled = true;
+
+                const imgs = getFiles();
+                let imagesString = '';
+
+                try {
+                    if (imgs.length > 0) {
+                        btnAddComment.textContent = getLocalizedText("uploading", "Uploading images...");
+                        const paths = [];
+                        for (const img of imgs) {
+                            var data = await uploadImageToServer(img, kanbanImageUploadUrl);
+                            paths.push(data.InternetPath);
+                        }
+                        imagesString = paths.join(';');
+                    }
+                } catch (err) {
+                    showFriendlyDialog(err.message || getLocalizedText("failed-upload-image", "Failed to upload image."), getLocalizedText("error", "Error"));
+                    btnAddComment.disabled = false;
+                    btnAddComment.textContent = getLocalizedText("send", "Send");
+                    return;
+                }
+
                 btnAddComment.textContent = getLocalizedText("sending", "Sending...");
                 fetch("/Kanban/AddComment", {
                     method: "POST",
@@ -2227,6 +2260,7 @@
                     body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken)
                         + "&cardId=" + currentEditCardId
                         + "&content=" + encodeURIComponent(content)
+                        + "&images=" + encodeURIComponent(imagesString)
                 })
                 .then(function(r) {
                     if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("failed-add-comment", "Failed to add comment.")); });
@@ -2234,6 +2268,7 @@
                 })
                 .then(function() {
                     commentInput.value = "";
+                    clearFiles();
                     loadComments(currentEditCardId);
                 })
                 .catch(function(err) {
