@@ -14,6 +14,17 @@ public class Advice
     public string? Result { get; set; }
     public string? Error { get; set; }
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+    /// <summary>Structured key-value pairs for UI rendering (key, displayKey, value).</summary>
+    public List<AdviceParameterItem> DisplayParameters { get; init; } = new();
+    /// <summary>Human-readable resolved entity names (e.g. 'Card "Fix login" → Target "Done"').</summary>
+    public string? ResolvedName { get; init; }
+}
+
+public class AdviceParameterItem
+{
+    public string Key { get; init; } = string.Empty;
+    public string DisplayKey { get; init; } = string.Empty;
+    public string? Value { get; init; }
 }
 
 public enum AdviceStatus

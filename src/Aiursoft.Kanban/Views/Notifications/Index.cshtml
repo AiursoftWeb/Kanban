@@ -1,0 +1,293 @@
+@using Aiursoft.Kanban.Models.NotificationsViewModels
+@model IndexViewModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
+    var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
+}
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section styles {
+<style>
+    .notification-card {
+        border: 1px solid var(--bs-border-color);
+        border-radius: 16px;
+        padding: 1.25rem;
+        background: var(--bs-body-bg);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        transition: box-shadow 0.2s ease, transform 0.15s ease;
+    }
+
+    .notification-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-1px);
+    }
+
+    .notification-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .notification-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--bs-primary);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+    }
+
+    .notification-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+        flex: 1;
+    }
+
+    .notification-author {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--bs-body-color);
+    }
+
+    .notification-context {
+        font-size: 0.8rem;
+        color: var(--bs-secondary-color);
+    }
+
+    .notification-time {
+        font-size: 0.75rem;
+        color: var(--bs-secondary-color);
+        white-space: nowrap;
+    }
+
+    .notification-comment {
+        background: var(--bs-tertiary-bg);
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+        color: var(--bs-body-color);
+        line-height: 1.5;
+        margin-bottom: 0.75rem;
+        max-height: 6em;
+        overflow: hidden;
+    }
+
+    .notification-actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .btn-mark-read {
+        border-radius: 10px;
+        font-size: 0.8rem;
+        padding: 0.35rem 0.85rem;
+    }
+
+    .btn-card-link {
+        border-radius: 10px;
+        font-size: 0.8rem;
+        padding: 0.35rem 0.85rem;
+    }
+
+    .empty-notifications {
+        border: 2px dashed var(--bs-border-color);
+        border-radius: 18px;
+        padding: 4rem 2rem;
+        text-align: center;
+        color: var(--bs-secondary-color);
+        background: var(--bs-tertiary-bg);
+    }
+
+    .mark-all-btn {
+        border-radius: 12px;
+    }
+
+    .top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+</style>
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="top-bar">
+            <div>
+                <h2 class="mb-1">@Localizer["Notifications"]</h2>
+                <p class="text-muted mb-0">
+                    @if (Model.UnreadCount > 0)
+                    {
+                        <span>@(Model.UnreadCount == 1 ? Localizer["You have <strong>{0}</strong> unread notification.", Model.UnreadCount] : Localizer["You have <strong>{0}</strong> unread notifications.", Model.UnreadCount])</span>
+                    }
+                    else
+                    {
+                        <span>@Localizer["No unread notifications."]</span>
+                    }
+                </p>
+            </div>
+            @if (Model.UnreadCount > 0)
+            {
+                <button type="button" class="btn btn-outline-secondary mark-all-btn" id="btnMarkAllRead">
+                    <i class="align-middle me-1" data-lucide="check-check"></i> @Localizer["Mark All as Read"]
+                </button>
+            }
+        </div>
+    </div>
+</div>
+
+@if (!Model.Notifications.Any())
+{
+    <div class="empty-notifications">
+        <h4 class="mb-2">@Localizer["All caught up!"]</h4>
+        <p class="mb-0">@Localizer["You have no unread notifications."]</p>
+    </div>
+}
+else
+{
+    <div class="row g-3" id="notificationsList">
+        @foreach (var notification in Model.Notifications)
+        {
+            var isCommentType = notification.Type == Aiursoft.Kanban.Entities.NotificationType.CommentAdded;
+            var actorInitial = string.IsNullOrWhiteSpace(notification.ActorUserName)
+                ? "?"
+                : notification.ActorUserName.Trim()[0].ToString().ToUpperInvariant();
+            <div class="col-12">
+                <div class="notification-card" data-notification-id="@notification.Id">
+                    <div class="notification-header">
+                        <div class="notification-avatar" title="@notification.ActorUserName">
+                            @actorInitial
+                        </div>
+                        <div class="notification-meta">
+                            <span class="notification-author">@notification.ActorUserName</span>
+                            <span class="notification-context">
+                                @notification.Message
+                            </span>
+                        </div>
+                        <span class="notification-time" title="@notification.CreationTime.ToString("yyyy-MM-dd HH:mm")">
+                            @FormatRelativeTime(notification.CreationTime)
+                        </span>
+                    </div>
+                    @if (isCommentType && !string.IsNullOrEmpty(notification.CommentContent))
+                    {
+                        <div class="notification-comment">@notification.CommentContent</div>
+                    }
+                    <div class="notification-actions">
+                        <button type="button" class="btn btn-outline-primary btn-mark-read mark-read-btn">
+                            <i class="align-middle me-1" data-lucide="check"></i> @Localizer["Mark as Read"]
+                        </button>
+                        @if (notification.BoardId.HasValue)
+                        {
+                            <a href="/Kanban/Index?boardId=@notification.BoardId" class="btn btn-outline-secondary btn-card-link">
+                                <i class="align-middle me-1" data-lucide="external-link"></i> @(notification.CardId.HasValue ? Localizer["Open Card"] : Localizer["Open Board"])
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@functions {
+    string FormatRelativeTime(DateTime utcTime)
+    {
+        var now = DateTime.UtcNow;
+        var diff = now - utcTime;
+        if (diff.TotalMinutes < 1) return Localizer["just now"].Value;
+        if (diff.TotalMinutes < 60) return Localizer["{0}m ago", (int)diff.TotalMinutes].Value;
+        if (diff.TotalHours < 24) return Localizer["{0}h ago", (int)diff.TotalHours].Value;
+        if (diff.TotalDays < 7) return Localizer["{0}d ago", (int)diff.TotalDays].Value;
+        return utcTime.ToString("MMM dd");
+    }
+}
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+<script>
+    (function() {
+        var token = '@token';
+
+        function markAsRead(notificationId, cardElement) {
+            fetch('/Notifications/MarkAsRead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'RequestVerificationToken': token
+                },
+                body: 'id=' + encodeURIComponent(notificationId)
+            })
+            .then(function(r) {
+                if (r.ok && cardElement) {
+                    cardElement.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    cardElement.style.opacity = '0';
+                    cardElement.style.transform = 'scale(0.95)';
+                    setTimeout(function() {
+                        cardElement.remove();
+                        var remaining = document.querySelectorAll('.notification-card').length;
+                        if (remaining === 0) {
+                            location.reload();
+                        } else {
+                            updateHeader(remaining);
+                        }
+                    }, 300);
+                }
+            })
+            .catch(function(err) { console.error('MarkAsRead failed:', err); });
+        }
+
+        function markAllAsRead() {
+            fetch('/Notifications/MarkAllAsRead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'RequestVerificationToken': token
+                }
+            })
+            .then(function(r) {
+                if (r.ok) {
+                    location.reload();
+                }
+            })
+            .catch(function(err) { console.error('MarkAllAsRead failed:', err); });
+        }
+
+        function updateHeader(count) {
+            var p = document.querySelector('.text-muted span');
+            if (p) {
+                var template = count === 1
+                    ? '@Localizer["You have <strong>{0}</strong> unread notification.", "__COUNT__"]'
+                    : '@Localizer["You have <strong>{0}</strong> unread notifications.", "__COUNT__"]';
+                p.innerHTML = template.replace('__COUNT__', count);
+            }
+            if (count === 0) {
+                var btn = document.getElementById('btnMarkAllRead');
+                if (btn) btn.remove();
+            }
+        }
+
+        document.querySelectorAll('.mark-read-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var card = this.closest('.notification-card');
+                var id = card.dataset.notificationId;
+                markAsRead(id, card);
+            });
+        });
+
+        var markAllBtn = document.getElementById('btnMarkAllRead');
+        if (markAllBtn) {
+            markAllBtn.addEventListener('click', markAllAsRead);
+        }
+    })();
+</script>
+}

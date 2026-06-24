@@ -132,11 +132,17 @@
   <data name="My Created" xml:space="preserve">
     <value>Oluşturduklarım</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>Bildirimlerim</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Görevlerim</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Bulunamadı</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Bildirimler</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Genel Bakış</value>
@@ -194,6 +200,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Kullanıcılar</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>Tümünü Görüntüle</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>Tüm Bildirimleri Görüntüle</value>
   </data>
 
 </root>

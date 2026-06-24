@@ -135,11 +135,17 @@
   <data name="My Created" xml:space="preserve">
     <value>Mis Creados</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>Mis notificaciones</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Mis tareas</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>No encontrado</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notificaciones</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Vista general</value>
@@ -197,6 +203,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Usuarios</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>Ver todo</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>Ver todas las notificaciones</value>
   </data>
 
 </root>

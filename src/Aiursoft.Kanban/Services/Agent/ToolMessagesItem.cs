@@ -1,10 +1,15 @@
-using Aiursoft.GptClient.Abstractions;
 using Newtonsoft.Json;
 
 namespace Aiursoft.Kanban.Services.Agent;
 
-public class ToolMessagesItem : MessagesItem
+public class ToolMessagesItem
 {
+    [JsonProperty("role")]
+    public string? Role { get; set; }
+
+    [JsonProperty("content")]
+    public string? Content { get; set; }
+
     [JsonProperty("tool_calls")]
     public List<ToolCallData>? ToolCalls { get; set; }
 
@@ -13,6 +18,9 @@ public class ToolMessagesItem : MessagesItem
 
     [JsonProperty("reasoning_content")]
     public string? ReasoningContent { get; set; }
+
+    [JsonProperty("isMeta")]
+    public bool IsMeta { get; set; }
 }
 
 public class ToolCallData

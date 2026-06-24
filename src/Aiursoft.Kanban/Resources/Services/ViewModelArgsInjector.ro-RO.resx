@@ -132,11 +132,17 @@
   <data name="My Created" xml:space="preserve">
     <value>Create de Mine</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>Notificările mele</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Sarcinile mele</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Nu a fost găsit</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notificări</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Prezentare generală</value>
@@ -194,6 +200,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Utilizatori</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>Vizualizare toate</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>Vizualizare toate notificările</value>
   </data>
 
 </root>

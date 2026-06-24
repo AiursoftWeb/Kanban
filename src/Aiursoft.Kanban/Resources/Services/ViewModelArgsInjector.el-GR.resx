@@ -132,11 +132,17 @@
   <data name="My Created" xml:space="preserve">
     <value>Δημιουργήθηκαν από Εμένα</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>Ειδοποιήσεις μου</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Οι εργασίες μου</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Δεν βρέθηκε</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Ειδοποιήσεις</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Επισκόπηση</value>
@@ -194,6 +200,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Χρήστες</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>Προβολή όλων</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>Προβολή Όλων των Ειδοποιήσεων</value>
   </data>
 
 </root>

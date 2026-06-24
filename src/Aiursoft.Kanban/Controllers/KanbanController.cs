@@ -1,11 +1,13 @@
 using System.Text.RegularExpressions;
 using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Events;
 using Aiursoft.Kanban.Models.KanbanViewModels;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +21,9 @@ public class KanbanController(
     TemplateDbContext db,
     UserManager<User> userManager,
     StorageService storage,
-    IAuthorizationService authorizationService) : Controller
+    IAuthorizationService authorizationService,
+    IMediator mediator,
+    ILogger<KanbanController> logger) : Controller
 {
     private static readonly string[] LabelColors =
     [
@@ -120,6 +124,8 @@ public class KanbanController(
 
         var shares = await db.BoardShares
             .Include(s => s.Board)
+                .ThenInclude(b => b.Columns)
+                    .ThenInclude(c => c.Cards)
             .Where(s => s.SharedWithUserId == userId ||
                         (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId)))
             .OrderByDescending(s => s.CreationTime)
@@ -135,10 +141,28 @@ public class KanbanController(
             .Where(r => roleIds.Contains(r.Id))
             .ToDictionaryAsync(r => r.Id, r => r.Name ?? r.Id);
 
+        var now = DateTime.UtcNow;
+        var summaries = new Dictionary<int, BoardSummary>();
+        foreach (var share in shares)
+        {
+            var board = share.Board;
+            var cards = board.Columns.SelectMany(c => c.Cards).ToList();
+            summaries[board.Id] = new BoardSummary
+            {
+                BoardId = board.Id,
+                TotalIncomplete = cards.Count(c => c.Column.ColumnStatus != ColumnStatus.Completed),
+                TotalInProgress = cards.Count(c => c.Column.ColumnStatus == ColumnStatus.InProgress),
+                TotalCompleted = cards.Count(c => c.Column.ColumnStatus == ColumnStatus.Completed),
+                TotalOverdue = cards.Count(c => c.DueDate.HasValue && c.DueDate.Value < now && c.Column.ColumnStatus != ColumnStatus.Completed),
+                TotalUnassigned = cards.Count(c => string.IsNullOrEmpty(c.AssignedUserId))
+            };
+        }
+
         return this.StackView(new SharedWithMeViewModel
         {
             Shares = shares,
-            RoleNames = roleNames
+            RoleNames = roleNames,
+            BoardSummaries = summaries
         });
     }
 
@@ -220,12 +244,26 @@ public class KanbanController(
             Description = description?.Trim(),
             Order = maxOrder + 1,
             ColumnId = columnId,
+            CreatorUserId = userId,
             AssignedUserId = userId
         };
         db.KanbanCards.Add(card);
         await db.SaveChangesAsync();
 
-        return Ok(new { card.Id, card.Title, card.Description, card.Order, card.ColumnId });
+        var creator = await userManager.FindByIdAsync(userId);
+
+        return Ok(new
+        {
+            card.Id,
+            card.Title,
+            card.Description,
+            card.Order,
+            card.ColumnId,
+            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mm"),
+            CreatorUserName = GetUserDisplayName(creator),
+            CreatorUserInitial = GetUserInitial(creator),
+            CreatorUserAvatarUrl = GetUserAvatarUrl(creator)
+        });
     }
 
     [HttpPost]
@@ -317,6 +355,8 @@ public class KanbanController(
         var maxOrder = await db.KanbanCards
             .Where(c => c.ColumnId == targetColumnId)
             .MaxAsync(c => (int?)c.Order) ?? -1;
+        var originalCreatorUserId = card.CreatorUserId;
+        var originalAssigneeUserId = card.AssignedUserId;
         var comments = await db.KanbanCardComments
             .Where(comment => comment.CardId == cardId)
             .ToListAsync();
@@ -327,6 +367,7 @@ public class KanbanController(
             Order = maxOrder + 1,
             ColumnId = targetColumnId,
             Priority = card.Priority,
+            CreatorUserId = card.CreatorUserId ?? userId,
             AssignedUserId = null,
             PlannedStartTime = card.PlannedStartTime,
             DueDate = card.DueDate
@@ -341,6 +382,13 @@ public class KanbanController(
         db.KanbanCardComments.RemoveRange(comments);
         db.KanbanCards.Remove(card);
         await db.SaveChangesAsync();
+
+        await PublishNotificationEventAsync(new CardTransferredEvent(
+            CardId: transferredCard.Id,
+            ActorUserId: userId,
+            TargetBoardId: targetBoardId,
+            OriginalCreatorUserId: originalCreatorUserId,
+            OriginalAssigneeUserId: originalAssigneeUserId));
 
         return Ok(new
         {
@@ -368,6 +416,8 @@ public class KanbanController(
 
         var userId = userManager.GetUserId(User)!;
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
+
+        var fromColumnId = card.ColumnId;
 
         var now = DateTime.UtcNow;
         switch (column.ColumnStatus)
@@ -404,6 +454,14 @@ public class KanbanController(
             allCards[i].Order = i;
 
         await db.SaveChangesAsync();
+
+        if (fromColumnId != targetColumnId)
+        {
+            await PublishNotificationEventAsync(new CardMovedEvent(
+                CardId: cardId,
+                ActorUserId: userId));
+        }
+
         return Ok(new
         {
             card.Id,
@@ -621,6 +679,7 @@ public class KanbanController(
         var card = await db.KanbanCards
             .Include(c => c.Column)
                 .ThenInclude(col => col.Board)
+            .Include(c => c.CreatorUser)
             .FirstOrDefaultAsync(c => c.Id == cardId);
         if (card == null) return NotFound();
 
@@ -631,14 +690,48 @@ public class KanbanController(
         if (!await CanAssignUserToBoardAsync(card.Column.Board, normalizedAssignedUserId))
             return BadRequest("Assigned user does not have access to this board.");
 
+        var changedFields = new List<string>();
+        if (!string.Equals(card.Title, title.Trim(), StringComparison.Ordinal))
+            changedFields.Add("title");
+        var newDescription = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
+        if (!string.Equals(card.Description, newDescription, StringComparison.Ordinal))
+            changedFields.Add("description");
+        var newPlanned = plannedStartTime?.ToUniversalTime();
+        if (card.PlannedStartTime != newPlanned)
+            changedFields.Add("planned start time");
+        var newDue = dueDate?.ToUniversalTime();
+        if (card.DueDate != newDue)
+            changedFields.Add("due date");
+        if (card.Priority != (Priority)priority)
+            changedFields.Add("priority");
+
+        var oldAssigneeId = card.AssignedUserId;
+
         card.Title = title.Trim();
-        card.Description = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
-        card.PlannedStartTime = plannedStartTime?.ToUniversalTime();
-        card.DueDate = dueDate?.ToUniversalTime();
+        card.Description = newDescription;
+        card.PlannedStartTime = newPlanned;
+        card.DueDate = newDue;
         card.Priority = (Priority)priority;
         card.AssignedUserId = normalizedAssignedUserId;
 
         await db.SaveChangesAsync();
+
+        if (changedFields.Count > 0)
+        {
+            await PublishNotificationEventAsync(new CardUpdatedEvent(
+                CardId: cardId,
+                ActorUserId: userId,
+                ChangedFields: changedFields));
+        }
+
+        if (oldAssigneeId != normalizedAssignedUserId)
+        {
+            await PublishNotificationEventAsync(new CardAssignedEvent(
+                CardId: cardId,
+                ActorUserId: userId,
+                OldAssigneeId: oldAssigneeId,
+                NewAssigneeId: normalizedAssignedUserId));
+        }
 
         var assignedUser = normalizedAssignedUserId == null
             ? null
@@ -653,12 +746,17 @@ public class KanbanController(
             DueDate = card.DueDate?.ToString("yyyy-MM-dd"),
             ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm"),
             ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm"),
+            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mm"),
             Priority = (int)card.Priority,
             PriorityText = card.Priority.ToString(),
             AssignedUserId = assignedUser?.Id,
             AssignedUserName = GetUserDisplayName(assignedUser),
             AssignedUserInitial = GetUserInitial(assignedUser),
-            AssignedUserAvatarUrl = GetUserAvatarUrl(assignedUser)
+            AssignedUserAvatarUrl = GetUserAvatarUrl(assignedUser),
+            CreatorUserId = card.CreatorUser?.Id,
+            CreatorUserName = GetUserDisplayName(card.CreatorUser),
+            CreatorUserInitial = GetUserInitial(card.CreatorUser),
+            CreatorUserAvatarUrl = GetUserAvatarUrl(card.CreatorUser)
         });
     }
 
@@ -704,8 +802,18 @@ public class KanbanController(
         if (!await CanAssignUserToBoardAsync(card.Column.Board, normalizedAssignedUserId))
             return BadRequest("Assigned user does not have access to this board.");
 
+        var oldAssigneeId = card.AssignedUserId;
         card.AssignedUserId = normalizedAssignedUserId;
         await db.SaveChangesAsync();
+
+        if (oldAssigneeId != normalizedAssignedUserId)
+        {
+            await PublishNotificationEventAsync(new CardAssignedEvent(
+                CardId: cardId,
+                ActorUserId: userId,
+                OldAssigneeId: oldAssigneeId,
+                NewAssigneeId: normalizedAssignedUserId));
+        }
 
         var assignedUser = normalizedAssignedUserId == null
             ? null
@@ -991,6 +1099,14 @@ public class KanbanController(
         });
         await db.SaveChangesAsync();
 
+        if (targetUserId != null)
+        {
+            await PublishNotificationEventAsync(new BoardSharedEvent(
+                BoardId: id,
+                ActorUserId: userId,
+                SharedWithUserId: targetUserId));
+        }
+
         return RedirectToAction(nameof(ManageShares), new { id });
     }
 
@@ -1045,6 +1161,11 @@ public class KanbanController(
         db.KanbanCardComments.Add(comment);
         await db.SaveChangesAsync();
 
+        await PublishNotificationEventAsync(new CardCommentAddedEvent(
+            CardId: cardId,
+            CommentId: comment.Id,
+            ActorUserId: userId));
+
         var author = await userManager.FindByIdAsync(userId);
         return Ok(new
         {
@@ -1082,7 +1203,8 @@ public class KanbanController(
             c.CreationTime,
             c.Images,
             AuthorName = GetUserDisplayName(c.Author),
-            AuthorInitial = GetUserInitial(c.Author)
+            AuthorInitial = GetUserInitial(c.Author),
+            Avatar = GetUserAvatarUrl(c.Author)
         });
 
         return Ok(comments);
@@ -1119,6 +1241,9 @@ public class KanbanController(
             .Include(b => b.Columns.OrderBy(c => c.Order))
                 .ThenInclude(c => c.Cards.OrderBy(card => card.Order))
                     .ThenInclude(card => card.AssignedUser)
+            .Include(b => b.Columns.OrderBy(c => c.Order))
+                .ThenInclude(c => c.Cards.OrderBy(card => card.Order))
+                    .ThenInclude(card => card.CreatorUser)
             .FirstOrDefaultAsync(b => b.Id == boardId);
     }
 
@@ -1184,6 +1309,19 @@ public class KanbanController(
     private static string? NormalizeAssignedUserId(string? assignedUserId)
     {
         return string.IsNullOrWhiteSpace(assignedUserId) ? null : assignedUserId.Trim();
+    }
+
+    private async Task PublishNotificationEventAsync<TNotification>(TNotification notification)
+        where TNotification : INotification
+    {
+        try
+        {
+            await mediator.Publish(notification);
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Failed to publish notification event {NotificationEvent}", typeof(TNotification).Name);
+        }
     }
 
     private static string? GetUserDisplayName(User? user)

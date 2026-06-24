@@ -2,6 +2,7 @@ using Aiursoft.Scanner.Abstractions;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Controllers;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services.Authentication;
 using Aiursoft.Kanban.Services.FileStorage;
 using Aiursoft.UiStack.Layout;
@@ -14,10 +15,13 @@ using Aiursoft.UiStack.Views.Shared.Components.SideAdvertisement;
 using Aiursoft.UiStack.Views.Shared.Components.Sidebar;
 using Aiursoft.UiStack.Views.Shared.Components.SideLogo;
 using Aiursoft.UiStack.Views.Shared.Components.SideMenu;
+using Aiursoft.UiStack.Views.Shared.Components.NotificationsDropdown;
 using Aiursoft.UiStack.Views.Shared.Components.UserDropdown;
+using UiStackNotification = Aiursoft.UiStack.Views.Shared.Components.NotificationsDropdown.Notification;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -87,6 +91,8 @@ public class ViewModelArgsInjector(
         _ = localizer["Kanban Board"];
         _ = localizer["My Boards"];
         _ = localizer["My Tasks"];
+        _ = localizer["View All Notifications"];
+        _ = localizer["View All"];
         _ = localizer["Shared with Me"];
 
         _ = localizer["Overview Kanban"];
@@ -98,6 +104,9 @@ public class ViewModelArgsInjector(
         _ = localizer["Kanban AI Assistant"];
     
         _ = localizer["Overview"];
+    
+        _ = localizer["My Notifications"];
+        _ = localizer["Notifications"];
     }
 
     public void InjectSimple(
@@ -311,6 +320,55 @@ public class ViewModelArgsInjector(
                         ]
                     }
                 ]
+            };
+
+            // Populate notification dropdown for the navbar bell icon
+            var userId = userManager.GetUserId(context.User)!;
+            var recentNotifications = db.Notifications
+                .Where(n => n.UserId == userId && !n.IsRead)
+                .Include(n => n.Comment!)
+                    .ThenInclude(c => c.Author)
+                .Include(n => n.Card!)
+                    .ThenInclude(c => c.Column)
+                .Include(n => n.Board)
+                .Include(n => n.ActorUser)
+                .OrderByDescending(n => n.CreationTime)
+                .Take(10)
+                .ToList();
+
+            toInject.Navbar.NotificationsDropdown = new NotificationsDropdownViewModel
+            {
+                Notifications = recentNotifications.Select(n =>
+                {
+                    var icon = n.Type switch
+                    {
+                        NotificationType.CommentAdded => "message-circle",
+                        NotificationType.CardAssigned => "user-plus",
+                        NotificationType.CardUnassigned => "user-minus",
+                        NotificationType.CardMoved => "arrow-right-circle",
+                        NotificationType.CardTransferred => "repeat",
+                        NotificationType.CardUpdated => "edit",
+                        NotificationType.BoardShared => "share-2",
+                        _ => "bell"
+                    };
+                    var title = NotificationTemplateService.BuildMessage(n);
+                    var message = title.Length > 100
+                        ? title[..100] + "..."
+                        : title;
+                    return new UiStackNotification
+                    {
+                        Title = title,
+                        Message = message,
+                        TriggerTime = n.CreationTime,
+                        Icon = icon,
+                        IconClass = "text-primary"
+                    };
+                }).ToList(),
+                ViewAllLink = new Link
+                {
+                    Text = localizer["View All"],
+                    Href = "/Notifications/Index"
+                }
             };
         }
         else

@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Створено</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Автор</value>
+  </data>
   <data name="Custom color" xml:space="preserve">
     <value>Користувацький колір</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>Не вдалося завантажити цілі передачі.</value>
   </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>Не вдалося перемістити картку:</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Не вдалося видалити мітку.</value>
   </data>
@@ -240,6 +246,18 @@
   <data name="Medium" xml:space="preserve">
     <value>Середній</value>
   </data>
+  <data name="Move" xml:space="preserve">
+    <value>Перемістити</value>
+  </data>
+  <data name="Move Card" xml:space="preserve">
+    <value>Перемістити картку</value>
+  </data>
+  <data name="Move to..." xml:space="preserve">
+    <value>Перемістити в...</value>
+  </data>
+  <data name="Moving..." xml:space="preserve">
+    <value>Переміщення...</value>
+  </data>
   <data name="My Board" xml:space="preserve">
     <value>Моя дошка</value>
   </data>
@@ -248,6 +266,9 @@
   </data>
   <data name="New Board" xml:space="preserve">
     <value>Нова дошка</value>
+  </data>
+  <data name="Next column" xml:space="preserve">
+    <value>Наступна колонка</value>
   </data>
   <data name="No boards yet" xml:space="preserve">
     <value>Дошок поки немає</value>
@@ -284,6 +305,9 @@
   </data>
   <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
     <value>Натисніть Enter, щоб додати мітку або створити нову.</value>
+  </data>
+  <data name="Previous column" xml:space="preserve">
+    <value>Попередня колонка</value>
   </data>
   <data name="Priority" xml:space="preserve">
     <value>Пріоритет</value>

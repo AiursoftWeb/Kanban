@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Created</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Creator</value>
+  </data>
   <data name="Custom color" xml:space="preserve">
     <value>Custom colour</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>Failed to load transfer targets.</value>
   </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>Failed to move card:</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Failed to remove label.</value>
   </data>
@@ -240,6 +246,18 @@
   <data name="Medium" xml:space="preserve">
     <value>Medium</value>
   </data>
+  <data name="Move" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="Move Card" xml:space="preserve">
+    <value>Move Card</value>
+  </data>
+  <data name="Move to..." xml:space="preserve">
+    <value>Move to...</value>
+  </data>
+  <data name="Moving..." xml:space="preserve">
+    <value>Moving...</value>
+  </data>
   <data name="My Board" xml:space="preserve">
     <value>My Board</value>
   </data>
@@ -248,6 +266,9 @@
   </data>
   <data name="New Board" xml:space="preserve">
     <value>New Board</value>
+  </data>
+  <data name="Next column" xml:space="preserve">
+    <value>Next column</value>
   </data>
   <data name="No boards yet" xml:space="preserve">
     <value>No boards yet</value>
@@ -284,6 +305,9 @@
   </data>
   <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
     <value>Press Enter to add a label or create a new one on the fly.</value>
+  </data>
+  <data name="Previous column" xml:space="preserve">
+    <value>Previous column</value>
   </data>
   <data name="Priority" xml:space="preserve">
     <value>Priority</value>

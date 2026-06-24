@@ -135,11 +135,17 @@
   <data name="My Created" xml:space="preserve">
     <value>Đã Tạo</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>Thông báo của tôi</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Nhiệm vụ của tôi</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Không tìm thấy</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Thông báo</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Tổng quan</value>
@@ -197,6 +203,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Người dùng</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>Xem tất cả</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>Xem tất cả thông báo</value>
   </data>
 
 </root>

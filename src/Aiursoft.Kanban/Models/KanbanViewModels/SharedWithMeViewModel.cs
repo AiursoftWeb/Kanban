@@ -12,4 +12,5 @@ public class SharedWithMeViewModel : UiStackLayoutViewModel
 
     public required List<BoardShare> Shares { get; init; }
     public required Dictionary<string, string> RoleNames { get; init; }
+    public Dictionary<int, BoardSummary> BoardSummaries { get; init; } = [];
 }

@@ -19,12 +19,12 @@ public class AgentTests : TestBase
         var registry = GetService<ToolRegistry>();
         var allTools = registry.AllTools;
 
-        Assert.IsTrue(allTools.Count >= 19, $"Expected at least 19 tools, found {allTools.Count}");
+        Assert.IsTrue(allTools.Count >= 22, $"Expected at least 22 tools, found {allTools.Count}");
 
         var readTools = allTools.Where(t => !registry.IsWriteTool(t.ProtocolTool.Name)).ToList();
         var writeTools = allTools.Where(t => registry.IsWriteTool(t.ProtocolTool.Name)).ToList();
 
-        Assert.IsTrue(readTools.Count >= 10, $"Expected at least 10 read tools, found {readTools.Count}");
+        Assert.IsTrue(readTools.Count >= 13, $"Expected at least 13 read tools, found {readTools.Count}");
         Assert.IsTrue(writeTools.Count >= 9, $"Expected at least 9 write tools, found {writeTools.Count}");
 
         foreach (var tool in allTools)
@@ -42,7 +42,8 @@ public class AgentTests : TestBase
 
         var readToolNames = new[] { "GetUserBoards", "GetBoardById", "GetColumns", "GetCardsInColumn",
             "GetCardById", "SearchCards", "GetOverdueCards", "GetBoardMembers", "SearchUsers", "SearchLabels",
-            "GetBoardShares" };
+            "GetBoardShares", "GetCardsByPriority", "GetUnassignedCards", "GetCardsByLabel",
+            "GetMyTasks", "GetPublicBoards", "GetSharedBoards" };
 
         foreach (var name in readToolNames)
         {
@@ -548,7 +549,7 @@ public class AgentTests : TestBase
 
         var continued = service.GetConversation(conversationId)!;
         Assert.AreEqual(AgentState.Thinking, continued.State);
-        Assert.AreEqual(originalCount + 1, continued.Messages.Count); // +1 for follow-up user message
+        Assert.AreEqual(originalCount + 1, continued.Messages.Count); // +1: follow-up user message (system-reminder no longer re-injected)
         Assert.AreEqual("Follow-up question", continued.Messages.Last().Content);
     }
 
@@ -708,6 +709,460 @@ public class AgentTests : TestBase
         Assert.IsFalse(board.IsPublic);
     }
 
+    // ── Batch write tools ─────────────────────────────────
+
+    [TestMethod]
+    public async Task BatchCreateCards_CreatesCardsSuccessfully()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"Card A","description":"Desc A"},{"title":"Card B","description":"Desc B"},{"title":"Card C"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 3 card(s)");
+
+        var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).ToList();
+        Assert.AreEqual(3, cards.Count, "Should create exactly 3 cards in the database");
+        Assert.IsTrue(cards.Any(c => c.Title == "Card A"), "Card A should exist");
+        Assert.IsTrue(cards.Any(c => c.Title == "Card B"), "Card B should exist");
+        Assert.IsTrue(cards.Any(c => c.Title == "Card C"), "Card C should exist");
+        CollectionAssert.AreEqual(
+            new[] { 0, 1, 2 },
+            cards.OrderBy(c => c.Order).Select(c => c.Order).ToArray(),
+            "Cards should have sequential order starting from 0");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_CaseInsensitivePropertyNames()
+    {
+        // Verifies the fix: System.Text.Json deserializes with PropertyNameCaseInsensitive = true
+        // The LLM sends lowercase "title" and "description" in the JSON.
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        // Exact format the LLM sends: lowercase property names
+        var cardsJson = """[{"title":"Lowercase Title Works","description":"Lowercase description works"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 1 card(s)");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual("Lowercase Title Works", card.Title,
+            "Title should be populated from lowercase 'title' JSON key");
+        Assert.AreEqual("Lowercase description works", card.Description,
+            "Description should be populated from lowercase 'description' JSON key");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_MixedCasePropertyNames()
+    {
+        // Also verify PascalCase and mixed case still work
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"Title":"PascalCase Title","Description":"PascalCase desc"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 1 card(s)");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual("PascalCase Title", card.Title);
+        Assert.AreEqual("PascalCase desc", card.Description);
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_EmptyArrayReturnsError()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchCreateCards(columnId, "[]");
+
+        StringAssert.Contains(result, "Error: No cards specified.");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_InvalidJsonReturnsError()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchCreateCards(columnId, "not-json-at-all");
+
+        StringAssert.Contains(result, "Error: Invalid JSON format.");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_SkipsEmptyTitles()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"Valid Card"},{"title":"  "},{"title":""},{"title":"Another Valid"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 2 card(s)");
+
+        var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).ToList();
+        Assert.AreEqual(2, cards.Count, "Only non-empty title cards should be created");
+        Assert.IsTrue(cards.Any(c => c.Title == "Valid Card"));
+        Assert.IsTrue(cards.Any(c => c.Title == "Another Valid"));
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_NoPermissionReturnsError()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        // Register a non-owner user
+        var (otherEmail, _) = await RegisterAndLoginAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var otherUser = db.Users.First(u => u.Email == otherEmail);
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = otherUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchCreateCards(columnId, """[{"title":"Should Not Create"}]""");
+
+        StringAssert.Contains(result, "Error: You do not have permission");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_ColumnNotFoundReturnsError()
+    {
+        await LoginAsAdmin();
+        await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchCreateCards(999999, """[{"title":"Card"}]""");
+
+        StringAssert.Contains(result, "Error: Column not found.");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_TrimsTitleAndDescription()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"  Padded Title  ","description":"  Padded Desc  "}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 1 card(s)");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual("Padded Title", card.Title, "Title should be trimmed");
+        Assert.AreEqual("Padded Desc", card.Description, "Description should be trimmed");
+    }
+
+    // ── GetCardsByDateRange ──────────────────────────────
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_CompletedThisWeek_ReturnsOnlyCompletedCards()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        // Create a "Done" column with Completed status
+        var maxColOrder = db.KanbanColumns.Where(c => c.BoardId == boardId).Max(c => (int?)c.Order) ?? 0;
+        var doneColumn = new KanbanColumn { Name = "Done", Order = maxColOrder + 1, BoardId = boardId, ColumnStatus = ColumnStatus.Completed };
+        db.KanbanColumns.Add(doneColumn);
+        await db.SaveChangesAsync();
+        var doneColumnId = doneColumn.Id;
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        // Create cards completed this week
+        var thisWeekMonday = GetThisWeekMonday();
+        db.KanbanCards.Add(new KanbanCard { Title = "This Week Task A", ColumnId = doneColumnId, Order = 0, ActualEndTime = thisWeekMonday, AssignedUserId = adminUser.Id });
+        db.KanbanCards.Add(new KanbanCard { Title = "This Week Task B", ColumnId = doneColumnId, Order = 1, ActualEndTime = thisWeekMonday.AddDays(3), AssignedUserId = adminUser.Id });
+        db.KanbanCards.Add(new KanbanCard { Title = "Old Task", ColumnId = doneColumnId, Order = 2, ActualEndTime = thisWeekMonday.AddDays(-30), AssignedUserId = adminUser.Id });
+        await db.SaveChangesAsync();
+
+        var start = thisWeekMonday.ToString("yyyy-MM-dd");
+        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd");
+        var result = await cardTools.GetCardsByDateRange(start, end, boardId, "completed");
+
+        StringAssert.Contains(result, "This Week Task A");
+        StringAssert.Contains(result, "This Week Task B");
+        Assert.IsFalse(result.Contains("Old Task"), "Old task should not appear in this week's range");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_InvalidDateFormat_ReturnsError()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var adminUser = scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var result = await cardTools.GetCardsByDateRange("not-a-date", "2026-01-01", boardId);
+        StringAssert.Contains(result, "Invalid start date");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_StartAfterEnd_ReturnsError()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var adminUser = scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var result = await cardTools.GetCardsByDateRange("2026-06-15", "2026-06-01", boardId);
+        StringAssert.Contains(result, "is after end date");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_NoBoardId_ReturnsCardsFromAllAccessibleBoards()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        // Create a "Done" column with Completed status
+        var maxColOrder = db.KanbanColumns.Where(c => c.BoardId == boardId).Max(c => (int?)c.Order) ?? 0;
+        var doneColumn = new KanbanColumn { Name = "Done", Order = maxColOrder + 1, BoardId = boardId, ColumnStatus = ColumnStatus.Completed };
+        db.KanbanColumns.Add(doneColumn);
+        await db.SaveChangesAsync();
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var thisWeekMonday = GetThisWeekMonday();
+        db.KanbanCards.Add(new KanbanCard { Title = "Completed Card", ColumnId = doneColumn.Id, Order = 0, ActualEndTime = thisWeekMonday, AssignedUserId = adminUser.Id });
+        await db.SaveChangesAsync();
+
+        var start = thisWeekMonday.ToString("yyyy-MM-dd");
+        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd");
+        var result = await cardTools.GetCardsByDateRange(start, end, dateType: "completed");
+
+        StringAssert.Contains(result, "Completed Card");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_NoCardsInRange_ReturnsEmptyMessage()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        // Create a "Done" column with Completed status
+        var maxColOrder = db.KanbanColumns.Where(c => c.BoardId == boardId).Max(c => (int?)c.Order) ?? 0;
+        var doneColumn = new KanbanColumn { Name = "Done", Order = maxColOrder + 1, BoardId = boardId, ColumnStatus = ColumnStatus.Completed };
+        db.KanbanColumns.Add(doneColumn);
+        await db.SaveChangesAsync();
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        // Card completed way in the past
+        db.KanbanCards.Add(new KanbanCard { Title = "Ancient Task", ColumnId = doneColumn.Id, Order = 0, ActualEndTime = new DateTime(2020, 1, 1), AssignedUserId = adminUser.Id });
+        await db.SaveChangesAsync();
+
+        var result = await cardTools.GetCardsByDateRange("2026-06-01", "2026-06-07", boardId, "completed");
+        StringAssert.Contains(result, "No cards assigned to");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_FilterByCreatedDate()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        // Card created now should match today's range
+        db.KanbanCards.Add(new KanbanCard { Title = "Fresh Card", ColumnId = columnId, Order = 0, AssignedUserId = adminUser.Id });
+        await db.SaveChangesAsync();
+
+        var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
+        var result = await cardTools.GetCardsByDateRange(today, today, boardId, "created");
+
+        StringAssert.Contains(result, "Fresh Card");
+    }
+
+    [TestMethod]
+    public async Task GetCardsByDateRange_AssignedToAny_ReturnsAllUsersCards()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        var maxColOrder = db.KanbanColumns.Where(c => c.BoardId == boardId).Max(c => (int?)c.Order) ?? 0;
+        var doneColumn = new KanbanColumn { Name = "Done", Order = maxColOrder + 1, BoardId = boardId, ColumnStatus = ColumnStatus.Completed };
+        db.KanbanColumns.Add(doneColumn);
+        await db.SaveChangesAsync();
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var thisWeekMonday = GetThisWeekMonday();
+        // Card assigned to admin
+        db.KanbanCards.Add(new KanbanCard { Title = "Admin Task", ColumnId = doneColumn.Id, Order = 0, ActualEndTime = thisWeekMonday, AssignedUserId = adminUser.Id });
+        // Unassigned card
+        db.KanbanCards.Add(new KanbanCard { Title = "Unassigned Task", ColumnId = doneColumn.Id, Order = 1, ActualEndTime = thisWeekMonday });
+        await db.SaveChangesAsync();
+
+        var start = thisWeekMonday.ToString("yyyy-MM-dd");
+        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd");
+        var result = await cardTools.GetCardsByDateRange(start, end, dateType: "completed", assignedTo: "any");
+
+        StringAssert.Contains(result, "Admin Task");
+        StringAssert.Contains(result, "Unassigned Task");
+    }
+
+    private static DateTime GetThisWeekMonday()
+    {
+        var now = DateTime.UtcNow;
+        var daysSinceMonday = ((int)now.DayOfWeek + 6) % 7;
+        return now.Date.AddDays(-daysSinceMonday);
+    }
+
+    // ── FilterCards (advanced query) ────────────────────
+
+    [TestMethod]
+    public async Task FilterCards_CombinedFilters_ReturnsMatchingCards()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var doneCol = new KanbanColumn { Name = "Done", Order = 1, BoardId = boardId, ColumnStatus = ColumnStatus.Completed };
+        db.KanbanColumns.Add(doneCol);
+        await db.SaveChangesAsync();
+
+        var monday = GetThisWeekMonday();
+        db.KanbanCards.Add(new KanbanCard { Title = "Urgent API Fix", ColumnId = doneCol.Id, Order = 0, Priority = Priority.Urgent, ActualEndTime = monday, AssignedUserId = adminUser.Id });
+        db.KanbanCards.Add(new KanbanCard { Title = "Low Priority Doc", ColumnId = doneCol.Id, Order = 1, Priority = Priority.Low, ActualEndTime = monday, AssignedUserId = adminUser.Id });
+        await db.SaveChangesAsync();
+
+        var start = monday.ToString("yyyy-MM-dd");
+        var end = monday.AddDays(6).ToString("yyyy-MM-dd");
+        var result = await cardTools.FilterCards(
+            keyword: "API", assignedTo: "me", priority: "Urgent",
+            columnStatus: "Completed", dateType: "completed",
+            dateFrom: start, dateTo: end);
+
+        StringAssert.Contains(result, "Urgent API Fix");
+        Assert.IsFalse(result.Contains("Low Priority Doc"));
+    }
+
+    [TestMethod]
+    public async Task FilterCards_AssignedToMe_OnlyReturnsMyCards()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        db.KanbanCards.Add(new KanbanCard { Title = "My Card", ColumnId = columnId, Order = 0, AssignedUserId = adminUser.Id });
+        db.KanbanCards.Add(new KanbanCard { Title = "Unassigned", ColumnId = columnId, Order = 1, AssignedUserId = null });
+        await db.SaveChangesAsync();
+
+        var result = await cardTools.FilterCards(assignedTo: "me");
+
+        StringAssert.Contains(result, "My Card");
+        Assert.IsFalse(result.Contains("Unassigned"));
+    }
+
+    [TestMethod]
+    public async Task FilterCards_InvalidPriority_ReturnsError()
+    {
+        await LoginAsAdmin();
+        await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var adminUser = scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        var result = await cardTools.FilterCards(priority: "SuperUrgent");
+        StringAssert.Contains(result, "Invalid priority");
+    }
+
     // ── Multi-tool batch approval ────────────────────────
 
     [TestMethod]
@@ -847,6 +1302,215 @@ public class AgentTests : TestBase
         Assert.IsNull(service.GetConversation(convId));
         Assert.AreEqual(0, adviceService.GetPendingForConversation(convId).Count,
             "All advice from cancelled conversation should be removed");
+    }
+
+    // ── GetMyTasks ──────────────────────────────────────
+
+    [TestMethod]
+    public async Task GetMyTasks_ReturnsCardsAssignedToCurrentUser()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        // Create a card — auto-assigned to current user
+        var writeTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        var createResult = await writeTools.CreateCard(columnId, "My Assigned Task", "Test description");
+        StringAssert.Contains(createResult, "Card created:");
+
+        // Get my tasks
+        var readTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+        var result = await readTools.GetMyTasks(status: null, boardId: null);
+
+        StringAssert.Contains(result, "My Assigned Task", "Should include the assigned card");
+        StringAssert.Contains(result, "Found", "Should show count header");
+    }
+
+    [TestMethod]
+    public async Task GetMyTasks_NoAssignedCards_ReturnsEmptyMessage()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var readTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+        // Scope to the board we just created — it has no cards yet
+        var result = await readTools.GetMyTasks(status: null, boardId: boardId);
+
+        Assert.IsTrue(result.Contains("no") && result.Contains("cards"),
+            $"Should indicate no assigned cards, got: {result}");
+    }
+
+    [TestMethod]
+    public async Task GetMyTasks_StatusFilter_RespectsFilter()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        // Boards created via Kanban/CreateBoard have 3 columns: To Do, In Progress, Done
+        // Find In Progress and Done columns
+        var inProgressColumn = db.KanbanColumns.First(c => c.BoardId == boardId && c.ColumnStatus == ColumnStatus.InProgress);
+        var doneColumn = db.KanbanColumns.First(c => c.BoardId == boardId && c.ColumnStatus == ColumnStatus.Completed);
+
+        var writeTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        await writeTools.CreateCard(inProgressColumn.Id, "In Progress Task", null);
+        await writeTools.CreateCard(doneColumn.Id, "Completed Task", null);
+
+        var readTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        // Default (incomplete) — should include in-progress but not completed
+        var incompleteResult = await readTools.GetMyTasks(status: null, boardId: null);
+        StringAssert.Contains(incompleteResult, "In Progress Task", "Incomplete should include in-progress");
+        Assert.IsFalse(incompleteResult.Contains("Completed Task"), "Incomplete should exclude completed");
+
+        // Completed only
+        var completedResult = await readTools.GetMyTasks(status: "completed", boardId: null);
+        StringAssert.Contains(completedResult, "Completed Task", "Completed should include done card");
+        Assert.IsFalse(completedResult.Contains("In Progress Task"), "Completed should exclude in-progress");
+
+        // All
+        var allResult = await readTools.GetMyTasks(status: "all", boardId: null);
+        StringAssert.Contains(allResult, "In Progress Task");
+        StringAssert.Contains(allResult, "Completed Task");
+    }
+
+    [TestMethod]
+    public async Task GetMyTasks_BoardFilter_ScopesToBoard()
+    {
+        await LoginAsAdmin();
+
+        // Create two boards
+        var (board1Id, column1Id) = await CreateBoardAndFirstColumnAsync();
+        var (board2Id, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        // Create cards on both boards
+        var writeTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        await writeTools.CreateCard(column1Id, "Task on Board 1", null);
+
+        // Find column for board 2
+        var board2Column = db.KanbanColumns.First(c => c.BoardId == board2Id);
+        await writeTools.CreateCard(board2Column.Id, "Task on Board 2", null);
+
+        var readTools = scope.ServiceProvider.GetRequiredService<CardReadTools>();
+
+        // Scope to board 1
+        var result = await readTools.GetMyTasks(status: "all", boardId: board1Id);
+        StringAssert.Contains(result, "Task on Board 1", "Should include board 1 task");
+        Assert.IsFalse(result.Contains("Task on Board 2"), "Should not include board 2 task");
+
+        // Scope to board 2
+        var result2 = await readTools.GetMyTasks(status: "all", boardId: board2Id);
+        StringAssert.Contains(result2, "Task on Board 2", "Should include board 2 task");
+        Assert.IsFalse(result2.Contains("Task on Board 1"), "Should not include board 1 task");
+    }
+
+    // ── GetPublicBoards ─────────────────────────────────
+
+    [TestMethod]
+    public async Task GetPublicBoards_ReturnsPublicBoardsOnly()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var (privateBoardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        // Make one board public
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+        await shareTools.UpdateBoardVisibility(boardId, isPublic: true);
+
+        var readTools = scope.ServiceProvider.GetRequiredService<BoardReadTools>();
+        var result = await readTools.GetPublicBoards();
+
+        // Should include public board but not private one
+        var publicBoard = db.KanbanBoards.First(b => b.Id == boardId);
+        var privateBoard = db.KanbanBoards.First(b => b.Id == privateBoardId);
+        StringAssert.Contains(result, $"\"{publicBoard.Name}\"", "Should list public board by name");
+        Assert.IsFalse(result.Contains($"# {privateBoard.Id}"),
+            $"Should not leak private board ID, result: {result}");
+    }
+
+    // ── GetSharedBoards ─────────────────────────────────
+
+    [TestMethod]
+    public async Task GetSharedBoards_ReturnsBoardsSharedWithUser()
+    {
+        // Admin creates a board
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        // Register target user and get their ID
+        var (user2Email, _) = await RegisterAndLoginAsync();
+
+        // Admin shares board with user2
+        await LoginAsAdmin();
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+        await shareTools.ShareBoard(boardId, user2.Id, null, "ReadOnly");
+
+        // Now check from user2's perspective
+        var scope2 = Server!.Services.CreateScope();
+        scope2.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = user2.Id;
+
+        var readTools = scope2.ServiceProvider.GetRequiredService<BoardReadTools>();
+        var result = await readTools.GetSharedBoards();
+
+        var board = db.KanbanBoards.First(b => b.Id == boardId);
+        StringAssert.Contains(result, board.Name, "Should include shared board");
+        StringAssert.Contains(result, "Read-only", "Should show permission level");
+    }
+
+    [TestMethod]
+    public async Task GetSharedBoards_NoSharedBoards_ReturnsEmptyMessage()
+    {
+        // Register a new user who has no boards shared with them
+        await RegisterAndLoginAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var users = db.Users.ToList();
+
+        // Find the last registered user (current login)
+        var currentUser = users.Last();
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = currentUser.Id;
+
+        var readTools = scope.ServiceProvider.GetRequiredService<BoardReadTools>();
+        var result = await readTools.GetSharedBoards();
+
+        Assert.IsTrue(result.Contains("No boards") || result.Contains("not been shared"),
+            $"Should indicate no shared boards, got: {result}");
     }
 
     // ── Helpers ─────────────────────────────────────────────

@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Đã tạo</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Người tạo</value>
+  </data>
   <data name="Custom color" xml:space="preserve">
     <value>Màu tùy chỉnh</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>Không thể tải đích chuyển đổi.</value>
   </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>Không thể di chuyển thẻ:</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Không thể xóa nhãn.</value>
   </data>
@@ -240,6 +246,18 @@
   <data name="Medium" xml:space="preserve">
     <value>Trung bình</value>
   </data>
+  <data name="Move" xml:space="preserve">
+    <value>Di chuyển</value>
+  </data>
+  <data name="Move Card" xml:space="preserve">
+    <value>Di chuyển thẻ</value>
+  </data>
+  <data name="Move to..." xml:space="preserve">
+    <value>Di chuyển tới...</value>
+  </data>
+  <data name="Moving..." xml:space="preserve">
+    <value>Đang di chuyển...</value>
+  </data>
   <data name="My Board" xml:space="preserve">
     <value>Bảng của tôi</value>
   </data>
@@ -248,6 +266,9 @@
   </data>
   <data name="New Board" xml:space="preserve">
     <value>Bảng mới</value>
+  </data>
+  <data name="Next column" xml:space="preserve">
+    <value>Cột tiếp theo</value>
   </data>
   <data name="No boards yet" xml:space="preserve">
     <value>Chưa có bảng nào</value>
@@ -284,6 +305,9 @@
   </data>
   <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
     <value>Nhấn Enter để thêm nhãn hoặc tạo nhãn mới ngay lập tức.</value>
+  </data>
+  <data name="Previous column" xml:space="preserve">
+    <value>Cột trước</value>
   </data>
   <data name="Priority" xml:space="preserve">
     <value>Ưu tiên</value>

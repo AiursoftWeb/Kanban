@@ -135,11 +135,17 @@
   <data name="My Created" xml:space="preserve">
     <value>我建立的</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>我的通知</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>我的任務</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>找不到</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>通知</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>概述</value>
@@ -197,6 +203,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>使用者</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>查看全部</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>查看所有通知</value>
   </data>
 
 </root>

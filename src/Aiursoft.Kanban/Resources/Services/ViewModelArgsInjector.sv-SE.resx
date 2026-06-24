@@ -132,11 +132,17 @@
   <data name="My Created" xml:space="preserve">
     <value>Mina Skapade</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>Mina aviseringar</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Mina uppgifter</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Inte hittat</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Aviseringar</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Översikt</value>
@@ -194,6 +200,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Användare</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>Visa alla</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>Visa alla aviseringar</value>
   </data>
 
 </root>

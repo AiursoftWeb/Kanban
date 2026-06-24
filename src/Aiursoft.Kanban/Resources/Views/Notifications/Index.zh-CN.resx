@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0}d ago" xml:space="preserve">
+    <value>{0} 天前</value>
+  </data>
+  <data name="{0}h ago" xml:space="preserve">
+    <value>{0} 小时前</value>
+  </data>
+  <data name="{0}m ago" xml:space="preserve">
+    <value>{0} 分钟前</value>
+  </data>
+  <data name="All caught up!" xml:space="preserve">
+    <value>全部处理完了！</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>刚刚</value>
+  </data>
+  <data name="Mark All as Read" xml:space="preserve">
+    <value>全部标为已读</value>
+  </data>
+  <data name="Mark as Read" xml:space="preserve">
+    <value>标为已读</value>
+  </data>
+  <data name="No unread notifications." xml:space="preserve">
+    <value>没有未读通知。</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>通知</value>
+  </data>
+  <data name="Open Board" xml:space="preserve">
+    <value>打开看板</value>
+  </data>
+  <data name="Open Card" xml:space="preserve">
+    <value>打开卡片</value>
+  </data>
+  <data name="You have &lt;strong&gt;{0}&lt;/strong&gt; unread notification." xml:space="preserve">
+    <value>您有 &lt;strong&gt;{0}&lt;/strong&gt; 条未读通知。</value>
+  </data>
+  <data name="You have &lt;strong&gt;{0}&lt;/strong&gt; unread notifications." xml:space="preserve">
+    <value>您有 &lt;strong&gt;{0}&lt;/strong&gt; 条未读通知。</value>
+  </data>
+  <data name="You have no unread notifications." xml:space="preserve">
+    <value>您没有未读通知。</value>
+  </data>
+
+</root>

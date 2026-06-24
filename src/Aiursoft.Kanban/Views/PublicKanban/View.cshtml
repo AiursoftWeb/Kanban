@@ -10,7 +10,7 @@
     .column-count { background: var(--bs-secondary-bg); font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 12px; }
     .kanban-card { background: var(--bs-body-bg); border-radius: 12px; padding: 0.875rem 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--bs-border-color); margin-bottom: 0.625rem; }
     .card-title-text { font-weight: 600; font-size: 0.875rem; }
-    .card-description { font-size: 0.8rem; color: var(--bs-secondary-color); margin-top: 0.25rem; }
+    .card-description { font-size: 0.8rem; color: var(--bs-secondary-color); margin-top: 0.25rem; white-space: pre-wrap; }
     .column-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
     .dot-blue { background: #4dabf7; } .dot-orange { background: #ffa94d; } .dot-green { background: #69db7c; }
     .dot-purple { background: #9775fa; } .dot-pink { background: #f783ac; } .dot-teal { background: #38d9a9; }
@@ -45,16 +45,16 @@
                 <span class="column-title">@column.Name</span>
                 <span class="column-count">@column.Cards.Count</span>
             </div>
-            @foreach (var card in column.Cards.OrderBy(c => c.Order))
-            {
-                <div class="kanban-card">
-                    <div class="card-title-text">@card.Title</div>
-                    @if (!string.IsNullOrWhiteSpace(card.Description))
-                    {
-                        <div class="card-description">@card.Description</div>
-                    }
-                </div>
-            }
+                @foreach (var card in column.Cards.OrderBy(c => c.Order))
+                {
+                    <div class="kanban-card">
+                        <div class="card-title-text">@card.Title</div>
+                        @if (!string.IsNullOrWhiteSpace(card.Description))
+                        {
+                            <div class="card-description">@Html.Raw(System.Net.WebUtility.HtmlEncode(card.Description).Replace("\n", "<br>"))</div>
+                        }
+                    </div>
+                }
             @if (!column.Cards.Any())
             {
                 <div class="text-center text-muted py-3 small">@Localizer["No cards"]</div>

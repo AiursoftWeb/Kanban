@@ -18,6 +18,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<KanbanCardLabel> KanbanCardLabels => Set<KanbanCardLabel>();
     public DbSet<BoardShare> BoardShares => Set<BoardShare>();
     public DbSet<KanbanCardComment> KanbanCardComments => Set<KanbanCardComment>();
+    public DbSet<Notification> Notifications => Set<Notification>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -28,6 +29,11 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasOne(card => card.AssignedUser)
             .WithMany()
             .HasForeignKey(card => card.AssignedUserId)
+            .OnDelete(DeleteBehavior.SetNull);
+        builder.Entity<KanbanCard>()
+            .HasOne(card => card.CreatorUser)
+            .WithMany()
+            .HasForeignKey(card => card.CreatorUserId)
             .OnDelete(DeleteBehavior.SetNull);
         builder.Entity<KanbanCard>()
             .Property(card => card.Priority)
@@ -45,6 +51,36 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .WithMany()
             .HasForeignKey(comment => comment.AuthorId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<Notification>()
+            .HasOne(n => n.Card)
+            .WithMany()
+            .HasForeignKey(n => n.CardId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(false);
+        builder.Entity<Notification>()
+            .HasOne(n => n.Comment)
+            .WithMany()
+            .HasForeignKey(n => n.CommentId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(false);
+        builder.Entity<Notification>()
+            .HasOne(n => n.Board)
+            .WithMany()
+            .HasForeignKey(n => n.BoardId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(false);
+        builder.Entity<Notification>()
+            .HasOne(n => n.User)
+            .WithMany()
+            .HasForeignKey(n => n.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<Notification>()
+            .HasOne(n => n.ActorUser)
+            .WithMany()
+            .HasForeignKey(n => n.ActorUserId)
+            .OnDelete(DeleteBehavior.SetNull)
+            .IsRequired(false);
     }
 
     public virtual Task MigrateAsync(CancellationToken cancellationToken) =>

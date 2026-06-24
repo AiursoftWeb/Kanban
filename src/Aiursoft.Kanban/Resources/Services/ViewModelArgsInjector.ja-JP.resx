@@ -135,11 +135,17 @@
   <data name="My Created" xml:space="preserve">
     <value>作成したもの</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>マイ通知</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>マイタスク</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>Not Found</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>通知</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>概要</value>
@@ -197,6 +203,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>ユーザー</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>すべて表示</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>すべての通知を表示</value>
   </data>
 
 </root>

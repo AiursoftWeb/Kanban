@@ -115,7 +115,7 @@
     <value>看板 AI 助手</value>
   </data>
   <data name="Kanban Board" xml:space="preserve">
-    <value>看板板</value>
+    <value>看板</value>
   </data>
   <data name="Lockout" xml:space="preserve">
     <value>帳戶暫時停用</value>
@@ -135,11 +135,17 @@
   <data name="My Created" xml:space="preserve">
     <value>我創建的</value>
   </data>
+  <data name="My Notifications" xml:space="preserve">
+    <value>我的通知</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>我的任務</value>
   </data>
   <data name="Not Found" xml:space="preserve">
     <value>找不到</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>通知</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>總覽</value>
@@ -197,6 +203,12 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>用戶</value>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>查看所有</value>
+  </data>
+  <data name="View All Notifications" xml:space="preserve">
+    <value>查看所有通知</value>
   </data>
 
 </root>

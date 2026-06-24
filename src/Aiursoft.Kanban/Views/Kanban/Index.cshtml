@@ -8,6 +8,7 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section styles {
+    <link rel="stylesheet" href="~/node_modules/katex/dist/katex.min.css" asp-append-version="true" />
 	<style>
 	.drag-handle {
 		cursor: grab;
@@ -277,6 +278,7 @@
         overflow: hidden;
         max-height: 4.5em;
         word-break: break-word;
+        white-space: pre-wrap;
     }
 
     .card-inline-img {
@@ -287,6 +289,58 @@
         display: block;
         object-fit: cover;
         cursor: pointer;
+    }
+
+    .description-preview {
+        color: var(--bs-body-color);
+        line-height: 1.55;
+    }
+
+    .description-preview > :last-child {
+        margin-bottom: 0;
+    }
+
+    .description-preview pre {
+        padding: 0.75rem;
+        border-radius: 8px;
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        overflow-x: auto;
+    }
+
+    .description-preview code {
+        font-size: 0.85em;
+    }
+
+    .description-preview table {
+        width: 100%;
+        margin-bottom: 1rem;
+        border-collapse: collapse;
+    }
+
+    .description-preview th,
+    .description-preview td {
+        padding: 0.4rem 0.55rem;
+        border: 1px solid var(--bs-border-color, #dee2e6);
+    }
+
+    .description-preview blockquote {
+        margin: 0 0 1rem;
+        padding: 0.5rem 0.8rem;
+        border-left: 4px solid var(--bs-primary, #4dabf7);
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        color: var(--bs-secondary-color);
+        border-radius: 0 8px 8px 0;
+    }
+
+    .description-preview img,
+    .description-preview svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .description-preview .mermaid {
+        text-align: center;
+        overflow-x: auto;
     }
 
     .image-fullscreen-overlay {
@@ -587,10 +641,202 @@
 
     .board-tabs-scroll::-webkit-scrollbar { display: none; }
 
+    .mobile-column-switcher {
+        display: none;
+    }
+
     @@media (max-width: 768px) {
+        html, body {
+            overflow: auto;
+        }
+
+        .kanban-page-wrapper {
+            height: calc(100dvh - 72px);
+            overflow: hidden;
+        }
+
+        .kanban-topbar {
+            padding: 1rem 1rem 0 !important;
+        }
+
+        .kanban-topbar > .d-flex {
+            align-items: flex-start !important;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem !important;
+        }
+
+        .kanban-topbar > .d-flex > .d-flex:first-child {
+            flex: 0 0 100%;
+            min-width: 0;
+            flex-wrap: wrap;
+        }
+
+        .kanban-topbar .h4 {
+            font-size: 1.05rem;
+        }
+
+        .kanban-topbar > .d-flex > .d-flex.gap-2 {
+            flex: 0 0 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            padding-bottom: 0.25rem;
+            scrollbar-width: none;
+        }
+
+        .kanban-topbar > .d-flex > .d-flex.gap-2::-webkit-scrollbar {
+            display: none;
+        }
+
+        .mobile-column-switcher {
+            display: grid;
+            grid-template-columns: 40px 1fr 40px;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 1rem 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .mobile-column-nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--bs-border-color);
+            background: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-column-nav-btn:disabled {
+            opacity: 0.35;
+        }
+
+        .mobile-column-track {
+            display: flex;
+            gap: 0.4rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .mobile-column-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .mobile-column-pill {
+            border: 1px solid var(--bs-border-color);
+            background: var(--bs-body-bg);
+            color: var(--bs-secondary-color);
+            border-radius: 999px;
+            padding: 0.45rem 0.75rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .mobile-column-pill.active {
+            background: var(--bs-primary);
+            border-color: var(--bs-primary);
+            color: #fff;
+        }
+
+        .kanban-container {
+            gap: 0;
+            padding: 0 1rem 1rem;
+            scroll-snap-type: x mandatory;
+            scroll-padding-inline: 1rem;
+            overflow-y: hidden;
+        }
+
         .kanban-column {
-            flex: 0 0 280px;
-            width: 280px;
+            flex: 0 0 calc(100vw - 2rem);
+            width: calc(100vw - 2rem);
+            max-width: calc(100vw - 2rem);
+            height: 100%;
+            border-radius: 12px;
+            scroll-snap-align: start;
+            margin-right: 1rem;
+        }
+
+        .kanban-column:hover {
+            transform: none;
+        }
+
+        .column-header {
+            cursor: default;
+        }
+
+        .btn-edit-column-title,
+        .btn-delete-column.can-delete,
+        .kanban-column:hover .btn-edit-column-title,
+        .kanban-column:hover .btn-delete-column.can-delete {
+            opacity: 1;
+        }
+
+        .column-cards {
+            overscroll-behavior: contain;
+            padding-bottom: 0.25rem;
+        }
+
+        .kanban-card {
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .kanban-card:hover {
+            transform: none;
+        }
+
+        #editCardModal .modal-dialog,
+        #addCardModal .modal-dialog,
+        #addColumnModal .modal-dialog {
+            align-items: flex-end;
+            min-height: calc(100% - 1rem);
+            margin: 0.5rem;
+        }
+
+        #editCardModal .modal-content,
+        #addCardModal .modal-content,
+        #addColumnModal .modal-content {
+            max-height: calc(100dvh - 1rem);
+            border-radius: 18px 18px 0 0 !important;
+        }
+
+        #editCardModal .modal-body {
+            max-height: calc(100dvh - 12rem);
+            overflow-y: auto;
+        }
+
+        #editCardModal .modal-footer {
+            gap: 0.6rem;
+        }
+
+        #editCardModal .modal-footer,
+        #editCardModal .modal-footer > div {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        #editCardModal .modal-footer .btn {
+            width: 100%;
+            min-height: 42px;
+        }
+
+        .label-input-wrapper {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .label-picker-controls {
+            border-left: none;
+            border-top: 1px solid var(--bs-border-color, #dde2ea);
+            padding-top: 0.5rem;
+            justify-content: space-between;
+        }
+
+        .comment-add-area {
+            flex-direction: column;
         }
     }
 
@@ -654,7 +900,7 @@
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background: var(--bs-primary, #4dabf7);
+        /* background: var(--bs-primary, #4dabf7); */
         color: #fff;
         display: flex;
         align-items: center;
@@ -775,7 +1021,6 @@
 <div class="kanban-topbar container-fluid px-4 pt-4 pb-0">
     <div class="d-flex align-items-center justify-content-between mb-3">
         <div class="d-flex align-items-center gap-3">
-            <h1 class="h4 mb-0">@Localizer["Kanban"]</h1>
             @if (Model.CurrentBoard != null)
             {
                 <div class="d-flex align-items-center gap-2">
@@ -929,6 +1174,15 @@
     }
     else
     {
+        <div class="mobile-column-switcher" id="mobileColumnSwitcher">
+            <button type="button" class="mobile-column-nav-btn" id="btnMobilePrevColumn" aria-label="@Localizer["Previous column"]">
+                <i class="align-middle" data-lucide="chevron-left" style="width:18px;height:18px"></i>
+            </button>
+            <div class="mobile-column-track" id="mobileColumnTrack"></div>
+            <button type="button" class="mobile-column-nav-btn" id="btnMobileNextColumn" aria-label="@Localizer["Next column"]">
+                <i class="align-middle" data-lucide="chevron-right" style="width:18px;height:18px"></i>
+            </button>
+        </div>
         <div class="kanban-container" id="kanban-container">
             @{
                 var dotColors = new[] { "dot-blue", "dot-orange", "dot-green", "dot-purple", "dot-pink", "dot-teal", "dot-amber", "dot-indigo" };
@@ -980,6 +1234,13 @@
                             var assignedUserAvatarUrl = card.AssignedUser != null && card.AssignedUser.AvatarRelativePath != Aiursoft.Kanban.Entities.User.DefaultAvatarPath
                                 ? $"{Storage.RelativePathToInternetUrl(card.AssignedUser.AvatarRelativePath)}?w=56&square=true"
                                 : string.Empty;
+                            var creatorUserDisplayName = card.CreatorUser?.DisplayName ?? card.CreatorUser?.UserName ?? string.Empty;
+                            var creatorUserInitial = string.IsNullOrWhiteSpace(creatorUserDisplayName)
+                                ? string.Empty
+                                : creatorUserDisplayName.Trim()[0].ToString().ToUpperInvariant();
+                            var creatorUserAvatarUrl = card.CreatorUser != null && card.CreatorUser.AvatarRelativePath != Aiursoft.Kanban.Entities.User.DefaultAvatarPath
+                                ? $"{Storage.RelativePathToInternetUrl(card.CreatorUser.AvatarRelativePath)}?w=56&square=true"
+                                : string.Empty;
                             var labelsJson = JsonSerializer.Serialize(card.CardLabels
                                 .OrderBy(link => link.Label.Name)
                                 .Select(link => new { Id = link.LabelId, link.Label.Name, link.Label.Color }));
@@ -996,11 +1257,15 @@
                                  data-assigned-user-name="@assignedUserDisplayName"
                                  data-assigned-user-initial="@assignedUserInitial"
                                  data-assigned-user-avatar-url="@assignedUserAvatarUrl"
+                                 data-creator-user-name="@creatorUserDisplayName"
+                                 data-creator-user-initial="@creatorUserInitial"
+                                 data-creator-user-avatar-url="@creatorUserAvatarUrl"
+                                 data-creation-time="@card.CreationTime.ToString("yyyy-MM-ddTHH:mm")"
                                  data-labels='@labelsJson'>
                                 <div class="card-title-text">@card.Title</div>
                                 @if (!string.IsNullOrWhiteSpace(card.Description))
                                 {
-                                    <div class="card-description">@card.Description</div>
+                                    <div class="card-description">@Html.Raw(System.Net.WebUtility.HtmlEncode(card.Description).Replace("\n", "<br>"))</div>
                                 }
                             </div>
                         }
@@ -1124,7 +1389,22 @@
                                 }
                             </label>
                             <textarea id="editCardDescription" class="form-control" rows="3" style="border-radius:12px;resize:none" disabled="@(!Model.CanEditCurrentBoard)"></textarea>
-                            <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid #dee2e6;border-radius:12px;background:#f8f9fa;word-break:break-word"></div>
+                            <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid;border-radius:12px;word-break:break-word"></div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label class="form-label fw-semibold text-muted">@Localizer["Creator"]</label>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="card-assignee-avatar" id="editCardCreatorAvatar" title="">
+                                        <span id="editCardCreatorInitial"></span>
+                                    </span>
+                                    <span id="editCardCreatorName" class="text-muted small">—</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-semibold text-muted">@Localizer["Created"]</label>
+                                <div id="editCardCreationTime" class="form-control text-muted" style="border-radius:12px;font-size:0.85rem">—</div>
+                            </div>
                         </div>
                         <div class="row g-3 mb-3">
                             <div class="col-6">
@@ -1178,11 +1458,11 @@
                         <div class="row g-3">
                             <div class="col-6">
                                 <label class="form-label text-muted small">@Localizer["Actual Start"] <span class="text-muted fw-normal">(@Localizer["auto"])</span></label>
-                                <div id="editCardActualStart" class="form-control bg-light text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
+                                <div id="editCardActualStart" class="form-control text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
                             </div>
                             <div class="col-6">
                                 <label class="form-label text-muted small">@Localizer["Actual End"] <span class="text-muted fw-normal">(@Localizer["auto"])</span></label>
-                                <div id="editCardActualEnd" class="form-control bg-light text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
+                                <div id="editCardActualEnd" class="form-control text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
                             </div>
                         </div>
                         <div class="comments-section">
@@ -1207,6 +1487,7 @@
                         @if (Model.CanEditCurrentBoard)
                         {
                             <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-primary" id="btnMoveCard" style="border-radius:10px">@Localizer["Move to..."]</button>
                                 <button type="button" class="btn btn-outline-primary" id="btnTransferCard" style="border-radius:10px">@Localizer["Transfer"]</button>
                                 <button type="button" class="btn btn-outline-danger" id="btnDeleteCard" style="border-radius:10px">@Localizer["Delete"]</button>
                             </div>
@@ -1222,6 +1503,23 @@
                 </div>
                 @if (Model.CanEditCurrentBoard)
                 {
+                    <div id="moveCardView" class="d-none">
+                        <div class="modal-body px-4">
+                            <div class="mb-0">
+                                <label class="form-label fw-semibold">@Localizer["Target Column"]</label>
+                                <select id="moveTargetColumn" class="form-select" style="border-radius:12px">
+                                    <option value="">@Localizer["Select a column"]</option>
+                                </select>
+                            </div>
+                            <div class="alert alert-danger mt-3 mb-0 d-none" id="moveCardError" role="alert"></div>
+                        </div>
+                        <div class="modal-footer border-0 px-4 pb-4">
+                            <button type="button" class="btn btn-light" id="btnBackFromMoveCard" style="border-radius:10px">@Localizer["Cancel"]</button>
+                            <button type="button" class="btn btn-primary px-4" id="btnConfirmMoveCard" style="border-radius:10px" disabled>
+                                @Localizer["Move"]
+                            </button>
+                        </div>
+                    </div>
                     <div id="transferCardView" class="d-none">
                         <div class="modal-body px-4">
                             <div class="mb-3">
@@ -1421,6 +1719,11 @@
     <span data-key="auto">@Localizer["auto"]</span>
     <span data-key="close">@Localizer["Close"]</span>
     <span data-key="save">@Localizer["Save"]</span>
+    <span data-key="move">@Localizer["Move"]</span>
+    <span data-key="move-card">@Localizer["Move Card"]</span>
+    <span data-key="move-to">@Localizer["Move to..."]</span>
+    <span data-key="moving">@Localizer["Moving..."]</span>
+    <span data-key="failed-move">@Localizer["Failed to move card:"]</span>
     <span data-key="transfer">@Localizer["Transfer"]</span>
     <span data-key="transfer-card">@Localizer["Transfer Card"]</span>
     <span data-key="select-board">@Localizer["Select a board"]</span>
@@ -1486,8 +1789,19 @@
 @section scripts {
 <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@@1.15.6/Sortable.min.js"></script>
-	<script src="~/js/enhance.js"></script>
-	<script src="~/js/upload-image.js"></script>
+<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+<script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
+<script src="~/node_modules/katex/dist/katex.min.js" asp-append-version="true"></script>
+<script src="~/node_modules/mermaid/dist/mermaid.min.js" asp-append-version="true"></script>
+<script>
+    window.kanbanCsrfToken = "@token";
+    window.kanbanImageUploadUrl = '@Html.Raw(Storage.GetUploadUrl("kanban-images"))';
+    window.kanbanCanEditCurrentBoard = @Model.CanEditCurrentBoard.ToString().ToLowerInvariant();
+    window.kanbanCurrentBoardId = @(Model.CurrentBoard?.Id ?? 0);
+</script>
+<script src="~/js/kanban-board.js" asp-append-version="true"></script>
+<script src="~/js/enhance.js"></script>
+<script src="~/js/upload-image.js"></script>
 <script>
     function getLocalizedText(key, defaultText) {
         var el = document.querySelector('#loc-data span[data-key="' + key + '"]');

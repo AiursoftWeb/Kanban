@@ -80,4 +80,59 @@ public class BoardReadTools(
         if (boards.Count == 0) return $"No boards found matching \"{query}\".";
         return string.Join("\n", boards.Select(b => $"- Board #{b.Id} \"{b.Name}\""));
     }
+
+    [McpServerTool, Description("Get all publicly visible kanban boards")]
+    public async Task<string> GetPublicBoards()
+    {
+        var boards = await db.KanbanBoards
+            .Where(b => b.IsPublic)
+            .Include(b => b.Columns)
+            .Include(b => b.User)
+            .OrderBy(b => b.Order)
+            .ToListAsync();
+
+        if (boards.Count == 0) return "There are no public boards.";
+
+        var lines = new List<string> { $"Found {boards.Count} public board(s):" };
+        foreach (var board in boards)
+        {
+            var ownerName = KanbanAccessService.GetUserDisplayName(board.User);
+            lines.Add($"- Board #{board.Id} \"{board.Name}\" (Owner: {ownerName}, Columns: {board.Columns.Count})");
+        }
+        return string.Join("\n", lines);
+    }
+
+    [McpServerTool, Description("Get boards shared with the current user (not owned by them)")]
+    public async Task<string> GetSharedBoards()
+    {
+        var userId = currentUser.UserId;
+        var user = await userManager.FindByIdAsync(userId);
+        if (user == null) return "User not found.";
+
+        var userRoles = await userManager.GetRolesAsync(user);
+        var userRoleIds = await db.Roles
+            .Where(r => userRoles.Contains(r.Name!))
+            .Select(r => r.Id)
+            .ToListAsync();
+
+        var shares = await db.BoardShares
+            .Include(s => s.Board).ThenInclude(b => b.Columns)
+            .Include(s => s.Board).ThenInclude(b => b.User)
+            .Where(s => s.SharedWithUserId == userId ||
+                        (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId)))
+            .OrderByDescending(s => s.CreationTime)
+            .ToListAsync();
+
+        if (shares.Count == 0) return "No boards have been shared with you.";
+
+        var lines = new List<string> { $"Found {shares.Count} board(s) shared with you:" };
+        foreach (var share in shares)
+        {
+            var board = share.Board;
+            var ownerName = KanbanAccessService.GetUserDisplayName(board.User);
+            var permStr = share.Permission == SharePermission.Editable ? "Edit" : "Read-only";
+            lines.Add($"- Board #{board.Id} \"{board.Name}\" (Owner: {ownerName}, Permission: {permStr}, Columns: {board.Columns.Count})");
+        }
+        return string.Join("\n", lines);
+    }
 }

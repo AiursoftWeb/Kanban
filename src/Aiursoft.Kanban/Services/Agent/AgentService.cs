@@ -4,6 +4,7 @@ using Aiursoft.Canon.TaskQueue;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using ModelContextProtocol.Server;
 using Newtonsoft.Json;
@@ -24,6 +25,23 @@ public class AgentService : IAgentService
     private const int MaxLoops = 15;
     private static readonly TimeSpan ConversationTtl = TimeSpan.FromMinutes(30);
     private static readonly TimeSpan AdviceTtl = TimeSpan.FromMinutes(30);
+
+    private const string SystemReminder =
+        "<system-reminder>\n" +
+        "This conversation is about a Kanban board application. Please process user messages using the following steps:\n" +
+        "1. Think step by step — plan and generate a strategy before acting.\n" +
+        "2. Extract entities from the user message (e.g., task name, assignee, time, status, priority).\n" +
+        "3. Use search tools to look up relevant existing cards and boards.\n" +
+        "4. Perform intent recognition. For example:\n" +
+        "   - User says \"completed the code\" or \"finished XX\" \"XX has been configured\", \"XX has been completed.\" → likely intent: move card \"XX\" to the \"Done\" column.\n" +
+        "   - User says \"add XX\" or \"need XX\" → likely intent: create a new card.\n" +
+        "   - User says \"how is XX going\" → likely intent: check the status of related cards.\n" +
+        "   - User expresses a seemingly unrelated need (e.g., \"I want a hamburger\") → likely intent: create a task related to team dining or social events.\n" +
+        "   - Users may mention the Kanban project itself in the Kanban board(e.g., \"The Kanban apikey has been configured\") → likely intent: Move related card to done column.\n" +
+        "   - ALWAYS interpret messages as Kanban board operations. Only handle Kanban card-related tasks and questions. All seemingly unrelated messages are expressions of Kanban board actions.\n" +
+        "5. Can infer the user’s actual intentions and  ask  user if it is right, but do not invoke write tools until you fully understand the context and the user’s intent.\n" +
+        "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses.\nIf the user gives a task, you need to put it in the most relevant Kanban board. For example: configuring the Kanban API key should be placed in the Kanban development task board.\n" +
+        "</system-reminder>";
 
     public AgentService(
         ServiceTaskQueue taskQueue,
@@ -59,10 +77,48 @@ public class AgentService : IAgentService
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "system",
-            Content = _promptConfig.SystemPrompt.Replace("{userContext}", userContext)
+            Content = _promptConfig.SystemPrompt
+                .Replace("{userContext}", userContext)
+                .Replace("{currentDateTime}", GetCurrentDateTimeBlock())
         });
 
         // Only the user's actual message is visible in the chat UI
+        conversation.Messages.Add(new ToolMessagesItem
+        {
+            Role = "user",
+            Content = SystemReminder,
+            IsMeta = true
+        });
+        var recentCards = BuildRecentCardsBlock(userId, count: 10);
+        if (!string.IsNullOrEmpty(recentCards))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = recentCards,
+                IsMeta = true
+            });
+        }
+        var assignedCards = BuildAssignedCardsBlock(userId);
+        if (!string.IsNullOrEmpty(assignedCards))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = assignedCards,
+                IsMeta = true
+            });
+        }
+        var weeklyGuidance = BuildWeeklyGuidanceBlock(userMessage);
+        if (!string.IsNullOrEmpty(weeklyGuidance))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = weeklyGuidance,
+                IsMeta = true
+            });
+        }
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",
@@ -93,6 +149,29 @@ public class AgentService : IAgentService
         if (string.IsNullOrWhiteSpace(userMessage))
             return null;
 
+        // SystemReminder and assigned cards are injected once in StartRun.
+        // Each turn: inject current time + 3 most recent cards (keeps agent
+        // aware of real-time changes) and the conditional WeeklyGuidance.
+        var recentCards = BuildRecentCardsBlock(userId, count: 3);
+        if (!string.IsNullOrEmpty(recentCards))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = recentCards,
+                IsMeta = true
+            });
+        }
+        var weeklyGuidance = BuildWeeklyGuidanceBlock(userMessage);
+        if (!string.IsNullOrEmpty(weeklyGuidance))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = weeklyGuidance,
+                IsMeta = true
+            });
+        }
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",
@@ -242,7 +321,7 @@ public class AgentService : IAgentService
                             var description = tool?.ProtocolTool.Description ?? "";
 
                             var args = tu.Input ?? new Dictionary<string, object?>();
-                            var paramDisplay = BuildParameterDisplay(tu.Name, args);
+                            var result = await BuildParameterDisplay(sp, tu.Name, args);
 
                             var advice = _adviceService.Create(
                                 conversationId: conversationId,
@@ -250,8 +329,10 @@ public class AgentService : IAgentService
                                 toolDisplayName: displayName,
                                 toolDescription: description,
                                 parameters: args,
-                                parameterDisplay: paramDisplay,
-                                toolCallId: tu.Id);
+                                parameterDisplay: result.DisplayText,
+                                toolCallId: tu.Id,
+                                displayParameters: result.Parameters,
+                                resolvedName: result.ResolvedName);
 
                             adviceIds.Add(advice.Id);
                             _logger.LogInformation("Advice created: {AdviceId} for tool {ToolName}", advice.Id, tu.Name);
@@ -466,6 +547,147 @@ public class AgentService : IAgentService
     }
 
     /// <summary>
+    /// Builds a string like "Current time: Wednesday, June 10, 2026, 03:45 PM UTC"
+    /// injected into the system-reminder via {currentDateTime}.
+    /// </summary>
+    private static string GetCurrentDateTimeBlock()
+    {
+        var now = DateTime.UtcNow;
+        var daysSinceMonday = ((int)now.DayOfWeek + 6) % 7;
+        var monday = now.Date.AddDays(-daysSinceMonday);
+        var sunday = monday.AddDays(6);
+        return $"Current time: {now:dddd, MMMM d, yyyy, h:mm tt} UTC\n" +
+               $"This week: {monday:yyyy-MM-dd} (Monday) – {sunday:yyyy-MM-dd} (Sunday)";
+    }
+
+    /// <summary>
+    /// Builds a standalone &lt;system-reminder&gt; block with weekly-summary
+    /// guidance. Injected only when the user message contains "周" or "week"
+    /// keywords, saving tokens on unrelated conversations.
+    /// Returns an empty string when no weekly keywords are detected.
+    /// </summary>
+    private static string BuildWeeklyGuidanceBlock(string userMessage)
+    {
+        if (string.IsNullOrWhiteSpace(userMessage))
+            return string.Empty;
+
+        var lower = userMessage.ToLowerInvariant();
+        if (!lower.Contains("周") && !lower.Contains("week"))
+            return string.Empty;
+
+        return "<system-reminder>\n" +
+               "The user is asking about a weekly summary or time period. To answer accurately:\n" +
+               "- Use GetCardsByDateRange with dateType=\"completed\" and the Monday–Sunday range shown in the first system-reminder above.\n" +
+               "- If user intend to summarize weekly report or this week's work, use GetCardsByDateRange tool instead of going through all the boards and cards.\n" +
+               "- Do NOT guess dates — always use the exact week boundary from the system-reminder.\n" +
+               "- If the user asks about a different week (e.g. \"last week\"), adjust the date range accordingly.\n" +
+               "│  IMPORTANT: this context may or may not be relevant    │\n" +
+               "</system-reminder>";
+    }
+
+    /// <summary>
+    /// Builds a system-reminder block with current date/time and the user's most
+    /// recently created cards (newest first). Card titles over 200 characters are
+    /// truncated.
+    /// </summary>
+    private string BuildRecentCardsBlock(string userId, int count = 10)
+    {
+        using var scope = _rootServices.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+
+        var recentCards = db.KanbanCards
+            .Include(c => c.Column)
+            .ThenInclude(col => col.Board)
+            .Where(c => c.Column.Board.UserId == userId || c.AssignedUserId == userId)
+            .OrderByDescending(c => c.CreationTime)
+            .Take(count)
+            .Select(c => new
+            {
+                c.Title,
+                ColumnName = c.Column.Name,
+                BoardName = c.Column.Board.Name
+            })
+            .ToList();
+
+        if (recentCards.Count == 0)
+            return string.Empty;
+
+        var dateTimeBlock = GetCurrentDateTimeBlock();
+        var sb = new StringBuilder();
+        sb.AppendLine("<system-reminder>");
+        sb.AppendLine(dateTimeBlock);
+        sb.AppendLine();
+        sb.AppendLine("Recently active cards (newest first):");
+        foreach (var card in recentCards)
+        {
+            var title = card.Title.Length > 200
+                ? card.Title[..200] + "..."
+                : card.Title;
+            sb.Append("- \"").Append(title).Append("\"");
+            sb.Append(" (Board: \"").Append(card.BoardName).Append('"');
+            sb.Append(", Column: \"").Append(card.ColumnName).Append("\")");
+            sb.AppendLine();
+        }
+        sb.Append("│  IMPORTANT: this context may or may not be relevant    │\n</system-reminder>");
+
+        return sb.ToString();
+    }
+
+    /// <summary>
+    /// Builds a system-reminder block listing up to 10 cards assigned to the user,
+    /// sorted by priority (urgent first) then due date (earliest first).
+    /// Card titles over 200 characters are truncated.
+    /// </summary>
+    private string BuildAssignedCardsBlock(string userId)
+    {
+        using var scope = _rootServices.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+
+        var assignedCards = db.KanbanCards
+            .Include(c => c.Column)
+            .ThenInclude(col => col.Board)
+            .Where(c => c.AssignedUserId == userId)
+            .OrderBy(c => c.Priority)                         // Urgent(0) first, None(4) last
+            .ThenBy(c => c.DueDate ?? DateTime.MaxValue)      // earliest due date first, nulls last
+            .ThenByDescending(c => c.CreationTime)            // newest first within same bucket
+            .Take(10)
+            .Select(c => new
+            {
+                c.Title,
+                c.Priority,
+                c.DueDate,
+                ColumnName = c.Column.Name,
+                BoardName = c.Column.Board.Name
+            })
+            .ToList();
+
+        if (assignedCards.Count == 0)
+            return string.Empty;
+
+        var sb = new StringBuilder();
+        sb.AppendLine("<system-reminder>");
+        sb.AppendLine("Cards assigned to you (priority order):");
+        foreach (var card in assignedCards)
+        {
+            var title = card.Title.Length > 200
+                ? card.Title[..200] + "..."
+                : card.Title;
+            sb.Append("- \"").Append(title).Append("\"");
+            sb.Append(" [").Append(card.Priority).Append(']');
+            if (card.DueDate.HasValue)
+            {
+                sb.Append(" Due: ").Append(card.DueDate.Value.ToString("yyyy-MM-dd"));
+            }
+            sb.Append(" (Board: \"").Append(card.BoardName).Append('"');
+            sb.Append(", Column: \"").Append(card.ColumnName).Append("\")");
+            sb.AppendLine();
+        }
+        sb.Append("│  IMPORTANT: this context may or may not be relevant    │\n</system-reminder>");
+
+        return sb.ToString();
+    }
+
+    /// <summary>
     /// Builds a context block injected into the system prompt via {userContext}.
     /// This information is NOT visible to the user in the chat UI — it lives
     /// in the system prompt so the LLM has the facts it needs without cluttering
@@ -562,7 +784,11 @@ public class AgentService : IAgentService
         var jsonArgs = new Dictionary<string, System.Text.Json.JsonElement>();
         foreach (var (key, value) in args)
         {
-            var json = System.Text.Json.JsonSerializer.SerializeToElement(value);
+            // LLMs often send "" for optional parameters instead of omitting them
+            // or sending null. Treat empty strings as null so nullable types (int?,
+            // bool?, etc.) deserialize correctly.
+            var sanitized = value is string s && s.Length == 0 ? null : value;
+            var json = System.Text.Json.JsonSerializer.SerializeToElement(sanitized);
             jsonArgs[key] = json;
         }
 
@@ -625,7 +851,15 @@ public class AgentService : IAgentService
         }
     }
 
-    private static string BuildParameterDisplay(string toolName, Dictionary<string, object?> args)
+    private sealed record ParameterDisplayResult(
+        string DisplayText,
+        List<AdviceParameterItem> Parameters,
+        string? ResolvedName);
+
+    private static async Task<ParameterDisplayResult> BuildParameterDisplay(
+        IServiceProvider sp,
+        string toolName,
+        Dictionary<string, object?> args)
     {
         var friendlyName = toolName switch
         {
@@ -651,7 +885,8 @@ public class AgentService : IAgentService
             _ => toolName
         };
 
-        var details = new List<string>();
+        // Build structured parameter list for UI rendering
+        var displayParams = new List<AdviceParameterItem>();
         foreach (var (key, value) in args)
         {
             if (key == "userId") continue;
@@ -668,9 +903,162 @@ public class AgentService : IAgentService
                 "labelId" => "Label",
                 _ => key
             };
-            details.Add($"{displayKey}: {value}");
+            displayParams.Add(new AdviceParameterItem
+            {
+                Key = key,
+                DisplayKey = displayKey,
+                Value = value?.ToString()
+            });
         }
 
-        return $"{friendlyName}: {string.Join(", ", details)}";
+        // Batch-load entity names for better readability
+        string? resolvedName = null;
+        try
+        {
+            resolvedName = await ResolveDisplayName(sp, toolName, args);
+        }
+        catch
+        {
+            // Degrade gracefully — fall back to showing IDs
+        }
+
+        // Flat summary string (compact fallback)
+        var flatParams = displayParams.Select(p => $"{p.DisplayKey}: {p.Value}");
+        var displayText = $"{friendlyName}: {string.Join(", ", flatParams)}";
+        if (!string.IsNullOrWhiteSpace(resolvedName))
+        {
+            displayText += $" | {resolvedName}";
+        }
+
+        return new ParameterDisplayResult(displayText, displayParams, resolvedName);
+    }
+
+    /// <summary>
+    /// Looks up entity names for IDs used in tool arguments,
+    /// producing a human-readable summary line (e.g. 'Card "Fix login" on Board "Sprint 1" → Column "Done"').
+    /// Returns null when no names could be resolved.
+    /// </summary>
+    private static async Task<string?> ResolveDisplayName(IServiceProvider sp, string toolName, Dictionary<string, object?> args)
+    {
+        // Only resolve for tools where the context helps
+        var relevantTools = new HashSet<string>
+        {
+            "MoveCard", "UpdateCardDetails", "AssignCard", "UpdateCardPriority",
+            "DeleteCard", "AddLabel", "RemoveLabel", "UpdateLabelColor",
+            "MoveColumn", "RenameColumn", "DeleteColumn", "UpdateColumnStatus",
+            "RenameBoard", "DeleteBoard",
+            "BatchMoveCards"
+        };
+        if (!relevantTools.Contains(toolName))
+            return null;
+
+        await using var scope = sp.CreateAsyncScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+
+        var parts = new List<string>();
+
+        // Resolve cardId
+        if (args.TryGetValue("cardId", out var cardIdObj) && cardIdObj != null)
+        {
+            if (int.TryParse(cardIdObj.ToString(), out var cardId) && cardId > 0)
+            {
+                var card = await db.KanbanCards.FindAsync(cardId);
+                if (card != null)
+                {
+                    parts.Add($"Card \"{card.Title}\"");
+                }
+            }
+        }
+
+        // Resolve cardIds (batch operations)
+        var cardIds = new List<int>();
+        if (args.TryGetValue("cardIds", out var cardIdsObj) && cardIdsObj != null)
+        {
+            if (cardIdsObj is System.Text.Json.JsonElement je && je.ValueKind == System.Text.Json.JsonValueKind.Array)
+            {
+                foreach (var el in je.EnumerateArray())
+                {
+                    if (el.TryGetInt32(out var cid))
+                        cardIds.Add(cid);
+                }
+            }
+        }
+        if (cardIds.Count > 0)
+        {
+            var cards = await db.KanbanCards.Where(c => cardIds.Contains(c.Id)).ToListAsync();
+            var titles = cards.Select(c => $"\"{c.Title}\"").ToList();
+            if (titles.Count > 0)
+                parts.Add($"Cards: {string.Join(", ", titles)}");
+        }
+
+        // Resolve columnId
+        if (args.TryGetValue("columnId", out var colIdObj) && colIdObj != null)
+        {
+            if (int.TryParse(colIdObj.ToString(), out var colId) && colId > 0)
+            {
+                var col = await db.KanbanColumns.FindAsync(colId);
+                if (col != null)
+                {
+                    parts.Add($"Column \"{col.Name}\"");
+                }
+            }
+        }
+
+        // Resolve targetColumnId
+        if (args.TryGetValue("targetColumnId", out var tgtColIdObj) && tgtColIdObj != null)
+        {
+            if (int.TryParse(tgtColIdObj.ToString(), out var tgtColId) && tgtColId > 0)
+            {
+                var col = await db.KanbanColumns.FindAsync(tgtColId);
+                if (col != null)
+                {
+                    parts.Add($"Target \"{col.Name}\"");
+                }
+            }
+        }
+
+        // Resolve boardId
+        if (args.TryGetValue("boardId", out var boardIdObj) && boardIdObj != null)
+        {
+            if (int.TryParse(boardIdObj.ToString(), out var boardId) && boardId > 0)
+            {
+                var board = await db.KanbanBoards.FindAsync(boardId);
+                if (board != null)
+                {
+                    parts.Add($"Board \"{board.Name}\"");
+                }
+            }
+        }
+
+        // Resolve labelId
+        if (args.TryGetValue("labelId", out var labelIdObj) && labelIdObj != null)
+        {
+            if (int.TryParse(labelIdObj.ToString(), out var labelId) && labelId > 0)
+            {
+                var label = await db.KanbanLabels.FindAsync(labelId);
+                if (label != null)
+                {
+                    parts.Add($"Label \"{label.Name}\"");
+                }
+            }
+        }
+
+        // Resolve assignedUserId → user name
+        if (args.TryGetValue("assignedUserId", out var assigneeIdObj) && assigneeIdObj != null)
+        {
+            var assigneeId = assigneeIdObj.ToString();
+            if (!string.IsNullOrWhiteSpace(assigneeId))
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                var user = await userManager.FindByIdAsync(assigneeId);
+                if (user != null)
+                {
+                    var displayName = user.UserName ?? user.Email ?? assigneeId;
+                    parts.Add($"Assignee \"{displayName}\"");
+                }
+            }
+        }
+
+        return parts.Count > 0 ? string.Join(" → ", parts) : null;
     }
 }

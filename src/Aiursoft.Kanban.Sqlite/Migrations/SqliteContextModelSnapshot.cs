@@ -115,6 +115,10 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CreatorUserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Description")
                         .HasMaxLength(2000)
                         .HasColumnType("TEXT");
@@ -143,6 +147,8 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.HasIndex("AssignedUserId");
 
                     b.HasIndex("ColumnId");
+
+                    b.HasIndex("CreatorUserId");
 
                     b.ToTable("KanbanCards");
                 });
@@ -250,6 +256,59 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .IsUnique();
 
                     b.ToTable("KanbanLabels");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ActorUserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("BoardId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CardId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CommentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActorUserId");
+
+                    b.HasIndex("BoardId");
+
+                    b.HasIndex("CardId");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.User", b =>
@@ -496,9 +555,16 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Aiursoft.Kanban.Entities.User", "CreatorUser")
+                        .WithMany()
+                        .HasForeignKey("CreatorUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("AssignedUser");
 
                     b.Navigation("Column");
+
+                    b.Navigation("CreatorUser");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCardComment", b =>
@@ -548,6 +614,45 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .IsRequired();
 
                     b.Navigation("Board");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.Notification", b =>
+                {
+                    b.HasOne("Aiursoft.Kanban.Entities.User", "ActorUser")
+                        .WithMany()
+                        .HasForeignKey("ActorUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Aiursoft.Kanban.Entities.KanbanBoard", "Board")
+                        .WithMany()
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Aiursoft.Kanban.Entities.KanbanCard", "Card")
+                        .WithMany()
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Aiursoft.Kanban.Entities.KanbanCardComment", "Comment")
+                        .WithMany()
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Aiursoft.Kanban.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ActorUser");
+
+                    b.Navigation("Board");
+
+                    b.Navigation("Card");
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

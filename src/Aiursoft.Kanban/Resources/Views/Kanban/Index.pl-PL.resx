@@ -117,6 +117,9 @@
   <data name="Created" xml:space="preserve">
     <value>Utworzono</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Twórca</value>
+  </data>
   <data name="Custom color" xml:space="preserve">
     <value>Niestandardowy kolor</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>Nie udało się załadować miejsc docelowych transferu.</value>
   </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>Nie udało się przenieść karty:</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Nie udało się usunąć etykiety.</value>
   </data>
@@ -240,6 +246,18 @@
   <data name="Medium" xml:space="preserve">
     <value>Średni</value>
   </data>
+  <data name="Move" xml:space="preserve">
+    <value>Przenieś</value>
+  </data>
+  <data name="Move Card" xml:space="preserve">
+    <value>Przenieś kartę</value>
+  </data>
+  <data name="Move to..." xml:space="preserve">
+    <value>Przenieś do...</value>
+  </data>
+  <data name="Moving..." xml:space="preserve">
+    <value>Przenoszenie...</value>
+  </data>
   <data name="My Board" xml:space="preserve">
     <value>Mój tablic</value>
   </data>
@@ -248,6 +266,9 @@
   </data>
   <data name="New Board" xml:space="preserve">
     <value>Nowy pulpit</value>
+  </data>
+  <data name="Next column" xml:space="preserve">
+    <value>Następna kolumna</value>
   </data>
   <data name="No boards yet" xml:space="preserve">
     <value>Nie ma jeszcze tablic</value>
@@ -284,6 +305,9 @@
   </data>
   <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
     <value>Naciśnij Enter, aby dodać etykietę lub utworzyć nową na bieżąco.</value>
+  </data>
+  <data name="Previous column" xml:space="preserve">
+    <value>Poprzednia kolumna</value>
   </data>
   <data name="Priority" xml:space="preserve">
     <value>Priorytet</value>
