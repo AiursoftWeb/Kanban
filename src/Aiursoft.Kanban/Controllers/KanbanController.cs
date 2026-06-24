@@ -6,6 +6,7 @@ using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
+using EFCoreSecondLevelCacheInterceptor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -1018,7 +1019,7 @@ public class KanbanController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddComment(int cardId, string content)
+    public async Task<IActionResult> AddComment(int cardId, string content, string images)
     {
         if (string.IsNullOrWhiteSpace(content))
             return BadRequest("Content is required.");
@@ -1039,7 +1040,8 @@ public class KanbanController(
         {
             CardId = cardId,
             Content = content.Trim(),
-            AuthorId = userId
+            AuthorId = userId,
+            Images = images
         };
         db.KanbanCardComments.Add(comment);
         await db.SaveChangesAsync();
@@ -1051,7 +1053,8 @@ public class KanbanController(
             comment.Content,
             comment.CreationTime,
             AuthorName = GetUserDisplayName(author),
-            AuthorInitial = GetUserInitial(author)
+            AuthorInitial = GetUserInitial(author),
+            comment.Images
         });
     }
 
@@ -1078,6 +1081,7 @@ public class KanbanController(
             c.Id,
             c.Content,
             c.CreationTime,
+            c.Images,
             AuthorName = GetUserDisplayName(c.Author),
             AuthorInitial = GetUserInitial(c.Author)
         });
