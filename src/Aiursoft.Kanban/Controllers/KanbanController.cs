@@ -6,7 +6,6 @@ using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
-using EFCoreSecondLevelCacheInterceptor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
