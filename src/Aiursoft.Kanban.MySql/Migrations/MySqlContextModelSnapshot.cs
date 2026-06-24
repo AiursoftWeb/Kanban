@@ -146,6 +146,12 @@ namespace Aiursoft.Kanban.MySql.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(4);
 
+                    b.Property<int?>("RecurrenceInterval")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecurrenceUnit")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(200)

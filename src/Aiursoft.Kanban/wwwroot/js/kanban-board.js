@@ -563,6 +563,13 @@
                 topRow.push('<span class="priority-badge ' + priorityInfo.className + '">' + priorityInfo.text + '</span>');
             }
 
+            var recurrenceInterval = parseInt(cardEl.dataset.recurrenceInterval, 10);
+            var recurrenceUnit = parseInt(cardEl.dataset.recurrenceUnit, 10);
+            if (recurrenceInterval > 0 && recurrenceUnit > 0) {
+                var unitAbbr = { 1: "d", 2: "w", 3: "m", 4: "y" }[recurrenceUnit] || "";
+                topRow.push('<span class="recurrence-badge" title="Recurring every ' + recurrenceInterval + '"><i data-lucide="repeat" style="width:11px;height:11px"></i>' + recurrenceInterval + unitAbbr + '</span>');
+            }
+
             var assignedUserInitial = cardEl.dataset.assignedUserInitial || "";
             var assignedUserName = cardEl.dataset.assignedUserName || "";
             var assignedUserAvatarUrl = cardEl.dataset.assignedUserAvatarUrl || "";
@@ -763,6 +770,18 @@
                 var cardEl = evt.item;
                 cardEl.dataset.actualStart = data.ActualStartTime || "";
                 cardEl.dataset.actualEnd = data.ActualEndTime || "";
+                if (data.DueDate) {
+                    cardEl.dataset.dueDate = data.DueDate.substring(0, 10);
+                }
+                // If the server reports the card landed in a different column
+                // (recurrence auto-rolls a completed card back to NotStarted),
+                // move the DOM element to the new column so the user sees it.
+                if (data.ColumnId && parseInt(cardEl.parentElement.dataset.columnId, 10) !== data.ColumnId) {
+                    var destColumn = document.querySelector(".kanban-column[data-column-id=\"" + data.ColumnId + "\"] .column-cards");
+                    if (destColumn && cardEl.parentElement !== destColumn) {
+                        destColumn.appendChild(cardEl);
+                    }
+                }
                 renderCardContent(cardEl);
             })
             .catch(function(err) {
@@ -1311,6 +1330,8 @@
         var editCardDueDate = document.getElementById("editCardDueDate");
         var editCardPriority = document.getElementById("editCardPriority");
         var editCardAssignee = document.getElementById("editCardAssignee");
+        var editCardRecurrenceInterval = document.getElementById("editCardRecurrenceInterval");
+        var editCardRecurrenceUnit = document.getElementById("editCardRecurrenceUnit");
         var editCardActualStart = document.getElementById("editCardActualStart");
         var editCardActualEnd = document.getElementById("editCardActualEnd");
         var editCardCreatorAvatar = document.getElementById("editCardCreatorAvatar");
@@ -1721,6 +1742,12 @@
             if (editCardPriority) {
                 editCardPriority.value = cardEl.dataset.priority || "4";
             }
+            if (editCardRecurrenceInterval) {
+                editCardRecurrenceInterval.value = cardEl.dataset.recurrenceInterval || "";
+            }
+            if (editCardRecurrenceUnit) {
+                editCardRecurrenceUnit.value = cardEl.dataset.recurrenceUnit || "0";
+            }
             if (editCardLabelInput) {
                 editCardLabelInput.value = "";
             }
@@ -1784,6 +1811,8 @@
                 var dueDate = editCardDueDate.value;
                 var priority = editCardPriority ? editCardPriority.value : "4";
                 var assignedUserId = editCardAssignee ? editCardAssignee.value : "";
+                var recurrenceInterval = editCardRecurrenceInterval ? editCardRecurrenceInterval.value : "";
+                var recurrenceUnit = editCardRecurrenceUnit ? editCardRecurrenceUnit.value : "0";
 
                 btnUpdateCard.disabled = true;
                 btnUpdateCard.textContent = getLocalizedText("saving", "Saving...");
@@ -1799,6 +1828,8 @@
                         + "&dueDate=" + encodeURIComponent(dueDate)
                         + "&priority=" + encodeURIComponent(priority)
                         + "&assignedUserId=" + encodeURIComponent(assignedUserId)
+                        + "&recurrenceInterval=" + encodeURIComponent(recurrenceInterval)
+                        + "&recurrenceUnit=" + encodeURIComponent(recurrenceUnit)
                 })
                 .then(function(r) {
                     if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
@@ -1813,6 +1844,8 @@
                         currentEditCardElement.dataset.actualStart = data.ActualStartTime || "";
                         currentEditCardElement.dataset.actualEnd = data.ActualEndTime || "";
                         currentEditCardElement.dataset.priority = (data.Priority !== undefined ? data.Priority : 4).toString();
+                        currentEditCardElement.dataset.recurrenceInterval = (data.RecurrenceInterval !== undefined && data.RecurrenceInterval !== null) ? data.RecurrenceInterval.toString() : "";
+                        currentEditCardElement.dataset.recurrenceUnit = (data.RecurrenceUnit !== undefined ? data.RecurrenceUnit : 0).toString();
                         updateCardAssignment(currentEditCardElement, data.AssignedUserId, data.AssignedUserName, data.AssignedUserInitial, data.AssignedUserAvatarUrl);
                         renderCardContent(currentEditCardElement);
                     }
