@@ -1895,12 +1895,16 @@
         function moveCurrentCardToColumn(targetColumnId, data) {
             if (!currentEditCardElement) return;
 
-            var targetList = document.querySelector('.column-cards[data-column-id="' + targetColumnId + '"]');
+            var finalColumnId = data.ColumnId || targetColumnId;
+            var targetList = document.querySelector('.column-cards[data-column-id="' + finalColumnId + '"]');
             if (!targetList) return;
 
             targetList.appendChild(currentEditCardElement);
             currentEditCardElement.dataset.actualStart = data.ActualStartTime || "";
             currentEditCardElement.dataset.actualEnd = data.ActualEndTime || "";
+            if (data.DueDate) {
+                currentEditCardElement.dataset.dueDate = data.DueDate.substring(0, 10);
+            }
             renderCardContent(currentEditCardElement);
             refreshColumnCounts();
             var targetColumn = targetList.closest(".kanban-column");

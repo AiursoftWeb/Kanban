@@ -370,7 +370,9 @@ public class KanbanController(
             CreatorUserId = card.CreatorUserId ?? userId,
             AssignedUserId = null,
             PlannedStartTime = card.PlannedStartTime,
-            DueDate = card.DueDate
+            DueDate = card.DueDate,
+            RecurrenceInterval = card.RecurrenceInterval,
+            RecurrenceUnit = card.RecurrenceUnit
         };
 
         db.KanbanCards.Add(transferredCard);
@@ -740,6 +742,9 @@ public class KanbanController(
 
         if (recurrenceInterval is < 0)
             return BadRequest("Recurrence interval cannot be negative.");
+
+        if (recurrenceInterval is > 0 && recurrenceUnit == (int)RecurrenceUnit.None)
+            return BadRequest("Recurrence unit is required when recurrence interval is set.");
 
         var card = await db.KanbanCards
             .Include(c => c.Column)

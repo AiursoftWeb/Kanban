@@ -338,6 +338,26 @@ public class KanbanControllerTests : TestBase
     }
 
     [TestMethod]
+    public async Task UpdateCardDetails_RecurrenceIntervalWithoutUnit_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Invalid recurrence");
+
+        var response = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "recurrenceInterval", "2" },
+                { "recurrenceUnit", ((int)RecurrenceUnit.None).ToString() }
+            });
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [TestMethod]
     public async Task MoveCard_RecurringCard_AlreadyInCompleted_DoesNotRecur()
     {
         await LoginAsAdmin();
