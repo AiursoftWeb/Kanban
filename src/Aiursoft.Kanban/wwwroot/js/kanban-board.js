@@ -1399,7 +1399,7 @@
             if (editCardRecurring.checked) {
                 setRecurrenceFieldsVisible(true);
                 if (editCardRecurrenceInterval && !editCardRecurrenceInterval.value) {
-                    editCardRecurrenceInterval.value = storedRecurrenceInterval;
+                    editCardRecurrenceInterval.value = storedRecurrenceInterval || "1";
                 }
                 if (editCardRecurrenceUnit && editCardRecurrenceUnit.value === "0") {
                     editCardRecurrenceUnit.value = storedRecurrenceUnit;
