@@ -447,6 +447,15 @@ public class KanbanController(
             var baseline = card.DueDate ?? now;
             card.DueDate = AdvanceByRecurrence(baseline, card.RecurrenceInterval!.Value, card.RecurrenceUnit);
 
+            // 同步推进计划开始时间，保持任务的时间范围一致
+            if (card.PlannedStartTime.HasValue)
+            {
+                card.PlannedStartTime = AdvanceByRecurrence(
+                    card.PlannedStartTime.Value,
+                    card.RecurrenceInterval!.Value,
+                    card.RecurrenceUnit);
+            }
+
             recurrenceTargetColumn = await db.KanbanColumns
                 .Where(c => c.BoardId == column.BoardId && c.ColumnStatus == ColumnStatus.NotStarted)
                 .OrderBy(c => c.Order)
