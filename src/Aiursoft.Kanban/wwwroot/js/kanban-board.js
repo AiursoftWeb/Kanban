@@ -1813,6 +1813,9 @@
                 var assignedUserId = editCardAssignee ? editCardAssignee.value : "";
                 var recurrenceInterval = editCardRecurrenceInterval ? editCardRecurrenceInterval.value : "";
                 var recurrenceUnit = editCardRecurrenceUnit ? editCardRecurrenceUnit.value : "0";
+                if (recurrenceUnit === "0") {
+                    recurrenceInterval = "";
+                }
 
                 btnUpdateCard.disabled = true;
                 btnUpdateCard.textContent = getLocalizedText("saving", "Saving...");

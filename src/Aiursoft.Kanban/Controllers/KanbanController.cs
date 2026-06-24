@@ -743,8 +743,14 @@ public class KanbanController(
         if (recurrenceInterval is < 0)
             return BadRequest("Recurrence interval cannot be negative.");
 
+        if (recurrenceInterval is > 365)
+            return BadRequest("Recurrence interval cannot exceed 365.");
+
         if (recurrenceInterval is > 0 && recurrenceUnit == (int)RecurrenceUnit.None)
             return BadRequest("Recurrence unit is required when recurrence interval is set.");
+
+        if (recurrenceInterval is > 0 && dueDate == null)
+            return BadRequest("Due date is required when recurrence is set.");
 
         var card = await db.KanbanCards
             .Include(c => c.Column)

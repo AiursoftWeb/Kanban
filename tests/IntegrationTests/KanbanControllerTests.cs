@@ -358,6 +358,47 @@ public class KanbanControllerTests : TestBase
     }
 
     [TestMethod]
+    public async Task UpdateCardDetails_RecurrenceWithoutDueDate_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Recurring without due date");
+
+        var response = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "recurrenceInterval", "2" },
+                { "recurrenceUnit", ((int)RecurrenceUnit.Week).ToString() }
+            });
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task UpdateCardDetails_RecurrenceIntervalTooLarge_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Recurrence too large");
+
+        var response = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "dueDate", "2026-06-01" },
+                { "recurrenceInterval", "366" },
+                { "recurrenceUnit", ((int)RecurrenceUnit.Day).ToString() }
+            });
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [TestMethod]
     public async Task MoveCard_RecurringCard_AlreadyInCompleted_DoesNotRecur()
     {
         await LoginAsAdmin();
