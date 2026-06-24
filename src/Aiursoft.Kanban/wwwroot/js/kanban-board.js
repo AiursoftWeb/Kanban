@@ -773,9 +773,6 @@
                 if (data.DueDate) {
                     cardEl.dataset.dueDate = data.DueDate.substring(0, 10);
                 }
-                // If the server reports the card landed in a different column
-                // (recurrence auto-rolls a completed card back to NotStarted),
-                // move the DOM element to the new column so the user sees it.
                 if (data.ColumnId && parseInt(cardEl.parentElement.dataset.columnId, 10) !== data.ColumnId) {
                     var destColumn = document.querySelector(".kanban-column[data-column-id=\"" + data.ColumnId + "\"] .column-cards");
                     if (destColumn && cardEl.parentElement !== destColumn) {
@@ -783,6 +780,8 @@
                     }
                 }
                 renderCardContent(cardEl);
+                refreshColumnCounts();
+                showRecurringTaskReturnedDialog(data);
             })
             .catch(function(err) {
                 console.error("MoveCard failed:", err);
@@ -1330,6 +1329,8 @@
         var editCardDueDate = document.getElementById("editCardDueDate");
         var editCardPriority = document.getElementById("editCardPriority");
         var editCardAssignee = document.getElementById("editCardAssignee");
+        var editCardRecurring = document.getElementById("editCardRecurring");
+        var editCardRecurrenceFields = document.getElementById("editCardRecurrenceFields");
         var editCardRecurrenceInterval = document.getElementById("editCardRecurrenceInterval");
         var editCardRecurrenceUnit = document.getElementById("editCardRecurrenceUnit");
         var editCardActualStart = document.getElementById("editCardActualStart");
@@ -1370,6 +1371,62 @@
         var btnConfirmDeleteComment = document.getElementById("btnConfirmDeleteComment");
         var deleteCommentError = document.getElementById("deleteCommentError");
         var commentIdToDelete = null;
+        var storedRecurrenceInterval = "";
+        var storedRecurrenceUnit = "0";
+
+        function setRecurrenceFieldsVisible(visible) {
+            if (editCardRecurrenceFields) {
+                editCardRecurrenceFields.classList.toggle("d-none", !visible);
+            }
+        }
+
+        function clearRecurrenceValidation() {
+            if (editCardDueDate) {
+                editCardDueDate.classList.remove("is-invalid");
+            }
+            if (editCardRecurrenceInterval) {
+                editCardRecurrenceInterval.classList.remove("is-invalid");
+            }
+            if (editCardRecurrenceUnit) {
+                editCardRecurrenceUnit.classList.remove("is-invalid");
+            }
+        }
+
+        function syncRecurrenceFieldsFromSwitch() {
+            if (!editCardRecurring) return;
+
+            clearRecurrenceValidation();
+            if (editCardRecurring.checked) {
+                setRecurrenceFieldsVisible(true);
+                if (editCardRecurrenceInterval && !editCardRecurrenceInterval.value) {
+                    editCardRecurrenceInterval.value = storedRecurrenceInterval;
+                }
+                if (editCardRecurrenceUnit && editCardRecurrenceUnit.value === "0") {
+                    editCardRecurrenceUnit.value = storedRecurrenceUnit;
+                }
+                return;
+            }
+
+            if (editCardRecurrenceInterval) {
+                storedRecurrenceInterval = editCardRecurrenceInterval.value;
+                editCardRecurrenceInterval.value = "";
+            }
+            if (editCardRecurrenceUnit) {
+                storedRecurrenceUnit = editCardRecurrenceUnit.value;
+                editCardRecurrenceUnit.value = "0";
+            }
+            setRecurrenceFieldsVisible(false);
+        }
+
+        function showRecurringTaskReturnedDialog(data) {
+            if (!data || !data.RecurrenceApplied) return;
+
+            var columnName = data.RecurrenceTargetColumnName || getLocalizedText("todo", "Todo");
+            showFriendlyDialog(
+                getLocalizedText("recurring-task-returned", "Recurring task has been returned to {0}.").replace("{0}", columnName),
+                getLocalizedText("recurring-task", "Recurring task"),
+                "repeat");
+        }
 
         function showEditCardView(view) {
             if (!editCardDetailsView) return;
@@ -1609,6 +1666,10 @@
             btnAddLabel.addEventListener("click", submitLabelInput);
         }
 
+        if (editCardRecurring) {
+            editCardRecurring.addEventListener("change", syncRecurrenceFieldsFromSwitch);
+        }
+
         var editLabelColorPicker = document.getElementById("editLabelColorPicker");
         var labelColorPresetsContainer = document.getElementById("labelColorPresets");
         var presetColors = ["#EF4444", "#F97316", "#EAB308", "#22C55E", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6"];
@@ -1723,6 +1784,7 @@
             currentEditLabels.sort(function(a, b) { return (a.Name || "").localeCompare(b.Name || ""); });
 
             editCardTitle.classList.remove("is-invalid");
+            clearRecurrenceValidation();
             editCardTitle.value = cardEl.dataset.title || "";
             editCardDescription.value = cardEl.dataset.description || "";
             updateDescriptionPreview();
@@ -1747,6 +1809,12 @@
             }
             if (editCardRecurrenceUnit) {
                 editCardRecurrenceUnit.value = cardEl.dataset.recurrenceUnit || "0";
+            }
+            storedRecurrenceInterval = editCardRecurrenceInterval ? editCardRecurrenceInterval.value : "";
+            storedRecurrenceUnit = editCardRecurrenceUnit ? editCardRecurrenceUnit.value : "0";
+            if (editCardRecurring) {
+                editCardRecurring.checked = !!storedRecurrenceInterval && storedRecurrenceUnit !== "0";
+                setRecurrenceFieldsVisible(editCardRecurring.checked);
             }
             if (editCardLabelInput) {
                 editCardLabelInput.value = "";
@@ -1811,10 +1879,28 @@
                 var dueDate = editCardDueDate.value;
                 var priority = editCardPriority ? editCardPriority.value : "4";
                 var assignedUserId = editCardAssignee ? editCardAssignee.value : "";
-                var recurrenceInterval = editCardRecurrenceInterval ? editCardRecurrenceInterval.value : "";
-                var recurrenceUnit = editCardRecurrenceUnit ? editCardRecurrenceUnit.value : "0";
-                if (recurrenceUnit === "0") {
+                var recurrenceEnabled = editCardRecurring ? editCardRecurring.checked : false;
+                var recurrenceInterval = recurrenceEnabled && editCardRecurrenceInterval ? editCardRecurrenceInterval.value : "";
+                var recurrenceUnit = recurrenceEnabled && editCardRecurrenceUnit ? editCardRecurrenceUnit.value : "0";
+                var recurrenceIntervalValue = parseInt(recurrenceInterval, 10);
+                var recurrenceIntervalInvalid = !recurrenceInterval || isNaN(recurrenceIntervalValue) || recurrenceIntervalValue < 1 || recurrenceIntervalValue > 365;
+                clearRecurrenceValidation();
+                if (recurrenceEnabled && (!dueDate || recurrenceIntervalInvalid || recurrenceUnit === "0")) {
+                    if (!dueDate && editCardDueDate) {
+                        editCardDueDate.classList.add("is-invalid");
+                    }
+                    if (recurrenceIntervalInvalid && editCardRecurrenceInterval) {
+                        editCardRecurrenceInterval.classList.add("is-invalid");
+                    }
+                    if (recurrenceUnit === "0" && editCardRecurrenceUnit) {
+                        editCardRecurrenceUnit.classList.add("is-invalid");
+                    }
+                    showFriendlyDialog(getLocalizedText("recurring-task-required-fields", "Due date, interval, and unit are required for recurring tasks."), getLocalizedText("warning", "Warning"), "alert-triangle");
+                    return;
+                }
+                if (!recurrenceEnabled) {
                     recurrenceInterval = "";
+                    recurrenceUnit = "0";
                 }
 
                 btnUpdateCard.disabled = true;
@@ -1910,6 +1996,7 @@
             }
             renderCardContent(currentEditCardElement);
             refreshColumnCounts();
+            showRecurringTaskReturnedDialog(data);
             var targetColumn = targetList.closest(".kanban-column");
             var columns = getKanbanColumns();
             var targetIndex = columns.indexOf(targetColumn);

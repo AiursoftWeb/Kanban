@@ -534,7 +534,9 @@ public class KanbanController(
             ColumnId = card.ColumnId,
             DueDate = card.DueDate?.ToString("yyyy-MM-ddTHH:mm:ss"),
             ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm"),
-            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm")
+            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm"),
+            RecurrenceApplied = shouldRecur,
+            RecurrenceTargetColumnName = shouldRecur ? recurrenceTargetColumn?.Name : null
         });
     }
 

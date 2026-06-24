@@ -1443,21 +1443,24 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">
-                                @Localizer["Recurrence"] <span class="text-muted fw-normal">(@Localizer["optional"])</span>
-                            </label>
-                            <div class="input-group" style="max-width:320px">
-                                <span class="input-group-text" style="border-radius:12px 0 0 12px">@Localizer["Every"]</span>
-                                <input type="number" id="editCardRecurrenceInterval" min="1" max="365" class="form-control" placeholder="1" style="border-radius:0" disabled="@(!Model.CanEditCurrentBoard)">
-                                <select id="editCardRecurrenceUnit" class="form-select" style="border-radius:0 12px 12px 0" disabled="@(!Model.CanEditCurrentBoard)">
-                                    <option value="0">@Localizer["None"]</option>
-                                    <option value="1">@Localizer["Days"]</option>
-                                    <option value="2">@Localizer["Weeks"]</option>
-                                    <option value="3">@Localizer["Months"]</option>
-                                    <option value="4">@Localizer["Years"]</option>
-                                </select>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="editCardRecurring" disabled="@(!Model.CanEditCurrentBoard)">
+                                <label class="form-check-label fw-semibold" for="editCardRecurring">@Localizer["Recurring task"]</label>
                             </div>
-                            <div class="form-text">@Localizer["When the card is moved to a Completed column, its due date is advanced by this interval and the card is automatically moved back to the first Not Started column."]</div>
+                            <div id="editCardRecurrenceFields" class="mt-2 d-none">
+                                <div class="input-group" style="max-width:320px">
+                                    <span class="input-group-text" style="border-radius:12px 0 0 12px">@Localizer["Every"]</span>
+                                    <input type="number" id="editCardRecurrenceInterval" min="1" max="365" class="form-control" placeholder="1" style="border-radius:0" disabled="@(!Model.CanEditCurrentBoard)">
+                                    <select id="editCardRecurrenceUnit" class="form-select" style="border-radius:0 12px 12px 0" disabled="@(!Model.CanEditCurrentBoard)">
+                                        <option value="0">@Localizer["Select unit"]</option>
+                                        <option value="1">@Localizer["Days"]</option>
+                                        <option value="2">@Localizer["Weeks"]</option>
+                                        <option value="3">@Localizer["Months"]</option>
+                                        <option value="4">@Localizer["Years"]</option>
+                                    </select>
+                                </div>
+                                <div class="form-text">@Localizer["Due date, interval, and unit are required for recurring tasks."]</div>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">@Localizer["Labels"]</label>

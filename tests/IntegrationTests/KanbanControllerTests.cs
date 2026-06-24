@@ -288,6 +288,9 @@ public class KanbanControllerTests : TestBase
             $"/Kanban/MoveCard?cardId={card.Id}&targetColumnId={completedColumnId}&newOrder=0",
             new Dictionary<string, string>());
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        var movePayload = JsonDocument.Parse(await response.Content.ReadAsStringAsync()).RootElement;
+        Assert.IsTrue(movePayload.GetProperty("RecurrenceApplied").GetBoolean());
+        Assert.AreEqual("To Do", movePayload.GetProperty("RecurrenceTargetColumnName").GetString());
 
         using var verificationScope = Server!.Services.CreateScope();
         var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
