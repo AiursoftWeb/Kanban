@@ -254,6 +254,229 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(sourceColumnId, (await verificationDb.KanbanCards.FindAsync(card.Id))!.ColumnId);
     }
 
+    // ── Recurrence ─────────────────────────────────────────
+
+    [TestMethod]
+    public async Task MoveCard_RecurringCard_ToCompleted_AdvancesDueDateAndRollsBackToNotStarted()
+    {
+        await LoginAsAdmin();
+        var (boardId, notStartedColumnId) = await CreateBoardAndFirstColumnAsync();
+        int completedColumnId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            completedColumnId = db.KanbanColumns
+                .First(c => c.BoardId == boardId && c.ColumnStatus == ColumnStatus.Completed).Id;
+        }
+        var card = await CreateCardAndGetIdAsync(notStartedColumnId, "Recurring task");
+
+        // Set a 2-week recurrence with a known starting due date.
+        var dueDate = new DateTime(2026, 6, 1, 0, 0, 0, DateTimeKind.Utc);
+        var setResponse = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "dueDate", dueDate.ToString("yyyy-MM-dd") },
+                { "recurrenceInterval", "2" },
+                { "recurrenceUnit", ((int)RecurrenceUnit.Week).ToString() }
+            });
+        Assert.AreEqual(HttpStatusCode.OK, setResponse.StatusCode);
+
+        var response = await PostAsync(
+            $"/Kanban/MoveCard?cardId={card.Id}&targetColumnId={completedColumnId}&newOrder=0",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        var movePayload = JsonDocument.Parse(await response.Content.ReadAsStringAsync()).RootElement;
+        Assert.IsTrue(movePayload.GetProperty("RecurrenceApplied").GetBoolean());
+        Assert.AreEqual("To Do", movePayload.GetProperty("RecurrenceTargetColumnName").GetString());
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var moved = await verificationDb.KanbanCards.FindAsync(card.Id);
+        Assert.IsNotNull(moved);
+        Assert.AreEqual(notStartedColumnId, moved.ColumnId, "Card should roll back to the first NotStarted column.");
+        Assert.AreEqual(2, moved.RecurrenceInterval);
+        Assert.AreEqual(RecurrenceUnit.Week, moved.RecurrenceUnit);
+        Assert.AreEqual(dueDate.AddDays(14), moved.DueDate);
+        Assert.IsNull(moved.ActualEndTime, "ActualEndTime should be cleared on the new cycle.");
+    }
+
+    [TestMethod]
+    public async Task MoveCard_NonRecurringCard_ToCompleted_DoesNotChangeDueDateOrColumn()
+    {
+        await LoginAsAdmin();
+        var (boardId, notStartedColumnId) = await CreateBoardAndFirstColumnAsync();
+        int completedColumnId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            completedColumnId = db.KanbanColumns
+                .First(c => c.BoardId == boardId && c.ColumnStatus == ColumnStatus.Completed).Id;
+        }
+        var card = await CreateCardAndGetIdAsync(notStartedColumnId, "One-off task");
+
+        var dueDate = new DateTime(2026, 6, 1, 0, 0, 0, DateTimeKind.Utc);
+        var setResponse = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "dueDate", dueDate.ToString("yyyy-MM-dd") }
+            });
+        Assert.AreEqual(HttpStatusCode.OK, setResponse.StatusCode);
+
+        var response = await PostAsync(
+            $"/Kanban/MoveCard?cardId={card.Id}&targetColumnId={completedColumnId}&newOrder=0",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var moved = await verificationDb.KanbanCards.FindAsync(card.Id);
+        Assert.AreEqual(completedColumnId, moved!.ColumnId);
+        Assert.AreEqual(dueDate, moved.DueDate);
+    }
+
+    [TestMethod]
+    public async Task UpdateCardDetails_RecurrenceIntervalWithoutUnit_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Invalid recurrence");
+
+        var response = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "recurrenceInterval", "2" },
+                { "recurrenceUnit", ((int)RecurrenceUnit.None).ToString() }
+            });
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task UpdateCardDetails_RecurrenceWithoutDueDate_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Recurring without due date");
+
+        var response = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "recurrenceInterval", "2" },
+                { "recurrenceUnit", ((int)RecurrenceUnit.Week).ToString() }
+            });
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task UpdateCardDetails_RecurrenceIntervalTooLarge_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Recurrence too large");
+
+        var response = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "dueDate", "2026-06-01" },
+                { "recurrenceInterval", "366" },
+                { "recurrenceUnit", ((int)RecurrenceUnit.Day).ToString() }
+            });
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task MoveCard_RecurringCard_AlreadyInCompleted_DoesNotRecur()
+    {
+        await LoginAsAdmin();
+        var (boardId, notStartedColumnId) = await CreateBoardAndFirstColumnAsync();
+        int completedColumnId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            completedColumnId = db.KanbanColumns
+                .First(c => c.BoardId == boardId && c.ColumnStatus == ColumnStatus.Completed).Id;
+        }
+        var card = await CreateCardAndGetIdAsync(notStartedColumnId, "Recurring in done");
+
+        var dueDate = new DateTime(2026, 6, 1, 0, 0, 0, DateTimeKind.Utc);
+        var setResponse = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "dueDate", dueDate.ToString("yyyy-MM-dd") },
+                { "recurrenceInterval", "1" },
+                { "recurrenceUnit", ((int)RecurrenceUnit.Month).ToString() }
+            });
+        Assert.AreEqual(HttpStatusCode.OK, setResponse.StatusCode);
+
+        // First move: NotStarted -> Completed. Should trigger recurrence and roll back.
+        await PostAsync(
+            $"/Kanban/MoveCard?cardId={card.Id}&targetColumnId={completedColumnId}&newOrder=0",
+            new Dictionary<string, string>());
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var afterFirst = await db.KanbanCards.FindAsync(card.Id);
+            Assert.AreEqual(notStartedColumnId, afterFirst!.ColumnId);
+            Assert.AreEqual(dueDate.AddMonths(1), afterFirst.DueDate);
+        }
+
+        // Second move: NotStarted -> Completed again. Should advance by another month.
+        await PostAsync(
+            $"/Kanban/MoveCard?cardId={card.Id}&targetColumnId={completedColumnId}&newOrder=0",
+            new Dictionary<string, string>());
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var afterSecond = await db.KanbanCards.FindAsync(card.Id);
+            Assert.AreEqual(notStartedColumnId, afterSecond!.ColumnId);
+            Assert.AreEqual(dueDate.AddMonths(2), afterSecond.DueDate);
+        }
+
+        // Intra-Completed reordering must NOT trigger recurrence.
+        // Move the card into Completed directly via the db to skip the auto-rollback,
+        // then re-order it within Completed.
+        using (var setupScope = Server!.Services.CreateScope())
+        {
+            var db = setupScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var c = await db.KanbanCards.FindAsync(card.Id);
+            c!.ColumnId = completedColumnId;
+            await db.SaveChangesAsync();
+        }
+
+        await PostAsync(
+            $"/Kanban/MoveCard?cardId={card.Id}&targetColumnId={completedColumnId}&newOrder=0",
+            new Dictionary<string, string>());
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var afterThird = await db.KanbanCards.FindAsync(card.Id);
+            Assert.AreEqual(dueDate.AddMonths(2), afterThird!.DueDate, "Reordering inside Completed must not re-advance the date.");
+        }
+    }
+
     // ── MoveColumn ─────────────────────────────────────────
 
     [TestMethod]

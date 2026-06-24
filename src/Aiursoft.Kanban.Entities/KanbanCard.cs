@@ -45,5 +45,9 @@ public class KanbanCard
 
     public DateTime? ActualEndTime { get; set; }
 
+    public int? RecurrenceInterval { get; set; }
+
+    public RecurrenceUnit RecurrenceUnit { get; set; } = RecurrenceUnit.None;
+
     public DateTime CreationTime { get; init; } = DateTime.UtcNow;
 }

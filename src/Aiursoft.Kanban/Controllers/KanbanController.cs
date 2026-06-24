@@ -370,7 +370,9 @@ public class KanbanController(
             CreatorUserId = card.CreatorUserId ?? userId,
             AssignedUserId = null,
             PlannedStartTime = card.PlannedStartTime,
-            DueDate = card.DueDate
+            DueDate = card.DueDate,
+            RecurrenceInterval = card.RecurrenceInterval,
+            RecurrenceUnit = card.RecurrenceUnit
         };
 
         db.KanbanCards.Add(transferredCard);
@@ -420,6 +422,7 @@ public class KanbanController(
         var fromColumnId = card.ColumnId;
 
         var now = DateTime.UtcNow;
+        var wasCompleted = card.Column.ColumnStatus == ColumnStatus.Completed;
         switch (column.ColumnStatus)
         {
             case ColumnStatus.InProgress:
@@ -430,6 +433,45 @@ public class KanbanController(
                 card.ActualStartTime ??= now;
                 card.ActualEndTime = now;
                 break;
+        }
+
+        var shouldRecur =
+            column.ColumnStatus == ColumnStatus.Completed
+            && !wasCompleted
+            && card.RecurrenceInterval is > 0
+            && card.RecurrenceUnit != RecurrenceUnit.None;
+
+        KanbanColumn? recurrenceTargetColumn = null;
+        if (shouldRecur)
+        {
+            var baseline = card.DueDate ?? now;
+            card.DueDate = AdvanceByRecurrence(baseline, card.RecurrenceInterval!.Value, card.RecurrenceUnit);
+
+            // 同步推进计划开始时间，保持任务的时间范围一致
+            if (card.PlannedStartTime.HasValue)
+            {
+                card.PlannedStartTime = AdvanceByRecurrence(
+                    card.PlannedStartTime.Value,
+                    card.RecurrenceInterval!.Value,
+                    card.RecurrenceUnit);
+            }
+
+            recurrenceTargetColumn = await db.KanbanColumns
+                .Where(c => c.BoardId == column.BoardId && c.ColumnStatus == ColumnStatus.NotStarted)
+                .OrderBy(c => c.Order)
+                .FirstOrDefaultAsync();
+
+            if (recurrenceTargetColumn == null)
+            {
+                // No NotStarted column on the board; fall back to staying in Completed.
+                shouldRecur = false;
+            }
+            else
+            {
+                // Reset time tracking so the next cycle starts fresh.
+                card.ActualStartTime = null;
+                card.ActualEndTime = null;
+            }
         }
 
         var cardsInColumn = await db.KanbanCards
@@ -453,9 +495,33 @@ public class KanbanController(
         for (var i = 0; i < allCards.Count; i++)
             allCards[i].Order = i;
 
+        if (shouldRecur && recurrenceTargetColumn != null)
+        {
+            // Re-target the recurring card to the first NotStarted column and
+            // append it to the end of that column's order.
+            card.ColumnId = recurrenceTargetColumn.Id;
+            var destCards = await db.KanbanCards
+                .Where(c => c.ColumnId == recurrenceTargetColumn.Id && c.Id != cardId)
+                .OrderBy(c => c.Order)
+                .ToListAsync();
+            for (var i = 0; i < destCards.Count; i++)
+                destCards[i].Order = i;
+            card.Order = destCards.Count;
+
+            // Resequence the (now ex-)target column to close the gap left by
+            // the card that was momentarily placed there.
+            var sourceCards = await db.KanbanCards
+                .Where(c => c.ColumnId == targetColumnId && c.Id != cardId)
+                .OrderBy(c => c.Order)
+                .ToListAsync();
+            for (var i = 0; i < sourceCards.Count; i++)
+                sourceCards[i].Order = i;
+        }
+
         await db.SaveChangesAsync();
 
-        if (fromColumnId != targetColumnId)
+        var movedToColumnId = card.ColumnId;
+        if (fromColumnId != movedToColumnId)
         {
             await PublishNotificationEventAsync(new CardMovedEvent(
                 CardId: cardId,
@@ -465,8 +531,12 @@ public class KanbanController(
         return Ok(new
         {
             card.Id,
+            card.ColumnId,
+            DueDate = card.DueDate?.ToString("yyyy-MM-ddTHH:mm:ss"),
             ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm"),
-            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm")
+            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm"),
+            RecurrenceApplied = shouldRecur,
+            RecurrenceTargetColumnName = shouldRecur ? recurrenceTargetColumn?.Name : null
         });
     }
 
@@ -668,13 +738,30 @@ public class KanbanController(
         DateTime? plannedStartTime,
         DateTime? dueDate,
         int priority = (int)Priority.None,
-        string? assignedUserId = null)
+        string? assignedUserId = null,
+        int? recurrenceInterval = null,
+        int recurrenceUnit = (int)RecurrenceUnit.None)
     {
         if (string.IsNullOrWhiteSpace(title))
             return BadRequest("Title is required.");
 
         if (!Enum.IsDefined(typeof(Priority), priority))
             return BadRequest("Invalid priority.");
+
+        if (!Enum.IsDefined(typeof(RecurrenceUnit), recurrenceUnit))
+            return BadRequest("Invalid recurrence unit.");
+
+        if (recurrenceInterval is < 0)
+            return BadRequest("Recurrence interval cannot be negative.");
+
+        if (recurrenceInterval is > 365)
+            return BadRequest("Recurrence interval cannot exceed 365.");
+
+        if (recurrenceInterval is > 0 && recurrenceUnit == (int)RecurrenceUnit.None)
+            return BadRequest("Recurrence unit is required when recurrence interval is set.");
+
+        if (recurrenceInterval is > 0 && dueDate == null)
+            return BadRequest("Due date is required when recurrence is set.");
 
         var card = await db.KanbanCards
             .Include(c => c.Column)
@@ -705,6 +792,11 @@ public class KanbanController(
         if (card.Priority != (Priority)priority)
             changedFields.Add("priority");
 
+        var newRecurrenceInterval = recurrenceInterval is > 0 ? recurrenceInterval : null;
+        var newRecurrenceUnit = newRecurrenceInterval.HasValue ? (RecurrenceUnit)recurrenceUnit : RecurrenceUnit.None;
+        if (card.RecurrenceInterval != newRecurrenceInterval || card.RecurrenceUnit != newRecurrenceUnit)
+            changedFields.Add("recurrence");
+
         var oldAssigneeId = card.AssignedUserId;
 
         card.Title = title.Trim();
@@ -713,6 +805,8 @@ public class KanbanController(
         card.DueDate = newDue;
         card.Priority = (Priority)priority;
         card.AssignedUserId = normalizedAssignedUserId;
+        card.RecurrenceInterval = newRecurrenceInterval;
+        card.RecurrenceUnit = newRecurrenceUnit;
 
         await db.SaveChangesAsync();
 
@@ -749,6 +843,8 @@ public class KanbanController(
             CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mm"),
             Priority = (int)card.Priority,
             PriorityText = card.Priority.ToString(),
+            card.RecurrenceInterval,
+            RecurrenceUnit = (int)card.RecurrenceUnit,
             AssignedUserId = assignedUser?.Id,
             AssignedUserName = GetUserDisplayName(assignedUser),
             AssignedUserInitial = GetUserInitial(assignedUser),
@@ -1342,5 +1438,17 @@ public class KanbanController(
         return string.IsNullOrWhiteSpace(displayName)
             ? string.Empty
             : displayName.Trim()[0].ToString().ToUpperInvariant();
+    }
+
+    private static DateTime AdvanceByRecurrence(DateTime baseline, int interval, RecurrenceUnit unit)
+    {
+        return unit switch
+        {
+            RecurrenceUnit.Day => baseline.AddDays(interval),
+            RecurrenceUnit.Week => baseline.AddDays(7 * interval),
+            RecurrenceUnit.Month => baseline.AddMonths(interval),
+            RecurrenceUnit.Year => baseline.AddYears(interval),
+            _ => baseline
+        };
     }
 }
