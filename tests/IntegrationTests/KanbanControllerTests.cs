@@ -296,7 +296,7 @@ public class KanbanControllerTests : TestBase
         var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var moved = await verificationDb.KanbanCards.FindAsync(card.Id);
         Assert.IsNotNull(moved);
-        Assert.AreEqual(notStartedColumnId, moved!.ColumnId, "Card should roll back to the first NotStarted column.");
+        Assert.AreEqual(notStartedColumnId, moved.ColumnId, "Card should roll back to the first NotStarted column.");
         Assert.AreEqual(2, moved.RecurrenceInterval);
         Assert.AreEqual(RecurrenceUnit.Week, moved.RecurrenceUnit);
         Assert.AreEqual(dueDate.AddDays(14), moved.DueDate);

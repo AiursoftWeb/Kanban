@@ -531,7 +531,7 @@ public class KanbanController(
         return Ok(new
         {
             card.Id,
-            ColumnId = card.ColumnId,
+            card.ColumnId,
             DueDate = card.DueDate?.ToString("yyyy-MM-ddTHH:mm:ss"),
             ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm"),
             ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm"),
@@ -843,7 +843,7 @@ public class KanbanController(
             CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mm"),
             Priority = (int)card.Priority,
             PriorityText = card.Priority.ToString(),
-            RecurrenceInterval = card.RecurrenceInterval,
+            card.RecurrenceInterval,
             RecurrenceUnit = (int)card.RecurrenceUnit,
             AssignedUserId = assignedUser?.Id,
             AssignedUserName = GetUserDisplayName(assignedUser),
