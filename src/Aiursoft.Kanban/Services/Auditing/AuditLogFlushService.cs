@@ -22,7 +22,18 @@ public class AuditLogFlushService(
             clickhouse.AuditLogs.Add(auditLog);
         }
 
-        await clickhouse.SaveChangesAsync();
-        logger.LogInformation("Flushed {Count} audit logs to ClickHouse", batch.Count);
+        try
+        {
+            await clickhouse.SaveChangesAsync();
+            logger.LogInformation("Flushed {Count} audit logs to ClickHouse", batch.Count);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to flush {Count} audit logs to ClickHouse; requeueing the batch", batch.Count);
+            foreach (var auditLog in batch)
+            {
+                await buffer.EnqueueAsync(auditLog);
+            }
+        }
     }
 }

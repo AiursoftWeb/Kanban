@@ -4,7 +4,8 @@ using Aiursoft.Canon.TaskQueue;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Notifications;
-using Aiursoft.Kanban.Services.Auditing;
+using Aiursoft.Kanban.Events;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -983,28 +984,16 @@ public class AgentService : IAgentService
         if (_toolRegistry.IsWriteTool(tool.ProtocolTool.Name) &&
             !resultText.StartsWith("Error:", StringComparison.OrdinalIgnoreCase))
         {
-            var safeArgs = args
-                .Where(pair => !IsSensitiveAuditArgument(pair.Key))
-                .ToDictionary(pair => pair.Key, pair => pair.Value);
             var user = await scope.ServiceProvider.GetRequiredService<UserManager<User>>().FindByIdAsync(userId);
-            scope.ServiceProvider.GetRequiredService<AuditLogService>().Record(
-                action: $"Agent.{tool.ProtocolTool.Name}",
-                category: "Kanban",
-                summary: resultText,
-                details: safeArgs,
-                source: "Agent",
-                userId: userId,
-                userName: user?.DisplayName ?? user?.UserName ?? userId);
+            await scope.ServiceProvider.GetRequiredService<IMediator>().Publish(new AgentToolExecutedEvent(
+                ToolName: tool.ProtocolTool.Name,
+                UserId: userId,
+                UserName: user?.DisplayName ?? user?.UserName ?? userId,
+                Summary: resultText,
+                Arguments: args));
         }
 
         return resultText;
-    }
-
-    private static bool IsSensitiveAuditArgument(string name)
-    {
-        return name.Contains("password", StringComparison.OrdinalIgnoreCase) ||
-               name.Contains("token", StringComparison.OrdinalIgnoreCase) ||
-               name.Contains("secret", StringComparison.OrdinalIgnoreCase);
     }
 
     private static Dictionary<string, object?> UnwrapJsonElements(Dictionary<string, object?> args)

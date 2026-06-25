@@ -7,9 +7,6 @@ public class AuditActionFilter(
     AuditLogService auditLogService,
     AuditLogContext auditLogContext) : IAsyncActionFilter
 {
-    private static readonly string[] SensitiveNames =
-        ["password", "token", "secret", "content", "description"];
-
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         var method = context.HttpContext.Request.Method;
@@ -28,11 +25,12 @@ public class AuditActionFilter(
             .Where(pair => IsSafeScalar(pair.Key, pair.Value))
             .ToDictionary(pair => pair.Key, pair => pair.Value);
 
-        auditLogService.Record(
+        await auditLogService.RecordAsync(
             action: $"{controller}.{action}",
             category: controller,
             summary: BuildSummary(controller, action, details),
-            details: details);
+            details: details,
+            cancellationToken: context.HttpContext.RequestAborted);
     }
 
     private static bool IsSuccessful(IActionResult? result)
@@ -48,7 +46,7 @@ public class AuditActionFilter(
 
     private static bool IsSafeScalar(string name, object? value)
     {
-        if (SensitiveNames.Any(sensitive => name.Contains(sensitive, StringComparison.OrdinalIgnoreCase)))
+        if (AuditDetailFilter.IsSensitiveName(name))
             return false;
         return value is null or string or int or long or bool or Guid or Enum or DateTime;
     }

@@ -5,7 +5,6 @@ using Aiursoft.Kanban.Events;
 using Aiursoft.Kanban.Models.KanbanViewModels;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
-using Aiursoft.Kanban.Services.Auditing;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
 using MediatR;
@@ -24,7 +23,6 @@ public class KanbanController(
     StorageService storage,
     IAuthorizationService authorizationService,
     IMediator mediator,
-    AuditLogService auditLogService,
     ILogger<KanbanController> logger) : Controller
 {
     private static readonly string[] LabelColors =
@@ -390,18 +388,15 @@ public class KanbanController(
         db.KanbanCards.Remove(card);
         await db.SaveChangesAsync();
 
-        await PublishNotificationEventAsync(new CardTransferredEvent(
+        await PublishOperationEventAsync(new CardTransferredEvent(
             CardId: transferredCard.Id,
             ActorUserId: userId,
             TargetBoardId: targetBoardId,
+            OriginalCardId: cardId,
+            SourceBoardName: sourceBoardName,
+            SourceColumnName: sourceColumnName,
             OriginalCreatorUserId: originalCreatorUserId,
             OriginalAssigneeUserId: originalAssigneeUserId));
-
-        auditLogService.Record(
-            "Kanban.TransferCard",
-            "Kanban",
-            $"Transferred card \"{card.Title}\" from {sourceBoardName}/{sourceColumnName} to {targetColumn.Board.Name}/{targetColumn.Name}",
-            new { OriginalCardId = cardId, NewCardId = transferredCard.Id, SourceBoard = sourceBoardName, SourceColumn = sourceColumnName, TargetBoard = targetColumn.Board.Name, TargetColumn = targetColumn.Name });
 
         return Ok(new
         {
@@ -535,18 +530,15 @@ public class KanbanController(
         var movedToColumnId = card.ColumnId;
         if (fromColumnId != movedToColumnId)
         {
-            await PublishNotificationEventAsync(new CardMovedEvent(
+            await PublishOperationEventAsync(new CardMovedEvent(
                 CardId: cardId,
-                ActorUserId: userId));
+                ActorUserId: userId,
+                FromColumnId: fromColumnId,
+                FromColumnName: fromColumnName,
+                ToColumnId: movedToColumnId,
+                ToColumnName: column.Name,
+                NewOrder: newOrder));
         }
-
-        auditLogService.Record(
-            "Kanban.MoveCard",
-            "Kanban",
-            fromColumnId == targetColumnId
-                ? $"Reordered card \"{card.Title}\" in column {column.Name} to position {newOrder}"
-                : $"Moved card \"{card.Title}\" from {fromColumnName} to {column.Name}",
-            new { CardId = cardId, FromColumn = fromColumnName, ToColumn = column.Name, NewOrder = newOrder, Board = column.Board.Name });
 
         return Ok(new
         {
@@ -797,15 +789,6 @@ public class KanbanController(
         if (!await CanAssignUserToBoardAsync(card.Column.Board, normalizedAssignedUserId))
             return BadRequest("Assigned user does not have access to this board.");
 
-        var oldValues = new
-        {
-            card.Title,
-            card.Description,
-            card.PlannedStartTime,
-            card.DueDate,
-            Priority = card.Priority.ToString(),
-            card.AssignedUserId
-        };
         var changedFields = new List<string>();
         if (!string.Equals(card.Title, title.Trim(), StringComparison.Ordinal))
             changedFields.Add("title");
@@ -841,7 +824,7 @@ public class KanbanController(
 
         if (changedFields.Count > 0)
         {
-            await PublishNotificationEventAsync(new CardUpdatedEvent(
+            await PublishOperationEventAsync(new CardUpdatedEvent(
                 CardId: cardId,
                 ActorUserId: userId,
                 ChangedFields: changedFields));
@@ -849,7 +832,7 @@ public class KanbanController(
 
         if (oldAssigneeId != normalizedAssignedUserId)
         {
-            await PublishNotificationEventAsync(new CardAssignedEvent(
+            await PublishOperationEventAsync(new CardAssignedEvent(
                 CardId: cardId,
                 ActorUserId: userId,
                 OldAssigneeId: oldAssigneeId,
@@ -859,18 +842,6 @@ public class KanbanController(
         var assignedUser = normalizedAssignedUserId == null
             ? null
             : await userManager.FindByIdAsync(normalizedAssignedUserId);
-
-        auditLogService.Record(
-            "Kanban.UpdateCardDetails",
-            "Kanban",
-            $"Updated card \"{card.Title}\": {string.Join(", ", changedFields.Concat(oldAssigneeId == normalizedAssignedUserId ? [] : ["assignee"]))}",
-            new
-            {
-                CardId = card.Id,
-                Board = card.Column.Board.Name,
-                Old = oldValues,
-                New = new { card.Title, card.Description, card.PlannedStartTime, card.DueDate, Priority = card.Priority.ToString(), card.AssignedUserId }
-            });
 
         return Ok(new
         {
@@ -915,12 +886,11 @@ public class KanbanController(
         var oldPriority = card.Priority;
         card.Priority = (Priority)priority;
         await db.SaveChangesAsync();
-
-        auditLogService.Record(
-            "Kanban.UpdateCardPriority",
-            "Kanban",
-            $"Changed priority of card \"{card.Title}\" from {oldPriority} to {card.Priority}",
-            new { CardId = card.Id, Board = card.Column.Board.Name, OldPriority = oldPriority.ToString(), NewPriority = card.Priority.ToString() });
+        await PublishOperationEventAsync(new CardPriorityUpdatedEvent(
+            CardId: card.Id,
+            ActorUserId: userId,
+            OldPriority: oldPriority,
+            NewPriority: card.Priority));
 
         return Ok(new
         {
@@ -952,7 +922,7 @@ public class KanbanController(
 
         if (oldAssigneeId != normalizedAssignedUserId)
         {
-            await PublishNotificationEventAsync(new CardAssignedEvent(
+            await PublishOperationEventAsync(new CardAssignedEvent(
                 CardId: cardId,
                 ActorUserId: userId,
                 OldAssigneeId: oldAssigneeId,
@@ -962,13 +932,6 @@ public class KanbanController(
         var assignedUser = normalizedAssignedUserId == null
             ? null
             : await userManager.FindByIdAsync(normalizedAssignedUserId);
-        var oldAssignee = oldAssigneeId == null ? null : await userManager.FindByIdAsync(oldAssigneeId);
-
-        auditLogService.Record(
-            "Kanban.AssignCard",
-            "Kanban",
-            $"Changed assignee of card \"{card.Title}\" from {GetUserDisplayName(oldAssignee)} to {GetUserDisplayName(assignedUser)}",
-            new { CardId = card.Id, Board = card.Column.Board.Name, OldAssigneeId = oldAssigneeId, NewAssigneeId = normalizedAssignedUserId });
 
         return Ok(new
         {
@@ -1252,7 +1215,7 @@ public class KanbanController(
 
         if (targetUserId != null)
         {
-            await PublishNotificationEventAsync(new BoardSharedEvent(
+            await PublishOperationEventAsync(new BoardSharedEvent(
                 BoardId: id,
                 ActorUserId: userId,
                 SharedWithUserId: targetUserId));
@@ -1314,16 +1277,10 @@ public class KanbanController(
         db.KanbanCardComments.Add(comment);
         await db.SaveChangesAsync();
 
-        await PublishNotificationEventAsync(new CardCommentAddedEvent(
+        await PublishOperationEventAsync(new CardCommentAddedEvent(
             CardId: cardId,
             CommentId: comment.Id,
             ActorUserId: userId));
-
-        auditLogService.Record(
-            "Kanban.AddComment",
-            "Kanban",
-            $"Commented on card \"{card.Title}\"",
-            new { CardId = card.Id, CommentId = comment.Id, Board = card.Column.Board.Name, comment.Content });
 
         var author = await userManager.FindByIdAsync(userId);
         return Ok(new
@@ -1387,11 +1344,12 @@ public class KanbanController(
 
         db.Remove(comment);
         await db.SaveChangesAsync();
-        auditLogService.Record(
-            "Kanban.DeleteComment",
-            "Kanban",
-            $"Deleted a comment from card \"{comment.Card.Title}\"",
-            new { comment.CardId, CommentId = comment.Id, Board = comment.Card.Column.Board.Name, comment.Content });
+        await PublishOperationEventAsync(new CardCommentDeletedEvent(
+            CardId: comment.CardId,
+            CommentId: comment.Id,
+            ActorUserId: userId,
+            CardTitle: comment.Card.Title,
+            BoardName: comment.Card.Column.Board.Name));
         return Ok();
     }
 
@@ -1475,7 +1433,7 @@ public class KanbanController(
         return string.IsNullOrWhiteSpace(assignedUserId) ? null : assignedUserId.Trim();
     }
 
-    private async Task PublishNotificationEventAsync<TNotification>(TNotification notification)
+    private async Task PublishOperationEventAsync<TNotification>(TNotification notification)
         where TNotification : INotification
     {
         try
@@ -1484,7 +1442,7 @@ public class KanbanController(
         }
         catch (Exception ex)
         {
-            logger.LogWarning(ex, "Failed to publish notification event {NotificationEvent}", typeof(TNotification).Name);
+            logger.LogWarning(ex, "Failed to publish operation event {OperationEvent}", typeof(TNotification).Name);
         }
     }
 

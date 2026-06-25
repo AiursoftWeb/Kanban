@@ -7,14 +7,26 @@ namespace Aiursoft.Kanban.Services.Auditing;
 public class AuditLogBuffer(ILogger<AuditLogBuffer> logger) : ISingletonDependency
 {
     private readonly Channel<AuditLog> _channel = Channel.CreateBounded<AuditLog>(
-        new BoundedChannelOptions(10000) { FullMode = BoundedChannelFullMode.DropWrite });
+        new BoundedChannelOptions(10000) { FullMode = BoundedChannelFullMode.Wait });
 
-    public void Enqueue(AuditLog auditLog)
+    public async Task<bool> EnqueueAsync(AuditLog auditLog, CancellationToken cancellationToken = default)
     {
-        if (!_channel.Writer.TryWrite(auditLog))
+        using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        timeout.CancelAfter(TimeSpan.FromSeconds(5));
+        try
         {
-            logger.LogWarning("Audit log buffer is full; dropping action {Action} for user {UserId}",
+            await _channel.Writer.WriteAsync(auditLog, timeout.Token);
+            return true;
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            return false;
+        }
+        catch (OperationCanceledException)
+        {
+            logger.LogError("Timed out while writing audit log action {Action} for user {UserId} to the buffer",
                 auditLog.Action, auditLog.UserId);
+            return false;
         }
     }
 

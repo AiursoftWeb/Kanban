@@ -10,20 +10,21 @@ public class AuditLogService(
     AuditLogContext auditLogContext,
     IHttpContextAccessor httpContextAccessor) : IScopedDependency
 {
-    public void Record(
+    public async Task RecordAsync(
         string action,
         string category,
         string summary,
         object? details = null,
         string source = "Web",
         string? userId = null,
-        string? userName = null)
+        string? userName = null,
+        CancellationToken cancellationToken = default)
     {
         auditLogContext.HasSemanticLog = true;
         var context = httpContextAccessor.HttpContext;
         var principal = context?.User;
 
-        buffer.Enqueue(new AuditLog
+        await buffer.EnqueueAsync(new AuditLog
         {
             EventTime = DateTime.UtcNow,
             UserId = userId ?? principal?.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty,
@@ -35,6 +36,6 @@ public class AuditLogService(
             Source = source,
             IpAddress = context?.Connection.RemoteIpAddress?.ToString() ?? string.Empty,
             TraceId = context?.TraceIdentifier ?? string.Empty
-        });
+        }, cancellationToken);
     }
 }
