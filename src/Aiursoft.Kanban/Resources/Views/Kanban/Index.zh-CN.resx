@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>天前</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>天</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>截止日期</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>周期性任务必须设置截止日期、间隔和单位。</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>编辑看板</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>每</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>添加评论失败。</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>中</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>月</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>移动</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>只读</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>重复任务</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>删除 {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>选择列</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>选择单位</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>发送</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>视图</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>周</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>需要完成什么？</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>年</value>
   </data>
 
 </root>

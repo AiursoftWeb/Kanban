@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>일 전</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>일</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>삭제</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>마감일</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>반복 작업에는 마감일, 간격 및 단위가 필요합니다.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>수정</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>보드 편집</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>매</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>댓글 추가에 실패했습니다.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>중간</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>개월</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>이동</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>읽기 전용</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>반복 작업</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>{{0}}(으)를 제거</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>열 선택</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>단위 선택</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>전송</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>보기</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>주</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>해야 할 작업은 무엇인가요?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>년</value>
   </data>
 
 </root>

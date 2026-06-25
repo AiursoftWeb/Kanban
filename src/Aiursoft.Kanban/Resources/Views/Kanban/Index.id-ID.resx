@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>d lalu</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Hari</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Hapus</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>Tenggat Waktu</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>Tanggal jatuh tempo, interval, dan satuan diperlukan untuk tugas berulang.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Sunting</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Sunting Papan</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Setiap</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>Gagal menambahkan komentar.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Sedang</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>Bulan</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>Pindah</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>Saja baca</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Tugas berulang</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>Hapus {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>Pilih kolom</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Pilih satuan</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Kirim</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>Lihat</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Minggu</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>Apa yang perlu dilakukan?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Tahun</value>
   </data>
 
 </root>

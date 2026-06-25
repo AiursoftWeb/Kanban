@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>د قبل</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>أيام</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>حذف</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>تاريخ الاستحقاق</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>يجب تحديد تاريخ الاستحقاق والفاصل الزمني والوحدة للمهام المتكررة.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>تعديل</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>تحرير اللوحة</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>كل</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>فشل في إضافة التعليق.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>متوسط</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>أشهر</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>نقل</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>للقراءة فقط</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>مهمة متكررة</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>إزالة {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>حدد عمودًا</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>اختر الوحدة</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>إرسال</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>عرض</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>أسابيع</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>ما الذي يجب تنفيذه؟</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>سنوات</value>
   </data>
 
 </root>

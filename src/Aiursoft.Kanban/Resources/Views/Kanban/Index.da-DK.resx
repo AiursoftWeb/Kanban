@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>d siden</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Dage</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Slet</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>Frist</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>Frist, interval og enhed er påkrævet for gentagende opgaver.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Rediger</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Rediger tavle</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Hver</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>Kunne ikke tilføje kommentar.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Mellem</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>Måneder</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>Flyt</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>Skrivebeskyttet</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Gentaskning</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>Fjern {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>Vælg en kolonne</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Vælg enhed</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>Se</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Uger</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>Hvad skal der gøres?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>År</value>
   </data>
 
 </root>

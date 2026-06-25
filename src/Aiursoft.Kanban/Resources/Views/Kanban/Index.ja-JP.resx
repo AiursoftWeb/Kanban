@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>日前</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>日</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>削除</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>期限</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>定期的なタスクには、期限、間隔、および単位が必要です。</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>編集</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>ボードを編集</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>おなじ</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>コメントの追加に失敗しました。</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>中</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>ヶ月</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>移動</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>読み取り専用</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>定期タスク</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>{{0}} を削除</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>列を選択してください</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>単位を選択</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>送信</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>表示</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>週</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>何をすべきですか？</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>年</value>
   </data>
 
 </root>

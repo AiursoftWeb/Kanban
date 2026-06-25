@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>д. тому</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Днів</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Видалити</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>Кінцевий термін</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>Для періодичних завдань обов’язково потрібно вказати дату виконання, інтервал та одиницю вимірювання.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Редагувати</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Редагувати дошку</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Кожні</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>Не вдалося додати коментар.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Середній</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>Місяці</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>Перемістити</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>Тільки для читання</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Періодичне завдання</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>Видалити {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>Оберіть колонку</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Оберіть одиницю</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Надіслати</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>Перегляд</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Тижнів</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>Що потрібно зробити?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Років</value>
   </data>
 
 </root>

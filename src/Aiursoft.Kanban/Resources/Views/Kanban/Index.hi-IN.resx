@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>दिन पहले</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>दिन</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>हटाएं</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>समाप्ति तिथि</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>पुनरावृत्त कार्यों के लिए अंतिम तिथि, अंतराल और इकाई आवश्यक है।</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>संपादित करें</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>बोर्ड संपादित करें</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>प्रत्येक</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>टिप्पणी जोड़ने में विफल।</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>मध्यम</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>माह</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>स्थानांतरित करें</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>केवल-पठनीय</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>पुनरावृत्ति कार्य</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>{{0}} को हटाएँ</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>कोई कॉलम चुनें</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>इकाई चुनें</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>भेजें</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>देखें</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>सप्ताह</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>क्या किया जाना है?</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>वर्ष</value>
   </data>
 
 </root>

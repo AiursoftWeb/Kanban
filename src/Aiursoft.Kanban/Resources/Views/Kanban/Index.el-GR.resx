@@ -126,6 +126,9 @@
   <data name="d ago" xml:space="preserve">
     <value>ημ. πριν</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>Ημέρες</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Διαγραφή</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Due Date" xml:space="preserve">
     <value>Ημερομηνία λήξης</value>
   </data>
+  <data name="Due date, interval, and unit are required for recurring tasks." xml:space="preserve">
+    <value>Η ημερομηνία λήξης, το διάστημα και η μονάδα είναι υποχρεωτικά για επαναλαμβανόμενες εργασίες.</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Επεξεργασία</value>
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Επεξεργασία Πίνακα</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Κάθε</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
     <value>Αδυναμία προσθήκης σχόλιου.</value>
@@ -246,6 +255,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Μέτρια</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>Μήνες</value>
+  </data>
   <data name="Move" xml:space="preserve">
     <value>Μετακίνηση</value>
   </data>
@@ -315,6 +327,9 @@
   <data name="Read-only" xml:space="preserve">
     <value>Μόνο για ανάγνωση</value>
   </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Επαναλαμβανόμενη εργασία</value>
+  </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>Αφαίρεση {{0}}</value>
   </data>
@@ -341,6 +356,9 @@
   </data>
   <data name="Select a column" xml:space="preserve">
     <value>Επιλέξτε μια στήλη</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Επιλογή μονάδας</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Αποστολή</value>
@@ -396,8 +414,14 @@
   <data name="View" xml:space="preserve">
     <value>Προβολή</value>
   </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Εβδομάδες</value>
+  </data>
   <data name="What needs to be done?" xml:space="preserve">
     <value>Τι πρέπει να γίνει;</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Χρόνια</value>
   </data>
 
 </root>
