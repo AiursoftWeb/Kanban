@@ -1065,6 +1065,7 @@
         var currentColumnId = 0;
 
         async function uploadPastedImage(textarea, blob) {
+            btnUpdateCard.disabled = true;
             var uploadingText = '[Uploading image...]';
             var cursorPos = textarea.selectionStart;
             var textBefore = textarea.value.substring(0, cursorPos);
@@ -1086,6 +1087,8 @@
                 textarea.value = textarea.value.replace(uploadingText, '');
                 console.error('Image upload failed:', err);
                 showFriendlyDialog(getLocalizedText("failed-upload-pasted-image", "Failed to upload pasted image:") + " " + (err.message || getLocalizedText("unknown-error", "Unknown error")), getLocalizedText("error", "Error"));
+            } finally {
+                btnUpdateCard.disabled = false;
             }
         }
 
