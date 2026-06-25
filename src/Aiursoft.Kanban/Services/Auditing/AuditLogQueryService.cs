@@ -1,13 +1,14 @@
+using Aiursoft.ClickhouseSdk;
 using Aiursoft.ClickhouseSdk.Abstractions;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Scanner.Abstractions;
-using ClickHouse.Client.ADO;
-using ClickHouse.Client.Utility;
 using Microsoft.Extensions.Options;
 
 namespace Aiursoft.Kanban.Services.Auditing;
 
-public class AuditLogQueryService(IOptionsMonitor<ClickhouseOptions> options) : IScopedDependency
+public class AuditLogQueryService(
+    AuditClickhouseDbContext clickhouse,
+    IOptionsMonitor<ClickhouseOptions> options) : IScopedDependency
 {
     public bool Enabled => options.CurrentValue.Enabled;
 
@@ -18,30 +19,26 @@ public class AuditLogQueryService(IOptionsMonitor<ClickhouseOptions> options) : 
     {
         if (!Enabled) return ([], 0);
 
-        var tableName = options.CurrentValue.TableName;
-        await using var connection = new ClickHouseConnection(options.CurrentValue.ConnectionString);
-        await connection.OpenAsync();
-
+        var tableName = ClickhouseIdentifier.Quote(options.CurrentValue.TableName);
         var where = userId == null ? string.Empty : " WHERE UserId = {userId:String}";
-        await using var countCommand = connection.CreateCommand();
-        countCommand.CommandText = $"SELECT count() FROM {tableName}{where}";
-        if (userId != null) countCommand.AddParameter("userId", userId);
-        var total = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
+        var parameters = userId == null
+            ? null
+            : new Dictionary<string, object?>
+            {
+                ["userId"] = userId
+            };
+        var total = Convert.ToInt32(await clickhouse.ExecuteScalarAsync<ulong>(
+            $"SELECT count() FROM {tableName}{where}",
+            parameters));
 
-        await using var command = connection.CreateCommand();
-        command.CommandText = $"""
+        var logs = await clickhouse.QueryAsync(
+            $"""
             SELECT EventTime, UserId, UserName, Action, Category, Summary, Details, Source, IpAddress, TraceId
             FROM {tableName}{where}
             ORDER BY EventTime DESC
             LIMIT {pageSize} OFFSET {(page - 1) * pageSize}
-            """;
-        if (userId != null) command.AddParameter("userId", userId);
-
-        var logs = new List<AuditLog>();
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            logs.Add(new AuditLog
+            """,
+            reader => new AuditLog
             {
                 EventTime = reader.GetDateTime(0),
                 UserId = reader.GetString(1),
@@ -53,8 +50,8 @@ public class AuditLogQueryService(IOptionsMonitor<ClickhouseOptions> options) : 
                 Source = reader.GetString(7),
                 IpAddress = reader.GetString(8),
                 TraceId = reader.GetString(9)
-            });
-        }
+            },
+            parameters);
 
         return (logs, total);
     }
