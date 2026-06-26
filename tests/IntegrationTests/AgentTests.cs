@@ -4,6 +4,7 @@ using System.Text.Json;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
 using Aiursoft.Kanban.Services.Agent;
+using Aiursoft.Kanban.Services.Agent.Subagent;
 using Aiursoft.Kanban.Services.Tools.Read;
 using Aiursoft.Kanban.Services.Tools.Write;
 
@@ -1762,6 +1763,63 @@ public class AgentTests : TestBase
         var listResult = await tools.GetUnreadNotifications();
         StringAssert.Contains(listResult, "This one is unread", "Should include the unread notification");
         Assert.IsFalse(listResult.Contains("This one is read"), "Should not include the read notification");
+    }
+
+    // ── Subagent tests ────────────────────────────────────
+
+    [TestMethod]
+    public async Task Subagent_TaskPlanning_IsRegisteredAsTool()
+    {
+        await LoginAsAdmin();
+        var registry = GetService<ToolRegistry>();
+
+        var tool = registry.GetTool("TaskPlanning");
+        Assert.IsNotNull(tool, "TaskPlanning tool should be registered");
+        Assert.AreEqual("TaskPlanning", tool.ProtocolTool.Name);
+        Assert.IsNotNull(tool.ProtocolTool.Description, "TaskPlanning should have a description");
+        StringAssert.Contains(tool.ProtocolTool.Description!, "Break down",
+            "Description should describe the planning capability");
+    }
+
+    [TestMethod]
+    public async Task Subagent_TaskPlanning_IsReadTool()
+    {
+        await LoginAsAdmin();
+        var registry = GetService<ToolRegistry>();
+
+        Assert.IsFalse(registry.IsWriteTool("TaskPlanning"),
+            "TaskPlanning should be a read tool (no write side effects)");
+    }
+
+    [TestMethod]
+    public async Task Subagent_TaskPlanning_ResolvesFromDI()
+    {
+        await LoginAsAdmin();
+        var subagent = GetService<ISubagent>();
+        Assert.IsNotNull(subagent, "ISubagent should resolve from DI");
+
+        var taskPlanner = GetService<TaskPlanningSubagent>();
+        Assert.IsNotNull(taskPlanner, "TaskPlanningSubagent should resolve from DI");
+        Assert.AreEqual("TaskPlanning", taskPlanner.Name);
+        Assert.AreEqual("FilterCards", taskPlanner.ToolNames.Single(),
+            "TaskPlanning should only have FilterCards tool");
+        StringAssert.Contains(taskPlanner.Description, "Break down",
+            "TaskPlanning description should describe task breakdown");
+    }
+
+    [TestMethod]
+    public async Task Subagent_TaskPlanning_ExecuteAsync_ReturnsNonEmptyResult()
+    {
+        // The subagent runs its own ReAct loop with FilterCards tool access.
+        // It should return a plan or at minimum a non-empty response.
+        await LoginAsAdmin();
+        var taskPlanner = GetService<TaskPlanningSubagent>();
+
+        var result = await taskPlanner.ExecuteAsync("test-user", "Plan a project setup",
+            CancellationToken.None);
+
+        Assert.IsNotNull(result, "Subagent should return a non-null result");
+        Assert.IsTrue(result.Length > 0, "Subagent should return a non-empty result");
     }
 
     // ── Helpers ─────────────────────────────────────────────
