@@ -508,7 +508,31 @@ public class AgentService : IAgentService
         var claudeMessages = ConvertToClaudeMessages(conversation.Messages);
         var tools = BuildClaudeTools();
 
-        return await _claudeClient.SendAsync(systemPrompt, claudeMessages, tools);
+        _logger.LogDebug("=== Agent request === System: {SystemPrompt}", TruncateDebug(systemPrompt));
+        _logger.LogDebug("=== Agent request === Messages ({Count}): {Messages}",
+            claudeMessages.Count,
+            JsonConvert.SerializeObject(claudeMessages, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+        _logger.LogDebug("=== Agent request === Tools ({Count}): {Tools}",
+            tools.Count,
+            JsonConvert.SerializeObject(tools.Select(t => new { t.Name, t.Description })));
+
+        var response = await _claudeClient.SendAsync(systemPrompt, claudeMessages, tools);
+
+        _logger.LogDebug("=== Agent response === Text: {Text}", TruncateDebug(response.GetText()));
+        _logger.LogDebug("=== Agent response === ToolUses ({Count}): {Tools}",
+            response.GetToolUses().Count,
+            JsonConvert.SerializeObject(response.GetToolUses().Select(t => new { t.Name, Input = t.Input })));
+        _logger.LogDebug("=== Agent response === StopReason: {Reason}, Usage: {Usage}",
+            response.StopReason,
+            JsonConvert.SerializeObject(response.Usage));
+
+        return response;
+    }
+
+    private static string TruncateDebug(string? value, int max = 2000)
+    {
+        if (string.IsNullOrEmpty(value)) return "(empty)";
+        return value.Length <= max ? value : value[..max] + $"... (truncated, total {value.Length} chars)";
     }
 
     private static List<ClaudeMessage> ConvertToClaudeMessages(List<ToolMessagesItem> messages)
