@@ -541,7 +541,7 @@ public class AgentService : IAgentService
         _logger.LogDebug("=== Agent response === Text: {Text}", TruncateDebug(response.GetText()));
         _logger.LogDebug("=== Agent response === ToolUses ({Count}): {Tools}",
             response.GetToolUses().Count,
-            JsonConvert.SerializeObject(response.GetToolUses().Select(t => new { t.Name, Input = t.Input })));
+            JsonConvert.SerializeObject(response.GetToolUses().Select(t => new { t.Name, t.Input })));
         _logger.LogDebug("=== Agent response === StopReason: {Reason}, Usage: {Usage}",
             response.StopReason,
             JsonConvert.SerializeObject(response.Usage));
