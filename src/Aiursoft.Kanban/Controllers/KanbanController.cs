@@ -1230,17 +1230,15 @@ public class KanbanController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddComment(int cardId, string content, string images)
+    public async Task<IActionResult> AddComment(int cardId, string content, string? images)
     {
         if (string.IsNullOrWhiteSpace(content))
             return BadRequest("Content is required.");
 
         if (content.Trim().Length > 2000)
             return BadRequest("Content is too long.");
-        if (images is null)
-        {
-            images = "";
-        }
+
+        images = images ?? string.Empty;
 
         var card = await db.KanbanCards
             .Include(c => c.Column)
