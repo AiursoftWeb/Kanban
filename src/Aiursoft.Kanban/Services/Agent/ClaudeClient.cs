@@ -29,7 +29,8 @@ public class ClaudeClient : ISingletonDependency
         string systemPrompt,
         List<ClaudeMessage> messages,
         List<ClaudeTool>? tools,
-        CancellationToken ct = default)
+        CancellationToken ct = default,
+        int maxTokens = 4096)
     {
         if (string.IsNullOrWhiteSpace(_config.CompletionApiUrl))
             throw new InvalidOperationException(
@@ -38,7 +39,7 @@ public class ClaudeClient : ISingletonDependency
         var request = new ClaudeRequest
         {
             Model = _config.Model,
-            MaxTokens = 4096,
+            MaxTokens = maxTokens,
             System = systemPrompt,
             Messages = messages,
             Tools = tools,

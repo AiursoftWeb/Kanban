@@ -119,6 +119,16 @@ public class AgentService : IAgentService
                 IsMeta = true
             });
         }
+        var taskPlanningGuidance = BuildTaskPlanningGuidanceBlock(userMessage);
+        if (!string.IsNullOrEmpty(taskPlanningGuidance))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = taskPlanningGuidance,
+                IsMeta = true
+            });
+        }
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "user",
@@ -169,6 +179,16 @@ public class AgentService : IAgentService
             {
                 Role = "user",
                 Content = weeklyGuidance,
+                IsMeta = true
+            });
+        }
+        var taskPlanningGuidance = BuildTaskPlanningGuidanceBlock(userMessage);
+        if (!string.IsNullOrEmpty(taskPlanningGuidance))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = taskPlanningGuidance,
                 IsMeta = true
             });
         }
@@ -558,6 +578,34 @@ public class AgentService : IAgentService
         var sunday = monday.AddDays(6);
         return $"Current time: {now:dddd, MMMM d, yyyy, h:mm tt} UTC\n" +
                $"This week: {monday:yyyy-MM-dd} (Monday) – {sunday:yyyy-MM-dd} (Sunday)";
+    }
+
+    /// <summary>
+    /// Builds a standalone &lt;system-reminder&gt; block that suggests calling the
+    /// TaskPlanning subagent tool. Injected only when the user message exceeds
+    /// 3 lines or 100 characters, indicating a potentially complex request that
+    /// benefits from explicit planning before execution.
+    /// Returns an empty string when the message is short and simple.
+    /// </summary>
+    private static string BuildTaskPlanningGuidanceBlock(string userMessage)
+    {
+        if (string.IsNullOrWhiteSpace(userMessage))
+            return string.Empty;
+
+        var lineCount = userMessage.Split('\n').Length;
+        var charCount = userMessage.Length;
+
+        if (lineCount <= 3 && charCount <= 100)
+            return string.Empty;
+
+        return "<system-reminder>\n" +
+               "The user's message is long or complex. Before executing any actions:\n" +
+               "- Call the TaskPlanning tool first to break this into concrete, ordered steps.\n" +
+               "- Pass the user's full request to TaskPlanning so it can search for relevant cards and build an accurate plan.\n" +
+               "- After receiving the plan, execute each step in order using the available tools.\n" +
+               "- Do NOT skip planning for multi-step requests — planning prevents mistakes.\n" +
+               "│  IMPORTANT: this context may or may not be relevant    │\n" +
+               "</system-reminder>";
     }
 
     /// <summary>
