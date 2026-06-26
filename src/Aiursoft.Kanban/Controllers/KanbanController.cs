@@ -1237,6 +1237,10 @@ public class KanbanController(
 
         if (content.Trim().Length > 2000)
             return BadRequest("Content is too long.");
+        if (images is null)
+        {
+            images = "";
+        }
 
         var card = await db.KanbanCards
             .Include(c => c.Column)
