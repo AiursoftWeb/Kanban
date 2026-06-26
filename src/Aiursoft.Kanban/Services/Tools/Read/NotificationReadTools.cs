@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Notifications;
-using Aiursoft.Kanban.Services.Access;
 using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Scanner.Abstractions;
 using Microsoft.EntityFrameworkCore;
@@ -62,7 +61,6 @@ public class NotificationReadTools(
         foreach (var n in notifications)
         {
             var message = NotificationTemplateService.BuildMessage(n);
-            var actorName = KanbanAccessService.GetUserDisplayName(n.ActorUser) ?? "Someone";
             var boardName = n.Board?.Name ?? n.Card?.Column.Board.Name ?? "(unknown board)";
             var cardInfo = n.Card != null ? $"Card \"{n.Card.Title}\"" : "";
             var timeAgo = GetRelativeTime(n.CreationTime);
