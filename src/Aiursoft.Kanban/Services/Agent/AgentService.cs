@@ -3,6 +3,7 @@ using System.Text;
 using Aiursoft.Canon.TaskQueue;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Notifications;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -109,6 +110,16 @@ public class AgentService : IAgentService
                 IsMeta = true
             });
         }
+        var unreadNotifications = BuildUnreadNotificationsBlock(userId);
+        if (!string.IsNullOrEmpty(unreadNotifications))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = unreadNotifications,
+                IsMeta = true
+            });
+        }
         var weeklyGuidance = BuildWeeklyGuidanceBlock(userMessage);
         if (!string.IsNullOrEmpty(weeklyGuidance))
         {
@@ -169,6 +180,16 @@ public class AgentService : IAgentService
             {
                 Role = "user",
                 Content = recentCards,
+                IsMeta = true
+            });
+        }
+        var unreadNotifications = BuildUnreadNotificationsBlock(userId);
+        if (!string.IsNullOrEmpty(unreadNotifications))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = unreadNotifications,
                 IsMeta = true
             });
         }
@@ -507,7 +528,31 @@ public class AgentService : IAgentService
         var claudeMessages = ConvertToClaudeMessages(conversation.Messages);
         var tools = BuildClaudeTools();
 
-        return await _claudeClient.SendAsync(systemPrompt, claudeMessages, tools);
+        _logger.LogDebug("=== Agent request === System: {SystemPrompt}", TruncateDebug(systemPrompt));
+        _logger.LogDebug("=== Agent request === Messages ({Count}): {Messages}",
+            claudeMessages.Count,
+            JsonConvert.SerializeObject(claudeMessages, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+        _logger.LogDebug("=== Agent request === Tools ({Count}): {Tools}",
+            tools.Count,
+            JsonConvert.SerializeObject(tools.Select(t => new { t.Name, t.Description })));
+
+        var response = await _claudeClient.SendAsync(systemPrompt, claudeMessages, tools);
+
+        _logger.LogDebug("=== Agent response === Text: {Text}", TruncateDebug(response.GetText()));
+        _logger.LogDebug("=== Agent response === ToolUses ({Count}): {Tools}",
+            response.GetToolUses().Count,
+            JsonConvert.SerializeObject(response.GetToolUses().Select(t => new { t.Name, t.Input })));
+        _logger.LogDebug("=== Agent response === StopReason: {Reason}, Usage: {Usage}",
+            response.StopReason,
+            JsonConvert.SerializeObject(response.Usage));
+
+        return response;
+    }
+
+    private static string TruncateDebug(string? value, int max = 2000)
+    {
+        if (string.IsNullOrEmpty(value)) return "(empty)";
+        return value.Length <= max ? value : value[..max] + $"... (truncated, total {value.Length} chars)";
     }
 
     private static List<ClaudeMessage> ConvertToClaudeMessages(List<ToolMessagesItem> messages)
@@ -733,6 +778,83 @@ public class AgentService : IAgentService
         sb.Append("│  IMPORTANT: this context may or may not be relevant    │\n</system-reminder>");
 
         return sb.ToString();
+    }
+
+    /// <summary>
+    /// Builds a system-reminder block listing unread notification count and
+    /// up to 10 most recent unread notification messages.
+    /// Returns an empty string when there are no unread notifications.
+    /// </summary>
+    private string BuildUnreadNotificationsBlock(string userId)
+    {
+        using var scope = _rootServices.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+
+        var totalCount = db.Notifications
+            .Where(n => n.UserId == userId && !n.IsRead)
+            .Count();
+
+        if (totalCount == 0) return string.Empty;
+
+        var notifications = db.Notifications
+            .Where(n => n.UserId == userId && !n.IsRead)
+            .Include(n => n.Card!)
+                .ThenInclude(c => c.Column)
+                    .ThenInclude(col => col.Board)
+            .Include(n => n.Board)
+            .Include(n => n.ActorUser)
+            .OrderByDescending(n => n.CreationTime)
+            .Take(10)
+            .ToList();
+
+        var sb = new StringBuilder();
+        sb.AppendLine("<system-reminder>");
+        if (totalCount == 1)
+        {
+            sb.AppendLine("You have 1 unread notification:");
+        }
+        else if (totalCount <= 10)
+        {
+            sb.AppendLine($"You have {totalCount} unread notifications:");
+        }
+        else
+        {
+            sb.AppendLine($"You have {totalCount} unread notifications. Showing the 10 most recent:");
+        }
+
+        foreach (var n in notifications)
+        {
+            var message = NotificationTemplateService.BuildMessage(n);
+            var title = message.Length > 200
+                ? message[..200] + "..."
+                : message;
+            var boardName = n.Board?.Name ?? n.Card?.Column.Board.Name ?? "(unknown)";
+            var timeAgo = GetRelativeTimeBlock(n.CreationTime);
+            sb.Append("- [").Append(n.Type).Append("] ");
+            sb.Append('"').Append(title).Append('"');
+            sb.Append(" (Board: \"").Append(boardName).Append("\", ");
+            sb.Append(timeAgo).Append(')');
+            sb.AppendLine();
+        }
+
+        sb.AppendLine();
+        sb.AppendLine("Use GetUnreadNotifications tool if you need full details about any of these notifications.");
+        sb.Append("|  IMPORTANT: this context may or may not be relevant    |\n</system-reminder>");
+
+        return sb.ToString();
+    }
+
+    private static string GetRelativeTimeBlock(DateTime utcTime)
+    {
+        var diff = DateTime.UtcNow - utcTime;
+        return diff.TotalMinutes switch
+        {
+            < 1 => "just now",
+            < 60 => $"{(int)diff.TotalMinutes}m ago",
+            < 1440 => $"{(int)diff.TotalHours}h ago",
+            < 43200 => $"{(int)diff.TotalDays}d ago",
+            _ => utcTime.ToString("yyyy-MM-dd")
+        };
     }
 
     /// <summary>

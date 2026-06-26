@@ -1514,6 +1514,257 @@ public class AgentTests : TestBase
             $"Should indicate no shared boards, got: {result}");
     }
 
+    // ── NotificationReadTools ─────────────────────────────────
+
+    [TestMethod]
+    public async Task NotificationReadTools_AreRegisteredAsTools()
+    {
+        await LoginAsAdmin();
+        var registry = GetService<ToolRegistry>();
+
+        var countTool = registry.GetTool("GetUnreadNotificationCount");
+        Assert.IsNotNull(countTool, "GetUnreadNotificationCount should be registered");
+        Assert.IsNotNull(countTool.ProtocolTool.Description, "Should have a description");
+
+        var listTool = registry.GetTool("GetUnreadNotifications");
+        Assert.IsNotNull(listTool, "GetUnreadNotifications should be registered");
+        Assert.IsNotNull(listTool.ProtocolTool.Description, "Should have a description");
+    }
+
+    [TestMethod]
+    public async Task NotificationReadTools_AreNotWriteTools()
+    {
+        await LoginAsAdmin();
+        var registry = GetService<ToolRegistry>();
+
+        Assert.IsFalse(registry.IsWriteTool("GetUnreadNotificationCount"),
+            "GetUnreadNotificationCount should not be a write tool");
+        Assert.IsFalse(registry.IsWriteTool("GetUnreadNotifications"),
+            "GetUnreadNotifications should not be a write tool");
+    }
+
+    [TestMethod]
+    public async Task NotificationReadTools_ResolvesFromDI()
+    {
+        await LoginAsAdmin();
+        using var scope = Server!.Services.CreateScope();
+        var tools = scope.ServiceProvider.GetRequiredService<NotificationReadTools>();
+        Assert.IsNotNull(tools, "NotificationReadTools should resolve from DI");
+    }
+
+    [TestMethod]
+    public async Task GetUnreadNotificationCount_NoNotifications_ReturnsZero()
+    {
+        await LoginAsAdmin();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var tools = scope.ServiceProvider.GetRequiredService<NotificationReadTools>();
+        var result = await tools.GetUnreadNotificationCount();
+
+        StringAssert.Contains(result, "no unread notifications", "Should indicate no notifications");
+    }
+
+    [TestMethod]
+    public async Task GetUnreadNotifications_NoNotifications_ReturnsEmpty()
+    {
+        await LoginAsAdmin();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var tools = scope.ServiceProvider.GetRequiredService<NotificationReadTools>();
+        var result = await tools.GetUnreadNotifications();
+
+        StringAssert.Contains(result, "no unread notifications", "Should indicate no notifications");
+    }
+
+    [TestMethod]
+    public async Task GetUnreadNotificationCount_HasNotifications_ReturnsCount()
+    {
+        await LoginAsAdmin();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        // Remove any pre-existing notifications to ensure a clean baseline
+        var existing = db.Notifications.Where(n => n.UserId == adminUser.Id);
+        db.Notifications.RemoveRange(existing);
+        await db.SaveChangesAsync();
+
+        // Create test notifications directly
+        db.Notifications.Add(new Notification
+        {
+            UserId = adminUser.Id,
+            Type = NotificationType.CardAssigned,
+            Message = "Test notification 1",
+            IsRead = false,
+            CreationTime = DateTime.UtcNow
+        });
+        db.Notifications.Add(new Notification
+        {
+            UserId = adminUser.Id,
+            Type = NotificationType.CommentAdded,
+            Message = "Test notification 2",
+            IsRead = false,
+            CreationTime = DateTime.UtcNow.AddMinutes(-5)
+        });
+        await db.SaveChangesAsync();
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var tools = scope.ServiceProvider.GetRequiredService<NotificationReadTools>();
+        var result = await tools.GetUnreadNotificationCount();
+
+        StringAssert.Contains(result, "2 unread notification", "Should show 2 notifications");
+    }
+
+    [TestMethod]
+    public async Task GetUnreadNotifications_HasNotifications_ReturnsDetails()
+    {
+        await LoginAsAdmin();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        // Create a board and card to associate notification with
+        var board = new KanbanBoard
+        {
+            Name = "Test Board",
+            UserId = adminUser.Id,
+            Order = 1
+        };
+        db.KanbanBoards.Add(board);
+        await db.SaveChangesAsync();
+
+        var column = new KanbanColumn
+        {
+            Name = "To Do",
+            BoardId = board.Id,
+            Order = 1,
+            ColumnStatus = ColumnStatus.NotStarted
+        };
+        db.KanbanColumns.Add(column);
+        await db.SaveChangesAsync();
+
+        var card = new KanbanCard
+        {
+            Title = "Test Card",
+            ColumnId = column.Id,
+            Order = 1,
+            Priority = Priority.Medium
+        };
+        db.KanbanCards.Add(card);
+        await db.SaveChangesAsync();
+
+        db.Notifications.Add(new Notification
+        {
+            UserId = adminUser.Id,
+            Type = NotificationType.CardAssigned,
+            Message = "",
+            CardId = card.Id,
+            BoardId = board.Id,
+            ActorUserId = adminUser.Id,
+            IsRead = false,
+            CreationTime = DateTime.UtcNow
+        });
+        await db.SaveChangesAsync();
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var tools = scope.ServiceProvider.GetRequiredService<NotificationReadTools>();
+        var result = await tools.GetUnreadNotifications();
+
+        StringAssert.Contains(result, "CardAssigned", "Should show notification type");
+        StringAssert.Contains(result, card.Title, "Should include card title");
+        StringAssert.Contains(result, board.Name, "Should include board name");
+    }
+
+    [TestMethod]
+    public async Task GetUnreadNotifications_RespectsLimit()
+    {
+        await LoginAsAdmin();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        // Remove any pre-existing notifications to ensure a clean baseline
+        var existing = db.Notifications.Where(n => n.UserId == adminUser.Id);
+        db.Notifications.RemoveRange(existing);
+        await db.SaveChangesAsync();
+
+        // Create 5 notifications
+        for (int i = 0; i < 5; i++)
+        {
+            db.Notifications.Add(new Notification
+            {
+                UserId = adminUser.Id,
+                Type = NotificationType.CommentAdded,
+                Message = $"Test notification {i}",
+                IsRead = false,
+                CreationTime = DateTime.UtcNow.AddMinutes(-i)
+            });
+        }
+        await db.SaveChangesAsync();
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var tools = scope.ServiceProvider.GetRequiredService<NotificationReadTools>();
+        var result = await tools.GetUnreadNotifications(limit: 3);
+
+        StringAssert.Contains(result, "Showing the 3 most recent", "Should indicate limited results");
+        Assert.IsFalse(result.Contains("Test notification 3"), "Should not include items beyond limit");
+        Assert.IsFalse(result.Contains("Test notification 4"), "Should not include items beyond limit");
+    }
+
+    [TestMethod]
+    public async Task GetUnreadNotifications_ReadNotificationsExcluded()
+    {
+        await LoginAsAdmin();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+
+        // Remove any pre-existing notifications to ensure a clean baseline
+        var existing = db.Notifications.Where(n => n.UserId == adminUser.Id);
+        db.Notifications.RemoveRange(existing);
+        await db.SaveChangesAsync();
+
+        db.Notifications.Add(new Notification
+        {
+            UserId = adminUser.Id,
+            Type = NotificationType.CommentAdded,
+            Message = "This one is read",
+            IsRead = true,
+            CreationTime = DateTime.UtcNow
+        });
+        db.Notifications.Add(new Notification
+        {
+            UserId = adminUser.Id,
+            Type = NotificationType.CardAssigned,
+            Message = "This one is unread",
+            IsRead = false,
+            CreationTime = DateTime.UtcNow.AddMinutes(-1)
+        });
+        await db.SaveChangesAsync();
+
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var tools = scope.ServiceProvider.GetRequiredService<NotificationReadTools>();
+
+        var countResult = await tools.GetUnreadNotificationCount();
+        StringAssert.Contains(countResult, "1 unread notification", "Should only count unread");
+
+        var listResult = await tools.GetUnreadNotifications();
+        StringAssert.Contains(listResult, "This one is unread", "Should include the unread notification");
+        Assert.IsFalse(listResult.Contains("This one is read"), "Should not include the read notification");
+    }
+
     // ── Subagent tests ────────────────────────────────────
 
     [TestMethod]
