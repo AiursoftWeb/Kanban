@@ -56,7 +56,6 @@
         var canEditCurrentBoard = window.kanbanCanEditCurrentBoard;
         var currentBoardId = window.kanbanCurrentBoardId;
         var isDragging = false;
-        var labelSearchTimeout = 0;
         var friendlyAlertModalEl = document.getElementById("friendlyAlertModal");
         var friendlyAlertModal = friendlyAlertModalEl ? new bootstrap.Modal(friendlyAlertModalEl) : null;
         var friendlyAlertTitle = document.getElementById("friendlyAlertTitle");
@@ -434,10 +433,6 @@
                 console.error("Failed to parse labels", e);
                 return [];
             }
-        }
-
-        function setCardLabels(cardEl, labels) {
-            cardEl.dataset.labels = JSON.stringify(labels || []);
         }
 
         function getPriorityInfo(priorityValue) {
@@ -1328,7 +1323,6 @@
 
         var currentEditCardId = 0;
         var currentEditCardElement = null;
-        var currentEditLabels = [];
         var boardMembersLoaded = false;
         var editCardModal = document.getElementById("editCardModal");
         var editCardModalTitle = document.getElementById("editCardModalTitle");
@@ -1349,10 +1343,6 @@
         var editCardCreatorInitial = document.getElementById("editCardCreatorInitial");
         var editCardCreatorName = document.getElementById("editCardCreatorName");
         var editCardCreationTime = document.getElementById("editCardCreationTime");
-        var editCardLabelInput = document.getElementById("editCardLabelInput");
-        var editCardLabelSuggestions = document.getElementById("editCardLabelSuggestions");
-        var editCardLabels = document.getElementById("editCardLabels");
-        var btnAddLabel = document.getElementById("btnAddLabel");
         var btnUpdateCard = document.getElementById("btnUpdateCard");
         var btnMoveCard = document.getElementById("btnMoveCard");
         var btnTransferCard = document.getElementById("btnTransferCard");
@@ -1476,102 +1466,6 @@
             cardEl.dataset.assignedUserAvatarUrl = assignedUserAvatarUrl || "";
         }
 
-        function syncCurrentCardLabels() {
-            if (!currentEditCardElement) return;
-            setCardLabels(currentEditCardElement, currentEditLabels);
-            renderCardContent(currentEditCardElement);
-            renderSelectedLabels();
-        }
-
-        function updateLabelColorAcrossBoard(labelId, color) {
-            document.querySelectorAll(".kanban-card").forEach(function(card) {
-                var labels = parseCardLabels(card);
-                var updated = false;
-                labels.forEach(function(label) {
-                    if (label.Id === labelId) {
-                        label.Color = color;
-                        updated = true;
-                    }
-                });
-                if (updated) {
-                    setCardLabels(card, labels);
-                    renderCardContent(card);
-                }
-            });
-        }
-
-        function renderSelectedLabels() {
-            if (!editCardLabels) return;
-
-            if (currentEditLabels.length === 0) {
-                editCardLabels.innerHTML = '<div class="text-muted small">' + getLocalizedText("no-labels-yet", "No labels yet.") + '</div>';
-                return;
-            }
-
-            editCardLabels.innerHTML = currentEditLabels.map(function(label) {
-                var colorPicker = canEditCurrentBoard
-                    ? '<input type="color" class="edit-label-color" value="' + escapeAttribute(label.Color) + '" data-label-color-id="' + label.Id + '" aria-label="' + getLocalizedText("change-color", "Change {0} color").replace("{0}", escapeAttribute(label.Name)) + '">'
-                    : '';
-                var removeButton = canEditCurrentBoard
-                    ? '<button type="button" class="btn-remove-label" data-remove-label-id="' + label.Id + '" aria-label="' + getLocalizedText("remove", "Remove {0}").replace("{0}", escapeAttribute(label.Name)) + '">×</button>'
-                    : '';
-                return '<div class="edit-label-chip">'
-                    + '<span class="edit-label-name" style="background-color:' + escapeAttribute(label.Color) + '22;border-color:' + escapeAttribute(label.Color) + ';color:' + escapeAttribute(label.Color) + ';">' + escapeHtml(label.Name) + '</span>'
-                    + colorPicker
-                    + removeButton
-                    + '</div>';
-            }).join('');
-
-            if (!canEditCurrentBoard) return;
-
-            editCardLabels.querySelectorAll("[data-remove-label-id]").forEach(function(button) {
-                button.addEventListener("click", function() {
-                    var labelId = parseInt(this.dataset.removeLabelId, 10);
-                    fetch("/Kanban/RemoveLabel", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded", "RequestVerificationToken": csrfToken },
-                        body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&cardId=" + currentEditCardId + "&labelId=" + labelId
-                    })
-                    .then(function(r) {
-                        if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("failed-remove-label", "Failed to remove label.")); });
-                        currentEditLabels = currentEditLabels.filter(function(label) { return label.Id !== labelId; });
-                        syncCurrentCardLabels();
-                    })
-                    .catch(function(err) {
-                        showFriendlyDialog(err.message || getLocalizedText("failed-remove-label", "Failed to remove label."), getLocalizedText("error", "Error"));
-                    });
-                });
-            });
-
-            editCardLabels.querySelectorAll("[data-label-color-id]").forEach(function(input) {
-                input.addEventListener("change", function() {
-                    var labelId = parseInt(this.dataset.labelColorId, 10);
-                    var color = this.value;
-                    fetch("/Kanban/UpdateLabelColor", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded", "RequestVerificationToken": csrfToken },
-                        body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&cardId=" + currentEditCardId + "&labelId=" + labelId + "&color=" + encodeURIComponent(color)
-                    })
-                    .then(function(r) {
-                        if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("failed-update-label-color", "Failed to update label color.")); });
-                        return r.json();
-                    })
-                    .then(function(data) {
-                        currentEditLabels.forEach(function(label) {
-                            if (label.Id === data.Id) {
-                                label.Color = data.Color;
-                            }
-                        });
-                        updateLabelColorAcrossBoard(data.Id, data.Color);
-                        syncCurrentCardLabels();
-                    })
-                    .catch(function(err) {
-                        showFriendlyDialog(err.message || getLocalizedText("failed-update-label-color", "Failed to update label color."), getLocalizedText("error", "Error"));
-                    });
-                });
-            });
-        }
-
         function loadBoardMembers(selectedUserId) {
             if (!canEditCurrentBoard || !editCardAssignee) {
                 return Promise.resolve();
@@ -1603,112 +1497,8 @@
                 });
         }
 
-        function fetchLabelSuggestions(query) {
-            if (!canEditCurrentBoard || !editCardLabelSuggestions) return;
-
-            if (!query) {
-                editCardLabelSuggestions.innerHTML = "";
-                return;
-            }
-
-            fetch("/Kanban/SearchLabels?q=" + encodeURIComponent(query))
-                .then(function(r) { return r.ok ? r.json() : []; })
-                .then(function(labels) {
-                    editCardLabelSuggestions.innerHTML = labels.map(function(label) {
-                        return '<option value="' + escapeAttribute(label.Name) + '"></option>';
-                    }).join('');
-                })
-                .catch(function(err) {
-                    console.error("SearchLabels failed:", err);
-                });
-        }
-
-        function submitLabelInput() {
-            if (!canEditCurrentBoard || !editCardLabelInput) return;
-
-            var labelName = editCardLabelInput.value.trim().replace(/,$/, "").trim();
-            if (!labelName) return;
-
-            var exists = currentEditLabels.some(function(label) {
-                return (label.Name || "").toLowerCase() === labelName.toLowerCase();
-            });
-            if (exists) {
-                editCardLabelInput.value = "";
-                return;
-            }
-
-            fetch("/Kanban/AddLabel", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded", "RequestVerificationToken": csrfToken },
-                body: "__RequestVerificationToken=" + encodeURIComponent(csrfToken) + "&cardId=" + currentEditCardId + "&name=" + encodeURIComponent(labelName) + (typeof editLabelColorPicker !== 'undefined' && editLabelColorPicker ? "&color=" + encodeURIComponent(editLabelColorPicker.value) : "")
-            })
-            .then(function(r) {
-                if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("failed-add-label", "Failed to add label.")); });
-                return r.json();
-            })
-            .then(function(data) {
-                currentEditLabels.push({ Id: data.Id, Name: data.Name, Color: data.Color });
-                currentEditLabels.sort(function(a, b) { return (a.Name || "").localeCompare(b.Name || ""); });
-                editCardLabelInput.value = "";
-                syncCurrentCardLabels();
-                fetchLabelSuggestions("");
-            })
-            .catch(function(err) {
-                showFriendlyDialog(err.message || getLocalizedText("failed-add-label", "Failed to add label."), getLocalizedText("error", "Error"));
-            });
-        }
-
-        if (editCardLabelInput) {
-            editCardLabelInput.addEventListener("input", function() {
-                clearTimeout(labelSearchTimeout);
-                var query = this.value.trim();
-                labelSearchTimeout = setTimeout(function() { fetchLabelSuggestions(query); }, 150);
-            });
-            editCardLabelInput.addEventListener("keydown", function(e) {
-                if (e.key === "Enter" || e.key === ",") {
-                    e.preventDefault();
-                    submitLabelInput();
-                }
-            });
-        }
-
-        if (btnAddLabel) {
-            btnAddLabel.addEventListener("click", submitLabelInput);
-        }
-
         if (editCardRecurring) {
             editCardRecurring.addEventListener("change", syncRecurrenceFieldsFromSwitch);
-        }
-
-        var editLabelColorPicker = document.getElementById("editLabelColorPicker");
-        var labelColorPresetsContainer = document.getElementById("labelColorPresets");
-        var presetColors = ["#EF4444", "#F97316", "#EAB308", "#22C55E", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6"];
-        if (labelColorPresetsContainer) {
-            presetColors.forEach(function(c, index) {
-                if (Array.from(labelColorPresetsContainer.children).some(t => t.title === c)) {
-                    return;
-                }
-
-                var btn = document.createElement("button");
-                btn.type = "button";
-                btn.className = "label-color-swatch";
-                btn.title = c;
-                btn.style.background = c;
-                btn.addEventListener("click", function() {
-                    if (editLabelColorPicker) editLabelColorPicker.value = c;
-                    labelColorPresetsContainer.querySelectorAll('.label-color-swatch').forEach(function(b){ b.classList.remove('selected'); });
-                    btn.classList.add('selected');
-                });
-                if (index === 0) {
-                    btn.classList.add('selected');
-                }
-                labelColorPresetsContainer.appendChild(btn);
-            });
-        }
-        if (editLabelColorPicker) {
-            editLabelColorPicker.addEventListener('input', function() {
-                if (labelColorPresetsContainer) labelColorPresetsContainer.querySelectorAll('button').forEach(function(b){ b.style.outline = ''; });
-            });
         }
 
         if (editCardDescription && canEditCurrentBoard) {
@@ -1788,11 +1578,6 @@
             showEditCardView("details");
             currentEditCardElement = cardEl;
             currentEditCardId = parseInt(cardEl.dataset.cardId, 10);
-            currentEditLabels = parseCardLabels(cardEl).map(function(label) {
-                return { Id: label.Id, Name: label.Name, Color: label.Color };
-            });
-            currentEditLabels.sort(function(a, b) { return (a.Name || "").localeCompare(b.Name || ""); });
-
             editCardTitle.classList.remove("is-invalid");
             clearRecurrenceValidation();
             editCardTitle.value = cardEl.dataset.title || "";
@@ -1825,9 +1610,6 @@
             if (editCardRecurring) {
                 editCardRecurring.checked = !!storedRecurrenceInterval && storedRecurrenceUnit !== "0";
                 setRecurrenceFieldsVisible(editCardRecurring.checked);
-            }
-            if (editCardLabelInput) {
-                editCardLabelInput.value = "";
             }
             if (editCardAssignee && !canEditCurrentBoard) {
                 editCardAssignee.innerHTML = '<option value="">' + getLocalizedText("unassigned", "Unassigned") + '</option>';
@@ -1870,7 +1652,6 @@
                 }
             }
 
-            renderSelectedLabels();
             loadBoardMembers(cardEl.dataset.assignedUserId || "");
             loadComments(currentEditCardId);
             new bootstrap.Modal(editCardModal).show();
