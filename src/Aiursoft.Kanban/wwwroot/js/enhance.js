@@ -234,3 +234,36 @@ function setupImageDropzone(element, options = {}) {
         }
     };
 }
+
+/**
+ * 突出卡片，在需要卡片引人注意的时候使用
+ * @param {HTMLElement} cardEle 卡片元素
+ * @param {number} duration 持续时间
+ */
+var _hightLightStyleInjected = false;
+function hightLightCard(cardEle) {
+    if (!cardEle) return;
+
+    if (!_hightLightStyleInjected) {
+        var style = document.createElement("style");
+        style.textContent =
+            "@keyframes kanban-card-pulse {" +
+            "  0%, 100% { border-color: var(--bs-border-color, #e9ecef); box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); transform: scale(1); }" +
+            "  25%  { border-color: #4dabf7; box-shadow: 0 4px 16px rgba(77,171,247,0.4), 0 0 0 4px rgba(77,171,247,0.25), 0 8px 24px rgba(0,0,0,0.12); transform: scale(1.02); }" +
+            "  50%  { border-color: #4dabf7; box-shadow: 0 8px 28px rgba(77,171,247,0.5), 0 0 0 6px rgba(77,171,247,0.2), 0 16px 40px rgba(0,0,0,0.16); transform: scale(1.03); }" +
+            "  75%  { border-color: #4dabf7; box-shadow: 0 4px 16px rgba(77,171,247,0.4), 0 0 0 4px rgba(77,171,247,0.25), 0 8px 24px rgba(0,0,0,0.12); transform: scale(1.02); }" +
+            "}" +
+            ".kanban-card.hightlight-pulse {" +
+            "  animation: kanban-card-pulse 0.8s ease-in-out 3;" +
+            "}";
+        document.head.appendChild(style);
+        _hightLightStyleInjected = true;
+    }
+
+    cardEle.classList.add("hightlight-pulse");
+
+    cardEle.addEventListener("animationend", function handler() {
+        cardEle.classList.remove("hightlight-pulse");
+        cardEle.removeEventListener("animationend", handler);
+    }, { once: true });
+}

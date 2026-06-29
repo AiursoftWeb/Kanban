@@ -3,6 +3,11 @@
         return el ? el.innerText : (defaultText || key);
     }
 
+    function getCardIdFromURL() {
+        var params = new URLSearchParams(window.location.search);
+        return params.get("cardId") || "";
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         lucide.createIcons();
         if (window.mermaid) {
@@ -2249,4 +2254,29 @@
                 });
             });
         }
+
+        // 突出显示卡片
+        (function() {
+            var cardId = getCardIdFromURL();
+            if (!cardId) return;
+
+            var columns = document.querySelectorAll(".column-cards");
+            columns.forEach(function(columnCards) {
+                var targetId = parseInt(cardId, 10);
+                var matchingCards = [];
+                Array.from(columnCards.children).forEach(function(child) {
+                    var childCardId = parseInt(child.dataset.cardId, 10);
+                    if (childCardId === targetId) {
+                        matchingCards.push(child);
+                    }
+                });
+
+                matchingCards.forEach(function(card) {
+                    columnCards.insertBefore(card, columnCards.firstChild);
+                    if (typeof hightLightCard === "function") {
+                        hightLightCard(card);
+                    }
+                });
+            });
+        })()
     });
