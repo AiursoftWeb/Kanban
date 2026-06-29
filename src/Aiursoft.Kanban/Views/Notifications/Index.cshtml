@@ -188,7 +188,7 @@ else
                         </button>
                         @if (notification.BoardId.HasValue)
                         {
-                            <a href="/Kanban/Index?boardId=@notification.BoardId" class="btn btn-outline-secondary btn-card-link">
+                            <a href="/Kanban/Index?boardId=@notification.BoardId&cardId=@notification.CardId" class="btn btn-outline-secondary btn-card-link">
                                 <i class="align-middle me-1" data-lucide="external-link"></i> @(notification.CardId.HasValue ? Localizer["Open Card"] : Localizer["Open Board"])
                             </a>
                         }

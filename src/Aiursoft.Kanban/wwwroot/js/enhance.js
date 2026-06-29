@@ -248,10 +248,10 @@ function hightLightCard(cardEle) {
         var style = document.createElement("style");
         style.textContent =
             "@keyframes kanban-card-pulse {" +
-            "  0%, 100% { border-color: var(--bs-border-color, #e9ecef); box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); transform: scale(1); }" +
-            "  25%  { border-color: #4dabf7; box-shadow: 0 4px 16px rgba(77,171,247,0.4), 0 0 0 4px rgba(77,171,247,0.25), 0 8px 24px rgba(0,0,0,0.12); transform: scale(1.02); }" +
-            "  50%  { border-color: #4dabf7; box-shadow: 0 8px 28px rgba(77,171,247,0.5), 0 0 0 6px rgba(77,171,247,0.2), 0 16px 40px rgba(0,0,0,0.16); transform: scale(1.03); }" +
-            "  75%  { border-color: #4dabf7; box-shadow: 0 4px 16px rgba(77,171,247,0.4), 0 0 0 4px rgba(77,171,247,0.25), 0 8px 24px rgba(0,0,0,0.12); transform: scale(1.02); }" +
+            "  0%, 100% { background: var(--bs-body-bg, #fff); border-color: var(--bs-border-color, #e9ecef); box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); transform: scale(1); }" +
+            "  25%  { background: #fff9db; border-color: #fcc419; box-shadow: 0 4px 16px rgba(252,196,25,0.45), 0 0 0 4px rgba(252,196,25,0.3), 0 8px 24px rgba(0,0,0,0.12); transform: scale(1.02); }" +
+            "  50%  { background: #fff3bf; border-color: #fcc419; box-shadow: 0 8px 28px rgba(252,196,25,0.55), 0 0 0 6px rgba(252,196,25,0.25), 0 16px 40px rgba(0,0,0,0.16); transform: scale(1.03); }" +
+            "  75%  { background: #fff9db; border-color: #fcc419; box-shadow: 0 4px 16px rgba(252,196,25,0.45), 0 0 0 4px rgba(252,196,25,0.3), 0 8px 24px rgba(0,0,0,0.12); transform: scale(1.02); }" +
             "}" +
             ".kanban-card.hightlight-pulse {" +
             "  animation: kanban-card-pulse 0.8s ease-in-out 3;" +
