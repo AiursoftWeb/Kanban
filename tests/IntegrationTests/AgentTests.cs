@@ -825,7 +825,7 @@ public class AgentTests : TestBase
     }
 
     [TestMethod]
-    public async Task BatchCreateCards_SkipsEmptyTitles()
+    public async Task BatchCreateCards_EmptyTitleReturnsError()
     {
         await LoginAsAdmin();
         var (_, columnId) = await CreateBoardAndFirstColumnAsync();
@@ -839,12 +839,11 @@ public class AgentTests : TestBase
         var cardsJson = """[{"title":"Valid Card"},{"title":"  "},{"title":""},{"title":"Another Valid"}]""";
 
         var result = await batchTools.BatchCreateCards(columnId, cardsJson);
-        StringAssert.Contains(result, "Created 2 card(s)");
+        StringAssert.Contains(result, "Error: Card at index 1 has an empty title.");
 
+        // Verify no cards were created (atomic — all or nothing)
         var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).ToList();
-        Assert.AreEqual(2, cards.Count, "Only non-empty title cards should be created");
-        Assert.IsTrue(cards.Any(c => c.Title == "Valid Card"));
-        Assert.IsTrue(cards.Any(c => c.Title == "Another Valid"));
+        Assert.AreEqual(0, cards.Count, "No cards should be created when any input is invalid");
     }
 
     [TestMethod]
@@ -904,6 +903,94 @@ public class AgentTests : TestBase
         var card = db.KanbanCards.First(c => c.ColumnId == columnId);
         Assert.AreEqual("Padded Title", card.Title, "Title should be trimmed");
         Assert.AreEqual("Padded Desc", card.Description, "Description should be trimmed");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_DefaultsAssigneeToCurrentUser()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        // No assignedUserId specified — should default to current user
+        var cardsJson = """[{"title":"Card 1"},{"title":"Card 2","description":"desc"}]""";
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 2 card(s)");
+
+        var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).ToList();
+        Assert.AreEqual(2, cards.Count);
+        foreach (var card in cards)
+        {
+            Assert.AreEqual(adminUser.Id, card.CreatorUserId);
+            Assert.AreEqual(adminUser.Id, card.AssignedUserId,
+                "Assignee should default to current user when not specified");
+        }
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_ExplicitAssignUserId()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        // Register a second user and add them to the board
+        var (user2Email, _) = await RegisterAndLoginAsync();
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+
+        // Add user2 to the board so they can be assigned
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+        var board = db.KanbanBoards.First(b => b.Columns.Any(c => c.Id == columnId));
+        await shareTools.ShareBoard(board.Id, user2.Id, null, "ReadOnly");
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = $$"""
+            [{"title":"Card A","assignedUserId":"{{user2.Id}}"},
+             {"title":"Card B","assignedUserId":""},
+             {"title":"Card C"}]
+            """;
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 3 card(s)");
+
+        var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).OrderBy(c => c.Order).ToList();
+        Assert.AreEqual(3, cards.Count);
+        Assert.AreEqual(user2.Id, cards[0].AssignedUserId, "Explicit assignee should be respected");
+        Assert.IsNull(cards[1].AssignedUserId, "Empty string should leave unassigned");
+        Assert.AreEqual(adminUser.Id, cards[2].AssignedUserId, "Missing should default to current user");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_InvalidAssigneeReturnsError()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        // Register a user who is NOT added to the board
+        var (user2Email, _) = await RegisterAndLoginAsync();
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = $$"""[{"title":"Card A"},{"title":"Card B","assignedUserId":"{{user2.Id}}"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Error: Assigned user for card at index 1 does not have access to this board.");
+
+        // Atomic: no cards should be created
+        var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).ToList();
+        Assert.AreEqual(0, cards.Count, "No cards should be created when any assignee is invalid");
     }
 
     // ── GetCardsByDateRange ──────────────────────────────
@@ -1303,6 +1390,101 @@ public class AgentTests : TestBase
         Assert.IsNull(service.GetConversation(convId));
         Assert.AreEqual(0, adviceService.GetPendingForConversation(convId).Count,
             "All advice from cancelled conversation should be removed");
+    }
+
+    // ── CreateCard assignee ──────────────────────────────
+
+    [TestMethod]
+    public async Task CreateCard_DefaultsAssigneeToCurrentUser()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var writeTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        // No assignedUserId argument — should default to current user
+        var result = await writeTools.CreateCard(columnId, "Test Card", "Description");
+        StringAssert.Contains(result, "Card created:");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual(adminUser.Id, card.CreatorUserId);
+        Assert.AreEqual(adminUser.Id, card.AssignedUserId,
+            "Assignee should default to current user when not specified");
+    }
+
+    [TestMethod]
+    public async Task CreateCard_ExplicitAssignUserId()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        // Register a second user and add them to the board
+        var (user2Email, _) = await RegisterAndLoginAsync();
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+
+        // Add user2 to the board so they can be assigned
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+        var board = db.KanbanBoards.First(b => b.Columns.Any(c => c.Id == columnId));
+        await shareTools.ShareBoard(board.Id, user2.Id, null, "ReadOnly");
+
+        var writeTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        var result = await writeTools.CreateCard(columnId, "Assigned Task", "desc", assignedUserId: user2.Id);
+        StringAssert.Contains(result, "Card created:");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual(adminUser.Id, card.CreatorUserId, "Creator should always be current user");
+        Assert.AreEqual(user2.Id, card.AssignedUserId, "Explicit assignee should be respected");
+    }
+
+    [TestMethod]
+    public async Task CreateCard_EmptyAssigneeLeavesUnassigned()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var writeTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        var result = await writeTools.CreateCard(columnId, "Unassigned Task", "desc", assignedUserId: "");
+        StringAssert.Contains(result, "Card created:");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual(adminUser.Id, card.CreatorUserId);
+        Assert.IsNull(card.AssignedUserId, "Empty string should leave card unassigned");
+    }
+
+    [TestMethod]
+    public async Task CreateCard_InvalidAssigneeReturnsError()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        // Register a user who is NOT added to the board
+        var (user2Email, _) = await RegisterAndLoginAsync();
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var writeTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        var result = await writeTools.CreateCard(columnId, "Bad Assign", "desc", assignedUserId: user2.Id);
+        StringAssert.Contains(result, "Error: Assigned user does not have access to this board.");
+
+        // Verify no card was created
+        var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).ToList();
+        Assert.AreEqual(0, cards.Count, "No card should be created when assignee is invalid");
     }
 
     // ── GetMyTasks ──────────────────────────────────────

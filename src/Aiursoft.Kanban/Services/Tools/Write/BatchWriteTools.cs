@@ -18,7 +18,7 @@ public class BatchWriteTools(
     [Advice]
     public async Task<string> BatchCreateCards(
         [Description("Target column ID")] int columnId,
-        [Description("JSON array of cards with title and optional description. Example: [{\"title\":\"Card A\",\"description\":\"Desc\"},{\"title\":\"Card B\"}]")]
+        [Description("JSON array of cards with title, optional description, and optional assignedUserId. Example: [{\"title\":\"Card A\",\"description\":\"Desc\",\"assignedUserId\":\"user-id\"},{\"title\":\"Card B\"}]")]
         string cardsJson)
     {
         var userId = currentUser.UserId;
@@ -35,11 +35,28 @@ public class BatchWriteTools(
         }
         catch
         {
-            return "Error: Invalid JSON format. Use [{\"title\":\"...\",\"description\":\"...\"}].";
+            return "Error: Invalid JSON format. Use [{\"title\":\"...\",\"description\":\"...\",\"assignedUserId\":\"...\"}].";
         }
 
         if (inputs == null || inputs.Count == 0)
             return "Error: No cards specified.";
+
+        // Validate all inputs first so the operation is atomic.
+        for (var i = 0; i < inputs.Count; i++)
+        {
+            if (string.IsNullOrWhiteSpace(inputs[i].Title))
+                return $"Error: Card at index {i} has an empty title.";
+
+            var rawAssignee = inputs[i].AssignedUserId;
+            var assignee = rawAssignee switch
+            {
+                null => userId,
+                "" => null,
+                _ => rawAssignee.Trim()
+            };
+            if (assignee != null && !await access.CanAssignUserToBoardAsync(column.Board, assignee))
+                return $"Error: Assigned user for card at index {i} does not have access to this board.";
+        }
 
         var maxOrder = await db.KanbanCards
             .Where(c => c.ColumnId == columnId)
@@ -48,14 +65,22 @@ public class BatchWriteTools(
         var createdIds = new List<int>();
         foreach (var input in inputs)
         {
-            if (string.IsNullOrWhiteSpace(input.Title)) continue;
+            var resolvedAssignee = input.AssignedUserId switch
+            {
+                null => userId,
+                "" => null,
+                _ => input.AssignedUserId!.Trim()
+            };
+
             maxOrder++;
             var card = new KanbanCard
             {
-                Title = input.Title.Trim(),
+                Title = input.Title!.Trim(),
                 Description = input.Description?.Trim(),
                 Order = maxOrder,
-                ColumnId = columnId
+                ColumnId = columnId,
+                CreatorUserId = userId,
+                AssignedUserId = resolvedAssignee
             };
             db.KanbanCards.Add(card);
             createdIds.Add(card.Id);
@@ -130,5 +155,6 @@ public class BatchWriteTools(
     {
         public string? Title { get; set; }
         public string? Description { get; set; }
+        public string? AssignedUserId { get; set; }
     }
 }
