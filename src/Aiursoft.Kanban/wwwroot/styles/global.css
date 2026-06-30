@@ -1,0 +1,5 @@
+/* Global styles — loaded on every page */
+.dropdown-menu[aria-labelledby='alertsDropdown'] .list-group {
+    max-height: 80vh;
+    overflow-y: scroll;
+}

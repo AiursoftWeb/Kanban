@@ -333,7 +333,7 @@ public class ViewModelArgsInjector(
                 .Include(n => n.Board)
                 .Include(n => n.ActorUser)
                 .OrderByDescending(n => n.CreationTime)
-                .Take(10)
+                // .Take(10)
                 .ToList();
 
             toInject.Navbar.NotificationsDropdown = new NotificationsDropdownViewModel

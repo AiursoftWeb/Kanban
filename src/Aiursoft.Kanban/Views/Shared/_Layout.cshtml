@@ -1,0 +1,14 @@
+@{
+    Layout = "~/Layout/UiStackLayout.cshtml";
+}
+
+@section styles {
+    <link rel="stylesheet" href="~/styles/global.css" asp-append-version="true" />
+    @RenderSection("styles", required: false)
+}
+
+@RenderBody()
+
+@section scripts {
+    @RenderSection("scripts", required: false)
+}
