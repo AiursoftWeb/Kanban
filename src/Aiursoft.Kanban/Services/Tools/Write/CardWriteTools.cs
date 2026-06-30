@@ -41,6 +41,7 @@ public class CardWriteTools(
             Description = description?.Trim(),
             Order = maxOrder + 1,
             ColumnId = columnId,
+            CreatorUserId = userId,
             AssignedUserId = userId
         };
         db.KanbanCards.Add(card);

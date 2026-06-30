@@ -55,7 +55,9 @@ public class BatchWriteTools(
                 Title = input.Title.Trim(),
                 Description = input.Description?.Trim(),
                 Order = maxOrder,
-                ColumnId = columnId
+                ColumnId = columnId,
+                CreatorUserId = userId,
+                AssignedUserId = userId
             };
             db.KanbanCards.Add(card);
             createdIds.Add(card.Id);
