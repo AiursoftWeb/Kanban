@@ -47,11 +47,12 @@ public class BatchWriteTools(
             if (string.IsNullOrWhiteSpace(inputs[i].Title))
                 return $"Error: Card at index {i} has an empty title.";
 
-            var assignee = inputs[i].AssignedUserId switch
+            var rawAssignee = inputs[i].AssignedUserId;
+            var assignee = rawAssignee switch
             {
                 null => userId,
                 "" => null,
-                _ => inputs[i].AssignedUserId.Trim()
+                _ => rawAssignee.Trim()
             };
             if (assignee != null && !await access.CanAssignUserToBoardAsync(column.Board, assignee))
                 return $"Error: Assigned user for card at index {i} does not have access to this board.";
