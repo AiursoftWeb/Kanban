@@ -825,7 +825,7 @@ public class AgentTests : TestBase
     }
 
     [TestMethod]
-    public async Task BatchCreateCards_SkipsEmptyTitles()
+    public async Task BatchCreateCards_EmptyTitleReturnsError()
     {
         await LoginAsAdmin();
         var (_, columnId) = await CreateBoardAndFirstColumnAsync();
@@ -839,12 +839,11 @@ public class AgentTests : TestBase
         var cardsJson = """[{"title":"Valid Card"},{"title":"  "},{"title":""},{"title":"Another Valid"}]""";
 
         var result = await batchTools.BatchCreateCards(columnId, cardsJson);
-        StringAssert.Contains(result, "Created 2 card(s)");
+        StringAssert.Contains(result, "Error: Card at index 1 has an empty title.");
 
+        // Verify no cards were created (atomic — all or nothing)
         var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).ToList();
-        Assert.AreEqual(2, cards.Count, "Only non-empty title cards should be created");
-        Assert.IsTrue(cards.Any(c => c.Title == "Valid Card"));
-        Assert.IsTrue(cards.Any(c => c.Title == "Another Valid"));
+        Assert.AreEqual(0, cards.Count, "No cards should be created when any input is invalid");
     }
 
     [TestMethod]

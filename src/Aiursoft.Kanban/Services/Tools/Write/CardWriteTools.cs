@@ -21,7 +21,8 @@ public class CardWriteTools(
     public async Task<string> CreateCard(
         [Description("Target column ID")] int columnId,
         [Description("Card title")] string title,
-        [Description("Optional card description")] string? description)
+        [Description("Optional card description")] string? description,
+        [Description("Optional user ID to assign. Defaults to current user if not specified. Pass empty string to leave unassigned.")] string? assignedUserId = null)
     {
         var userId = currentUser.UserId;
         if (string.IsNullOrWhiteSpace(title))
@@ -30,6 +31,16 @@ public class CardWriteTools(
         var column = await db.KanbanColumns.Include(c => c.Board).FirstOrDefaultAsync(c => c.Id == columnId);
         if (column == null) return "Error: Column not found.";
         if (!await access.HasEditAccess(column.Board, userId)) return "Error: You do not have permission to edit this board.";
+
+        // Default to current user if not specified; empty string means unassigned.
+        var resolvedAssignee = assignedUserId switch
+        {
+            null => userId,
+            "" => null,
+            _ => assignedUserId.Trim()
+        };
+        if (resolvedAssignee != null && !await access.CanAssignUserToBoardAsync(column.Board, resolvedAssignee))
+            return "Error: Assigned user does not have access to this board.";
 
         var maxOrder = await db.KanbanCards
             .Where(c => c.ColumnId == columnId)
@@ -42,7 +53,7 @@ public class CardWriteTools(
             Order = maxOrder + 1,
             ColumnId = columnId,
             CreatorUserId = userId,
-            AssignedUserId = userId
+            AssignedUserId = resolvedAssignee
         };
         db.KanbanCards.Add(card);
         await db.SaveChangesAsync();
