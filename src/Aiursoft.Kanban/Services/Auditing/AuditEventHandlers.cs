@@ -10,14 +10,28 @@ public class AuditEventHandlers(
     AuditLogService auditLogService) :
     INotificationHandler<AccountAuditEvent>,
     INotificationHandler<AgentToolExecutedEvent>,
+    INotificationHandler<BoardCreatedEvent>,
+    INotificationHandler<BoardDeletedEvent>,
+    INotificationHandler<BoardMovedEvent>,
+    INotificationHandler<BoardRenamedEvent>,
     INotificationHandler<BoardSharedEvent>,
     INotificationHandler<CardAssignedEvent>,
     INotificationHandler<CardCommentAddedEvent>,
     INotificationHandler<CardCommentDeletedEvent>,
+    INotificationHandler<CardCreatedEvent>,
+    INotificationHandler<CardDeletedEvent>,
     INotificationHandler<CardMovedEvent>,
     INotificationHandler<CardPriorityUpdatedEvent>,
     INotificationHandler<CardTransferredEvent>,
-    INotificationHandler<CardUpdatedEvent>
+    INotificationHandler<CardUpdatedEvent>,
+    INotificationHandler<ColumnCreatedEvent>,
+    INotificationHandler<ColumnDeletedEvent>,
+    INotificationHandler<ColumnMovedEvent>,
+    INotificationHandler<ColumnRenamedEvent>,
+    INotificationHandler<ColumnStatusUpdatedEvent>,
+    INotificationHandler<LabelAddedEvent>,
+    INotificationHandler<LabelColorUpdatedEvent>,
+    INotificationHandler<LabelRemovedEvent>
 {
     public Task Handle(AccountAuditEvent e, CancellationToken ct)
     {
@@ -178,6 +192,160 @@ public class AuditEventHandlers(
             "Kanban",
             $"Updated card \"{card.Title}\": {string.Join(", ", e.ChangedFields)}",
             new { CardId = card.Id, Board = card.Column.Board.Name, e.ChangedFields },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(BoardCreatedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.CreateBoard",
+            "Kanban",
+            $"Created board \"{e.BoardName}\"",
+            new { e.BoardId, e.BoardName },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(BoardDeletedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.DeleteBoard",
+            "Kanban",
+            $"Deleted board \"{e.BoardName}\"",
+            new { e.BoardId, e.BoardName },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(BoardMovedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.MoveBoard",
+            "Kanban",
+            $"Moved board \"{e.BoardName}\" from position {e.OldOrder} to {e.NewOrder}",
+            new { e.BoardId, e.BoardName, e.OldOrder, e.NewOrder },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(BoardRenamedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.RenameBoard",
+            "Kanban",
+            $"Renamed board from \"{e.OldName}\" to \"{e.NewName}\"",
+            new { e.BoardId, e.OldName, e.NewName },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(CardCreatedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.CreateCard",
+            "Kanban",
+            $"Created card \"{e.CardTitle}\"",
+            new { e.CardId, e.CardTitle, e.ColumnId, e.BoardId },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(CardDeletedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.DeleteCard",
+            "Kanban",
+            $"Deleted card \"{e.CardTitle}\"",
+            new { e.CardId, e.CardTitle, e.BoardId },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(ColumnCreatedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.CreateColumn",
+            "Kanban",
+            $"Created column \"{e.ColumnName}\"",
+            new { e.ColumnId, e.ColumnName, e.BoardId },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(ColumnDeletedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.DeleteColumn",
+            "Kanban",
+            $"Deleted column \"{e.ColumnName}\"",
+            new { e.ColumnId, e.ColumnName, e.BoardId },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(ColumnMovedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.MoveColumn",
+            "Kanban",
+            $"Moved column \"{e.ColumnName}\" from position {e.OldOrder} to {e.NewOrder}",
+            new { e.ColumnId, e.ColumnName, e.BoardId, e.OldOrder, e.NewOrder },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(ColumnRenamedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.RenameColumn",
+            "Kanban",
+            $"Renamed column from \"{e.OldName}\" to \"{e.NewName}\"",
+            new { e.ColumnId, e.OldName, e.NewName, e.BoardId },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(ColumnStatusUpdatedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.UpdateColumnStatus",
+            "Kanban",
+            $"Changed column \"{e.ColumnName}\" status from {e.OldStatus} to {e.NewStatus}",
+            new { e.ColumnId, e.ColumnName, e.OldStatus, e.NewStatus, e.BoardId },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(LabelAddedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.AddLabel",
+            "Kanban",
+            $"Added label \"{e.LabelName}\" to card",
+            new { e.CardId, e.LabelId, e.LabelName, e.LabelColor },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(LabelColorUpdatedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.UpdateLabelColor",
+            "Kanban",
+            $"Changed label \"{e.LabelName}\" color from {e.OldColor} to {e.NewColor}",
+            new { e.CardId, e.LabelId, e.LabelName, e.OldColor, e.NewColor },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public Task Handle(LabelRemovedEvent e, CancellationToken ct)
+    {
+        return auditLogService.RecordAsync(
+            "Kanban.RemoveLabel",
+            "Kanban",
+            $"Removed label \"{e.LabelName}\" from card",
+            new { e.CardId, e.LabelId, e.LabelName },
             userId: e.ActorUserId,
             cancellationToken: ct);
     }
