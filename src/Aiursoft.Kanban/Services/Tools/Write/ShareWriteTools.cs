@@ -15,20 +15,28 @@ public class ShareWriteTools(
     IAuthorizationService authorizationService,
     CurrentUserService currentUser) : IScopedDependency
 {
-    [McpServerTool, Description("Share a board with a user or role. Use SearchUsers to find user IDs.")]
+    [McpServerTool, Description("Share a board with a user or role. IMPORTANT: You MUST provide EXACTLY ONE of targetUserId or targetRoleId — the other MUST be left empty (do NOT pass 'None', 'null', or any placeholder). Use SearchUsers to find user IDs.")]
     [Advice]
     public async Task<string> ShareBoard(
         [Description("Board ID to share")] int boardId,
-        [Description("User ID to share with, or null if sharing with a role")] string? targetUserId,
-        [Description("Role ID to share with, or null if sharing with a user")] string? targetRoleId,
+        [Description("User ID to share with. Leave empty if sharing with a role instead.")] string? targetUserId,
+        [Description("Role ID to share with. Leave empty if sharing with a user instead.")] string? targetRoleId,
         [Description("Permission level: ReadOnly or Editable")] string permission)
     {
         var userId = currentUser.UserId;
+
+        // Normalize sentinel values that LLMs may pass instead of leaving the parameter empty.
+        targetUserId = NormalizeOptionalId(targetUserId);
+        targetRoleId = NormalizeOptionalId(targetRoleId);
+
         if (targetUserId == null && targetRoleId == null)
-            return "Error: You must specify either a user ID or a role ID to share with.";
+            return "Error: You must specify exactly one of targetUserId or targetRoleId. Leave the other empty — do not pass 'None' or 'null'.";
+
+        if (targetUserId != null && targetRoleId != null)
+            return "Error: You must specify exactly one of targetUserId or targetRoleId, not both. Leave the other empty.";
 
         var board = await db.KanbanBoards.FindAsync(boardId);
-        if (board == null) return "Error: Board not found.";
+        if (board == null) return $"Error: Board #{boardId} not found.";
         if (!await CanManageSharesAsync(board, userId)) return "Error: Only the board owner can manage shares.";
 
         if (!Enum.TryParse<SharePermission>(permission, true, out var sharePermission))
@@ -37,7 +45,7 @@ public class ShareWriteTools(
         if (targetUserId != null)
         {
             var userExists = await db.Users.AnyAsync(u => u.Id == targetUserId);
-            if (!userExists) return $"Error: User \"{targetUserId}\" not found.";
+            if (!userExists) return $"Error: User \"{targetUserId}\" not found. Use SearchUsers to find valid user IDs.";
             if (targetUserId == userId) return "Error: You cannot share the board with yourself.";
         }
 
@@ -68,6 +76,21 @@ public class ShareWriteTools(
             ? $"user {targetUserId}"
             : $"role {targetRoleId}";
         return $"Board \"{board.Name}\" shared with {target} with {sharePermission} permission.";
+    }
+
+    /// <summary>
+    /// Normalizes optional ID parameters so that common LLM placeholder values
+    /// (such as "None", "null", "string", or whitespace) are treated as null.
+    /// </summary>
+    private static string? NormalizeOptionalId(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return null;
+        var trimmed = value.Trim();
+        if (trimmed.Equals("none", StringComparison.OrdinalIgnoreCase)) return null;
+        if (trimmed.Equals("null", StringComparison.OrdinalIgnoreCase)) return null;
+        if (trimmed.Equals("string", StringComparison.OrdinalIgnoreCase)) return null;
+        if (trimmed.Equals("undefined", StringComparison.OrdinalIgnoreCase)) return null;
+        return trimmed;
     }
 
     [McpServerTool, Description("Remove a share from a board. Use GetBoardShares to see share IDs.")]
