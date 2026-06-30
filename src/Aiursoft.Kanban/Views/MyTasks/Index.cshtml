@@ -257,7 +257,7 @@ else
         @foreach (var card in Model.Cards)
         {
             <div class="col-12">
-                <a class="task-card" href="/Kanban/Index?boardId=@card.Column.BoardId">
+                <a class="task-card" href="/Kanban/Index?boardId=@card.Column.BoardId&cardId=@card.Id">
                     <div class="d-flex flex-wrap justify-content-between gap-3 mb-3">
                         <div>
                             <div class="task-meta-row mb-2">
