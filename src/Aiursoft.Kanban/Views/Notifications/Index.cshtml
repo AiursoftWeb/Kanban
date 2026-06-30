@@ -233,7 +233,7 @@ else
                     cardElement.style.opacity = '0';
                     cardElement.style.transform = 'scale(0.95)';
                     setTimeout(function() {
-                        cardElement.remove();
+                        cardElement.parentElement.remove();
                         var remaining = document.querySelectorAll('.notification-card').length;
                         if (remaining === 0) {
                             location.reload();
@@ -273,6 +273,14 @@ else
             if (count === 0) {
                 var btn = document.getElementById('btnMarkAllRead');
                 if (btn) btn.remove();
+            }
+
+            var indicator = document.querySelector("#alertsDropdown .indicator");
+            if (indicator) {
+                indicator.innerText = count;
+                if (count === 0) {
+                    indicator.style.display = 'none';
+                }
             }
         }
 
