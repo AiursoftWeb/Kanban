@@ -35,12 +35,33 @@ public class AuditActionFilter(
 
     private static bool IsSuccessful(IActionResult? result)
     {
-        var statusCode = result switch
+        return result switch
         {
-            ObjectResult objectResult => objectResult.StatusCode,
-            StatusCodeResult statusCodeResult => statusCodeResult.StatusCode,
-            _ => null
+            null => IsSuccessStatusCode(null),
+            EmptyResult => true,
+            ViewResult => false,
+            ForbidResult => false,
+            ChallengeResult => false,
+            UnauthorizedResult => false,
+            UnauthorizedObjectResult => false,
+            NotFoundResult => false,
+            NotFoundObjectResult => false,
+            BadRequestResult => false,
+            BadRequestObjectResult => false,
+            RedirectResult => true,
+            RedirectToActionResult => true,
+            RedirectToRouteResult => true,
+            LocalRedirectResult => true,
+            JsonResult jsonResult => IsSuccessStatusCode(jsonResult.StatusCode),
+            ObjectResult objectResult => IsSuccessStatusCode(objectResult.StatusCode),
+            StatusCodeResult statusCodeResult => IsSuccessStatusCode(statusCodeResult.StatusCode),
+            ContentResult contentResult => IsSuccessStatusCode(contentResult.StatusCode),
+            _ => false
         };
+    }
+
+    private static bool IsSuccessStatusCode(int? statusCode)
+    {
         return statusCode is null or >= 200 and < 400;
     }
 

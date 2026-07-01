@@ -1,14 +1,17 @@
 using System.Security.Claims;
 using System.Text.Json;
+using Aiursoft.ClickhouseSdk.Abstractions;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Scanner.Abstractions;
+using Microsoft.Extensions.Options;
 
 namespace Aiursoft.Kanban.Services.Auditing;
 
 public class AuditLogService(
     AuditLogBuffer buffer,
     AuditLogContext auditLogContext,
-    IHttpContextAccessor httpContextAccessor) : IScopedDependency
+    IHttpContextAccessor httpContextAccessor,
+    IOptionsMonitor<ClickhouseOptions> options) : IScopedDependency
 {
     public async Task RecordAsync(
         string action,
@@ -20,6 +23,8 @@ public class AuditLogService(
         string? userName = null,
         CancellationToken cancellationToken = default)
     {
+        if (!options.CurrentValue.Enabled) return;
+
         auditLogContext.HasSemanticLog = true;
         var context = httpContextAccessor.HttpContext;
         var principal = context?.User;

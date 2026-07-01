@@ -3,7 +3,7 @@ namespace Aiursoft.Kanban.Services.Auditing;
 public static class AuditDetailFilter
 {
     private static readonly string[] SensitiveNames =
-        ["password", "token", "secret", "content", "description"];
+        ["password", "token", "secret", "content", "description", "json"];
 
     public static bool IsSensitiveName(string name)
     {
