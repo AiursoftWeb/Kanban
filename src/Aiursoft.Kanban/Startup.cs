@@ -77,6 +77,7 @@ public class Startup : IWebStartup
         services.RegisterBackgroundJob<DummyJob>();
         var orphanAvatarCleanupJob = services.RegisterBackgroundJob<OrphanAvatarCleanupJob>();
         var auditLogFlushJob = services.RegisterBackgroundJob<AuditLogFlushService>();
+        services.AddHostedService<AuditLogShutdownFlushService>();
 
         // Scheduled tasks (attach a schedule to any registered background job)
         services.RegisterScheduledTask(

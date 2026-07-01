@@ -1,16 +1,14 @@
 using Aiursoft.Canon.BackgroundJobs;
+using Aiursoft.Scanner.Abstractions;
 
 namespace Aiursoft.Kanban.Services.Auditing;
 
-public class AuditLogFlushService(
+public class AuditLogFlushExecutor(
     AuditLogBuffer buffer,
     AuditClickhouseDbContext clickhouse,
-    ILogger<AuditLogFlushService> logger) : IBackgroundJob
+    ILogger<AuditLogFlushExecutor> logger) : IScopedDependency
 {
-    public string Name => "ClickHouse Audit Log Flush";
-    public string Description => "Writes buffered user operation logs to ClickHouse.";
-
-    public async Task ExecuteAsync()
+    public async Task FlushAsync()
     {
         if (!clickhouse.Enabled) return;
 
@@ -35,5 +33,16 @@ public class AuditLogFlushService(
                 await buffer.EnqueueAsync(auditLog);
             }
         }
+    }
+}
+
+public class AuditLogFlushService(AuditLogFlushExecutor flushExecutor) : IBackgroundJob
+{
+    public string Name => "ClickHouse Audit Log Flush";
+    public string Description => "Writes buffered user operation logs to ClickHouse.";
+
+    public Task ExecuteAsync()
+    {
+        return flushExecutor.FlushAsync();
     }
 }
