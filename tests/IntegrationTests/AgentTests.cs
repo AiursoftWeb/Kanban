@@ -710,6 +710,135 @@ public class AgentTests : TestBase
         Assert.IsFalse(board.IsPublic);
     }
 
+    [TestMethod]
+    public async Task ShareWriteTools_NormalizesSentinelValues()
+    {
+        // Verifies that LLM placeholder values like "None", "null", "string" are treated as null
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        // Register a second user
+        var (user2Email, _) = await RegisterAndLoginAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+
+        // Case 1: targetRoleId = "None" → should be normalized to null and succeed
+        var result = await shareTools.ShareBoard(boardId, user2.Id, "None", "ReadOnly");
+        StringAssert.Contains(result, "shared with user", "Should treat 'None' as null for targetRoleId");
+
+        // Case 2: targetUserId = "null" → should be normalized to null and fail (both null)
+        result = await shareTools.ShareBoard(boardId, "null", "None", "ReadOnly");
+        StringAssert.Contains(result, "Error: You must specify exactly one");
+
+        // Case 3: targetRoleId = "string" → should be normalized to null
+        result = await shareTools.ShareBoard(boardId, user2.Id, "string", "Editable");
+        StringAssert.Contains(result, "This user or role already has access");
+    }
+
+    [TestMethod]
+    public async Task ShareWriteTools_BothIdsProvidedReturnsError()
+    {
+        // Verifies that providing both targetUserId and targetRoleId returns a clear error
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        // Register a second user and add them
+        var (user2Email, _) = await RegisterAndLoginAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+        var result = await shareTools.ShareBoard(boardId, user2.Id, "some-role-id", "ReadOnly");
+
+        StringAssert.Contains(result, "Error: You must specify exactly one");
+        StringAssert.Contains(result, "not both");
+    }
+
+    [TestMethod]
+    public async Task ShareWriteTools_WhitespaceIdsTreatedAsNull()
+    {
+        // Verifies that whitespace-only strings are treated as null
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        var (user2Email, _) = await RegisterAndLoginAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+
+        // targetRoleId = whitespace → treated as null, share with user works
+        var result = await shareTools.ShareBoard(boardId, user2.Id, "   ", "ReadOnly");
+        StringAssert.Contains(result, "shared with user");
+
+        // Both whitespace → error
+        result = await shareTools.ShareBoard(boardId, "  ", "  ", "ReadOnly");
+        StringAssert.Contains(result, "Error: You must specify exactly one");
+    }
+
+    [TestMethod]
+    public async Task ShareWriteTools_UndefinedAndNullLiteralsNormalized()
+    {
+        // Verifies that "undefined" and "null" are treated as null
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        var (user2Email, _) = await RegisterAndLoginAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+
+        // "undefined" as targetRoleId → share succeeds
+        var result = await shareTools.ShareBoard(boardId, user2.Id, "undefined", "ReadOnly");
+        StringAssert.Contains(result, "shared with user");
+
+        // "NULL" (mixed case) as targetUserId, valid targetRoleId ignored since both→null→error
+        // Actually targetUserId="NULL"→null, targetRoleId="null"→null, both null → error
+        result = await shareTools.ShareBoard(boardId, "NULL", "null", "ReadOnly");
+        StringAssert.Contains(result, "Error: You must specify exactly one");
+    }
+
+    [TestMethod]
+    public async Task ShareWriteTools_SentinelUserIdWithValidRoleId()
+    {
+        // Verifies that when targetUserId is a sentinel and targetRoleId is valid,
+        // the share succeeds as a role share
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        // Get the Administrators role
+        var adminRole = db.Roles.First(r => r.Name == "Administrators");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+
+        // targetUserId = "None" (sentinel), targetRoleId = valid role → should share with role
+        var result = await shareTools.ShareBoard(boardId, "None", adminRole.Id, "ReadOnly");
+        StringAssert.Contains(result, "shared with role");
+    }
+
     // ── Batch write tools ─────────────────────────────────
 
     [TestMethod]
