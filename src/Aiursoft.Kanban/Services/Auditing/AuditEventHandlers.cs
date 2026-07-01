@@ -323,7 +323,7 @@ public class AuditEventHandlers(
             "Kanban.AddLabel",
             "Kanban",
             $"Added label \"{e.LabelName}\" to card",
-            new { e.CardId, e.LabelId, e.LabelName, e.LabelColor },
+            new { e.CardId, e.LabelId, e.LabelName, e.LabelColor, e.BoardId },
             userId: e.ActorUserId,
             cancellationToken: ct);
     }
@@ -334,7 +334,7 @@ public class AuditEventHandlers(
             "Kanban.UpdateLabelColor",
             "Kanban",
             $"Changed label \"{e.LabelName}\" color from {e.OldColor} to {e.NewColor}",
-            new { e.CardId, e.LabelId, e.LabelName, e.OldColor, e.NewColor },
+            new { e.CardId, e.LabelId, e.LabelName, e.OldColor, e.NewColor, e.BoardId },
             userId: e.ActorUserId,
             cancellationToken: ct);
     }
@@ -345,7 +345,7 @@ public class AuditEventHandlers(
             "Kanban.RemoveLabel",
             "Kanban",
             $"Removed label \"{e.LabelName}\" from card",
-            new { e.CardId, e.LabelId, e.LabelName },
+            new { e.CardId, e.LabelId, e.LabelName, e.BoardId },
             userId: e.ActorUserId,
             cancellationToken: ct);
     }
