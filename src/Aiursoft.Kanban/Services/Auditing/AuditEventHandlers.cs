@@ -24,6 +24,7 @@ public class AuditEventHandlers(
     INotificationHandler<CardPriorityUpdatedEvent>,
     INotificationHandler<CardTransferredEvent>,
     INotificationHandler<CardUpdatedEvent>,
+    INotificationHandler<RecurringCardResetEvent>,
     INotificationHandler<ColumnCreatedEvent>,
     INotificationHandler<ColumnDeletedEvent>,
     INotificationHandler<ColumnMovedEvent>,
@@ -136,6 +137,30 @@ public class AuditEventHandlers(
                 e.NewOrder,
                 Board = card.Column.Board.Name
             },
+            userId: e.ActorUserId,
+            cancellationToken: ct);
+    }
+
+    public async Task Handle(RecurringCardResetEvent e, CancellationToken ct)
+    {
+        var card = await LoadCardAsync(e.CardId, ct);
+        if (card == null) return;
+
+        await auditLogService.RecordAsync(
+            "Kanban.ResetRecurringCard",
+            "Kanban",
+            $"Reset recurring card \"{card.Title}\" from {e.FromColumnName} to {e.ToColumnName}",
+            new
+            {
+                e.CardId,
+                e.FromColumnId,
+                e.FromColumnName,
+                e.ToColumnId,
+                e.ToColumnName,
+                e.NewOrder,
+                Board = card.Column.Board.Name
+            },
+            source: "System",
             userId: e.ActorUserId,
             cancellationToken: ct);
     }
