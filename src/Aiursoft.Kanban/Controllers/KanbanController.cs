@@ -545,16 +545,20 @@ public class KanbanController(
 
         await db.SaveChangesAsync();
 
-        if (fromColumnId != targetColumnId)
+        var movedToColumnId = card.ColumnId;
+        var movedToColumnName = shouldRecur && recurrenceTargetColumn != null
+            ? recurrenceTargetColumn.Name
+            : column.Name;
+        if (fromColumnId != movedToColumnId)
         {
             await PublishOperationEventAsync(new CardMovedEvent(
                 CardId: cardId,
                 ActorUserId: userId,
                 FromColumnId: fromColumnId,
                 FromColumnName: fromColumnName,
-                ToColumnId: targetColumnId,
-                ToColumnName: column.Name,
-                NewOrder: newOrder));
+                ToColumnId: movedToColumnId,
+                ToColumnName: movedToColumnName,
+                NewOrder: card.Order));
         }
 
         if (shouldRecur && recurrenceTargetColumn != null)

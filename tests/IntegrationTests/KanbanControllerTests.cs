@@ -284,6 +284,25 @@ public class KanbanControllerTests : TestBase
             });
         Assert.AreEqual(HttpStatusCode.OK, setResponse.StatusCode);
 
+        var (assigneeEmail, _) = await RegisterAndLoginAsync();
+        string assigneeId;
+        using (var setupScope = Server!.Services.CreateScope())
+        {
+            var db = setupScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            assigneeId = db.Users.Single(user => user.Email == assigneeEmail).Id;
+            db.BoardShares.Add(new BoardShare
+            {
+                Id = Guid.NewGuid(),
+                BoardId = boardId,
+                SharedWithUserId = assigneeId,
+                Permission = SharePermission.ReadOnly
+            });
+            var assignedCard = await db.KanbanCards.FindAsync(card.Id);
+            assignedCard!.AssignedUserId = assigneeId;
+            await db.SaveChangesAsync();
+        }
+
+        await LoginAsAdmin();
         var response = await PostAsync(
             $"/Kanban/MoveCard?cardId={card.Id}&targetColumnId={completedColumnId}&newOrder=0",
             new Dictionary<string, string>());
@@ -301,6 +320,9 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(RecurrenceUnit.Week, moved.RecurrenceUnit);
         Assert.AreEqual(dueDate.AddDays(14), moved.DueDate);
         Assert.IsNull(moved.ActualEndTime, "ActualEndTime should be cleared on the new cycle.");
+        Assert.IsFalse(await verificationDb.Notifications.AnyAsync(notification =>
+            notification.UserId == assigneeId &&
+            notification.Type == NotificationType.CardMoved));
     }
 
     [TestMethod]
