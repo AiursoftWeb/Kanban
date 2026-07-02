@@ -75,6 +75,12 @@
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Cambiar el color de {{0}}</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Limpiar todos los filtros</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Cerrar</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>No se ha podido actualizar el color de la etiqueta.</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtrar</value>
+  </data>
   <data name="h ago" xml:space="preserve">
     <value>h hace</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="No boards yet" xml:space="preserve">
     <value>Aún no hay tableros</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Ninguna tarjeta coincide con los filtros actuales.</value>
+  </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Aún no hay comentarios.</value>
   </data>
@@ -350,6 +362,9 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>Buscar o crear una etiqueta</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Buscar título o descripción...</value>
   </data>
   <data name="Select a board" xml:space="preserve">
     <value>Seleccionar un tablero</value>

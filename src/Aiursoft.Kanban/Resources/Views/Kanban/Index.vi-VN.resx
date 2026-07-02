@@ -75,6 +75,12 @@
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Đổi màu {{0}}</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Xóa tất cả bộ lọc</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Đóng</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>Không thể cập nhật màu nhãn.</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Bộ lọc</value>
+  </data>
   <data name="h ago" xml:space="preserve">
     <value>giờ trước</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="No boards yet" xml:space="preserve">
     <value>Chưa có bảng nào</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Không có thẻ nào khớp với bộ lọc hiện tại.</value>
+  </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Chưa có bình luận nào.</value>
   </data>
@@ -350,6 +362,9 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>Tìm kiếm hoặc tạo nhãn</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Tìm kiếm tiêu đề hoặc mô tả...</value>
   </data>
   <data name="Select a board" xml:space="preserve">
     <value>Chọn một bảng</value>

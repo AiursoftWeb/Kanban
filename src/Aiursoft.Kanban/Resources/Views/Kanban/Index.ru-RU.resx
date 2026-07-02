@@ -75,6 +75,12 @@
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Изменить цвет {{0}}</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Очистить все фильтры</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Закрыть</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>Не удалось обновить цвет метки.</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
   <data name="h ago" xml:space="preserve">
     <value>ч. назад</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="No boards yet" xml:space="preserve">
     <value>Пока нет досок</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Нет карточек, соответствующих текущим фильтрам.</value>
+  </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Комментариев пока нет.</value>
   </data>
@@ -350,6 +362,9 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>Найти или создать метку</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Поиск по названию или описанию...</value>
   </data>
   <data name="Select a board" xml:space="preserve">
     <value>Выберите доску</value>

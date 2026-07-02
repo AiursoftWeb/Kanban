@@ -75,6 +75,12 @@
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Muuta {{0}} väriä</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Tyhjennä</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Tyhjennä kaikki suodattimet</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Sulje</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>Tunnisteen värin päivitys epäonnistui.</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Suodatin</value>
+  </data>
   <data name="h ago" xml:space="preserve">
     <value>t sitten</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="No boards yet" xml:space="preserve">
     <value>Ei levyjä vielä</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nykyiset suodattimet vastaavat yhtään korttia.</value>
+  </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Ei kommentteja vielä.</value>
   </data>
@@ -350,6 +362,9 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>Etsi tai luo tunniste</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Etsi otsikosta tai kuvauksesta...</value>
   </data>
   <data name="Select a board" xml:space="preserve">
     <value>Valitse taulu</value>

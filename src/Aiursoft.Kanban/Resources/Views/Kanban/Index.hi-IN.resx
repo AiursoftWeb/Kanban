@@ -75,6 +75,12 @@
   <data name="Change {{0}} color" xml:space="preserve">
     <value>{{0}} का रंग बदलें</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>साफ़ करें</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>सभी फ़िल्टर साफ़ करें</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>बंद करें</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>लेबल रंग अपडेट करने में विफल।</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>फ़िल्टर</value>
+  </data>
   <data name="h ago" xml:space="preserve">
     <value>घंटे पहले</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="No boards yet" xml:space="preserve">
     <value>अभी तक कोई बोर्ड नहीं है</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>कोई कार्ड वर्तमान फ़िल्टर्स से मेल नहीं खाता है।</value>
+  </data>
   <data name="No comments yet." xml:space="preserve">
     <value>अभी तक कोई टिप्पणी नहीं।</value>
   </data>
@@ -350,6 +362,9 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>लेबल खोजें या बनाएं</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>शीर्षक या विवरण खोजें...</value>
   </data>
   <data name="Select a board" xml:space="preserve">
     <value>बोर्ड चुनें</value>

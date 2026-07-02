@@ -75,6 +75,12 @@
   <data name="Change {{0}} color" xml:space="preserve">
     <value>{{0}} 색상 변경</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>지우기</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>모든 필터 지우기</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>닫기</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>레이블 색상을 업데이트하지 못했습니다.</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>필터</value>
+  </data>
   <data name="h ago" xml:space="preserve">
     <value>시간 전</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="No boards yet" xml:space="preserve">
     <value>아직 보드가 없습니다</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>현재 필터와 일치하는 카드가 없습니다.</value>
+  </data>
   <data name="No comments yet." xml:space="preserve">
     <value>아직 댓글이 없습니다.</value>
   </data>
@@ -350,6 +362,9 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>라벨 검색 또는 생성</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>제목 또는 설명을 검색하세요...</value>
   </data>
   <data name="Select a board" xml:space="preserve">
     <value>보드를 선택하세요</value>

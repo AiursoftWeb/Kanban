@@ -75,6 +75,12 @@
   <data name="Change {{0}} color" xml:space="preserve">
     <value>更改 {{0}} 颜色</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>清除所有筛选器</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>关闭</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>更新标签颜色失败。</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>筛选</value>
+  </data>
   <data name="h ago" xml:space="preserve">
     <value>小时前</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="No boards yet" xml:space="preserve">
     <value>暂无看板</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>没有卡片符合当前筛选条件。</value>
+  </data>
   <data name="No comments yet." xml:space="preserve">
     <value>暂无评论。</value>
   </data>
@@ -350,6 +362,9 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>搜索或创建标签</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>搜索标题或描述...</value>
   </data>
   <data name="Select a board" xml:space="preserve">
     <value>选择看板</value>
