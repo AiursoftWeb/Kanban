@@ -69,7 +69,10 @@ public class AppPermissions
                 localizer["Allows viewing and modifying global application settings."]),
             new(AppPermissionNames.CanManageAnyBoardShare,
                 localizer["Manage Any Board Share"],
-                localizer["Allows managing sharing and visibility settings for any board."])
+                localizer["Allows managing sharing and visibility settings for any board."]),
+            new(AppPermissionNames.CanManageAnyDailyReport,
+                localizer["Manage Any Daily Report"],
+                localizer["Allows viewing and managing daily plans and summaries for all users."])
         ];
         return allPermission;
     }

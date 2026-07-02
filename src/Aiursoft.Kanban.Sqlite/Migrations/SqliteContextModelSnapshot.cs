@@ -49,6 +49,39 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.ToTable("BoardShares");
                 });
 
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.DailyReport", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(8000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("GeneratedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ReportType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "Date", "ReportType")
+                        .IsUnique();
+
+                    b.ToTable("DailyReports");
+                });
+
             modelBuilder.Entity("Aiursoft.Kanban.Entities.GlobalSetting", b =>
                 {
                     b.Property<string>("Key")
@@ -537,6 +570,17 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.Navigation("Board");
 
                     b.Navigation("SharedWithUser");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.DailyReport", b =>
+                {
+                    b.HasOne("Aiursoft.Kanban.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanBoard", b =>

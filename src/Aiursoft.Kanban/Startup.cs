@@ -79,6 +79,13 @@ public class Startup : IWebStartup
             period:     TimeSpan.FromHours(6),
             startDelay: TimeSpan.FromMinutes(5));
 
+        // Daily Report background job — scans every 30 minutes
+        var dailyReportJob = services.RegisterBackgroundJob<DailyReportBackgroundJob>();
+        services.RegisterScheduledTask(
+            registration: dailyReportJob,
+            period:      TimeSpan.FromMinutes(30),
+            startDelay:  TimeSpan.FromMinutes(2));
+
         // Controllers and localization
         services.AddControllersWithViews()
             .AddNewtonsoftJson(options =>

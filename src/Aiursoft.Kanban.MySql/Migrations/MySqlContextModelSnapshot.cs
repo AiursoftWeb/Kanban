@@ -54,6 +54,39 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.ToTable("BoardShares");
                 });
 
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.DailyReport", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(8000)
+                        .HasColumnType("varchar(8000)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("GeneratedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ReportType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("varchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "Date", "ReportType")
+                        .IsUnique();
+
+                    b.ToTable("DailyReports");
+                });
+
             modelBuilder.Entity("Aiursoft.Kanban.Entities.GlobalSetting", b =>
                 {
                     b.Property<string>("Key")
@@ -558,6 +591,17 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.Navigation("Board");
 
                     b.Navigation("SharedWithUser");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.DailyReport", b =>
+                {
+                    b.HasOne("Aiursoft.Kanban.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanBoard", b =>

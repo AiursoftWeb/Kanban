@@ -213,7 +213,8 @@ public class ViewModelArgsInjector(
         {
             var userId = userManager.GetUserId(context.User)!;
             var user = userManager.FindByIdAsync(userId).GetAwaiter().GetResult();
-            var userRoles = userManager.GetRolesAsync(user!).GetAwaiter().GetResult();
+            if (user == null) return; // Cold start / deleted user — skip injection
+            var userRoles = userManager.GetRolesAsync(user).GetAwaiter().GetResult();
             var userRoleIds = db.Roles
                 .Where(r => userRoles.Contains(r.Name!))
                 .Select(r => r.Id)

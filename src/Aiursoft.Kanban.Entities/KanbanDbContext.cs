@@ -19,6 +19,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<BoardShare> BoardShares => Set<BoardShare>();
     public DbSet<KanbanCardComment> KanbanCardComments => Set<KanbanCardComment>();
     public DbSet<Notification> Notifications => Set<Notification>();
+    public DbSet<DailyReport> DailyReports => Set<DailyReport>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -81,6 +82,15 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasForeignKey(n => n.ActorUserId)
             .OnDelete(DeleteBehavior.SetNull)
             .IsRequired(false);
+
+        builder.Entity<DailyReport>()
+            .HasOne(r => r.User)
+            .WithMany()
+            .HasForeignKey(r => r.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<DailyReport>()
+            .HasIndex(r => new { r.UserId, r.Date, r.ReportType })
+            .IsUnique();
     }
 
     public virtual Task MigrateAsync(CancellationToken cancellationToken) =>
