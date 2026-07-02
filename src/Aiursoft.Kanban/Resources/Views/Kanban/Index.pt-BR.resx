@@ -75,6 +75,12 @@
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Alterar a cor de {{0}}</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Limpar</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Limpar todos os filtros</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Fechar</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>Falha ao atualizar a cor do rótulo.</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtro</value>
+  </data>
   <data name="h ago" xml:space="preserve">
     <value>h atrás</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="No boards yet" xml:space="preserve">
     <value>Ainda sem quadros</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nenhum cartão corresponde aos filtros atuais.</value>
+  </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Nenhum comentário ainda.</value>
   </data>
@@ -350,6 +362,9 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>Pesquisar ou criar um rótulo</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Pesquisar título ou descrição...</value>
   </data>
   <data name="Select a board" xml:space="preserve">
     <value>Selecionar um quadro</value>

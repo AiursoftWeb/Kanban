@@ -75,6 +75,12 @@
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Ubah warna {{0}}</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Bersihkan</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Hapus semua filter</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Tutup</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>Gagal memperbarui warna label.</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
   <data name="h ago" xml:space="preserve">
     <value>jam yang lalu</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="No boards yet" xml:space="preserve">
     <value>Belum ada papan</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Tidak ada kartu yang sesuai dengan filter saat ini.</value>
+  </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Belum ada komentar.</value>
   </data>
@@ -350,6 +362,9 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>Cari atau buat label</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Cari judul atau deskripsi...</value>
   </data>
   <data name="Select a board" xml:space="preserve">
     <value>Pilih papan</value>

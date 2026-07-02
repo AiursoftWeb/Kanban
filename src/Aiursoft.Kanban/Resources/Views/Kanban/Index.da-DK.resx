@@ -75,6 +75,12 @@
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Ændr {{0}}-farve</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Ryd</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Ryd alle filtre</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Luk</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>Kunne ikke opdatere etiketfarve.</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtrer</value>
+  </data>
   <data name="h ago" xml:space="preserve">
     <value>t siden</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="No boards yet" xml:space="preserve">
     <value>Ingen boards endnu</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Ingen kort matcher de aktuelle filtre.</value>
+  </data>
   <data name="No comments yet." xml:space="preserve">
     <value>Ingen kommentarer endnu.</value>
   </data>
@@ -350,6 +362,9 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>Søg eller opret et etiket</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Søg i titel eller beskrivelse...</value>
   </data>
   <data name="Select a board" xml:space="preserve">
     <value>Vælg et panel</value>

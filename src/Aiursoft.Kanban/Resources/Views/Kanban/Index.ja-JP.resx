@@ -75,6 +75,12 @@
   <data name="Change {{0}} color" xml:space="preserve">
     <value>{{0}}の色を変更</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>クリア</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>すべてのフィルターをクリア</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>閉じる</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Failed to update label color." xml:space="preserve">
     <value>ラベルの色を更新できませんでした。</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
   <data name="h ago" xml:space="preserve">
     <value>時間前</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="No boards yet" xml:space="preserve">
     <value>まだボードがありません</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>現在のフィルタに一致するカードがありません。</value>
+  </data>
   <data name="No comments yet." xml:space="preserve">
     <value>まだコメントがありません。</value>
   </data>
@@ -350,6 +362,9 @@
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>ラベルを検索または作成</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>タイトルまたは説明を検索...</value>
   </data>
   <data name="Select a board" xml:space="preserve">
     <value>ボードを選択してください</value>
