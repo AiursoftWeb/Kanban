@@ -1104,6 +1104,28 @@
         display: none;
     }
 
+    .kanban-filter-search {
+        width: 200px;
+        border-radius: 999px;
+        border: 1px solid var(--bs-border-color);
+        background: var(--bs-body-bg);
+        color: var(--bs-body-color);
+        font-size: 0.72rem;
+        padding: 0.25rem 0.75rem;
+        outline: none;
+        transition: border-color 0.15s ease;
+    }
+
+    .kanban-filter-search::placeholder {
+        color: var(--bs-secondary-color);
+        font-size: 0.72rem;
+    }
+
+    .kanban-filter-search:focus {
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.2);
+    }
+
     .kanban-filter-empty {
         flex: 1;
         display: none;
@@ -1310,6 +1332,7 @@
     {
         <div class="kanban-filter-bar" id="kanbanFilterBar">
             <div class="kanban-filter-bar-inner">
+                <input type="text" class="kanban-filter-search" id="kanbanFilterSearch" placeholder="@Localizer["Search title or description..."]" autocomplete="off">
                 <div class="kanban-filter-group" id="priorityFilterGroup">
                     <span class="kanban-filter-label">@Localizer["Priority"]</span>
                     <span class="filter-chip" data-filter-type="priority" data-filter-value="0">@Localizer["Urgent"]</span>
@@ -1962,6 +1985,7 @@
     <span data-key="clear">@Localizer["Clear"]</span>
     <span data-key="clear-all-filters">@Localizer["Clear all filters"]</span>
     <span data-key="no-cards-match-filter">@Localizer["No cards match the current filters."]</span>
+    <span data-key="search-title-or-description">@Localizer["Search title or description..."]</span>
 </div>
 
 <!-- Fullscreen Image Overlay -->

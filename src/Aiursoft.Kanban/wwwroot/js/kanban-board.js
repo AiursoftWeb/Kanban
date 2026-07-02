@@ -772,35 +772,42 @@
 
         var activeFilters = {
             priorities: new Set(),
-            assigneeIds: new Set()
+            assigneeIds: new Set(),
+            searchText: ""
         };
 
         function cardMatchesFilters(cardEl) {
-            if (activeFilters.priorities.size === 0 && activeFilters.assigneeIds.size === 0) {
-                return true;
+            // Text search
+            if (activeFilters.searchText) {
+                var query = activeFilters.searchText.toLowerCase();
+                var title = (cardEl.dataset.title || "").toLowerCase();
+                var description = (cardEl.dataset.description || "").toLowerCase();
+                if (title.indexOf(query) === -1 && description.indexOf(query) === -1) {
+                    return false;
+                }
             }
 
-            var matches = true;
-
+            // Priority filter
             if (activeFilters.priorities.size > 0) {
                 var cardPriority = cardEl.dataset.priority || "4";
                 if (!activeFilters.priorities.has(cardPriority)) {
-                    matches = false;
+                    return false;
                 }
             }
 
-            if (matches && activeFilters.assigneeIds.size > 0) {
+            // Assignee filter
+            if (activeFilters.assigneeIds.size > 0) {
                 var cardAssigneeId = cardEl.dataset.assignedUserId || "";
                 if (!activeFilters.assigneeIds.has(cardAssigneeId)) {
-                    matches = false;
+                    return false;
                 }
             }
 
-            return matches;
+            return true;
         }
 
         function applyFilters() {
-            var anyFilterActive = activeFilters.priorities.size > 0 || activeFilters.assigneeIds.size > 0;
+            var anyFilterActive = activeFilters.searchText !== "" || activeFilters.priorities.size > 0 || activeFilters.assigneeIds.size > 0;
             var visibleCount = 0;
 
             document.querySelectorAll(".kanban-card").forEach(function(card) {
@@ -865,6 +872,11 @@
         function clearAllFilters() {
             activeFilters.priorities.clear();
             activeFilters.assigneeIds.clear();
+            activeFilters.searchText = "";
+            var searchInput = document.getElementById("kanbanFilterSearch");
+            if (searchInput) {
+                searchInput.value = "";
+            }
             document.querySelectorAll(".filter-chip.active").forEach(function(chip) {
                 chip.classList.remove("active");
             });
@@ -915,6 +927,14 @@
         function initFilterBar() {
             initPriorityFilterChips();
             initAssigneeFilterChips();
+
+            var searchInput = document.getElementById("kanbanFilterSearch");
+            if (searchInput) {
+                searchInput.addEventListener("input", function() {
+                    activeFilters.searchText = this.value.trim();
+                    applyFilters();
+                });
+            }
 
             var clearBtn = document.getElementById("filterClearAll");
             if (clearBtn) {
