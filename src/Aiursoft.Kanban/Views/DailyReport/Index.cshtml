@@ -1,0 +1,288 @@
+@using Aiursoft.Kanban.Models.DailyReportViewModels
+@using Aiursoft.Kanban.Entities
+@model DailyReportIndexViewModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
+    var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
+}
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section styles {
+<style>
+    .today-highlight {
+        border-left: 4px solid var(--bs-primary);
+        background: var(--bs-primary-bg-subtle);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .today-highlight.summary {
+        border-left-color: var(--bs-success);
+        background: var(--bs-success-bg-subtle);
+    }
+
+    .highlight-badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .report-content-preview {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        color: var(--bs-secondary-color);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        white-space: pre-wrap;
+    }
+
+    .report-content-full {
+        white-space: pre-wrap;
+        line-height: 1.8;
+        font-size: 0.95rem;
+        color: var(--bs-body-color);
+    }
+
+    .clickable-row {
+        cursor: pointer;
+    }
+
+    .clickable-row:hover {
+        background: var(--bs-tertiary-bg);
+    }
+
+    .type-badge-plan {
+        background: var(--bs-primary);
+        color: #fff;
+    }
+
+    .type-badge-summary {
+        background: var(--bs-success);
+        color: #fff;
+    }
+
+    .empty-state {
+        border: 2px dashed var(--bs-border-color);
+        border-radius: 18px;
+        padding: 4rem 2rem;
+        text-align: center;
+        color: var(--bs-secondary-color);
+        background: var(--bs-tertiary-bg);
+    }
+
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+    }
+</style>
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="mb-1">@Localizer["Daily Assistant"]</h2>
+        <p class="text-muted mb-0">@Localizer["AI-powered daily planning and summaries based on your Kanban boards."]</p>
+    </div>
+</div>
+
+@* ── Today's Highlight Section ── *@
+
+@if (Model.TodayPlan != null)
+{
+    <div class="today-highlight">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <span class="badge type-badge-plan highlight-badge me-2">@Localizer["Today's Plan"]</span>
+                <small class="text-muted">@Localizer["Generated"] @Model.TodayPlan.GeneratedAt.AddHours(8).ToString("HH:mm")</small>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/DailyReport/Details/@Model.TodayPlan.Id" class="btn btn-sm btn-outline-secondary">
+                    <i class="align-middle me-1" data-lucide="eye"></i> @Localizer["View"]
+                </a>
+                @if (Model.CanPlan)
+                {
+                    <form method="post" action="/DailyReport/Regenerate" style="display:inline">
+                        <input type="hidden" name="type" value="plan" />
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-outline-primary">
+                            <i class="align-middle me-1" data-lucide="refresh-cw"></i> @Localizer["Regenerate"]
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+        <div class="report-content-preview">@Model.TodayPlan.Content</div>
+    </div>
+}
+else if (Model.CanPlan)
+{
+    <div class="today-highlight">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <span class="badge type-badge-plan highlight-badge me-2">@Localizer["Today's Plan"]</span>
+                <small class="text-muted">@Localizer["Not yet generated"]</small>
+            </div>
+            <form method="post" action="/DailyReport/Regenerate" style="display:inline">
+                <input type="hidden" name="type" value="plan" />
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-sm btn-primary">
+                    <i class="align-middle me-1" data-lucide="sparkles"></i> @Localizer["Generate Plan"]
+                </button>
+            </form>
+        </div>
+        <p class="text-muted mt-2 mb-0">@Localizer["Generate a morning plan to see what you should focus on today."]</p>
+    </div>
+}
+
+@if (Model.TodaySummary != null)
+{
+    <div class="today-highlight summary">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <span class="badge type-badge-summary highlight-badge me-2">@Localizer["Today's Summary"]</span>
+                <small class="text-muted">@Localizer["Generated"] @Model.TodaySummary.GeneratedAt.AddHours(8).ToString("HH:mm")</small>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/DailyReport/Details/@Model.TodaySummary.Id" class="btn btn-sm btn-outline-secondary">
+                    <i class="align-middle me-1" data-lucide="eye"></i> @Localizer["View"]
+                </a>
+                @if (Model.CanSummarize)
+                {
+                    <form method="post" action="/DailyReport/Regenerate" style="display:inline">
+                        <input type="hidden" name="type" value="summary" />
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-outline-success">
+                            <i class="align-middle me-1" data-lucide="refresh-cw"></i> @Localizer["Regenerate"]
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+        <div class="report-content-preview">@Model.TodaySummary.Content</div>
+    </div>
+}
+else if (Model.CanSummarize)
+{
+    <div class="today-highlight summary">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <span class="badge type-badge-summary highlight-badge me-2">@Localizer["Today's Summary"]</span>
+                <small class="text-muted">@Localizer["Not yet generated"]</small>
+            </div>
+            <form method="post" action="/DailyReport/Regenerate" style="display:inline">
+                <input type="hidden" name="type" value="summary" />
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-sm btn-success">
+                    <i class="align-middle me-1" data-lucide="sparkles"></i> @Localizer["Generate Summary"]
+                </button>
+            </form>
+        </div>
+        <p class="text-muted mt-2 mb-0">@Localizer["Generate an afternoon summary to reflect on what you accomplished today."]</p>
+    </div>
+}
+
+@* ── History Section ── *@
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">@Localizer["History"]</h5>
+    </div>
+    <div class="table-responsive">
+        @if (Model.Reports.Count == 0)
+        {
+            <div class="empty-state m-3">
+                <h4 class="mb-2">@Localizer["No reports yet"]</h4>
+                <p class="mb-0">@Localizer["Your daily plans and summaries will appear here."]</p>
+            </div>
+        }
+        else
+        {
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>@Localizer["Date"]</th>
+                        <th>@Localizer["Type"]</th>
+                        <th>@Localizer["Preview"]</th>
+                        <th>@Localizer["Generated At"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var report in Model.Reports)
+                    {
+                        var isToday = report.Date.Date == (DateTime.UtcNow + TimeSpan.FromHours(8)).Date;
+                        <tr class="clickable-row @(isToday ? "table-active" : "")" data-href="/DailyReport/Details/@report.Id">
+                            <td>
+                                @report.Date.ToString("yyyy-MM-dd")
+                                @if (isToday)
+                                {
+                                    <span class="badge bg-info ms-1">@Localizer["Today"]</span>
+                                }
+                            </td>
+                            <td>
+                                <span class="badge @(report.ReportType == DailyReportType.Plan ? "type-badge-plan" : "type-badge-summary")">
+                                    @(report.ReportType == DailyReportType.Plan ? Localizer["Plan"].Value : Localizer["Summary"].Value)
+                                </span>
+                            </td>
+                            <td>
+                                <div class="report-content-preview">@TruncateContent(report.Content, 150)</div>
+                            </td>
+                            <td class="text-muted">@report.GeneratedAt.AddHours(8).ToString("yyyy-MM-dd HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    @* ── Pagination ── *@
+    @if (Model.TotalPages > 1)
+    {
+        <div class="card-footer">
+            <div class="pagination-container">
+                <a href="/DailyReport?page=@(Model.CurrentPage - 1)"
+                   class="btn btn-sm btn-outline-secondary @(Model.CurrentPage <= 1 ? "disabled" : "")">
+                    <i class="align-middle" data-lucide="chevron-left"></i> @Localizer["Previous"]
+                </a>
+
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    <a href="/DailyReport?page=@i"
+                       class="btn btn-sm @(i == Model.CurrentPage ? "btn-primary" : "btn-outline-secondary")">
+                        @i
+                    </a>
+                }
+
+                <a href="/DailyReport?page=@(Model.CurrentPage + 1)"
+                   class="btn btn-sm btn-outline-secondary @(Model.CurrentPage >= Model.TotalPages ? "disabled" : "")">
+                    @Localizer["Next"] <i class="align-middle" data-lucide="chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+@functions {
+    string TruncateContent(string content, int maxLen)
+    {
+        if (string.IsNullOrEmpty(content)) return "";
+        return content.Length <= maxLen ? content : content[..maxLen] + "…";
+    }
+}
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+<script>
+    document.querySelectorAll('.clickable-row').forEach(function(row) {
+        row.addEventListener('click', function() {
+            var href = this.dataset.href;
+            if (href) window.location.href = href;
+        });
+    });
+</script>
+}
