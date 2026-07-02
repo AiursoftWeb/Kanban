@@ -28,9 +28,19 @@ public class AuditLogFlushExecutor(
         catch (Exception ex)
         {
             logger.LogError(ex, "Failed to flush {Count} audit logs to ClickHouse; requeueing the batch", batch.Count);
+            var dropped = 0;
             foreach (var auditLog in batch)
             {
-                await buffer.EnqueueAsync(auditLog);
+                if (!buffer.TryEnqueue(auditLog))
+                {
+                    dropped++;
+                }
+            }
+
+            if (dropped > 0)
+            {
+                logger.LogError("Dropped {Count} audit logs after ClickHouse flush failure because the buffer was full",
+                    dropped);
             }
         }
     }

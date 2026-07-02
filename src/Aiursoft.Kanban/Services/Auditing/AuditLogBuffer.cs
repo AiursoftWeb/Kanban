@@ -30,6 +30,18 @@ public class AuditLogBuffer(ILogger<AuditLogBuffer> logger) : ISingletonDependen
         }
     }
 
+    public bool TryEnqueue(AuditLog auditLog)
+    {
+        if (_channel.Writer.TryWrite(auditLog))
+        {
+            return true;
+        }
+
+        logger.LogError("Audit log buffer is full; dropped audit log action {Action} for user {UserId}",
+            auditLog.Action, auditLog.UserId);
+        return false;
+    }
+
     public int Drain(List<AuditLog> batch)
     {
         while (_channel.Reader.TryRead(out var auditLog))

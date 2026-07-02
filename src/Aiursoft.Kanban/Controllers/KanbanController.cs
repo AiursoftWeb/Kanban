@@ -549,7 +549,7 @@ public class KanbanController(
         var movedToColumnName = shouldRecur && recurrenceTargetColumn != null
             ? recurrenceTargetColumn.Name
             : column.Name;
-        if (fromColumnId != movedToColumnId)
+        if (fromColumnId != movedToColumnId && !shouldRecur)
         {
             await PublishOperationEventAsync(new CardMovedEvent(
                 CardId: cardId,
