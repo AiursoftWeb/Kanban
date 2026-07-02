@@ -1021,6 +1021,133 @@
         text-align: center;
         padding: 0.5rem 0;
     }
+
+    .kanban-filter-bar {
+        flex-shrink: 0;
+        padding: 0.5rem 1.5rem;
+        border-bottom: 1px solid var(--bs-border-color);
+        background: var(--bs-tertiary-bg);
+    }
+
+    .kanban-filter-bar-inner {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .kanban-filter-group {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+    }
+
+    .kanban-filter-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--bs-secondary-color);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+        margin-right: 0.15rem;
+    }
+
+    .filter-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.22rem 0.65rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        border: 1px solid var(--bs-border-color);
+        background: var(--bs-body-bg);
+        color: var(--bs-secondary-color);
+        white-space: nowrap;
+        user-select: none;
+    }
+
+    .filter-chip:hover {
+        border-color: var(--bs-primary);
+        color: var(--bs-primary);
+    }
+
+    .filter-chip.active {
+        background: var(--bs-primary);
+        border-color: var(--bs-primary);
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .filter-chip.active:hover {
+        background: var(--bs-primary-text-emphasis, #0a58ca);
+    }
+
+    .filter-chip-clear {
+        border-color: transparent;
+        background: transparent;
+        color: var(--bs-secondary-color);
+        font-size: 0.72rem;
+        padding: 0.22rem 0.5rem;
+    }
+
+    .filter-chip-clear:hover {
+        color: var(--bs-danger);
+        border-color: transparent;
+        background: transparent;
+    }
+
+    .filter-chip-clear.hidden {
+        display: none;
+    }
+
+    .kanban-filter-empty {
+        flex: 1;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 2rem;
+        text-align: center;
+        color: var(--bs-secondary-color);
+    }
+
+    .kanban-filter-empty.visible {
+        display: flex;
+    }
+
+    .kanban-filter-empty-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        opacity: 0.4;
+    }
+
+    .kanban-filter-empty p {
+        font-size: 0.875rem;
+        margin-bottom: 0;
+    }
+
+    @@media (max-width: 768px) {
+        .kanban-filter-bar {
+            padding: 0.5rem 1rem;
+        }
+
+        .kanban-filter-bar-inner {
+            gap: 0.5rem;
+        }
+
+        .kanban-filter-group {
+            gap: 0.3rem;
+        }
+
+        .filter-chip {
+            padding: 0.18rem 0.5rem;
+            font-size: 0.7rem;
+        }
+    }
 </style>
 }
 
@@ -1181,6 +1308,30 @@
     }
     else
     {
+        <div class="kanban-filter-bar" id="kanbanFilterBar">
+            <div class="kanban-filter-bar-inner">
+                <div class="kanban-filter-group" id="priorityFilterGroup">
+                    <span class="kanban-filter-label">@Localizer["Priority"]</span>
+                    <span class="filter-chip" data-filter-type="priority" data-filter-value="0">@Localizer["Urgent"]</span>
+                    <span class="filter-chip" data-filter-type="priority" data-filter-value="1">@Localizer["High"]</span>
+                    <span class="filter-chip" data-filter-type="priority" data-filter-value="2">@Localizer["Medium"]</span>
+                    <span class="filter-chip" data-filter-type="priority" data-filter-value="3">@Localizer["Low"]</span>
+                    <span class="filter-chip" data-filter-type="priority" data-filter-value="4">@Localizer["None"]</span>
+                </div>
+                <div class="kanban-filter-group" id="assigneeFilterGroup">
+                    <span class="kanban-filter-label">@Localizer["Assignee"]</span>
+                </div>
+                <span class="filter-chip filter-chip-clear hidden" id="filterClearAll" title="@Localizer["Clear all filters"]">
+                    <i data-lucide="x" style="width:13px;height:13px"></i> @Localizer["Clear"]
+                </span>
+            </div>
+        </div>
+        <div class="kanban-filter-empty" id="kanbanFilterEmpty">
+            <div class="kanban-filter-empty-icon">
+                <i data-lucide="filter" style="width:40px;height:40px"></i>
+            </div>
+            <p>@Localizer["No cards match the current filters."]</p>
+        </div>
         <div class="mobile-column-switcher" id="mobileColumnSwitcher">
             <button type="button" class="mobile-column-nav-btn" id="btnMobilePrevColumn" aria-label="@Localizer["Previous column"]">
                 <i class="align-middle" data-lucide="chevron-left" style="width:18px;height:18px"></i>
@@ -1807,6 +1958,10 @@
     <span data-key="delete-comment">@Localizer["Delete"]</span>
     <span data-key="confirm-delete-comment">@Localizer["Delete this comment?"]</span>
     <span data-key="failed-delete-comment">@Localizer["Failed to delete comment."]</span>
+    <span data-key="filter">@Localizer["Filter"]</span>
+    <span data-key="clear">@Localizer["Clear"]</span>
+    <span data-key="clear-all-filters">@Localizer["Clear all filters"]</span>
+    <span data-key="no-cards-match-filter">@Localizer["No cards match the current filters."]</span>
 </div>
 
 <!-- Fullscreen Image Overlay -->
