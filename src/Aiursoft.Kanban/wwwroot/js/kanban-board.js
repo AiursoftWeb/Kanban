@@ -744,7 +744,10 @@
 
         function refreshColumnCounts() {
             document.querySelectorAll(".kanban-column").forEach(function(col) {
-                var count = col.querySelectorAll(".kanban-card").length;
+                var visibleCards = Array.from(col.querySelectorAll(".kanban-card")).filter(function(card) {
+                    return card.style.display !== "none";
+                });
+                var count = visibleCards.length;
                 var badge = col.querySelector(".column-count");
                 if (badge) {
                     badge.textContent = count;
@@ -765,11 +768,186 @@
             updateMobileColumnSwitcher();
         }
 
+        // -------- Filter logic --------
+
+        var activeFilters = {
+            priorities: new Set(),
+            assigneeIds: new Set(),
+            searchText: ""
+        };
+
+        function cardMatchesFilters(cardEl) {
+            // Text search
+            if (activeFilters.searchText) {
+                var query = activeFilters.searchText.toLowerCase();
+                var title = (cardEl.dataset.title || "").toLowerCase();
+                var description = (cardEl.dataset.description || "").toLowerCase();
+                if (title.indexOf(query) === -1 && description.indexOf(query) === -1) {
+                    return false;
+                }
+            }
+
+            // Priority filter
+            if (activeFilters.priorities.size > 0) {
+                var cardPriority = cardEl.dataset.priority || "4";
+                if (!activeFilters.priorities.has(cardPriority)) {
+                    return false;
+                }
+            }
+
+            // Assignee filter
+            if (activeFilters.assigneeIds.size > 0) {
+                var cardAssigneeId = cardEl.dataset.assignedUserId || "";
+                if (!activeFilters.assigneeIds.has(cardAssigneeId)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function applyFilters() {
+            var anyFilterActive = activeFilters.searchText !== "" || activeFilters.priorities.size > 0 || activeFilters.assigneeIds.size > 0;
+            var visibleCount = 0;
+
+            document.querySelectorAll(".kanban-card").forEach(function(card) {
+                if (anyFilterActive) {
+                    if (cardMatchesFilters(card)) {
+                        card.style.display = "";
+                        visibleCount++;
+                    } else {
+                        card.style.display = "none";
+                    }
+                } else {
+                    card.style.display = "";
+                    visibleCount++;
+                }
+            });
+
+            refreshColumnCounts();
+
+            var emptyState = document.getElementById("kanbanFilterEmpty");
+            var container = document.getElementById("kanban-container");
+            if (emptyState) {
+                if (anyFilterActive && visibleCount === 0) {
+                    emptyState.classList.add("visible");
+                    if (container) container.style.display = "none";
+                } else {
+                    emptyState.classList.remove("visible");
+                    if (container) container.style.display = "";
+                }
+            }
+
+            var clearBtn = document.getElementById("filterClearAll");
+            if (clearBtn) {
+                clearBtn.classList.toggle("hidden", !anyFilterActive);
+            }
+        }
+
+        function toggleFilterChip(chip) {
+            var type = chip.dataset.filterType;
+            var value = chip.dataset.filterValue;
+
+            if (type === "priority") {
+                if (activeFilters.priorities.has(value)) {
+                    activeFilters.priorities.delete(value);
+                    chip.classList.remove("active");
+                } else {
+                    activeFilters.priorities.add(value);
+                    chip.classList.add("active");
+                }
+            } else if (type === "assignee") {
+                if (activeFilters.assigneeIds.has(value)) {
+                    activeFilters.assigneeIds.delete(value);
+                    chip.classList.remove("active");
+                } else {
+                    activeFilters.assigneeIds.add(value);
+                    chip.classList.add("active");
+                }
+            }
+
+            applyFilters();
+        }
+
+        function clearAllFilters() {
+            activeFilters.priorities.clear();
+            activeFilters.assigneeIds.clear();
+            activeFilters.searchText = "";
+            var searchInput = document.getElementById("kanbanFilterSearch");
+            if (searchInput) {
+                searchInput.value = "";
+            }
+            document.querySelectorAll(".filter-chip.active").forEach(function(chip) {
+                chip.classList.remove("active");
+            });
+            applyFilters();
+        }
+
+        function initPriorityFilterChips() {
+            document.querySelectorAll("#priorityFilterGroup .filter-chip").forEach(function(chip) {
+                chip.addEventListener("click", function() {
+                    toggleFilterChip(chip);
+                });
+            });
+        }
+
+        function initAssigneeFilterChips() {
+            var group = document.getElementById("assigneeFilterGroup");
+            if (!group) return;
+
+            // Collect unique assignees from existing cards
+            var seen = {};
+            document.querySelectorAll(".kanban-card").forEach(function(card) {
+                var userId = card.dataset.assignedUserId || "";
+                var userName = card.dataset.assignedUserName || "";
+                var userInitial = card.dataset.assignedUserInitial || "";
+
+                if (userId && !seen[userId]) {
+                    seen[userId] = { id: userId, name: userName, initial: userInitial };
+                }
+            });
+
+            // Remove old assignee chips (keep the label)
+            group.querySelectorAll(".filter-chip").forEach(function(chip) { chip.remove(); });
+
+            // Add assignee chips
+            Object.values(seen).forEach(function(user) {
+                var chip = document.createElement("span");
+                chip.className = "filter-chip";
+                chip.dataset.filterType = "assignee";
+                chip.dataset.filterValue = user.id;
+                chip.textContent = user.name || user.initial || user.id;
+                chip.addEventListener("click", function() {
+                    toggleFilterChip(chip);
+                });
+                group.appendChild(chip);
+            });
+        }
+
+        function initFilterBar() {
+            initPriorityFilterChips();
+            initAssigneeFilterChips();
+
+            var searchInput = document.getElementById("kanbanFilterSearch");
+            if (searchInput) {
+                searchInput.addEventListener("input", function() {
+                    activeFilters.searchText = this.value.trim();
+                    applyFilters();
+                });
+            }
+
+            var clearBtn = document.getElementById("filterClearAll");
+            if (clearBtn) {
+                clearBtn.addEventListener("click", clearAllFilters);
+            }
+        }
+
         document.querySelectorAll(".kanban-card").forEach(function(card) {
             renderCardContent(card);
             bindCardClick(card);
         });
         refreshColumnCounts();
+        initFilterBar();
 
         function handleCardMoved(evt) {
             var cardId = parseInt(evt.item.dataset.cardId, 10);
@@ -787,7 +965,7 @@
             })
             .then(function(r) { return r.ok ? r.json() : Promise.reject(r.status); })
             .then(function(data) {
-                refreshColumnCounts();
+                applyFilters();
                 var cardEl = evt.item;
                 cardEl.dataset.actualStart = data.ActualStartTime || "";
                 cardEl.dataset.actualEnd = data.ActualEndTime || "";
@@ -801,7 +979,7 @@
                     }
                 }
                 renderCardContent(cardEl);
-                refreshColumnCounts();
+                applyFilters();
                 showRecurringTaskReturnedDialog(data);
             })
             .catch(function(err) {
@@ -1158,7 +1336,7 @@
             renderCardContent(card);
             bindCardClick(card);
             cardList.appendChild(card);
-            refreshColumnCounts();
+            applyFilters();
         }
 
         if (canEditCurrentBoard && btnSaveCard && cardTitleInput && cardDescInput && cardError) {
@@ -1733,6 +1911,8 @@
                         currentEditCardElement.dataset.recurrenceUnit = (data.RecurrenceUnit !== undefined ? data.RecurrenceUnit : 0).toString();
                         updateCardAssignment(currentEditCardElement, data.AssignedUserId, data.AssignedUserName, data.AssignedUserInitial, data.AssignedUserAvatarUrl);
                         renderCardContent(currentEditCardElement);
+                        initAssigneeFilterChips();
+                        applyFilters();
                     }
                     bootstrap.Modal.getInstance(editCardModal).hide();
                 })
@@ -1791,7 +1971,7 @@
                 currentEditCardElement.dataset.dueDate = data.DueDate.substring(0, 10);
             }
             renderCardContent(currentEditCardElement);
-            refreshColumnCounts();
+            applyFilters();
             showRecurringTaskReturnedDialog(data);
             var targetColumn = targetList.closest(".kanban-column");
             var columns = getKanbanColumns();
@@ -1902,7 +2082,7 @@
                     if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
                     if (currentEditCardElement) {
                         currentEditCardElement.remove();
-                        refreshColumnCounts();
+                        applyFilters();
                     }
                     currentEditCardId = 0;
                     currentEditCardElement = null;
@@ -2036,7 +2216,7 @@
                     if (!r.ok) return r.text().then(function(t) { throw new Error(t || getLocalizedText("server-error", "Server error") + " " + r.status); });
                     if (currentEditCardElement) {
                         currentEditCardElement.remove();
-                        refreshColumnCounts();
+                        applyFilters();
                     }
                     currentEditCardId = 0;
                     currentEditCardElement = null;
