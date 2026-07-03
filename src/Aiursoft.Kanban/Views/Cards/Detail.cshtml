@@ -348,6 +348,14 @@
         const cardId = @Model.CardId;
         const boardId = @Model.ReturnBoardId;
         const canEdit = @Json.Serialize(Model.CanEdit);
+        let currentTitle = '@Html.Raw(Model.Title.Replace("'", "\\'"))';
+
+        function getTitle() {
+            const input = document.getElementById('cardTitleInput');
+            if (input && !input.classList.contains('d-none')) return input.value.trim();
+            const display = document.getElementById('cardTitleDisplay');
+            return display ? display.textContent.trim() : currentTitle;
+        }
 
         async function post(url, data) {
             data.__RequestVerificationToken = csrf;
@@ -419,7 +427,7 @@
             btnSaveDesc.addEventListener('click', async () => {
                 const desc = document.getElementById('descTextarea').value;
                 const resp = await postJson('/Kanban/UpdateCardDetails', {
-                    cardId, title: '', description: desc, dueDate: '', plannedStartTime: '',
+                    cardId, title: getTitle(), description: desc, dueDate: '', plannedStartTime: '',
                     actualStartTime: '', actualEndTime: '', recurrenceInterval: '', recurrenceUnit: ''
                 });
                 if (resp.ok) {
@@ -450,6 +458,7 @@
                             actualStartTime: '', actualEndTime: '', recurrenceInterval: '', recurrenceUnit: ''
                         });
                         titleDisplay.textContent = newTitle;
+                        currentTitle = newTitle;
                         document.title = newTitle;
                     }
                     titleDisplay.classList.remove('d-none');
@@ -501,12 +510,12 @@
                     if (resp.ok) {
                         const users = await resp.json();
                         const filtered = users.filter(u =>
-                            (u.displayName || '').toLowerCase().includes(q) ||
-                            (u.userName || '').toLowerCase().includes(q)
+                            (u.DisplayName || '').toLowerCase().includes(q) ||
+                            (u.UserName || '').toLowerCase().includes(q)
                         );
                         assigneeDropdown.innerHTML = filtered.map(u =>
-                            `<button type="button" class="list-group-item list-group-item-action py-2 px-3" data-user-id="${u.id}" data-user-name="${u.displayName || u.userName}">
-                                ${u.displayName || u.userName}
+                            `<button type="button" class="list-group-item list-group-item-action py-2 px-3" data-user-id="${u.Id}" data-user-name="${u.DisplayName || u.UserName}">
+                                ${u.DisplayName || u.UserName}
                             </button>`
                         ).join('');
                         assigneeDropdown.classList.remove('d-none');
@@ -556,7 +565,7 @@
         document.getElementById('inputDueDate')?.addEventListener('change', async function() {
             if (!canEdit) return;
             await postJson('/Kanban/UpdateCardDetails', {
-                cardId, title: '', description: '', dueDate: this.value, plannedStartTime: '',
+                cardId, title: getTitle(), description: '', dueDate: this.value, plannedStartTime: '',
                 actualStartTime: '', actualEndTime: '', recurrenceInterval: '', recurrenceUnit: ''
             });
         });
@@ -564,7 +573,7 @@
         document.getElementById('inputPlannedStart')?.addEventListener('change', async function() {
             if (!canEdit) return;
             await postJson('/Kanban/UpdateCardDetails', {
-                cardId, title: '', description: '', dueDate: '', plannedStartTime: this.value,
+                cardId, title: getTitle(), description: '', dueDate: '', plannedStartTime: this.value,
                 actualStartTime: '', actualEndTime: '', recurrenceInterval: '', recurrenceUnit: ''
             });
         });
@@ -582,13 +591,13 @@
         document.getElementById('btnTransferCard')?.addEventListener('click', async () => {
             const targetBoard = parseInt(document.getElementById('transferTargetBoard').value);
             if (!targetBoard) return;
-            // Get first column of target board
             const resp = await fetch(`/Kanban/GetTransferTargets?cardId=${cardId}`);
             if (resp.ok) {
                 const boards = await resp.json();
-                const target = boards.find(b => b.boardId === targetBoard);
-                if (target && target.columns.length > 0) {
-                    const transferResp = await post('/Kanban/TransferCard', { cardId, targetBoardId: targetBoard, targetColumnId: target.columns[0].id });
+                // API returns PascalCase: { Id, Name, Columns: [{ Id, Name }] }
+                const target = boards.find(b => b.Id === targetBoard);
+                if (target && target.Columns.length > 0) {
+                    const transferResp = await post('/Kanban/TransferCard', { cardId, targetBoardId: targetBoard, targetColumnId: target.Columns[0].Id });
                     if (transferResp.ok) {
                         window.location.href = `/Kanban/Index/${targetBoard}`;
                     }
@@ -624,7 +633,7 @@
             const content = input.value.trim();
             if (!content) return;
             const resp = await post('/Kanban/UpdateCardDetails', {
-                cardId, title: '', description: '', dueDate: '', plannedStartTime: '',
+                cardId, title: getTitle(), description: '', dueDate: '', plannedStartTime: '',
                 actualStartTime: '', actualEndTime: '', recurrenceInterval: '', recurrenceUnit: ''
             });
             // Use the AddComment endpoint — check if it exists, otherwise reload
