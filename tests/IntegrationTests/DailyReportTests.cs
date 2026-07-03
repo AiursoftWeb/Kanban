@@ -5,7 +5,6 @@ using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Kanban.Services.Agent.Subagent;
 using Aiursoft.Kanban.Services.BackgroundJobs;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
 
@@ -52,7 +51,7 @@ public class DailyReportTests : TestBase
         var entityType = db.Model.FindEntityType(typeof(DailyReport));
         Assert.IsNotNull(entityType, "DailyReport entity should be in the model");
 
-        var indexes = entityType!.GetIndexes().ToList();
+        var indexes = entityType.GetIndexes().ToList();
         var uniqueIndex = indexes.FirstOrDefault(i =>
             i.IsUnique &&
             i.Properties.Any(p => p.Name == nameof(DailyReport.UserId)) &&
@@ -230,7 +229,7 @@ public class DailyReportTests : TestBase
     // ── Background Job Tests ─────────────────────────────
 
     [TestMethod]
-    public async Task DailyReportBackgroundJob_IsRegistered()
+    public void DailyReportBackgroundJob_IsRegistered()
     {
         // DailyReportBackgroundJob requires scoped TemplateDbContext
         using var scope = Server!.Services.CreateScope();
@@ -263,7 +262,7 @@ public class DailyReportTests : TestBase
     // ── Subagent Tests ───────────────────────────────────
 
     [TestMethod]
-    public async Task DailyPlanningSubagent_IsRegisteredInDI()
+    public void DailyPlanningSubagent_IsRegisteredInDI()
     {
         var subagent = Server!.Services.GetRequiredService<DailyPlanningSubagent>();
         Assert.IsNotNull(subagent);
@@ -272,7 +271,7 @@ public class DailyReportTests : TestBase
     }
 
     [TestMethod]
-    public async Task DailySummarySubagent_IsRegisteredInDI()
+    public void DailySummarySubagent_IsRegisteredInDI()
     {
         var subagent = Server!.Services.GetRequiredService<DailySummarySubagent>();
         Assert.IsNotNull(subagent);
@@ -349,7 +348,6 @@ public class DailyReportTests : TestBase
     [TestMethod]
     public async Task DailyReport_Regenerate_WithoutAuth_Redirects()
     {
-        var token = await GetAntiCsrfToken("/Account/Login");
         var response = await PostForm("/DailyReport/Regenerate", new Dictionary<string, string>
         {
             { "type", "plan" }

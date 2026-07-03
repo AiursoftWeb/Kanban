@@ -86,7 +86,7 @@ public class DailyPlanningSubagent : SubagentBase, ISingletonDependency
 
     protected override int MaxIterations => 8;
 
-    protected override SemaphoreSlim? ConcurrencyLimit => DailySubagentSemaphore;
+    protected override SemaphoreSlim ConcurrencyLimit => DailySubagentSemaphore;
 
     public DailyPlanningSubagent(
         ToolRegistry toolRegistry,

@@ -1,10 +1,6 @@
 @using Aiursoft.Kanban.Models.DailyReportViewModels
 @using Aiursoft.Kanban.Entities
 @model DailyReportIndexViewModel
-@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
-@{
-    var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
-}
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section styles {
