@@ -42,6 +42,9 @@
   <data name="Allows the permanent deletion of user accounts." xml:space="preserve">
     <value>允许永久删除用户账户。</value>
   </data>
+  <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
+    <value>允许查看和管理所有用户的每日计划和总结。</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>允许查看和修改全局应用设置。</value>
   </data>
@@ -86,6 +89,9 @@
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>管理任意看板共享</value>
+  </data>
+  <data name="Manage Any Daily Report" xml:space="preserve">
+    <value>管理任意日报</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>管理全局设置</value>

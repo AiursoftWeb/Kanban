@@ -63,6 +63,9 @@
   <data name="Create User" xml:space="preserve">
     <value>Creează utilizator</value>
   </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Asistent Zilnic</value>
+  </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Panou de control</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Înregistrare</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>Detaliile raportului</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>Detalii Rol</value>

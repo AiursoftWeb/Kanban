@@ -66,6 +66,9 @@
   <data name="Create User" xml:space="preserve">
     <value>建立使用者</value>
   </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>每日助手</value>
+  </data>
   <data name="Dashboard" xml:space="preserve">
     <value>儀表板</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>註冊</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>報告詳情</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>角色詳細資訊</value>

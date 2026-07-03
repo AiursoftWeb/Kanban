@@ -42,6 +42,9 @@
   <data name="Allows the permanent deletion of user accounts." xml:space="preserve">
     <value>Consente l&apos;eliminazione permanente degli account utente.</value>
   </data>
+  <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
+    <value>Consente di visualizzare e gestire i piani e i riepiloghi giornalieri per tutti gli utenti.</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Consente di visualizzare e modificare le impostazioni globali dell&apos;applicazione.</value>
   </data>
@@ -86,6 +89,9 @@
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>Gestisci qualsiasi condivisione di board</value>
+  </data>
+  <data name="Manage Any Daily Report" xml:space="preserve">
+    <value>Gestisci Qualsiasi Report Giornaliero</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Gestisci Impostazioni Globali</value>

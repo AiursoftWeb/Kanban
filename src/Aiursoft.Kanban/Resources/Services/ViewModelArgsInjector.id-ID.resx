@@ -63,6 +63,9 @@
   <data name="Create User" xml:space="preserve">
     <value>Buat Pengguna</value>
   </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Asisten Harian</value>
+  </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dasbor</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Daftar</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>Detail Laporan</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>Detail Peran</value>

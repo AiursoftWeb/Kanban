@@ -66,6 +66,9 @@
   <data name="Create User" xml:space="preserve">
     <value>Create User</value>
   </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Daily Assistant</value>
+  </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>Report Details</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>Role Details</value>
