@@ -15,4 +15,7 @@ public class IndexViewModel : UiStackLayoutViewModel
     public KanbanBoard? CurrentBoard { get; set; }
     public bool IsOwner { get; set; } = true;
     public bool CanEditCurrentBoard { get; set; } = true;
+
+    /// <summary>JSON-serializable board data for the TypeScript module.</summary>
+    public BoardData? BoardData { get; set; }
 }
