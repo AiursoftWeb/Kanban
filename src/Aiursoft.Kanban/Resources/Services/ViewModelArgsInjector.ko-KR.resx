@@ -66,6 +66,9 @@
   <data name="Create User" xml:space="preserve">
     <value>사용자 생성</value>
   </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>데일리 어시스턴트</value>
+  </data>
   <data name="Dashboard" xml:space="preserve">
     <value>대시보드</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>회원가입</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>보고서 세부 정보</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>역할 상세 정보</value>

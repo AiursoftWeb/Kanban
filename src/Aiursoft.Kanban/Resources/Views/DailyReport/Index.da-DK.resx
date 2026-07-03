@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="AI-powered daily planning and summaries based on your Kanban boards." xml:space="preserve">
+    <value>AI-drevet daglig planlægning og resuméer baseret på dine Kanban-brætter.</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Daglig Assistent</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Dato</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>Generer en morgenplan for at se, hvad du bør fokusere på i dag.</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>Generér en eftermiddagsoversigt for at reflektere over, hvad du har opnået i dag.</value>
+  </data>
+  <data name="Generate Plan" xml:space="preserve">
+    <value>Generer plan</value>
+  </data>
+  <data name="Generate Summary" xml:space="preserve">
+    <value>Generer opsummering</value>
+  </data>
+  <data name="Generated" xml:space="preserve">
+    <value>Genereret</value>
+  </data>
+  <data name="Generated At" xml:space="preserve">
+    <value>Oprettet kl.</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historik</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Næste</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Ingen rapporter endnu</value>
+  </data>
+  <data name="Not yet generated" xml:space="preserve">
+    <value>Endnu ikke genereret</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Udtræk</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Forrige</value>
+  </data>
+  <data name="Regenerate" xml:space="preserve">
+    <value>Generer igen</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="Today&apos;s Plan" xml:space="preserve">
+    <value>Dagens plan</value>
+  </data>
+  <data name="Today&apos;s Summary" xml:space="preserve">
+    <value>Dagens opsummering</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Vis</value>
+  </data>
+  <data name="Your daily plans and summaries will appear here." xml:space="preserve">
+    <value>Dine daglige planer og opsummeringer vises her.</value>
+  </data>
+
+</root>

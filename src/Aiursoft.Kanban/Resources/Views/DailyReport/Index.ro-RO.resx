@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="AI-powered daily planning and summaries based on your Kanban boards." xml:space="preserve">
+    <value>Planificare și rezumate zilnice bazate pe inteligența artificială, generate în funcție de tabelele Kanban.</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Asistent zilnic</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Dată</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>Generează un plan dimineață pentru a vedea la ce te vei concentra astăzi.</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>Generează un rezumat de după-amiază pentru a reflecta asupra ceea ce ai realizat astăzi.</value>
+  </data>
+  <data name="Generate Plan" xml:space="preserve">
+    <value>Generează planul</value>
+  </data>
+  <data name="Generate Summary" xml:space="preserve">
+    <value>Generează rezumat</value>
+  </data>
+  <data name="Generated" xml:space="preserve">
+    <value>Generat</value>
+  </data>
+  <data name="Generated At" xml:space="preserve">
+    <value>Generat la</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Istoric</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Următorul</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Niciun raport încă</value>
+  </data>
+  <data name="Not yet generated" xml:space="preserve">
+    <value>Nu este încă generat</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Previzualizare</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="Regenerate" xml:space="preserve">
+    <value>Regenerare</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Astăzi</value>
+  </data>
+  <data name="Today&apos;s Plan" xml:space="preserve">
+    <value>Planul pentru azi</value>
+  </data>
+  <data name="Today&apos;s Summary" xml:space="preserve">
+    <value>Rezumatul zilei de azi</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Vizualizare</value>
+  </data>
+  <data name="Your daily plans and summaries will appear here." xml:space="preserve">
+    <value>Planurile și rezumatele zilnice vor apărea aici.</value>
+  </data>
+
+</root>

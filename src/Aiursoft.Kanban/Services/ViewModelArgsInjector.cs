@@ -107,6 +107,9 @@ public class ViewModelArgsInjector(
     
         _ = localizer["My Notifications"];
         _ = localizer["Notifications"];
+    
+        _ = localizer["Daily Assistant"];
+        _ = localizer["Report Details"];
     }
 
     public void InjectSimple(

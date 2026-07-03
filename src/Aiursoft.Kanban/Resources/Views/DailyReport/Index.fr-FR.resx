@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="AI-powered daily planning and summaries based on your Kanban boards." xml:space="preserve">
+    <value>Planification quotidienne et résumés alimentés par l&apos;IA, basés sur vos tableaux Kanban.</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Assistant quotidien</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>Générez un plan matinal pour voir sur quoi vous devez vous concentrer aujourd&apos;hui.</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>Générez un résumé de l&apos;après-midi pour revenir sur ce que vous avez accompli aujourd&apos;hui.</value>
+  </data>
+  <data name="Generate Plan" xml:space="preserve">
+    <value>Générer le plan</value>
+  </data>
+  <data name="Generate Summary" xml:space="preserve">
+    <value>Générer un résumé</value>
+  </data>
+  <data name="Generated" xml:space="preserve">
+    <value>Généré</value>
+  </data>
+  <data name="Generated At" xml:space="preserve">
+    <value>Généré à</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historique</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Pas encore de rapports</value>
+  </data>
+  <data name="Not yet generated" xml:space="preserve">
+    <value>Pas encore généré</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Aperçu</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Précédent</value>
+  </data>
+  <data name="Regenerate" xml:space="preserve">
+    <value>Régénérer</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Aujourd&apos;hui</value>
+  </data>
+  <data name="Today&apos;s Plan" xml:space="preserve">
+    <value>Plan du jour</value>
+  </data>
+  <data name="Today&apos;s Summary" xml:space="preserve">
+    <value>Résumé du jour</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Voir</value>
+  </data>
+  <data name="Your daily plans and summaries will appear here." xml:space="preserve">
+    <value>Vos plans quotidiens et résumés apparaîtront ici.</value>
+  </data>
+
+</root>
