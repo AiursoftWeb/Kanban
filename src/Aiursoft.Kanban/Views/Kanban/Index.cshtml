@@ -430,8 +430,8 @@
             onCardCreatedQuick: async (colId, title) => {
                 const resp = await post('/Kanban/CreateCard', { columnId: colId, title });
                 if (resp.ok) {
-                    const cardId = parseInt(await resp.text());
-                    return { cardId };
+                    const json = await resp.json();
+                    return { cardId: json.Id };
                 }
                 return null;
             },
@@ -465,6 +465,12 @@
     });
 
     // ── Inline handlers (not in module scope) ──
+
+    // Add Column button
+    document.getElementById('btnAddColumn')?.addEventListener('click', () => {
+        const modal = new bootstrap.Modal(document.getElementById('addColumnModal'));
+        modal.show();
+    });
 
     // Board rename
     const btnEditBoard = document.querySelector('.btn-edit-board-title');
