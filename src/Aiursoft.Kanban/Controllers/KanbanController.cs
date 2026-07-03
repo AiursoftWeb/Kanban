@@ -92,13 +92,20 @@ public class KanbanController(
             }
         }
 
+        BoardData? boardData = null;
+        if (currentBoard != null)
+        {
+            boardData = BuildBoardData(currentBoard, canEditCurrentBoard);
+        }
+
         return this.StackView(new IndexViewModel
         {
             Boards = boards,
             BoardSummaries = summaries,
             CurrentBoard = currentBoard,
             IsOwner = currentBoard == null || currentBoard.UserId == userId,
-            CanEditCurrentBoard = currentBoard == null || canEditCurrentBoard
+            CanEditCurrentBoard = currentBoard == null || canEditCurrentBoard,
+            BoardData = boardData
         });
     }
 
@@ -870,10 +877,10 @@ public class KanbanController(
         var newDescription = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
         if (!string.Equals(card.Description, newDescription, StringComparison.Ordinal))
             changedFields.Add("description");
-        var newPlanned = plannedStartTime?.ToUniversalTime();
+        var newPlanned = NormalizeDateTime(plannedStartTime);
         if (card.PlannedStartTime != newPlanned)
             changedFields.Add("planned start time");
-        var newDue = dueDate?.ToUniversalTime();
+        var newDue = NormalizeDateTime(dueDate);
         if (card.DueDate != newDue)
             changedFields.Add("due date");
         if (card.Priority != (Priority)priority)
@@ -1452,6 +1459,98 @@ public class KanbanController(
         return Ok();
     }
 
+    private static readonly string[] DotColors =
+    [
+        "dot-blue", "dot-orange", "dot-green", "dot-purple",
+        "dot-pink", "dot-teal", "dot-amber", "dot-indigo"
+    ];
+
+    private BoardData BuildBoardData(KanbanBoard board, bool canEdit)
+    {
+        var now = DateTime.UtcNow;
+        var dotIndex = 0;
+
+        return new BoardData
+        {
+            Id = board.Id,
+            Name = board.Name,
+            CanEdit = canEdit,
+            Columns = board.Columns
+                .OrderBy(c => c.Order)
+                .Select(col =>
+                {
+                    var dotClass = DotColors[dotIndex % DotColors.Length];
+                    dotIndex++;
+
+                    return new ColumnData
+                    {
+                        Id = col.Id,
+                        Name = col.Name,
+                        Color = dotClass,
+                        DotClass = dotClass,
+                        Status = col.ColumnStatus.ToString(),
+                        Order = col.Order,
+                        Cards = col.Cards
+                            .OrderBy(c => c.Order)
+                            .Select(card => new CardSummary
+                            {
+                                Id = card.Id,
+                                Title = card.Title,
+                                Priority = card.Priority.ToString(),
+                                DueDate = card.DueDate?.ToString("yyyy-MM-dd"),
+                                IsOverdue = card.DueDate.HasValue && card.DueDate.Value < now
+                                    && col.ColumnStatus != ColumnStatus.Completed,
+                                PlannedStartDate = card.PlannedStartTime?.ToString("yyyy-MM-dd"),
+                                ActualStartDate = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm"),
+                                ActualEndDate = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm"),
+                                Assignee = card.AssignedUser != null
+                                    ? new UserSummary
+                                    {
+                                        UserId = card.AssignedUser.Id,
+                                        DisplayName = card.AssignedUser.DisplayName
+                                            ?? card.AssignedUser.UserName
+                                            ?? string.Empty,
+                                        AvatarUrl = card.AssignedUser.AvatarRelativePath != null
+                                            && card.AssignedUser.AvatarRelativePath != Entities.User.DefaultAvatarPath
+                                            ? $"{storage.RelativePathToInternetUrl(card.AssignedUser.AvatarRelativePath)}?w=56&square=true"
+                                            : null
+                                    }
+                                    : null,
+                                Creator = card.CreatorUser != null
+                                    ? new UserSummary
+                                    {
+                                        UserId = card.CreatorUser.Id,
+                                        DisplayName = card.CreatorUser.DisplayName
+                                            ?? card.CreatorUser.UserName
+                                            ?? string.Empty,
+                                        AvatarUrl = card.CreatorUser.AvatarRelativePath != null
+                                            && card.CreatorUser.AvatarRelativePath != Entities.User.DefaultAvatarPath
+                                            ? $"{storage.RelativePathToInternetUrl(card.CreatorUser.AvatarRelativePath)}?w=56&square=true"
+                                            : null
+                                    }
+                                    : null,
+                                CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mm"),
+                                Labels = card.CardLabels
+                                    .OrderBy(link => link.Label.Name)
+                                    .Select(link => new LabelSummary
+                                    {
+                                        Id = link.LabelId,
+                                        Name = link.Label.Name,
+                                        Color = link.Label.Color
+                                    })
+                                    .ToList(),
+                                CommentCount = 0, // Comments are loaded separately in the detail page
+                                IsRecurring = card.RecurrenceInterval.HasValue
+                                    && card.RecurrenceUnit != RecurrenceUnit.None,
+                                Description = card.Description
+                            })
+                            .ToList()
+                    };
+                })
+                .ToList()
+        };
+    }
+
     private Task<KanbanBoard?> LoadBoardAsync(int boardId)
     {
         return db.KanbanBoards
@@ -1566,6 +1665,19 @@ public class KanbanController(
         return string.IsNullOrWhiteSpace(displayName)
             ? string.Empty
             : displayName.Trim()[0].ToString().ToUpperInvariant();
+    }
+
+    /// <summary>
+    /// Normalize a DateTime from form POST: if Unspecified, treat as UTC (it's a date-only field).
+    /// If already UTC or Local, convert to UTC.
+    /// </summary>
+    private static DateTime? NormalizeDateTime(DateTime? dt)
+    {
+        if (dt == null) return null;
+        if (dt.Value.Kind == DateTimeKind.Utc) return dt;
+        if (dt.Value.Kind == DateTimeKind.Unspecified)
+            return DateTime.SpecifyKind(dt.Value, DateTimeKind.Utc);
+        return dt.Value.ToUniversalTime();
     }
 
     private static DateTime AdvanceByRecurrence(DateTime baseline, int interval, RecurrenceUnit unit)

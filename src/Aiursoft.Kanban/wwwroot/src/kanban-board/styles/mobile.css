@@ -1,0 +1,220 @@
+/* ============================================================
+   mobile.css — Mobile responsive styles (≤768px)
+   Extracted from Index.cshtml <style> — selectors unchanged
+   ============================================================ */
+
+.mobile-column-switcher {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    html, body {
+        overflow: auto;
+    }
+
+    .kanban-page-wrapper {
+        height: calc(100dvh - 72px);
+        overflow: hidden;
+    }
+
+    .kanban-topbar {
+        padding: 1rem 1rem 0 !important;
+    }
+
+    .kanban-topbar > .d-flex {
+        align-items: flex-start !important;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem !important;
+    }
+
+    .kanban-topbar > .d-flex > .d-flex:first-child {
+        flex: 0 0 100%;
+        min-width: 0;
+        flex-wrap: wrap;
+    }
+
+    .kanban-topbar .h4 {
+        font-size: 1.05rem;
+    }
+
+    .kanban-topbar > .d-flex > .d-flex.gap-2 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+        scrollbar-width: none;
+    }
+
+    .kanban-topbar > .d-flex > .d-flex.gap-2::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mobile-column-switcher {
+        display: grid;
+        grid-template-columns: 40px 1fr 40px;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0 1rem 0.75rem;
+        flex-shrink: 0;
+    }
+
+    .mobile-column-nav-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--bs-border-color);
+        background: var(--bs-body-bg);
+        color: var(--bs-body-color);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-column-nav-btn:disabled {
+        opacity: 0.35;
+    }
+
+    .mobile-column-track {
+        display: flex;
+        gap: 0.4rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .mobile-column-track::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mobile-column-pill {
+        border: 1px solid var(--bs-border-color);
+        background: var(--bs-body-bg);
+        color: var(--bs-secondary-color);
+        border-radius: 999px;
+        padding: 0.45rem 0.75rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .mobile-column-pill.active {
+        background: var(--bs-primary);
+        border-color: var(--bs-primary);
+        color: #fff;
+    }
+
+    .kanban-container {
+        gap: 0;
+        padding: 0 1rem 1rem;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: 1rem;
+        overflow-y: hidden;
+    }
+
+    .kanban-column {
+        flex: 0 0 calc(100vw - 2rem);
+        width: calc(100vw - 2rem);
+        max-width: calc(100vw - 2rem);
+        height: 100%;
+        border-radius: 12px;
+        scroll-snap-align: start;
+        margin-right: 1rem;
+    }
+
+    .kanban-column:hover {
+        transform: none;
+    }
+
+    .column-header {
+        cursor: default;
+    }
+
+    .btn-edit-column-title,
+    .btn-delete-column.can-delete,
+    .kanban-column:hover .btn-edit-column-title,
+    .kanban-column:hover .btn-delete-column.can-delete {
+        opacity: 1;
+    }
+
+    .column-cards {
+        overscroll-behavior: contain;
+        padding-bottom: 0.25rem;
+    }
+
+    .kanban-card {
+        border-radius: 10px;
+        padding: 1rem;
+    }
+
+    .kanban-card:hover {
+        transform: none;
+    }
+
+    #editCardModal .modal-dialog,
+    #addCardModal .modal-dialog,
+    #addColumnModal .modal-dialog {
+        align-items: flex-end;
+        min-height: calc(100% - 1rem);
+        margin: 0.5rem;
+    }
+
+    #editCardModal .modal-content,
+    #addCardModal .modal-content,
+    #addColumnModal .modal-content {
+        max-height: calc(100dvh - 1rem);
+        border-radius: 18px 18px 0 0 !important;
+    }
+
+    #editCardModal .modal-body {
+        max-height: calc(100dvh - 12rem);
+        overflow-y: auto;
+    }
+
+    #editCardModal .modal-footer {
+        gap: 0.6rem;
+    }
+
+    #editCardModal .modal-footer,
+    #editCardModal .modal-footer > div {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #editCardModal .modal-footer .btn {
+        width: 100%;
+        min-height: 42px;
+    }
+
+    .label-input-wrapper {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .label-picker-controls {
+        border-left: none;
+        border-top: 1px solid var(--bs-border-color, #dde2ea);
+        padding-top: 0.5rem;
+        justify-content: space-between;
+    }
+
+    .comment-add-area {
+        flex-direction: column;
+    }
+
+    .kanban-filter-bar {
+        padding: 0.5rem 1rem;
+    }
+
+    .kanban-filter-bar-inner {
+        gap: 0.5rem;
+    }
+
+    .kanban-filter-group {
+        gap: 0.3rem;
+    }
+
+    .filter-chip {
+        padding: 0.18rem 0.5rem;
+        font-size: 0.7rem;
+    }
+}

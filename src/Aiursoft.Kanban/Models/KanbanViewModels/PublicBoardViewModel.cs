@@ -12,4 +12,5 @@ public class PublicBoardViewModel : UiStackLayoutViewModel
 
     public required KanbanBoard Board { get; init; }
     public bool CanEdit { get; init; }
+    public BoardData? BoardData { get; set; }
 }
