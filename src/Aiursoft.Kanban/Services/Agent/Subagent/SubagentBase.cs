@@ -29,6 +29,16 @@ public abstract class SubagentBase : ISubagent
     /// <summary>Maximum ReAct loop iterations for this subagent.</summary>
     protected abstract int MaxIterations { get; }
 
+    /// <summary>
+    /// Optional concurrency limit. When not null, <see cref="ExecuteAsync"/> acquires this
+    /// semaphore before running. Shared by daily subagents to cap parallel LLM API calls.
+    /// </summary>
+    protected virtual SemaphoreSlim? ConcurrencyLimit => null;
+
+    /// <summary>Shared semaphore for daily report subagents, initialized lazily with max 2.</summary>
+    private static readonly Lazy<SemaphoreSlim> _dailySubagentSemaphore = new(() => new SemaphoreSlim(2, 2));
+    protected static SemaphoreSlim DailySubagentSemaphore => _dailySubagentSemaphore.Value;
+
     protected SubagentBase(
         ToolRegistry toolRegistry,
         ClaudeClient claudeClient,
@@ -43,6 +53,24 @@ public abstract class SubagentBase : ISubagent
 
     /// <inheritdoc />
     public async Task<string> ExecuteAsync(string userId, string input, CancellationToken ct)
+    {
+        var limit = ConcurrencyLimit;
+        if (limit != null)
+        {
+            await limit.WaitAsync(ct);
+            try
+            {
+                return await ExecuteCoreAsync(userId, input, ct);
+            }
+            finally
+            {
+                limit.Release();
+            }
+        }
+        return await ExecuteCoreAsync(userId, input, ct);
+    }
+
+    private async Task<string> ExecuteCoreAsync(string userId, string input, CancellationToken ct)
     {
         var totalStopwatch = Stopwatch.StartNew();
         var totalInputTokens = 0;

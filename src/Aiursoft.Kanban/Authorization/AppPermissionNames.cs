@@ -27,4 +27,5 @@ public static class AppPermissionNames
     public const string CanViewBackgroundJobs = nameof(CanViewBackgroundJobs);
     public const string CanManageGlobalSettings = nameof(CanManageGlobalSettings);
     public const string CanManageAnyBoardShare = nameof(CanManageAnyBoardShare);
+    public const string CanManageAnyDailyReport = nameof(CanManageAnyDailyReport);
 }
