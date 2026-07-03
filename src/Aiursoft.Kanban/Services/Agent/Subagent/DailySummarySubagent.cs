@@ -35,7 +35,7 @@ public class DailySummarySubagent : SubagentBase, ISingletonDependency
 
         Return a well-structured essay in Chinese. Structure:
 
-        **下午好！/ Good Afternoon!** (one line greeting)
+        **你好！** (one line neutral greeting — avoid time-specific greetings since the report may be viewed at any time)
 
         **✅ 今日完成 / Completed Today**
         List of cards that were completed today, citing board and column names.

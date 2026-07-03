@@ -92,21 +92,23 @@
 </div>
 
 @* ── Today's Highlight Section ── *@
+@* Before 4pm: show the daily plan. After 4pm: show the daily summary. *@
 
-@if (Model.TodayPlan != null)
+@if (Model.CanPlan)
 {
-    <div class="today-highlight">
-        <div class="d-flex align-items-center justify-content-between mb-3">
-            <div>
-                <span class="badge type-badge-plan highlight-badge me-2">@Localizer["Today's Plan"]</span>
-                <small class="text-muted">@Localizer["Generated"] @Model.TodayPlan.GeneratedAt.AddHours(8).ToString("HH:mm")</small>
-            </div>
-            <div class="d-flex gap-2">
-                <a href="/DailyReport/Details/@Model.TodayPlan.Id" class="btn btn-sm btn-outline-secondary">
-                    <i class="align-middle me-1" data-lucide="eye"></i> @Localizer["View"]
-                </a>
-                @if (Model.CanPlan)
-                {
+    @* ── Morning: Plan Section ── *@
+    @if (Model.TodayPlan != null)
+    {
+        <div class="today-highlight">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div>
+                    <span class="badge type-badge-plan highlight-badge me-2">@Localizer["Today's Plan"]</span>
+                    <small class="text-muted">@Localizer["Generated"] @Model.TodayPlan.GeneratedAt.AddHours(8).ToString("HH:mm")</small>
+                </div>
+                <div class="d-flex gap-2">
+                    <a href="/DailyReport/Details/@Model.TodayPlan.Id" class="btn btn-sm btn-outline-secondary">
+                        <i class="align-middle me-1" data-lucide="eye"></i> @Localizer["View"]
+                    </a>
                     <form method="post" action="/DailyReport/Regenerate" style="display:inline">
                         <input type="hidden" name="type" value="plan" />
                         @Html.AntiForgeryToken()
@@ -114,46 +116,46 @@
                             <i class="align-middle me-1" data-lucide="refresh-cw"></i> @Localizer["Regenerate"]
                         </button>
                     </form>
-                }
+                </div>
             </div>
+            <div class="report-content-preview">@Model.TodayPlan.Content</div>
         </div>
-        <div class="report-content-preview">@Model.TodayPlan.Content</div>
-    </div>
-}
-else if (Model.CanPlan)
-{
-    <div class="today-highlight">
-        <div class="d-flex align-items-center justify-content-between">
-            <div>
-                <span class="badge type-badge-plan highlight-badge me-2">@Localizer["Today's Plan"]</span>
-                <small class="text-muted">@Localizer["Not yet generated"]</small>
+    }
+    else
+    {
+        <div class="today-highlight">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <span class="badge type-badge-plan highlight-badge me-2">@Localizer["Today's Plan"]</span>
+                    <small class="text-muted">@Localizer["Not yet generated"]</small>
+                </div>
+                <form method="post" action="/DailyReport/Regenerate" style="display:inline">
+                    <input type="hidden" name="type" value="plan" />
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="align-middle me-1" data-lucide="sparkles"></i> @Localizer["Generate Plan"]
+                    </button>
+                </form>
             </div>
-            <form method="post" action="/DailyReport/Regenerate" style="display:inline">
-                <input type="hidden" name="type" value="plan" />
-                @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-sm btn-primary">
-                    <i class="align-middle me-1" data-lucide="sparkles"></i> @Localizer["Generate Plan"]
-                </button>
-            </form>
+            <p class="text-muted mt-2 mb-0">@Localizer["Generate a morning plan to see what you should focus on today."]</p>
         </div>
-        <p class="text-muted mt-2 mb-0">@Localizer["Generate a morning plan to see what you should focus on today."]</p>
-    </div>
+    }
 }
-
-@if (Model.TodaySummary != null)
+else if (Model.CanSummarize)
 {
-    <div class="today-highlight summary">
-        <div class="d-flex align-items-center justify-content-between mb-3">
-            <div>
-                <span class="badge type-badge-summary highlight-badge me-2">@Localizer["Today's Summary"]</span>
-                <small class="text-muted">@Localizer["Generated"] @Model.TodaySummary.GeneratedAt.AddHours(8).ToString("HH:mm")</small>
-            </div>
-            <div class="d-flex gap-2">
-                <a href="/DailyReport/Details/@Model.TodaySummary.Id" class="btn btn-sm btn-outline-secondary">
-                    <i class="align-middle me-1" data-lucide="eye"></i> @Localizer["View"]
-                </a>
-                @if (Model.CanSummarize)
-                {
+    @* ── Afternoon: Summary Section ── *@
+    @if (Model.TodaySummary != null)
+    {
+        <div class="today-highlight summary">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div>
+                    <span class="badge type-badge-summary highlight-badge me-2">@Localizer["Today's Summary"]</span>
+                    <small class="text-muted">@Localizer["Generated"] @Model.TodaySummary.GeneratedAt.AddHours(8).ToString("HH:mm")</small>
+                </div>
+                <div class="d-flex gap-2">
+                    <a href="/DailyReport/Details/@Model.TodaySummary.Id" class="btn btn-sm btn-outline-secondary">
+                        <i class="align-middle me-1" data-lucide="eye"></i> @Localizer["View"]
+                    </a>
                     <form method="post" action="/DailyReport/Regenerate" style="display:inline">
                         <input type="hidden" name="type" value="summary" />
                         @Html.AntiForgeryToken()
@@ -161,30 +163,30 @@ else if (Model.CanPlan)
                             <i class="align-middle me-1" data-lucide="refresh-cw"></i> @Localizer["Regenerate"]
                         </button>
                     </form>
-                }
+                </div>
             </div>
+            <div class="report-content-preview">@Model.TodaySummary.Content</div>
         </div>
-        <div class="report-content-preview">@Model.TodaySummary.Content</div>
-    </div>
-}
-else if (Model.CanSummarize)
-{
-    <div class="today-highlight summary">
-        <div class="d-flex align-items-center justify-content-between">
-            <div>
-                <span class="badge type-badge-summary highlight-badge me-2">@Localizer["Today's Summary"]</span>
-                <small class="text-muted">@Localizer["Not yet generated"]</small>
+    }
+    else
+    {
+        <div class="today-highlight summary">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <span class="badge type-badge-summary highlight-badge me-2">@Localizer["Today's Summary"]</span>
+                    <small class="text-muted">@Localizer["Not yet generated"]</small>
+                </div>
+                <form method="post" action="/DailyReport/Regenerate" style="display:inline">
+                    <input type="hidden" name="type" value="summary" />
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <i class="align-middle me-1" data-lucide="sparkles"></i> @Localizer["Generate Summary"]
+                    </button>
+                </form>
             </div>
-            <form method="post" action="/DailyReport/Regenerate" style="display:inline">
-                <input type="hidden" name="type" value="summary" />
-                @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-sm btn-success">
-                    <i class="align-middle me-1" data-lucide="sparkles"></i> @Localizer["Generate Summary"]
-                </button>
-            </form>
+            <p class="text-muted mt-2 mb-0">@Localizer["Generate an afternoon summary to reflect on what you accomplished today."]</p>
         </div>
-        <p class="text-muted mt-2 mb-0">@Localizer["Generate an afternoon summary to reflect on what you accomplished today."]</p>
-    </div>
+    }
 }
 
 @* ── History Section ── *@
