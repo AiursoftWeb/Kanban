@@ -138,6 +138,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>Bildirimlerim</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>İşlem Günlüklerim</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Görevlerim</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Bildirimler</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>İşlem Kayıtları</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Genel Bakış</value>

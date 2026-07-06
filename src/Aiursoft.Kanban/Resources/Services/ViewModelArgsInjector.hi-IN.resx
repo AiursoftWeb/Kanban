@@ -138,6 +138,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>मेरे सूचनाएं</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>मेरे ऑपरेशन लॉग्स</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>मेरी कार्यसूची</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>सूचनाएं</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>ऑपरेशन लॉग्स</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>अवलोकन</value>

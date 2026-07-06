@@ -110,6 +110,9 @@ public class ViewModelArgsInjector(
     
         _ = localizer["Daily Assistant"];
         _ = localizer["Report Details"];
+    
+        _ = localizer["My Operation Logs"];
+        _ = localizer["Operation Logs"];
     }
 
     public void InjectSimple(

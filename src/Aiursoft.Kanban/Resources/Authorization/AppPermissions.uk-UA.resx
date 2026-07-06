@@ -48,6 +48,9 @@
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Дозволяє переглядати та змінювати глобальні налаштування додатку.</value>
   </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>Дозволяє переглядати журнали операцій для всіх користувачів.</value>
+  </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>Дозволяє перегляд системної інформації та налаштувань.</value>
   </data>
@@ -95,6 +98,9 @@
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Керування загальними параметрами</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>Читати журнали аудиту</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Читати дозволи</value>

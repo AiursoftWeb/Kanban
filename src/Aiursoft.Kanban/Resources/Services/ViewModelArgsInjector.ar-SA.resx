@@ -138,6 +138,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>إشعاراتي</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>سجلات العمليات الخاصة بي</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>مهامي</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>الإشعارات</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>سجلات العمليات</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>نظرة عامة</value>
