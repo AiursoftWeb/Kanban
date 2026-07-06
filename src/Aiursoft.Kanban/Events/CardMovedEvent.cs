@@ -9,5 +9,6 @@ public record CardMovedEvent(
     string FromColumnName,
     int ToColumnId,
     string ToColumnName,
-    int NewOrder
+    int NewOrder,
+    bool NotifyUsers = true
 ) : INotification;
