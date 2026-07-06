@@ -28,4 +28,5 @@ public static class AppPermissionNames
     public const string CanManageGlobalSettings = nameof(CanManageGlobalSettings);
     public const string CanManageAnyBoardShare = nameof(CanManageAnyBoardShare);
     public const string CanManageAnyDailyReport = nameof(CanManageAnyDailyReport);
+    public const string CanReadAuditLogs = nameof(CanReadAuditLogs);
 }

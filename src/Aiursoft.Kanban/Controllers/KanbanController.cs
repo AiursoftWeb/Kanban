@@ -189,6 +189,10 @@ public class KanbanController(
         db.KanbanColumns.AddRange(defaultColumns);
 
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new BoardCreatedEvent(
+            BoardId: board.Id,
+            BoardName: board.Name,
+            ActorUserId: userId));
         return RedirectToAction(nameof(Index), new { boardId = board.Id });
     }
 
@@ -216,7 +220,11 @@ public class KanbanController(
         };
         db.KanbanColumns.Add(column);
         await db.SaveChangesAsync();
-
+        await PublishOperationEventAsync(new ColumnCreatedEvent(
+            ColumnId: column.Id,
+            ColumnName: column.Name,
+            BoardId: boardId,
+            ActorUserId: userId));
         return Ok(new { column.Id, column.Name, column.Order, ColumnStatus = (int)column.ColumnStatus });
     }
 
@@ -249,7 +257,12 @@ public class KanbanController(
         };
         db.KanbanCards.Add(card);
         await db.SaveChangesAsync();
-
+        await PublishOperationEventAsync(new CardCreatedEvent(
+            CardId: card.Id,
+            CardTitle: card.Title,
+            ColumnId: columnId,
+            BoardId: column.BoardId,
+            ActorUserId: userId));
         var creator = await userManager.FindByIdAsync(userId);
 
         return Ok(new
@@ -290,6 +303,11 @@ public class KanbanController(
         db.KanbanCardComments.RemoveRange(comments);
         db.KanbanCards.Remove(card);
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new CardDeletedEvent(
+            CardId: cardId,
+            CardTitle: card.Title,
+            BoardId: card.Column.BoardId,
+            ActorUserId: userId));
         return Ok();
     }
 
@@ -352,6 +370,9 @@ public class KanbanController(
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
         if (!await HasEditAccess(targetColumn.Board, userId)) return Forbid();
 
+        var sourceBoardName = card.Column.Board.Name;
+        var sourceColumnName = card.Column.Name;
+
         var maxOrder = await db.KanbanCards
             .Where(c => c.ColumnId == targetColumnId)
             .MaxAsync(c => (int?)c.Order) ?? -1;
@@ -385,10 +406,13 @@ public class KanbanController(
         db.KanbanCards.Remove(card);
         await db.SaveChangesAsync();
 
-        await PublishNotificationEventAsync(new CardTransferredEvent(
+        await PublishOperationEventAsync(new CardTransferredEvent(
             CardId: transferredCard.Id,
             ActorUserId: userId,
             TargetBoardId: targetBoardId,
+            OriginalCardId: cardId,
+            SourceBoardName: sourceBoardName,
+            SourceColumnName: sourceColumnName,
             OriginalCreatorUserId: originalCreatorUserId,
             OriginalAssigneeUserId: originalAssigneeUserId));
 
@@ -420,6 +444,7 @@ public class KanbanController(
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
 
         var fromColumnId = card.ColumnId;
+        var fromColumnName = card.Column.Name;
 
         var now = DateTime.UtcNow;
         var wasCompleted = card.Column.ColumnStatus == ColumnStatus.Completed;
@@ -520,12 +545,29 @@ public class KanbanController(
 
         await db.SaveChangesAsync();
 
-        var movedToColumnId = card.ColumnId;
-        if (fromColumnId != movedToColumnId)
+        if (fromColumnId != targetColumnId)
         {
-            await PublishNotificationEventAsync(new CardMovedEvent(
+            await PublishOperationEventAsync(new CardMovedEvent(
                 CardId: cardId,
-                ActorUserId: userId));
+                ActorUserId: userId,
+                FromColumnId: fromColumnId,
+                FromColumnName: fromColumnName,
+                ToColumnId: targetColumnId,
+                ToColumnName: column.Name,
+                NewOrder: newOrder,
+                NotifyUsers: !shouldRecur));
+        }
+
+        if (shouldRecur && recurrenceTargetColumn != null)
+        {
+            await PublishOperationEventAsync(new RecurringCardResetEvent(
+                CardId: cardId,
+                ActorUserId: userId,
+                FromColumnId: targetColumnId,
+                FromColumnName: column.Name,
+                ToColumnId: recurrenceTargetColumn.Id,
+                ToColumnName: recurrenceTargetColumn.Name,
+                NewOrder: card.Order));
         }
 
         return Ok(new
@@ -551,6 +593,7 @@ public class KanbanController(
         var userId = userManager.GetUserId(User)!;
         if (!await HasEditAccess(column.Board, userId)) return Forbid();
 
+        var oldOrder = column.Order;
         var columns = await db.KanbanColumns
             .Where(c => c.BoardId == column.BoardId && c.Id != columnId)
             .OrderBy(c => c.Order)
@@ -571,6 +614,13 @@ public class KanbanController(
             allColumns[i].Order = i;
 
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new ColumnMovedEvent(
+            ColumnId: columnId,
+            ColumnName: column.Name,
+            BoardId: column.BoardId,
+            OldOrder: oldOrder,
+            NewOrder: newOrder,
+            ActorUserId: userId));
         return Ok();
     }
 
@@ -583,6 +633,7 @@ public class KanbanController(
         var userId = userManager.GetUserId(User)!;
         if (board.UserId != userId) return Forbid();
 
+        var oldOrder = board.Order;
         var boards = await db.KanbanBoards
             .Where(b => b.UserId == userId && b.Id != boardId)
             .OrderBy(b => b.Order)
@@ -607,6 +658,12 @@ public class KanbanController(
         }
 
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new BoardMovedEvent(
+            BoardId: boardId,
+            BoardName: board.Name,
+            OldOrder: oldOrder,
+            NewOrder: newOrder,
+            ActorUserId: userId));
         return Ok();
     }
 
@@ -627,6 +684,11 @@ public class KanbanController(
         db.KanbanCards.RemoveRange(column.Cards);
         db.KanbanColumns.Remove(column);
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new ColumnDeletedEvent(
+            ColumnId: columnId,
+            ColumnName: column.Name,
+            BoardId: column.BoardId,
+            ActorUserId: userId));
         return Ok();
     }
 
@@ -645,8 +707,15 @@ public class KanbanController(
         var userId = userManager.GetUserId(User)!;
         if (!await HasEditAccess(column.Board, userId)) return Forbid();
 
+        var oldName = column.Name;
         column.Name = name.Trim();
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new ColumnRenamedEvent(
+            ColumnId: columnId,
+            OldName: oldName,
+            NewName: column.Name,
+            BoardId: column.BoardId,
+            ActorUserId: userId));
         return Ok(new { column.Id, column.Name });
     }
 
@@ -663,8 +732,14 @@ public class KanbanController(
         var userId = userManager.GetUserId(User)!;
         if (board.UserId != userId) return Forbid();
 
+        var oldName = board.Name;
         board.Name = name.Trim();
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new BoardRenamedEvent(
+            BoardId: boardId,
+            OldName: oldName,
+            NewName: board.Name,
+            ActorUserId: userId));
         return Ok(new { board.Id, board.Name });
     }
 
@@ -708,6 +783,10 @@ public class KanbanController(
         db.BoardShares.RemoveRange(board.BoardShares);
         db.KanbanBoards.Remove(board);
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new BoardDeletedEvent(
+            BoardId: boardId,
+            BoardName: board.Name,
+            ActorUserId: userId));
         return Ok();
     }
 
@@ -725,8 +804,16 @@ public class KanbanController(
         var userId = userManager.GetUserId(User)!;
         if (!await HasEditAccess(column.Board, userId)) return Forbid();
 
+        var oldStatus = (int)column.ColumnStatus;
         column.ColumnStatus = (ColumnStatus)status;
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new ColumnStatusUpdatedEvent(
+            ColumnId: columnId,
+            ColumnName: column.Name,
+            OldStatus: oldStatus,
+            NewStatus: status,
+            BoardId: column.BoardId,
+            ActorUserId: userId));
         return Ok();
     }
 
@@ -812,7 +899,7 @@ public class KanbanController(
 
         if (changedFields.Count > 0)
         {
-            await PublishNotificationEventAsync(new CardUpdatedEvent(
+            await PublishOperationEventAsync(new CardUpdatedEvent(
                 CardId: cardId,
                 ActorUserId: userId,
                 ChangedFields: changedFields));
@@ -820,7 +907,7 @@ public class KanbanController(
 
         if (oldAssigneeId != normalizedAssignedUserId)
         {
-            await PublishNotificationEventAsync(new CardAssignedEvent(
+            await PublishOperationEventAsync(new CardAssignedEvent(
                 CardId: cardId,
                 ActorUserId: userId,
                 OldAssigneeId: oldAssigneeId,
@@ -871,8 +958,14 @@ public class KanbanController(
         var userId = userManager.GetUserId(User)!;
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
 
+        var oldPriority = card.Priority;
         card.Priority = (Priority)priority;
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new CardPriorityUpdatedEvent(
+            CardId: card.Id,
+            ActorUserId: userId,
+            OldPriority: oldPriority,
+            NewPriority: card.Priority));
 
         return Ok(new
         {
@@ -904,7 +997,7 @@ public class KanbanController(
 
         if (oldAssigneeId != normalizedAssignedUserId)
         {
-            await PublishNotificationEventAsync(new CardAssignedEvent(
+            await PublishOperationEventAsync(new CardAssignedEvent(
                 CardId: cardId,
                 ActorUserId: userId,
                 OldAssigneeId: oldAssigneeId,
@@ -1007,6 +1100,13 @@ public class KanbanController(
         }
 
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new LabelAddedEvent(
+            CardId: cardId,
+            LabelId: label.Id,
+            LabelName: label.Name,
+            LabelColor: label.Color,
+            BoardId: card.Column.BoardId,
+            ActorUserId: userId));
 
         return Ok(new { label.Id, label.Name, label.Color });
     }
@@ -1024,11 +1124,19 @@ public class KanbanController(
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
 
         var cardLabel = await db.KanbanCardLabels
+            .Include(link => link.Label)
             .FirstOrDefaultAsync(link => link.CardId == cardId && link.LabelId == labelId);
         if (cardLabel == null) return NotFound();
 
+        var labelName = cardLabel.Label.Name;
         db.KanbanCardLabels.Remove(cardLabel);
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new LabelRemovedEvent(
+            CardId: cardId,
+            LabelId: labelId,
+            LabelName: labelName,
+            BoardId: card.Column.BoardId,
+            ActorUserId: userId));
         return Ok();
     }
 
@@ -1054,8 +1162,17 @@ public class KanbanController(
             .FirstOrDefaultAsync();
         if (label == null) return NotFound();
 
+        var oldColor = label.Color;
         label.Color = normalizedColor;
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new LabelColorUpdatedEvent(
+            CardId: cardId,
+            LabelId: labelId,
+            LabelName: label.Name,
+            OldColor: oldColor,
+            NewColor: normalizedColor,
+            BoardId: card.Column.BoardId,
+            ActorUserId: userId));
 
         return Ok(new { label.Id, label.Name, label.Color });
     }
@@ -1197,7 +1314,7 @@ public class KanbanController(
 
         if (targetUserId != null)
         {
-            await PublishNotificationEventAsync(new BoardSharedEvent(
+            await PublishOperationEventAsync(new BoardSharedEvent(
                 BoardId: id,
                 ActorUserId: userId,
                 SharedWithUserId: targetUserId));
@@ -1259,7 +1376,7 @@ public class KanbanController(
         db.KanbanCardComments.Add(comment);
         await db.SaveChangesAsync();
 
-        await PublishNotificationEventAsync(new CardCommentAddedEvent(
+        await PublishOperationEventAsync(new CardCommentAddedEvent(
             CardId: cardId,
             CommentId: comment.Id,
             ActorUserId: userId));
@@ -1326,6 +1443,12 @@ public class KanbanController(
 
         db.Remove(comment);
         await db.SaveChangesAsync();
+        await PublishOperationEventAsync(new CardCommentDeletedEvent(
+            CardId: comment.CardId,
+            CommentId: comment.Id,
+            ActorUserId: userId,
+            CardTitle: comment.Card.Title,
+            BoardName: comment.Card.Column.Board.Name));
         return Ok();
     }
 
@@ -1409,7 +1532,7 @@ public class KanbanController(
         return string.IsNullOrWhiteSpace(assignedUserId) ? null : assignedUserId.Trim();
     }
 
-    private async Task PublishNotificationEventAsync<TNotification>(TNotification notification)
+    private async Task PublishOperationEventAsync<TNotification>(TNotification notification)
         where TNotification : INotification
     {
         try
@@ -1418,7 +1541,7 @@ public class KanbanController(
         }
         catch (Exception ex)
         {
-            logger.LogWarning(ex, "Failed to publish notification event {NotificationEvent}", typeof(TNotification).Name);
+            logger.LogWarning(ex, "Failed to publish operation event {OperationEvent}", typeof(TNotification).Name);
         }
     }
 

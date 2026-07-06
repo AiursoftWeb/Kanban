@@ -284,6 +284,25 @@ public class KanbanControllerTests : TestBase
             });
         Assert.AreEqual(HttpStatusCode.OK, setResponse.StatusCode);
 
+        var (assigneeEmail, _) = await RegisterAndLoginAsync();
+        string assigneeId;
+        using (var setupScope = Server!.Services.CreateScope())
+        {
+            var db = setupScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            assigneeId = db.Users.Single(user => user.Email == assigneeEmail).Id;
+            db.BoardShares.Add(new BoardShare
+            {
+                Id = Guid.NewGuid(),
+                BoardId = boardId,
+                SharedWithUserId = assigneeId,
+                Permission = SharePermission.ReadOnly
+            });
+            var assignedCard = await db.KanbanCards.FindAsync(card.Id);
+            assignedCard!.AssignedUserId = assigneeId;
+            await db.SaveChangesAsync();
+        }
+
+        await LoginAsAdmin();
         var response = await PostAsync(
             $"/Kanban/MoveCard?cardId={card.Id}&targetColumnId={completedColumnId}&newOrder=0",
             new Dictionary<string, string>());
@@ -301,6 +320,85 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(RecurrenceUnit.Week, moved.RecurrenceUnit);
         Assert.AreEqual(dueDate.AddDays(14), moved.DueDate);
         Assert.IsNull(moved.ActualEndTime, "ActualEndTime should be cleared on the new cycle.");
+        Assert.IsFalse(await verificationDb.Notifications.AnyAsync(notification =>
+            notification.UserId == assigneeId &&
+            notification.Type == NotificationType.CardMoved));
+    }
+
+    [TestMethod]
+    public async Task MoveCard_RecurringCard_FromInProgressToCompleted_DoesNotCreateMoveNotification()
+    {
+        await LoginAsAdmin();
+        var (boardId, notStartedColumnId) = await CreateBoardAndFirstColumnAsync();
+        int inProgressColumnId;
+        int completedColumnId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            inProgressColumnId = db.KanbanColumns
+                .First(c => c.BoardId == boardId && c.ColumnStatus == ColumnStatus.InProgress).Id;
+            completedColumnId = db.KanbanColumns
+                .First(c => c.BoardId == boardId && c.ColumnStatus == ColumnStatus.Completed).Id;
+        }
+        var card = await CreateCardAndGetIdAsync(notStartedColumnId, "Recurring task from progress");
+
+        var dueDate = new DateTime(2026, 6, 1, 0, 0, 0, DateTimeKind.Utc);
+        var setResponse = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "dueDate", dueDate.ToString("yyyy-MM-dd") },
+                { "recurrenceInterval", "2" },
+                { "recurrenceUnit", ((int)RecurrenceUnit.Week).ToString() }
+            });
+        Assert.AreEqual(HttpStatusCode.OK, setResponse.StatusCode);
+
+        var (assigneeEmail, _) = await RegisterAndLoginAsync();
+        string assigneeId;
+        using (var setupScope = Server!.Services.CreateScope())
+        {
+            var db = setupScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            assigneeId = db.Users.Single(user => user.Email == assigneeEmail).Id;
+            db.BoardShares.Add(new BoardShare
+            {
+                Id = Guid.NewGuid(),
+                BoardId = boardId,
+                SharedWithUserId = assigneeId,
+                Permission = SharePermission.ReadOnly
+            });
+            var assignedCard = await db.KanbanCards.FindAsync(card.Id);
+            assignedCard!.AssignedUserId = assigneeId;
+            await db.SaveChangesAsync();
+        }
+
+        await LoginAsAdmin();
+        var progressResponse = await PostAsync(
+            $"/Kanban/MoveCard?cardId={card.Id}&targetColumnId={inProgressColumnId}&newOrder=0",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.OK, progressResponse.StatusCode);
+
+        using (var cleanupScope = Server!.Services.CreateScope())
+        {
+            var db = cleanupScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.Notifications.RemoveRange(db.Notifications);
+            await db.SaveChangesAsync();
+        }
+
+        var response = await PostAsync(
+            $"/Kanban/MoveCard?cardId={card.Id}&targetColumnId={completedColumnId}&newOrder=0",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var moved = await verificationDb.KanbanCards.FindAsync(card.Id);
+        Assert.IsNotNull(moved);
+        Assert.AreEqual(notStartedColumnId, moved.ColumnId);
+        Assert.IsFalse(await verificationDb.Notifications.AnyAsync(notification =>
+            notification.UserId == assigneeId &&
+            notification.Type == NotificationType.CardMoved));
     }
 
     [TestMethod]
