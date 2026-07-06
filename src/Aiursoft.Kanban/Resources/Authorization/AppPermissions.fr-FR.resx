@@ -48,6 +48,9 @@
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Permet de visualiser et de modifier les paramètres globaux de l&apos;application.</value>
   </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>Permet de consulter les journaux d&apos;activité pour tous les utilisateurs.</value>
+  </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>Permet de visualiser les informations et paramètres au niveau du système.</value>
   </data>
@@ -95,6 +98,9 @@
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Gérer les paramètres globaux</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>Lire les journaux d&apos;audit</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Lire les permissions</value>

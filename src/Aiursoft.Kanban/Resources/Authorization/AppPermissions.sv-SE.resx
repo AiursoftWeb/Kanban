@@ -48,6 +48,9 @@
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Tillåter visning och ändring av globala programinställningar.</value>
   </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>Tillåter visning av aktivitetsloggar för alla användare.</value>
+  </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>Ger tillgång att visa systemnivåinformation och inställningar.</value>
   </data>
@@ -95,6 +98,9 @@
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Hantera globala inställningar</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>Läs granskningsloggar</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Läs behörigheter</value>

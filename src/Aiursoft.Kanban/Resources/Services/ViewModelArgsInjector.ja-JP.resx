@@ -141,6 +141,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>マイ通知</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>私の操作ログ</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>マイタスク</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>通知</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>操作ログ</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>概要</value>

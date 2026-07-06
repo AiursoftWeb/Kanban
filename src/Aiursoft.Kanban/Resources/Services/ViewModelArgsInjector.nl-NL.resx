@@ -138,6 +138,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>Mijn meldingen</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Mijn activiteitlogboeken</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Mijn taken</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Meldingen</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>Operatielogboeken</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Overzicht</value>
