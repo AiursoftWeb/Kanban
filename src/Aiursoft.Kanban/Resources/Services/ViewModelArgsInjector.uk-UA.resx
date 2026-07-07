@@ -45,6 +45,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Помилковий запит</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Деталі картки</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Змінити аватар</value>
   </data>
@@ -62,6 +65,9 @@
   </data>
   <data name="Create User" xml:space="preserve">
     <value>Створити користувача</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Щоденний помічник</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Панель керування</value>
@@ -167,6 +173,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Реєстрація</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>Деталі звіту</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>Деталі ролі</value>

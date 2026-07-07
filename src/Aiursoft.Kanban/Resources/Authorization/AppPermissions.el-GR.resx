@@ -42,6 +42,9 @@
   <data name="Allows the permanent deletion of user accounts." xml:space="preserve">
     <value>Επιτρέπει τη μόνιμη διαγραφή των λογαριασμών χρηστών.</value>
   </data>
+  <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
+    <value>Επιτρέπει την προβολή και διαχείριση των καθημερινών σχεδίων και συγκεντρωτικών στοιχείων για όλους τους χρήστες.</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Επιτρέπει την προβολή και την τροποποίηση των γενικών ρυθμίσεων της εφαρμογής.</value>
   </data>
@@ -86,6 +89,9 @@
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>Διαχείριση Κοινοποίησης Οποιασδήποτε Πίνακα</value>
+  </data>
+  <data name="Manage Any Daily Report" xml:space="preserve">
+    <value>Διαχείριση Οποιουδήποτε Ημερήσιου Αναφοράς</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Διαχείριση Γενικών Ρυθμίσεων</value>

@@ -42,6 +42,9 @@
   <data name="Allows the permanent deletion of user accounts." xml:space="preserve">
     <value>Разрешает окончательное удаление учетных записей пользователей.</value>
   </data>
+  <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
+    <value>Позволяет просматривать и управлять ежедневными планами и сводками для всех пользователей.</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Позволяет просматривать и изменять глобальные параметры приложения.</value>
   </data>
@@ -86,6 +89,9 @@
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>Управлять общим доступом к любой доске</value>
+  </data>
+  <data name="Manage Any Daily Report" xml:space="preserve">
+    <value>Управление любыми ежедневными отчётами</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Управление глобальными настройками</value>

@@ -45,6 +45,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Неверный запрос</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Детали карточки</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Сменить аватар</value>
   </data>
@@ -62,6 +65,9 @@
   </data>
   <data name="Create User" xml:space="preserve">
     <value>Создать пользователя</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Помощник дня</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Панель управления</value>
@@ -167,6 +173,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Зарегистрироваться</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>Сведения об отчете</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>Детали роли</value>

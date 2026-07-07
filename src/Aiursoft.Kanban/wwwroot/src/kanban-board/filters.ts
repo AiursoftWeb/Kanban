@@ -36,31 +36,39 @@ export function initFilters(
   const filterBar = document.getElementById('kanbanFilterBar');
   const filterEmpty = document.getElementById('kanbanFilterEmpty');
 
-  // Collect unique assignees from board data
-  const assigneeMap = new Map<string, { id: string; name: string }>();
-  data.columns.forEach(col => {
-    col.cards.forEach(card => {
-      if (card.assignee?.userId && !assigneeMap.has(card.assignee.userId)) {
-        assigneeMap.set(card.assignee.userId, {
-          id: card.assignee.userId,
-          name: card.assignee.displayName,
-        });
-      }
-    });
-  });
-
-  // Populate assignee filter chips
   const assigneeGroup = document.getElementById('assigneeFilterGroup');
-  if (assigneeGroup && assigneeMap.size > 0) {
+  function populateAssigneeFilterChips(): void {
+    if (!assigneeGroup) return;
+
+    const selected = new Set(state.assigneeIds);
+    const assigneeMap = new Map<string, { id: string; name: string }>();
+
+    container.querySelectorAll<HTMLElement>('.kanban-card').forEach(card => {
+      const id = card.getAttribute('data-assigned-user-id') ?? '';
+      const name = card.getAttribute('data-assigned-user-name') ?? '';
+      const initial = card.getAttribute('data-assigned-user-initial') ?? '';
+      if (!id || assigneeMap.has(id)) return;
+
+      assigneeMap.set(id, {
+        id,
+        name: name || initial || id,
+      });
+    });
+
+    assigneeGroup.querySelectorAll('.filter-chip[data-filter-type="assignee"]').forEach(chip => chip.remove());
     assigneeMap.forEach(user => {
       const chip = document.createElement('span');
       chip.className = 'filter-chip';
       chip.setAttribute('data-filter-type', 'assignee');
       chip.setAttribute('data-filter-value', user.id);
       chip.textContent = user.name;
+      chip.classList.toggle('active', selected.has(user.id));
       assigneeGroup.appendChild(chip);
     });
+
+    state.assigneeIds = state.assigneeIds.filter(id => assigneeMap.has(id));
   }
+  populateAssigneeFilterChips();
 
   // ---- Filter logic ----
   function cardMatches(cardEl: HTMLElement): boolean {
@@ -118,7 +126,7 @@ export function initFilters(
       const allColCards = cardsContainer.querySelectorAll<HTMLElement>('.kanban-card');
       let actualVisible = 0;
       allColCards.forEach(c => {
-        if (c.style.display !== 'none' && c.style.display !== '') actualVisible++;
+        if (c.style.display !== 'none') actualVisible++;
       });
 
       const placeholder = cardsContainer.querySelector('.column-empty-placeholder');
@@ -198,6 +206,12 @@ export function initFilters(
     });
   }
 
+  const handleExternalApply = () => {
+    populateAssigneeFilterChips();
+    apply();
+  };
+  document.addEventListener('kanban:filters-apply', handleExternalApply as EventListener);
+
   return {
     getState: () => ({ ...state }),
     setState(newState: Partial<FilterState>) {
@@ -211,7 +225,7 @@ export function initFilters(
     },
     apply,
     destroy() {
-      // Nothing to clean up; event listeners are on DOM elements
+      document.removeEventListener('kanban:filters-apply', handleExternalApply as EventListener);
     },
   };
 }

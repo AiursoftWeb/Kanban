@@ -188,7 +188,7 @@ else
                         </button>
                         @if (notification.BoardId.HasValue)
                         {
-                            <a href="/Kanban/Index?boardId=@notification.BoardId&cardId=@notification.CardId" class="btn btn-outline-secondary btn-card-link">
+                            <a href="/Kanban/Index?boardId=@notification.BoardId&highlightCard=@notification.CardId" class="btn btn-outline-secondary btn-card-link">
                                 <i class="align-middle me-1" data-lucide="external-link"></i> @(notification.CardId.HasValue ? Localizer["Open Card"] : Localizer["Open Board"])
                             </a>
                         }
@@ -211,6 +211,11 @@ else
         return utcTime.ToString("MMM dd");
     }
 }
+
+<div id="loc-notifications" hidden>
+    <span id="loc-notification-single">@Localizer["You have <strong>{0}</strong> unread notification.", "{0}"]</span>
+    <span id="loc-notification-plural">@Localizer["You have <strong>{0}</strong> unread notifications.", "{0}"]</span>
+</div>
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
@@ -266,9 +271,9 @@ else
             var p = document.querySelector('.text-muted span');
             if (p) {
                 var template = count === 1
-                    ? '@Localizer["You have <strong>{0}</strong> unread notification.", "__COUNT__"]'
-                    : '@Localizer["You have <strong>{0}</strong> unread notifications.", "__COUNT__"]';
-                p.innerHTML = template.replace('__COUNT__', count);
+                    ? document.getElementById('loc-notification-single')?.textContent ?? 'You have <strong>{0}</strong> unread notification.'
+                    : document.getElementById('loc-notification-plural')?.textContent ?? 'You have <strong>{0}</strong> unread notifications.';
+                p.innerHTML = template.replace('{0}', count);
             }
             if (count === 0) {
                 var btn = document.getElementById('btnMarkAllRead');

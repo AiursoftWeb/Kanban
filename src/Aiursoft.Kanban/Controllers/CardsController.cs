@@ -3,12 +3,10 @@
 // Field updates are handled via fetch to existing KanbanController endpoints
 // ============================================================
 
-using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.CardViewModels;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
-using Aiursoft.UiStack.Navigation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +18,7 @@ namespace Aiursoft.Kanban.Controllers;
 public class CardsController(
     TemplateDbContext db,
     UserManager<User> userManager,
-    StorageService storage,
-    ILogger<CardsController> logger) : Controller
+    StorageService storage) : Controller
 {
     /// <summary>
     /// GET /Cards/{id}?returnBoardId=X
@@ -47,14 +44,12 @@ public class CardsController(
         var board = card.Column.Board;
 
         // Check access
-        if (board.UserId != userId)
+        if (!await HasReadAccess(board, userId))
         {
-            var hasAccess = await HasSharedAccess(board.Id, userId);
-            if (!hasAccess)
-                return NotFound();
+            return NotFound();
         }
 
-        var canEdit = board.UserId == userId;
+        var canEdit = await HasEditAccess(board, userId);
 
         // Build comments
         var comments = await db.KanbanCardComments
@@ -67,13 +62,14 @@ public class CardsController(
         {
             Id = c.Id,
             Content = c.Content,
+            Images = c.Images,
             AuthorName = c.Author?.DisplayName ?? c.Author?.UserName ?? "Unknown",
             AuthorInitial = (c.Author?.DisplayName ?? c.Author?.UserName ?? "?")[0].ToString().ToUpperInvariant(),
             AuthorAvatarUrl = c.Author?.AvatarRelativePath != null
                 && c.Author.AvatarRelativePath != Entities.User.DefaultAvatarPath
                 ? $"{storage.RelativePathToInternetUrl(c.Author.AvatarRelativePath)}?w=56&square=true"
                 : null,
-            CreatedAt = c.CreationTime.ToString("yyyy-MM-dd HH:mm"),
+            CreatedAt = c.CreationTime.ToString("yyyy-MM-ddTHH:mmK"),
             CanDelete = c.AuthorId == userId || canEdit
         }).ToList();
 
@@ -106,11 +102,11 @@ public class CardsController(
                 && card.CreatorUser.AvatarRelativePath != Entities.User.DefaultAvatarPath
                 ? $"{storage.RelativePathToInternetUrl(card.CreatorUser.AvatarRelativePath)}?w=56&square=true"
                 : null,
-            CreationTime = card.CreationTime.ToString("yyyy-MM-dd HH:mm"),
+            CreationTime = card.CreationTime,
             DueDate = card.DueDate?.ToString("yyyy-MM-dd") ?? string.Empty,
             PlannedStartDate = card.PlannedStartTime?.ToString("yyyy-MM-dd") ?? string.Empty,
-            ActualStartDate = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm") ?? string.Empty,
-            ActualEndDate = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm") ?? string.Empty,
+            ActualStartDate = card.ActualStartTime,
+            ActualEndDate = card.ActualEndTime,
             IsRecurring = card.RecurrenceInterval.HasValue && card.RecurrenceUnit != RecurrenceUnit.None,
             RecurrenceInterval = card.RecurrenceInterval?.ToString() ?? string.Empty,
             RecurrenceUnit = (int)card.RecurrenceUnit,
@@ -134,9 +130,19 @@ public class CardsController(
                 .ToListAsync()
         };
 
-        // Add available boards for transfer
+        // Add available boards for transfer (owned or shared with Edit permission)
+        var userRoleIds = await db.UserRoles
+            .Where(ur => ur.UserId == userId)
+            .Select(ur => ur.RoleId)
+            .ToListAsync();
+
         model.AvailableBoards = await db.KanbanBoards
-            .Where(b => b.UserId == userId && b.Id != board.Id)
+            .Where(b => b.Id != board.Id &&
+                (b.UserId == userId ||
+                 b.BoardShares.Any(s =>
+                     s.Permission == SharePermission.Editable &&
+                     (s.SharedWithUserId == userId ||
+                      (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId))))))
             .OrderBy(b => b.Name)
             .Select(b => new BoardOptionViewModel
             {
@@ -148,21 +154,35 @@ public class CardsController(
         return this.StackView(model);
     }
 
-    private async Task<bool> HasSharedAccess(int boardId, string userId)
+    private async Task<bool> HasReadAccess(KanbanBoard board, string userId)
     {
-        var share = await db.BoardShares
-            .FirstOrDefaultAsync(s => s.BoardId == boardId && s.SharedWithUserId == userId);
-        if (share != null) return true;
+        if (board.IsPublic) return true;
+        if (board.UserId == userId) return true;
 
         var userRoleIds = await db.UserRoles
             .Where(ur => ur.UserId == userId)
             .Select(ur => ur.RoleId)
             .ToListAsync();
 
-        var roleShare = await db.BoardShares
-            .FirstOrDefaultAsync(s => s.BoardId == boardId
-                && s.SharedWithRoleId != null
-                && userRoleIds.Contains(s.SharedWithRoleId));
-        return roleShare != null;
+        return await db.BoardShares.AnyAsync(s =>
+            s.BoardId == board.Id &&
+            (s.SharedWithUserId == userId ||
+             (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId))));
+    }
+
+    private async Task<bool> HasEditAccess(KanbanBoard board, string userId)
+    {
+        if (board.UserId == userId) return true;
+
+        var userRoleIds = await db.UserRoles
+            .Where(ur => ur.UserId == userId)
+            .Select(ur => ur.RoleId)
+            .ToListAsync();
+
+        return await db.BoardShares.AnyAsync(s =>
+            s.BoardId == board.Id &&
+            s.Permission == SharePermission.Editable &&
+            (s.SharedWithUserId == userId ||
+             (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId))));
     }
 }

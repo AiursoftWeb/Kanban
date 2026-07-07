@@ -45,6 +45,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Requisição Inválida</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Detalhes do Cartão</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Alterar Avatar</value>
   </data>
@@ -62,6 +65,9 @@
   </data>
   <data name="Create User" xml:space="preserve">
     <value>Criar Usuário</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Assistente Diário</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Painel</value>
@@ -167,6 +173,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Cadastrar</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>Detalhes do Relatório</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>Detalhes da Função</value>

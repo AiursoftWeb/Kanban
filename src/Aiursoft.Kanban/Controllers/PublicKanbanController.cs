@@ -82,6 +82,8 @@ public class PublicKanbanController(TemplateDbContext db) : Controller
                         }).ToList(),
                         CommentCount = 0,
                         IsRecurring = card.RecurrenceInterval.HasValue && card.RecurrenceUnit != RecurrenceUnit.None,
+                        RecurrenceInterval = card.RecurrenceInterval,
+                        RecurrenceUnit = (int)card.RecurrenceUnit,
                         Description = card.Description
                     }).ToList()
                 };

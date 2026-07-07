@@ -111,10 +111,6 @@ export function initColumnEditor(
     const columnId = parseInt(btn.getAttribute('data-column-id') ?? '0', 10);
     if (!columnId) return;
 
-    // Use native confirm for simplicity — host page can override via callback
-    const confirmed = confirm('Delete this column and all its cards? This action cannot be undone.');
-    if (!confirmed) return;
-
     callbacks.onColumnDeleted(columnId).catch(err => {
       console.error('Column delete failed:', err);
     });

@@ -42,6 +42,9 @@
   <data name="Allows the permanent deletion of user accounts." xml:space="preserve">
     <value>Kullanıcı hesaplarının kalıcı olarak silinmesine izin verir.</value>
   </data>
+  <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
+    <value>Tüm kullanıcılar için günlük planların ve özetlerin görüntülenmesine ve yönetilmesine izin verir.</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Genel uygulama ayarlarını görüntüleme ve değiştirme izni verir.</value>
   </data>
@@ -86,6 +89,9 @@
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>Herhangi Bir Panoyu Paylaşımı Yönet</value>
+  </data>
+  <data name="Manage Any Daily Report" xml:space="preserve">
+    <value>Herhangi Bir Günlük Raporu Yönet</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Genel Ayarları Yönet</value>

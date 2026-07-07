@@ -48,6 +48,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>错误的请求</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>卡片详情</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>更换头像</value>
   </data>
@@ -65,6 +68,9 @@
   </data>
   <data name="Create User" xml:space="preserve">
     <value>创建用户</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>每日助手</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>仪表板</value>
@@ -170,6 +176,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>注册</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>报告详情</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>角色详情</value>

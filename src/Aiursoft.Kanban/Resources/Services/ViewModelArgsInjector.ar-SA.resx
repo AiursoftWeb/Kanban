@@ -45,6 +45,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>طلب خاطئ</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>تفاصيل البطاقة</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>تغيير الصورة الشخصية</value>
   </data>
@@ -62,6 +65,9 @@
   </data>
   <data name="Create User" xml:space="preserve">
     <value>إنشاء مستخدم</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>المساعد اليومي</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>لوحة التحكم</value>
@@ -167,6 +173,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>تسجيل</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>تفاصيل التقرير</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>تفاصيل الدور</value>

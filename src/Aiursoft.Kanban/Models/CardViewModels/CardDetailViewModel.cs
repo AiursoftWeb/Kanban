@@ -39,13 +39,13 @@ public class CardDetailViewModel : UiStackLayoutViewModel
     public string CreatorName { get; set; } = string.Empty;
     public string CreatorInitial { get; set; } = string.Empty;
     public string? CreatorAvatarUrl { get; set; }
-    public string CreationTime { get; set; } = string.Empty;
+    public DateTime CreationTime { get; set; }
 
     // Dates
     public string DueDate { get; set; } = string.Empty;
     public string PlannedStartDate { get; set; } = string.Empty;
-    public string ActualStartDate { get; set; } = string.Empty;
-    public string ActualEndDate { get; set; } = string.Empty;
+    public DateTime? ActualStartDate { get; set; }
+    public DateTime? ActualEndDate { get; set; }
 
     // Recurrence
     public bool IsRecurring { get; set; }
@@ -74,6 +74,7 @@ public class CommentViewModel
 {
     public int Id { get; set; }
     public string Content { get; set; } = string.Empty;
+    public string? Images { get; set; }
     public string AuthorName { get; set; } = string.Empty;
     public string AuthorInitial { get; set; } = string.Empty;
     public string? AuthorAvatarUrl { get; set; }

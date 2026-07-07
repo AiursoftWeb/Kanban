@@ -42,6 +42,9 @@
   <data name="Allows the permanent deletion of user accounts." xml:space="preserve">
     <value>ユーザーアカウントの完全削除を許可します。</value>
   </data>
+  <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
+    <value>すべてのユーザーのデイリープランとサマリの閲覧および管理を許可します。</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>グローバルなアプリケーション設定の表示および編集を許可します。</value>
   </data>
@@ -86,6 +89,9 @@
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>ボード共有の設定を管理</value>
+  </data>
+  <data name="Manage Any Daily Report" xml:space="preserve">
+    <value>すべての日報を管理する</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>グローバル設定の管理</value>

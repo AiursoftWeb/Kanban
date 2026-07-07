@@ -1,5 +1,6 @@
 @using Aiursoft.Kanban.Models.DailyReportViewModels
 @using Aiursoft.Kanban.Entities
+@using Aiursoft.WebTools
 @model DailyReportDetailsViewModel
 
 @* ReSharper disable once Razor.SectionNotResolved *@
@@ -52,7 +53,7 @@
 
             <div class="mb-3">
                 <small class="text-muted">
-                    @Localizer["Generated at"] @Model.Report.GeneratedAt.AddHours(8).ToString("yyyy-MM-dd HH:mm") (@Localizer["UTC+8"])
+                    @Localizer["Generated at"] <label data-utc-time="@Model.Report.GeneratedAt.ToHtmlDateTime()" style="display:inline"></label>
                 </small>
             </div>
 
@@ -70,3 +71,4 @@
         </div>
     </div>
 </div>
+

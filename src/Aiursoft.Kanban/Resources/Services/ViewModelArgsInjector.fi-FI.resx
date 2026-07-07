@@ -45,6 +45,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Väärä pyyntö</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Kortin tiedot</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Vaihda avataria</value>
   </data>
@@ -62,6 +65,9 @@
   </data>
   <data name="Create User" xml:space="preserve">
     <value>Luo käyttäjä</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Päivittäinen avustaja</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Hallintapaneeli</value>
@@ -167,6 +173,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Rekisteröidy</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>Raportin tiedot</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>Roolin tiedot</value>

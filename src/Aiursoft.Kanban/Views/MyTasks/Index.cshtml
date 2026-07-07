@@ -1,4 +1,5 @@
 @using Aiursoft.Kanban.Entities
+@using Aiursoft.WebTools
 @model Aiursoft.Kanban.Models.MyTasksViewModels.IndexViewModel
 @{
     string BuildUrl(string? status = null, IEnumerable<int>? labelIds = null, string? labelMode = null, string? sort = null)
@@ -257,7 +258,7 @@ else
         @foreach (var card in Model.Cards)
         {
             <div class="col-12">
-                <a class="task-card" href="/Kanban/Index?boardId=@card.Column.BoardId&cardId=@card.Id">
+                <a class="task-card" href="/Kanban/Index?boardId=@card.Column.BoardId&highlightCard=@card.Id">
                     <div class="d-flex flex-wrap justify-content-between gap-3 mb-3">
                         <div>
                             <div class="task-meta-row mb-2">
@@ -281,7 +282,7 @@ else
                                 @if (card.DueDate.HasValue)
                                 {
                                     var isOverdue = card.Column.ColumnStatus != ColumnStatus.Completed && card.DueDate.Value < DateTime.UtcNow;
-                                    <span class="@(isOverdue ? "overdue" : "")" style="@(isOverdue ? "color:#dc3545;font-weight:600;" : "")">@card.DueDate.Value.ToString("yyyy-MM-dd")</span>
+                                    <span class="@(isOverdue ? "overdue" : "")" style="@(isOverdue ? "color:#dc3545;font-weight:600;" : "")"><label data-utc-time="@card.DueDate.Value.ToHtmlDateTime()" style="display:inline"></label></span>
                                     if (isOverdue)
                                     {
                                         var daysOverdue = (int)(DateTime.UtcNow.Date - card.DueDate.Value.Date).TotalDays;
@@ -309,7 +310,7 @@ else
                     }
 
                     <div class="task-footer-row task-subtle mt-3">
-                        <span>@Localizer["Planned start:"] @(card.PlannedStartTime?.ToString("yyyy-MM-dd") ?? "—")</span>
+                        <span>@Localizer["Planned start:"] @if (card.PlannedStartTime.HasValue) { <label data-utc-time="@card.PlannedStartTime.Value.ToHtmlDateTime()" style="display:inline"></label> } else { <span>—</span> }</span>
                         <span>@Localizer["Assigned to:"] @(card.AssignedUser?.DisplayName ?? card.AssignedUser?.UserName ?? Localizer["You"].Value)</span>
                     </div>
                 </a>

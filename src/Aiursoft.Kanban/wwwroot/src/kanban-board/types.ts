@@ -41,6 +41,8 @@ export interface CardSummary {
   labels: CardLabel[];
   commentCount: number;
   isRecurring: boolean;
+  recurrenceInterval?: number;
+  recurrenceUnit?: number;
   description?: string;     // plain text summary for card preview
 }
 
@@ -82,7 +84,7 @@ export interface KanbanCallbacks {
   onColumnReordered?: (columnId: number, newOrder: number) => Promise<void>;
 
   /** Quick-create: user types title in column header input + Enter */
-  onCardCreatedQuick?: (columnId: number, title: string) => Promise<{ cardId: number } | null>;
+  onCardCreatedQuick?: (columnId: number, title: string) => Promise<CardSummary | null>;
 
   /** Column title renamed inline */
   onColumnRenamed?: (columnId: number, newName: string) => Promise<void>;

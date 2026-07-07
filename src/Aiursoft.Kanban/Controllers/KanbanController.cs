@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Events;
@@ -36,8 +35,6 @@ public class KanbanController(
         "#EC4899",
         "#14B8A6"
     ];
-
-    private static readonly Regex HexColorRegex = new("^#[0-9A-Fa-f]{6}$", RegexOptions.Compiled);
 
     [RenderInNavBar(
         NavGroupName = "Features",
@@ -266,10 +263,15 @@ public class KanbanController(
             card.Description,
             card.Order,
             card.ColumnId,
-            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mm"),
+            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mmK"),
+            CreatorUserId = creator?.Id,
             CreatorUserName = GetUserDisplayName(creator),
             CreatorUserInitial = GetUserInitial(creator),
-            CreatorUserAvatarUrl = GetUserAvatarUrl(creator)
+            CreatorUserAvatarUrl = GetUserAvatarUrl(creator),
+            AssignedUserId = creator?.Id,
+            AssignedUserName = GetUserDisplayName(creator),
+            AssignedUserInitial = GetUserInitial(creator),
+            AssignedUserAvatarUrl = GetUserAvatarUrl(creator)
         });
     }
 
@@ -539,9 +541,9 @@ public class KanbanController(
         {
             card.Id,
             card.ColumnId,
-            DueDate = card.DueDate?.ToString("yyyy-MM-ddTHH:mm:ss"),
-            ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm"),
-            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm"),
+            DueDate = card.DueDate?.ToString("yyyy-MM-ddTHH:mm:ssK"),
+            ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mmK"),
+            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mmK"),
             RecurrenceApplied = shouldRecur,
             RecurrenceTargetColumnName = shouldRecur ? recurrenceTargetColumn?.Name : null
         });
@@ -845,9 +847,9 @@ public class KanbanController(
             card.Description,
             PlannedStartTime = card.PlannedStartTime?.ToString("yyyy-MM-dd"),
             DueDate = card.DueDate?.ToString("yyyy-MM-dd"),
-            ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm"),
-            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm"),
-            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mm"),
+            ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mmK"),
+            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mmK"),
+            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mmK"),
             Priority = (int)card.Priority,
             PriorityText = card.Priority.ToString(),
             card.RecurrenceInterval,
@@ -960,7 +962,7 @@ public class KanbanController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddLabel(int cardId, string name, string? color)
+    public async Task<IActionResult> AddLabel(int cardId, string name)
     {
         if (string.IsNullOrWhiteSpace(name))
             return BadRequest("Label name is required.");
@@ -984,20 +986,10 @@ public class KanbanController(
 
         if (label == null)
         {
-            var chosenColor = LabelColors[Random.Shared.Next(LabelColors.Length)];
-            if (!string.IsNullOrWhiteSpace(color))
-            {
-                var normalizedColor = color.Trim();
-                if (HexColorRegex.IsMatch(normalizedColor))
-                {
-                    chosenColor = normalizedColor;
-                }
-            }
-
             label = new KanbanLabel
             {
                 Name = normalizedName,
-                Color = chosenColor
+                Color = LabelColors[Random.Shared.Next(LabelColors.Length)]
             };
             db.KanbanLabels.Add(label);
         }
@@ -1037,34 +1029,6 @@ public class KanbanController(
         db.KanbanCardLabels.Remove(cardLabel);
         await db.SaveChangesAsync();
         return Ok();
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> UpdateLabelColor(int cardId, int labelId, string color)
-    {
-        var normalizedColor = color.Trim();
-        if (!HexColorRegex.IsMatch(normalizedColor))
-            return BadRequest("Color must be a hex value like #FF5733.");
-
-        var card = await db.KanbanCards
-            .Include(c => c.Column)
-                .ThenInclude(col => col.Board)
-            .FirstOrDefaultAsync(c => c.Id == cardId);
-        if (card == null) return NotFound();
-
-        var userId = userManager.GetUserId(User)!;
-        if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
-
-        var label = await db.KanbanCardLabels
-            .Where(link => link.CardId == cardId && link.LabelId == labelId)
-            .Select(link => link.Label)
-            .FirstOrDefaultAsync();
-        if (label == null) return NotFound();
-
-        label.Color = normalizedColor;
-        await db.SaveChangesAsync();
-
-        return Ok(new { label.Id, label.Name, label.Color });
     }
 
     [HttpGet]
@@ -1294,6 +1258,7 @@ public class KanbanController(
 
         var userId = userManager.GetUserId(User)!;
         if (!await HasReadAccess(card.Column.Board, userId)) return Forbid();
+        var canManageComments = await HasEditAccess(card.Column.Board, userId);
 
         var commentsList = await db.KanbanCardComments
             .Where(c => c.CardId == cardId)
@@ -1309,7 +1274,8 @@ public class KanbanController(
             c.Images,
             AuthorName = GetUserDisplayName(c.Author),
             AuthorInitial = GetUserInitial(c.Author),
-            Avatar = GetUserAvatarUrl(c.Author)
+            Avatar = GetUserAvatarUrl(c.Author),
+            CanDelete = canManageComments || c.AuthorId == userId
         });
 
         return Ok(comments);
@@ -1378,17 +1344,14 @@ public class KanbanController(
                                 IsOverdue = card.DueDate.HasValue && card.DueDate.Value < now
                                     && col.ColumnStatus != ColumnStatus.Completed,
                                 PlannedStartDate = card.PlannedStartTime?.ToString("yyyy-MM-dd"),
-                                ActualStartDate = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm"),
-                                ActualEndDate = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm"),
+                                ActualStartDate = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mmK"),
+                                ActualEndDate = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mmK"),
                                 Assignee = card.AssignedUser != null
                                     ? new UserSummary
                                     {
                                         UserId = card.AssignedUser.Id,
-                                        DisplayName = card.AssignedUser.DisplayName
-                                            ?? card.AssignedUser.UserName
-                                            ?? string.Empty,
-                                        AvatarUrl = card.AssignedUser.AvatarRelativePath != null
-                                            && card.AssignedUser.AvatarRelativePath != Entities.User.DefaultAvatarPath
+                                        DisplayName = card.AssignedUser.DisplayName,
+                                        AvatarUrl = card.AssignedUser.AvatarRelativePath != Entities.User.DefaultAvatarPath
                                             ? $"{storage.RelativePathToInternetUrl(card.AssignedUser.AvatarRelativePath)}?w=56&square=true"
                                             : null
                                     }
@@ -1397,16 +1360,13 @@ public class KanbanController(
                                     ? new UserSummary
                                     {
                                         UserId = card.CreatorUser.Id,
-                                        DisplayName = card.CreatorUser.DisplayName
-                                            ?? card.CreatorUser.UserName
-                                            ?? string.Empty,
-                                        AvatarUrl = card.CreatorUser.AvatarRelativePath != null
-                                            && card.CreatorUser.AvatarRelativePath != Entities.User.DefaultAvatarPath
+                                        DisplayName = card.CreatorUser.DisplayName,
+                                        AvatarUrl = card.CreatorUser.AvatarRelativePath != Entities.User.DefaultAvatarPath
                                             ? $"{storage.RelativePathToInternetUrl(card.CreatorUser.AvatarRelativePath)}?w=56&square=true"
                                             : null
                                     }
                                     : null,
-                                CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mm"),
+                                CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mmK"),
                                 Labels = card.CardLabels
                                     .OrderBy(link => link.Label.Name)
                                     .Select(link => new LabelSummary
@@ -1419,6 +1379,8 @@ public class KanbanController(
                                 CommentCount = 0, // Comments are loaded separately in the detail page
                                 IsRecurring = card.RecurrenceInterval.HasValue
                                     && card.RecurrenceUnit != RecurrenceUnit.None,
+                                RecurrenceInterval = card.RecurrenceInterval,
+                                RecurrenceUnit = (int)card.RecurrenceUnit,
                                 Description = card.Description
                             })
                             .ToList()

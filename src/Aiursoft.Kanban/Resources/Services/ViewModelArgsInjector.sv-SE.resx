@@ -45,6 +45,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Felaktig begäran</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Kortdetaljer</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Byt avatar</value>
   </data>
@@ -62,6 +65,9 @@
   </data>
   <data name="Create User" xml:space="preserve">
     <value>Skapa användare</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Daglig assistent</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Instrumentbräda</value>
@@ -167,6 +173,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Registrera</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>Rapportdetaljer</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>Rollinformation</value>

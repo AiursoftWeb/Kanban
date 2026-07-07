@@ -1,16 +1,20 @@
 @using System.Text.Json
+@using Aiursoft.WebTools
 @model Aiursoft.Kanban.Models.KanbanViewModels.IndexViewModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
-@inject Aiursoft.Kanban.Services.FileStorage.StorageService Storage
 @{
     var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
     var highlightCardId = Context.Request.Query["highlightCard"].FirstOrDefault();
+    var highlightCardIdValue = int.TryParse(highlightCardId, out var parsedHighlightCardId) ? parsedHighlightCardId : 0;
 }
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section styles {
     <link rel="stylesheet" href="~/node_modules/katex/dist/katex.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/dist/kanban-board.css" asp-append-version="true" />
+    <style>
+        html, body { height: 100%; overflow: hidden; }
+    </style>
 }
 
 <div class="kanban-page-wrapper">
@@ -130,7 +134,7 @@
                                                 <span class="text-muted">—</span>
                                             }
                                         </td>
-                                        <td><small class="text-muted">@board.CreationTime.ToString("yyyy-MM-dd")</small></td>
+                                        <td><small class="text-muted"><label data-utc-time="@board.CreationTime.ToHtmlDateTime()" style="display:inline"></label></small></td>
                                         <td class="text-end text-nowrap">
                                             <a asp-action="Index" asp-route-boardId="@board.Id" class="btn btn-sm btn-outline-primary me-1">
                                                 <i class="align-middle" data-lucide="eye"></i> @Localizer["View"]
@@ -261,22 +265,25 @@
 
 @if (Model.CurrentBoard != null)
 {
-    @* ── Delete Board Modal ── *@
-    <div class="modal fade" id="deleteBoardConfirmModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
+    @* ── Delete Column Confirmation Modal ── *@
+    <div class="modal fade" id="deleteColumnConfirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
                 <div class="modal-header border-0 px-4 pt-4">
-                    <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete Board"]</h5>
+                    <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete Column"]</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body px-4">
-                    <p>@Localizer["Are you sure you want to delete"] <strong id="deleteBoardNameDisplay"></strong>?</p>
-                    <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action permanently removes all columns and cards. This cannot be undone."]</p>
-                    <div id="deleteBoardError" class="invalid-feedback d-none"></div>
+                    <p>@Localizer["Are you sure you want to delete the column"] <strong id="deleteColumnNameDisplay"></strong>@Localizer["?"]</p>
+                    <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action cannot be undone."]</p>
+                    <div class="alert alert-warning mt-2 d-none" id="deleteColumnWarning" role="alert"></div>
+                    <div class="alert alert-danger mt-2 d-none" id="deleteColumnError" role="alert"></div>
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
-                    <button type="button" class="btn btn-danger" id="btnConfirmDeleteBoard" style="border-radius:10px">@Localizer["Delete"]</button>
+                    <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteColumn" style="border-radius:10px">
+                        @Localizer["Delete Column"]
+                    </button>
                 </div>
             </div>
         </div>
@@ -303,6 +310,27 @@
         </div>
     </div>
 }
+
+@* ── Delete Board Modal ── *@
+<div class="modal fade" id="deleteBoardConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete Board"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p>@Localizer["Are you sure you want to delete"] <strong id="deleteBoardNameDisplay"></strong>@Localizer["?"]</p>
+                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action permanently removes all columns and cards. This cannot be undone."]</p>
+                <div class="alert alert-danger mt-2 d-none" id="deleteBoardError" role="alert"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmDeleteBoard" style="border-radius:10px">@Localizer["Delete"]</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @* ── Localization data (read by module's i18n.ts) ── *@
 <div id="loc-data" hidden>
@@ -391,196 +419,66 @@
     <span data-key="preview">@Localizer["Preview"]</span>
     <span data-key="no-cards-match">@Localizer["No cards match the current filters."]</span>
     <span data-key="drag-handle">@Localizer["Drag to reorder"]</span>
+    <span data-key="close">@Localizer["Close"]</span>
+    <span data-key="loading">@Localizer["Loading..."]</span>
+    <span data-key="unassigned">@Localizer["Unassigned"]</span>
+    <span data-key="delete-comment">@Localizer["Delete comment"]</span>
+    <span data-key="delete-column-warning">@Localizer["This column contains cards that will be deleted together."]</span>
+    <span data-key="select-board">@Localizer["Select a board"]</span>
+    <span data-key="select-column">@Localizer["Select a column"]</span>
+    <span data-key="loading-transfer-targets">@Localizer["Loading target boards..."]</span>
+    <span data-key="no-transfer-targets">@Localizer["No editable target boards are available."]</span>
+    <span data-key="failed-rename-board">@Localizer["Failed to rename board."]</span>
+    <span data-key="failed-create-column">@Localizer["Failed to create column."]</span>
+    <span data-key="failed-delete-board">@Localizer["Failed to delete board."]</span>
+    <span data-key="failed-save">@Localizer["Failed to save."]</span>
+    <span data-key="failed-move">@Localizer["Failed to move card."]</span>
+    <span data-key="failed-transfer">@Localizer["Failed to transfer card."]</span>
+    <span data-key="failed-delete-card">@Localizer["Failed to delete card."]</span>
+    <span data-key="failed-delete-column">@Localizer["Failed to delete column."]</span>
+    <span data-key="failed-delete-comment">@Localizer["Failed to delete comment."]</span>
+    <span data-key="failed-add-comment">@Localizer["Failed to add comment."]</span>
+    <span data-key="failed-load-transfer-targets">@Localizer["Failed to load transfer targets."]</span>
+    <span data-key="comment-too-long">@Localizer["Comment is too long (max 2000 characters)."]</span>
+    <span data-key="uploading-images">@Localizer["Uploading images..."]</span>
+    <span data-key="failed-upload-image">@Localizer["Failed to upload image."]</span>
+    <span data-key="failed-upload-pasted-image">@Localizer["Failed to upload pasted image."]</span>
+    <span data-key="sending">@Localizer["Sending..."]</span>
+    <span data-key="drag-or-paste-images">@Localizer["You can drag images here or paste from clipboard."]</span>
+    <span data-key="drop-images-here">@Localizer["Release to add images"]</span>
+    <span data-key="failed-add-label">@Localizer["Failed to add label."]</span>
+    <span data-key="failed-remove-label">@Localizer["Failed to remove label."]</span>
+    <span data-key="recurring-task-returned">@Localizer["Recurring task has been returned to {0}.", "{0}"]</span>
+    <span data-key="recurring">@Localizer["Recurring"]</span>
+    <span data-key="column-name-required">@Localizer["Column name is required."]</span>
+    <span data-key="server-error">@Localizer["Server error"]</span>
+    <span data-key="just-now">@Localizer["just now"]</span>
+    <span data-key="m-ago">@Localizer["m ago"]</span>
+    <span data-key="h-ago">@Localizer["h ago"]</span>
+    <span data-key="d-ago">@Localizer["d ago"]</span>
+    <span data-key="no-comments-yet">@Localizer["No comments yet."]</span>
 </div>
 
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@@1.15.6/Sortable.min.js"></script>
     <script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
     <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
     <script src="~/node_modules/katex/dist/katex.min.js" asp-append-version="true"></script>
     <script src="~/node_modules/mermaid/dist/mermaid.min.js" asp-append-version="true"></script>
-
-    @if (Model.CurrentBoard != null && Model.BoardData != null)
-    {
-    <script type="module">
-    import { KanbanBoard } from '/dist/kanban-board.js';
-
-    const csrf = '@token';
-    const boardId = @Model.CurrentBoard.Id;
-
-    async function post(url, data) {
-        data.__RequestVerificationToken = csrf;
-        return fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(data)
-        });
-    }
-
-    const board = KanbanBoard({
-        container: '#kanban-root',
-        data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.BoardData, new System.Text.Json.JsonSerializerOptions { PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase })),
-        highlightCardId: @(highlightCardId != null ? highlightCardId : "0"),
-        callbacks: {
-            onCardClicked: (id) => {
-                window.location.href = `/Cards/${id}?returnBoardId=${boardId}`;
-            },
-
-            onCardCreatedQuick: async (colId, title) => {
-                const resp = await post('/Kanban/CreateCard', { columnId: colId, title });
-                if (resp.ok) {
-                    const json = await resp.json();
-                    return { cardId: json.Id };
-                }
-                return null;
-            },
-
-            onCardMoved: async (cardId, targetColumnId, newOrder) => {
-                await post('/Kanban/MoveCard', { cardId, targetColumnId, newOrder });
-            },
-
-            onColumnReordered: async (columnId, newOrder) => {
-                await post('/Kanban/MoveColumn', { columnId, newOrder });
-            },
-
-            onColumnRenamed: async (columnId, newName) => {
-                await post('/Kanban/RenameColumn', { columnId, name: newName });
-            },
-
-            onColumnStatusChanged: async (columnId, newStatus) => {
-                await post('/Kanban/UpdateColumnStatus', { columnId, status: newStatus });
-            },
-
-            onColumnDeleted: async (columnId) => {
-                await post('/Kanban/DeleteColumn', { columnId });
-                window.location.reload();
-            },
-
-            onCreateColumn: () => {
-                const modal = new bootstrap.Modal(document.getElementById('addColumnModal'));
-                modal.show();
-            }
-        }
-    });
-
-    // ── Inline handlers (not in module scope) ──
-
-    // Add Column button
-    document.getElementById('btnAddColumn')?.addEventListener('click', () => {
-        const modal = new bootstrap.Modal(document.getElementById('addColumnModal'));
-        modal.show();
-    });
-
-    // Board rename
-    const btnEditBoard = document.querySelector('.btn-edit-board-title');
-    const titleDisplay = document.querySelector('.board-title-display');
-    if (btnEditBoard && titleDisplay) {
-        btnEditBoard.addEventListener('click', () => {
-            const currentName = titleDisplay.textContent.trim();
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.className = 'board-title-input';
-            input.value = currentName;
-            titleDisplay.replaceWith(input);
-            input.focus();
-            input.select();
-
-            const finish = async () => {
-                const newName = input.value.trim();
-                if (newName && newName !== currentName) {
-                    await post('/Kanban/RenameBoard', { boardId, name: newName });
-                    const span = document.createElement('span');
-                    span.className = 'fw-semibold mb-0 board-title-display';
-                    span.style.fontSize = '0.95rem';
-                    span.textContent = newName;
-                    input.replaceWith(span);
-                    titleDisplay = span;
-                } else {
-                    const span = document.createElement('span');
-                    span.className = 'fw-semibold mb-0 board-title-display';
-                    span.style.fontSize = '0.95rem';
-                    span.textContent = currentName;
-                    input.replaceWith(span);
-                    titleDisplay = span;
-                }
-            };
-
-            input.addEventListener('keydown', e => {
-                if (e.key === 'Enter') { e.preventDefault(); finish(); }
-                if (e.key === 'Escape') { input.value = currentName; input.blur(); }
-            });
-            input.addEventListener('blur', () => setTimeout(finish, 150));
-        });
-    }
-
-    // Add Column modal save
-    document.getElementById('btnSaveColumn')?.addEventListener('click', async () => {
-        const input = document.getElementById('columnNameInput');
-        const name = input.value.trim();
-        if (!name) return;
-        await post('/Kanban/CreateColumn', { boardId, name });
-        window.location.reload();
-    });
-
-    // Board list drag-drop + delete
-    initBoardList();
-
-    if (typeof lucide !== 'undefined') lucide.createIcons();
+    <script>
     if (typeof mermaid !== 'undefined') mermaid.initialize({ startOnLoad: false, securityLevel: 'strict' });
     </script>
-    }
-    else
-    {
-    <script>
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-    </script>
-    }
+    <script type="module">
+    import { initKanbanIndexPage } from '/dist/kanban-page.js';
 
-    @* Board list script (runs even without board selected) *@
-    <script>
-    function initBoardList() {
-        var csrfToken = '@token';
-        var boardListBody = document.getElementById('boardListBody');
-        if (boardListBody && typeof Sortable !== 'undefined') {
-            new Sortable(boardListBody, {
-                animation: 200,
-                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                handle: '.drag-handle',
-                ghostClass: 'sortable-ghost',
-                chosenClass: 'sortable-chosen',
-                onEnd: function(evt) {
-                    var boardId = parseInt(evt.item.dataset.boardId, 10);
-                    var newOrder = evt.newIndex;
-                    fetch('/Kanban/MoveBoard', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'RequestVerificationToken': csrfToken },
-                        body: '__RequestVerificationToken=' + encodeURIComponent(csrfToken) + '&boardId=' + boardId + '&newOrder=' + newOrder
-                    }).catch(function(err) { console.error('MoveBoard failed:', err); });
-                }
-            });
-        }
-
-        // Board delete buttons
-        document.querySelectorAll('.btn-delete-board-list').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var boardId = this.dataset.boardId;
-                var boardName = this.dataset.boardName;
-                document.getElementById('deleteBoardNameDisplay').textContent = boardName;
-                var modal = new bootstrap.Modal(document.getElementById('deleteBoardConfirmModal'));
-                modal.show();
-                document.getElementById('btnConfirmDeleteBoard').onclick = function() {
-                    fetch('/Kanban/DeleteBoard', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'RequestVerificationToken': csrfToken },
-                        body: '__RequestVerificationToken=' + encodeURIComponent(csrfToken) + '&boardId=' + boardId
-                    }).then(function(r) {
-                        if (r.ok) window.location.reload();
-                    });
-                };
-            });
-        });
-    }
-    if (typeof lucide !== 'undefined') lucide.createIcons();
+    initKanbanIndexPage({
+        csrfToken: '@token',
+        boardId: @(Model.CurrentBoard?.Id ?? 0),
+        boardData: @(Model.BoardData != null
+            ? Html.Raw(JsonSerializer.Serialize(Model.BoardData, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }))
+            : Html.Raw("null")),
+        highlightCardId: @highlightCardIdValue,
+        canEditCurrentBoard: @Model.CanEditCurrentBoard.ToString().ToLowerInvariant()
+    });
     </script>
 }

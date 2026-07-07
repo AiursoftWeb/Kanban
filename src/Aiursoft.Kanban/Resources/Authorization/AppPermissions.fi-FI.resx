@@ -42,6 +42,9 @@
   <data name="Allows the permanent deletion of user accounts." xml:space="preserve">
     <value>Sallii käyttäjätilien pysyvän poistamisen.</value>
   </data>
+  <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
+    <value>Mahdollistaa kaikkien käyttäjien päivittäisten suunnitelmien ja yhteenvetojen tarkastelemisen ja hallinnoinnin.</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Salli näytön ja muokkaus yleiset sovelluksen asetukset.</value>
   </data>
@@ -86,6 +89,9 @@
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>Hallitse mitä tahansa taulun jakoa</value>
+  </data>
+  <data name="Manage Any Daily Report" xml:space="preserve">
+    <value>Hallinnoi kaikkia päivittäisiä raportteja</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Hallinnoi yleisiä asetuksia</value>

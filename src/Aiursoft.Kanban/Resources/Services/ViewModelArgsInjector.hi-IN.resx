@@ -45,6 +45,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>खराब अनुरोध</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>कार्ड विवरण</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>अवतार बदलें</value>
   </data>
@@ -62,6 +65,9 @@
   </data>
   <data name="Create User" xml:space="preserve">
     <value>उपयोगकर्ता बनाएं</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>दैनिक सहायक</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>डैशबोर्ड</value>
@@ -167,6 +173,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>पंजीकरण करें</value>
+  </data>
+  <data name="Report Details" xml:space="preserve">
+    <value>रिपोर्ट विवरण</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>भूमिका विवरण</value>
