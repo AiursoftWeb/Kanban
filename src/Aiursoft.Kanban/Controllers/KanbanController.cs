@@ -201,6 +201,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateColumn(int boardId, string name)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -233,6 +234,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateCard(int columnId, string title, string? description)
     {
         if (string.IsNullOrWhiteSpace(title))
@@ -434,6 +436,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> MoveCard(int cardId, int targetColumnId, int newOrder)
     {
         var card = await db.KanbanCards
@@ -592,6 +595,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> MoveColumn(int columnId, int newOrder)
     {
         var column = await db.KanbanColumns
@@ -634,6 +638,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> MoveBoard(int boardId, int newOrder)
     {
         var board = await db.KanbanBoards.FindAsync(boardId);
@@ -800,6 +805,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> UpdateColumnStatus(int columnId, int status)
     {
         var column = await db.KanbanColumns
@@ -827,6 +833,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> UpdateCardDetails(
         int cardId,
         string? title,
@@ -953,6 +960,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> UpdateCardPriority(int cardId, int priority)
     {
         if (!Enum.IsDefined(typeof(Priority), priority))
@@ -985,6 +993,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> AssignCard(int cardId, string? assignedUserId)
     {
         var card = await db.KanbanCards
@@ -1055,6 +1064,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddLabel(int cardId, string name)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -1111,6 +1121,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> RemoveLabel(int cardId, int labelId)
     {
         var card = await db.KanbanCards
@@ -1309,6 +1320,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddComment(int cardId, string content, string? images)
     {
         if (string.IsNullOrWhiteSpace(content))
@@ -1317,7 +1329,7 @@ public class KanbanController(
         if (content.Trim().Length > 2000)
             return BadRequest("Content is too long.");
 
-        images = images ?? string.Empty;
+        images = NormalizeCommentImages(images);
 
         var card = await db.KanbanCards
             .Include(c => c.Column)
@@ -1390,6 +1402,7 @@ public class KanbanController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteComment(int commentId)
     {
         var userId = userManager.GetUserId(User)!;
@@ -1631,6 +1644,35 @@ public class KanbanController(
         if (dt.Value.Kind == DateTimeKind.Unspecified)
             return DateTime.SpecifyKind(dt.Value, DateTimeKind.Utc);
         return dt.Value.ToUniversalTime();
+    }
+
+    private string NormalizeCommentImages(string? images)
+    {
+        if (string.IsNullOrWhiteSpace(images)) return string.Empty;
+
+        var validImages = images
+            .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Where(IsAllowedCommentImageUrl)
+            .Distinct(StringComparer.OrdinalIgnoreCase);
+
+        return string.Join(';', validImages);
+    }
+
+    private bool IsAllowedCommentImageUrl(string image)
+    {
+        if (image.Any(char.IsControl)) return false;
+
+        if (image.StartsWith("/download/kanban-images/", StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        if (!Uri.TryCreate(image, UriKind.Absolute, out var uri))
+            return false;
+
+        if (uri.Scheme is not ("http" or "https"))
+            return false;
+
+        return string.Equals(uri.Authority, Request.Host.Value, StringComparison.OrdinalIgnoreCase) &&
+            uri.AbsolutePath.StartsWith("/download/kanban-images/", StringComparison.OrdinalIgnoreCase);
     }
 
     private static DateTime AdvanceByRecurrence(DateTime baseline, int interval, RecurrenceUnit unit)

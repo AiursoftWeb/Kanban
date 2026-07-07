@@ -48,9 +48,9 @@ public class BoardSharingTests : TestBase
         var viewResponse = await Http.GetAsync($"/PublicKanban/View/{boardId}");
         Assert.AreEqual(HttpStatusCode.OK, viewResponse.StatusCode);
 
-        var editResponse = await Http.PostAsync(
+        var editResponse = await PostForm(
             $"/Kanban/CreateColumn?boardId={boardId}&name=Blocked",
-            new FormUrlEncodedContent(new Dictionary<string, string>()));
+            new Dictionary<string, string>());
         Assert.IsTrue(editResponse.StatusCode == HttpStatusCode.Forbidden || editResponse.StatusCode == HttpStatusCode.Found);
     }
 
@@ -64,9 +64,9 @@ public class BoardSharingTests : TestBase
         var editorId = await RegisterUserAndGetIdAsync();
         await CreateShare(boardId, editorId, null, SharePermission.Editable);
 
-        var response = await Http.PostAsync(
+        var response = await PostForm(
             $"/Kanban/CreateColumn?boardId={boardId}&name=Review",
-            new FormUrlEncodedContent(new Dictionary<string, string>()));
+            new Dictionary<string, string>());
 
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
     }

@@ -778,11 +778,14 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     refs.commentCount && (refs.commentCount.textContent = String(comments.length));
 
     if (comments.length === 0) {
-      refs.commentsList.innerHTML = `<p class="comment-empty-hint">${escapeHtml(t('no-comments-yet', 'No comments yet.'))}</p>`;
+      const empty = document.createElement('p');
+      empty.className = 'comment-empty-hint';
+      empty.textContent = t('no-comments-yet', 'No comments yet.');
+      refs.commentsList.replaceChildren(empty);
       return;
     }
 
-    refs.commentsList.innerHTML = comments.map(renderCommentHtml).join('');
+    refs.commentsList.replaceChildren(...comments.map(renderCommentElement));
     refreshIcons(refs.commentsList);
   }
 
@@ -856,35 +859,108 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   }
 }
 
-function renderCommentHtml(comment: CommentDto): string {
+function renderCommentElement(comment: CommentDto): HTMLElement {
   const images = (comment.Images ?? '')
     .split(';')
     .map(image => image.trim())
-    .filter(Boolean);
+    .filter(isSafeCommentImageUrl);
 
-  const avatar = comment.Avatar
-    ? `<img src="${escapeHtml(comment.Avatar)}" class="card-assignee-avatar-image" alt="${escapeHtml(comment.AuthorName ?? '')}">`
-    : escapeHtml(comment.AuthorInitial ?? '');
+  const item = document.createElement('div');
+  item.className = 'comment-item';
+  item.dataset.commentId = String(comment.Id);
 
-  const imagesHtml = images.length > 0
-    ? `<div class="comment-images mt-2 d-flex gap-2 flex-wrap">
-         ${images.map(image => `<img src="${escapeHtml(image)}" data-fullscreen-src="${escapeHtml(image)}" class="comment-image-thumb" style="height:72px;max-width:120px;object-fit:cover;border-radius:10px;cursor:pointer;border:1px solid var(--bs-border-color, #dee2e6);" alt="comment image">`).join('')}
-       </div>`
-    : '';
+  const avatar = document.createElement('div');
+  avatar.className = 'comment-avatar';
+  if (comment.Avatar && isSafeSameOriginUrl(comment.Avatar)) {
+    const image = document.createElement('img');
+    image.src = comment.Avatar;
+    image.className = 'card-assignee-avatar-image';
+    image.alt = comment.AuthorName ?? '';
+    avatar.appendChild(image);
+  } else {
+    avatar.textContent = comment.AuthorInitial ?? '';
+  }
 
-  return `
-    <div class="comment-item" data-comment-id="${comment.Id}">
-      <div class="comment-avatar">${avatar}</div>
-      <div class="comment-body">
-        <div class="comment-header">
-          <span class="comment-author">${escapeHtml(comment.AuthorName ?? '')}</span>
-          <span class="comment-time" title="${escapeHtml(formatCommentFullTime(comment.CreationTime))}">${escapeHtml(formatCommentTime(comment.CreationTime))}</span>
-          ${comment.CanDelete ? `<button type="button" class="comment-delete-btn" data-comment-id="${comment.Id}" title="${escapeHtml(t('delete-comment', 'Delete comment'))}"><i class="align-middle" data-lucide="trash-2" style="width:14px;height:14px"></i></button>` : ''}
-        </div>
-        <div class="comment-text">${renderSafeCommentHtml(comment.Content)}</div>
-        ${imagesHtml}
-      </div>
-    </div>`;
+  const body = document.createElement('div');
+  body.className = 'comment-body';
+
+  const header = document.createElement('div');
+  header.className = 'comment-header';
+
+  const author = document.createElement('span');
+  author.className = 'comment-author';
+  author.textContent = comment.AuthorName ?? '';
+
+  const time = document.createElement('span');
+  time.className = 'comment-time';
+  time.title = formatCommentFullTime(comment.CreationTime);
+  time.textContent = formatCommentTime(comment.CreationTime);
+
+  header.append(author, time);
+
+  if (comment.CanDelete) {
+    const deleteButton = document.createElement('button');
+    deleteButton.type = 'button';
+    deleteButton.className = 'comment-delete-btn';
+    deleteButton.dataset.commentId = String(comment.Id);
+    deleteButton.title = t('delete-comment', 'Delete comment');
+    deleteButton.innerHTML = '<i class="align-middle" data-lucide="trash-2" style="width:14px;height:14px"></i>';
+    header.appendChild(deleteButton);
+  }
+
+  const text = document.createElement('div');
+  text.className = 'comment-text';
+  text.innerHTML = renderSafeCommentHtml(comment.Content);
+
+  body.append(header, text);
+
+  if (images.length > 0) {
+    const imagesContainer = document.createElement('div');
+    imagesContainer.className = 'comment-images mt-2 d-flex gap-2 flex-wrap';
+    images.forEach(imageUrl => {
+      const image = document.createElement('img');
+      image.src = imageUrl;
+      image.dataset.fullscreenSrc = imageUrl;
+      image.className = 'comment-image-thumb';
+      image.style.height = '72px';
+      image.style.maxWidth = '120px';
+      image.style.objectFit = 'cover';
+      image.style.borderRadius = '10px';
+      image.style.cursor = 'pointer';
+      image.style.border = '1px solid var(--bs-border-color, #dee2e6)';
+      image.alt = 'comment image';
+      imagesContainer.appendChild(image);
+    });
+    body.appendChild(imagesContainer);
+  }
+
+  item.append(avatar, body);
+  return item;
+}
+
+function isSafeCommentImageUrl(value: string): boolean {
+  if (!value || /[\u0000-\u001F\u007F]/.test(value)) return false;
+  if (value.startsWith('/download/kanban-images/')) return true;
+
+  try {
+    const url = new URL(value, window.location.origin);
+    return url.origin === window.location.origin
+      && url.pathname.startsWith('/download/kanban-images/');
+  } catch {
+    return false;
+  }
+}
+
+function isSafeSameOriginUrl(value: string): boolean {
+  if (!value || /[\u0000-\u001F\u007F]/.test(value)) return false;
+
+  try {
+    const url = new URL(value, window.location.origin);
+    return url.origin === window.location.origin
+      && (url.protocol === 'http:' || url.protocol === 'https:');
+  } catch {
+    return false;
+  }
 }
 
 function mapLabel(value: LabelSearchResult): CardLabel {

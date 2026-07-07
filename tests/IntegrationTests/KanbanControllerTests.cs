@@ -72,9 +72,9 @@ public class KanbanControllerTests : TestBase
         await LoginAsAdmin();
         var boardId = await CreateBoardAndGetIdAsync("Board");
 
-        var response = await Http.PostAsync(
+        var response = await PostAsync(
             $"/Kanban/CreateColumn?boardId={boardId}&name=Review",
-            new FormUrlEncodedContent(new Dictionary<string, string>()));
+            new Dictionary<string, string>());
         response.EnsureSuccessStatusCode();
 
         var json = await response.Content.ReadAsStringAsync();
@@ -87,9 +87,9 @@ public class KanbanControllerTests : TestBase
     public async Task CreateColumn_EmptyName_ReturnsBadRequest()
     {
         await LoginAsAdmin();
-        var response = await Http.PostAsync(
+        var response = await PostAsync(
             "/Kanban/CreateColumn?boardId=1&name=",
-            new FormUrlEncodedContent(new Dictionary<string, string>()));
+            new Dictionary<string, string>());
         Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
@@ -131,6 +131,19 @@ public class KanbanControllerTests : TestBase
             "/Kanban/CreateCard?columnId=9999&title=Ghost",
             new Dictionary<string, string>());
         Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task CreateColumn_WithoutAntiForgeryToken_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var boardId = await CreateBoardAndGetIdAsync("Board");
+
+        var response = await Http.PostAsync(
+            $"/Kanban/CreateColumn?boardId={boardId}&name=Injected",
+            new FormUrlEncodedContent(new Dictionary<string, string>()));
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
     // ── DeleteCard ─────────────────────────────────────────
@@ -612,9 +625,9 @@ public class KanbanControllerTests : TestBase
         var boardId = await CreateBoardAndGetIdAsync("Board");
 
         // Add a fresh empty column so we know its ID and it has no cards.
-        var newColResponse = await Http.PostAsync(
+        var newColResponse = await PostAsync(
             $"/Kanban/CreateColumn?boardId={boardId}&name=Extra",
-            new FormUrlEncodedContent(new Dictionary<string, string>()));
+            new Dictionary<string, string>());
         newColResponse.EnsureSuccessStatusCode();
         var json = await newColResponse.Content.ReadAsStringAsync();
         using var doc = JsonDocument.Parse(json);
@@ -735,6 +748,7 @@ public class KanbanControllerTests : TestBase
         await LoginAsAdmin();
         var (_, columnId) = await CreateBoardAndFirstColumnAsync();
         var card = await CreateCardAndGetIdAsync(columnId, "Card with comments");
+        const string trustedImage = "/download/kanban-images/comment.png";
 
         var response = await PostAsync(
             $"/Kanban/AddComment",
@@ -742,14 +756,14 @@ public class KanbanControllerTests : TestBase
             {
                 { "cardId", card.Id.ToString() },
                 { "content", "This is a comment test" },
-                { "images", "This is a images url" }
+                { "images", $"{trustedImage};javascript:alert(1);https://evil.example/comment.png" }
             });
         response.EnsureSuccessStatusCode();
 
         var json = await response.Content.ReadAsStringAsync();
         using var doc = JsonDocument.Parse(json);
         Assert.AreEqual("This is a comment test", doc.RootElement.GetProperty("Content").GetString());
-        Assert.AreEqual("This is a images url", doc.RootElement.GetProperty("Images").GetString());
+        Assert.AreEqual(trustedImage, doc.RootElement.GetProperty("Images").GetString());
         Assert.IsNotNull(doc.RootElement.GetProperty("AuthorName").GetString());
         Assert.IsNotNull(doc.RootElement.GetProperty("AuthorInitial").GetString());
 
@@ -761,6 +775,6 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(JsonValueKind.Array, getDoc.RootElement.ValueKind);
         Assert.AreEqual(1, getDoc.RootElement.GetArrayLength());
         Assert.AreEqual("This is a comment test", getDoc.RootElement[0].GetProperty("Content").GetString());
-        Assert.AreEqual("This is a images url", getDoc.RootElement[0].GetProperty("Images").GetString());
+        Assert.AreEqual(trustedImage, getDoc.RootElement[0].GetProperty("Images").GetString());
     }
 }

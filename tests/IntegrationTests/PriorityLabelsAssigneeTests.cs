@@ -399,6 +399,10 @@ public class PriorityLabelsAssigneeTests : TestBase
 
     private async Task<HttpResponseMessage> PostAsync(string url)
     {
-        return await Http.PostAsync(url, new FormUrlEncodedContent(new Dictionary<string, string>()));
+        var token = await GetAntiCsrfToken("/");
+        return await Http.PostAsync(url, new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["__RequestVerificationToken"] = token
+        }));
     }
 }
