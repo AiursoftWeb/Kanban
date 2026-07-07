@@ -10,6 +10,7 @@ import type {
 } from './types';
 
 import { renderBoard } from './renderer';
+export { rerenderCardElement, syncCardElementData } from './renderer';
 import { initDragDrop } from './drag-drop';
 import { initQuickCreate } from './quick-create';
 import { initColumnEditor } from './column-editor';
@@ -163,6 +164,7 @@ export type {
   ColumnData,
   CardSummary,
   CardLabel,
+  UserSummary,
   KanbanCallbacks,
   FilterState,
 } from './types';

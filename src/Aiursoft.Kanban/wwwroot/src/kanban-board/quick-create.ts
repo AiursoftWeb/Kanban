@@ -4,6 +4,7 @@
 
 import type { KanbanCallbacks, CardSummary } from './types';
 import { renderCardIntoColumn } from './renderer';
+import { t } from './i18n';
 
 export function initQuickCreate(
   container: HTMLElement,
@@ -36,10 +37,7 @@ function createQuickCreateInput(
   const input = document.createElement('input');
   input.type = 'text';
   input.className = 'quick-create-input';
-  input.placeholder = 'Type title + Enter…';
-  input.style.cssText =
-    'width:100%;padding:8px 12px;border:1px solid var(--bs-primary);border-radius:8px;' +
-    'font-size:0.85rem;margin-top:0.5rem;outline:none;box-sizing:border-box';
+  input.placeholder = t('what-needs-to-be-done', 'What needs to be done?');
 
   let creating = false;
 
@@ -51,19 +49,9 @@ function createQuickCreateInput(
     input.disabled = true;
 
     try {
-      const result = await callbacks.onCardCreatedQuick!(columnId, title);
-      if (result && typeof result.cardId === 'number' && result.cardId > 0) {
-        const newCard: CardSummary = {
-          id: result.cardId,
-          title,
-          priority: 'None',
-          isOverdue: false,
-          labels: [],
-          commentCount: 0,
-          isRecurring: false,
-          creationTime: new Date().toISOString(),
-        };
-        renderCardIntoColumn(columnEl, newCard, true);
+      const card = await callbacks.onCardCreatedQuick!(columnId, title);
+      if (card && typeof card.id === 'number' && card.id > 0) {
+        renderCardIntoColumn(columnEl, card, true);
       }
     } catch (err) {
       console.error('Quick create failed:', err);

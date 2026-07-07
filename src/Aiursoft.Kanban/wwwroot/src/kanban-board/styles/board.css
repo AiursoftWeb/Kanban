@@ -3,11 +3,6 @@
    Extracted from Index.cshtml <style> — selectors unchanged
    ============================================================ */
 
-html, body {
-    height: 100%;
-    overflow: hidden;
-}
-
 .kanban-page-wrapper {
     display: flex;
     flex-direction: column;

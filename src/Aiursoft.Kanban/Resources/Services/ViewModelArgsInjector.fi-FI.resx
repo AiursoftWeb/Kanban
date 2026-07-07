@@ -45,6 +45,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Väärä pyyntö</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Kortin tiedot</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Vaihda avataria</value>
   </data>

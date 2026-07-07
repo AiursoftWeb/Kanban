@@ -4,19 +4,17 @@ import { resolve } from 'path';
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/kanban-board/index.ts'),
-      name: 'KanbanBoard',
+      entry: {
+        'kanban-board': resolve(__dirname, 'src/kanban-board/index.ts'),
+        'kanban-page': resolve(__dirname, 'src/kanban-page/index.ts'),
+        'card-detail-page': resolve(__dirname, 'src/card-detail-page/index.ts'),
+      },
       formats: ['es'],
-      fileName: () => 'kanban-board.js',
+      fileName: (_format, entryName) => `${entryName}.js`,
+      cssFileName: 'kanban-board',
     },
     outDir: 'dist',
     emptyOutDir: true,
-    rollupOptions: {
-      external: [],
-      output: {
-        assetFileNames: 'kanban-board.[ext]',
-      },
-    },
   },
   css: {
     modules: false,

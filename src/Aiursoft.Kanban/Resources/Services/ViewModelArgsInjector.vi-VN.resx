@@ -48,6 +48,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Yêu cầu sai</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Chi tiết thẻ</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Thay đổi Ảnh đại diện</value>
   </data>

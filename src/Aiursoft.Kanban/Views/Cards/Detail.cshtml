@@ -1,663 +1,752 @@
+@using System.Text.Json
+@using Aiursoft.WebTools
 @model Aiursoft.Kanban.Models.CardViewModels.CardDetailViewModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@inject Aiursoft.Kanban.Services.FileStorage.StorageService StorageService
 @{
     var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
+    var returnBoardUrl = Url.Action("Index", "Kanban", new { boardId = Model.ReturnBoardId }) ?? "/Kanban";
+    var backToBoardUrl = Url.Action("Index", "Kanban", new { boardId = Model.ReturnBoardId, highlightCard = Model.CardId }) ?? returnBoardUrl;
+    var kanbanImageUploadUrl = StorageService.GetUploadUrl("kanban-images");
     ViewData["Title"] = Model.Title;
 }
 
 @section styles {
     <link rel="stylesheet" href="~/node_modules/katex/dist/katex.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/kanban-board.css" asp-append-version="true" />
+    <style>
+        .card-detail-shell {
+            max-width: 1180px;
+        }
+
+        .card-detail-hero {
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 28px;
+            padding: 1.5rem;
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 36%),
+                radial-gradient(circle at top right, rgba(139, 92, 246, 0.12), transparent 30%),
+                linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.94));
+            box-shadow: 0 22px 48px rgba(15, 23, 42, 0.08);
+        }
+
+        .detail-surface {
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 24px;
+            background: rgba(255,255,255,0.96);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+            overflow: hidden;
+        }
+
+        .detail-surface-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.1rem 1.35rem 0;
+        }
+
+        .detail-surface-body {
+            padding: 1rem 1.35rem 1.35rem;
+        }
+
+        .detail-meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.4rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(241, 245, 249, 0.92);
+            color: #334155;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+        }
+
+        .detail-meta-chip i {
+            color: #64748b;
+        }
+
+        .detail-kv {
+            display: grid;
+            grid-template-columns: 92px 1fr;
+            gap: 0.7rem;
+            align-items: center;
+            margin-bottom: 0.85rem;
+        }
+
+        .detail-kv:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-kv-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .detail-kv-value {
+            min-width: 0;
+        }
+
+        .detail-stat-box {
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(248,250,252,0.94), rgba(241,245,249,0.94));
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            padding: 0.9rem 1rem;
+        }
+
+        .detail-stat-title {
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .detail-stat-value {
+            margin-top: 0.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .detail-sticky-stack {
+            position: sticky;
+            top: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .detail-title-display {
+            cursor: default;
+            line-height: 1.1;
+        }
+
+        .detail-title-display.editable {
+            cursor: pointer;
+        }
+
+        .detail-title-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.85rem;
+            margin-top: 0.85rem;
+            color: #64748b;
+        }
+
+        .detail-comment-composer {
+            display: flex;
+            gap: 0.85rem;
+            align-items: flex-end;
+            margin-top: 1rem;
+        }
+
+        .detail-comment-composer .btn-comment-submit {
+            min-width: 110px;
+            border-radius: 14px;
+        }
+
+        .detail-actions-grid {
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        .detail-select,
+        .detail-input {
+            border-radius: 14px;
+        }
+
+        .detail-section-note {
+            font-size: 0.78rem;
+            color: #64748b;
+        }
+
+        .detail-hero-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .detail-avatar-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 0;
+        }
+
+        .detail-avatar-copy {
+            min-width: 0;
+        }
+
+        .detail-avatar-copy .title {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .detail-avatar-copy .subtitle {
+            font-size: 0.78rem;
+            color: #64748b;
+        }
+
+        .detail-description-tabs .nav-link {
+            border-radius: 999px;
+            border: none;
+            color: #64748b;
+            padding: 0.45rem 0.9rem;
+        }
+
+        .detail-description-tabs .nav-link.active {
+            background: rgba(59, 130, 246, 0.10);
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        .comment-image-thumb {
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+        }
+
+        .detail-empty {
+            border-radius: 16px;
+            border: 1px dashed rgba(148, 163, 184, 0.35);
+            background: rgba(248,250,252,0.85);
+            padding: 1rem;
+            color: #64748b;
+        }
+
+        @@media (max-width: 991.98px) {
+            .detail-sticky-stack {
+                position: static;
+            }
+        }
+    </style>
 }
 
-<div class="container-fluid px-4 pt-4 pb-5" style="max-width:900px">
-    @* ── Top bar ── *@
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <a href="@Url.Action("Index", "Kanban", new { boardId = Model.ReturnBoardId, highlightCard = Model.CardId })"
-           class="btn btn-outline-secondary btn-sm">
-            <i class="align-middle" style="width:16px;height:16px" data-lucide="arrow-left"></i>
-            Back to @Model.BoardName
-        </a>
-        <div class="d-flex gap-2">
-            @if (Model.CanEdit)
-            {
-                <button class="btn btn-outline-danger btn-sm" id="btnDeleteCard" data-card-id="@Model.CardId">
-                    <i class="align-middle" style="width:14px;height:14px" data-lucide="trash-2"></i> Delete
-                </button>
-            }
+<div class="container-fluid card-detail-shell px-4 pt-4 pb-5">
+    <div class="card-detail-hero mb-4" id="cardDetailRoot">
+        <div class="d-flex flex-column flex-lg-row align-items-lg-start justify-content-between gap-3">
+            <div class="min-w-0">
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                    <a href="@backToBoardUrl" class="btn btn-outline-secondary btn-sm">
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="arrow-left"></i>
+                        @Localizer["Back to {0}", Model.BoardName]
+                    </a>
+                    <span class="detail-meta-chip">
+                        <i class="align-middle" data-lucide="layout-grid" style="width:14px;height:14px"></i>
+                        @Model.BoardName
+                    </span>
+                    <span class="detail-meta-chip">
+                        <i class="align-middle" data-lucide="columns-3" style="width:14px;height:14px"></i>
+                        <span data-current-column-name>@Model.ColumnName</span>
+                    </span>
+                </div>
+                <h1 class="fw-bold mb-0 detail-title-display @(Model.CanEdit ? "editable" : string.Empty)" id="cardTitleDisplay">@Model.Title</h1>
+                @if (Model.CanEdit)
+                {
+                    <input type="text" id="cardTitleInput" class="form-control form-control-lg d-none mt-2"
+                           value="@Model.Title" style="border-radius:16px;font-size:1.55rem;font-weight:700" />
+                }
+                <div class="detail-title-meta" id="cardTitleMeta">
+                    <span class="detail-meta-chip">
+                        <i class="align-middle" data-lucide="user" style="width:14px;height:14px"></i>
+                        @Model.CreatorName
+                    </span>
+                    <span class="detail-meta-chip">
+                        <i class="align-middle" data-lucide="clock-3" style="width:14px;height:14px"></i>
+                        <label data-utc-time="@Model.CreationTime.ToHtmlDateTime()"></label>
+                    </span>
+                    <span class="detail-meta-chip">
+                        <i class="align-middle" data-lucide="message-circle" style="width:14px;height:14px"></i>
+                        <span id="commentCount">@Model.Comments.Count</span> @Localizer["comments"]
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-hero-actions">
+                @if (Model.CanEdit)
+                {
+                    <button class="btn btn-outline-danger" id="btnDeleteCard">
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="trash-2"></i>
+                        @Localizer["Delete"]
+                    </button>
+                }
+            </div>
         </div>
     </div>
 
-    @* ── Title ── *@
-    <div class="mb-3">
-        <h4 class="fw-bold mb-0" id="cardTitleDisplay" @(Model.CanEdit ? "style=cursor:pointer" : "")>@Model.Title</h4>
-        @if (Model.CanEdit)
-        {
-            <input type="text" id="cardTitleInput" class="form-control form-control-lg d-none"
-                   value="@Model.Title" style="border-radius:12px;font-size:1.4rem;font-weight:700" />
-        }
-    </div>
-
     <div class="row g-4">
-        @* ── Left column: description ── *@
-        <div class="col-md-8">
-            <div class="card" style="border-radius:16px">
-                <div class="card-header bg-transparent d-flex align-items-center justify-content-between border-0 px-4 pt-3 pb-0">
-                    <span class="fw-semibold">Description</span>
-                </div>
-                <div class="card-body px-4 pt-2 pb-4">
-                    <div id="descriptionView">
-                        @if (string.IsNullOrWhiteSpace(Model.Description))
-                        {
-                            <p class="text-muted fst-italic">No description.</p>
-                        }
-                        else
-                        {
-                            <div class="description-preview" id="descriptionPreview"></div>
-                        }
+        <div class="col-lg-8">
+            <section class="detail-surface">
+                <div class="detail-surface-header">
+                    <div>
+                        <div class="fw-semibold">@Localizer["Description"]</div>
+                        <div class="detail-section-note">@Localizer["Markdown, Mermaid and KaTeX are all supported."]</div>
                     </div>
                     @if (Model.CanEdit)
                     {
+                        <button class="btn btn-sm btn-outline-secondary" id="btnEditDesc">
+                            <i class="align-middle" style="width:14px;height:14px" data-lucide="edit-3"></i>
+                            @Localizer["Edit"]
+                        </button>
+                    }
+                </div>
+                <div class="detail-surface-body">
+                    <div id="descriptionView">
+                        <div id="descriptionEmpty" class="detail-empty @(string.IsNullOrWhiteSpace(Model.Description) ? string.Empty : "d-none")">
+                            @Localizer["No description yet. Capture the context, plan, or acceptance notes for this card here."]
+                        </div>
+                        <div class="description-preview @(string.IsNullOrWhiteSpace(Model.Description) ? "d-none" : string.Empty)" id="descriptionPreview"></div>
+                    </div>
+
+                    @if (Model.CanEdit)
+                    {
                         <div id="descriptionEdit" class="d-none">
-                            <ul class="nav nav-tabs small mb-2 border-0" id="descTabs">
+                            <ul class="nav nav-tabs detail-description-tabs mb-3 border-0">
                                 <li class="nav-item">
-                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#descEditTab" type="button">Edit</button>
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#descEditTab" type="button">@Localizer["Edit"]</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#descPreviewTab" type="button" id="btnPreviewTab">Preview</button>
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#descPreviewTab" type="button" id="btnPreviewTab">@Localizer["Preview"]</button>
                                 </li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="descEditTab">
-                                    <textarea id="descTextarea" class="form-control" rows="12"
-                                              style="border-radius:12px;font-size:0.9rem;resize:vertical">@Model.Description</textarea>
-                                    <div class="d-flex justify-content-end mt-2 gap-2">
-                                        <button class="btn btn-sm btn-outline-secondary" id="btnCancelDesc">Cancel</button>
-                                        <button class="btn btn-sm btn-primary" id="btnSaveDesc">Save</button>
+                                    <textarea id="descTextarea" class="form-control detail-input" rows="12" style="resize:none">@Model.Description</textarea>
+                                    <div class="detail-section-note mt-2">@Localizer["Tip: paste an image directly into the editor to upload and embed it."]</div>
+                                    <div class="d-flex justify-content-end mt-3 gap-2">
+                                        <button class="btn btn-outline-secondary" id="btnCancelDesc">@Localizer["Cancel"]</button>
+                                        <button class="btn btn-primary" id="btnSaveDesc">@Localizer["Save"]</button>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="descPreviewTab">
-                                    <div class="description-preview border rounded-3 p-3" id="descLivePreview" style="min-height:200px"></div>
+                                    <div class="description-preview border rounded-4 p-3 bg-light-subtle" id="descLivePreview" style="min-height:220px"></div>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-sm btn-outline-secondary mt-2" id="btnEditDesc">
-                            <i class="align-middle" style="width:14px;height:14px" data-lucide="edit-3"></i> Edit
-                        </button>
                     }
                 </div>
-            </div>
+            </section>
 
-            @* ── Comments ── *@
-            <div class="card mt-4" style="border-radius:16px">
-                <div class="card-header bg-transparent d-flex align-items-center border-0 px-4 pt-3 pb-0">
-                    <span class="fw-semibold">Comments <span class="text-muted">(@Model.Comments.Count)</span></span>
+            <section class="detail-surface mt-4">
+                <div class="detail-surface-header">
+                    <div>
+                        <div class="fw-semibold">@Localizer["Comments"]</div>
+                        <div class="detail-section-note">@Localizer["Thread context, decisions, follow-ups and attachments stay with the card."]</div>
+                    </div>
                 </div>
-                <div class="card-body px-4 pt-3 pb-4">
+                <div class="detail-surface-body">
                     <div id="commentsList">
-                        @foreach (var comment in Model.Comments)
+                        @if (Model.Comments.Any())
                         {
-                            <div class="comment-item" data-comment-id="@comment.Id">
-                                <div class="comment-avatar" style="background:@(string.IsNullOrEmpty(comment.AuthorAvatarUrl) ? "var(--bs-primary)" : "transparent")">
-                                    @if (!string.IsNullOrEmpty(comment.AuthorAvatarUrl))
-                                    {
-                                        <img src="@comment.AuthorAvatarUrl" alt="@comment.AuthorName" class="card-assignee-avatar-image" />
-                                    }
-                                    else
-                                    {
-                                        @comment.AuthorInitial
-                                    }
-                                </div>
-                                <div class="comment-body">
-                                    <div class="comment-header">
-                                        <span class="comment-author">@comment.AuthorName</span>
-                                        <span class="comment-time">@comment.CreatedAt</span>
-                                        @if (comment.CanDelete)
+                            @foreach (var comment in Model.Comments)
+                            {
+                                var images = (comment.Images ?? string.Empty)
+                                    .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                                <div class="comment-item" data-comment-id="@comment.Id">
+                                    <div class="comment-avatar" style="background:@(string.IsNullOrEmpty(comment.AuthorAvatarUrl) ? "var(--bs-primary)" : "transparent")">
+                                        @if (!string.IsNullOrEmpty(comment.AuthorAvatarUrl))
                                         {
-                                            <button class="comment-delete-btn" data-comment-id="@comment.Id" title="Delete comment">
-                                                <i class="align-middle" style="width:14px;height:14px" data-lucide="x"></i>
-                                            </button>
+                                            <img src="@comment.AuthorAvatarUrl" alt="@comment.AuthorName" class="card-assignee-avatar-image" />
+                                        }
+                                        else
+                                        {
+                                            @comment.AuthorInitial
                                         }
                                     </div>
-                                    <div class="comment-text">@comment.Content</div>
+                                    <div class="comment-body">
+                                        <div class="comment-header">
+                                            <span class="comment-author">@comment.AuthorName</span>
+                                            <span class="comment-time">@comment.CreatedAt</span>
+                                            @if (comment.CanDelete)
+                                            {
+                                                <button class="comment-delete-btn" data-comment-id="@comment.Id" title="@Localizer["Delete comment"]">
+                                                    <i class="align-middle" style="width:14px;height:14px" data-lucide="trash-2"></i>
+                                                </button>
+                                            }
+                                        </div>
+                                        <div class="comment-text">@comment.Content</div>
+                                        @if (images.Any())
+                                        {
+                                            <div class="comment-images mt-2 d-flex gap-2 flex-wrap">
+                                                @foreach (var image in images)
+                                                {
+                                                    <img src="@image" data-fullscreen-src="@image" class="comment-image-thumb" style="height:72px;max-width:120px;object-fit:cover;border-radius:10px;cursor:pointer;border:1px solid var(--bs-border-color, #dee2e6);" alt="@Localizer["comment image"]" />
+                                                }
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         }
-                        @if (!Model.Comments.Any())
+                        else
                         {
-                            <p class="comment-empty-hint">No comments yet.</p>
+                            <p class="comment-empty-hint">@Localizer["No comments yet."]</p>
                         }
                     </div>
+
                     @if (Model.CanEdit)
                     {
-                        <div class="comment-add-area mt-3">
-                            <textarea id="commentInput" class="form-control" rows="2" placeholder="Write a comment... (Ctrl+Enter to send)"></textarea>
+                        <div class="detail-comment-composer">
+                            <div class="flex-grow-1">
+                                <textarea id="commentInput" class="form-control detail-input" rows="3" placeholder="@Localizer["Write a comment... (Ctrl+Enter to send)"]"></textarea>
+                                <div class="detail-section-note mt-2">@Localizer["Drag an image here or paste from clipboard to attach it to the comment."]</div>
+                            </div>
                             <button class="btn btn-primary btn-comment-submit" id="btnAddComment">
                                 <i class="align-middle" style="width:16px;height:16px" data-lucide="send"></i>
+                                @Localizer["Send"]
                             </button>
                         </div>
                     }
                 </div>
-            </div>
+            </section>
         </div>
 
-        @* ── Right column: metadata ── *@
-        <div class="col-md-4">
-            @* Priority *@
-            <div class="card mb-3" style="border-radius:16px">
-                <div class="card-header bg-transparent border-0 px-4 pt-3 pb-0"><span class="fw-semibold">Priority</span></div>
-                <div class="card-body px-4 pt-2 pb-3">
-                    <div class="d-flex flex-wrap gap-1" id="priorityGroup">
-                        @{
-                            var priorities = new[] { ("Urgent", "priority-urgent"), ("High", "priority-high"), ("Medium", "priority-medium"), ("Low", "priority-low"), ("None", "") };
-                            for (int i = 0; i < priorities.Length; i++)
-                            {
-                                var (name, cls) = priorities[i];
-                                var isActive = i == Model.Priority;
-                                <span class="priority-badge @(isActive ? cls : "") @(isActive ? "" : "text-muted") @(Model.CanEdit ? "priority-selectable" : "")"
-                                      data-priority="@i"
-                                      style="@(Model.CanEdit ? "cursor:pointer" : "")">
-                                    @name
-                                </span>
-                            }
-                        }
-                    </div>
-                </div>
-            </div>
-
-            @* Assignee *@
-            <div class="card mb-3" style="border-radius:16px">
-                <div class="card-header bg-transparent border-0 px-4 pt-3 pb-0"><span class="fw-semibold">Assignee</span></div>
-                <div class="card-body px-4 pt-2 pb-3">
-                    @if (!string.IsNullOrEmpty(Model.AssigneeId))
-                    {
-                        <div class="d-flex align-items-center gap-2 mb-2" id="assigneeDisplay">
-                            <span class="card-assignee-avatar">
-                                @if (!string.IsNullOrEmpty(Model.AssigneeAvatarUrl))
-                                {
-                                    <img src="@Model.AssigneeAvatarUrl" alt="@Model.AssigneeName" class="card-assignee-avatar-image" />
-                                }
-                                else
-                                {
-                                    @Model.AssigneeInitial
-                                }
-                            </span>
-                            <span>@Model.AssigneeName</span>
-                            @if (Model.CanEdit)
-                            {
-                                <button class="btn btn-sm btn-link text-danger p-0 ms-auto" id="btnClearAssignee">Clear</button>
-                            }
+        <div class="col-lg-4">
+            <div class="detail-sticky-stack">
+                <section class="detail-surface">
+                    <div class="detail-surface-header">
+                        <div>
+                            <div class="fw-semibold">@Localizer["Overview"]</div>
+                            <div class="detail-section-note">@Localizer["Context around ownership, status and where this card currently lives."]</div>
                         </div>
-                    }
-                    else
-                    {
-                        <span class="text-muted" id="assigneeDisplay">Unassigned</span>
-                    }
-                    @if (Model.CanEdit)
-                    {
-                        <input type="text" id="assigneeSearch" class="form-control form-control-sm mt-2" placeholder="Search assignee..."
-                               style="border-radius:8px" autocomplete="off" />
-                        <div id="assigneeDropdown" class="list-group d-none" style="position:absolute;z-index:1000;max-height:200px;overflow-y:auto"></div>
-                    }
-                </div>
-            </div>
-
-            @* Labels *@
-            <div class="card mb-3" style="border-radius:16px">
-                <div class="card-header bg-transparent border-0 px-4 pt-3 pb-0"><span class="fw-semibold">Labels</span></div>
-                <div class="card-body px-4 pt-2 pb-3">
-                    <div class="d-flex flex-wrap gap-1" id="labelsDisplay">
-                        @foreach (var label in Model.Labels)
-                        {
-                            <span class="card-label-chip" style="background:@label.Color;color:#fff" data-label-id="@label.Id">
-                                @label.Name
-                                @if (Model.CanEdit)
-                                {
-                                    <button class="btn-remove-label-chip ms-1" data-label-id="@label.Id" style="background:none;border:none;color:inherit;cursor:pointer;padding:0;font-size:0.8rem">&times;</button>
-                                }
-                            </span>
-                        }
-                        @if (!Model.Labels.Any())
-                        {
-                            <span class="text-muted">No labels</span>
-                        }
                     </div>
-                    @if (Model.CanEdit)
-                    {
-                        <div class="input-group input-group-sm mt-2">
-                            <input type="text" id="labelSearchInput" class="form-control" placeholder="Add label..." style="border-radius:8px 0 0 8px" />
-                            <button class="btn btn-outline-secondary" type="button" id="btnAddLabel" style="border-radius:0 8px 8px 0">+</button>
+                    <div class="detail-surface-body">
+                        <div class="detail-kv">
+                            <div class="detail-kv-label">@Localizer["Board"]</div>
+                            <div class="detail-kv-value fw-semibold">@Model.BoardName</div>
                         </div>
-                    }
-                </div>
-            </div>
-
-            @* Dates *@
-            <div class="card mb-3" style="border-radius:16px">
-                <div class="card-header bg-transparent border-0 px-4 pt-3 pb-0"><span class="fw-semibold">Dates</span></div>
-                <div class="card-body px-4 pt-2 pb-3 d-flex flex-column gap-2">
-                    <div class="d-flex align-items-center gap-2">
-                        <label class="text-muted small mb-0" style="width:80px">Due date</label>
-                        <input type="date" id="inputDueDate" class="form-control form-control-sm" value="@Model.DueDate"
-                               style="border-radius:8px" @(Model.CanEdit ? "" : "disabled") />
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <label class="text-muted small mb-0" style="width:80px">Start date</label>
-                        <input type="date" id="inputPlannedStart" class="form-control form-control-sm" value="@Model.PlannedStartDate"
-                               style="border-radius:8px" @(Model.CanEdit ? "" : "disabled") />
-                    </div>
-                </div>
-            </div>
-
-            @* Creator info *@
-            <div class="card mb-3" style="border-radius:16px">
-                <div class="card-header bg-transparent border-0 px-4 pt-3 pb-0"><span class="fw-semibold">Info</span></div>
-                <div class="card-body px-4 pt-2 pb-3">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <span class="text-muted small" style="width:60px">Creator</span>
-                        <span class="card-assignee-avatar" style="width:22px;height:22px;font-size:0.65rem">
-                            @if (!string.IsNullOrEmpty(Model.CreatorAvatarUrl))
-                            {
-                                <img src="@Model.CreatorAvatarUrl" alt="@Model.CreatorName" class="card-assignee-avatar-image" />
-                            }
-                            else
-                            {
-                                @Model.CreatorInitial
-                            }
-                        </span>
-                        <span class="small">@Model.CreatorName</span>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <span class="text-muted small" style="width:60px">Created</span>
-                        <span class="small">@Model.CreationTime</span>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 mt-2">
-                        <span class="text-muted small" style="width:60px">Column</span>
-                        <span class="small">@Model.ColumnName</span>
-                    </div>
-                </div>
-            </div>
-
-            @* Actions: Move / Transfer *@
-            @if (Model.CanEdit)
-            {
-                <div class="card mb-3" style="border-radius:16px">
-                    <div class="card-header bg-transparent border-0 px-4 pt-3 pb-0"><span class="fw-semibold">Actions</span></div>
-                    <div class="card-body px-4 pt-2 pb-3 d-flex flex-column gap-2">
-                        <div class="d-flex gap-2 align-items-center">
-                            <label class="text-muted small mb-0" style="width:50px">Move to</label>
-                            <select id="moveTargetColumn" class="form-select form-select-sm" style="border-radius:8px">
-                                @foreach (var col in Model.Columns)
-                                {
-                                    var sel = col.Id == Model.ColumnId ? "selected" : "";
-                                    <!option value="@col.Id" @sel>@col.Name</!option>
-                                }
-                            </select>
-                            <button class="btn btn-sm btn-outline-secondary" id="btnMoveCard">Move</button>
+                        <div class="detail-kv">
+                            <div class="detail-kv-label">@Localizer["Column"]</div>
+                            <div class="detail-kv-value fw-semibold" data-current-column-name>@Model.ColumnName</div>
                         </div>
-                        @if (Model.AvailableBoards.Any())
-                        {
-                            <div class="d-flex gap-2 align-items-center">
-                                <label class="text-muted small mb-0" style="width:50px">Transfer</label>
-                                <select id="transferTargetBoard" class="form-select form-select-sm" style="border-radius:8px">
-                                    <option value="">Select board...</option>
-                                    @foreach (var board in Model.AvailableBoards)
+                        <div class="detail-kv">
+                            <div class="detail-kv-label">@Localizer["Creator"]</div>
+                            <div class="detail-kv-value detail-avatar-row">
+                                <span class="card-assignee-avatar">
+                                    @if (!string.IsNullOrEmpty(Model.CreatorAvatarUrl))
                                     {
-                                        <option value="@board.Id">@board.Name</option>
+                                        <img src="@Model.CreatorAvatarUrl" alt="@Model.CreatorName" class="card-assignee-avatar-image" />
                                     }
-                                </select>
-                                <button class="btn btn-sm btn-outline-secondary" id="btnTransferCard">Go</button>
+                                    else
+                                    {
+                                        @Model.CreatorInitial
+                                    }
+                                </span>
+                                <div class="detail-avatar-copy">
+                                    <div class="title">@Model.CreatorName</div>
+                                    <div class="subtitle">@Localizer["Created"] <label data-utc-time="@Model.CreationTime.ToHtmlDateTime()" style="display:inline"></label></div>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="detail-surface">
+                    <div class="detail-surface-header">
+                        <div>
+                            <div class="fw-semibold">@Localizer["Schedule & status"]</div>
+                            <div class="detail-section-note">@Localizer["This is the planning and execution timeline for the card."]</div>
+                        </div>
+                    </div>
+                    <div class="detail-surface-body">
+                        <div class="mb-3">
+                            <div class="fw-semibold small text-muted mb-2">@Localizer["Priority"]</div>
+                            <div class="d-flex flex-wrap gap-2" id="priorityGroup">
+                                @{
+                                    var priorities = new[] { (Localizer["Urgent"].Value, "priority-urgent"), (Localizer["High"].Value, "priority-high"), (Localizer["Medium"].Value, "priority-medium"), (Localizer["Low"].Value, "priority-low"), (Localizer["None"].Value, "") };
+                                    for (int i = 0; i < priorities.Length; i++)
+                                    {
+                                        var (name, cls) = priorities[i];
+                                        var isActive = i == Model.Priority;
+                                        <span class="priority-badge @(isActive ? cls : "") @(isActive ? "" : "text-muted") @(Model.CanEdit ? "priority-selectable" : "")"
+                                              data-priority="@i"
+                                              style="@(Model.CanEdit ? "cursor:pointer" : "")">
+                                            @name
+                                        </span>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                        <div class="detail-kv">
+                            <div class="detail-kv-label">@Localizer["Due"]</div>
+                            <div class="detail-kv-value">
+                                <input type="date" id="inputDueDate" class="form-control detail-input" value="@Model.DueDate" @(Model.CanEdit ? "" : "disabled") />
+                            </div>
+                        </div>
+                        <div class="detail-kv">
+                            <div class="detail-kv-label">@Localizer["Start"]</div>
+                            <div class="detail-kv-value">
+                                <input type="date" id="inputPlannedStart" class="form-control detail-input" value="@Model.PlannedStartDate" @(Model.CanEdit ? "" : "disabled") />
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-3 mt-1">
+                            <div class="col-6">
+                                <div class="detail-stat-box">
+                                    <div class="detail-stat-title">@Localizer["Actual start"]</div>
+                                    <div class="detail-stat-value">
+                                        @if (Model.ActualStartDate.HasValue) { <label data-utc-time="@Model.ActualStartDate.Value.ToHtmlDateTime()"></label> } else { <span>—</span> }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="detail-stat-box">
+                                    <div class="detail-stat-title">@Localizer["Actual end"]</div>
+                                    <div class="detail-stat-value">
+                                        @if (Model.ActualEndDate.HasValue) { <label data-utc-time="@Model.ActualEndDate.Value.ToHtmlDateTime()"></label> } else { <span>—</span> }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="inputRecurring" @(Model.IsRecurring ? "checked" : null) @(Model.CanEdit ? null : "disabled")>
+                            <label class="form-check-label fw-semibold" for="inputRecurring">@Localizer["Recurring task"]</label>
+                        </div>
+                        <div id="recurrenceFields" class="@(Model.IsRecurring ? string.Empty : "d-none")">
+                            <div class="input-group">
+                                <span class="input-group-text" style="border-radius:14px 0 0 14px">@Localizer["Every"]</span>
+                                <input type="number" id="inputRecurrenceInterval" min="1" max="365" class="form-control" value="@Model.RecurrenceInterval" placeholder="1" @(Model.CanEdit ? null : "disabled")>
+                                <select id="inputRecurrenceUnit" class="form-select" @(Model.CanEdit ? null : "disabled") style="border-radius:0 14px 14px 0">
+                                    <!option value="0" @(Model.RecurrenceUnit == 0 ? "selected" : null)>@Localizer["Select unit"]</!option>
+                                    <!option value="1" @(Model.RecurrenceUnit == 1 ? "selected" : null)>@Localizer["Days"]</!option>
+                                    <!option value="2" @(Model.RecurrenceUnit == 2 ? "selected" : null)>@Localizer["Weeks"]</!option>
+                                    <!option value="3" @(Model.RecurrenceUnit == 3 ? "selected" : null)>@Localizer["Months"]</!option>
+                                    <!option value="4" @(Model.RecurrenceUnit == 4 ? "selected" : null)>@Localizer["Years"]</!option>
+                                </select>
+                            </div>
+                            <div class="detail-section-note mt-2">@Localizer["Recurring cards require a due date, interval and recurrence unit."]</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="detail-surface">
+                    <div class="detail-surface-header">
+                        <div>
+                            <div class="fw-semibold">@Localizer["Assignee"]</div>
+                            <div class="detail-section-note">@Localizer["Who is currently on point for this work."]</div>
+                        </div>
+                    </div>
+                    <div class="detail-surface-body">
+                        <div class="detail-avatar-row mb-3" id="assigneeSummary"></div>
+                        @if (Model.CanEdit)
+                        {
+                            <div class="d-flex gap-2 mb-2">
+                                <input type="text" id="assigneeSearch" class="form-control detail-input" placeholder="@Localizer["Search assignee..."]" autocomplete="off" />
+                                <button class="btn btn-outline-danger" type="button" id="btnClearAssignee">@Localizer["Clear"]</button>
+                            </div>
+                            <div id="assigneeDropdown" class="list-group d-none shadow-sm" style="max-height:220px;overflow-y:auto;border-radius:16px"></div>
                         }
                     </div>
-                </div>
-            }
+                </section>
+
+                <section class="detail-surface">
+                    <div class="detail-surface-header">
+                        <div>
+                            <div class="fw-semibold">@Localizer["Labels"]</div>
+                            <div class="detail-section-note">@Localizer["Use labels to cluster work across the board and the detail page."]</div>
+                        </div>
+                    </div>
+                    <div class="detail-surface-body">
+                        @if (Model.CanEdit)
+                        {
+                            <div class="input-group mb-3">
+                                <input type="text" id="labelSearchInput" class="form-control" list="labelSuggestions" placeholder="@Localizer["Search or create a label"]" style="border-radius:14px">
+                                <button type="button" class="btn btn-outline-secondary" id="btnAddLabel" style="border-radius:14px">@Localizer["Add"]</button>
+                            </div>
+                            <datalist id="labelSuggestions"></datalist>
+                        }
+                        <div id="labelsDisplay" class="d-flex flex-wrap gap-2"></div>
+                    </div>
+                </section>
+
+                @if (Model.CanEdit)
+                {
+                    <section class="detail-surface">
+                        <div class="detail-surface-header">
+                            <div>
+                                <div class="fw-semibold">@Localizer["Actions"]</div>
+                                <div class="detail-section-note">@Localizer["Move within this board or transfer ownership to another board."]</div>
+                            </div>
+                        </div>
+                        <div class="detail-surface-body">
+                            <div class="detail-actions-grid">
+                                <div>
+                                    <label class="form-label small fw-semibold text-muted">@Localizer["Move to column"]</label>
+                                    <div class="d-flex gap-2">
+                                        <select id="moveTargetColumn" class="form-select detail-select">
+                                            @foreach (var col in Model.Columns)
+                                            {
+                                                <!option value="@col.Id" @(col.Id == Model.ColumnId ? "selected" : null)>@col.Name</!option>
+                                            }
+                                        </select>
+                                        <button class="btn btn-outline-primary" id="btnMoveCard">@Localizer["Move"]</button>
+                                    </div>
+                                </div>
+
+                                @if (Model.AvailableBoards.Any())
+                                {
+                                    <div>
+                                        <label class="form-label small fw-semibold text-muted">@Localizer["Transfer"]</label>
+                                        <div class="d-grid gap-2">
+                                            <select id="transferTargetBoard" class="form-select detail-select">
+                                                <option value="">@Localizer["Select board..."]</option>
+                                                @foreach (var board in Model.AvailableBoards)
+                                                {
+                                                    <option value="@board.Id">@board.Name</option>
+                                                }
+                                            </select>
+                                            <select id="transferTargetColumn" class="form-select detail-select" disabled>
+                                                <option value="">@Localizer["Select column..."]</option>
+                                            </select>
+                                            <div class="detail-section-note">@Localizer["Comments will stay with the current card history, and assignee may be re-evaluated on the target board."]</div>
+                                            <button class="btn btn-outline-primary" id="btnTransferCard">@Localizer["Transfer"]</button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </section>
+                }
+            </div>
         </div>
     </div>
 </div>
 
-@* ── Delete confirm modal ── *@
 <div class="modal fade" id="deleteCardModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:20px">
             <div class="modal-header border-0 px-4 pt-4">
                 <h5 class="modal-title fw-bold text-danger">
-                    <i class="align-middle me-2" data-lucide="alert-triangle"></i>Delete Card
+                    <i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete card"]
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body px-4">
-                <p>Are you sure you want to delete this card? This action cannot be undone.</p>
+                <p class="mb-0">@Localizer["Are you sure you want to delete this card? This action cannot be undone."]</p>
             </div>
             <div class="modal-footer border-0 px-4 pb-4">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">Cancel</button>
-                <button type="button" class="btn btn-danger" id="btnConfirmDeleteCard" style="border-radius:10px">Delete</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:12px">@Localizer["Cancel"]</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmDeleteCard" style="border-radius:12px">@Localizer["Delete"]</button>
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="deleteCommentConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:20px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold text-danger">
+                    <i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete comment"]
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p class="mb-0">@Localizer["This action cannot be undone."]</p>
+                <div class="alert alert-danger mt-3 d-none" id="deleteCommentError"></div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:12px">@Localizer["Cancel"]</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmDeleteComment" style="border-radius:12px">@Localizer["Delete"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="friendlyAlertModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:20px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold d-flex align-items-center gap-2" id="friendlyAlertTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-4">
+                <div class="d-flex align-items-start gap-3">
+                    <i class="align-middle text-danger" id="friendlyAlertIcon" data-lucide="alert-circle"></i>
+                    <p class="mb-0" id="friendlyAlertMessage"></p>
+                </div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal" style="border-radius:12px">@Localizer["OK"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="imageFullscreenOverlay" class="image-fullscreen-overlay">
+    <img id="imageFullscreenImg" src="" alt="">
+</div>
+
+<div id="loc-data" hidden>
+    <span data-key="notice">Notice</span>
+    <span data-key="send">Send</span>
+    <span data-key="sending">Sending...</span>
+    <span data-key="comment-too-long">Comment is too long (max 2000 characters).</span>
+    <span data-key="failed-add-comment">Failed to add comment.</span>
+    <span data-key="failed-delete-comment">Failed to delete comment.</span>
+    <span data-key="failed-save">Failed to save.</span>
+    <span data-key="failed-add-label">Failed to add label.</span>
+    <span data-key="failed-remove-label">Failed to remove label.</span>
+    <span data-key="failed-upload-image">Failed to upload image.</span>
+    <span data-key="failed-upload-pasted-image">Failed to upload pasted image.</span>
+    <span data-key="uploading-images">Uploading images...</span>
+    <span data-key="drag-or-paste-images">You can drag images here or paste from clipboard.</span>
+    <span data-key="drop-images-here">Release to add images</span>
+    <span data-key="delete-comment">Delete comment</span>
+    <span data-key="failed-delete-card">Failed to delete card.</span>
+    <span data-key="failed-move">Failed to move card.</span>
+    <span data-key="failed-transfer">Failed to transfer card.</span>
+    <span data-key="recurring-task-returned">Recurring task has been returned to {0}.</span>
+    <span data-key="server-error">Server error</span>
+    <span data-key="just-now">just now</span>
+    <span data-key="m-ago">m ago</span>
+    <span data-key="h-ago">h ago</span>
+    <span data-key="d-ago">d ago</span>
+    <span data-key="unassigned">Unassigned</span>
+    <span data-key="none">None</span>
+    <span data-key="labels">Labels</span>
+    <span data-key="delete">Delete</span>
+    <span data-key="no-comments-yet">No comments yet.</span>
+    <span data-key="assignee">Assignee</span>
+    <span data-key="saved">Saved</span>
+    <span data-key="select-column">Select column...</span>
+    <span data-key="uploading-image">[Uploading image...]</span>
+</div>
+
 @section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
     <script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
     <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
     <script src="~/node_modules/katex/dist/katex.min.js" asp-append-version="true"></script>
     <script src="~/node_modules/mermaid/dist/mermaid.min.js" asp-append-version="true"></script>
-
     <script>
-    (function() {
-        const csrf = '@token';
-        const cardId = @Model.CardId;
-        const boardId = @Model.ReturnBoardId;
-        const canEdit = @Json.Serialize(Model.CanEdit);
-        let currentTitle = '@Html.Raw(Model.Title.Replace("'", "\\'"))';
+        if (typeof mermaid !== 'undefined') mermaid.initialize({ startOnLoad: false, securityLevel: 'strict' });
+    </script>
+    <script type="module">
+        import { initCardDetailPage } from '/dist/card-detail-page.js';
 
-        function getTitle() {
-            const input = document.getElementById('cardTitleInput');
-            if (input && !input.classList.contains('d-none')) return input.value.trim();
-            const display = document.getElementById('cardTitleDisplay');
-            return display ? display.textContent.trim() : currentTitle;
-        }
-
-        async function post(url, data) {
-            data.__RequestVerificationToken = csrf;
-            return fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(data)
-            });
-        }
-
-        async function postJson(url, data) {
-            data.__RequestVerificationToken = csrf;
-            return fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(data)
-            });
-        }
-
-        if (typeof mermaid !== 'undefined') {
-            mermaid.initialize({ startOnLoad: false, securityLevel: 'strict' });
-        }
-
-        // ── Description rendering ──
-        function renderMarkdown(text) {
-            if (!text) return '<p class="text-muted fst-italic">No description.</p>';
-            let html = marked.parse(text);
-            html = DOMPurify.sanitize(html);
-            return html;
-        }
-
-        function renderDescriptionPreview() {
-            const desc = document.getElementById('descTextarea')?.value ?? '';
-            const preview = document.getElementById('descLivePreview');
-            if (preview) preview.innerHTML = renderMarkdown(desc);
-        }
-
-        const descPreviewDiv = document.getElementById('descriptionPreview');
-        if (descPreviewDiv && '@Html.Raw(Model.Description.Replace("'", "\\'"))') {
-            descPreviewDiv.innerHTML = renderMarkdown('@Html.Raw(Model.Description.Replace("`", "\\`").Replace("$", "\\$"))');
-        }
-
-        // ── Edit description ──
-        const btnEditDesc = document.getElementById('btnEditDesc');
-        const descView = document.getElementById('descriptionView');
-        const descEdit = document.getElementById('descriptionEdit');
-        const btnCancelDesc = document.getElementById('btnCancelDesc');
-        const btnSaveDesc = document.getElementById('btnSaveDesc');
-        const btnPreviewTab = document.getElementById('btnPreviewTab');
-
-        if (btnEditDesc) {
-            btnEditDesc.addEventListener('click', () => {
-                descView.classList.add('d-none');
-                descEdit.classList.remove('d-none');
-                btnEditDesc.classList.add('d-none');
-            });
-        }
-        if (btnCancelDesc) {
-            btnCancelDesc.addEventListener('click', () => {
-                descView.classList.remove('d-none');
-                descEdit.classList.add('d-none');
-                btnEditDesc.classList.remove('d-none');
-            });
-        }
-        if (btnPreviewTab) {
-            btnPreviewTab.addEventListener('click', renderDescriptionPreview);
-        }
-        if (btnSaveDesc) {
-            btnSaveDesc.addEventListener('click', async () => {
-                const desc = document.getElementById('descTextarea').value;
-                const resp = await postJson('/Kanban/UpdateCardDetails', {
-                    cardId, title: getTitle(), description: desc, dueDate: '', plannedStartTime: '',
-                    actualStartTime: '', actualEndTime: '', recurrenceInterval: '', recurrenceUnit: ''
-                });
-                if (resp.ok) {
-                    descView.classList.remove('d-none');
-                    descEdit.classList.add('d-none');
-                    btnEditDesc.classList.remove('d-none');
-                    if (descPreviewDiv) descPreviewDiv.innerHTML = renderMarkdown(desc);
-                }
-            });
-        }
-
-        // ── Title inline edit ──
-        const titleDisplay = document.getElementById('cardTitleDisplay');
-        const titleInput = document.getElementById('cardTitleInput');
-        if (titleDisplay && titleInput && canEdit) {
-            titleDisplay.addEventListener('click', () => {
-                titleDisplay.classList.add('d-none');
-                titleInput.classList.remove('d-none');
-                titleInput.focus();
-                titleInput.select();
-            });
-            titleInput.addEventListener('keydown', async (e) => {
-                if (e.key === 'Enter') {
-                    const newTitle = titleInput.value.trim();
-                    if (newTitle) {
-                        await postJson('/Kanban/UpdateCardDetails', {
-                            cardId, title: newTitle, description: '', dueDate: '', plannedStartTime: '',
-                            actualStartTime: '', actualEndTime: '', recurrenceInterval: '', recurrenceUnit: ''
-                        });
-                        titleDisplay.textContent = newTitle;
-                        currentTitle = newTitle;
-                        document.title = newTitle;
-                    }
-                    titleDisplay.classList.remove('d-none');
-                    titleInput.classList.add('d-none');
-                } else if (e.key === 'Escape') {
-                    titleDisplay.classList.remove('d-none');
-                    titleInput.classList.add('d-none');
-                }
-            });
-            titleInput.addEventListener('blur', () => {
-                setTimeout(() => {
-                    titleDisplay.classList.remove('d-none');
-                    titleInput.classList.add('d-none');
-                }, 150);
-            });
-        }
-
-        // ── Priority ──
-        document.getElementById('priorityGroup')?.addEventListener('click', async (e) => {
-            if (!canEdit) return;
-            const badge = e.target.closest('.priority-badge.priority-selectable');
-            if (!badge) return;
-            const priority = parseInt(badge.dataset.priority);
-            const resp = await post('/Kanban/UpdateCardPriority', { cardId, priority });
-            if (resp.ok) {
-                document.querySelectorAll('#priorityGroup .priority-badge').forEach((b, i) => {
-                    b.className = 'priority-badge' + (canEdit ? ' priority-selectable' : '');
-                    if (i === priority) {
-                        const cls = ['priority-urgent', 'priority-high', 'priority-medium', 'priority-low', ''][i];
-                        if (cls) b.classList.add(cls);
-                    } else {
-                        b.classList.add('text-muted');
-                    }
-                });
-            }
+        initCardDetailPage({
+            csrfToken: '@token',
+            cardId: @Model.CardId,
+            boardId: @Model.BoardId,
+            returnBoardId: @Model.ReturnBoardId,
+            canEdit: @Model.CanEdit.ToString().ToLowerInvariant(),
+            imageUploadUrl: '@kanbanImageUploadUrl',
+            returnBoardUrl: '@returnBoardUrl',
+            initialTitle: @Html.Raw(JsonSerializer.Serialize(Model.Title)),
+            initialPriority: @Model.Priority,
+            initialAssigneeId: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeId)),
+            initialAssigneeName: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeName)),
+            initialAssigneeInitial: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeInitial)),
+            initialAssigneeAvatarUrl: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeAvatarUrl)),
+            initialLabels: @Html.Raw(JsonSerializer.Serialize(Model.Labels.Select(l => new { id = l.Id, name = l.Name, color = l.Color })))
         });
-
-        // ── Assignee search ──
-        const assigneeSearch = document.getElementById('assigneeSearch');
-        const assigneeDropdown = document.getElementById('assigneeDropdown');
-        let assigneeTimeout;
-        if (assigneeSearch) {
-            assigneeSearch.addEventListener('input', () => {
-                clearTimeout(assigneeTimeout);
-                assigneeTimeout = setTimeout(async () => {
-                    const q = assigneeSearch.value.trim().toLowerCase();
-                    if (!q) { assigneeDropdown.classList.add('d-none'); return; }
-                    const resp = await fetch(`/Kanban/GetBoardMembers?boardId=${boardId}`);
-                    if (resp.ok) {
-                        const users = await resp.json();
-                        const filtered = users.filter(u =>
-                            (u.DisplayName || '').toLowerCase().includes(q) ||
-                            (u.UserName || '').toLowerCase().includes(q)
-                        );
-                        assigneeDropdown.innerHTML = filtered.map(u =>
-                            `<button type="button" class="list-group-item list-group-item-action py-2 px-3" data-user-id="${u.Id}" data-user-name="${u.DisplayName || u.UserName}">
-                                ${u.DisplayName || u.UserName}
-                            </button>`
-                        ).join('');
-                        assigneeDropdown.classList.remove('d-none');
-                    }
-                }, 300);
-            });
-
-            assigneeDropdown.addEventListener('click', async (e) => {
-                const btn = e.target.closest('button[data-user-id]');
-                if (!btn) return;
-                const userId = btn.dataset.userId;
-                const resp = await post('/Kanban/AssignCard', { cardId, assignedUserId: userId });
-                if (resp.ok) location.reload();
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!assigneeSearch?.contains(e.target) && !assigneeDropdown?.contains(e.target)) {
-                    assigneeDropdown?.classList.add('d-none');
-                }
-            });
-        }
-
-        document.getElementById('btnClearAssignee')?.addEventListener('click', async () => {
-            const resp = await post('/Kanban/AssignCard', { cardId, assignedUserId: '' });
-            if (resp.ok) location.reload();
-        });
-
-        // ── Labels ──
-        document.getElementById('labelsDisplay')?.addEventListener('click', async (e) => {
-            if (!canEdit) return;
-            const removeBtn = e.target.closest('.btn-remove-label-chip');
-            if (!removeBtn) return;
-            const labelId = parseInt(removeBtn.dataset.labelId);
-            const resp = await post(`/Kanban/RemoveLabel`, { cardId, labelId });
-            if (resp.ok) location.reload();
-        });
-
-        document.getElementById('btnAddLabel')?.addEventListener('click', async () => {
-            const input = document.getElementById('labelSearchInput');
-            const name = input.value.trim();
-            if (!name) return;
-            const resp = await post('/Kanban/AddLabel', { cardId, name, color: '' });
-            if (resp.ok) location.reload();
-        });
-
-        // ── Due date / Planned start ──
-        document.getElementById('inputDueDate')?.addEventListener('change', async function() {
-            if (!canEdit) return;
-            await postJson('/Kanban/UpdateCardDetails', {
-                cardId, title: getTitle(), description: '', dueDate: this.value, plannedStartTime: '',
-                actualStartTime: '', actualEndTime: '', recurrenceInterval: '', recurrenceUnit: ''
-            });
-        });
-
-        document.getElementById('inputPlannedStart')?.addEventListener('change', async function() {
-            if (!canEdit) return;
-            await postJson('/Kanban/UpdateCardDetails', {
-                cardId, title: getTitle(), description: '', dueDate: '', plannedStartTime: this.value,
-                actualStartTime: '', actualEndTime: '', recurrenceInterval: '', recurrenceUnit: ''
-            });
-        });
-
-        // ── Move card ──
-        document.getElementById('btnMoveCard')?.addEventListener('click', async () => {
-            const targetCol = parseInt(document.getElementById('moveTargetColumn').value);
-            const resp = await post('/Kanban/MoveCard', { cardId, targetColumnId: targetCol, newOrder: 0 });
-            if (resp.ok) {
-                window.location.href = `/Cards/${cardId}?returnBoardId=${boardId}`;
-            }
-        });
-
-        // ── Transfer card ──
-        document.getElementById('btnTransferCard')?.addEventListener('click', async () => {
-            const targetBoard = parseInt(document.getElementById('transferTargetBoard').value);
-            if (!targetBoard) return;
-            const resp = await fetch(`/Kanban/GetTransferTargets?cardId=${cardId}`);
-            if (resp.ok) {
-                const boards = await resp.json();
-                // API returns PascalCase: { Id, Name, Columns: [{ Id, Name }] }
-                const target = boards.find(b => b.Id === targetBoard);
-                if (target && target.Columns.length > 0) {
-                    const transferResp = await post('/Kanban/TransferCard', { cardId, targetBoardId: targetBoard, targetColumnId: target.Columns[0].Id });
-                    if (transferResp.ok) {
-                        window.location.href = `/Kanban/Index/${targetBoard}`;
-                    }
-                }
-            }
-        });
-
-        // ── Delete card ──
-        let deleteModal;
-        document.getElementById('btnDeleteCard')?.addEventListener('click', () => {
-            deleteModal = new bootstrap.Modal(document.getElementById('deleteCardModal'));
-            deleteModal.show();
-        });
-
-        document.getElementById('btnConfirmDeleteCard')?.addEventListener('click', async () => {
-            const resp = await post('/Kanban/DeleteCard', { cardId });
-            if (resp.ok) {
-                window.location.href = `/Kanban/Index/${boardId}`;
-            }
-        });
-
-        // ── Comments ──
-        document.getElementById('btnAddComment')?.addEventListener('click', addComment);
-        document.getElementById('commentInput')?.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-                e.preventDefault();
-                addComment();
-            }
-        });
-
-        async function addComment() {
-            const input = document.getElementById('commentInput');
-            const content = input.value.trim();
-            if (!content) return;
-            const resp = await post('/Kanban/UpdateCardDetails', {
-                cardId, title: getTitle(), description: '', dueDate: '', plannedStartTime: '',
-                actualStartTime: '', actualEndTime: '', recurrenceInterval: '', recurrenceUnit: ''
-            });
-            // Use the AddComment endpoint — check if it exists, otherwise reload
-            const commentResp = await post('/Kanban/AddComment', { cardId, content });
-            if (commentResp.ok) {
-                location.reload();
-            } else {
-                // Fallback: reload page
-                location.reload();
-            }
-        }
-
-        document.getElementById('commentsList')?.addEventListener('click', async (e) => {
-            const btn = e.target.closest('.comment-delete-btn');
-            if (!btn) return;
-            const commentId = parseInt(btn.dataset.commentId);
-            if (confirm('Delete this comment?')) {
-                const resp = await post(`/Kanban/DeleteComment`, { commentId });
-                if (resp.ok) location.reload();
-            }
-        });
-
-        // ── Init lucide icons ──
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-    })();
     </script>
 }

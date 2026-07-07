@@ -45,6 +45,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Помилковий запит</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Деталі картки</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Змінити аватар</value>
   </data>

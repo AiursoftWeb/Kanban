@@ -48,6 +48,8 @@ public class CardSummary
     public List<LabelSummary> Labels { get; set; } = [];
     public int CommentCount { get; set; }
     public bool IsRecurring { get; set; }
+    public int? RecurrenceInterval { get; set; }
+    public int RecurrenceUnit { get; set; }
     public string? Description { get; set; }
 }
 
