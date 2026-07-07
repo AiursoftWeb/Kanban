@@ -12,7 +12,7 @@ import type {
   Priority,
   UserSummary,
 } from './types';
-import { PRIORITY_VALUES } from './types';
+import { PRIORITY_VALUES, RECURRENCE_UNIT_VALUES } from './types';
 import { t } from './i18n';
 
 /**
@@ -97,17 +97,11 @@ function getPriorityLabel(priority: Priority): string {
 function getRecurrenceShortLabel(interval?: number, unit?: number): string | null {
   if (!interval || !unit) return null;
 
-  const suffixMap: Record<number, string> = {
-    1: 'd',
-    2: 'w',
-    3: 'm',
-    4: 'y',
-  };
+  const unitName = RECURRENCE_UNIT_VALUES[unit];
+  if (!unitName) return null;
 
-  const suffix = suffixMap[unit];
-  if (!suffix) return null;
-
-  return `${interval}${suffix}`;
+  // First character of the unit name: Days→d, Weeks→w, Months→m, Years→y
+  return `${interval}${unitName[0].toLowerCase()}`;
 }
 
 function buildDescriptionPreview(description?: string): string {

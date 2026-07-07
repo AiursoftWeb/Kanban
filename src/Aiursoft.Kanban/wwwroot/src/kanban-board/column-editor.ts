@@ -66,11 +66,7 @@ export function initColumnEditor(
     });
 
     input.addEventListener('blur', () => {
-      setTimeout(() => {
-        if (input.parentNode) {
-          input.replaceWith(titleSpan);
-        }
-      }, 150);
+      finish();
     });
 
     titleSpan.replaceWith(input);

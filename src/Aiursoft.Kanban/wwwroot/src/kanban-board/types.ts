@@ -11,6 +11,14 @@ export type ColumnStatus = 'NotStarted' | 'InProgress' | 'Completed';
 /** Recurrence unit matching the C# RecurrenceUnit enum */
 export type RecurrenceUnit = 'Days' | 'Weeks' | 'Months' | 'Years';
 
+/** Maps C# RecurrenceUnit enum integer values to their string labels. 0 = None (not included). */
+export const RECURRENCE_UNIT_VALUES: Record<number, RecurrenceUnit> = {
+  1: 'Days',
+  2: 'Weeks',
+  3: 'Months',
+  4: 'Years',
+};
+
 /** A label attached to a card */
 export interface CardLabel {
   id: number;
