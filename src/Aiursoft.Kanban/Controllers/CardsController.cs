@@ -87,19 +87,17 @@ public class CardsController(
             CanEdit = canEdit,
             AssigneeId = card.AssignedUserId,
             AssigneeName = card.AssignedUser?.DisplayName ?? card.AssignedUser?.UserName ?? string.Empty,
-            AssigneeInitial = string.IsNullOrEmpty(card.AssignedUser?.DisplayName ?? card.AssignedUser?.UserName)
-                ? string.Empty
-                : (card.AssignedUser!.DisplayName ?? card.AssignedUser.UserName!)![0].ToString().ToUpperInvariant(),
-            AssigneeAvatarUrl = card.AssignedUser?.AvatarRelativePath != null
-                && card.AssignedUser.AvatarRelativePath != Entities.User.DefaultAvatarPath
+            AssigneeInitial = (card.AssignedUser?.DisplayName ?? card.AssignedUser?.UserName) is { Length: > 0 } name
+                ? name[0].ToString().ToUpperInvariant()
+                : string.Empty,
+            AssigneeAvatarUrl = card.AssignedUser?.AvatarRelativePath != Entities.User.DefaultAvatarPath
                 ? $"{storage.RelativePathToInternetUrl(card.AssignedUser.AvatarRelativePath)}?w=56&square=true"
                 : null,
             CreatorName = card.CreatorUser?.DisplayName ?? card.CreatorUser?.UserName ?? string.Empty,
-            CreatorInitial = string.IsNullOrEmpty(card.CreatorUser?.DisplayName ?? card.CreatorUser?.UserName)
-                ? string.Empty
-                : (card.CreatorUser!.DisplayName ?? card.CreatorUser.UserName!)![0].ToString().ToUpperInvariant(),
-            CreatorAvatarUrl = card.CreatorUser?.AvatarRelativePath != null
-                && card.CreatorUser.AvatarRelativePath != Entities.User.DefaultAvatarPath
+            CreatorInitial = (card.CreatorUser?.DisplayName ?? card.CreatorUser?.UserName) is { Length: > 0 } name2
+                ? name2[0].ToString().ToUpperInvariant()
+                : string.Empty,
+            CreatorAvatarUrl = card.CreatorUser?.AvatarRelativePath != Entities.User.DefaultAvatarPath
                 ? $"{storage.RelativePathToInternetUrl(card.CreatorUser.AvatarRelativePath)}?w=56&square=true"
                 : null,
             CreationTime = card.CreationTime,
