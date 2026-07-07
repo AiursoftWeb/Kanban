@@ -24,7 +24,7 @@
             query.Add($"labelMode={Uri.EscapeDataString(selectedMode)}");
         }
 
-        if (!string.Equals(selectedSort, "due-date-desc", StringComparison.OrdinalIgnoreCase))
+        if (!string.Equals(selectedSort, "planned-end-desc", StringComparison.OrdinalIgnoreCase))
         {
             query.Add($"sort={Uri.EscapeDataString(selectedSort)}");
         }
@@ -67,12 +67,16 @@
     {
         return sort switch
         {
-            "due-date-desc" => " - overdue first.",
-            "due-date-asc" => " - due date ascending.",
-            "priority-asc" => " - most urgent first.",
-            "priority-desc" => " - least urgent first.",
-            "actual-start-desc" => " - recently started first.",
+            "planned-end-desc" => " - planned end descending.",
+            "planned-end-asc" => " - planned end ascending.",
+            "planned-start-desc" => " - planned start descending.",
+            "planned-start-asc" => " - planned start ascending.",
+            "priority-asc" => " - urgency ascending.",
+            "priority-desc" => " - urgency descending.",
+            "actual-start-desc" => " - actual start descending.",
             "actual-start-asc" => " - actual start ascending.",
+            "actual-end-desc" => " - actual end descending.",
+            "actual-end-asc" => " - actual end ascending.",
             "creation-desc" => " - newest first.",
             "creation-asc" => " - oldest first.",
             "title-asc" => " - title A-Z.",
@@ -194,16 +198,18 @@
                 @{
                     var sortOptions = new (string Value, string Label)[]
                     {
-                        ("due-date-desc", "⏳ Due Soon / Overdue"),
-                        ("due-date-asc", "📅 Due Date ↑"),
-                        ("priority-asc", "🔥 Urgency ↑"),
-                        ("priority-desc", "🔽 Urgency ↓"),
-                        ("actual-start-desc", "▶️ Actual Start ↓"),
-                        ("actual-start-asc", "▶️ Actual Start ↑"),
-                        ("creation-desc", "🆕 Newest First"),
-                        ("creation-asc", "📜 Oldest First"),
-                        ("title-asc", "🔤 Title A-Z"),
-                        ("title-desc", "🔤 Title Z-A"),
+                        ("planned-end-desc", "按计划结束时间倒序"),
+                        ("planned-end-asc", "按计划结束时间"),
+                        ("planned-start-desc", "按计划开始时间倒序"),
+                        ("planned-start-asc", "按计划开始时间"),
+                        ("actual-end-desc", "按实际结束时间倒序"),
+                        ("actual-end-asc", "按实际结束时间"),
+                        ("actual-start-desc", "按实际开始时间倒序"),
+                        ("actual-start-asc", "按实际开始时间"),
+                        ("priority-asc", "按紧急程度"),
+                        ("priority-desc", "按紧急程度倒序"),
+                        ("title-desc", "标题倒序"),
+                        ("title-asc", "标题"),
                     };
                 }
                 @foreach (var opt in sortOptions)
