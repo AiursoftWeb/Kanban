@@ -76,6 +76,7 @@ public class DailyPlanningSubagent : SubagentBase, ISingletonDependency
 
     public override string[] ToolNames =>
     [
+        "GetBoards",
         "GetMyTasks",
         "GetUserBoards",
         "GetBoardById",
