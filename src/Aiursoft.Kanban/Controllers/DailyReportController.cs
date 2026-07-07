@@ -4,6 +4,7 @@ using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.DailyReportViewModels;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.Agent.Subagent;
+using Aiursoft.Kanban.Services.BackgroundJobs;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
 using Microsoft.AspNetCore.Authorization;
@@ -153,11 +154,14 @@ public class DailyReportController : Controller
             ? (ISubagent)_planningSubagent
             : _summarySubagent;
 
+        var cardContext = await DailyReportBackgroundJob.BuildCardContextAsync(_db, _userManager, userId, reportType);
         var prompt = reportType == DailyReportType.Plan
-            ? $"Generate a daily plan for {todayChina:yyyy-MM-dd} (China timezone, UTC+8). " +
-              "Analyze the user's boards and tasks, then produce a structured morning plan essay in Chinese."
-            : $"Generate a daily summary for {todayChina:yyyy-MM-dd} (China timezone, UTC+8). " +
-              "Review what the user completed and what remains, then produce a structured afternoon summary essay in Chinese.";
+            ? cardContext +
+              $"\nGenerate a daily plan for {todayChina:yyyy-MM-dd} (China timezone, UTC+8). " +
+              "Analyze the data above, then produce a structured plan essay in Chinese."
+            : cardContext +
+              $"\nGenerate a daily summary for {todayChina:yyyy-MM-dd} (China timezone, UTC+8). " +
+              "Review the data above, then produce a structured summary essay in Chinese.";
 
         string content;
         try

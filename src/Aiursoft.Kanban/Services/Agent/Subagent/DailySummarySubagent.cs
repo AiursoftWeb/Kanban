@@ -22,14 +22,17 @@ public class DailySummarySubagent : SubagentBase, ISingletonDependency
 
         ## Process
 
-        1. Use GetCardsByDateRange with dateType="completed" for today's date
-           to find cards that were moved to Done/completed today.
-        2. Use GetMyTasks to see remaining incomplete tasks.
-        3. Use GetUserBoards to understand the board structure.
-        4. Use GetCardsByDateRange with dateType="created" for today's date
-           to find newly created cards.
-        5. Use GetCardById on key cards for more detail if needed.
-        6. Produce a summary of what happened today.
+        The user's assigned cards, completed cards for today, and board data
+        are already provided in the <context> block above. You do NOT need to
+        call GetMyTasks, GetUserBoards, or GetCardsByDateRange to discover
+        basic information.
+
+        Use tools ONLY when you need additional details:
+        - GetCardById: to inspect a specific card's full details
+        - GetCardsInColumn / GetColumns: to understand column structure
+        - FilterCards: for custom queries beyond the provided context
+
+        Analyze the provided data and produce a summary.
 
         ## Output Format
 
