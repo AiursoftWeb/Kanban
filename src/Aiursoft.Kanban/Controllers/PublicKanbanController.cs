@@ -72,7 +72,7 @@ public class PublicKanbanController(TemplateDbContext db) : Controller
                         Assignee = card.AssignedUser != null ? new UserSummary
                         {
                             UserId = card.AssignedUser.Id,
-                            DisplayName = card.AssignedUser.DisplayName ?? card.AssignedUser.UserName ?? string.Empty
+                            DisplayName = card.AssignedUser.DisplayName
                         } : null,
                         Labels = card.CardLabels.OrderBy(link => link.Label.Name).Select(link => new LabelSummary
                         {

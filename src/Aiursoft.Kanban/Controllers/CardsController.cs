@@ -63,10 +63,9 @@ public class CardsController(
             Id = c.Id,
             Content = c.Content,
             Images = c.Images,
-            AuthorName = c.Author?.DisplayName ?? c.Author?.UserName ?? "Unknown",
-            AuthorInitial = (c.Author?.DisplayName ?? c.Author?.UserName ?? "?")[0].ToString().ToUpperInvariant(),
-            AuthorAvatarUrl = c.Author?.AvatarRelativePath != null
-                && c.Author.AvatarRelativePath != Entities.User.DefaultAvatarPath
+            AuthorName = !string.IsNullOrEmpty(c.Author.DisplayName) ? c.Author.DisplayName : c.Author.UserName ?? "Unknown",
+            AuthorInitial = (!string.IsNullOrEmpty(c.Author.DisplayName) ? c.Author.DisplayName : c.Author.UserName ?? "?")[0].ToString().ToUpperInvariant(),
+            AuthorAvatarUrl = c.Author.AvatarRelativePath != Entities.User.DefaultAvatarPath
                 ? $"{storage.RelativePathToInternetUrl(c.Author.AvatarRelativePath)}?w=56&square=true"
                 : null,
             CreatedAt = c.CreationTime.ToString("yyyy-MM-ddTHH:mmK"),
@@ -90,14 +89,14 @@ public class CardsController(
             AssigneeInitial = (card.AssignedUser?.DisplayName ?? card.AssignedUser?.UserName) is { Length: > 0 } name
                 ? name[0].ToString().ToUpperInvariant()
                 : string.Empty,
-            AssigneeAvatarUrl = card.AssignedUser?.AvatarRelativePath != Entities.User.DefaultAvatarPath
+            AssigneeAvatarUrl = card.AssignedUser != null && card.AssignedUser.AvatarRelativePath != Entities.User.DefaultAvatarPath
                 ? $"{storage.RelativePathToInternetUrl(card.AssignedUser.AvatarRelativePath)}?w=56&square=true"
                 : null,
             CreatorName = card.CreatorUser?.DisplayName ?? card.CreatorUser?.UserName ?? string.Empty,
             CreatorInitial = (card.CreatorUser?.DisplayName ?? card.CreatorUser?.UserName) is { Length: > 0 } name2
                 ? name2[0].ToString().ToUpperInvariant()
                 : string.Empty,
-            CreatorAvatarUrl = card.CreatorUser?.AvatarRelativePath != Entities.User.DefaultAvatarPath
+            CreatorAvatarUrl = card.CreatorUser != null && card.CreatorUser.AvatarRelativePath != Entities.User.DefaultAvatarPath
                 ? $"{storage.RelativePathToInternetUrl(card.CreatorUser.AvatarRelativePath)}?w=56&square=true"
                 : null,
             CreationTime = card.CreationTime,
