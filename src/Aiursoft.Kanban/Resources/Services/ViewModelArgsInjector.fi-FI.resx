@@ -141,6 +141,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>Ilmoitukset</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Omat toimintalokit</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Omat tehtävät</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Ilmoitukset</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>Toimintalokit</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Yleiskatsaus</value>

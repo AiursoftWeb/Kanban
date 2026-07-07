@@ -1,8 +1,10 @@
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Events;
 using Aiursoft.Kanban.Models.AccountViewModels;
 using Aiursoft.Kanban.Services;
 using Aiursoft.WebTools.Attributes;
+using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -23,6 +25,7 @@ public class AccountController(
     IOptions<AppSettings> appSettings,
     UserManager<User> userManager,
     SignInManager<User> signInManager,
+    IMediator mediator,
     ILogger<AccountController> logger)
     : Controller
 {
@@ -77,6 +80,11 @@ public class AccountController(
             if (result.Succeeded)
             {
                 logger.LogInformation(1, "User logged in");
+                await PublishAuditEventAsync(new AccountAuditEvent(
+                    "Account.Login",
+                    "Logged in locally",
+                    possibleUser.Id,
+                    possibleUser.DisplayName));
                 return RedirectToLocal(returnUrl ?? "/Dashboard/Index");
             }
 
@@ -143,6 +151,11 @@ public class AccountController(
 
                 await signInManager.SignInAsync(user, isPersistent: false);
                 logger.LogInformation(3, "User created a new account with password");
+                await PublishAuditEventAsync(new AccountAuditEvent(
+                    "Account.Register",
+                    "Registered a local account",
+                    user.Id,
+                    user.DisplayName));
                 return RedirectToLocal(returnUrl ?? "/Dashboard/Index");
             }
 
@@ -156,15 +169,27 @@ public class AccountController(
     [Authorize]
     public async Task<IActionResult> LogOff()
     {
+        var userId = userManager.GetUserId(User);
+        var userName = User.Identity?.Name;
         if (_appSettings.OIDCEnabled)
         {
             logger.LogInformation(4, "User logged out with OIDC.");
+            await PublishAuditEventAsync(new AccountAuditEvent(
+                "Account.LogOff",
+                "Logged out from OIDC",
+                userId,
+                userName));
             var properties = new AuthenticationProperties { RedirectUri = "/" };
             return SignOut(properties, IdentityConstants.ApplicationScheme, OpenIdConnectDefaults.AuthenticationScheme);
         }
 
         await signInManager.SignOutAsync();
         logger.LogInformation(4, "User logged out locally.");
+        await PublishAuditEventAsync(new AccountAuditEvent(
+            "Account.LogOff",
+            "Logged out locally",
+            userId,
+            userName));
         return RedirectToAction(nameof(HomeController.Index), "Home");
     }
 
@@ -189,6 +214,12 @@ public class AccountController(
         if (result.Succeeded)
         {
             logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
+            var user = await userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+            await PublishAuditEventAsync(new AccountAuditEvent(
+                "Account.Login",
+                $"Logged in with {info.LoginProvider}",
+                user?.Id,
+                user?.DisplayName ?? user?.UserName));
             return RedirectToLocal(returnUrl ?? "/Dashboard/Index");
         }
 
@@ -205,6 +236,18 @@ public class AccountController(
     }
 
     #region Helpers
+
+    private async Task PublishAuditEventAsync(AccountAuditEvent auditEvent)
+    {
+        try
+        {
+            await mediator.Publish(auditEvent);
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Failed to publish account audit event {AuditEvent}", auditEvent.Action);
+        }
+    }
 
     private void AddErrors(IdentityResult result)
     {

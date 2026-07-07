@@ -45,9 +45,6 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Pedido Inválido</value>
   </data>
-  <data name="Card Details" xml:space="preserve">
-    <value>Detalhes do Cartão</value>
-  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Alterar Avatar</value>
   </data>
@@ -141,6 +138,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>As Minhas Notificações</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Os Meus Registos de Operações</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>As minhas tarefas</value>
   </data>
@@ -149,6 +149,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notificações</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>Registos de Operações</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Visão Geral</value>
@@ -175,7 +178,7 @@
     <value>Registar</value>
   </data>
   <data name="Report Details" xml:space="preserve">
-    <value>Detalhes do Relatório</value>
+    <value>Detalhes do relatório</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>Detalhes do Cargo</value>

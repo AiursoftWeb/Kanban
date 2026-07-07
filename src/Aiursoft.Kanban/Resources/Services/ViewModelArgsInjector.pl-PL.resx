@@ -45,9 +45,6 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Błędne żądanie</value>
   </data>
-  <data name="Card Details" xml:space="preserve">
-    <value>Szczegóły karty</value>
-  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Zmień awatar</value>
   </data>
@@ -67,7 +64,7 @@
     <value>Utwórz użytkownika</value>
   </data>
   <data name="Daily Assistant" xml:space="preserve">
-    <value>Pomocnik na Co Dzień</value>
+    <value>Codzienny asystent</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Panel</value>
@@ -141,6 +138,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>Moje powiadomienia</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Moje dzienniki operacji</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Moje zadania</value>
   </data>
@@ -149,6 +149,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Powiadomienia</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>Dziennik operacji</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Przegląd</value>

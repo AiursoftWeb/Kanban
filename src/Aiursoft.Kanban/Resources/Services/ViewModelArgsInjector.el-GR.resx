@@ -141,6 +141,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>Ειδοποιήσεις μου</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Τα ημερολόγια λειτουργιών μου</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Οι εργασίες μου</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Ειδοποιήσεις</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>Ιστορικά Λειτουργιών</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Επισκόπηση</value>

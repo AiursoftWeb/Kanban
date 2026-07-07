@@ -45,9 +45,6 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Forkert anmodning</value>
   </data>
-  <data name="Card Details" xml:space="preserve">
-    <value>Kortdetaljer</value>
-  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Skift avatar</value>
   </data>
@@ -67,7 +64,7 @@
     <value>Opret bruger</value>
   </data>
   <data name="Daily Assistant" xml:space="preserve">
-    <value>Daglig assistent</value>
+    <value>Daglig Assistent</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
@@ -141,6 +138,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>Mine beskeder</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Mine handlingslogfiler</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Mine opgaver</value>
   </data>
@@ -149,6 +149,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifikationer</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>Aktivitetslog</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Oversigt</value>

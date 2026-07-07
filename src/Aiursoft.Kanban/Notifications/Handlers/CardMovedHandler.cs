@@ -9,6 +9,8 @@ public class CardMovedHandler(TemplateDbContext db) : INotificationHandler<CardM
 {
     public async Task Handle(CardMovedEvent e, CancellationToken ct)
     {
+        if (!e.NotifyUsers) return;
+
         var card = await db.KanbanCards
             .Include(c => c.Column)
             .FirstOrDefaultAsync(c => c.Id == e.CardId, ct);

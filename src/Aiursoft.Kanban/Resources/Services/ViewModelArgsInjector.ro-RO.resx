@@ -45,9 +45,6 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Cerere greșită</value>
   </data>
-  <data name="Card Details" xml:space="preserve">
-    <value>Detalii card</value>
-  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Schimbă Avatarul</value>
   </data>
@@ -67,7 +64,7 @@
     <value>Creează utilizator</value>
   </data>
   <data name="Daily Assistant" xml:space="preserve">
-    <value>Asistentul Zilnic</value>
+    <value>Asistent Zilnic</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Panou de control</value>
@@ -141,6 +138,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>Notificările mele</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Jurnalul meu de operațiuni</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Sarcinile mele</value>
   </data>
@@ -149,6 +149,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notificări</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>Jurnal de Operații</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Prezentare generală</value>
@@ -175,7 +178,7 @@
     <value>Înregistrare</value>
   </data>
   <data name="Report Details" xml:space="preserve">
-    <value>Detalii raport</value>
+    <value>Detaliile raportului</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>Detalii Rol</value>

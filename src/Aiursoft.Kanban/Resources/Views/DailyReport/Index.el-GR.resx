@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="AI-powered daily planning and summaries based on your Kanban boards." xml:space="preserve">
+    <value>Ημερήσια σχεδιασμός και περιλήψεις με τεχνητή νοημοσύνη, βασισμένα στα Kanban boards σας.</value>
+  </data>
+  <data name="Daily Assistant" xml:space="preserve">
+    <value>Καθημερινός Βοηθός</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Ημερομηνία</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>Δημιουργήστε ένα πρωινό σχέδιο για να δείτε τι πρέπει να εστιάσετε σήμερα.</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>Δημιουργήστε ένα απόγευματικό συνοπτικό σημείωμα για να ανακαλέσετε όσα επιτεύξατε σήμερα.</value>
+  </data>
+  <data name="Generate Plan" xml:space="preserve">
+    <value>Δημιουργία σχεδίου</value>
+  </data>
+  <data name="Generate Summary" xml:space="preserve">
+    <value>Δημιουργία Περίληψης</value>
+  </data>
+  <data name="Generated" xml:space="preserve">
+    <value>Δημιουργήθηκε</value>
+  </data>
+  <data name="Generated At" xml:space="preserve">
+    <value>Δημιουργήθηκε Στις</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Ιστορικό</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Επόμενο</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Δεν υπάρχουν ακόμη αναφορές</value>
+  </data>
+  <data name="Not yet generated" xml:space="preserve">
+    <value>Δεν έχει δημιουργηθεί ακόμη</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Προηγούμενη</value>
+  </data>
+  <data name="Regenerate" xml:space="preserve">
+    <value>Επαναδημιουργία</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="Today&apos;s Plan" xml:space="preserve">
+    <value>Πρόγραμμα Σήμερα</value>
+  </data>
+  <data name="Today&apos;s Summary" xml:space="preserve">
+    <value>Σύνοψη σήμερα</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Τύπος</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Προβολή</value>
+  </data>
+  <data name="Your daily plans and summaries will appear here." xml:space="preserve">
+    <value>Τα καθημερινά σας σχέδια και συνόψια θα εμφανίζονται εδώ.</value>
+  </data>
+
+</root>

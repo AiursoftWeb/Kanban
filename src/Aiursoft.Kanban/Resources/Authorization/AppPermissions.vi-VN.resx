@@ -43,10 +43,13 @@
     <value>Cho phép xóa vĩnh viễn tài khoản người dùng.</value>
   </data>
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
-    <value>Cho phép xem và quản lý kế hoạch hàng ngày và bản tóm tắt cho tất cả người dùng.</value>
+    <value>Cho phép xem và quản lý kế hoạch hàng ngày cũng như tóm tắt cho tất cả người dùng.</value>
   </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Cho phép xem và chỉnh sửa cài đặt toàn cục của ứng dụng.</value>
+  </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>Cho phép xem nhật ký hoạt động của tất cả người dùng.</value>
   </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>Cho phép xem thông tin và cài đặt ở cấp hệ thống.</value>
@@ -91,10 +94,13 @@
     <value>Quản lý Chia sẻ Bảng bất kỳ</value>
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
-    <value>Quản lý mọi báo cáo hàng ngày</value>
+    <value>Quản lý báo cáo hàng ngày</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Quản lý Cài đặt Toàn cầu</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>Đọc nhật ký kiểm toán</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Đọc Quyền</value>

@@ -24,5 +24,8 @@
   <data name="Generated at" xml:space="preserve">
     <value>生成于</value>
   </data>
+  <data name="UTC+8" xml:space="preserve">
+    <value>（北京时间）</value>
+  </data>
 
 </root>

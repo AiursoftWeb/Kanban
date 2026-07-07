@@ -45,9 +45,6 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Неверный запрос</value>
   </data>
-  <data name="Card Details" xml:space="preserve">
-    <value>Детали карточки</value>
-  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Сменить аватар</value>
   </data>
@@ -67,7 +64,7 @@
     <value>Создать пользователя</value>
   </data>
   <data name="Daily Assistant" xml:space="preserve">
-    <value>Помощник дня</value>
+    <value>Ежедневный помощник</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Панель управления</value>
@@ -141,6 +138,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>Мои уведомления</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Мои журналы операций</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Мои задачи</value>
   </data>
@@ -149,6 +149,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Уведомления</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>Журнал операций</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Обзор</value>
@@ -175,7 +178,7 @@
     <value>Зарегистрироваться</value>
   </data>
   <data name="Report Details" xml:space="preserve">
-    <value>Сведения об отчете</value>
+    <value>Детали отчета</value>
   </data>
   <data name="Role Details" xml:space="preserve">
     <value>Детали роли</value>

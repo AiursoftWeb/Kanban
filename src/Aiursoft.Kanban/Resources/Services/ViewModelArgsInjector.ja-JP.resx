@@ -48,9 +48,6 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Bad Request</value>
   </data>
-  <data name="Card Details" xml:space="preserve">
-    <value>カード詳細</value>
-  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>アバターを変更</value>
   </data>
@@ -70,7 +67,7 @@
     <value>ユーザーを作成</value>
   </data>
   <data name="Daily Assistant" xml:space="preserve">
-    <value>デイリーアシスタント</value>
+    <value>毎日のアシスタント</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>ダッシュボード</value>
@@ -144,6 +141,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>マイ通知</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>私の操作ログ</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>マイタスク</value>
   </data>
@@ -152,6 +152,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>通知</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>操作ログ</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>概要</value>

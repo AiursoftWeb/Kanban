@@ -111,6 +111,9 @@ public class ViewModelArgsInjector(
         _ = localizer["Card Details"];
         _ = localizer["Daily Assistant"];
         _ = localizer["Report Details"];
+
+        _ = localizer["My Operation Logs"];
+        _ = localizer["Operation Logs"];
     }
 
     public void InjectSimple(

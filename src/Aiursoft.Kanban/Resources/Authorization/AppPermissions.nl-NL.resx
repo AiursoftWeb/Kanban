@@ -48,6 +48,9 @@
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Staats het bekijken en wijzigen van globale toepassingsinstellingen toe.</value>
   </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>Maakt het weergeven van activiteitlogs voor alle gebruikers mogelijk.</value>
+  </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>Staat het bekijken van systeeminformatie en -instellingen toe.</value>
   </data>
@@ -91,10 +94,13 @@
     <value>Beheer elke borddeling</value>
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
-    <value>Beheer elke dagelijks rapport</value>
+    <value>Elk dagrapport beheren</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Algemene instellingen beheren</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>Auditlogs lezen</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Leesmachtigingen</value>

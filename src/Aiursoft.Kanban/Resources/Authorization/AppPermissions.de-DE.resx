@@ -43,10 +43,13 @@
     <value>Ermöglicht das dauerhafte Löschen von Benutzerkonten.</value>
   </data>
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
-    <value>Ermöglicht das Anzeigen und Verwalten von täglichen Plänen und Zusammenfassungen für alle Benutzer.</value>
+    <value>Ermöglicht das Anzeigen und Verwalten täglicher Pläne und Zusammenfassungen für alle Benutzer.</value>
   </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Erlaubt das Anzeigen und Ändern von globalen Anwendungseinstellungen.</value>
+  </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>Ermöglicht das Anzeigen von Protokolleinträgen für alle Benutzer.</value>
   </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>Ermöglicht das Anzeigen von systemweiten Informationen und Einstellungen.</value>
@@ -91,10 +94,13 @@
     <value>Jedes Board-Sharing verwalten</value>
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
-    <value>Alle täglichen Berichte verwalten</value>
+    <value>Jeglichen Tagesbericht verwalten</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Globale Einstellungen verwalten</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>Auditprotokolle lesen</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Berechtigungen lesen</value>

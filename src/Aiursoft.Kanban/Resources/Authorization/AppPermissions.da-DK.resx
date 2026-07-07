@@ -43,10 +43,13 @@
     <value>Giver mulighed for den permanente sletning af brugerkonti.</value>
   </data>
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
-    <value>Tillader visning og administration af daglige planer og resuméer for alle brugere.</value>
+    <value>Tillader visning og administration af daglige planer og opsummeringer for alle brugere.</value>
   </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Tillader visning og ændring af globale applikationsindstillinger.</value>
+  </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>Muliggør visning af operationslogge for alle brugere.</value>
   </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>Giver mulighed for at se systemniveauoplysninger og -indstillinger.</value>
@@ -91,10 +94,13 @@
     <value>Administrer enhver tavle-del</value>
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
-    <value>Administrer alle daglige rapporter</value>
+    <value>Administrer ethvert dagligt rapport</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Håndtér globale indstillinger</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>Læs auditlogs</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Læs tilladelser</value>

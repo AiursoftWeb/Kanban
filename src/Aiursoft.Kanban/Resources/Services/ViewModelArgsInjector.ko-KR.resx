@@ -48,9 +48,6 @@
   <data name="Bad Request" xml:space="preserve">
     <value>잘못된 요청</value>
   </data>
-  <data name="Card Details" xml:space="preserve">
-    <value>카드 상세 정보</value>
-  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>아바타 변경</value>
   </data>
@@ -70,7 +67,7 @@
     <value>사용자 생성</value>
   </data>
   <data name="Daily Assistant" xml:space="preserve">
-    <value>일일 보조</value>
+    <value>데일리 어시스턴트</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>대시보드</value>
@@ -144,6 +141,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>내 알림</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>내 작업 로그</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>내 작업</value>
   </data>
@@ -152,6 +152,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>알림</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>작업 로그</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>개요</value>

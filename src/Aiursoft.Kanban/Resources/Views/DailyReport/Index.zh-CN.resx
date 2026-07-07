@@ -19,7 +19,7 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
       <data name="AI-powered daily planning and summaries based on your Kanban boards." xml:space="preserve">
-    <value>基于看板的人工智能每日规划与总结。</value>
+    <value>基于看板板的 AI 每日计划与总结</value>
   </data>
   <data name="Daily Assistant" xml:space="preserve">
     <value>每日助手</value>
@@ -28,10 +28,10 @@
     <value>日期</value>
   </data>
   <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
-    <value>生成晨间计划，查看您今天应关注的内容。</value>
+    <value>生成晨间计划，了解今日重点。</value>
   </data>
   <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
-    <value>生成一份下午总结，回顾您今天的成果。</value>
+    <value>生成下午总结，回顾您今天的 accomplishments。</value>
   </data>
   <data name="Generate Plan" xml:space="preserve">
     <value>生成计划</value>
@@ -43,7 +43,7 @@
     <value>已生成</value>
   </data>
   <data name="Generated At" xml:space="preserve">
-    <value>生成于</value>
+    <value>生成时间</value>
   </data>
   <data name="History" xml:space="preserve">
     <value>历史记录</value>
@@ -79,7 +79,7 @@
     <value>类型</value>
   </data>
   <data name="View" xml:space="preserve">
-    <value>查看</value>
+    <value>视图</value>
   </data>
   <data name="Your daily plans and summaries will appear here." xml:space="preserve">
     <value>您的每日计划和总结将显示在这里。</value>

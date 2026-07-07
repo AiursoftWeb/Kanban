@@ -144,6 +144,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>Thông báo của tôi</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Nhật ký hoạt động của tôi</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Nhiệm vụ của tôi</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Thông báo</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>Nhật ký hoạt động</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Tổng quan</value>

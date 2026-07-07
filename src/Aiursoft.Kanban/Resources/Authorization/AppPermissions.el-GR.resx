@@ -43,10 +43,13 @@
     <value>Επιτρέπει τη μόνιμη διαγραφή των λογαριασμών χρηστών.</value>
   </data>
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
-    <value>Επιτρέπει την προβολή και διαχείριση των καθημερινών σχεδίων και συγκεντρωτικών στοιχείων για όλους τους χρήστες.</value>
+    <value>Επιτρέπει την προβολή και διαχείριση των ημερήσιων σχεδίων και συγκεντρωτικών αναφορών για όλους τους χρήστες.</value>
   </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Επιτρέπει την προβολή και την τροποποίηση των γενικών ρυθμίσεων της εφαρμογής.</value>
+  </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>Επιτρέπει την προβολή των αρχείων καταγραφής εργασιών για όλους τους χρήστες.</value>
   </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>Επιτρέπει την προβολή πληροφοριών και ρυθμίσεων σε επίπεδο συστήματος.</value>
@@ -91,10 +94,13 @@
     <value>Διαχείριση Κοινοποίησης Οποιασδήποτε Πίνακα</value>
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
-    <value>Διαχείριση Οποιουδήποτε Ημερήσιου Αναφοράς</value>
+    <value>Διαχείριση Οποιουδήποτε Ημερήσιου Απολογισμού</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Διαχείριση Γενικών Ρυθμίσεων</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>Ανάγνωση ημερολογίων ελέγχου</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Διαβάστε Δικαιώματα</value>

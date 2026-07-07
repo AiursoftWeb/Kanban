@@ -48,6 +48,9 @@
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Permite vizualizarea și modificarea setărilor globale ale aplicației.</value>
   </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>Permite vizualizarea jurnalului de operațiuni pentru toți utilizatorii.</value>
+  </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>Permite vizualizarea informațiilor și setărilor la nivel de sistem.</value>
   </data>
@@ -91,10 +94,13 @@
     <value>Gestionați partajarea oricărei planșe</value>
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
-    <value>Gestionează orice Raport Zilnic</value>
+    <value>Gestionează orice raport zilnic</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Gestionare setări globale</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>Citire jurnale de audit</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Citește Permisiuni</value>

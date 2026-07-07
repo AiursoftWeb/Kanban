@@ -17,6 +17,8 @@ using Aiursoft.UiStack.Layout;
 using Aiursoft.UiStack.Navigation;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Aiursoft.ClickhouseLoggerProvider;
+using Aiursoft.ClickhouseSdk.Abstractions;
+using Aiursoft.Kanban.Services.Auditing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics.CodeAnalysis;
@@ -32,6 +34,7 @@ public class Startup : IWebStartup
         services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
         services.Configure<AnthropicConfiguration>(configuration.GetSection("AppSettings:Anthropic"));
         services.Configure<AgentPromptConfig>(configuration.GetSection("AppSettings:Agent"));
+        services.Configure<ClickhouseOptions>(configuration.GetSection("AuditLogs:Clickhouse"));
 
 
         // Relational database
@@ -57,6 +60,7 @@ public class Startup : IWebStartup
         // Services
         services.AddMemoryCache();
         services.AddHttpClient();
+        services.AddHttpContextAccessor();
         services.AddAssemblyDependencies(typeof(Startup).Assembly);
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Startup).Assembly));
         services.AddSingleton<NavigationState<Startup>>();
@@ -72,12 +76,18 @@ public class Startup : IWebStartup
         // Background jobs
         services.RegisterBackgroundJob<DummyJob>();
         var orphanAvatarCleanupJob = services.RegisterBackgroundJob<OrphanAvatarCleanupJob>();
+        var auditLogFlushJob = services.RegisterBackgroundJob<AuditLogFlushService>();
+        services.AddHostedService<AuditLogShutdownFlushService>();
 
         // Scheduled tasks (attach a schedule to any registered background job)
         services.RegisterScheduledTask(
             registration: orphanAvatarCleanupJob,
             period:     TimeSpan.FromHours(6),
             startDelay: TimeSpan.FromMinutes(5));
+        services.RegisterScheduledTask(
+            registration: auditLogFlushJob,
+            period: TimeSpan.FromMinutes(2),
+            startDelay: TimeSpan.FromSeconds(10));
 
         // Daily Report background job — scans every 30 minutes
         var dailyReportJob = services.RegisterBackgroundJob<DailyReportBackgroundJob>();
@@ -87,7 +97,7 @@ public class Startup : IWebStartup
             startDelay:  TimeSpan.FromMinutes(2));
 
         // Controllers and localization
-        services.AddControllersWithViews()
+        services.AddControllersWithViews(options => options.Filters.Add<AuditActionFilter>())
             .AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;

@@ -43,10 +43,13 @@
     <value>사용자 계정의 영구 삭제를 허용합니다.</value>
   </data>
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
-    <value>모든 사용자의 일별 계획 및 요약을 조회하고 관리할 수 있습니다.</value>
+    <value>모든 사용자의 일일 계획 및 요약을 조회하고 관리할 수 있습니다.</value>
   </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>전역 애플리케이션 설정을 확인하고 수정할 수 있습니다.</value>
+  </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>모든 사용자의 조작 로그를 조회할 수 있습니다.</value>
   </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>시스템 수준 정보 및 설정을 볼 수 있습니다.</value>
@@ -91,10 +94,13 @@
     <value>모든 보드 공유 관리</value>
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
-    <value>모든 일일 보고서 관리</value>
+    <value>모든 일간 보고서 관리</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>전역 설정 관리</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>감사 로그 읽기</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>권한 읽기</value>

@@ -141,6 +141,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>Notifikasi Saya</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Log Operasi Saya</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Tugas Saya</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifikasi</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>Log Operasi</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Ikhtisar</value>

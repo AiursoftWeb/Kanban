@@ -43,10 +43,13 @@
     <value>允許永久刪除使用者帳戶。</value>
   </data>
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
-    <value>允許查看並管理所有使用者的每日計畫與摘要。</value>
+    <value>允許檢視及管理所有使用者的每日計畫與摘要。</value>
   </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>允許檢視和修改全域應用程式設定。</value>
+  </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>允許查看所有用戶的操作日誌。</value>
   </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>允許檢視系統層級的資訊與設定。</value>
@@ -91,10 +94,13 @@
     <value>管理任何看板分享</value>
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
-    <value>管理任何每日報告</value>
+    <value>管理所有每日報告</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>管理全域設定</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>讀取審計日誌</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>讀取權限</value>

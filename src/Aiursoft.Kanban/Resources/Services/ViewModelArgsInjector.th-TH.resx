@@ -48,9 +48,6 @@
   <data name="Bad Request" xml:space="preserve">
     <value>คำขอไม่ถูกต้อง</value>
   </data>
-  <data name="Card Details" xml:space="preserve">
-    <value>รายละเอียดการ์ด</value>
-  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>เปลี่ยนรูปโปรไฟล์</value>
   </data>
@@ -70,7 +67,7 @@
     <value>สร้างผู้ใช้</value>
   </data>
   <data name="Daily Assistant" xml:space="preserve">
-    <value>ผู้ช่วยรายวัน</value>
+    <value>ผู้ช่วยประจำวัน</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>แดชบอร์ด</value>
@@ -144,6 +141,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>การแจ้งเตือนของฉัน</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>บันทึกการทำงานของฉัน</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>งานของฉัน</value>
   </data>
@@ -152,6 +152,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>การแจ้งเตือน</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>บันทึกการดำเนินการ</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>ภาพรวม</value>

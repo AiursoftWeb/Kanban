@@ -398,6 +398,9 @@ public class KanbanController(
             CardId: transferredCard.Id,
             ActorUserId: userId,
             TargetBoardId: targetBoardId,
+            OriginalCardId: card.Id,
+            SourceBoardName: card.Column.Board.Name,
+            SourceColumnName: card.Column.Name,
             OriginalCreatorUserId: originalCreatorUserId,
             OriginalAssigneeUserId: originalAssigneeUserId));
 
@@ -429,6 +432,7 @@ public class KanbanController(
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
 
         var fromColumnId = card.ColumnId;
+        var fromColumnName = card.Column.Name;
 
         var now = DateTime.UtcNow;
         var wasCompleted = card.Column.ColumnStatus == ColumnStatus.Completed;
@@ -534,7 +538,13 @@ public class KanbanController(
         {
             await PublishNotificationEventAsync(new CardMovedEvent(
                 CardId: cardId,
-                ActorUserId: userId));
+                ActorUserId: userId,
+                FromColumnId: fromColumnId,
+                FromColumnName: fromColumnName,
+                ToColumnId: movedToColumnId,
+                ToColumnName: column.Name,
+                NewOrder: newOrder,
+                NotifyUsers: !shouldRecur));
         }
 
         return Ok(new

@@ -43,10 +43,13 @@
     <value>ユーザーアカウントの完全削除を許可します。</value>
   </data>
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
-    <value>すべてのユーザーのデイリープランとサマリの閲覧および管理を許可します。</value>
+    <value>すべてのユーザーの毎日の計画と概要の表示および管理を許可します。</value>
   </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>グローバルなアプリケーション設定の表示および編集を許可します。</value>
+  </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>すべてのユーザーの操作ログの表示を許可します。</value>
   </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>システムレベルの情報と設定の表示を許可します。</value>
@@ -91,10 +94,13 @@
     <value>ボード共有の設定を管理</value>
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
-    <value>すべての日報を管理する</value>
+    <value>全ユーザーの日報を管理</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>グローバル設定の管理</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>監査ログの参照</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>権限の閲覧</value>

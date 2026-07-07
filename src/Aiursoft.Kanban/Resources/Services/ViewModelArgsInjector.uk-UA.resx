@@ -141,6 +141,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>Мої сповіщення</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Мої журнали операцій</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>Мої завдання</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Сповіщення</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>Журнал дій</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Огляд</value>

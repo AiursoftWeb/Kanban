@@ -4,6 +4,8 @@ using Aiursoft.Canon.TaskQueue;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Notifications;
+using Aiursoft.Kanban.Events;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -978,7 +980,20 @@ public class AgentService : IAgentService
 
         var result = await tool.InvokeAsync(request);
         var textContent = result.Content.OfType<ModelContextProtocol.Protocol.TextContentBlock>().FirstOrDefault();
-        return textContent?.Text ?? result.ToString() ?? "Tool executed.";
+        var resultText = textContent?.Text ?? result.ToString() ?? "Tool executed.";
+        if (_toolRegistry.IsWriteTool(tool.ProtocolTool.Name) &&
+            !resultText.StartsWith("Error:", StringComparison.OrdinalIgnoreCase))
+        {
+            var user = await scope.ServiceProvider.GetRequiredService<UserManager<User>>().FindByIdAsync(userId);
+            await scope.ServiceProvider.GetRequiredService<IMediator>().Publish(new AgentToolExecutedEvent(
+                ToolName: tool.ProtocolTool.Name,
+                UserId: userId,
+                UserName: user?.DisplayName ?? user?.UserName ?? userId,
+                Summary: resultText,
+                Arguments: args));
+        }
+
+        return resultText;
     }
 
     private static Dictionary<string, object?> UnwrapJsonElements(Dictionary<string, object?> args)

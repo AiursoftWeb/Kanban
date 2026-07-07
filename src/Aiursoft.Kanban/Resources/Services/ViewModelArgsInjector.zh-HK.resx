@@ -48,9 +48,6 @@
   <data name="Bad Request" xml:space="preserve">
     <value>錯誤的請求</value>
   </data>
-  <data name="Card Details" xml:space="preserve">
-    <value>卡片詳情</value>
-  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>更改頭像</value>
   </data>
@@ -70,7 +67,7 @@
     <value>建立用戶</value>
   </data>
   <data name="Daily Assistant" xml:space="preserve">
-    <value>每日助理</value>
+    <value>每日助手</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>儀表板</value>
@@ -144,6 +141,9 @@
   <data name="My Notifications" xml:space="preserve">
     <value>我的通知</value>
   </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>我的操作記錄</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>我的任務</value>
   </data>
@@ -152,6 +152,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>通知</value>
+  </data>
+  <data name="Operation Logs" xml:space="preserve">
+    <value>操作記錄</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>總覽</value>

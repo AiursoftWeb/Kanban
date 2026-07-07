@@ -48,6 +48,9 @@
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Позволяет просматривать и изменять глобальные параметры приложения.</value>
   </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>Позволяет просматривать журналы действий всех пользователей.</value>
+  </data>
   <data name="Allows viewing system-level information and settings." xml:space="preserve">
     <value>Разрешает просмотр системной информации и настроек.</value>
   </data>
@@ -91,10 +94,13 @@
     <value>Управлять общим доступом к любой доске</value>
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
-    <value>Управление любыми ежедневными отчётами</value>
+    <value>Управление любыми ежедневными отчетами</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Управление глобальными настройками</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>Читать журналы аудита</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Чтение разрешений</value>
