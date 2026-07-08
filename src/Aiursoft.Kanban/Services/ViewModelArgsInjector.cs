@@ -114,6 +114,9 @@ public class ViewModelArgsInjector(
 
         _ = localizer["My Operation Logs"];
         _ = localizer["Operation Logs"];
+    
+        _ = localizer["Archived"];
+        _ = localizer["Archived Boards"];
     }
 
     public void InjectSimple(
