@@ -138,6 +138,9 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="Changes are not saved automatically. Click Save when you are done." xml:space="preserve">
+    <value>Changes are not saved automatically. Click Save when you are done.</value>
+  </data>
   <data name="Schedule &amp; status" xml:space="preserve">
     <value>Schedule &amp; status</value>
   </data>

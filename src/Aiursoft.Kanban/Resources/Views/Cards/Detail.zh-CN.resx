@@ -138,6 +138,9 @@
   <data name="Save" xml:space="preserve">
     <value>保存</value>
   </data>
+  <data name="Changes are not saved automatically. Click Save when you are done." xml:space="preserve">
+    <value>修改不会自动保存。完成后请点击保存。</value>
+  </data>
   <data name="Schedule &amp; status" xml:space="preserve">
     <value>Schedule &amp; status</value>
   </data>
