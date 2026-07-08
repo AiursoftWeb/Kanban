@@ -71,7 +71,7 @@ else
                                         var completed = summary?.TotalCompleted ?? 0;
                                         var overdue = summary?.TotalOverdue ?? 0;
                                         var unassigned = summary?.TotalUnassigned ?? 0;
-                                        <tr>
+                                        <tr class="clickable-row board-row" data-href="@Url.Action("Index", "Kanban", new { boardId = board.Id })">
                                             <td>
                                                 <span class="archived-badge"><i class="align-middle" data-lucide="archive"></i> @Localizer["Archived"]</span>
                                                 <strong>@board.Name</strong>
@@ -101,7 +101,10 @@ else
                                             }
                                         </td>
                                         <td><small class="text-muted"><label data-utc-time="@board.ArchivedTime?.ToHtmlDateTime()"></label></small></td>
-                                        <td class="text-end">
+                                        <td class="text-end text-nowrap">
+                                            <a asp-controller="Kanban" asp-action="Index" asp-route-boardId="@board.Id" class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="align-middle" data-lucide="eye"></i> @Localizer["View"]
+                                            </a>
                                             <form asp-action="ArchiveBoard" asp-controller="Kanban" method="post" style="display:inline;">
                                                 <input type="hidden" name="boardId" value="@board.Id" />
                                                 @Html.AntiForgeryToken()
@@ -155,7 +158,7 @@ else
                                         var completed = summary?.TotalCompleted ?? 0;
                                         var overdue = summary?.TotalOverdue ?? 0;
                                         var unassigned = summary?.TotalUnassigned ?? 0;
-                                        <tr>
+                                        <tr class="clickable-row board-row" data-href="@Url.Action("View", "PublicKanban", new { boardId = board.Id })">
                                             <td>
                                                 <span class="archived-badge"><i class="align-middle" data-lucide="archive"></i> @Localizer["Archived"]</span>
                                                 <strong>@board.Name</strong>

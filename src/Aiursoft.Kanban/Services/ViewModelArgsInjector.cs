@@ -228,7 +228,7 @@ public class ViewModelArgsInjector(
                 .ToList();
 
             var ownedBoards = db.KanbanBoards
-                .Where(b => b.UserId == userId)
+                .Where(b => b.UserId == userId && !b.IsArchived)
                 .OrderBy(b => b.Name)
                 .ToList();
 
@@ -240,7 +240,7 @@ public class ViewModelArgsInjector(
                 .ToList();
 
             var sharedBoards = db.KanbanBoards
-                .Where(b => sharedBoardIds.Contains(b.Id) && b.UserId != userId)
+                .Where(b => sharedBoardIds.Contains(b.Id) && b.UserId != userId && !b.IsArchived)
                 .OrderBy(b => b.Name)
                 .ToList();
 
