@@ -57,9 +57,9 @@
     {
         return status switch
         {
-            ColumnStatus.NotStarted => "Not Started",
-            ColumnStatus.InProgress => "In Progress",
-            ColumnStatus.Completed => "Completed",
+            ColumnStatus.NotStarted => Localizer["Not Started"].Value,
+            ColumnStatus.InProgress => Localizer["In Progress"].Value,
+            ColumnStatus.Completed => Localizer["Completed"].Value,
             _ => status.ToString()
         };
     }
@@ -68,20 +68,20 @@
     {
         return sort switch
         {
-            "planned-end-desc" => " - planned end descending.",
-            "planned-end-asc" => " - planned end ascending.",
-            "planned-start-desc" => " - planned start descending.",
-            "planned-start-asc" => " - planned start ascending.",
-            "priority-asc" => " - urgency ascending.",
-            "priority-desc" => " - urgency descending.",
-            "actual-start-desc" => " - actual start descending.",
-            "actual-start-asc" => " - actual start ascending.",
-            "actual-end-desc" => " - actual end descending.",
-            "actual-end-asc" => " - actual end ascending.",
-            "creation-desc" => " - newest first.",
-            "creation-asc" => " - oldest first.",
-            "title-asc" => " - title A-Z.",
-            "title-desc" => " - title Z-A.",
+            "planned-end-desc" => Localizer[" - planned end descending."].Value,
+            "planned-end-asc" => Localizer[" - planned end ascending."].Value,
+            "planned-start-desc" => Localizer[" - planned start descending."].Value,
+            "planned-start-asc" => Localizer[" - planned start ascending."].Value,
+            "priority-asc" => Localizer[" - urgency ascending."].Value,
+            "priority-desc" => Localizer[" - urgency descending."].Value,
+            "actual-start-desc" => Localizer[" - actual start descending."].Value,
+            "actual-start-asc" => Localizer[" - actual start ascending."].Value,
+            "actual-end-desc" => Localizer[" - actual end descending."].Value,
+            "actual-end-asc" => Localizer[" - actual end ascending."].Value,
+            "creation-desc" => Localizer[" - newest first."].Value,
+            "creation-asc" => Localizer[" - oldest first."].Value,
+            "title-asc" => Localizer[" - title A-Z."].Value,
+            "title-desc" => Localizer[" - title Z-A."].Value,
             _ => string.Empty
         };
     }
@@ -179,7 +179,7 @@
 <div class="row mb-4">
     <div class="col-12">
         <h2 class="mb-1">@Localizer["My Tasks"]</h2>
-        <p class="text-muted mb-0">@Localizer["Everything assigned to you"]@Localizer[SortDescription(Model.SelectedSort)]</p>
+        <p class="text-muted mb-0">@Localizer["Everything assigned to you"]@SortDescription(Model.SelectedSort)</p>
     </div>
 </div>
 
@@ -199,18 +199,18 @@
                 @{
                     var sortOptions = new (string Value, string Label)[]
                     {
-                        ("planned-end-desc", "按计划结束时间倒序"),
-                        ("planned-end-asc", "按计划结束时间"),
-                        ("planned-start-desc", "按计划开始时间倒序"),
-                        ("planned-start-asc", "按计划开始时间"),
-                        ("actual-end-desc", "按实际结束时间倒序"),
-                        ("actual-end-asc", "按实际结束时间"),
-                        ("actual-start-desc", "按实际开始时间倒序"),
-                        ("actual-start-asc", "按实际开始时间"),
-                        ("priority-asc", "按紧急程度"),
-                        ("priority-desc", "按紧急程度倒序"),
-                        ("title-desc", "标题倒序"),
-                        ("title-asc", "标题"),
+                        ("planned-end-desc", "Planned End (newest first)"),
+                        ("planned-end-asc", "Planned End (oldest first)"),
+                        ("planned-start-desc", "Planned Start (newest first)"),
+                        ("planned-start-asc", "Planned Start (oldest first)"),
+                        ("actual-end-desc", "Actual End (newest first)"),
+                        ("actual-end-asc", "Actual End (oldest first)"),
+                        ("actual-start-desc", "Actual Start (newest first)"),
+                        ("actual-start-asc", "Actual Start (oldest first)"),
+                        ("priority-asc", "Priority (low to high)"),
+                        ("priority-desc", "Priority (high to low)"),
+                        ("title-desc", "Title (Z → A)"),
+                        ("title-asc", "Title (A → Z)"),
                     };
                 }
                 @foreach (var opt in sortOptions)

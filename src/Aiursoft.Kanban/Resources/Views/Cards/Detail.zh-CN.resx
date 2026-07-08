@@ -19,256 +19,256 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
       <data name="Actions" xml:space="preserve">
-    <value>Actions</value>
+    <value>操作</value>
   </data>
   <data name="Actual end" xml:space="preserve">
-    <value>Actual end</value>
+    <value>实际结束</value>
   </data>
   <data name="Actual start" xml:space="preserve">
-    <value>Actual start</value>
+    <value>实际开始</value>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Add</value>
+    <value>添加</value>
   </data>
   <data name="Are you sure you want to delete this card? This action cannot be undone." xml:space="preserve">
-    <value>Are you sure you want to delete this card? This action cannot be undone.</value>
+    <value>确定要删除此卡片吗？此操作无法撤消。</value>
   </data>
   <data name="Assignee" xml:space="preserve">
-    <value>Assignee</value>
+    <value>负责人</value>
   </data>
   <data name="Board" xml:space="preserve">
-    <value>Board</value>
+    <value>看板</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="Clear" xml:space="preserve">
-    <value>Clear</value>
+    <value>清除</value>
   </data>
   <data name="Column" xml:space="preserve">
-    <value>Column</value>
+    <value>列</value>
   </data>
   <data name="comment image" xml:space="preserve">
-    <value>comment image</value>
+    <value>评论图片</value>
   </data>
   <data name="comments" xml:space="preserve">
-    <value>comments</value>
+    <value>条评论</value>
   </data>
   <data name="Comments will stay with the current card history, and assignee may be re-evaluated on the target board." xml:space="preserve">
-    <value>Comments will remain with the current card history, and the assignee may be reassigned on the target board.</value>
+    <value>评论将保留在当前卡片历史中，且负责人可能会在目标看板上重新评估。</value>
   </data>
   <data name="Context around ownership, status and where this card currently lives." xml:space="preserve">
-    <value>Context regarding ownership, status and where this card currently resides.</value>
+    <value>关于所有权、状态以及卡片当前所在位置的上下文。</value>
   </data>
   <data name="Created" xml:space="preserve">
-    <value>Created</value>
+    <value>创建于</value>
   </data>
   <data name="Creator" xml:space="preserve">
-    <value>Creator</value>
+    <value>创建者</value>
   </data>
   <data name="Days" xml:space="preserve">
-    <value>Days</value>
+    <value>天</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>删除</value>
   </data>
   <data name="Delete card" xml:space="preserve">
-    <value>Delete card</value>
+    <value>删除卡片</value>
   </data>
   <data name="Delete comment" xml:space="preserve">
-    <value>Delete comment</value>
+    <value>删除评论</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Description</value>
+    <value>描述</value>
   </data>
   <data name="Drag an image here or paste from clipboard to attach it to the comment." xml:space="preserve">
-    <value>Drag an image here or paste from clipboard to attach it to the comment.</value>
+    <value>将图片拖放到此处或从剪贴板粘贴以附加到评论中。</value>
   </data>
   <data name="Due" xml:space="preserve">
-    <value>Due</value>
+    <value>到期</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>编辑</value>
   </data>
   <data name="Every" xml:space="preserve">
-    <value>Every</value>
+    <value>每</value>
   </data>
   <data name="Labels" xml:space="preserve">
-    <value>Labels</value>
+    <value>标签</value>
   </data>
   <data name="Markdown, Mermaid and KaTeX are all supported." xml:space="preserve">
-    <value>Markdown, Mermaid and KaTeX are all supported.</value>
+    <value>支持 Markdown、Mermaid 和 KaTeX。</value>
   </data>
   <data name="Months" xml:space="preserve">
-    <value>Months</value>
+    <value>月</value>
   </data>
   <data name="Move" xml:space="preserve">
-    <value>Move</value>
+    <value>移动</value>
   </data>
   <data name="Move to column" xml:space="preserve">
-    <value>Move to column</value>
+    <value>移至列</value>
   </data>
   <data name="Move within this board or transfer ownership to another board." xml:space="preserve">
-    <value>Move within this board or transfer ownership to another board.</value>
+    <value>在此看板内移动或转移所有权到另一个看板。</value>
   </data>
   <data name="No comments yet." xml:space="preserve">
-    <value>No comments yet.</value>
+    <value>暂无评论。</value>
   </data>
   <data name="No description yet. Capture the context, plan, or acceptance notes for this card here." xml:space="preserve">
-    <value>No description yet. Capture the context, plan, or acceptance notes for this card here.</value>
+    <value>暂无描述。在此记录此卡片的背景、计划或验收说明。</value>
   </data>
   <data name="OK" xml:space="preserve">
-    <value>OK</value>
+    <value>确定</value>
   </data>
   <data name="Overview" xml:space="preserve">
-    <value>Overview</value>
+    <value>概览</value>
   </data>
   <data name="Preview" xml:space="preserve">
-    <value>Preview</value>
+    <value>预览</value>
   </data>
   <data name="Priority" xml:space="preserve">
-    <value>Priority</value>
+    <value>优先级</value>
   </data>
   <data name="Recurring cards require a due date, interval and recurrence unit." xml:space="preserve">
-    <value>Recurring cards require a due date, interval and recurrence unit.</value>
+    <value>周期性卡片需要设置到期日、间隔和周期单位。</value>
   </data>
   <data name="Recurring task" xml:space="preserve">
-    <value>Recurring task</value>
+    <value>周期性任务</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Save</value>
+    <value>保存</value>
   </data>
   <data name="Schedule &amp; status" xml:space="preserve">
     <value>Schedule &amp; status</value>
   </data>
   <data name="Search assignee..." xml:space="preserve">
-    <value>Search assignee...</value>
+    <value>搜索负责人...</value>
   </data>
   <data name="Search or create a label" xml:space="preserve">
-    <value>Search or create a label</value>
+    <value>搜索或创建标签</value>
   </data>
   <data name="Select board..." xml:space="preserve">
-    <value>Select board...</value>
+    <value>选择看板...</value>
   </data>
   <data name="Select column..." xml:space="preserve">
-    <value>Select column...</value>
+    <value>选择列...</value>
   </data>
   <data name="Select unit" xml:space="preserve">
-    <value>Select unit</value>
+    <value>选择单位</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Send</value>
+    <value>发送</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value>Start</value>
+    <value>开始</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
-    <value>This action cannot be undone.</value>
+    <value>此操作无法撤消。</value>
   </data>
   <data name="This is the planning and execution timeline for the card." xml:space="preserve">
-    <value>This is the planning and execution timeline for the card.</value>
+    <value>这是卡片的计划和执行时间线。</value>
   </data>
   <data name="Thread context, decisions, follow-ups and attachments stay with the card." xml:space="preserve">
-    <value>Thread context, decisions, follow-ups and attachments stay with the card.</value>
+    <value>讨论上下文、决策、跟进和附件将保留在卡片中。</value>
   </data>
   <data name="Tip: paste an image directly into the editor to upload and embed it." xml:space="preserve">
-    <value>Tip: paste an image directly into the editor to upload and embed it.</value>
+    <value>提示：将图片直接粘贴到编辑器中即可上传并嵌入。</value>
   </data>
   <data name="Transfer" xml:space="preserve">
-    <value>Transfer</value>
+    <value>转移</value>
   </data>
   <data name="Use labels to cluster work across the board and the detail page." xml:space="preserve">
-    <value>Use labels to group work across the board and the detail page.</value>
+    <value>使用标签在看板和详情页中对工作进行分组。</value>
   </data>
   <data name="Weeks" xml:space="preserve">
-    <value>Weeks</value>
+    <value>周</value>
   </data>
   <data name="Who is currently on point for this work." xml:space="preserve">
-    <value>Who is currently responsible for this work?</value>
+    <value>当前负责此工作的人员。</value>
   </data>
   <data name="Write a comment... (Ctrl+Enter to send)" xml:space="preserve">
-    <value>Write a comment... (Ctrl+Enter to send)</value>
+    <value>写评论...（Ctrl+Enter 发送）</value>
   </data>
   <data name="Years" xml:space="preserve">
-    <value>Years</value>
+    <value>年</value>
   </data>
 
   <data name="Notice" xml:space="preserve">
-    <value>Notice</value>
+    <value>提示</value>
   </data>
   <data name="Sending..." xml:space="preserve">
-    <value>Sending...</value>
+    <value>发送中...</value>
   </data>
   <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
-    <value>Comment is too long (max 2000 characters).</value>
+    <value>评论过长（最多2000个字符）。</value>
   </data>
   <data name="Failed to add comment." xml:space="preserve">
-    <value>Failed to add comment.</value>
+    <value>添加评论失败。</value>
   </data>
   <data name="Failed to delete comment." xml:space="preserve">
-    <value>Failed to delete comment.</value>
+    <value>删除评论失败。</value>
   </data>
   <data name="Failed to save." xml:space="preserve">
-    <value>Failed to save.</value>
+    <value>保存失败。</value>
   </data>
   <data name="Failed to add label." xml:space="preserve">
-    <value>Failed to add label.</value>
+    <value>添加标签失败。</value>
   </data>
   <data name="Failed to remove label." xml:space="preserve">
-    <value>Failed to remove label.</value>
+    <value>移除标签失败。</value>
   </data>
   <data name="Failed to upload image." xml:space="preserve">
-    <value>Failed to upload image.</value>
+    <value>上传图片失败。</value>
   </data>
   <data name="Failed to upload pasted image." xml:space="preserve">
-    <value>Failed to upload pasted image.</value>
+    <value>上传粘贴的图片失败。</value>
   </data>
   <data name="Uploading images..." xml:space="preserve">
-    <value>Uploading images...</value>
+    <value>正在上传图片...</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
-    <value>You can drag images here or paste from clipboard.</value>
+    <value>您可以在此拖放图片或从剪贴板粘贴。</value>
   </data>
   <data name="Release to add images" xml:space="preserve">
-    <value>Release to add images</value>
+    <value>释放以添加图片</value>
   </data>
   <data name="Failed to delete card." xml:space="preserve">
-    <value>Failed to delete card.</value>
+    <value>删除卡片失败。</value>
   </data>
   <data name="Failed to move card." xml:space="preserve">
-    <value>Failed to move card.</value>
+    <value>移动卡片失败。</value>
   </data>
   <data name="Failed to transfer card." xml:space="preserve">
-    <value>Failed to transfer card.</value>
+    <value>转移卡片失败。</value>
   </data>
   <data name="Recurring task has been returned to {0}." xml:space="preserve">
-    <value>Recurring task has been returned to {0}.</value>
+    <value>周期性任务已返回到 {0}。</value>
   </data>
   <data name="Server error" xml:space="preserve">
-    <value>Server error</value>
+    <value>服务器错误</value>
   </data>
   <data name="just now" xml:space="preserve">
-    <value>just now</value>
+    <value>刚刚</value>
   </data>
   <data name="m ago" xml:space="preserve">
-    <value>m ago</value>
+    <value>分钟前</value>
   </data>
   <data name="h ago" xml:space="preserve">
-    <value>h ago</value>
+    <value>小时前</value>
   </data>
   <data name="d ago" xml:space="preserve">
-    <value>d ago</value>
+    <value>天前</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
-    <value>Unassigned</value>
+    <value>未分配</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>None</value>
+    <value>无</value>
   </data>
   <data name="Saved" xml:space="preserve">
-    <value>Saved</value>
+    <value>已保存</value>
   </data>
   <data name="[Uploading image...]" xml:space="preserve">
-    <value>[Uploading image...]</value>
+    <value>[上传图片中...]</value>
   </data>
 </root>

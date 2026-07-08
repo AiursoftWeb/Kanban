@@ -70,4 +70,100 @@
     <value>ลองเปลี่ยนแท็บสถานะหรือปรับตัวกรองป้ายกำกับของคุณดูครับ</value>
   </data>
 
+  <data name="Planned End (newest first)" xml:space="preserve">
+    <value>Planned End (newest first)</value>
+  </data>
+  <data name="Planned End (oldest first)" xml:space="preserve">
+    <value>Planned End (oldest first)</value>
+  </data>
+  <data name="Planned Start (newest first)" xml:space="preserve">
+    <value>Planned Start (newest first)</value>
+  </data>
+  <data name="Planned Start (oldest first)" xml:space="preserve">
+    <value>Planned Start (oldest first)</value>
+  </data>
+  <data name="Actual End (newest first)" xml:space="preserve">
+    <value>Actual End (newest first)</value>
+  </data>
+  <data name="Actual End (oldest first)" xml:space="preserve">
+    <value>Actual End (oldest first)</value>
+  </data>
+  <data name="Actual Start (newest first)" xml:space="preserve">
+    <value>Actual Start (newest first)</value>
+  </data>
+  <data name="Actual Start (oldest first)" xml:space="preserve">
+    <value>Actual Start (oldest first)</value>
+  </data>
+  <data name="Priority (low to high)" xml:space="preserve">
+    <value>Priority (low to high)</value>
+  </data>
+  <data name="Priority (high to low)" xml:space="preserve">
+    <value>Priority (high to low)</value>
+  </data>
+  <data name="Title (Z → A)" xml:space="preserve">
+    <value>Title (Z → A)</value>
+  </data>
+  <data name="Title (A → Z)" xml:space="preserve">
+    <value>Title (A → Z)</value>
+  </data>
+  <data name=" - planned end descending." xml:space="preserve">
+    <value> - planned end descending.</value>
+  </data>
+  <data name=" - planned end ascending." xml:space="preserve">
+    <value> - planned end ascending.</value>
+  </data>
+  <data name=" - planned start descending." xml:space="preserve">
+    <value> - planned start descending.</value>
+  </data>
+  <data name=" - planned start ascending." xml:space="preserve">
+    <value> - planned start ascending.</value>
+  </data>
+  <data name=" - urgency ascending." xml:space="preserve">
+    <value> - urgency ascending.</value>
+  </data>
+  <data name=" - urgency descending." xml:space="preserve">
+    <value> - urgency descending.</value>
+  </data>
+  <data name=" - actual start descending." xml:space="preserve">
+    <value> - actual start descending.</value>
+  </data>
+  <data name=" - actual start ascending." xml:space="preserve">
+    <value> - actual start ascending.</value>
+  </data>
+  <data name=" - actual end descending." xml:space="preserve">
+    <value> - actual end descending.</value>
+  </data>
+  <data name=" - actual end ascending." xml:space="preserve">
+    <value> - actual end ascending.</value>
+  </data>
+  <data name=" - newest first." xml:space="preserve">
+    <value> - newest first.</value>
+  </data>
+  <data name=" - oldest first." xml:space="preserve">
+    <value> - oldest first.</value>
+  </data>
+  <data name=" - title A-Z." xml:space="preserve">
+    <value> - title A-Z.</value>
+  </data>
+  <data name=" - title Z-A." xml:space="preserve">
+    <value> - title Z-A.</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Urgent</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="You" xml:space="preserve">
+    <value>You</value>
+  </data>
 </root>
