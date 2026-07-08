@@ -218,3 +218,18 @@ else
         </div>
     }
 }
+
+@section scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.clickable-row').forEach(row => {
+                row.addEventListener('click', (e) => {
+                    // ignore clicks on buttons or links inside the row
+                    if (e.target.closest('a') || e.target.closest('button') || e.target.closest('form')) return;
+                    const href = row.getAttribute('data-href');
+                    if (href) window.location.href = href;
+                });
+            });
+        });
+    </script>
+}
