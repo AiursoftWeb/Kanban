@@ -4,6 +4,8 @@ import { t } from '../kanban-board/i18n';
 interface CardDetailPageOptions {
   csrfToken: string;
   cardId: number;
+  isNew: boolean;
+  columnId: number;
   boardId: number;
   returnBoardId: number;
   canEdit: boolean;
@@ -118,6 +120,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     descriptionLivePreview: document.getElementById('descLivePreview'),
     descriptionEmpty: document.getElementById('descriptionEmpty'),
     editDescriptionButton: document.getElementById('btnEditDesc'),
+    saveCardButton: document.getElementById('btnSaveCard') as HTMLButtonElement | null,
     cancelDescriptionButton: document.getElementById('btnCancelDesc'),
     saveDescriptionButton: document.getElementById('btnSaveDesc') as HTMLButtonElement | null,
     previewTabButton: document.getElementById('btnPreviewTab'),
@@ -177,8 +180,10 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   renderAssigneeSummary();
   syncRecurrenceVisibility();
   renderMainDescription();
-  loadComments().catch(console.error);
-  if (refs.transferTargetBoard) {
+  if (!options.isNew) {
+    loadComments().catch(console.error);
+  }
+  if (!options.isNew && refs.transferTargetBoard) {
     loadTransferTargets().catch(console.error);
   }
   refreshIcons();
@@ -201,6 +206,20 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
     refs.previewTabButton?.addEventListener('click', () => {
       renderLiveDescriptionPreview();
+    });
+
+    refs.saveCardButton?.addEventListener('click', async () => {
+      refs.saveCardButton && (refs.saveCardButton.disabled = true);
+      try {
+        await saveCardDetails();
+        showSavedToast();
+      } catch (error) {
+        showFriendlyDialog(getErrorMessage(error, t('failed-save', 'Failed to save.')));
+      } finally {
+        if (refs.saveCardButton) {
+          refs.saveCardButton.disabled = false;
+        }
+      }
     });
 
     refs.saveDescriptionButton?.addEventListener('click', async () => {
@@ -238,18 +257,14 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       refs.titleInput.addEventListener('keydown', event => {
         if (event.key === 'Enter') {
           event.preventDefault();
-          saveInlineTitle().catch(problem => {
-            showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
-          });
+          saveInlineTitle();
         } else if (event.key === 'Escape') {
           resetTitleEditor();
         }
       });
 
       refs.titleInput.addEventListener('blur', () => {
-        saveInlineTitle().catch(problem => {
-          showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
-        });
+        saveInlineTitle();
       });
     }
 
@@ -258,53 +273,16 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       const badge = (event.target as HTMLElement).closest<HTMLElement>('.priority-badge.priority-selectable');
       if (!badge?.dataset.priority) return;
 
-      updatePriority(parseInt(badge.dataset.priority, 10)).catch(problem => {
-        showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
-      });
-    });
-
-    refs.dueDateInput?.addEventListener('change', () => {
-      if (!options.canEdit) return;
-      saveCardDetails().then(() => showSavedToast()).catch(problem => {
-        showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
-      });
-    });
-
-    refs.plannedStartInput?.addEventListener('change', () => {
-      if (!options.canEdit) return;
-      saveCardDetails().catch(problem => {
-        showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
-      });
+      updatePriority(parseInt(badge.dataset.priority, 10));
     });
 
     refs.recurringSwitch?.addEventListener('change', () => {
       syncRecurrenceVisibility();
       if (!options.canEdit) return;
-      const wasOn = refs.recurringSwitch?.checked;
-      if (wasOn) {
+      if (refs.recurringSwitch?.checked) {
         if (!refs.recurrenceIntervalInput?.value) refs.recurrenceIntervalInput.value = '1';
         if (!refs.recurrenceUnitInput?.value || refs.recurrenceUnitInput.value === '0') refs.recurrenceUnitInput.value = '1';
       }
-      saveCardDetails().then(() => showSavedToast()).catch(problem => {
-        showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
-        // Server rejected — roll back the switch and hide fields
-        if (refs.recurringSwitch) refs.recurringSwitch.checked = !wasOn;
-        syncRecurrenceVisibility();
-      });
-    });
-
-    refs.recurrenceIntervalInput?.addEventListener('change', () => {
-      if (!options.canEdit) return;
-      saveCardDetails().then(() => showSavedToast()).catch(problem => {
-        showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
-      });
-    });
-
-    refs.recurrenceUnitInput?.addEventListener('change', () => {
-      if (!options.canEdit) return;
-      saveCardDetails().then(() => showSavedToast()).catch(problem => {
-        showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
-      });
     });
 
     refs.assigneeSearch?.addEventListener('input', () => {
@@ -319,9 +297,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       const button = (event.target as HTMLElement).closest<HTMLElement>('button[data-user-id]');
       if (!button?.dataset.userId) return;
 
-      assignCard(button.dataset.userId, button.dataset.userName ?? '', button.dataset.userInitial ?? '').catch(problem => {
-        showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
-      });
+      assignCard(button.dataset.userId, button.dataset.userName ?? '', button.dataset.userInitial ?? '');
     });
 
     document.addEventListener('click', event => {
@@ -334,9 +310,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     });
 
     refs.clearAssigneeButton?.addEventListener('click', () => {
-      assignCard('', '', '').catch(problem => {
-        showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
-      });
+      assignCard('', '', '');
     });
 
     refs.labelInput?.addEventListener('focus', () => {
@@ -480,18 +454,23 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     }
   }
 
-  async function saveInlineTitle(): Promise<void> {
+  function saveInlineTitle(): void {
     if (!refs.titleInput || !refs.titleDisplay) return;
 
     const nextTitle = refs.titleInput.value.trim();
     if (!nextTitle) {
       refs.titleInput.value = state.currentTitle;
-      resetTitleEditor();
+      if (!options.isNew) {
+        resetTitleEditor();
+      }
       return;
     }
 
     refs.titleInput.value = nextTitle;
-    await saveCardDetails();
+    state.currentTitle = nextTitle;
+    refs.titleDisplay.textContent = state.currentTitle;
+    if (options.isNew) return;
+
     resetTitleEditor();
   }
 
@@ -499,6 +478,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     if (!refs.titleInput || !refs.titleDisplay) return;
 
     refs.titleInput.value = state.currentTitle;
+    if (options.isNew) return;
+
     refs.titleInput.classList.add('d-none');
     refs.titleDisplay.classList.remove('d-none');
     refs.titleMeta?.classList.remove('d-none');
@@ -517,8 +498,9 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     const recurrenceInterval = recurrenceEnabled ? (refs.recurrenceIntervalInput?.value ?? '') : '';
     const recurrenceUnit = recurrenceEnabled ? (refs.recurrenceUnitInput?.value ?? '0') : '0';
 
-    const response = await postForm('/Kanban/UpdateCardDetails', {
+    const form = {
       cardId: options.cardId,
+      columnId: options.columnId,
       title,
       description: refs.descriptionTextarea?.value.trim() ?? '',
       plannedStartTime: refs.plannedStartInput?.value ?? '',
@@ -527,9 +509,17 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       assignedUserId: state.currentAssigneeId,
       recurrenceInterval,
       recurrenceUnit,
-    }, options.csrfToken);
+    };
+
+    const response = await postForm(options.isNew ? '/Cards/Create' : '/Kanban/UpdateCardDetails', form, options.csrfToken);
 
     const result = await readJsonOrThrow<Record<string, unknown>>(response);
+    if (options.isNew) {
+      const newCardId = readNumber(result.Id);
+      window.location.href = `/Cards/${newCardId}?returnBoardId=${options.returnBoardId}`;
+      return;
+    }
+
     state.currentTitle = readString(result.Title);
     if (refs.titleDisplay) refs.titleDisplay.textContent = state.currentTitle;
     if (refs.titleInput) refs.titleInput.value = state.currentTitle;
@@ -537,13 +527,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     renderMainDescription();
   }
 
-  async function updatePriority(priority: number): Promise<void> {
-    const response = await postForm('/Kanban/UpdateCardPriority', {
-      cardId: options.cardId,
-      priority,
-    }, options.csrfToken);
-    await ensureOk(response);
-
+  function updatePriority(priority: number): void {
     state.currentPriority = priority;
     refs.priorityGroup?.querySelectorAll<HTMLElement>('.priority-badge').forEach((badge, index) => {
       badge.className = `priority-badge${options.canEdit ? ' priority-selectable' : ''}`;
@@ -579,17 +563,11 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     refs.assigneeDropdown.classList.toggle('d-none', filtered.length === 0);
   }
 
-  async function assignCard(userId: string, displayName: string, initial: string): Promise<void> {
-    const response = await postForm('/Kanban/AssignCard', {
-      cardId: options.cardId,
-      assignedUserId: userId,
-    }, options.csrfToken);
-    const result = await readJsonOrThrow<Record<string, unknown>>(response);
-
-    state.currentAssigneeId = readOptionalString(result.AssignedUserId) ?? '';
-    state.currentAssigneeName = readOptionalString(result.AssignedUserName) ?? displayName;
-    state.currentAssigneeInitial = readOptionalString(result.AssignedUserInitial) ?? initial;
-    state.currentAssigneeAvatarUrl = readOptionalString(result.AssignedUserAvatarUrl) ?? '';
+  function assignCard(userId: string, displayName: string, initial: string): void {
+    state.currentAssigneeId = userId;
+    state.currentAssigneeName = displayName;
+    state.currentAssigneeInitial = initial;
+    state.currentAssigneeAvatarUrl = '';
     renderAssigneeSummary();
 
     if (refs.assigneeSearch) refs.assigneeSearch.value = '';
@@ -749,13 +727,15 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     const targetColumnId = parseInt(refs.transferTargetColumn?.value ?? '0', 10);
     if (!targetBoardId || !targetColumnId) return;
 
-    await ensureOk(postForm('/Kanban/TransferCard', {
+    const response = await postForm('/Kanban/TransferCard', {
       cardId: options.cardId,
       targetBoardId,
       targetColumnId,
-    }, options.csrfToken));
+    }, options.csrfToken);
+    const result = await readJsonOrThrow<Record<string, unknown>>(response);
+    const transferredCardId = readNumber(result.Id);
 
-    window.location.href = `/Cards/${options.cardId}?returnBoardId=${targetBoardId}`;
+    window.location.href = `/Cards/${transferredCardId}?returnBoardId=${targetBoardId}`;
   }
 
   async function deleteCard(): Promise<void> {
@@ -1357,6 +1337,10 @@ function readString(value: unknown): string {
 function readOptionalString(value: unknown): string | undefined {
   const text = readString(value).trim();
   return text ? text : undefined;
+}
+
+function readNumber(value: unknown): number {
+  return typeof value === 'number' ? value : parseInt(readString(value), 10);
 }
 
 function autoResizeTextarea(textarea: HTMLTextAreaElement | null): void {

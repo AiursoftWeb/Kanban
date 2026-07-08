@@ -1,6 +1,6 @@
 import Sortable from 'sortablejs';
 import { KanbanBoard, rerenderCardElement } from '../kanban-board';
-import type { BoardData, CardSummary, UserSummary } from '../kanban-board';
+import type { BoardData, UserSummary } from '../kanban-board';
 import { t } from '../kanban-board/i18n';
 
 interface KanbanIndexPageOptions {
@@ -54,13 +54,8 @@ function initBoardPage(options: KanbanIndexPageOptions): void {
       onCardClicked: cardId => {
         window.location.href = `/Cards/${cardId}?returnBoardId=${options.boardId}`;
       },
-      onCardCreatedQuick: async (columnId, title) => {
-        const response = await postForm('/Kanban/CreateCard', {
-          columnId,
-          title,
-        }, options.csrfToken);
-        const result = await readJsonOrThrow<Record<string, unknown>>(response);
-        return mapCreatedCard(result);
+      onAddCardRequested: columnId => {
+        window.location.href = `/Cards/New?columnId=${columnId}&returnBoardId=${options.boardId}`;
       },
       onCardMoved: async (cardId, targetColumnId, newOrder) => {
         const response = await postForm('/Kanban/MoveCard', {
@@ -291,38 +286,6 @@ function initBoardList(csrfToken: string): void {
       confirmButton.disabled = false;
     }
   });
-}
-
-function mapCreatedCard(result: Record<string, unknown>): CardSummary {
-  const creator = buildUserSummary({
-    id: result.CreatorUserId,
-    name: result.CreatorUserName,
-    avatarUrl: result.CreatorUserAvatarUrl,
-  });
-
-  return {
-    id: readNumber(result.Id),
-    title: readString(result.Title),
-    description: readOptionalString(result.Description),
-    priority: 'None',
-    dueDate: undefined,
-    isOverdue: false,
-    plannedStartDate: undefined,
-    actualStartDate: undefined,
-    actualEndDate: undefined,
-    assignee: buildUserSummary({
-      id: result.AssignedUserId,
-      name: result.AssignedUserName,
-      avatarUrl: result.AssignedUserAvatarUrl,
-    }),
-    creator,
-    creationTime: readOptionalString(result.CreationTime) ?? '',
-    labels: [],
-    commentCount: 0,
-    isRecurring: false,
-    recurrenceInterval: undefined,
-    recurrenceUnit: undefined,
-  };
 }
 
 function buildUserSummary(source: { id: unknown; name: unknown; avatarUrl: unknown }): UserSummary | undefined {

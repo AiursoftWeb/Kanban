@@ -15,6 +15,7 @@ public class CardDetailViewModel : UiStackLayoutViewModel
 
     // Card identity
     public int CardId { get; set; }
+    public bool IsNew { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public int Priority { get; set; }

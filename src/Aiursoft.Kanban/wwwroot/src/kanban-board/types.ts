@@ -91,8 +91,8 @@ export interface KanbanCallbacks {
   /** Column dragged to new position → POST /Kanban/MoveColumn */
   onColumnReordered?: (columnId: number, newOrder: number) => Promise<void>;
 
-  /** Quick-create: user types title in column header input + Enter */
-  onCardCreatedQuick?: (columnId: number, title: string) => Promise<CardSummary | null>;
+  /** Add Card button clicked */
+  onAddCardRequested?: (columnId: number) => void;
 
   /** Column title renamed inline */
   onColumnRenamed?: (columnId: number, newName: string) => Promise<void>;

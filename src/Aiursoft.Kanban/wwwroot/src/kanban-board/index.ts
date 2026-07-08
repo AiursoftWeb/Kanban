@@ -65,7 +65,7 @@ export function KanbanBoard(options: KanbanBoardOptions): KanbanBoardInstance {
     // 2. Initialize drag & drop
     dragDropInstances = initDragDrop(container, callbacks);
 
-    // 3. Initialize quick create (click .btn-add-card → inline input)
+    // 3. Initialize add card action
     initQuickCreate(container, callbacks);
 
     // 4. Initialize column inline editor (rename, delete, status)

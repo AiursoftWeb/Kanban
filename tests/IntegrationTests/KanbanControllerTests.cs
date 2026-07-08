@@ -133,6 +133,58 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
     }
 
+    [TestMethod]
+    public async Task NewCardDetail_ValidColumn_ShowsEditableDetailPage()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        var response = await Http.GetAsync($"/Cards/New?columnId={columnId}&returnBoardId={boardId}");
+        response.EnsureSuccessStatusCode();
+
+        var html = await response.Content.ReadAsStringAsync();
+        Assert.Contains("btnSaveCard", html);
+        Assert.Contains("cardTitleInput", html);
+        Assert.Contains("inputDueDate", html);
+        Assert.Contains("assigneeSearch", html);
+    }
+
+    [TestMethod]
+    public async Task CreateCardFromDetail_SavesFullCardData()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        var response = await PostForm("/Cards/Create", new Dictionary<string, string>
+        {
+            { "columnId", columnId.ToString() },
+            { "title", "Detail created card" },
+            { "description", "Created from the shared detail page" },
+            { "plannedStartTime", "2026-07-09" },
+            { "dueDate", "2026-07-10" },
+            { "priority", ((int)Priority.High).ToString() },
+            { "recurrenceInterval", "2" },
+            { "recurrenceUnit", ((int)RecurrenceUnit.Week).ToString() }
+        }, "/Kanban/Index");
+        response.EnsureSuccessStatusCode();
+
+        var json = await response.Content.ReadAsStringAsync();
+        using var doc = JsonDocument.Parse(json);
+        var cardId = doc.RootElement.GetProperty("Id").GetInt32();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var card = await db.KanbanCards.FindAsync(cardId);
+        Assert.IsNotNull(card);
+        Assert.AreEqual("Detail created card", card.Title);
+        Assert.AreEqual("Created from the shared detail page", card.Description);
+        Assert.AreEqual(Priority.High, card.Priority);
+        Assert.AreEqual(DateTimeKind.Utc, card.PlannedStartTime!.Value.Kind);
+        Assert.AreEqual(DateTimeKind.Utc, card.DueDate!.Value.Kind);
+        Assert.AreEqual(2, card.RecurrenceInterval);
+        Assert.AreEqual(RecurrenceUnit.Week, card.RecurrenceUnit);
+    }
+
     // ── DeleteCard ─────────────────────────────────────────
 
     [TestMethod]
