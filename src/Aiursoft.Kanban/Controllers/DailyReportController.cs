@@ -157,10 +157,10 @@ public class DailyReportController : Controller
         var cardContext = await DailyReportBackgroundJob.BuildCardContextAsync(_db, _userManager, userId, reportType);
         var prompt = reportType == DailyReportType.Plan
             ? cardContext +
-              $"\nGenerate a daily plan for {todayChina:yyyy-MM-dd} (China timezone, UTC+8). " +
+              $"\nGenerate a daily plan for {chinaNow:yyyy-MM-dd HH:mm} (UTC+8). " +
               "Analyze the data above, then produce a structured plan essay in Chinese."
             : cardContext +
-              $"\nGenerate a daily summary for {todayChina:yyyy-MM-dd} (China timezone, UTC+8). " +
+              $"\nGenerate a daily summary for {chinaNow:yyyy-MM-dd HH:mm} (UTC+8). " +
               "Review the data above, then produce a structured summary essay in Chinese.";
 
         string content;

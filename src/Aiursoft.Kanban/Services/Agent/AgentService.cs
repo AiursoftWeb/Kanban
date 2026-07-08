@@ -614,16 +614,16 @@ public class AgentService : IAgentService
     }
 
     /// <summary>
-    /// Builds a string like "Current time: Wednesday, June 10, 2026, 03:45 PM UTC"
+    /// Builds a string like "Current time: Wednesday, June 10, 2026, 03:45 PM (UTC+8)"
     /// injected into the system-reminder via {currentDateTime}.
     /// </summary>
     private static string GetCurrentDateTimeBlock()
     {
-        var now = DateTime.UtcNow;
-        var daysSinceMonday = ((int)now.DayOfWeek + 6) % 7;
-        var monday = now.Date.AddDays(-daysSinceMonday);
+        var chinaNow = DateTime.UtcNow + TimeSpan.FromHours(8);
+        var daysSinceMonday = ((int)chinaNow.DayOfWeek + 6) % 7;
+        var monday = chinaNow.Date.AddDays(-daysSinceMonday);
         var sunday = monday.AddDays(6);
-        return $"Current time: {now:dddd, MMMM d, yyyy, h:mm tt} UTC\n" +
+        return $"Current time: {chinaNow:dddd, MMMM d, yyyy, h:mm tt} (UTC+8)\n" +
                $"This week: {monday:yyyy-MM-dd} (Monday) – {sunday:yyyy-MM-dd} (Sunday)";
     }
 

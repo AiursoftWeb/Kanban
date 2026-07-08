@@ -316,13 +316,14 @@ public class DailyReportBackgroundJob : IBackgroundJob
             ? (ISubagent)_planningSubagent
             : _summarySubagent;
 
+        var chinaNow = DateTime.UtcNow + TimeSpan.FromHours(8);
         var cardContext = await BuildCardContextAsync(_db, _userManager, userId, reportType);
         var prompt = reportType == DailyReportType.Plan
             ? cardContext +
-              $"\nGenerate a daily plan for {todayChina:yyyy-MM-dd} (China timezone, UTC+8). " +
+              $"\nGenerate a daily plan for {chinaNow:yyyy-MM-dd HH:mm} (UTC+8). " +
               "Analyze the user's boards and tasks above, then produce a structured plan essay in Chinese."
             : cardContext +
-              $"\nGenerate a daily summary for {todayChina:yyyy-MM-dd} (China timezone, UTC+8). " +
+              $"\nGenerate a daily summary for {chinaNow:yyyy-MM-dd HH:mm} (UTC+8). " +
               "Review the data above to understand what the user completed and what remains, then produce a structured summary essay in Chinese.";
 
         _logger.LogInformation(
