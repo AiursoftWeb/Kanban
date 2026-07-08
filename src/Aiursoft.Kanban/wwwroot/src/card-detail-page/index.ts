@@ -129,6 +129,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     recurrenceIntervalInput: document.getElementById('inputRecurrenceInterval') as HTMLInputElement | null,
     recurrenceUnitInput: document.getElementById('inputRecurrenceUnit') as HTMLSelectElement | null,
     assigneeSummary: document.getElementById('assigneeSummary'),
+    overviewAssignee: document.getElementById('overviewAssignee'),
+    heroAssigneeChip: document.querySelector<HTMLElement>('[data-assignee-name]'),
     assigneeSearch: document.getElementById('assigneeSearch') as HTMLInputElement | null,
     assigneeDropdown: document.getElementById('assigneeDropdown'),
     clearAssigneeButton: document.getElementById('btnClearAssignee'),
@@ -147,6 +149,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     commentsList: document.getElementById('commentsList'),
     commentCount: document.getElementById('commentCount'),
     commentInput: document.getElementById('commentInput') as HTMLTextAreaElement | null,
+    commentSectionHint: document.getElementById('commentSectionHint'),
+    commentDragHint: document.getElementById('commentDragHint'),
     addCommentButton: document.getElementById('btnAddComment') as HTMLButtonElement | null,
     deleteCommentModal: document.getElementById('deleteCommentConfirmModal'),
     confirmDeleteCommentButton: document.getElementById('btnConfirmDeleteComment') as HTMLButtonElement | null,
@@ -407,6 +411,18 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       });
     });
 
+    refs.commentInput?.addEventListener('focus', () => {
+      refs.commentSectionHint?.classList.remove('d-none');
+      refs.commentDragHint?.classList.remove('d-none');
+    });
+
+    refs.commentInput?.addEventListener('blur', () => {
+      if (!refs.commentInput?.value.trim()) {
+        refs.commentSectionHint?.classList.add('d-none');
+        refs.commentDragHint?.classList.add('d-none');
+      }
+    });
+
     refs.commentInput?.addEventListener('keydown', event => {
       if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
         event.preventDefault();
@@ -597,10 +613,40 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   }
 
   function renderAssigneeSummary(): void {
+    const unassignedText = escapeHtml(t('unassigned', 'Unassigned'));
+    const hasAssignee = !!state.currentAssigneeId;
+
+    // Update hero meta chip
+    if (refs.heroAssigneeChip) {
+      const textContent = hasAssignee ? escapeHtml(state.currentAssigneeName) : unassignedText;
+      // Preserve the icon element, replace everything after it
+      const iconEl = refs.heroAssigneeChip.querySelector('i');
+      refs.heroAssigneeChip.textContent = '';
+      if (iconEl) refs.heroAssigneeChip.appendChild(iconEl);
+      refs.heroAssigneeChip.appendChild(document.createTextNode(' ' + textContent));
+    }
+
+    // Update overview assignee row
+    if (refs.overviewAssignee) {
+      if (hasAssignee) {
+        const avatar = state.currentAssigneeAvatarUrl
+          ? `<img src="${escapeHtml(state.currentAssigneeAvatarUrl)}" alt="${escapeHtml(state.currentAssigneeName)}" class="card-assignee-avatar-image" />`
+          : escapeHtml(state.currentAssigneeInitial || state.currentAssigneeName.slice(0, 1).toUpperCase());
+        refs.overviewAssignee.innerHTML = `
+          <span class="card-assignee-avatar">${avatar}</span>
+          <div class="detail-avatar-copy">
+            <div class="title">${escapeHtml(state.currentAssigneeName)}</div>
+          </div>`;
+      } else {
+        refs.overviewAssignee.innerHTML = `<span class="text-muted">${unassignedText}</span>`;
+      }
+    }
+
+    // Update assignee summary in sidebar
     if (!refs.assigneeSummary) return;
 
-    if (!state.currentAssigneeId) {
-      refs.assigneeSummary.innerHTML = `<span class="text-muted">${escapeHtml(t('unassigned', 'Unassigned'))}</span>`;
+    if (!hasAssignee) {
+      refs.assigneeSummary.innerHTML = `<span class="text-muted">${unassignedText}</span>`;
       return;
     }
 

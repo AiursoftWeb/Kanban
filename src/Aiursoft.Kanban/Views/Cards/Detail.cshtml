@@ -252,9 +252,9 @@
                            value="@Model.Title" style="border-radius:16px;font-size:1.55rem;font-weight:700" />
                 }
                 <div class="detail-title-meta" id="cardTitleMeta">
-                    <span class="detail-meta-chip">
-                        <i class="align-middle" data-lucide="user" style="width:14px;height:14px"></i>
-                        @Model.CreatorName
+                    <span class="detail-meta-chip" data-assignee-name>
+                        <i class="align-middle" data-lucide="user-check" style="width:14px;height:14px"></i>
+                        @(string.IsNullOrWhiteSpace(Model.AssigneeName) ? Localizer["Unassigned"].Value : Model.AssigneeName)
                     </span>
                     <span class="detail-meta-chip">
                         <i class="align-middle" data-lucide="clock-3" style="width:14px;height:14px"></i>
@@ -285,7 +285,6 @@
                 <div class="detail-surface-header">
                     <div>
                         <div class="fw-semibold">@Localizer["Description"]</div>
-                        <div class="detail-section-note">@Localizer["Markdown, Mermaid and KaTeX are all supported."]</div>
                     </div>
                     @if (Model.CanEdit)
                     {
@@ -316,6 +315,7 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="descEditTab">
+                                    <div class="detail-section-note mb-2">@Localizer["Markdown, Mermaid and KaTeX are all supported."]</div>
                                     <textarea id="descTextarea" class="form-control detail-input" rows="12" style="resize:none">@Model.Description</textarea>
                                     <div class="detail-section-note mt-2">@Localizer["Tip: paste an image directly into the editor to upload and embed it."]</div>
                                     <div class="d-flex justify-content-end mt-3 gap-2">
@@ -336,7 +336,7 @@
                 <div class="detail-surface-header">
                     <div>
                         <div class="fw-semibold">@Localizer["Comments"]</div>
-                        <div class="detail-section-note">@Localizer["Thread context, decisions, follow-ups and attachments stay with the card."]</div>
+                        <div class="detail-section-note d-none" id="commentSectionHint">@Localizer["Thread context, decisions, follow-ups and attachments stay with the card."]</div>
                     </div>
                 </div>
                 <div class="detail-surface-body">
@@ -394,7 +394,7 @@
                         <div class="detail-comment-composer">
                             <div class="flex-grow-1">
                                 <textarea id="commentInput" class="form-control detail-input" rows="3" placeholder="@Localizer["Write a comment... (Ctrl+Enter to send)"]"></textarea>
-                                <div class="detail-section-note mt-2">@Localizer["Drag an image here or paste from clipboard to attach it to the comment."]</div>
+                                <div class="detail-section-note mt-2 d-none" id="commentDragHint">@Localizer["Drag an image here or paste from clipboard to attach it to the comment."]</div>
                             </div>
                             <button class="btn btn-primary btn-comment-submit" id="btnAddComment">
                                 <i class="align-middle" style="width:16px;height:16px" data-lucide="send"></i>
@@ -423,6 +423,31 @@
                         <div class="detail-kv">
                             <div class="detail-kv-label">@Localizer["Column"]</div>
                             <div class="detail-kv-value fw-semibold" data-current-column-name>@Model.ColumnName</div>
+                        </div>
+                        <div class="detail-kv">
+                            <div class="detail-kv-label">@Localizer["Assignee"]</div>
+                            <div class="detail-kv-value detail-avatar-row" id="overviewAssignee">
+                                @if (!string.IsNullOrWhiteSpace(Model.AssigneeId))
+                                {
+                                    <span class="card-assignee-avatar">
+                                        @if (!string.IsNullOrEmpty(Model.AssigneeAvatarUrl))
+                                        {
+                                            <img src="@Model.AssigneeAvatarUrl" alt="@Model.AssigneeName" class="card-assignee-avatar-image" />
+                                        }
+                                        else
+                                        {
+                                            @Model.AssigneeInitial
+                                        }
+                                    </span>
+                                    <div class="detail-avatar-copy">
+                                        <div class="title">@Model.AssigneeName</div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">@Localizer["Unassigned"]</span>
+                                }
+                            </div>
                         </div>
                         <div class="detail-kv">
                             <div class="detail-kv-label">@Localizer["Creator"]</div>
