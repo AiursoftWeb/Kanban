@@ -66,6 +66,94 @@ public class BoardReadTools(
         return string.Join("\n", lines);
     }
 
+    [McpServerTool, Description(
+        "List all boards accessible to the current user, including owned boards, public boards, " +
+        "and boards shared with the user or their roles. Supports pagination — max 20 boards per page.")]
+    public async Task<string> GetBoards(
+        [Description("Page number (1-based, default 1)")] int page = 1,
+        [Description("Boards per page (max 20, default 20)")] int pageSize = 20)
+    {
+        var userId = currentUser.UserId;
+
+        // ── Collect all accessible board IDs ──
+        // Owned boards
+        var ownedIds = await db.KanbanBoards
+            .Where(b => b.UserId == userId)
+            .Select(b => b.Id)
+            .ToListAsync();
+
+        // Public boards
+        var publicIds = await db.KanbanBoards
+            .Where(b => b.IsPublic && b.UserId != userId)
+            .Select(b => b.Id)
+            .ToListAsync();
+
+        // Shared boards (via user or role)
+        var userRoleIds = await db.UserRoles
+            .Where(ur => ur.UserId == userId)
+            .Select(ur => ur.RoleId)
+            .ToListAsync();
+
+        var sharedIds = await db.BoardShares
+            .Where(s => s.SharedWithUserId == userId ||
+                        (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId)))
+            .Select(s => s.BoardId)
+            .Distinct()
+            .ToListAsync();
+
+        var allIds = ownedIds
+            .Concat(publicIds)
+            .Concat(sharedIds)
+            .Distinct()
+            .ToList();
+
+        if (allIds.Count == 0)
+            return "You don't have access to any boards.";
+
+        // ── Paginate ──
+        pageSize = Math.Clamp(pageSize, 1, 20);
+        var totalCount = allIds.Count;
+        var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+        page = Math.Clamp(page, 1, Math.Max(1, totalPages));
+
+        var pagedIds = allIds
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        var boards = await db.KanbanBoards
+            .Where(b => pagedIds.Contains(b.Id))
+            .Include(b => b.User)
+            .Include(b => b.Columns)
+            .ToListAsync();
+
+        // Restore pagination order
+        var orderedBoards = pagedIds
+            .Select(id => boards.FirstOrDefault(b => b.Id == id))
+            .Where(b => b != null)
+            .ToList();
+
+        var lines = new List<string>
+        {
+            $"Found {totalCount} accessible board(s). Page {page} of {totalPages} (showing {orderedBoards.Count}):"
+        };
+
+        foreach (var board in orderedBoards)
+        {
+            var ownerName = board!.UserId == userId
+                ? "you"
+                : KanbanAccessService.GetUserDisplayName(board.User);
+            var accessLabel = board.UserId == userId
+                ? "owned"
+                : board.IsPublic
+                    ? "public"
+                    : "shared";
+            lines.Add($"- Board #{board.Id} \"{board.Name}\" (Owner: {ownerName}, Access: {accessLabel}, Columns: {board.Columns.Count})");
+        }
+
+        return string.Join("\n", lines);
+    }
+
     [McpServerTool, Description("Search boards by name")]
     public async Task<string> SearchBoards(
         [Description("Search query")] string query)

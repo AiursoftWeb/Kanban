@@ -1,6 +1,8 @@
+using System.Text;
 using Aiursoft.Canon.BackgroundJobs;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Agent.Subagent;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.Kanban.Services.BackgroundJobs;
@@ -15,6 +17,7 @@ namespace Aiursoft.Kanban.Services.BackgroundJobs;
 public class DailyReportBackgroundJob : IBackgroundJob
 {
     private readonly TemplateDbContext _db;
+    private readonly UserManager<User> _userManager;
     private readonly DailyPlanningSubagent _planningSubagent;
     private readonly DailySummarySubagent _summarySubagent;
     private readonly ILogger<DailyReportBackgroundJob> _logger;
@@ -32,11 +35,13 @@ public class DailyReportBackgroundJob : IBackgroundJob
 
     public DailyReportBackgroundJob(
         TemplateDbContext db,
+        UserManager<User> userManager,
         DailyPlanningSubagent planningSubagent,
         DailySummarySubagent summarySubagent,
         ILogger<DailyReportBackgroundJob> logger)
     {
         _db = db;
+        _userManager = userManager;
         _planningSubagent = planningSubagent;
         _summarySubagent = summarySubagent;
         _logger = logger;
@@ -155,6 +160,155 @@ public class DailyReportBackgroundJob : IBackgroundJob
         return needingGeneration;
     }
 
+    /// <summary>
+    /// Builds a context block with all cards assigned to the user, sorted by priority.
+    /// Injected into the subagent prompt so it doesn't need to spend iterations on
+    /// tool calls to discover basic card data.
+    /// </summary>
+    internal static async Task<string> BuildCardContextAsync(
+        TemplateDbContext db, UserManager<User> userManager, string userId, DailyReportType reportType)
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine("<context>");
+        sb.AppendLine("The following is the current state of the user's Kanban boards and assigned cards.");
+        sb.AppendLine("Use this data directly — you do NOT need to call tools (GetMyTasks, GetUserBoards,");
+        sb.AppendLine("GetOverdueCards, GetCardsByPriority, etc.) to discover this basic information.");
+        sb.AppendLine("Skip directly to analyzing and producing the report.");
+        sb.AppendLine();
+
+        // ── User's boards (owned + shared) with ≥1 card assigned to this user ──
+        var user = await userManager.FindByIdAsync(userId);
+        var userRoleIds = user != null
+            ? (await userManager.GetRolesAsync(user))
+                .Select(rn => db.Roles.FirstOrDefault(r => r.Name == rn)?.Id)
+                .Where(id => id != null)
+                .Select(id => id!)
+                .ToList()
+            : [];
+
+        var ownedBoardIds = await db.KanbanBoards
+            .Where(b => b.UserId == userId)
+            .Select(b => b.Id)
+            .ToListAsync();
+
+        var sharedBoardIds = await db.BoardShares
+            .Where(s => s.SharedWithUserId == userId ||
+                        (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId)))
+            .Select(s => s.BoardId)
+            .Distinct()
+            .ToListAsync();
+
+        var allAccessibleBoardIds = ownedBoardIds
+            .Concat(sharedBoardIds)
+            .Distinct()
+            .ToList();
+
+        // Only include boards that have at least 1 incomplete card assigned to this user
+        var relevantBoards = await db.KanbanBoards
+            .Where(b => allAccessibleBoardIds.Contains(b.Id)
+                && db.KanbanCards.Any(c => c.Column.BoardId == b.Id
+                    && c.AssignedUserId == userId
+                    && c.Column.ColumnStatus != ColumnStatus.Completed))
+            .Select(b => new { b.Id, b.Name })
+            .ToListAsync();
+
+        if (relevantBoards.Count > 0)
+        {
+            sb.AppendLine("## Your Boards (with cards assigned to you)");
+            foreach (var board in relevantBoards)
+            {
+                var assignedToYou = await db.KanbanCards
+                    .CountAsync(c => c.Column.BoardId == board.Id
+                        && c.AssignedUserId == userId
+                        && c.Column.ColumnStatus != ColumnStatus.Completed);
+                sb.AppendLine($"- **{board.Name}** (ID: {board.Id}): {assignedToYou} card(s) assigned to you");
+            }
+            sb.AppendLine();
+        }
+
+        // ── Incomplete cards assigned to user, sorted by priority then due date ──
+        var now = DateTime.UtcNow;
+        var incompleteCards = await db.KanbanCards
+            .Include(c => c.Column).ThenInclude(col => col.Board)
+            .Where(c => c.AssignedUserId == userId
+                && c.Column.ColumnStatus != ColumnStatus.Completed)
+            .OrderBy(c => c.Priority)
+            .ThenBy(c => c.DueDate == null ? 1 : 0)
+            .ThenBy(c => c.DueDate)
+            .ThenBy(c => c.Title)
+            .ToListAsync();
+
+        if (incompleteCards.Count > 0)
+        {
+            sb.AppendLine("## Incomplete Cards Assigned to You (sorted by priority)");
+            foreach (var card in incompleteCards)
+            {
+                var dueStr = card.DueDate.HasValue
+                    ? $" (Due: {card.DueDate:yyyy-MM-dd})"
+                    : "";
+                var overdue = card.DueDate.HasValue && card.DueDate.Value < now.Date
+                    ? " ⚠️ OVERDUE"
+                    : "";
+                sb.AppendLine($"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**{dueStr}{overdue}");
+            }
+            sb.AppendLine();
+        }
+        else
+        {
+            sb.AppendLine("## Incomplete Cards Assigned to You");
+            sb.AppendLine("(none)");
+            sb.AppendLine();
+        }
+
+        // ── Overdue highlights ──
+        var overdueCards = incompleteCards
+            .Where(c => c.DueDate.HasValue && c.DueDate.Value < now.Date)
+            .ToList();
+
+        if (overdueCards.Count > 0)
+        {
+            sb.AppendLine("## ⚠️ Overdue Cards (past due date, needs immediate attention)");
+            foreach (var card in overdueCards)
+            {
+                var daysOverdue = (now.Date - card.DueDate!.Value.Date).Days;
+                sb.AppendLine($"- [P{card.Priority}] \"{card.Title}\" on board **{card.Column.Board.Name}** — Due {card.DueDate:yyyy-MM-dd} ({daysOverdue} day(s) overdue!)");
+            }
+            sb.AppendLine();
+        }
+
+        // ── Summary: recently completed cards ──
+        if (reportType == DailyReportType.Summary)
+        {
+            var todayStart = now.Date;
+            var completedToday = await db.KanbanCards
+                .Include(c => c.Column).ThenInclude(col => col.Board)
+                .Where(c => c.AssignedUserId == userId
+                    && c.Column.ColumnStatus == ColumnStatus.Completed
+                    && c.ActualEndTime >= todayStart)
+                .OrderByDescending(c => c.ActualEndTime)
+                .ToListAsync();
+
+            if (completedToday.Count > 0)
+            {
+                sb.AppendLine("## Completed Today");
+                foreach (var card in completedToday)
+                {
+                    sb.AppendLine($"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**");
+                }
+                sb.AppendLine();
+            }
+            else
+            {
+                sb.AppendLine("## Completed Today");
+                sb.AppendLine("(none)");
+                sb.AppendLine();
+            }
+        }
+
+        sb.AppendLine("</context>");
+        return sb.ToString();
+    }
+
     private async Task GenerateAndSaveReport(
         string userId, DailyReportType reportType, DateTime todayChina)
     {
@@ -162,11 +316,15 @@ public class DailyReportBackgroundJob : IBackgroundJob
             ? (ISubagent)_planningSubagent
             : _summarySubagent;
 
+        var chinaNow = DateTime.UtcNow + TimeSpan.FromHours(8);
+        var cardContext = await BuildCardContextAsync(_db, _userManager, userId, reportType);
         var prompt = reportType == DailyReportType.Plan
-            ? $"Generate a daily plan for {todayChina:yyyy-MM-dd} (China timezone, UTC+8). " +
-              "Analyze the user's boards and tasks, then produce a structured morning plan essay in Chinese."
-            : $"Generate a daily summary for {todayChina:yyyy-MM-dd} (China timezone, UTC+8). " +
-              "Review what the user completed and what remains, then produce a structured afternoon summary essay in Chinese.";
+            ? cardContext +
+              $"\nGenerate a daily plan for {chinaNow:yyyy-MM-dd HH:mm} (UTC+8). " +
+              "Analyze the user's boards and tasks above, then produce a structured plan essay in Chinese."
+            : cardContext +
+              $"\nGenerate a daily summary for {chinaNow:yyyy-MM-dd HH:mm} (UTC+8). " +
+              "Review the data above to understand what the user completed and what remains, then produce a structured summary essay in Chinese.";
 
         _logger.LogInformation(
             "Calling subagent {SubagentName} for user {UserId}",

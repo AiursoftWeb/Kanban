@@ -23,13 +23,17 @@ public class DailyPlanningSubagent : SubagentBase, ISingletonDependency
 
         ## Process
 
-        1. Use GetMyTasks to see the user's pending tasks (incomplete).
-        2. Use GetUserBoards to list all boards the user owns.
-        3. For each board with tasks, use GetCardsInColumn to browse columns
-           and identify tasks in progress or not yet started.
-        4. Use GetOverdueCards to find overdue items on each board.
-        5. Use GetCardsByPriority to identify urgent items (priority 0-1).
-        6. Analyze the data and produce a plan.
+        The user's assigned cards and board data are already provided in the
+        <context> block above. You do NOT need to call GetMyTasks, GetUserBoards,
+        GetOverdueCards, or GetCardsByPriority to discover basic information.
+
+        Use tools ONLY when you need additional details:
+        - GetCardById: to inspect a specific card's full details
+        - GetCardsInColumn / GetColumns: to understand column structure
+        - FilterCards: for custom queries beyond the provided context
+        - GetCardsByDateRange: for historical context if needed
+
+        Analyze the provided data and produce a plan.
 
         ## Output Format
 
@@ -72,6 +76,7 @@ public class DailyPlanningSubagent : SubagentBase, ISingletonDependency
 
     public override string[] ToolNames =>
     [
+        "GetBoards",
         "GetMyTasks",
         "GetUserBoards",
         "GetBoardById",
