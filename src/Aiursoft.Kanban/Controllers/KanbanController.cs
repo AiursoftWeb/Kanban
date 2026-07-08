@@ -90,9 +90,20 @@ public class KanbanController(
         }
 
         BoardData? boardData = null;
+        string? boardCreatorDisplayName = null;
+        string? boardCreatorAvatarUrl = null;
+        string? boardCreatorInitial = null;
+
         if (currentBoard != null)
         {
             boardData = BuildBoardData(currentBoard, canEditCurrentBoard);
+
+            if (currentBoard.UserId != userId && currentBoard.User != null)
+            {
+                boardCreatorDisplayName = GetUserDisplayName(currentBoard.User);
+                boardCreatorAvatarUrl = GetUserAvatarUrl(currentBoard.User);
+                boardCreatorInitial = GetUserInitial(currentBoard.User);
+            }
         }
 
         return this.StackView(new IndexViewModel
@@ -102,7 +113,10 @@ public class KanbanController(
             CurrentBoard = currentBoard,
             IsOwner = currentBoard == null || currentBoard.UserId == userId,
             CanEditCurrentBoard = currentBoard == null || canEditCurrentBoard,
-            BoardData = boardData
+            BoardData = boardData,
+            BoardCreatorDisplayName = boardCreatorDisplayName,
+            BoardCreatorAvatarUrl = boardCreatorAvatarUrl,
+            BoardCreatorInitial = boardCreatorInitial
         });
     }
 
@@ -1515,6 +1529,7 @@ public class KanbanController(
     private Task<KanbanBoard?> LoadBoardAsync(int boardId)
     {
         return db.KanbanBoards
+            .Include(b => b.User)
             .Include(b => b.Columns.OrderBy(c => c.Order))
                 .ThenInclude(c => c.Cards.OrderBy(card => card.Order))
                     .ThenInclude(card => card.CardLabels)
