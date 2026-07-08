@@ -474,15 +474,15 @@
                         </div>
 
                         <div class="detail-kv">
-                            <div class="detail-kv-label">@Localizer["Due"]</div>
-                            <div class="detail-kv-value">
-                                <input type="date" id="inputDueDate" class="form-control detail-input" value="@Model.DueDate" @(Model.CanEdit ? "" : "disabled") />
-                            </div>
-                        </div>
-                        <div class="detail-kv">
                             <div class="detail-kv-label">@Localizer["Start"]</div>
                             <div class="detail-kv-value">
                                 <input type="date" id="inputPlannedStart" class="form-control detail-input" value="@Model.PlannedStartDate" @(Model.CanEdit ? "" : "disabled") />
+                            </div>
+                        </div>
+                        <div class="detail-kv">
+                            <div class="detail-kv-label">@Localizer["Due"]</div>
+                            <div class="detail-kv-value">
+                                <input type="date" id="inputDueDate" class="form-control detail-input" value="@Model.DueDate" @(Model.CanEdit ? "" : "disabled") />
                             </div>
                         </div>
 
