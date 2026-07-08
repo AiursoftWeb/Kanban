@@ -137,7 +137,7 @@ public class KanbanControllerTests : TestBase
     public async Task NewCardDetail_ValidColumn_ShowsEditableDetailPage()
     {
         await LoginAsAdmin();
-        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
 
         var response = await Http.GetAsync($"/Cards/New?columnId={columnId}&returnBoardId={boardId}");
         response.EnsureSuccessStatusCode();
