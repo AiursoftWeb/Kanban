@@ -145,6 +145,13 @@
                                             <a asp-action="ManageShares" asp-route-id="@board.Id" class="btn btn-sm btn-outline-secondary me-1">
                                                 <i class="align-middle" data-lucide="share-2"></i> @Localizer["Share"]
                                             </a>
+                                            <form asp-action="ArchiveBoard" asp-controller="Kanban" method="post" style="display:inline;" class="me-1">
+                                                <input type="hidden" name="boardId" value="@board.Id" />
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-outline-warning" onclick="return confirm('@Localizer["Archive this board?"]')">
+                                                    <i class="align-middle" data-lucide="archive"></i> @Localizer["Archive"]
+                                                </button>
+                                            </form>
                                             <button type="button" class="btn btn-sm btn-outline-danger btn-delete-board-list" data-board-id="@board.Id" data-board-name="@board.Name">
                                                 <i class="align-middle" data-lucide="trash-2"></i> @Localizer["Delete"]
                                             </button>

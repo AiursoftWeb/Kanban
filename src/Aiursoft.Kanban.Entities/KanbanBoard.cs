@@ -23,6 +23,17 @@ public class KanbanBoard
 
     public DateTime CreationTime { get; init; } = DateTime.UtcNow;
 
+    /// <summary>
+    /// Whether this board has been archived by its owner.
+    /// Archived boards become read-only for everyone including the owner.
+    /// </summary>
+    public bool IsArchived { get; set; }
+
+    /// <summary>
+    /// UTC timestamp when this board was archived. Null if not archived.
+    /// </summary>
+    public DateTime? ArchivedTime { get; set; }
+
     public ICollection<KanbanColumn> Columns { get; set; } = new List<KanbanColumn>();
 
     public int Order { get; set; }

@@ -49,7 +49,7 @@ public class KanbanController(
         var userId = userManager.GetUserId(User)!;
 
         var boards = await db.KanbanBoards
-            .Where(b => b.UserId == userId)
+            .Where(b => b.UserId == userId && !b.IsArchived)
             .Include(b => b.Columns)
                 .ThenInclude(c => c.Cards)
             .OrderBy(b => b.Order)
@@ -130,8 +130,9 @@ public class KanbanController(
             .Include(s => s.Board)
                 .ThenInclude(b => b.Columns)
                     .ThenInclude(c => c.Cards)
-            .Where(s => s.SharedWithUserId == userId ||
-                        (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId)))
+            .Where(s => !s.Board.IsArchived &&
+                        (s.SharedWithUserId == userId ||
+                         (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId))))
             .OrderByDescending(s => s.CreationTime)
             .ToListAsync();
 
@@ -194,6 +195,117 @@ public class KanbanController(
 
         await db.SaveChangesAsync();
         return RedirectToAction(nameof(Index), new { boardId = board.Id });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ArchiveBoard(int boardId)
+    {
+        var userId = userManager.GetUserId(User)!;
+        var board = await db.KanbanBoards.FindAsync(boardId);
+        if (board == null) return NotFound();
+        if (board.UserId != userId) return Forbid();
+        bool wasArchived = board.IsArchived;
+        if (board.IsArchived)
+        {
+            board.IsArchived = false;
+            board.ArchivedTime = null;
+        }
+        else
+        {
+            board.IsArchived = true;
+            board.ArchivedTime = DateTime.UtcNow;
+        }
+        await db.SaveChangesAsync();
+        return wasArchived ? RedirectToAction(nameof(Archived)) : RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    [RenderInNavBar(
+        NavGroupName = "Features",
+        NavGroupOrder = 2,
+        CascadedLinksGroupName = "Overview Kanban",
+        CascadedLinksIcon = "archive",
+        CascadedLinksOrder = 3,
+        LinkText = "Archived",
+        LinkOrder = 3)]
+    public async Task<IActionResult> Archived()
+    {
+        var userId = userManager.GetUserId(User)!;
+        var user = await userManager.FindByIdAsync(userId);
+        if (user == null) return NotFound();
+
+        var userRoles = await userManager.GetRolesAsync(user);
+        var userRoleIds = await db.Roles
+            .Where(r => userRoles.Contains(r.Name!))
+            .Select(r => r.Id)
+            .ToListAsync();
+
+        var myArchivedBoards = await db.KanbanBoards
+            .Where(b => b.UserId == userId && b.IsArchived)
+            .Include(b => b.Columns)
+                .ThenInclude(c => c.Cards)
+            .OrderByDescending(b => b.ArchivedTime)
+            .ToListAsync();
+
+        var sharedArchivedShares = await db.BoardShares
+            .Include(s => s.Board)
+                .ThenInclude(b => b.Columns)
+                    .ThenInclude(c => c.Cards)
+            .Where(s => s.Board.IsArchived &&
+                        (s.SharedWithUserId == userId ||
+                         (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId))))
+            .OrderByDescending(s => s.CreationTime)
+            .ToListAsync();
+
+        var roleIds = sharedArchivedShares
+            .Where(s => s.SharedWithRoleId != null)
+            .Select(s => s.SharedWithRoleId!)
+            .Distinct()
+            .ToList();
+
+        var roleNames = await db.Roles
+            .Where(r => roleIds.Contains(r.Id))
+            .ToDictionaryAsync(r => r.Id, r => r.Name ?? r.Id);
+
+        var now = DateTime.UtcNow;
+        var summaries = new Dictionary<int, BoardSummary>();
+
+        foreach (var board in myArchivedBoards)
+        {
+            var cards = board.Columns.SelectMany(c => c.Cards).ToList();
+            summaries[board.Id] = new BoardSummary
+            {
+                BoardId = board.Id,
+                TotalIncomplete = cards.Count(c => c.Column.ColumnStatus != ColumnStatus.Completed),
+                TotalInProgress = cards.Count(c => c.Column.ColumnStatus == ColumnStatus.InProgress),
+                TotalCompleted = cards.Count(c => c.Column.ColumnStatus == ColumnStatus.Completed),
+                TotalOverdue = cards.Count(c => c.DueDate.HasValue && c.DueDate.Value < now && c.Column.ColumnStatus != ColumnStatus.Completed),
+                TotalUnassigned = cards.Count(c => string.IsNullOrEmpty(c.AssignedUserId))
+            };
+        }
+
+        foreach (var share in sharedArchivedShares)
+        {
+            var board = share.Board;
+            var cards = board.Columns.SelectMany(c => c.Cards).ToList();
+            summaries[board.Id] = new BoardSummary
+            {
+                BoardId = board.Id,
+                TotalIncomplete = cards.Count(c => c.Column.ColumnStatus != ColumnStatus.Completed),
+                TotalInProgress = cards.Count(c => c.Column.ColumnStatus == ColumnStatus.InProgress),
+                TotalCompleted = cards.Count(c => c.Column.ColumnStatus == ColumnStatus.Completed),
+                TotalOverdue = cards.Count(c => c.DueDate.HasValue && c.DueDate.Value < now && c.Column.ColumnStatus != ColumnStatus.Completed),
+                TotalUnassigned = cards.Count(c => string.IsNullOrEmpty(c.AssignedUserId))
+            };
+        }
+
+        return this.StackView(new ArchivedBoardsViewModel(
+            myArchivedBoards,
+            sharedArchivedShares,
+            roleNames,
+            summaries
+        ));
     }
 
     [HttpPost]
@@ -319,7 +431,7 @@ public class KanbanController(
             .Select(userRole => userRole.RoleId)
             .ToListAsync();
         var boards = await db.KanbanBoards
-            .Where(board => board.Id != card.Column.BoardId &&
+            .Where(board => !board.IsArchived && board.Id != card.Column.BoardId &&
                 (board.UserId == userId ||
                  board.BoardShares.Any(share =>
                      share.Permission == SharePermission.Editable &&
@@ -1463,6 +1575,7 @@ public class KanbanController(
 
     private async Task<bool> HasEditAccess(KanbanBoard board, string userId)
     {
+        if (board.IsArchived) return false;
         if (board.UserId == userId) return true;
         var userRoles = await db.UserRoles
             .Where(ur => ur.UserId == userId)
