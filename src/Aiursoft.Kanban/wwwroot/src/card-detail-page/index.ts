@@ -167,6 +167,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     currentAssigneeAvatarUrl: options.initialAssigneeAvatarUrl ?? '',
     currentLabels: [...options.initialLabels],
     transferTargets: [] as TransferTargetDto[],
+    boardMembers: [] as BoardMemberDto[],
+    boardMembersLoaded: false,
     labelSearchRequestId: 0,
     assigneeSearchTimer: 0 as number | undefined,
     commentIdToDelete: 0,
@@ -289,8 +291,13 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       if (!options.canEdit) return;
       window.clearTimeout(state.assigneeSearchTimer);
       state.assigneeSearchTimer = window.setTimeout(() => {
-        searchAssignees(refs.assigneeSearch?.value ?? '').catch(console.error);
+        showAssigneeOptions(refs.assigneeSearch?.value ?? '').catch(console.error);
       }, 250);
+    });
+
+    refs.assigneeSearch?.addEventListener('focus', () => {
+      if (!options.canEdit) return;
+      showAssigneeOptions(refs.assigneeSearch?.value ?? '').catch(console.error);
     });
 
     refs.assigneeDropdown?.addEventListener('click', event => {
@@ -540,21 +547,22 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     });
   }
 
-  async function searchAssignees(query: string): Promise<void> {
+  async function showAssigneeOptions(query: string): Promise<void> {
     if (!refs.assigneeDropdown || !refs.assigneeSearch) return;
 
-    const normalized = query.trim().toLowerCase();
-    if (!normalized) {
-      refs.assigneeDropdown.classList.add('d-none');
-      refs.assigneeDropdown.innerHTML = '';
-      return;
+    if (!state.boardMembersLoaded) {
+      const response = await fetch(`/Kanban/GetBoardMembers?boardId=${options.boardId}`);
+      state.boardMembers = await readJsonOrThrow<BoardMemberDto[]>(response);
+      state.boardMembersLoaded = true;
     }
 
-    const response = await fetch(`/Kanban/GetBoardMembers?boardId=${options.boardId}`);
-    const members = await readJsonOrThrow<BoardMemberDto[]>(response);
-    const filtered = members.filter(member =>
-      (member.DisplayName ?? '').toLowerCase().includes(normalized)
-      || (member.UserName ?? '').toLowerCase().includes(normalized));
+    const normalized = query.trim().toLowerCase();
+    const filtered = state.boardMembers
+      .filter(member =>
+        !normalized
+        || (member.DisplayName ?? '').toLowerCase().includes(normalized)
+        || (member.UserName ?? '').toLowerCase().includes(normalized))
+      .slice(0, 8);
 
     refs.assigneeDropdown.innerHTML = filtered.map(member => {
       const displayName = member.DisplayName || member.UserName || '';
