@@ -1063,7 +1063,6 @@ public class AgentService : IAgentService
             "UpdateCardPriority" => "Update Card Priority",
             "AddLabel" => "Add Label",
             "RemoveLabel" => "Remove Label",
-            "UpdateLabelColor" => "Update Label Color",
             "BatchCreateCards" => "Batch Create Cards",
             "BatchMoveCards" => "Batch Move Cards",
             "DeleteCard" => "Delete Card",
@@ -1129,7 +1128,7 @@ public class AgentService : IAgentService
         var relevantTools = new HashSet<string>
         {
             "MoveCard", "UpdateCardDetails", "AssignCard", "UpdateCardPriority",
-            "DeleteCard", "AddLabel", "RemoveLabel", "UpdateLabelColor",
+            "DeleteCard", "AddLabel", "RemoveLabel",
             "MoveColumn", "RenameColumn", "DeleteColumn", "UpdateColumnStatus",
             "RenameBoard", "DeleteBoard",
             "BatchMoveCards"

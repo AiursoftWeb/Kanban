@@ -1,1176 +1,20 @@
 @using System.Text.Json
+@using Aiursoft.WebTools
 @model Aiursoft.Kanban.Models.KanbanViewModels.IndexViewModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
-@inject Aiursoft.Kanban.Services.FileStorage.StorageService Storage
 @{
     var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
+    var highlightCardId = Context.Request.Query["highlightCard"].FirstOrDefault();
+    var highlightCardIdValue = int.TryParse(highlightCardId, out var parsedHighlightCardId) ? parsedHighlightCardId : 0;
 }
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section styles {
     <link rel="stylesheet" href="~/node_modules/katex/dist/katex.min.css" asp-append-version="true" />
-	<style>
-	.drag-handle {
-		cursor: grab;
-		color: var(--bs-secondary-color);
-		user-select: none;
-		padding: 0 4px;
-	}
-	.drag-handle:active { cursor: grabbing; }
-	.board-row.sortable-chosen { background: var(--bs-primary-bg-subtle, #e7f1ff) !important; }
-	.board-row.sortable-ghost { opacity: 0.3; background: var(--bs-primary, #4dabf7) !important; }
-    html, body {
-        height: 100%;
-        overflow: hidden;
-    }
-
-    .kanban-page-wrapper {
-        display: flex;
-        flex-direction: column;
-        height: calc(100vh - 130px);
-        overflow-y: auto;
-    }
-
-    .kanban-topbar {
-        flex-shrink: 0;
-    }
-
-    .kanban-container {
-        display: flex;
-        gap: 1.25rem;
-        align-items: stretch;
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding-bottom: 1rem;
-        flex: 1;
-        min-height: 0;
-        scroll-behavior: smooth;
-    }
-
-    .kanban-column {
-        flex: 0 0 320px;
-        width: 320px;
-        background: var(--bs-body-bg, #ffffff);
-        border-radius: 20px;
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        transition: box-shadow 0.25s ease, transform 0.25s ease;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
-    }
-
-    .kanban-column:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-    }
-
-    .kanban-column.drag-over {
-        box-shadow: 0 0 0 3px var(--bs-primary, #4dabf7);
-    }
-
-    .column-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 0.75rem;
-        padding: 0 0.25rem;
-        cursor: grab;
-    }
-
-    .column-header:active {
-        cursor: grabbing;
-    }
-
-    .column-header-left {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .column-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        flex-shrink: 0;
-    }
-
-    .dot-blue { background: #4dabf7; }
-    .dot-orange { background: #ffa94d; }
-    .dot-green { background: #69db7c; }
-    .dot-purple { background: #9775fa; }
-    .dot-pink { background: #f783ac; }
-    .dot-teal { background: #38d9a9; }
-    .dot-amber { background: #ffc078; }
-    .dot-indigo { background: #748ffc; }
-
-    .column-title {
-        font-weight: 600;
-        font-size: 0.9rem;
-        color: var(--bs-body-color);
-        margin: 0;
-        pointer-events: none;
-    }
-
-    .btn-edit-column-title {
-        width: 22px;
-        height: 22px;
-        border-radius: 4px;
-        border: none;
-        background: transparent;
-        color: var(--bs-secondary-color);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.15s ease;
-        opacity: 0;
-        padding: 0;
-    }
-
-    .kanban-column:hover .btn-edit-column-title {
-        opacity: 0.5;
-    }
-
-    .btn-edit-column-title:hover {
-        opacity: 1 !important;
-        background: var(--bs-secondary-bg);
-        color: var(--bs-body-color);
-    }
-
-    .column-title-input {
-        font-weight: 600;
-        font-size: 0.9rem;
-        color: var(--bs-body-color);
-        border: 1px solid var(--bs-primary);
-        border-radius: 6px;
-        padding: 2px 6px;
-        width: 140px;
-        background: var(--bs-body-bg);
-        outline: none;
-    }
-
-    .column-title-input:focus {
-        box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.25);
-    }
-
-    .column-count {
-        background: var(--bs-secondary-bg, #dee2e6);
-        color: var(--bs-body-color);
-        font-size: 0.75rem;
-        font-weight: 600;
-        padding: 2px 8px;
-        border-radius: 12px;
-        min-width: 22px;
-        text-align: center;
-        pointer-events: none;
-    }
-
-    .column-cards {
-        flex: 1;
-        overflow-y: auto;
-        min-height: 120px;
-        display: flex;
-        flex-direction: column;
-        gap: 0.625rem;
-        padding: 0 0.125rem;
-        border-radius: 10px;
-        transition: background 0.2s ease;
-    }
-
-    .column-cards.sortable-ghost {
-        background: rgba(var(--bs-primary-rgb, 77, 171, 247), 0.08);
-    }
-
-    .column-empty-placeholder {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 80px;
-        border: 2px dashed var(--bs-border-color);
-        border-radius: 10px;
-        color: var(--bs-secondary-color);
-        font-size: 0.8rem;
-        pointer-events: none;
-    }
-
-    .btn-delete-column {
-        width: 26px;
-        height: 26px;
-        border-radius: 6px;
-        border: none;
-        background: transparent;
-        color: var(--bs-secondary-color);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: default;
-        transition: all 0.15s ease;
-        font-size: 1rem;
-        line-height: 1;
-        opacity: 0;
-    }
-
-    .btn-delete-column.can-delete {
-        cursor: pointer;
-    }
-
-    .kanban-column:hover .btn-delete-column.can-delete {
-        opacity: 0.5;
-    }
-
-    .kanban-column:hover .btn-delete-column.can-delete:hover {
-        opacity: 1;
-        background: var(--bs-danger, #e03131);
-        color: #fff;
-    }
-
-    .kanban-card {
-        background: var(--bs-body-bg, #fff);
-        border-radius: 12px;
-        padding: 0.875rem 1rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-        cursor: pointer;
-        transition: box-shadow 0.2s ease, transform 0.15s ease;
-        border: 1px solid var(--bs-border-color, #e9ecef);
-    }
-
-    .kanban-card.can-drag {
-        cursor: grab;
-    }
-
-    .kanban-card:hover {
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
-        transform: translateY(-1px);
-    }
-
-    .kanban-card.can-drag:active {
-        cursor: grabbing;
-    }
-
-    .kanban-card.sortable-chosen {
-        box-shadow: 0 8px 24px rgba(0,0,0,0.16), 0 4px 8px rgba(0,0,0,0.08) !important;
-        transform: rotate(2deg) scale(1.03) !important;
-        opacity: 0.9;
-        z-index: 1000;
-    }
-
-    .kanban-card.sortable-ghost {
-        opacity: 0.3;
-        background: var(--bs-primary, #4dabf7);
-        border: 2px dashed var(--bs-primary, #4dabf7);
-        border-radius: 12px;
-    }
-
-    .card-title-text {
-        font-weight: 600;
-        font-size: 0.875rem;
-        margin-bottom: 0.25rem;
-        color: var(--bs-body-color);
-        line-height: 1.4;
-    }
-
-    .card-description {
-        font-size: 0.8rem;
-        color: var(--bs-secondary-color, #868e96);
-        line-height: 1.5;
-        overflow: hidden;
-        max-height: 4.5em;
-        word-break: break-word;
-        white-space: pre-wrap;
-    }
-
-    .card-inline-img {
-        max-width: 100%;
-        max-height: 120px;
-        border-radius: 6px;
-        margin: 0.25rem 0;
-        display: block;
-        object-fit: cover;
-        cursor: pointer;
-    }
-
-    .description-preview {
-        color: var(--bs-body-color);
-        line-height: 1.55;
-    }
-
-    .description-preview > :last-child {
-        margin-bottom: 0;
-    }
-
-    .description-preview pre {
-        padding: 0.75rem;
-        border-radius: 8px;
-        background: var(--bs-tertiary-bg, #f8f9fa);
-        overflow-x: auto;
-    }
-
-    .description-preview code {
-        font-size: 0.85em;
-    }
-
-    .description-preview table {
-        width: 100%;
-        margin-bottom: 1rem;
-        border-collapse: collapse;
-    }
-
-    .description-preview th,
-    .description-preview td {
-        padding: 0.4rem 0.55rem;
-        border: 1px solid var(--bs-border-color, #dee2e6);
-    }
-
-    .description-preview blockquote {
-        margin: 0 0 1rem;
-        padding: 0.5rem 0.8rem;
-        border-left: 4px solid var(--bs-primary, #4dabf7);
-        background: var(--bs-tertiary-bg, #f8f9fa);
-        color: var(--bs-secondary-color);
-        border-radius: 0 8px 8px 0;
-    }
-
-    .description-preview img,
-    .description-preview svg {
-        max-width: 100%;
-        height: auto;
-    }
-
-    .description-preview .mermaid {
-        text-align: center;
-        overflow-x: auto;
-    }
-
-    .image-fullscreen-overlay {
-        display: none;
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0,0,0,0.92);
-        z-index: 9999;
-        cursor: pointer;
-        align-items: center;
-        justify-content: center;
-    }
-    .image-fullscreen-overlay.active {
-        display: flex;
-    }
-    .image-fullscreen-overlay img {
-        max-width: 95vw;
-        max-height: 95vh;
-        object-fit: contain;
-        border-radius: 4px;
-    }
-
-    .column-header-readonly,
-    .column-header-readonly:active {
-        cursor: default;
-    }
-
-    .card-top-row,
-    .card-labels,
-    .edit-card-labels {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.45rem;
-        align-items: center;
-    }
-
-    .card-top-row {
-        justify-content: space-between;
-        margin-bottom: 0.6rem;
-    }
-
-    .label-input-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        border: 1px solid var(--bs-border-color, #dee2e6);
-        border-radius: 14px;
-        padding: 0.4rem;
-        background: var(--bs-tertiary-bg, #f8f9fb);
-    }
-
-    .label-input-text {
-        border: none !important;
-        box-shadow: none !important;
-        background: transparent !important;
-        border-radius: 12px !important;
-        min-width: 0;
-        flex: 1;
-    }
-
-    .label-picker-controls {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0 0.25rem;
-        border-left: 1px solid var(--bs-border-color, #dde2ea);
-    }
-
-    .label-color-presets {
-        display: flex;
-        gap: 0.4rem;
-    }
-
-    .label-color-swatch {
-        width: 30px;
-        height: 30px;
-        border-radius: 10px;
-        border: 1px solid transparent;
-        cursor: pointer;
-        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
-    }
-
-    .label-color-swatch:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(15, 23, 42, 0.1);
-    }
-
-    .label-color-swatch.selected {
-        border-color: var(--bs-primary, #4dabf7);
-        box-shadow: 0 0 0 3px rgba(74, 141, 247, 0.16);
-    }
-
-    .label-color-picker {
-        width: 36px;
-        height: 36px;
-        border-radius: 12px;
-        border: 1px solid var(--bs-border-color, #dde2ea);
-        padding: 0;
-        background: #ffffff;
-        cursor: pointer;
-    }
-
-    .priority-badge,
-    .recurrence-badge,
-    .card-label-chip,
-    .edit-label-name {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-        border-radius: 999px;
-        padding: 0.18rem 0.55rem;
-        font-size: 0.7rem;
-        font-weight: 700;
-        border: 1px solid transparent;
-    }
-
-    .priority-urgent { background: rgba(220, 53, 69, 0.14); color: #dc3545; }
-    .priority-high { background: rgba(253, 126, 20, 0.14); color: #fd7e14; }
-    .priority-medium { background: rgba(255, 193, 7, 0.18); color: #8a6d00; }
-    .priority-low { background: rgba(13, 110, 253, 0.14); color: #0d6efd; }
-
-    .recurrence-badge {
-        background: rgba(102, 16, 242, 0.10);
-        color: #6610f2;
-        border-color: rgba(102, 16, 242, 0.25);
-    }
-
-    .card-labels {
-        margin-top: 0.75rem;
-    }
-
-    .card-label-chip {
-        font-weight: 600;
-    }
-
-    .card-assignee-avatar {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background: var(--bs-secondary-bg, #e9ecef);
-        color: var(--bs-body-color);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.78rem;
-        font-weight: 700;
-        flex-shrink: 0;
-    }
-
-    .card-assignee-avatar-image {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    .readonly-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        padding: 0.25rem 0.6rem;
-        border-radius: 999px;
-        background: rgba(108, 117, 125, 0.12);
-        color: var(--bs-secondary-color);
-        font-size: 0.72rem;
-        font-weight: 600;
-    }
-
-    .edit-card-labels {
-        min-height: 2.5rem;
-    }
-
-    .edit-label-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        border-radius: 999px;
-        padding: 0.22rem 0.22rem 0.22rem 0.7rem;
-        background: rgba(248, 250, 252, 0.9);
-        box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.03);
-    }
-
-    .edit-label-color {
-        width: 32px;
-        height: 32px;
-        border: none;
-        padding: 0;
-        background: transparent;
-        cursor: pointer;
-        border-radius: 8px;
-    }
-
-    .btn-remove-label {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        border: none;
-        background: rgba(15, 23, 42, 0.05);
-        color: var(--bs-secondary-color);
-        transition: all 0.2s ease;
-    }
-
-    .btn-remove-label:hover {
-        background: rgba(220, 53, 69, 0.14);
-        color: #dc3545;
-        transform: translateY(-1px);
-    }
-
-    .btn-remove-label {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        border: none;
-        background: transparent;
-        color: var(--bs-secondary-color);
-    }
-
-    .btn-remove-label:hover {
-        background: rgba(220, 53, 69, 0.12);
-        color: #dc3545;
-    }
-
-    .board-tab {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        border-radius: 10px;
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: var(--bs-secondary-color);
-        text-decoration: none;
-        transition: all 0.2s ease;
-        border: 1px solid transparent;
-        background: transparent;
-        white-space: nowrap;
-    }
-
-    .board-tab:hover {
-        background: var(--bs-tertiary-bg);
-        color: var(--bs-body-color);
-    }
-
-    .board-tab.active {
-        background: var(--bs-primary);
-        color: #fff;
-        font-weight: 600;
-    }
-
-
-    .btn-add-card {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.375rem;
-        padding: 0.625rem;
-        border-radius: 10px;
-        font-size: 0.813rem;
-        font-weight: 500;
-        color: var(--bs-secondary-color);
-        background: transparent;
-        border: 1px dashed transparent;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        margin-top: 0.375rem;
-    }
-
-    .btn-add-card:hover {
-        background: var(--bs-body-bg);
-        color: var(--bs-body-color);
-        border-color: var(--bs-border-color);
-    }
-
-    .empty-state {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 4rem 2rem;
-        text-align: center;
-    }
-
-    .empty-state-icon {
-        width: 80px;
-        height: 80px;
-        border-radius: 20px;
-        background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1.5rem;
-        font-size: 2rem;
-    }
-
-    .board-tabs-scroll {
-        display: flex;
-        gap: 0.375rem;
-        overflow-x: auto;
-        padding-bottom: 0.25rem;
-        flex-wrap: nowrap;
-        scrollbar-width: none;
-    }
-
-    .board-tabs-scroll::-webkit-scrollbar { display: none; }
-
-    .mobile-column-switcher {
-        display: none;
-    }
-
-    @@media (max-width: 768px) {
-        html, body {
-            overflow: auto;
-        }
-
-        .kanban-page-wrapper {
-            height: calc(100dvh - 72px);
-            overflow: hidden;
-        }
-
-        .kanban-topbar {
-            padding: 1rem 1rem 0 !important;
-        }
-
-        .kanban-topbar > .d-flex {
-            align-items: flex-start !important;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem !important;
-        }
-
-        .kanban-topbar > .d-flex > .d-flex:first-child {
-            flex: 0 0 100%;
-            min-width: 0;
-            flex-wrap: wrap;
-        }
-
-        .kanban-topbar .h4 {
-            font-size: 1.05rem;
-        }
-
-        .kanban-topbar > .d-flex > .d-flex.gap-2 {
-            flex: 0 0 100%;
-            max-width: 100%;
-            overflow-x: auto;
-            padding-bottom: 0.25rem;
-            scrollbar-width: none;
-        }
-
-        .kanban-topbar > .d-flex > .d-flex.gap-2::-webkit-scrollbar {
-            display: none;
-        }
-
-        .mobile-column-switcher {
-            display: grid;
-            grid-template-columns: 40px 1fr 40px;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0 1rem 0.75rem;
-            flex-shrink: 0;
-        }
-
-        .mobile-column-nav-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid var(--bs-border-color);
-            background: var(--bs-body-bg);
-            color: var(--bs-body-color);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mobile-column-nav-btn:disabled {
-            opacity: 0.35;
-        }
-
-        .mobile-column-track {
-            display: flex;
-            gap: 0.4rem;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        .mobile-column-track::-webkit-scrollbar {
-            display: none;
-        }
-
-        .mobile-column-pill {
-            border: 1px solid var(--bs-border-color);
-            background: var(--bs-body-bg);
-            color: var(--bs-secondary-color);
-            border-radius: 999px;
-            padding: 0.45rem 0.75rem;
-            font-size: 0.78rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .mobile-column-pill.active {
-            background: var(--bs-primary);
-            border-color: var(--bs-primary);
-            color: #fff;
-        }
-
-        .kanban-container {
-            gap: 0;
-            padding: 0 1rem 1rem;
-            scroll-snap-type: x mandatory;
-            scroll-padding-inline: 1rem;
-            overflow-y: hidden;
-        }
-
-        .kanban-column {
-            flex: 0 0 calc(100vw - 2rem);
-            width: calc(100vw - 2rem);
-            max-width: calc(100vw - 2rem);
-            height: 100%;
-            border-radius: 12px;
-            scroll-snap-align: start;
-            margin-right: 1rem;
-        }
-
-        .kanban-column:hover {
-            transform: none;
-        }
-
-        .column-header {
-            cursor: default;
-        }
-
-        .btn-edit-column-title,
-        .btn-delete-column.can-delete,
-        .kanban-column:hover .btn-edit-column-title,
-        .kanban-column:hover .btn-delete-column.can-delete {
-            opacity: 1;
-        }
-
-        .column-cards {
-            overscroll-behavior: contain;
-            padding-bottom: 0.25rem;
-        }
-
-        .kanban-card {
-            border-radius: 10px;
-            padding: 1rem;
-        }
-
-        .kanban-card:hover {
-            transform: none;
-        }
-
-        #editCardModal .modal-dialog,
-        #addCardModal .modal-dialog,
-        #addColumnModal .modal-dialog {
-            align-items: flex-end;
-            min-height: calc(100% - 1rem);
-            margin: 0.5rem;
-        }
-
-        #editCardModal .modal-content,
-        #addCardModal .modal-content,
-        #addColumnModal .modal-content {
-            max-height: calc(100dvh - 1rem);
-            border-radius: 18px 18px 0 0 !important;
-        }
-
-        #editCardModal .modal-body {
-            max-height: calc(100dvh - 12rem);
-            overflow-y: auto;
-        }
-
-        #editCardModal .modal-footer {
-            gap: 0.6rem;
-        }
-
-        #editCardModal .modal-footer,
-        #editCardModal .modal-footer > div {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        #editCardModal .modal-footer .btn {
-            width: 100%;
-            min-height: 42px;
-        }
-
-        .label-input-wrapper {
-            align-items: stretch;
-            flex-direction: column;
-        }
-
-        .label-picker-controls {
-            border-left: none;
-            border-top: 1px solid var(--bs-border-color, #dde2ea);
-            padding-top: 0.5rem;
-            justify-content: space-between;
-        }
-
-        .comment-add-area {
-            flex-direction: column;
-        }
-    }
-
-    .card-due-date { font-size: 0.72rem; margin-top: 0.4rem; display: flex; align-items: center; gap: 3px; color: var(--bs-secondary-color); }
-    .card-due-date.overdue { color: #dc3545; font-weight: 600; }
-    .column-status-select { font-size: 0.7rem; border: none; background: transparent; color: var(--bs-secondary-color); cursor: pointer; padding: 1px 2px; max-width: 90px; }
-    .column-status-select:focus { outline: none; box-shadow: none; }
-    .clickable-row { cursor: pointer; }
-
-    .btn-edit-board-title {
-        width: 22px;
-        height: 22px;
-        border-radius: 4px;
-        border: none;
-        background: transparent;
-        color: var(--bs-secondary-color);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.15s ease;
-        opacity: 0.4;
-        padding: 0;
-    }
-
-    .btn-edit-board-title:hover {
-        opacity: 1;
-        background: var(--bs-secondary-bg);
-        color: var(--bs-body-color);
-    }
-
-    .board-title-input {
-        font-weight: 600;
-        font-size: 0.95rem;
-        color: var(--bs-body-color);
-        border: 1px solid var(--bs-primary);
-        border-radius: 6px;
-        padding: 2px 6px;
-        width: 180px;
-        background: var(--bs-body-bg);
-        outline: none;
-    }
-
-    .board-title-input:focus {
-        box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.25);
-    }
-
-    .comments-section {
-        margin-top: 1.25rem;
-        border-top: 1px solid var(--bs-border-color);
-        padding-top: 1rem;
-    }
-
-    .comment-item {
-        display: flex;
-        gap: 0.65rem;
-        margin-bottom: 1rem;
-    }
-
-    .comment-avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        /* background: var(--bs-primary, #4dabf7); */
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.78rem;
-        font-weight: 700;
-        flex-shrink: 0;
-    }
-
-    .comment-body {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .comment-header {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.2rem;
-    }
-
-    .comment-author {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--bs-body-color);
-    }
-
-    .comment-time {
-        font-size: 0.72rem;
-        color: var(--bs-secondary-color);
-        cursor: default;
-        border-bottom: 1px dotted var(--bs-secondary-color);
-    }
-
-    .comment-text {
-        font-size: 0.82rem;
-        color: var(--bs-body-color);
-        line-height: 1.5;
-        white-space: pre-wrap;
-        word-break: break-word;
-    }
-
-    .comment-text blockquote {
-        margin: 0.4rem 0;
-        padding: 0.3rem 0.75rem;
-        border-left: 3px solid var(--bs-primary, #4dabf7);
-        background: var(--bs-tertiary-bg);
-        border-radius: 0 6px 6px 0;
-        color: var(--bs-secondary-color);
-        font-size: 0.8rem;
-    }
-
-    .comment-delete-btn {
-        margin-left: auto;
-        padding: 0.1rem 0.35rem;
-        border: none;
-        background: transparent;
-        color: var(--bs-secondary-color);
-        cursor: pointer;
-        border-radius: 6px;
-        opacity: 0;
-        transition: opacity 0.15s, background 0.15s, color 0.15s;
-    }
-
-    .comment-item:hover .comment-delete-btn {
-        opacity: 1;
-    }
-
-    .comment-delete-btn:hover {
-        background: var(--bs-danger-bg-subtle);
-        color: var(--bs-danger);
-    }
-
-    .comment-add-area {
-        display: flex;
-        gap: 0.5rem;
-        align-items: stretch;
-    }
-
-    .comment-add-area textarea {
-        flex: 1;
-        border-radius: 10px;
-        resize: none;
-        font-size: 0.82rem;
-        padding: 0.5rem 0.75rem;
-        border: 1px solid var(--bs-border-color);
-        background: var(--bs-body-bg);
-        color: var(--bs-body-color);
-        min-height: 60px;
-    }
-
-    .comment-add-area textarea:focus {
-        outline: none;
-        border-color: var(--bs-primary, #4dabf7);
-        box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.25);
-    }
-
-    .btn-comment-submit {
-        border-radius: 10px;
-        font-size: 0.8rem;
-        white-space: nowrap;
-        padding: 0.4rem 0.9rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .comment-empty-hint {
-        font-size: 0.8rem;
-        color: var(--bs-secondary-color);
-        text-align: center;
-        padding: 0.5rem 0;
-    }
-
-    .kanban-filter-bar {
-        flex-shrink: 0;
-        padding: 0.5rem 1.5rem;
-        border-bottom: 1px solid var(--bs-border-color);
-        background: var(--bs-tertiary-bg);
-    }
-
-    .kanban-filter-bar-inner {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .kanban-filter-group {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        flex-wrap: wrap;
-    }
-
-    .kanban-filter-label {
-        font-size: 0.72rem;
-        font-weight: 600;
-        color: var(--bs-secondary-color);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        white-space: nowrap;
-        margin-right: 0.15rem;
-    }
-
-    .filter-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.25rem;
-        padding: 0.22rem 0.65rem;
-        border-radius: 999px;
-        font-size: 0.72rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.15s ease;
-        border: 1px solid var(--bs-border-color);
-        background: var(--bs-body-bg);
-        color: var(--bs-secondary-color);
-        white-space: nowrap;
-        user-select: none;
-    }
-
-    .filter-chip:hover {
-        border-color: var(--bs-primary);
-        color: var(--bs-primary);
-    }
-
-    .filter-chip.active {
-        background: var(--bs-primary);
-        border-color: var(--bs-primary);
-        color: #fff;
-        font-weight: 600;
-    }
-
-    .filter-chip.active:hover {
-        background: var(--bs-primary-text-emphasis, #0a58ca);
-    }
-
-    .filter-chip-clear {
-        border-color: transparent;
-        background: transparent;
-        color: var(--bs-secondary-color);
-        font-size: 0.72rem;
-        padding: 0.22rem 0.5rem;
-    }
-
-    .filter-chip-clear:hover {
-        color: var(--bs-danger);
-        border-color: transparent;
-        background: transparent;
-    }
-
-    .filter-chip-clear.hidden {
-        display: none;
-    }
-
-    .kanban-filter-search {
-        width: 200px;
-        border-radius: 999px;
-        border: 1px solid var(--bs-border-color);
-        background: var(--bs-body-bg);
-        color: var(--bs-body-color);
-        font-size: 0.72rem;
-        padding: 0.25rem 0.75rem;
-        outline: none;
-        transition: border-color 0.15s ease;
-    }
-
-    .kanban-filter-search::placeholder {
-        color: var(--bs-secondary-color);
-        font-size: 0.72rem;
-    }
-
-    .kanban-filter-search:focus {
-        border-color: var(--bs-primary);
-        box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb, 77, 171, 247), 0.2);
-    }
-
-    .kanban-filter-empty {
-        flex: 1;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 4rem 2rem;
-        text-align: center;
-        color: var(--bs-secondary-color);
-    }
-
-    .kanban-filter-empty.visible {
-        display: flex;
-    }
-
-    .kanban-filter-empty-icon {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        opacity: 0.4;
-    }
-
-    .kanban-filter-empty p {
-        font-size: 0.875rem;
-        margin-bottom: 0;
-    }
-
-    @@media (max-width: 768px) {
-        .kanban-filter-bar {
-            padding: 0.5rem 1rem;
-        }
-
-        .kanban-filter-bar-inner {
-            gap: 0.5rem;
-        }
-
-        .kanban-filter-group {
-            gap: 0.3rem;
-        }
-
-        .filter-chip {
-            padding: 0.18rem 0.5rem;
-            font-size: 0.7rem;
-        }
-    }
-</style>
+    <link rel="stylesheet" href="~/dist/kanban-board.css" asp-append-version="true" />
+    <style>
+        html, body { height: 100%; overflow: hidden; }
+    </style>
 }
 
 <div class="kanban-page-wrapper">
@@ -1231,6 +75,7 @@
 
     @if (Model.CurrentBoard == null)
     {
+        @* ── Board List View (unchanged) ── *@
         if (Model.Boards.Any())
         {
             <div class="row">
@@ -1289,7 +134,7 @@
                                                 <span class="text-muted">—</span>
                                             }
                                         </td>
-                                        <td><small class="text-muted">@board.CreationTime.ToString("yyyy-MM-dd")</small></td>
+                                        <td><small class="text-muted"><label data-utc-time="@board.CreationTime.ToHtmlDateTime()" style="display:inline"></label></small></td>
                                         <td class="text-end text-nowrap">
                                             <a asp-action="Index" asp-route-boardId="@board.Id" class="btn btn-sm btn-outline-primary me-1">
                                                 <i class="align-middle" data-lucide="eye"></i> @Localizer["View"]
@@ -1330,6 +175,7 @@
     }
     else
     {
+        @* ── Kanban Board View (module-driven) ── *@
         <div class="kanban-filter-bar" id="kanbanFilterBar">
             <div class="kanban-filter-bar-inner">
                 <input type="text" class="kanban-filter-search" id="kanbanFilterSearch" placeholder="@Localizer["Search title or description..."]" autocomplete="off">
@@ -1364,110 +210,11 @@
                 <i class="align-middle" data-lucide="chevron-right" style="width:18px;height:18px"></i>
             </button>
         </div>
-        <div class="kanban-container" id="kanban-container">
-            @{
-                var dotColors = new[] { "dot-blue", "dot-orange", "dot-green", "dot-purple", "dot-pink", "dot-teal", "dot-amber", "dot-indigo" };
-                var colIndex = 0;
-            }
-            @foreach (var column in Model.CurrentBoard.Columns.OrderBy(c => c.Order))
-            {
-                var dotClass = dotColors[colIndex % dotColors.Length];
-                colIndex++;
-                <div class="kanban-column" data-column-id="@column.Id" data-column-status="@((int)column.ColumnStatus)">
-                    <div class="column-header @(Model.CanEditCurrentBoard ? string.Empty : "column-header-readonly")">
-                        <div class="column-header-left">
-                            <span class="column-dot @dotClass"></span>
-                            <span class="column-title" data-column-id="@column.Id">@column.Name</span>
-                            <span class="column-count">@column.Cards.Count</span>
-                            @if (Model.CanEditCurrentBoard)
-                            {
-                                <button class="btn-edit-column-title" data-column-id="@column.Id" title="@Localizer["Rename column"]">
-                                    <i class="align-middle" style="width:12px;height:12px" data-lucide="pencil"></i>
-                                </button>
-                            }
-                        </div>
-                        <div class="d-flex align-items-center gap-1">
-                            <select class="column-status-select" data-column-id="@column.Id" disabled="@(!Model.CanEditCurrentBoard)">
-                                <option value="0">@Localizer["Not Started"]</option>
-                                <option value="1">@Localizer["In Progress"]</option>
-                                <option value="2">@Localizer["Completed"]</option>
-                            </select>
-                            <button class="btn-delete-column @(Model.CanEditCurrentBoard ? "can-delete" : string.Empty)"
-                                    data-column-id="@column.Id"
-                                    data-cards-count="@column.Cards.Count"
-                                    title="@Localizer["Delete column"]"
-                                    disabled="@(!Model.CanEditCurrentBoard)">
-                                <i class="align-middle" style="width:14px;height:14px" data-lucide="trash-2"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="column-cards" data-column-id="@column.Id">
-                        @if (!column.Cards.Any())
-                        {
-                            <div class="column-empty-placeholder">@Localizer["Drop cards here"]</div>
-                        }
-                        @foreach (var card in column.Cards.OrderBy(c => c.Order))
-                        {
-                            var assignedUserDisplayName = card.AssignedUser?.DisplayName ?? card.AssignedUser?.UserName ?? string.Empty;
-                            var assignedUserInitial = string.IsNullOrWhiteSpace(assignedUserDisplayName)
-                                ? string.Empty
-                                : assignedUserDisplayName.Trim()[0].ToString().ToUpperInvariant();
-                            var assignedUserAvatarUrl = card.AssignedUser != null && card.AssignedUser.AvatarRelativePath != Aiursoft.Kanban.Entities.User.DefaultAvatarPath
-                                ? $"{Storage.RelativePathToInternetUrl(card.AssignedUser.AvatarRelativePath)}?w=56&square=true"
-                                : string.Empty;
-                            var creatorUserDisplayName = card.CreatorUser?.DisplayName ?? card.CreatorUser?.UserName ?? string.Empty;
-                            var creatorUserInitial = string.IsNullOrWhiteSpace(creatorUserDisplayName)
-                                ? string.Empty
-                                : creatorUserDisplayName.Trim()[0].ToString().ToUpperInvariant();
-                            var creatorUserAvatarUrl = card.CreatorUser != null && card.CreatorUser.AvatarRelativePath != Aiursoft.Kanban.Entities.User.DefaultAvatarPath
-                                ? $"{Storage.RelativePathToInternetUrl(card.CreatorUser.AvatarRelativePath)}?w=56&square=true"
-                                : string.Empty;
-                            var labelsJson = JsonSerializer.Serialize(card.CardLabels
-                                .OrderBy(link => link.Label.Name)
-                                .Select(link => new { Id = link.LabelId, link.Label.Name, link.Label.Color }));
-                            <div class="kanban-card @(Model.CanEditCurrentBoard ? "can-drag" : string.Empty)"
-                                 data-card-id="@card.Id"
-                                 data-title="@card.Title"
-                                 data-description="@(card.Description ?? "")"
-                                 data-planned-start="@(card.PlannedStartTime?.ToString("yyyy-MM-dd") ?? "")"
-                                 data-due-date="@(card.DueDate?.ToString("yyyy-MM-dd") ?? "")"
-                                 data-actual-start="@(card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mm") ?? "")"
-                                 data-actual-end="@(card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mm") ?? "")"
-                                 data-priority="@((int)card.Priority)"
-                                 data-recurrence-interval="@(card.RecurrenceInterval?.ToString() ?? "")"
-                                 data-recurrence-unit="@((int)card.RecurrenceUnit)"
-                                 data-assigned-user-id="@(card.AssignedUserId ?? string.Empty)"
-                                 data-assigned-user-name="@assignedUserDisplayName"
-                                 data-assigned-user-initial="@assignedUserInitial"
-                                 data-assigned-user-avatar-url="@assignedUserAvatarUrl"
-                                 data-creator-user-name="@creatorUserDisplayName"
-                                 data-creator-user-initial="@creatorUserInitial"
-                                 data-creator-user-avatar-url="@creatorUserAvatarUrl"
-                                 data-creation-time="@card.CreationTime.ToString("yyyy-MM-ddTHH:mm")"
-                                 data-labels='@labelsJson'>
-                                <div class="card-title-text">@card.Title</div>
-                                @if (!string.IsNullOrWhiteSpace(card.Description))
-                                {
-                                    <div class="card-description">@Html.Raw(System.Net.WebUtility.HtmlEncode(card.Description).Replace("\n", "<br>"))</div>
-                                }
-                            </div>
-                        }
-                    </div>
-                    @if (Model.CanEditCurrentBoard)
-                    {
-                        <button class="btn-add-card" data-column-id="@column.Id">
-                            <i class="align-middle" style="width:14px;height:14px" data-lucide="plus"></i> @Localizer["Add Card"]
-                        </button>
-                    }
-                </div>
-            }
-
-
-        </div>
+        <div class="kanban-container" id="kanban-root"></div>
     }
 </div>
 
-<!-- Create Board Modal -->
+@* ── Create Board Modal ── *@
 <div class="modal fade" id="createBoardModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
@@ -1493,7 +240,7 @@
 
 @if (Model.CurrentBoard != null && Model.CanEditCurrentBoard)
 {
-    <!-- Add Column Modal -->
+    @* ── Add Column Modal ── *@
     <div class="modal fade" id="addColumnModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
@@ -1514,357 +261,78 @@
             </div>
         </div>
     </div>
+}
 
-    <!-- Add Card Modal -->
-    <div class="modal fade" id="addCardModal" tabindex="-1" aria-hidden="true">
+@if (Model.CurrentBoard != null)
+{
+    @* ── Delete Column Confirmation Modal ── *@
+    <div class="modal fade" id="deleteColumnConfirmModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
                 <div class="modal-header border-0 px-4 pt-4">
-                    <h5 class="modal-title fw-bold">@Localizer["Add Card"]</h5>
+                    <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete Column"]</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body px-4">
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">@Localizer["Title"]</label>
-                        <input type="text" id="cardTitleInput" class="form-control form-control-lg" placeholder="@Localizer["What needs to be done?"]" autofocus
-                               style="border-radius:12px">
-                        <div class="invalid-feedback" id="cardError"></div>
-                    </div>
-                    <div class="mb-0">
-                        <label class="form-label fw-semibold">@Localizer["Description"] <span class="text-muted fw-normal">(@Localizer["optional"])</span></label>
-                        <textarea id="cardDescInput" class="form-control" rows="3" placeholder="@Localizer["Add more details..."]"
-                                  style="border-radius:12px;resize:none"></textarea>
-                    </div>
+                    <p>@Localizer["Are you sure you want to delete the column"] <strong id="deleteColumnNameDisplay"></strong>@Localizer["?"]</p>
+                    <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action cannot be undone."]</p>
+                    <div class="alert alert-warning mt-2 d-none" id="deleteColumnWarning" role="alert"></div>
+                    <div class="alert alert-danger mt-2 d-none" id="deleteColumnError" role="alert"></div>
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
-                    <button type="button" class="btn btn-primary px-4" id="btnSaveCard" style="border-radius:10px">@Localizer["Add Card"]</button>
+                    <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteColumn" style="border-radius:10px">
+                        @Localizer["Delete Column"]
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-}
 
-<!-- Edit Card Modal (always present when board exists) -->
-@if (Model.CurrentBoard != null)
-{
-    <div class="modal fade" id="editCardModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+    @* ── Friendly Alert Modal ── *@
+    <div class="modal fade" id="friendlyAlertModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
                 <div class="modal-header border-0 px-4 pt-4">
-                    <h5 class="modal-title fw-bold" id="editCardModalTitle">@Localizer["Card Details"]</h5>
+                    <h5 class="modal-title fw-bold d-flex align-items-center gap-2" id="friendlyAlertTitle"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div id="editCardDetailsView">
-                    <div class="modal-body px-4">
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">@Localizer["Title"]</label>
-                            <input type="text" id="editCardTitle" class="form-control" style="border-radius:12px" required disabled="@(!Model.CanEditCurrentBoard)">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">
-                                @Localizer["Description"] <span class="text-muted fw-normal">(@Localizer["optional"])</span>
-                                @if (Model.CanEditCurrentBoard)
-                                {
-                                    <button type="button" id="btnToggleDescriptionEdit" class="btn btn-sm btn-link text-decoration-none float-end d-none" style="padding:0;font-size:0.85rem">
-                                        <i data-lucide="edit-3" style="width:14px;height:14px"></i> @Localizer["Edit"]
-                                    </button>
-                                }
-                            </label>
-                            <textarea id="editCardDescription" class="form-control" rows="3" style="border-radius:12px;resize:none" disabled="@(!Model.CanEditCurrentBoard)"></textarea>
-                            <div id="editCardDescriptionPreview" class="description-preview mt-2" style="display:none;padding:12px;border:1px solid;border-radius:12px;word-break:break-word"></div>
-                        </div>
-                        <div class="row g-3 mb-3">
-                            <div class="col-6">
-                                <label class="form-label fw-semibold text-muted">@Localizer["Creator"]</label>
-                                <div class="d-flex align-items-center gap-2">
-                                    <span class="card-assignee-avatar" id="editCardCreatorAvatar" title="">
-                                        <span id="editCardCreatorInitial"></span>
-                                    </span>
-                                    <span id="editCardCreatorName" class="text-muted small">—</span>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label fw-semibold text-muted">@Localizer["Created"]</label>
-                                <div id="editCardCreationTime" class="form-control text-muted" style="border-radius:12px;font-size:0.85rem">—</div>
-                            </div>
-                        </div>
-                        <div class="row g-3 mb-3">
-                            <div class="col-6">
-                                <label class="form-label fw-semibold">@Localizer["Planned Start"]</label>
-                                <input type="date" id="editCardPlannedStart" class="form-control" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label fw-semibold">@Localizer["Due Date"]</label>
-                                <input type="date" id="editCardDueDate" class="form-control" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
-                            </div>
-                        </div>
-                        <div class="row g-3 mb-3">
-                            <div class="col-6">
-                                <label class="form-label fw-semibold">@Localizer["Priority"]</label>
-                                <select id="editCardPriority" class="form-select" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
-                                    <option value="0">@Localizer["Urgent"]</option>
-                                    <option value="1">@Localizer["High"]</option>
-                                    <option value="2">@Localizer["Medium"]</option>
-                                    <option value="3">@Localizer["Low"]</option>
-                                    <option value="4">@Localizer["None"]</option>
-                                </select>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label fw-semibold">@Localizer["Assignee"]</label>
-                                <select id="editCardAssignee" class="form-select" style="border-radius:12px" disabled="@(!Model.CanEditCurrentBoard)">
-                                    <option value="">@Localizer["Unassigned"]</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="editCardRecurring" disabled="@(!Model.CanEditCurrentBoard)">
-                                <label class="form-check-label fw-semibold" for="editCardRecurring">@Localizer["Recurring task"]</label>
-                            </div>
-                            <div id="editCardRecurrenceFields" class="mt-2 d-none">
-                                <div class="input-group" style="max-width:320px">
-                                    <span class="input-group-text" style="border-radius:12px 0 0 12px">@Localizer["Every"]</span>
-                                    <input type="number" id="editCardRecurrenceInterval" min="1" max="365" class="form-control" placeholder="1" style="border-radius:0" disabled="@(!Model.CanEditCurrentBoard)">
-                                    <select id="editCardRecurrenceUnit" class="form-select" style="border-radius:0 12px 12px 0" disabled="@(!Model.CanEditCurrentBoard)">
-                                        <option value="0">@Localizer["Select unit"]</option>
-                                        <option value="1">@Localizer["Days"]</option>
-                                        <option value="2">@Localizer["Weeks"]</option>
-                                        <option value="3">@Localizer["Months"]</option>
-                                        <option value="4">@Localizer["Years"]</option>
-                                    </select>
-                                </div>
-                                <div class="form-text">@Localizer["Due date, interval, and unit are required for recurring tasks."]</div>
-                            </div>
-                        </div>
-                        @* <div class="mb-3">
-                            <label class="form-label fw-semibold">@Localizer["Labels"]</label>
-                            @if (Model.CanEditCurrentBoard)
-                            {
-                                <div class="input-group mb-2 label-input-wrapper">
-                                    <input type="text" id="editCardLabelInput" class="form-control label-input-text" list="editCardLabelSuggestions" placeholder="@Localizer["Search or create a label"]">
-                                    <div class="label-picker-controls">
-                                        <div id="labelColorPresets" class="label-color-presets"></div>
-                                        <input type="color" id="editLabelColorPicker" value="#EF4444" title="@Localizer["Custom color"]" class="label-color-picker">
-                                    </div>
-                                    <button type="button" class="btn btn-outline-secondary" id="btnAddLabel">@Localizer["Add"]</button>
-                                </div>
-                                <datalist id="editCardLabelSuggestions"></datalist>
-                                <div class="form-text">@Localizer["Press Enter to add a label or create a new one on the fly."]</div>
-                            }
-                            else
-                            {
-                                <div class="form-text">@Localizer["Labels are read-only because you do not have edit access to this board."]</div>
-                            }
-                            <div id="editCardLabels" class="edit-card-labels mt-3"></div>
-                        </div> *@
-                        <div class="row g-3">
-                            <div class="col-6">
-                                <label class="form-label text-muted small">@Localizer["Actual Start"] <span class="text-muted fw-normal">(@Localizer["auto"])</span></label>
-                                <div id="editCardActualStart" class="form-control text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label text-muted small">@Localizer["Actual End"] <span class="text-muted fw-normal">(@Localizer["auto"])</span></label>
-                                <div id="editCardActualEnd" class="form-control text-muted" style="border-radius:12px;font-size:0.82rem">—</div>
-                            </div>
-                        </div>
-                        <div class="comments-section">
-                            <label class="form-label fw-semibold mb-2">@Localizer["Comments"]</label>
-                            <div id="commentsList"></div>
-                            @if (Model.CanEditCurrentBoard)
-                            {
-                                <div class="comment-add-area">
-                                    <textarea id="commentInput" placeholder="@Localizer["Add a comment..."]"></textarea>
-									<div class="d-flex align-items-end">
-										<button type="button" class="btn btn-primary btn-comment-submit" id="btnAddComment">@Localizer["Send"]</button>
-									</div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="form-text">@Localizer["Comments are read-only because you do not have edit access to this board."]</div>
-                            }
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0 px-4 pb-4 @(Model.CanEditCurrentBoard ? "justify-content-between" : string.Empty)">
-                        @if (Model.CanEditCurrentBoard)
-                        {
-                            <div class="d-flex gap-2">
-                                <button type="button" class="btn btn-outline-primary" id="btnMoveCard" style="border-radius:10px">@Localizer["Move to..."]</button>
-                                <button type="button" class="btn btn-outline-primary" id="btnTransferCard" style="border-radius:10px">@Localizer["Transfer"]</button>
-                                <button type="button" class="btn btn-outline-danger" id="btnDeleteCard" style="border-radius:10px">@Localizer["Delete"]</button>
-                            </div>
-                        }
-                        <div>
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@(Model.CanEditCurrentBoard ? Localizer["Cancel"].Value : Localizer["Close"].Value)</button>
-                            @if (Model.CanEditCurrentBoard)
-                            {
-                                <button type="button" class="btn btn-primary px-4" id="btnUpdateCard" style="border-radius:10px">@Localizer["Save"]</button>
-                            }
-                        </div>
+                <div class="modal-body px-4">
+                    <div class="d-flex align-items-start gap-3">
+                        <i class="align-middle me-2 text-danger" id="friendlyAlertIcon" data-lucide="alert-circle"></i>
+                        <p class="mb-0" id="friendlyAlertMessage"></p>
                     </div>
                 </div>
-                @if (Model.CanEditCurrentBoard)
-                {
-                    <div id="moveCardView" class="d-none">
-                        <div class="modal-body px-4">
-                            <div class="mb-0">
-                                <label class="form-label fw-semibold">@Localizer["Target Column"]</label>
-                                <select id="moveTargetColumn" class="form-select" style="border-radius:12px">
-                                    <option value="">@Localizer["Select a column"]</option>
-                                </select>
-                            </div>
-                            <div class="alert alert-danger mt-3 mb-0 d-none" id="moveCardError" role="alert"></div>
-                        </div>
-                        <div class="modal-footer border-0 px-4 pb-4">
-                            <button type="button" class="btn btn-light" id="btnBackFromMoveCard" style="border-radius:10px">@Localizer["Cancel"]</button>
-                            <button type="button" class="btn btn-primary px-4" id="btnConfirmMoveCard" style="border-radius:10px" disabled>
-                                @Localizer["Move"]
-                            </button>
-                        </div>
-                    </div>
-                    <div id="transferCardView" class="d-none">
-                        <div class="modal-body px-4">
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold">@Localizer["Target Board"]</label>
-                                <select id="transferTargetBoard" class="form-select" style="border-radius:12px">
-                                    <option value="">@Localizer["Select a board"]</option>
-                                </select>
-                            </div>
-                            <div class="mb-0">
-                                <label class="form-label fw-semibold">@Localizer["Target Column"]</label>
-                                <select id="transferTargetColumn" class="form-select" style="border-radius:12px" disabled>
-                                    <option value="">@Localizer["Select a column"]</option>
-                                </select>
-                            </div>
-                            <div class="alert alert-warning mt-3 mb-0" role="alert">
-                                <div class="d-flex align-items-start">
-                                    <div class="alert-icon pe-3">
-                                        <i class="align-middle" data-lucide="alert-triangle"></i>
-                                    </div>
-                                    <div class="alert-message">
-                                        @Localizer["Comments will not be transferred and the assignee will be cleared."]
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="alert alert-danger mt-3 mb-0 d-none" id="transferCardError" role="alert"></div>
-                        </div>
-                        <div class="modal-footer border-0 px-4 pb-4">
-                            <button type="button" class="btn btn-light" id="btnBackFromTransferCard" style="border-radius:10px">@Localizer["Cancel"]</button>
-                            <button type="button" class="btn btn-primary px-4" id="btnConfirmTransferCard" style="border-radius:10px" disabled>
-                                @Localizer["Transfer"]
-                            </button>
-                        </div>
-                    </div>
-                    <div id="deleteCardView" class="d-none">
-                        <div class="modal-body px-4">
-                            <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action cannot be undone."]</p>
-                            <div class="alert alert-danger mt-2 d-none" id="deleteCardError" role="alert"></div>
-                        </div>
-                        <div class="modal-footer border-0 px-4 pb-4">
-                            <button type="button" class="btn btn-light" id="btnBackFromDeleteCard" style="border-radius:10px">@Localizer["Cancel"]</button>
-                            <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteCard" style="border-radius:10px">
-                                @Localizer["Delete"]
-                            </button>
-                        </div>
-                    </div>
-                }
+                <div class="modal-footer border-0 px-4 pb-4">
+                    <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["OK"]</button>
+                </div>
             </div>
         </div>
     </div>
 }
 
-<!-- Delete Board Confirmation Modal -->
+@* ── Delete Board Modal ── *@
 <div class="modal fade" id="deleteBoardConfirmModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
             <div class="modal-header border-0 px-4 pt-4">
                 <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete Board"]</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body px-4">
-                <p>@Localizer["Are you sure you want to delete the board"] <strong id="deleteBoardNameDisplay"></strong>?</p>
+                <p>@Localizer["Are you sure you want to delete"] <strong id="deleteBoardNameDisplay"></strong>@Localizer["?"]</p>
                 <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action permanently removes all columns and cards. This cannot be undone."]</p>
                 <div class="alert alert-danger mt-2 d-none" id="deleteBoardError" role="alert"></div>
             </div>
             <div class="modal-footer border-0 px-4 pb-4">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
-                <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteBoard" style="border-radius:10px">
-                    @Localizer["Delete Board"]
-                </button>
+                <button type="button" class="btn btn-danger" id="btnConfirmDeleteBoard" style="border-radius:10px">@Localizer["Delete"]</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Delete Column Confirmation Modal -->
-<div class="modal fade" id="deleteColumnConfirmModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
-            <div class="modal-header border-0 px-4 pt-4">
-                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete Column"]</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body px-4">
-                <p>@Localizer["Are you sure you want to delete the column"] <strong id="deleteColumnNameDisplay"></strong>?</p>
-                <p class="text-danger small"><i class="align-middle me-1" data-lucide="info" style="width:14px;height:14px"></i> @Localizer["This action cannot be undone."]</p>
-                <div class="alert alert-warning mt-2 d-none" id="deleteColumnWarning" role="alert"></div>
-                <div class="alert alert-danger mt-2 d-none" id="deleteColumnError" role="alert"></div>
-            </div>
-            <div class="modal-footer border-0 px-4 pb-4">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
-                <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteColumn" style="border-radius:10px">
-                    @Localizer["Delete Column"]
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Delete Comment Confirmation Modal -->
-<div class="modal fade" id="deleteCommentConfirmModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
-            <div class="modal-header border-0 px-4 pt-4">
-                <h5 class="modal-title fw-bold text-danger"><i class="align-middle me-2" data-lucide="alert-triangle"></i>@Localizer["Delete Comment"]</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body px-4">
-                <p>@Localizer["Are you sure you want to delete this comment?"]</p>
-                <div class="alert alert-danger mt-2 d-none" id="deleteCommentError" role="alert"></div>
-            </div>
-            <div class="modal-footer border-0 px-4 pb-4">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["Cancel"]</button>
-                <button type="button" class="btn btn-danger px-4" id="btnConfirmDeleteComment" style="border-radius:10px">
-                    @Localizer["Delete"]
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Friendly Alert Modal -->
-<div class="modal fade" id="friendlyAlertModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
-            <div class="modal-header border-0 px-4 pt-4">
-                <h5 class="modal-title fw-bold">
-                    <i class="align-middle me-2 text-danger" id="friendlyAlertIcon" data-lucide="alert-circle"></i>
-                    <span id="friendlyAlertTitle">@Localizer["Notice"]</span>
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body px-4">
-                <p class="mb-0" id="friendlyAlertMessage"></p>
-            </div>
-            <div class="modal-footer border-0 px-4 pb-4">
-                <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal" style="border-radius:10px">@Localizer["OK"]</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Localization Data -->
+@* ── Localization data (read by module's i18n.ts) ── *@
 <div id="loc-data" hidden>
     <span data-key="kanban">@Localizer["Kanban"]</span>
     <span data-key="read-only">@Localizer["Read-only"]</span>
@@ -1915,99 +383,102 @@
     <span data-key="labels">@Localizer["Labels"]</span>
     <span data-key="search-or-create-label">@Localizer["Search or create a label"]</span>
     <span data-key="add">@Localizer["Add"]</span>
-    <span data-key="press-enter-label">@Localizer["Press Enter to add a label or create a new one on the fly."]</span>
-    <span data-key="labels-read-only">@Localizer["Labels are read-only because you do not have edit access to this board."]</span>
+    <span data-key="search">@Localizer["Search"]</span>
+    <span data-key="assigned-to">@Localizer["Assigned to"]</span>
+    <span data-key="creator">@Localizer["Creator"]</span>
     <span data-key="actual-start">@Localizer["Actual Start"]</span>
     <span data-key="actual-end">@Localizer["Actual End"]</span>
-    <span data-key="auto">@Localizer["auto"]</span>
-    <span data-key="close">@Localizer["Close"]</span>
-    <span data-key="save">@Localizer["Save"]</span>
-    <span data-key="move">@Localizer["Move"]</span>
-    <span data-key="move-card">@Localizer["Move Card"]</span>
-    <span data-key="move-to">@Localizer["Move to..."]</span>
-    <span data-key="moving">@Localizer["Moving..."]</span>
-    <span data-key="failed-move">@Localizer["Failed to move card:"]</span>
+    <span data-key="recurrence">@Localizer["Recurrence"]</span>
+    <span data-key="day">@Localizer["Day"]</span>
+    <span data-key="week">@Localizer["Week"]</span>
+    <span data-key="month">@Localizer["Month"]</span>
+    <span data-key="year">@Localizer["Year"]</span>
+    <span data-key="every">@Localizer["Every"]</span>
+    <span data-key="days">@Localizer["Days"]</span>
+    <span data-key="weeks">@Localizer["Weeks"]</span>
+    <span data-key="months">@Localizer["Months"]</span>
+    <span data-key="years">@Localizer["Years"]</span>
+    <span data-key="comment">@Localizer["Comment"]</span>
+    <span data-key="comments">@Localizer["Comments"]</span>
+    <span data-key="write-a-comment">@Localizer["Write a comment..."]</span>
+    <span data-key="send">@Localizer["Send"]</span>
+    <span data-key="notice">@Localizer["Notice"]</span>
+    <span data-key="delete-column">@Localizer["Delete column"]</span>
+    <span data-key="rename-column">@Localizer["Rename column"]</span>
+    <span data-key="delete-card">@Localizer["Delete card"]</span>
+    <span data-key="move-card">@Localizer["Move card"]</span>
     <span data-key="transfer">@Localizer["Transfer"]</span>
-    <span data-key="transfer-card">@Localizer["Transfer Card"]</span>
+    <span data-key="no-cards-match-filter">@Localizer["No cards match the current filters."]</span>
+    <span data-key="search-title-or-description">@Localizer["Search title or description..."]</span>
+    <span data-key="clear">@Localizer["Clear"]</span>
+    <span data-key="clear-all-filters">@Localizer["Clear all filters"]</span>
+    <span data-key="previous-column">@Localizer["Previous column"]</span>
+    <span data-key="next-column">@Localizer["Next column"]</span>
+    <span data-key="edit-description">@Localizer["Edit"]</span>
+    <span data-key="save">@Localizer["Save"]</span>
+    <span data-key="preview">@Localizer["Preview"]</span>
+    <span data-key="no-cards-match">@Localizer["No cards match the current filters."]</span>
+    <span data-key="drag-handle">@Localizer["Drag to reorder"]</span>
+    <span data-key="close">@Localizer["Close"]</span>
+    <span data-key="loading">@Localizer["Loading..."]</span>
+    <span data-key="unassigned">@Localizer["Unassigned"]</span>
+    <span data-key="delete-comment">@Localizer["Delete comment"]</span>
+    <span data-key="delete-column-warning">@Localizer["This column contains cards that will be deleted together."]</span>
     <span data-key="select-board">@Localizer["Select a board"]</span>
     <span data-key="select-column">@Localizer["Select a column"]</span>
-    <span data-key="no-transfer-targets">@Localizer["No editable target boards are available."]</span>
     <span data-key="loading-transfer-targets">@Localizer["Loading target boards..."]</span>
-    <span data-key="transferring">@Localizer["Transferring..."]</span>
-    <span data-key="failed-load-transfer-targets">@Localizer["Failed to load transfer targets."]</span>
-    <span data-key="failed-transfer">@Localizer["Failed to transfer card:"]</span>
-    <span data-key="delete-board">@Localizer["Delete Board"]</span>
-    <span data-key="delete-column">@Localizer["Delete Column"]</span>
-    <span data-key="delete-column-title">@Localizer["Delete column"]</span>
-    <span data-key="rename-column">@Localizer["Rename column"]</span>
-    <span data-key="rename-board">@Localizer["Rename board"]</span>
-    <span data-key="are-you-sure-delete-board">@Localizer["Are you sure you want to delete the board"]</span>
-    <span data-key="delete-board-warning">@Localizer["This action permanently removes all columns and cards. This cannot be undone."]</span>
-    <span data-key="are-you-sure-delete-column">@Localizer["Are you sure you want to delete the column"]</span>
-    <span data-key="delete-column-warning">@Localizer["This action cannot be undone."]</span>
-    <span data-key="deleting">@Localizer["Deleting..."]</span>
-    <span data-key="saving">@Localizer["Saving..."]</span>
-    <span data-key="column">@Localizer["column"]</span>
-    <span data-key="column-name-required">@Localizer["Column name is required."]</span>
-    <span data-key="title-required">@Localizer["Title is required."]</span>
-    <span data-key="no-labels-yet">@Localizer["No labels yet."]</span>
-    <span data-key="change-color">@Localizer["Change {{0}} color"]</span>
-    <span data-key="remove">@Localizer["Remove {{0}}"]</span>
-    <span data-key="failed-delete-board">@Localizer["Failed to delete board:"]</span>
+    <span data-key="no-transfer-targets">@Localizer["No editable target boards are available."]</span>
+    <span data-key="failed-rename-board">@Localizer["Failed to rename board."]</span>
     <span data-key="failed-create-column">@Localizer["Failed to create column."]</span>
-    <span data-key="failed-rename-column">@Localizer["Failed to rename column:"]</span>
-    <span data-key="failed-create-card">@Localizer["Failed to create card."]</span>
-    <span data-key="failed-delete-column">@Localizer["Failed to delete column:"]</span>
-    <span data-key="failed-remove-label">@Localizer["Failed to remove label."]</span>
-    <span data-key="failed-update-label-color">@Localizer["Failed to update label color."]</span>
+    <span data-key="failed-delete-board">@Localizer["Failed to delete board."]</span>
+    <span data-key="failed-save">@Localizer["Failed to save."]</span>
+    <span data-key="failed-move">@Localizer["Failed to move card."]</span>
+    <span data-key="failed-transfer">@Localizer["Failed to transfer card."]</span>
+    <span data-key="failed-delete-card">@Localizer["Failed to delete card."]</span>
+    <span data-key="failed-delete-column">@Localizer["Failed to delete column."]</span>
+    <span data-key="failed-delete-comment">@Localizer["Failed to delete comment."]</span>
+    <span data-key="failed-add-comment">@Localizer["Failed to add comment."]</span>
+    <span data-key="failed-load-transfer-targets">@Localizer["Failed to load transfer targets."]</span>
+    <span data-key="comment-too-long">@Localizer["Comment is too long (max 2000 characters)."]</span>
+    <span data-key="uploading-images">@Localizer["Uploading images..."]</span>
+    <span data-key="failed-upload-image">@Localizer["Failed to upload image."]</span>
+    <span data-key="failed-upload-pasted-image">@Localizer["Failed to upload pasted image."]</span>
+    <span data-key="sending">@Localizer["Sending..."]</span>
+    <span data-key="drag-or-paste-images">@Localizer["You can drag images here or paste from clipboard."]</span>
+    <span data-key="drop-images-here">@Localizer["Release to add images"]</span>
     <span data-key="failed-add-label">@Localizer["Failed to add label."]</span>
-    <span data-key="failed-load-members">@Localizer["Failed to load board members."]</span>
-    <span data-key="failed-save">@Localizer["Failed to save:"]</span>
-    <span data-key="failed-rename-board">@Localizer["Failed to rename board:"]</span>
+    <span data-key="failed-remove-label">@Localizer["Failed to remove label."]</span>
+    <span data-key="recurring-task-returned">@Localizer["Recurring task has been returned to {0}.", "{0}"]</span>
+    <span data-key="recurring">@Localizer["Recurring"]</span>
+    <span data-key="column-name-required">@Localizer["Column name is required."]</span>
     <span data-key="server-error">@Localizer["Server error"]</span>
-    <span data-key="unknown-error">@Localizer["Unknown error"]</span>
-    <span data-key="delete-empty-column">@Localizer["Delete empty column"]</span>
-    <span data-key="this-column-contains">@Localizer["This column contains"]</span>
-    <span data-key="cards-delete-warning">@Localizer["card(s). Deleting the column will also permanently delete all its cards."]</span>
     <span data-key="just-now">@Localizer["just now"]</span>
     <span data-key="m-ago">@Localizer["m ago"]</span>
     <span data-key="h-ago">@Localizer["h ago"]</span>
     <span data-key="d-ago">@Localizer["d ago"]</span>
     <span data-key="no-comments-yet">@Localizer["No comments yet."]</span>
-    <span data-key="failed-add-comment">@Localizer["Failed to add comment."]</span>
-    <span data-key="comment-too-long">@Localizer["Comment is too long (max 2000 characters)."]</span>
-    <span data-key="sending">@Localizer["Sending..."]</span>
-    <span data-key="send">@Localizer["Send"]</span>
-    <span data-key="delete-comment">@Localizer["Delete"]</span>
-    <span data-key="confirm-delete-comment">@Localizer["Delete this comment?"]</span>
-    <span data-key="failed-delete-comment">@Localizer["Failed to delete comment."]</span>
-    <span data-key="filter">@Localizer["Filter"]</span>
-    <span data-key="clear">@Localizer["Clear"]</span>
-    <span data-key="clear-all-filters">@Localizer["Clear all filters"]</span>
-    <span data-key="no-cards-match-filter">@Localizer["No cards match the current filters."]</span>
-    <span data-key="search-title-or-description">@Localizer["Search title or description..."]</span>
 </div>
 
-<!-- Fullscreen Image Overlay -->
-<div id="imageFullscreenOverlay" class="image-fullscreen-overlay">
-    <img id="imageFullscreenImg" src="" alt="">
-</div>
-
-@* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
-<script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@@1.15.6/Sortable.min.js"></script>
-<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
-<script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
-<script src="~/node_modules/katex/dist/katex.min.js" asp-append-version="true"></script>
-<script src="~/node_modules/mermaid/dist/mermaid.min.js" asp-append-version="true"></script>
-<script>
-    window.kanbanCsrfToken = "@token";
-    window.kanbanImageUploadUrl = '@Html.Raw(Storage.GetUploadUrl("kanban-images"))';
-    window.kanbanCanEditCurrentBoard = @Model.CanEditCurrentBoard.ToString().ToLowerInvariant();
-    window.kanbanCurrentBoardId = @(Model.CurrentBoard?.Id ?? 0);
-</script>
-<script src="~/js/enhance.js"></script>
-<script src="~/js/upload-image.js"></script>
-<script src="~/js/kanban-board.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
+    <script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+    <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
+    <script src="~/node_modules/katex/dist/katex.min.js" asp-append-version="true"></script>
+    <script src="~/node_modules/mermaid/dist/mermaid.min.js" asp-append-version="true"></script>
+    <script>
+    if (typeof mermaid !== 'undefined') mermaid.initialize({ startOnLoad: false, securityLevel: 'strict' });
+    </script>
+    <script type="module">
+    import { initKanbanIndexPage } from '/dist/kanban-page.js';
+
+    initKanbanIndexPage({
+        csrfToken: '@token',
+        boardId: @(Model.CurrentBoard?.Id ?? 0),
+        boardData: @(Model.BoardData != null
+            ? Html.Raw(JsonSerializer.Serialize(Model.BoardData, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }))
+            : Html.Raw("null")),
+        highlightCardId: @highlightCardIdValue,
+        canEditCurrentBoard: @Model.CanEditCurrentBoard.ToString().ToLowerInvariant()
+    });
+    </script>
 }

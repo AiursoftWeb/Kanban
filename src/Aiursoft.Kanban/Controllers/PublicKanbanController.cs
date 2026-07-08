@@ -12,12 +12,23 @@ namespace Aiursoft.Kanban.Controllers;
 [Route("PublicKanban/View/{boardId:int}")]
 public class PublicKanbanController(TemplateDbContext db) : Controller
 {
+    private static readonly string[] DotColors =
+    [
+        "dot-blue", "dot-orange", "dot-green", "dot-purple",
+        "dot-pink", "dot-teal", "dot-amber", "dot-indigo"
+    ];
+
     [HttpGet]
     public async Task<IActionResult> View(int boardId)
     {
         var board = await db.KanbanBoards
             .Include(b => b.Columns.OrderBy(c => c.Order))
                 .ThenInclude(c => c.Cards.OrderBy(cd => cd.Order))
+                    .ThenInclude(card => card.CardLabels)
+                        .ThenInclude(link => link.Label)
+            .Include(b => b.Columns.OrderBy(c => c.Order))
+                .ThenInclude(c => c.Cards.OrderBy(cd => cd.Order))
+                    .ThenInclude(card => card.AssignedUser)
             .FirstOrDefaultAsync(b => b.Id == boardId);
 
         if (board == null) return NotFound();
@@ -30,10 +41,60 @@ public class PublicKanbanController(TemplateDbContext db) : Controller
 
         var canEdit = userId != null && await HasEditAccess(board, userId);
 
+        var now = DateTime.UtcNow;
+        var dotIndex = 0;
+        var boardData = new BoardData
+        {
+            Id = board.Id,
+            Name = board.Name,
+            CanEdit = canEdit,
+            Columns = board.Columns.OrderBy(c => c.Order).Select(col =>
+            {
+                var dotClass = DotColors[dotIndex % DotColors.Length];
+                dotIndex++;
+                return new ColumnData
+                {
+                    Id = col.Id,
+                    Name = col.Name,
+                    Color = dotClass,
+                    DotClass = dotClass,
+                    Status = col.ColumnStatus.ToString(),
+                    Order = col.Order,
+                    Cards = col.Cards.OrderBy(c => c.Order).Select(card => new CardSummary
+                    {
+                        Id = card.Id,
+                        Title = card.Title,
+                        Priority = card.Priority.ToString(),
+                        DueDate = card.DueDate?.ToString("yyyy-MM-dd"),
+                        IsOverdue = card.DueDate.HasValue && card.DueDate.Value < now
+                            && col.ColumnStatus != ColumnStatus.Completed,
+                        PlannedStartDate = card.PlannedStartTime?.ToString("yyyy-MM-dd"),
+                        Assignee = card.AssignedUser != null ? new UserSummary
+                        {
+                            UserId = card.AssignedUser.Id,
+                            DisplayName = card.AssignedUser.DisplayName
+                        } : null,
+                        Labels = card.CardLabels.OrderBy(link => link.Label.Name).Select(link => new LabelSummary
+                        {
+                            Id = link.LabelId,
+                            Name = link.Label.Name,
+                            Color = link.Label.Color
+                        }).ToList(),
+                        CommentCount = 0,
+                        IsRecurring = card.RecurrenceInterval.HasValue && card.RecurrenceUnit != RecurrenceUnit.None,
+                        RecurrenceInterval = card.RecurrenceInterval,
+                        RecurrenceUnit = (int)card.RecurrenceUnit,
+                        Description = card.Description
+                    }).ToList()
+                };
+            }).ToList()
+        };
+
         return this.StackView(new PublicBoardViewModel(board.Name)
         {
             Board = board,
-            CanEdit = canEdit
+            CanEdit = canEdit,
+            BoardData = boardData
         });
     }
 

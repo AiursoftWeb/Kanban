@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.Kanban.Models.KanbanViewModels.ManageSharesViewModel
 @inject IViewLocalizer Localizer
 
@@ -169,7 +170,7 @@
                                                 <span class="badge bg-success"><i class="align-middle" data-lucide="edit-3"></i> @Localizer["Editable"]</span>
                                             }
                                         </td>
-                                        <td><small class="text-muted">@share.CreationTime.ToString("yyyy-MM-dd")</small></td>
+                                        <td><small class="text-muted"><label data-utc-time="@share.CreationTime.ToHtmlDateTime()"></label></small></td>
                                         <td class="text-end">
                                             <form asp-action="RemoveShare" asp-route-id="@share.Id" method="post" style="display:inline">
                                                 @Html.AntiForgeryToken()

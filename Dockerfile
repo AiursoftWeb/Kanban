@@ -9,6 +9,9 @@ WORKDIR /src
 # Only copy package files to take advantage of Docker cache
 COPY ${CSPROJ_PATH}wwwroot/package.json ${CSPROJ_PATH}wwwroot/package-lock.json* ${CSPROJ_PATH}wwwroot/.npmrc* /src/${CSPROJ_PATH}wwwroot/
 RUN npm install --prefix "${CSPROJ_PATH}wwwroot" --loglevel verbose
+# Copy full source for build
+COPY ${CSPROJ_PATH}wwwroot/ /src/${CSPROJ_PATH}wwwroot/
+RUN npm run build --prefix "${CSPROJ_PATH}wwwroot"
 
 # ============================
 # Prepare Building Environment
@@ -19,8 +22,8 @@ ARG TARGETARCH
 
 WORKDIR /src
 COPY . .
-# Copy node_modules from npm-env
-COPY --from=npm-env /src/${CSPROJ_PATH}wwwroot/node_modules /src/${CSPROJ_PATH}wwwroot/node_modules
+# Copy node_modules and build output from npm-env
+COPY --from=npm-env /src/${CSPROJ_PATH}wwwroot /src/${CSPROJ_PATH}wwwroot
 
 # Build
 RUN if [ "$TARGETARCH" = "arm64" ]; then \

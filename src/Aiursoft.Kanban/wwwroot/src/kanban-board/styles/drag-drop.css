@@ -1,0 +1,37 @@
+/* ============================================================
+   drag-drop.css — SortableJS drag states (ghost, chosen, handle)
+   Extracted from Index.cshtml <style> — selectors unchanged
+   ============================================================ */
+
+.drag-handle {
+    cursor: grab;
+    color: var(--bs-secondary-color);
+    user-select: none;
+    padding: 0 4px;
+}
+
+.drag-handle:active { cursor: grabbing; }
+
+/* Board-level sortable states */
+.board-row.sortable-chosen { background: var(--bs-primary-bg-subtle, #e7f1ff) !important; }
+.board-row.sortable-ghost { opacity: 0.3; background: var(--bs-primary, #4dabf7) !important; }
+
+/* Card sortable states */
+.kanban-card.sortable-chosen {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.16), 0 4px 8px rgba(0,0,0,0.08) !important;
+    transform: rotate(2deg) scale(1.03) !important;
+    opacity: 0.9;
+    z-index: 1000;
+}
+
+.kanban-card.sortable-ghost {
+    opacity: 0.3;
+    background: var(--bs-primary, #4dabf7);
+    border: 2px dashed var(--bs-primary, #4dabf7);
+    border-radius: 12px;
+}
+
+/* Column cards container ghost */
+.column-cards.sortable-ghost {
+    background: rgba(var(--bs-primary-rgb, 77, 171, 247), 0.08);
+}

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Actual end" xml:space="preserve">
+    <value>Actual end</value>
+  </data>
+  <data name="Actual start" xml:space="preserve">
+    <value>Actual start</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Are you sure you want to delete this card? This action cannot be undone." xml:space="preserve">
+    <value>Are you sure you want to delete this card? This action cannot be undone.</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Assignee</value>
+  </data>
+  <data name="Board" xml:space="preserve">
+    <value>Board</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Column</value>
+  </data>
+  <data name="comment image" xml:space="preserve">
+    <value>comment image</value>
+  </data>
+  <data name="comments" xml:space="preserve">
+    <value>comments</value>
+  </data>
+  <data name="Comments will stay with the current card history, and assignee may be re-evaluated on the target board." xml:space="preserve">
+    <value>Comments will remain with the current card history, and the assignee may be reassigned on the target board.</value>
+  </data>
+  <data name="Context around ownership, status and where this card currently lives." xml:space="preserve">
+    <value>Context regarding ownership, status and where this card currently resides.</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Creator</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Delete card" xml:space="preserve">
+    <value>Delete card</value>
+  </data>
+  <data name="Delete comment" xml:space="preserve">
+    <value>Delete comment</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Drag an image here or paste from clipboard to attach it to the comment." xml:space="preserve">
+    <value>Drag an image here or paste from clipboard to attach it to the comment.</value>
+  </data>
+  <data name="Due" xml:space="preserve">
+    <value>Due</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Every</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Labels</value>
+  </data>
+  <data name="Markdown, Mermaid and KaTeX are all supported." xml:space="preserve">
+    <value>Markdown, Mermaid and KaTeX are all supported.</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>Months</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="Move to column" xml:space="preserve">
+    <value>Move to column</value>
+  </data>
+  <data name="Move within this board or transfer ownership to another board." xml:space="preserve">
+    <value>Move within this board or transfer ownership to another board.</value>
+  </data>
+  <data name="No comments yet." xml:space="preserve">
+    <value>No comments yet.</value>
+  </data>
+  <data name="No description yet. Capture the context, plan, or acceptance notes for this card here." xml:space="preserve">
+    <value>No description yet. Capture the context, plan, or acceptance notes for this card here.</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="Recurring cards require a due date, interval and recurrence unit." xml:space="preserve">
+    <value>Recurring cards require a due date, interval and recurrence unit.</value>
+  </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Recurring task</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Schedule &amp; status" xml:space="preserve">
+    <value>Schedule &amp; status</value>
+  </data>
+  <data name="Search assignee..." xml:space="preserve">
+    <value>Search assignee...</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Search or create a label</value>
+  </data>
+  <data name="Select board..." xml:space="preserve">
+    <value>Select board...</value>
+  </data>
+  <data name="Select column..." xml:space="preserve">
+    <value>Select column...</value>
+  </data>
+  <data name="Select unit" xml:space="preserve">
+    <value>Select unit</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="This action cannot be undone." xml:space="preserve">
+    <value>This action cannot be undone.</value>
+  </data>
+  <data name="This is the planning and execution timeline for the card." xml:space="preserve">
+    <value>This is the planning and execution timeline for the card.</value>
+  </data>
+  <data name="Thread context, decisions, follow-ups and attachments stay with the card." xml:space="preserve">
+    <value>Thread context, decisions, follow-ups and attachments stay with the card.</value>
+  </data>
+  <data name="Tip: paste an image directly into the editor to upload and embed it." xml:space="preserve">
+    <value>Tip: paste an image directly into the editor to upload and embed it.</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="Use labels to cluster work across the board and the detail page." xml:space="preserve">
+    <value>Use labels to group work across the board and the detail page.</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Weeks</value>
+  </data>
+  <data name="Who is currently on point for this work." xml:space="preserve">
+    <value>Who is currently responsible for this work?</value>
+  </data>
+  <data name="Write a comment... (Ctrl+Enter to send)" xml:space="preserve">
+    <value>Write a comment... (Ctrl+Enter to send)</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Years</value>
+  </data>
+
+</root>

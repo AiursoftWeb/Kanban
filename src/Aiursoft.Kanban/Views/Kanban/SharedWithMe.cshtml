@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.Kanban.Models.KanbanViewModels.SharedWithMeViewModel
 @inject IViewLocalizer Localizer
 
@@ -107,8 +108,8 @@
                                                 <span class="text-muted">—</span>
                                             }
                                         </td>
-                                        <td><small class="text-muted">@board.CreationTime.ToString("yyyy-MM-dd")</small></td>
-                                        <td><small class="text-muted">@share.CreationTime.ToString("yyyy-MM-dd")</small></td>
+                                        <td><small class="text-muted"><label data-utc-time="@board.CreationTime.ToHtmlDateTime()"></label></small></td>
+                                        <td><small class="text-muted"><label data-utc-time="@share.CreationTime.ToHtmlDateTime()"></label></small></td>
                                         <td class="text-end">
                                             @if (share.Permission == Aiursoft.Kanban.Entities.SharePermission.ReadOnly)
                                             {

@@ -199,12 +199,16 @@ public class KanbanControllerTests : TestBase
             new Dictionary<string, string>());
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
+        // Columns are now rendered client-side from JSON. Verify the JSON data
+        // has columns in the correct order (To Do before In Progress).
         var page = await Http.GetAsync($"/Kanban/Index?boardId={boardId}");
         var html = await page.Content.ReadAsStringAsync();
-
-        Assert.IsTrue(
-            html.IndexOf("To Do", StringComparison.Ordinal) < html.IndexOf("In Progress", StringComparison.Ordinal),
-            "Source column should appear before dest column in page order");
+        var toDoIdx = html.IndexOf("\"name\":\"To Do\"", StringComparison.Ordinal);
+        var inProgressIdx = html.IndexOf("\"name\":\"In Progress\"", StringComparison.Ordinal);
+        Assert.IsTrue(toDoIdx >= 0, "Should find 'To Do' column in JSON data");
+        Assert.IsTrue(inProgressIdx >= 0, "Should find 'In Progress' column in JSON data");
+        Assert.IsTrue(toDoIdx < inProgressIdx,
+            "Source column should appear before dest column in JSON data order");
     }
 
     [TestMethod]
@@ -675,14 +679,21 @@ public class KanbanControllerTests : TestBase
     {
         var boardId = await CreateBoardAndGetIdAsync("Board");
 
+        // BoardData JSON is embedded in the page as: data: @Json.Serialize(Model.BoardData)
+        // The default System.Text.Json serialization uses PascalCase (matching C# property names).
         var page = await Http.GetAsync($"/Kanban/Index?boardId={boardId}");
         var html = await page.Content.ReadAsStringAsync();
 
-        var match = System.Text.RegularExpressions.Regex.Match(
-            html, @"data-column-id=""(\d+)""");
-        var columnId = int.Parse(match.Groups[1].Value);
+        // Match camelCase: "columns":[{"id":42   —  the first column id in the array
+        var colMatch = System.Text.RegularExpressions.Regex.Match(
+            html, @"""columns""\s*:\s*\[\s*\{\s*""id""\s*:\s*(\d+)");
+        if (colMatch.Success)
+        {
+            var columnId = int.Parse(colMatch.Groups[1].Value);
+            return (boardId, columnId);
+        }
 
-        return (boardId, columnId);
+        throw new InvalidOperationException("Could not find column ID in BoardData JSON");
     }
 
     private async Task<(int Id, string Title)> CreateCardAndGetIdAsync(int columnId, string title)

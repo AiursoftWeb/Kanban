@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.Text.RegularExpressions;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
 using Aiursoft.Kanban.Services.Agent;
@@ -20,8 +19,6 @@ public class LabelWriteTools(
         "#EF4444", "#F97316", "#EAB308", "#22C55E",
         "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6"
     ];
-
-    private static readonly Regex HexColorRegex = new("^#[0-9A-Fa-f]{6}$", RegexOptions.Compiled);
 
     [McpServerTool, Description("Add a label to a card. Creates the label if it does not exist.")]
     [Advice]
@@ -92,36 +89,5 @@ public class LabelWriteTools(
         await db.SaveChangesAsync();
 
         return $"Label removed from card #{cardId} \"{card.Title}\".";
-    }
-
-    [McpServerTool, Description("Change the color of a label on a card")]
-    [Advice]
-    public async Task<string> UpdateLabelColor(
-        [Description("Card ID")] int cardId,
-        [Description("Label ID")] int labelId,
-        [Description("Hex color code, e.g. #FF5733")] string color)
-    {
-        var userId = currentUser.UserId;
-        var normalizedColor = color.Trim();
-        if (!HexColorRegex.IsMatch(normalizedColor))
-            return "Error: Color must be a hex value like #FF5733.";
-
-        var card = await db.KanbanCards
-            .Include(c => c.Column).ThenInclude(col => col.Board)
-            .FirstOrDefaultAsync(c => c.Id == cardId);
-        if (card == null) return "Error: Card not found.";
-        if (!await access.HasEditAccess(card.Column.Board, userId))
-            return "Error: You do not have permission to edit this board.";
-
-        var label = await db.KanbanCardLabels
-            .Where(link => link.CardId == cardId && link.LabelId == labelId)
-            .Select(link => link.Label)
-            .FirstOrDefaultAsync();
-        if (label == null) return "Error: Label not found on this card.";
-
-        label.Color = normalizedColor;
-        await db.SaveChangesAsync();
-
-        return $"Label \"{label.Name}\" color changed to {label.Color}.";
     }
 }

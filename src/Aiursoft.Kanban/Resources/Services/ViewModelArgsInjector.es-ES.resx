@@ -48,6 +48,9 @@
   <data name="Bad Request" xml:space="preserve">
     <value>Solicitud incorrecta</value>
   </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Detalles de la tarjeta</value>
+  </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Cambiar avatar</value>
   </data>

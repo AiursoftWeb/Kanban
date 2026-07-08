@@ -1,5 +1,6 @@
 @using Aiursoft.Kanban.Models.DailyReportViewModels
 @using Aiursoft.Kanban.Entities
+@using Aiursoft.WebTools
 @model DailyReportIndexViewModel
 
 @* ReSharper disable once Razor.SectionNotResolved *@
@@ -99,7 +100,7 @@
             <div class="d-flex align-items-center justify-content-between mb-3">
                 <div>
                     <span class="badge type-badge-plan highlight-badge me-2">@Localizer["Today's Plan"]</span>
-                    <small class="text-muted">@Localizer["Generated"] @Model.TodayPlan.GeneratedAt.AddHours(8).ToString("HH:mm")</small>
+                    <small class="text-muted">@Localizer["Generated"] <label data-utc-time="@Model.TodayPlan.GeneratedAt.ToHtmlDateTime()" style="display:inline"></label></small>
                 </div>
                 <div class="d-flex gap-2">
                     <a href="/DailyReport/Details/@Model.TodayPlan.Id" class="btn btn-sm btn-outline-secondary">
@@ -146,7 +147,7 @@ else if (Model.CanSummarize)
             <div class="d-flex align-items-center justify-content-between mb-3">
                 <div>
                     <span class="badge type-badge-summary highlight-badge me-2">@Localizer["Today's Summary"]</span>
-                    <small class="text-muted">@Localizer["Generated"] @Model.TodaySummary.GeneratedAt.AddHours(8).ToString("HH:mm")</small>
+                    <small class="text-muted">@Localizer["Generated"] <label data-utc-time="@Model.TodaySummary.GeneratedAt.ToHtmlDateTime()" style="display:inline"></label></small>
                 </div>
                 <div class="d-flex gap-2">
                     <a href="/DailyReport/Details/@Model.TodaySummary.Id" class="btn btn-sm btn-outline-secondary">
@@ -230,7 +231,7 @@ else if (Model.CanSummarize)
                             <td>
                                 <div class="report-content-preview">@TruncateContent(report.Content, 150)</div>
                             </td>
-                            <td class="text-muted">@report.GeneratedAt.AddHours(8).ToString("yyyy-MM-dd HH:mm")</td>
+                            <td class="text-muted"><label data-utc-time="@report.GeneratedAt.ToHtmlDateTime()" style="display:inline"></label></td>
                         </tr>
                     }
                 </tbody>
