@@ -12,6 +12,8 @@ public class SettingsMap
     public const string Icp = "Icp";
     public const string DummyNumber = "DummyNumber";
     public const string DummyChoice = "DummyChoice";
+    public const string AutoSetPlannedStartTime = "AutoSetPlannedStartTime";
+    public const string PlannedStartTimeAdvanceDays = "PlannedStartTimeAdvanceDays";
 
     public class FakeLocalizer
     {
@@ -93,6 +95,22 @@ public class SettingsMap
                 { "A", "Option A" },
                 { "B", "Option B" }
             }
+        },
+        new GlobalSettingDefinition
+        {
+            Key = AutoSetPlannedStartTime,
+            Name = Localizer["Auto Set Planned Start Time"],
+            Description = Localizer["When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting."],
+            Type = SettingType.Bool,
+            DefaultValue = "False"
+        },
+        new GlobalSettingDefinition
+        {
+            Key = PlannedStartTimeAdvanceDays,
+            Name = Localizer["Planned Start Time Advance Days"],
+            Description = Localizer["When auto-setting planned start time, the number of days to advance before the due date."],
+            Type = SettingType.Number,
+            DefaultValue = "4"
         }
     };
 }
