@@ -42,6 +42,39 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Anónimo</value>
   </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Archivado
+```
+
+Make sure it&apos;s exactly that. The user wants three backticks. So output:
+
+```
+Archivado
+```
+
+We need to be careful: no extra text. Only the translation. So the answer should be:
+
+```
+Archivado
+```
+
+That&apos;s it.
+&lt;/think&gt;
+
+```Archivado</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Tableros archivados
+```
+
+Check for potential nuance: In Spanish Spain, &quot;Archived Boards&quot; likely &quot;Tableros archivados&quot;. We must not include any other content. Only the triple backticks with translation.
+
+Thus final answer: triple backticks with &quot;Tableros archivados&quot;.
+&lt;/think&gt;
+
+``` 
+Tableros archivados</value>
+  </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Trabajos en segundo plano</value>
   </data>

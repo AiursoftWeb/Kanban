@@ -39,6 +39,45 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Анонімний</value>
   </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Архівовано
+```
+
+But check if &quot;Archived&quot; is a proper noun? It&apos;s just a past participle. Not a trademark. So we translate.
+
+Thus output only translation with triple backticks. That should be final answer.
+
+Double-check: Ukrainian &quot;archived&quot; translation. Many translation agencies: &quot;Archived&quot; -&gt; &quot;Архівовано&quot;. Eg, in Android strings: &lt;string name=&quot;archived&quot;&gt;Архівовано&lt;/string&gt;. That matches typical. So answer: Архівовано.
+
+Thus we output:
+
+```
+Архівовано
+```
+
+We need to not output any other content. Just translation inside triple backticks.
+
+Thus answer.
+&lt;/think&gt;
+
+``` Архівовано</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Translated word here...
+```
+
+Thus output should be:
+
+```
+Архівовані дошки
+```
+
+No extra content.
+&lt;/think&gt;
+
+```
+Архівовані дошки</value>
+  </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Фонові завдання</value>
   </data>

@@ -42,11 +42,87 @@
   <data name="Anonymous" xml:space="preserve">
     <value>ไม่ระบุชื่อ</value>
   </data>
+  <data name="Archived" xml:space="preserve">
+    <value>เก็บถาวร```.
+
+But we must ensure that we output only the translated word, wrapped in triple backticks. Also must not output any other content.
+
+Thus final answer:
+
+```เก็บถาวร```
+&lt;/think&gt;
+
+```เก็บถาวร</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>บอร์ดที่ถูกเก็บถาวร
+```
+
+But we need to consider if we should include any line breaks. They likely want just the content inside triple backticks. So we output:
+
+```บอร์ดที่ถูกเก็บถาวร```
+
+We should not include any extra text. So answer will be:
+
+```
+บอร์ดที่ถูกเก็บถาวร
+```
+
+Thus we respond with that.
+
+Double-check: &quot;Archived Boards&quot; -&gt; &quot;บอร์ดที่ถูกเก็บถาวร&quot;. That is indeed plausible translation. Let&apos;s check if there is any other translation that is more typical. In Thai UI translation guidelines, &quot;Archived Boards&quot; could be &quot;บอร์ดที่ถูกเก็บ&quot;. Usually &quot;เก็บ&quot; means &quot;to store&quot; but &quot;ถาวร&quot; adds &quot;permanent&quot;. In a software context, &quot;archived&quot; indicates it&apos;s in the archive and can be retrieved later. So &quot;เก็บ&quot; (store) might be appropriate. But &quot;ถาวร&quot; may be used for &quot;permanent&quot;. But the typical translation for &quot;archive&quot; in Thai is &quot;เก็บถาวร&quot;. For example, &quot;Archived Items&quot; -&gt; &quot;รายการที่ถูกเก็บถาวร&quot;. So &quot;บอร์ดที่ถูกเก็บถาวร&quot; is consistent.
+
+Therefore answer: triple backticks with &quot;บอร์ดที่ถูกเก็บถาวร&quot;. I&apos;ll output that.
+&lt;/think&gt;
+
+```บอร์ดที่ถูกเก็บถาวร</value>
+  </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>งานพื้นหลัง</value>
   </data>
   <data name="Bad Request" xml:space="preserve">
     <value>คำขอไม่ถูกต้อง</value>
+  </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Translated word here...
+```
+
+But they also want to consider if the sentence or word &quot;Card Details&quot; is a proper noun, name, trademark, etc. They ask to output it as is if not translatable.
+
+&quot;Card Details&quot; is a UI string that likely means details of a card in a board, similar to &quot;Card Details&quot; in Trello, etc. In Thai, translation could be &quot;รายละเอียดของบัตร&quot;, but &quot;Card Details&quot; maybe &quot;รายละเอียดบัตร&quot;. But maybe &quot;Card Details&quot; is a phrase that can be translated.
+
+We need to output only the translation (maybe &quot;รายละเอียดบัตร&quot;) wrapped in three backticks.
+
+We should check the policy for translations: The user asks to translate &quot;Card Details&quot; into Thai. That&apos;s allowed. It&apos;s not disallowed content. So we can comply.
+
+We need to output only the translation in the format: three backticks with content inside.
+
+Thus final answer: ```รายละเอียดบัตร```. But we need to decide if translation is correct.
+
+In Thai, &quot;Card Details&quot; could be &quot;รายละเอียดของบัตร&quot; (detail of card) or &quot;รายละเอียดบัตร&quot; (card details). Many UI translations use &quot;รายละเอียดบัตร&quot;. Let&apos;s consider typical translation for &quot;Card Details&quot; used in Trello-like apps: In Thai translation of Trello, &quot;Card Details&quot; is &quot;รายละเอียดของบัตร&quot; or &quot;รายละเอียดบัตร&quot;. Let&apos;s search mental memory: Trello Thai translation: &quot;Card Details&quot; -&gt; &quot;รายละเอียดบัตร&quot;. Yes, I think &quot;รายละเอียดบัตร&quot; is used. Some other apps might use &quot;รายละเอียดของบัตร&quot;. Which is more natural? &quot;รายละเอียดบัตร&quot; is okay. Also &quot;รายละเอียดบัตร&quot; includes the &quot;รายละเอียด&quot; (detail) and &quot;บัตร&quot; (card). That is direct translation.
+
+Alternatively, &quot;ข้อมูลบัตร&quot; could be used, but &quot;รายละเอียดบัตร&quot; is better.
+
+Thus answer: ```รายละเอียดบัตร```. Must be inside triple backticks.
+
+Thus final answer: ```รายละเอียดบัตร```. However, note that the user requested to output only the translated content and wrap in three backticks, like this: 
+
+```
+Translated word here...
+```.
+
+So we should output exactly that, with translation inside triple backticks.
+
+Hence final: ```รายละเอียดบัตร```.
+
+Double-check policy: It&apos;s allowed. No problem.
+
+Edge: Possibly user may want &quot;Card Details&quot; to be left as is if it&apos;s a proper noun like &quot;Card Details&quot; might be a trademark or something. But &quot;Card Details&quot; is generic UI label; it is not a trademark. So we can translate. It&apos;s not a personal name or brand. So safe.
+
+Thus final answer: wrap in triple backticks, as asked.
+&lt;/think&gt;
+
+```รายละเอียดบัตร</value>
   </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>เปลี่ยนรูปโปรไฟล์</value>
