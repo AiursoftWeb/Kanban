@@ -42,6 +42,67 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Anonyme</value>
   </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Archivé
+```
+
+But need to confirm it&apos;s correct: The word &quot;Archived&quot;. In French UI, &quot;Archivé&quot; (past participle, masculine singular) can be used for a button. If feminine, maybe &quot;Archivée&quot;. But likely masculine as adjective used for board name. Example &quot;Archived&quot; as UI label might be &quot;Archivé&quot; (past participle used as adjective). If &quot;Archived Boards&quot;, the translation is &quot;Tableaux archivés&quot;. But here only singular &quot;Archived&quot;. So answer: &quot;Archivé&quot;. Should we include accent? Yes.
+
+Thus output: ```Archivé```. Wrap in triple backticks.
+
+Thus answer should be exactly:
+
+```
+Archivé
+```
+
+Check: The user says &quot;wrap it in three backticks (```), like this: ``` Translated word here...```. Actually they want three backticks with content inside. So output should be three backticks with newline? They gave example:
+
+```
+Translated word here...
+```
+
+Thus we output:
+
+```
+Archivé
+```
+
+Thus final answer.
+&lt;/think&gt;
+
+```Archivé</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Tableaux archivés
+```
+
+But we need to be careful: The original phrase is &quot;Archived Boards&quot;. In French, the translation would be &quot;Tableaux archivés&quot;. However, we need to consider if &quot;Board&quot; might be used as a UI concept of a board like &quot;Kanban board&quot;. In French, &quot;board&quot; could be &quot;tableau&quot;, &quot;tableau de bord&quot;. Usually &quot;board&quot; in a kanban context could be &quot;tableau&quot;, &quot;tableau kanban&quot;. So &quot;Archived Boards&quot; could be &quot;Tableaux archivés&quot;. That&apos;s plausible.
+
+But we need to consider whether the phrase is a proper noun or not. &quot;Archived Boards&quot; is a UI label describing an option to view archived boards. It is not a proper noun like a brand name, it&apos;s generic. So we translate it to French.
+
+Thus we output:
+
+```
+Tableaux archivés
+```
+
+But we need to wrap it in three backticks. So output:
+
+```Tableaux archivés
+```
+
+Potential nuance: Should we keep the case? The English phrase uses capitalized first letters: &quot;Archived Boards&quot;. In French, we can preserve capital letters as &quot;Tableaux archivés&quot;. Usually &quot;Tableaux archivés&quot; is capitalized similarly: first letter of each word capitalized: &quot;Tableaux archivés&quot;. However, note that French capitalization often differs: &quot;Tableaux arch...&quot; vs &quot;tableaux arch...&quot;? Usually nouns: &quot;Tableaux&quot; as plural noun is capitalized if it&apos;s a proper name, but here it&apos;s a label. UI labels are often capitalized only first letter of first word? In English UI, they capitalized each word: &quot;Archived Boards&quot;. In French UI, they&apos;d often use &quot;Tableaux archivés&quot;. That seems fine.
+
+Thus answer: three backticks with &quot;Tableaux archivés&quot;. Ensure nothing else.
+
+Now check for any policy issues: This is translation request, no disallowed content. Not providing any disallowed text. It&apos;s fine.
+
+Thus final answer: wrapped in triple backticks.
+&lt;/think&gt;
+
+```Tableaux archivés</value>
+  </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Travaux en arrière-plan</value>
   </data>

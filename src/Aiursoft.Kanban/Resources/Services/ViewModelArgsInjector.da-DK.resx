@@ -39,11 +39,67 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Anonym</value>
   </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Arkiveret```
+
+We must ensure it&apos;s only that and no other content.
+
+Thus final answer is:
+
+```Arkiveret```
+&lt;/think&gt;
+
+```Arkiveret</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Arkiverede tavler
+```
+
+But we must be careful: The user says &quot;If you don&apos;t understand what you want to translate, please output it as it is!&quot; Not needed. So we have the translation.
+
+Thus output:
+
+```
+Arkiverede tavler
+```
+
+That is the only output, no other content.
+
+We must not include any additional text. So final answer: triple backticks with translation.
+
+Thus final.
+&lt;/think&gt;
+
+``` 
+Arkiverede tavler</value>
+  </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Baggrundstasks</value>
   </data>
   <data name="Bad Request" xml:space="preserve">
     <value>Forkert anmodning</value>
+  </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Translated word here...```&quot;
+
+We need to produce the translation of &quot;Card Details&quot; into Danish. The translation: In Danish, &quot;Card Details&quot; could be &quot;Kortdetaljer&quot; or &quot;Kortoplysninger&quot;? Let&apos;s think. Typically &quot;Card Details&quot; is a phrase meaning details about a card (like credit card). In a software UI, it might be &quot;Kortdetaljer&quot;. That seems direct. &quot;Card&quot; can be &quot;Kort&quot;. &quot;Details&quot; is &quot;detaljer&quot;. So &quot;Card Details&quot; -&gt; &quot;Kortdetaljer&quot;. That is a direct translation. &quot;Kortdetaljer&quot; is a plausible translation. Another option: &quot;Kortoplysninger&quot;. Which is more accurate? &quot;Card details&quot; often means &quot;kortoplysninger&quot; like in a UI for credit card details. But in the context of a Kanban board, &quot;Card Details&quot; might refer to a panel that shows the details of a Kanban card. So &quot;Card Details&quot; could be &quot;Kortdetaljer&quot; (like details of a card). &quot;Kortdetaljer&quot; seems plausible.
+
+I need to consider: The user wants translation. &quot;Card Details&quot; -&gt; &quot;Kortdetaljer&quot;. In Danish, &quot;Kortdetaljer&quot; is maybe not common but could be used. Another translation: &quot;Kortoplysninger&quot;. &quot;Oplysninger&quot; is details, &quot;oplysninger&quot; is information. &quot;Kortoplysninger&quot; is a bit unnatural. &quot;Card Details&quot; would be &quot;Kortdetaljer&quot;. I think &quot;Kortdetaljer&quot; is best. So output: ```Kortdetaljer```.
+
+Check guidelines: The user wants only output the translated content and wrap in three backticks. No other content. So I should output:
+
+```
+Kortdetaljer
+```
+
+But need to ensure it&apos;s exactly that. The user says: &quot;Please translate only the sentence or word `Card Details` in the paragraph into the target language da-DK, Dansk (Danmark).&quot; So we output &quot;Kortdetaljer&quot;. That&apos;s the translation.
+
+Check for any potential issues: Should we consider &quot;Card&quot; as proper noun? In this context, it&apos;s a UI string, not a trademark, but &quot;Card&quot; is generic. So translation is fine.
+
+Thus final answer: three backticks with &quot;Kortdetaljer&quot;.
+&lt;/think&gt;
+
+```Kortdetaljer</value>
   </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Skift avatar</value>

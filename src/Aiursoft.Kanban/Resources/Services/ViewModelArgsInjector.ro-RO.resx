@@ -39,11 +39,76 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Anonim</value>
   </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Arhivat
+```
+
+But we need to be sure of correct translation. Let&apos;s verify typical Romanian translation: For example, &quot; archived&quot; in Microsoft .NET resource strings: &quot;Archived&quot; could be &quot;Arhivă&quot;. Wait, in Microsoft UI, &quot;Archived&quot; might be &quot;Arhivat&quot;. Check some known translations: In Microsoft Office, &quot;Archive&quot; -&gt; &quot;Arhivă&quot;. &quot;Archived&quot; -&gt; &quot;Arhivat&quot;. In Outlook, &quot;Archived&quot; email folder: &quot;Arhivat&quot; used as past participle.
+
+Let&apos;s check Microsoft .NET strings: In ro-RO, &quot;Archived&quot; often translates to &quot;Arhivat&quot;. In .NET Core localization, I&apos;ve seen &quot;Archived&quot; -&gt; &quot;Arhivat&quot;. Indeed, .NET uses &quot;Arhivat&quot;. So likely translation is &quot;Arhivat&quot;. Good.
+
+Thus answer: &quot;Arhivat&quot;. The user says: &quot;Output the translated conclusion and nothing else. Do not output any other content!&quot; So output only:
+
+```
+Arhivat
+```
+
+Wrap in triple backticks as requested. So final output:
+
+``` 
+Arhivat
+``` 
+But they said &quot;wrap it in three backticks, like this: ``` Translated word here...```&quot;. So the output should be:
+
+```
+Arhivat
+```
+
+That&apos;s it. Ensure no extra content. So final answer is just that.
+
+Double-check: They want only the translated content, not the entire paragraph. So just output Arhivat. No extra commentary. Ensure that the answer includes only the triple backticks content and no other text.
+
+Thus final answer: ```Arhivat```.
+&lt;/think&gt;
+
+``` 
+Arhivat</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Panouri arhivate```
+
+But we need to ensure it&apos;s correct. Let&apos;s double-check typical Romanian translation. &quot;Archived Boards&quot; -&gt; &quot;Panouri arhivate&quot;. In Romanian, &quot;archived&quot; is &quot;arhivat&quot; (masculine) or &quot;arhivată&quot; (feminine) depending on gender of noun. &quot;Panou&quot; is masculine? Actually &quot;panou&quot; is a neuter noun (panouri). &quot;arhivat&quot; is past participle for masculine nouns. For neuter nouns, &quot;arhivat&quot; might be used for masculine? Let&apos;s check: &quot;arhivat&quot; is masculine past participle. For neuter nouns like &quot;panou&quot;, the adjective may be &quot;arhivat&quot;. It&apos;s okay.
+
+Thus translation: &quot;Panouri arhivate&quot;. However &quot;Panouri arhivate&quot; uses feminine adjective &quot;arhivate&quot; which is feminine plural; &quot;panouri&quot; is feminine plural? Actually &quot;panou&quot; is masculine? Wait &quot;panou&quot; is a neuter noun: &quot;panou&quot; (n) (neuter). In Romanian, adjectives agree in gender and number with the noun. For plural neuter nouns, the adjective uses &quot;arhivate&quot; (feminine plural) maybe? Let&apos;s recall: Neuter plural nouns in Romanian take feminine plural adjectives. Yes, plural nouns of neuter gender use feminine plural adjectives. So &quot;Panouri arhivate&quot;. That matches.
+
+Alternatively we could use &quot;Panouri archiv&quot; no. So &quot;Panouri arhivate&quot;. Good.
+
+Thus output: ```Panouri arhivate```.
+
+Check user instructions: &quot;If you don&apos;t understand what you want to translate, please output it as it is!&quot; We understand.
+
+Thus final answer: three backticks with translation.
+
+One more thing: they might want the translation of &quot;Archived Boards&quot; to be &quot;Board-uri arhivate&quot;. But in typical localization, &quot;board&quot; is a term used in UI. However many translations keep &quot;board&quot; in English. But they asked for translation into Romanian. Should we use &quot;Board&quot;? Could be &quot;Board&quot;. In ro-RO, maybe they keep English &quot;Board&quot;. But they said &quot;Do not translate names, nicknames, proper nouns, symbols, trademarks etc. Keep them as is.&quot; Does that apply to &quot;Board&quot;? Not sure. &quot;Board&quot; as a UI element might be considered a proper noun? Usually &quot;Board&quot; is a term from the domain (Kanban board). It&apos;s not a trademark, but it&apos;s a domain-specific term that may be left unchanged. However the user said &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them!&quot; Does that include &quot;Board&quot;? Possibly not a proper noun, but a generic term. However if we are uncertain we might keep &quot;Board&quot; as is, but translation expects a Romanian phrase. They want translation of &quot;Archived Boards&quot;. So we need to decide. Typically in Romanian translation of a Kanban board app they might translate &quot;Board&quot; as &quot;Panou&quot;. So &quot;Archived Boards&quot; =&gt; &quot;Panouri arhivate&quot;. That&apos;s plausible.
+
+Thus I will output &quot;Panouri arhivate&quot;. Use triple backticks.
+
+Thus final output: ```Panouri arhivate```
+&lt;/think&gt;
+
+```Panouri arhivate</value>
+  </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Joburi în fundal</value>
   </data>
   <data name="Bad Request" xml:space="preserve">
     <value>Cerere greșită</value>
+  </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Detalii Card```
+&lt;/think&gt;
+
+```Detalii Card</value>
   </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Schimbă Avatarul</value>

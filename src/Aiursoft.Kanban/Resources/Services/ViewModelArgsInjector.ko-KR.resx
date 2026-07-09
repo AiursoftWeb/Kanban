@@ -42,11 +42,54 @@
   <data name="Anonymous" xml:space="preserve">
     <value>익명</value>
   </data>
+  <data name="Archived" xml:space="preserve">
+    <value>보관된
+```
+&lt;/think&gt;
+
+```보관된</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>보관된 보드```.
+
+We need to output only the translated content wrapped in triple backticks, with no other content. So answer: ```보관된 보드```.
+
+Check: user said &quot;only output the translated content and wrap it in three backticks&quot;. So output exactly that. No extra. Let&apos;s do that.
+&lt;/think&gt;
+
+```보관된 보드</value>
+  </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>백그라운드 작업</value>
   </data>
   <data name="Bad Request" xml:space="preserve">
     <value>잘못된 요청</value>
+  </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>카드 상세
+```
+
+But let&apos;s double-check: In Korean, &quot;Card Details&quot; could be &quot;카드 상세 정보&quot;. The string &quot;Card Details&quot; maybe a title for a section, so &quot;카드 상세&quot;. The user only wants translation of &quot;Card Details&quot;. So output that.
+
+We must output only the translated content wrapped in triple backticks, nothing else. No extra commentary. So we output:
+
+``` 
+카드 상세 
+```
+
+But we need to ensure no extra whitespace. Provide exactly:
+
+```
+카드 상세
+```
+
+Yes. That&apos;s the translation. However check if we need to preserve case: &quot;Card Details&quot; is capitalized. In translation, we can keep same case. Korean has no case. So &quot;카드 상세&quot;. That is fine.
+
+Thus final answer: triple backticks containing &quot;카드 상세&quot;.
+&lt;/think&gt;
+
+```
+카드 상세</value>
   </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>아바타 변경</value>

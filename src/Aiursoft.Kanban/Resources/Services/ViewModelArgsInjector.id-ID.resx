@@ -39,6 +39,55 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Anonim</value>
   </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Diarsipkan
+```
+
+That is all. The translation is a single word in Indonesian.
+
+Thus final answer: ```Diarsipkan```.
+
+But let&apos;s double-check: The user said &quot;If you don&apos;t understand what you want to translate, please output it as it is!&quot; But we do understand. So output translation. The translation must be wrapped in triple backticks.
+
+Thus final answer: ```Diarsipkan```.
+
+Check if any nuance about &quot;Archived&quot; being a proper noun? No. It&apos;s just a UI string.
+
+Thus final answer should be:
+
+```
+Diarsipkan
+```
+
+Yes.
+
+Thus final.
+&lt;/think&gt;
+
+```Diarsipkan</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Papan Diarsipkan
+```
+
+But I need to decide if the translation should be &quot;Papan Diarsipkan&quot;. Let&apos;s double-check typical Indonesian translation for &quot;Archived Boards&quot;. In a Kanban app, &quot;All Boards&quot; -&gt; &quot;Semua Papan&quot;, &quot;My Boards&quot; -&gt; &quot;Papan Saya&quot;. &quot;Archived Boards&quot; -&gt; &quot;Papan Diarsipkan&quot;. That seems plausible.
+
+But let&apos;s search mental memory: Some UI translations: &quot;Archived&quot; = &quot;Diarsipkan&quot;. &quot;Boards&quot; = &quot;Papan&quot;. So &quot;Archived Boards&quot; = &quot;Papan Diarsipkan&quot;. Yes.
+
+Check other translations: &quot;Kanban Board&quot; -&gt; &quot;Papan Kanban&quot;. &quot;My Boards&quot; -&gt; &quot;Papan Saya&quot;. &quot;All Boards&quot; -&gt; &quot;Semua Papan&quot;. &quot;Edit Board&quot; -&gt; &quot;Edit Papan&quot;. &quot;Card Details&quot; -&gt; &quot;Detail Kartu&quot;. &quot;Daily Assistant&quot; -&gt; &quot;Asisten Harian&quot;. &quot;Report Details&quot; -&gt; &quot;Detail Laporan&quot;. &quot;Operation Logs&quot; -&gt; &quot;Log Operasi&quot;. &quot;Notifications&quot; -&gt; &quot;Notifikasi&quot;. &quot;My Notifications&quot; -&gt; &quot;Notifikasi Saya&quot;. &quot;View All&quot; -&gt; &quot;Lihat Semua&quot;. &quot;Shared with Me&quot; -&gt; &quot;Dibagikan kepada Saya&quot;? Not sure. &quot;Overview&quot; -&gt; &quot;Ringkasan&quot;? &quot;Overview Kanban&quot; -&gt; &quot;Ringkasan Kanban&quot;. &quot;AI Assistant&quot; -&gt; &quot;Asisten AI&quot;? &quot;Kanban AI Assistant&quot; -&gt; &quot;Asisten AI Kanban&quot;. &quot;My Created&quot; -&gt; &quot;Buatan Saya&quot;? &quot;My Tasks&quot; -&gt; &quot;Tugas Saya&quot;. &quot;My Operation Logs&quot; -&gt; &quot;Log Operasi Saya&quot;. &quot;Operation Logs&quot; -&gt; &quot;Log Operasi&quot;. &quot;My Boards&quot; -&gt; &quot;Papan Saya&quot;. &quot;All Boards&quot; -&gt; &quot;Semua Papan&quot;. &quot;Edit Board&quot; -&gt; &quot;Edit Papan&quot;. &quot;Register&quot; -&gt; &quot;Daftar&quot;. &quot;Permission Details&quot; -&gt; &quot;Detail Izin&quot;? &quot;Archived Boards&quot; -&gt; &quot;Papan Diarsipkan&quot;. &quot;Archived&quot; -&gt; &quot;Diarsipkan&quot;. &quot;Card Details&quot; -&gt; &quot;Detail Kartu&quot;. &quot;View All Notifications&quot; -&gt; &quot;Lihat Semua Notifikasi&quot;. &quot;View All&quot; -&gt; &quot;Lihat Semua&quot;. &quot;Shared with Me&quot; -&gt; &quot;Dibagikan kepada Saya&quot;? &quot;Overview&quot; -&gt; &quot;Ringkasan&quot;. &quot;Overview Kanban&quot; -&gt; &quot;Ringkasan Kanban&quot;. &quot;My Created&quot; -&gt; &quot;Buatan Saya&quot;? Could be &quot;Buatan Saya&quot;. Not relevant.
+
+Thus translation is &quot;Papan Diarsipkan&quot;. So final output:
+
+```
+Papan Diarsipkan
+```
+
+Wrap in triple backticks. Provide only that.
+&lt;/think&gt;
+
+``` 
+Papan Diarsipkan</value>
+  </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Pekerjaan Latar Belakang</value>
   </data>

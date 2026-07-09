@@ -42,6 +42,75 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Anonym</value>
   </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Archiviert
+```
+
+But need to verify if &quot;Archived&quot; might be a past participle meaning &quot;is archived&quot;? Yes, typical translation: &quot;Archiviert&quot;. So that is correct.
+
+Thus answer: triple backticks with &quot;Archiviert&quot;.
+
+We need to output only the translated content and nothing else. So we output:
+
+```
+Archiviert
+```
+
+But the instruction says &quot;wrap it in three backticks (```), like this: ```Translated word here...```&quot;. So output triple backticks with content inside. So:
+
+```Archiviert```
+
+We must not output any other content. So final answer: triple backticks containing Archiviert.
+
+Check: Should we include newline? The example shows:
+
+```
+Translated word here...
+```
+
+So we should output exactly three backticks with a newline? In the example, they have:
+
+```
+Translated word here...
+```
+
+That includes opening triple backticks, then newline, then text, then newline, then closing triple backticks. Actually they wrote:
+
+```
+Translated word here...
+```
+
+That is three backticks on a line, then &quot;Translated word here...&quot; then triple backticks on separate line? Let&apos;s read the instruction: &quot;Only output the translated content and wrap it in three backticks (```), like this:
+
+```...```&quot;
+
+The example: triple backticks open, then content, then triple backticks close? Actually they show a code block: ```Translated word here...```.
+
+Thus we output: ```Archiviert```. That&apos;s a code block containing the translation. That matches.
+
+Thus final answer: ```Archiviert```.
+
+Check if any additional formatting needed. The user said &quot;wrap it in three backticks (```), like this:
+
+```
+Translated word here...
+```&quot;
+
+So they want a code block. We&apos;ll output a code block with the translation. So answer:
+
+```Archiviert```.
+
+That should satisfy.
+&lt;/think&gt;
+
+```Archiviert</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Archivierte Boards```
+&lt;/think&gt;
+
+```Archivierte Boards</value>
+  </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Hintergrundaufgaben</value>
   </data>
