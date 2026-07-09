@@ -96,6 +96,13 @@ public class Startup : IWebStartup
             period:      TimeSpan.FromMinutes(30),
             startDelay:  TimeSpan.FromMinutes(2));
 
+        // Auto Set Planned Start Time background job — scans every 30 minutes
+        var autoSetPlannedStartTimeJob = services.RegisterBackgroundJob<AutoSetPlannedStartTimeBackgroundJob>();
+        services.RegisterScheduledTask(
+            registration: autoSetPlannedStartTimeJob,
+            period:      TimeSpan.FromMinutes(30),
+            startDelay:  TimeSpan.FromMinutes(3));
+
         // Controllers and localization
         services.AddControllersWithViews(options => options.Filters.Add<AuditActionFilter>())
             .AddNewtonsoftJson(options =>
