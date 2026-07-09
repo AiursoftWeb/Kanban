@@ -143,16 +143,31 @@
         lastMessageCount = data.Messages.length;
     }
 
+    var renderedAdviceIds = [];
+
     function renderAdvice(data) {
-        var oldCards = document.querySelectorAll('.advice-card[data-conversation]');
-        oldCards.forEach(function(card) { card.remove(); });
-
-        if (!data.PendingAdvice || data.PendingAdvice.length === 0) return;
-
         var container = document.getElementById('agent-messages');
         if (!container) return;
 
+        var pendingIds = (data.PendingAdvice || []).map(function(a) { return a.AdviceId; });
+
+        // Remove cards whose advice is no longer pending (was resolved)
+        var existingCards = document.querySelectorAll('.advice-card[data-conversation]');
+        existingCards.forEach(function(card) {
+            var adviceId = card.getAttribute('data-advice-id');
+            if (pendingIds.indexOf(adviceId) === -1) {
+                card.remove();
+                renderedAdviceIds = renderedAdviceIds.filter(function(id) { return id !== adviceId; });
+            }
+        });
+
+        if (!data.PendingAdvice || data.PendingAdvice.length === 0) return;
+
+        // Only render advice cards that haven't been rendered yet
         data.PendingAdvice.forEach(function(advice) {
+            if (renderedAdviceIds.indexOf(advice.AdviceId) !== -1) return; // Already rendered
+            renderedAdviceIds.push(advice.AdviceId);
+
             var card = document.createElement('div');
             card.className = 'advice-card';
             card.setAttribute('data-conversation', data.ConversationId);
@@ -273,7 +288,7 @@
         div.className = 'chat-message ' + role;
         div.textContent = content;
         container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
+        // Do NOT auto-scroll — let the user control their viewport natively.
     }
 
     function showThinking() {
@@ -316,6 +331,7 @@
         }
         conversationId = null;
         lastMessageCount = 0;
+        renderedAdviceIds = [];
         stopPolling();
         hideThinking();
 
@@ -328,9 +344,6 @@
             welcome.textContent = loc('welcome', 'Hi!');
             container.appendChild(welcome);
         }
-
-        var container = document.getElementById('agent-messages');
-        if (container) container.innerHTML = '';
 
         var statusEl = document.getElementById('agent-status-text');
         if (statusEl) statusEl.textContent = loc('ready', 'Ready');

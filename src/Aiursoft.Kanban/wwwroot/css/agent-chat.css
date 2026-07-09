@@ -4,7 +4,9 @@
     bottom: auto;
     right: auto;
     width: 100%;
-    max-height: calc(100vh - 260px);
+    display: flex;
+    flex-direction: column;
+    min-height: 60vh;
     box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
 
@@ -13,7 +15,11 @@
 }
 
 .agent-chat-page .agent-chat-messages {
-    max-height: calc(100vh - 400px);
+    /* Let content flow naturally — no max-height, no inner scrollbar.
+       The page body is the single scrolling container. */
+    flex: 1 0 auto;
+    overflow-y: visible;
+    min-height: 200px;
 }
 
 /* ── Floating widget (for board page embed, kept for reference) ── */
