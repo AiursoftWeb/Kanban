@@ -128,12 +128,14 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     recurrenceFields: document.getElementById('recurrenceFields'),
     recurrenceIntervalInput: document.getElementById('inputRecurrenceInterval') as HTMLInputElement | null,
     recurrenceUnitInput: document.getElementById('inputRecurrenceUnit') as HTMLSelectElement | null,
-    assigneeSummary: document.getElementById('assigneeSummary'),
+    overviewAssigneeView: document.getElementById('overviewAssigneeView'),
     overviewAssignee: document.getElementById('overviewAssignee'),
+    overviewAssigneeEdit: document.getElementById('overviewAssigneeEdit'),
+    overviewAssigneeSearch: document.getElementById('overviewAssigneeSearch') as HTMLInputElement | null,
+    overviewAssigneeDropdown: document.getElementById('overviewAssigneeDropdown'),
+    btnEditAssignee: document.getElementById('btnEditAssignee'),
+    btnOverviewClearAssignee: document.getElementById('btnOverviewClearAssignee'),
     heroAssigneeChip: document.querySelector<HTMLElement>('[data-assignee-name]'),
-    assigneeSearch: document.getElementById('assigneeSearch') as HTMLInputElement | null,
-    assigneeDropdown: document.getElementById('assigneeDropdown'),
-    clearAssigneeButton: document.getElementById('btnClearAssignee'),
     labelsDisplay: document.getElementById('labelsDisplay'),
     labelInput: document.getElementById('labelSearchInput') as HTMLInputElement | null,
     addLabelButton: document.getElementById('btnAddLabel') as HTMLButtonElement | null,
@@ -311,15 +313,19 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       });
     });
 
-    refs.assigneeSearch?.addEventListener('input', () => {
+    refs.btnEditAssignee?.addEventListener('click', () => {
+      openAssigneeEditor();
+    });
+
+    refs.overviewAssigneeSearch?.addEventListener('input', () => {
       if (!options.canEdit) return;
       window.clearTimeout(state.assigneeSearchTimer);
       state.assigneeSearchTimer = window.setTimeout(() => {
-        searchAssignees(refs.assigneeSearch?.value ?? '').catch(console.error);
+        searchAssignees(refs.overviewAssigneeSearch?.value ?? '').catch(console.error);
       }, 250);
     });
 
-    refs.assigneeDropdown?.addEventListener('click', event => {
+    refs.overviewAssigneeDropdown?.addEventListener('click', event => {
       const button = (event.target as HTMLElement).closest<HTMLElement>('button[data-user-id]');
       if (!button?.dataset.userId) return;
 
@@ -329,15 +335,25 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     });
 
     document.addEventListener('click', event => {
-      if (!refs.assigneeDropdown || !refs.assigneeSearch) return;
+      if (!refs.overviewAssigneeDropdown || !refs.overviewAssigneeSearch || !refs.overviewAssigneeEdit) return;
 
       const target = event.target as Node;
-      if (!refs.assigneeDropdown.contains(target) && !refs.assigneeSearch.contains(target)) {
-        refs.assigneeDropdown.classList.add('d-none');
+      // Don't close if clicking the edit button (it toggles the editor)
+      if (refs.btnEditAssignee?.contains(target)) return;
+      if (!refs.overviewAssigneeDropdown.contains(target)
+        && !refs.overviewAssigneeSearch.contains(target)
+        && !refs.overviewAssigneeEdit.contains(target)) {
+        closeAssigneeEditor();
       }
     });
 
-    refs.clearAssigneeButton?.addEventListener('click', () => {
+    refs.overviewAssigneeSearch?.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        closeAssigneeEditor();
+      }
+    });
+
+    refs.btnOverviewClearAssignee?.addEventListener('click', () => {
       assignCard('', '', '').catch(problem => {
         showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
       });
@@ -573,12 +589,12 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   }
 
   async function searchAssignees(query: string): Promise<void> {
-    if (!refs.assigneeDropdown || !refs.assigneeSearch) return;
+    if (!refs.overviewAssigneeDropdown || !refs.overviewAssigneeSearch) return;
 
     const normalized = query.trim().toLowerCase();
     if (!normalized) {
-      refs.assigneeDropdown.classList.add('d-none');
-      refs.assigneeDropdown.innerHTML = '';
+      refs.overviewAssigneeDropdown.classList.add('d-none');
+      refs.overviewAssigneeDropdown.innerHTML = '';
       return;
     }
 
@@ -588,11 +604,11 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       (member.DisplayName ?? '').toLowerCase().includes(normalized)
       || (member.UserName ?? '').toLowerCase().includes(normalized));
 
-    refs.assigneeDropdown.innerHTML = filtered.map(member => {
+    refs.overviewAssigneeDropdown.innerHTML = filtered.map(member => {
       const displayName = member.DisplayName || member.UserName || '';
       return `<button type="button" class="list-group-item list-group-item-action py-2 px-3" data-user-id="${escapeHtml(member.Id)}" data-user-name="${escapeHtml(displayName)}" data-user-initial="${escapeHtml(member.Initial ?? displayName.slice(0, 1).toUpperCase())}">${escapeHtml(displayName)}</button>`;
     }).join('');
-    refs.assigneeDropdown.classList.toggle('d-none', filtered.length === 0);
+    refs.overviewAssigneeDropdown.classList.toggle('d-none', filtered.length === 0);
   }
 
   async function assignCard(userId: string, displayName: string, initial: string): Promise<void> {
@@ -607,9 +623,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     state.currentAssigneeInitial = readOptionalString(result.AssignedUserInitial) ?? initial;
     state.currentAssigneeAvatarUrl = readOptionalString(result.AssignedUserAvatarUrl) ?? '';
     renderAssigneeSummary();
-
-    if (refs.assigneeSearch) refs.assigneeSearch.value = '';
-    refs.assigneeDropdown?.classList.add('d-none');
+    closeAssigneeEditor();
   }
 
   function renderAssigneeSummary(): void {
@@ -628,6 +642,10 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
     // Update overview assignee row
     if (refs.overviewAssignee) {
+      const editBtnHtml = options.canEdit
+        ? `<button type="button" class="btn btn-sm btn-outline-secondary ms-1" id="btnEditAssignee" title="${escapeHtml(t('edit', 'Edit'))}" style="border-radius:12px;flex-shrink:0"><i class="align-middle" data-lucide="pencil" style="width:14px;height:14px"></i></button>`
+        : '';
+
       if (hasAssignee) {
         const avatar = state.currentAssigneeAvatarUrl
           ? `<img src="${escapeHtml(state.currentAssigneeAvatarUrl)}" alt="${escapeHtml(state.currentAssigneeName)}" class="card-assignee-avatar-image" />`
@@ -636,30 +654,39 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
           <span class="card-assignee-avatar">${avatar}</span>
           <div class="detail-avatar-copy">
             <div class="title">${escapeHtml(state.currentAssigneeName)}</div>
-          </div>`;
+          </div>
+          ${editBtnHtml}`;
       } else {
-        refs.overviewAssignee.innerHTML = `<span class="text-muted">${unassignedText}</span>`;
+        refs.overviewAssignee.innerHTML = `
+          <span class="text-muted">${unassignedText}</span>
+          ${editBtnHtml}`;
       }
+
+      // Re-bind the edit button after re-render
+      const newEditBtn = refs.overviewAssignee.querySelector<HTMLButtonElement>('#btnEditAssignee');
+      if (newEditBtn && options.canEdit) {
+        newEditBtn.addEventListener('click', () => {
+          openAssigneeEditor();
+        });
+      }
+
+      refreshIcons(refs.overviewAssignee);
     }
+  }
 
-    // Update assignee summary in sidebar
-    if (!refs.assigneeSummary) return;
+  function openAssigneeEditor(): void {
+    if (!options.canEdit) return;
+    refs.overviewAssigneeView?.classList.add('d-none');
+    refs.overviewAssigneeEdit?.classList.remove('d-none');
+    refs.overviewAssigneeSearch?.focus();
+  }
 
-    if (!hasAssignee) {
-      refs.assigneeSummary.innerHTML = `<span class="text-muted">${unassignedText}</span>`;
-      return;
-    }
-
-    const avatar = state.currentAssigneeAvatarUrl
-      ? `<img src="${escapeHtml(state.currentAssigneeAvatarUrl)}" alt="${escapeHtml(state.currentAssigneeName)}" class="card-assignee-avatar-image" />`
-      : escapeHtml(state.currentAssigneeInitial || state.currentAssigneeName.slice(0, 1).toUpperCase());
-
-    refs.assigneeSummary.innerHTML = `
-      <span class="card-assignee-avatar">${avatar}</span>
-      <div class="min-w-0">
-        <div class="fw-semibold text-truncate">${escapeHtml(state.currentAssigneeName)}</div>
-        <div class="text-muted small">${escapeHtml(t('assignee', 'Assignee'))}</div>
-      </div>`;
+  function closeAssigneeEditor(): void {
+    refs.overviewAssigneeView?.classList.remove('d-none');
+    refs.overviewAssigneeEdit?.classList.add('d-none');
+    if (refs.overviewAssigneeSearch) refs.overviewAssigneeSearch.value = '';
+    refs.overviewAssigneeDropdown?.classList.add('d-none');
+    refs.overviewAssigneeDropdown && (refs.overviewAssigneeDropdown.innerHTML = '');
   }
 
   function renderLabels(): void {

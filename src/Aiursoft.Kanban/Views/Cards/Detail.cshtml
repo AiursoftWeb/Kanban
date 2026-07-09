@@ -426,26 +426,46 @@
                         </div>
                         <div class="detail-kv">
                             <div class="detail-kv-label">@Localizer["Assignee"]</div>
-                            <div class="detail-kv-value detail-avatar-row" id="overviewAssignee">
-                                @if (!string.IsNullOrWhiteSpace(Model.AssigneeId))
-                                {
-                                    <span class="card-assignee-avatar">
-                                        @if (!string.IsNullOrEmpty(Model.AssigneeAvatarUrl))
+                            <div class="detail-kv-value">
+                                <div id="overviewAssigneeView">
+                                    <div class="detail-avatar-row" id="overviewAssignee">
+                                        @if (!string.IsNullOrWhiteSpace(Model.AssigneeId))
                                         {
-                                            <img src="@Model.AssigneeAvatarUrl" alt="@Model.AssigneeName" class="card-assignee-avatar-image" />
+                                            <span class="card-assignee-avatar">
+                                                @if (!string.IsNullOrEmpty(Model.AssigneeAvatarUrl))
+                                                {
+                                                    <img src="@Model.AssigneeAvatarUrl" alt="@Model.AssigneeName" class="card-assignee-avatar-image" />
+                                                }
+                                                else
+                                                {
+                                                    @Model.AssigneeInitial
+                                                }
+                                            </span>
+                                            <div class="detail-avatar-copy">
+                                                <div class="title">@Model.AssigneeName</div>
+                                            </div>
                                         }
                                         else
                                         {
-                                            @Model.AssigneeInitial
+                                            <span class="text-muted">@Localizer["Unassigned"]</span>
                                         }
-                                    </span>
-                                    <div class="detail-avatar-copy">
-                                        <div class="title">@Model.AssigneeName</div>
+                                        @if (Model.CanEdit)
+                                        {
+                                            <button type="button" class="btn btn-sm btn-outline-secondary ms-1" id="btnEditAssignee" title="@Localizer["Edit assignee"]" style="border-radius:12px;flex-shrink:0">
+                                                <i class="align-middle" style="width:14px;height:14px" data-lucide="pencil"></i>
+                                            </button>
+                                        }
                                     </div>
-                                }
-                                else
+                                </div>
+                                @if (Model.CanEdit)
                                 {
-                                    <span class="text-muted">@Localizer["Unassigned"]</span>
+                                    <div id="overviewAssigneeEdit" class="d-none">
+                                        <div class="d-flex gap-2 mb-2">
+                                            <input type="text" id="overviewAssigneeSearch" class="form-control detail-input" placeholder="@Localizer["Search assignee..."]" autocomplete="off" />
+                                            <button class="btn btn-outline-danger" type="button" id="btnOverviewClearAssignee">@Localizer["Clear"]</button>
+                                        </div>
+                                        <div id="overviewAssigneeDropdown" class="list-group d-none shadow-sm" style="max-height:220px;overflow-y:auto;border-radius:16px"></div>
+                                    </div>
                                 }
                             </div>
                         </div>
@@ -548,26 +568,6 @@
                             </div>
                             <div class="detail-section-note mt-2">@Localizer["Recurring cards require a due date, interval and recurrence unit."]</div>
                         </div>
-                    </div>
-                </section>
-
-                <section class="detail-surface">
-                    <div class="detail-surface-header">
-                        <div>
-                            <div class="fw-semibold">@Localizer["Assignee"]</div>
-                            <div class="detail-section-note">@Localizer["Who is currently on point for this work."]</div>
-                        </div>
-                    </div>
-                    <div class="detail-surface-body">
-                        <div class="detail-avatar-row mb-3" id="assigneeSummary"></div>
-                        @if (Model.CanEdit)
-                        {
-                            <div class="d-flex gap-2 mb-2">
-                                <input type="text" id="assigneeSearch" class="form-control detail-input" placeholder="@Localizer["Search assignee..."]" autocomplete="off" />
-                                <button class="btn btn-outline-danger" type="button" id="btnClearAssignee">@Localizer["Clear"]</button>
-                            </div>
-                            <div id="assigneeDropdown" class="list-group d-none shadow-sm" style="max-height:220px;overflow-y:auto;border-radius:16px"></div>
-                        }
                     </div>
                 </section>
 
@@ -739,6 +739,7 @@
     <span data-key="labels">@Localizer["Labels"]</span>
     <span data-key="delete">@Localizer["Delete"]</span>
     <span data-key="no-comments-yet">@Localizer["No comments yet."]</span>
+    <span data-key="edit">@Localizer["Edit"]</span>
     <span data-key="assignee">@Localizer["Assignee"]</span>
     <span data-key="saved">@Localizer["Saved"]</span>
     <span data-key="select-column">@Localizer["Select column..."]</span>
