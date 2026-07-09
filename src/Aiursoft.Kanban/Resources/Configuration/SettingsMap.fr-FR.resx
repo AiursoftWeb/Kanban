@@ -34,44 +34,7 @@
     <value>Autoriser les utilisateurs à modifier leur surnom sur la page de gestion du profil.</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
-    <value>Définir automatiquement l&apos;heure de début planifiée
-```
-
-But we need to check if we need to include the quotes or the Localizer wrapper? The user only wants to translate the sentence &quot;Auto Set Planned Start Time&quot;. So output just the translation. Use triple backticks with the content.
-
-Thus final answer: wrap the translation in triple backticks.
-
-But note: need to check if &quot;Auto Set Planned Start Time&quot; might be a proper noun (the key) and should be output unchanged. However they explicitly say: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them! So please consider if the sentence or word `Auto Set Planned Start Time` is one of them.&quot; So we need to decide if it&apos;s a proper noun. It is a UI setting name; it might be considered a proper noun (like a label). But they likely intend to translate it. The phrase does not look like a trademark or a name. It&apos;s a descriptive phrase. So it&apos;s not a proper noun. So we should translate.
-
-Thus answer: &quot;Définir automatiquement l&apos;heure de début planifiée&quot;. Could also be &quot;Régler automatiquement l&apos;heure de début planifiée&quot;. Which one is more natural? &quot;Définir automatiquement l&apos;heure de début planifiée&quot; seems appropriate.
-
-Let&apos;s consider typical French translation of &quot;Planned Start Time&quot;: &quot;Heure de début planifiée&quot;. &quot;Auto Set&quot; =&gt; &quot;Réglage automatique&quot;. But &quot;Auto Set Planned Start Time&quot; might be translated as &quot;Réglage automatique de l&apos;heure de début planifiée&quot;. That is a good translation.
-
-Alternatively: &quot;Activation de l&apos;heure de début planifiée automatiquement&quot; but that seems off.
-
-One could translate &quot;Auto Set Planned Start Time&quot; as &quot;Réglage auto de l&apos;heure de début planifiée&quot;. That is succinct. But &quot;auto&quot; could be &quot;auto&quot;. But &quot;auto&quot; is not a French word but used in UI.
-
-Better: &quot;Régler automatiquement l&apos;heure de début planifiée&quot;. This uses &quot;régler&quot; which is &quot;to set&quot;. But &quot;auto set&quot; is &quot;set automatically&quot;. So &quot;Régler automatiquement l&apos;heure de début planifiée&quot;. This seems okay.
-
-But we need to consider French grammar: &quot;Auto Set Planned Start Time&quot; as a phrase can be translated as &quot;Définir automatiquement l&apos;heure de début planifiée&quot;. That is &quot;to automatically set the planned start time&quot;. That seems most appropriate.
-
-Thus output: &quot;Définir automatiquement l&apos;heure de début planifiée&quot;. Use triple backticks.
-
-We also need to ensure we do not output any other content. So we should output only:
-
-```Définir automatiquement l&apos;heure de début planifiée
-```
-
-We need to wrap in triple backticks. The user said &quot;wrap it in three backticks (```), like this: ```Translated word here...```&quot;. So we should output exactly:
-
-```Définir automatiquement l&apos;heure de début planifiée```
-
-Probably with no extra spaces. Provide exactly as they want.
-
-Thus final answer: just that.
-&lt;/think&gt;
-
-```Définir automatiquement l&apos;heure de début planifiée</value>
+    <value>Définir automatiquement l&apos;heure de début planifiée</value>
   </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>URL de la page d&apos;accueil de la marque</value>
@@ -89,52 +52,7 @@ Thus final answer: just that.
     <value>Numéro ICP</value>
   </data>
   <data name="Planned Start Time Advance Days" xml:space="preserve">
-    <value>Jours d&apos;avance du temps de démarrage planifié```
-
-But maybe they want &quot;Jours d&apos;avance du temps de début planifié&quot;. Let&apos;s see which translation is most appropriate. Let&apos;s examine the context: The paragraph is code that defines settings for a game, with names and descriptions. The name &quot;Planned Start Time Advance Days&quot; is used as a setting key. The description: &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; So the name is like &quot;Planned Start Time Advance Days&quot;. In French UI, they&apos;d likely call it &quot;Jours d&apos;avance du temps de début planifié&quot;. But maybe &quot;Jours d&apos;avance du temps de début prévu&quot;? &quot;Planifié&quot; vs &quot;prévu&quot;. &quot;Planned&quot; can be &quot;planifié&quot; (like schedule) or &quot;prévu&quot;. &quot;Start time&quot; could be &quot;temps de début&quot;. &quot;Advance days&quot; is &quot;jours d&apos;avance&quot;. So phrase could be &quot;Jours d&apos;avance du temps de début planifié&quot;. However &quot;temps de début planifié&quot; might be weird because &quot;planifié&quot; is not typical. Maybe better &quot;Jours d&apos;avance du temps de début prévu&quot;. But &quot;prévu&quot; is &quot;planned&quot;. So &quot;temps de début prévu&quot; is &quot;planned start time&quot;. &quot;Advance days&quot; would be &quot;Jours d&apos;avance&quot;. So phrase could be &quot;Jours d&apos;avance du temps de début prévu&quot;. But &quot;prévu&quot; can be ambiguous.
-
-Alternatively, &quot;Jours d&apos;avance du temps de démarrage planifié&quot;. &quot;Temps de démarrage&quot; is more like &quot;start time&quot; for a process. &quot;Planifié&quot; again.
-
-Maybe better translation: &quot;Jours d&apos;avance du temps de début planifié&quot;. Let&apos;s think about typical UI translation. Usually they&apos;d translate &quot;Planned Start Time Advance Days&quot; as &quot;Jours d&apos;avance du temps de début planifié&quot;. But we need to be sure.
-
-Alternatively, could be &quot;Jours d&apos;avance pour le temps de début planifié&quot;. Or &quot;Jours d&apos;avance pour le temps de début prévu&quot;. &quot;Jours d&apos;avance du temps de début planifié&quot; might be the most literal. Another option: &quot;Jours d&apos;avance du temps de début&quot;. If it&apos;s &quot;Advance Days&quot;, maybe they&apos;d just use &quot;Jours d&apos;avance du temps de début&quot;. But we should include &quot;planifié&quot;. The phrase &quot;Planned Start Time Advance Days&quot; includes three nouns: &quot;Planned Start Time&quot; and &quot;Advance Days&quot;. So translation: &quot;Jours d&apos;avance du temps de début planifié&quot;. Or &quot;Jours d&apos;avance du temps de début planifié&quot;. Hmm.
-
-Alternatively, &quot;Jours d&apos;avance du temps de démarrage planifié&quot;. Let&apos;s evaluate synonyms:
-
-- &quot;Planned&quot;: &quot;prévu&quot;, &quot;planifié&quot;. &quot;Planifié&quot; means scheduled as part of a plan. &quot;Prévu&quot; means anticipated or scheduled. Which is more appropriate? In UI, &quot;planned start time&quot; often uses &quot;prévu&quot;. &quot;Start time&quot; is &quot;temps de début&quot;. Could be &quot;temps de début prévu&quot;. So &quot;Jours d&apos;avance du temps de début prévu&quot;. This is more natural French. &quot;Jours d&apos;avance du temps de début prévu&quot; might be a bit unnatural: &quot;temps de début prévu&quot; is &quot;planned start time&quot;. &quot;Jours d&apos;avance&quot; is &quot;advance days&quot;. So &quot;Jours d&apos;avance du temps de début prévu&quot;. That could be a translation. But we might also add &quot;Jours d&apos;avance du temps de début planifié&quot;. Which is more like &quot;planned start time&quot;. I&apos;d say &quot;temps de début planifié&quot; is also okay but less natural.
-
-Alternatively, &quot;Jours d&apos;avance pour le temps de début planifié&quot;. But that adds &quot;pour&quot; which changes meaning.
-
-Let&apos;s see translation guidelines: The user wants accurate translation. They didn&apos;t ask for a literal word-by-word translation, but a translation that fits the context. The phrase is used as a setting name, like a key. So we want something that will be recognized by French-speaking users as a setting name. The typical translation for &quot;Planned Start Time Advance Days&quot; might be &quot;Jours d&apos;avance du temps de début planifié&quot;. However, maybe &quot;Jours d&apos;avance du temps de début prévu&quot; is more natural. I think &quot;prévu&quot; is more commonly used in French for &quot;planned&quot;. So &quot;Jours d&apos;avance du temps de début prévu&quot;. But we need to incorporate &quot;Advance Days&quot;. &quot;Jours d&apos;avance&quot; is &quot;advance days&quot;. So &quot;Jours d&apos;avance du temps de début prévu&quot;. This phrase might be slightly unnatural because &quot;temps de début prévu&quot; is okay, but &quot;Jours d&apos;avance du temps de début prévu&quot; is a bit long. But it&apos;s okay for a setting name.
-
-We could also use &quot;Jours d&apos;avance du temps de début planifié&quot;. Which is also okay.
-
-What about &quot;Jours d&apos;avance du temps de démarrage planifié&quot;. &quot;Démarrage&quot; is start of a machine, &quot;temps de démarrage planifié&quot;. But &quot;temps de démarrage planifié&quot; is less common. &quot;Start time&quot; may be &quot;temps de début&quot;. &quot;Planifié&quot; is more like &quot;scheduled&quot;. So &quot;temps de début planifié&quot;. That&apos;s fine.
-
-Let&apos;s consider typical translation patterns used in game UI: For example, in localization of a game setting &quot;Planned Start Time Advance Days&quot; they&apos;d probably translate as &quot;Jours d&apos;avance du temps de début planifié&quot;. I&apos;d go with that.
-
-Now the user instructions: &quot;Please translate only the sentence or word `Planned Start Time Advance Days` in the paragraph into the target language fr-FR, Français (France).&quot; So output should be just the translation string wrapped in triple backticks, with no other content.
-
-Thus output:
-
-```Jours d&apos;avance du temps de début planifié```
-
-Alternatively, we could consider &quot;Jours d&apos;avance du temps de début prévu&quot;. Which one is more correct? &quot;Planifié&quot; is a technical term often used for &quot;planned&quot; in scheduling contexts (e.g., &quot;tâches planifiées&quot;). &quot;Prévu&quot; is more general meaning &quot;anticipated&quot;. In UI naming for a setting like &quot;Planned Start Time Advance Days&quot;, &quot;planifié&quot; seems appropriate. So I&apos;d go with &quot;Jours d&apos;avance du temps de début planifié&quot;. That is a direct translation.
-
-Check for any special characters: Should be French characters (accent) &quot;é&quot;, &quot;ç&quot;? &quot;Jours d&apos;avance&quot; uses accent, &quot;d&apos;avance&quot;. &quot;du temps&quot; has no accent. &quot;de début&quot; no accent. &quot;planifié&quot; has accent on &quot;i&quot;. So final output: &quot;Jours d&apos;avance du temps de début planifié&quot;.
-
-Thus output in triple backticks:
-
-```
-Jours d&apos;avance du temps de début planifié
-```
-
-Make sure no extra content. No explanation.
-
-Thus final answer.
-&lt;/think&gt;
-
-```Jours d&apos;avance du temps de début planifié</value>
+    <value>Jours d&apos;avance du temps de démarrage planifié</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Logo du projet</value>
@@ -155,94 +73,10 @@ Thus final answer.
     <value>Le nom du projet affiché dans l&apos;interface utilisateur.</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
-    <value>When auto-setting planned start time, the number of days to advance before the due date.```
-
-Wait that is original English. But we need translation: In French: &quot;Lorsque la fonction de définition automatique de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-But maybe better: &quot;Lorsque la valeur de l&apos;heure de début prévue est définie automatiquement, nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-But we can phrase more naturally: &quot;When auto-setting planned start time&quot; might be something like &quot;When auto-setting of the planned start time is enabled&quot;. So translation: &quot;Lorsque la configuration automatique de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-Thus translation: &quot;Lorsque la configuration automatique de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-Alternatively: &quot;Lors de la configuration automatique de l&apos;heure de début prévue, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-Simplify: &quot; Lorsque le système auto-détermine l&apos;heure de début prévue, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-But we need to keep as close to original phrasing.
-
-Let&apos;s try: &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; French: &quot;Lorsque la fonction de définition automatique de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-Alternatively: &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; = &quot;Lors de la configuration automatique de l&apos;heure de début prévue, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-Better: &quot;Lorsque la valeur de l&apos;heure de début prévue est définie automatiquement, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-So output in triple backticks.
-
-Make sure to only output translation. So:
-
-```Lorsque la configuration automatique de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.```
-
-Check for any proper nouns: &quot;auto-setting&quot; is a technical term but not a proper noun like trademark. Could be kept as &quot;auto-setting&quot;. But translation may include &quot;auto-setting&quot;. In French translation, we can keep &quot;auto-setting&quot; as &quot;auto-setting&quot;. But maybe better to translate &quot;auto-setting&quot; as &quot;auto-configuration&quot;? The user may want to preserve &quot;auto-setting&quot; as is, but not clear. The instruction: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them!&quot; The term &quot;auto-setting&quot; is not a proper noun but could be a term for the setting. The instruction is about &quot;If you don&apos;t understand what you want to translate, please output it as it is!&quot; So we can decide to keep &quot;auto-setting&quot; as &quot;auto-setting&quot;. But translation includes it. Could keep &quot;auto-setting&quot;. But translation in French might incorporate &quot;auto-setting&quot;. Eg: &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; =&gt; &quot;Lorsque la valeur auto-setting de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-But maybe better: &quot;Lorsque la configuration auto-setting de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-However this may be too literal. Let&apos;s try a natural translation: &quot;Lorsque le paramètre auto-setting de l&apos;heure de début prévue est activé, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-But maybe the user wants the translation without leaving &quot;auto-setting&quot;. We need to decide.
-
-The instruction says: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them! So please consider if the sentence or word `When auto-setting planned start time, the number of days to advance before the due date.` is one of them.&quot;
-
-The phrase includes &quot;auto-setting&quot;. Is that a proper noun? It&apos;s a feature name. It might be considered a proper noun (like a setting name). The instruction says &quot;must be output as it is&quot;. So we should output &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; unchanged? But the user asked to translate the sentence into fr-FR. The phrase includes &quot;auto-setting&quot; which may be considered a proper noun? The user also says &quot;If you don&apos;t understand what you want to translate, please output it as it is!&quot; But we understand the sentence, so we should translate it, but perhaps we should keep &quot;auto-setting&quot; as &quot;auto-setting&quot;? But the translation includes &quot;auto-setting&quot; as a term that may be left in English or transliteration. However typical translation of &quot;auto-setting&quot; is &quot;auto-configuration&quot; or &quot;Réglage automatique&quot;. But the phrase &quot;auto-setting&quot; is not a trademark or proper noun; it&apos;s a descriptive term. In translation, we could replace &quot;auto-setting&quot; with &quot;Réglage automatique&quot; but then we lose the exact term.
-
-The user instruction: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them! So please consider if the sentence or word `When auto-setting planned start time, the number of days to advance before the due date.` is one of them.&quot;
-
-Thus if &quot;auto-setting&quot; is considered a proper noun (like a trademark) we should keep it as is. But it&apos;s ambiguous.
-
-Better to follow the user instruction: The user explicitly said &quot;If you don&apos;t understand what you want to translate, please output it as it is!&quot; Since we do understand, we need to translate. But we need to preserve any proper nouns within the sentence. The term &quot;auto-setting&quot; may be considered a proper noun. If we treat it as a proper noun, we could keep it unchanged. However we also have &quot;planned start time&quot;. That is also a term. But is it a proper noun? Possibly not. &quot;planned start time&quot; is a concept. So we can translate that part.
-
-Thus translation: &quot;Lorsque la fonction de paramétrage automatique (auto-setting) de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-But we can also keep &quot;auto-setting&quot; as is.
-
-Alternatively: &quot;Lorsque auto-setting de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-Simplify: &quot; Lorsque auto-setting de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-The phrase &quot;When auto-setting planned start time&quot; can be: &quot;Lorsque auto-setting planned start time&quot;. But &quot;planned start time&quot; is a phrase that can be translated: &quot;heure de début prévue&quot;. So translation: &quot;Lorsque auto-setting de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-But maybe better: &quot;Lorsque auto-setting de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-Thus final translation: &quot;Lorsque la fonction auto-setting de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.&quot;
-
-We need to output only the translation inside triple backticks.
-
-Thus:
-
-```Lorsque la fonction auto-setting de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.```
-
-Check for any other proper nouns: &quot;due date&quot; =&gt; &quot;date d&apos;échéance&quot;. That seems fine.
-
-Thus final answer.
-&lt;/think&gt;
-
-```Lorsque la fonction auto-setting de l&apos;heure de début prévue est activée, le nombre de jours à avancer avant la date d&apos;échéance.</value>
+    <value>When auto-setting planned start time, the number of days to advance before the due date.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
-    <value>Lorsqu&apos;elle est activée, les cartes avec une date d&apos;échéance mais sans heure de début planifiée se voient attribuer automatiquement une heure de début planifiée en fonction du paramètre de jours d&apos;avance.
-```
-
-Double-check translation for fluency: &quot;Lorsqu&apos;elle est activée, les cartes avec une date d&apos;échéance mais sans heure de début planifiée se voient attribuer automatiquement une heure de début planifiée en fonction du paramètre de jours d&apos;avance.&quot; That is good.
-
-Alternatively: &quot;Lorsqu&apos;elle est activée, les cartes avec une date d&apos;échéance mais sans heure de début planifiée se voient attribuer automatiquement une heure de début planifiée basée sur le paramètre de jours d&apos;avance.&quot; Both are acceptable.
-
-Make sure we output only translation, wrapped in triple backticks, nothing else.
-
-Thus final.
-&lt;/think&gt;
-
-```Français
-Lorsqu&apos;elle est activée, les cartes avec une date d&apos;échéance mais sans heure de début planifiée se voient attribuer automatiquement une heure de début planifiée en fonction du paramètre de jours d&apos;avance.</value>
+    <value>Lorsqu&apos;elle est activée, les cartes avec une date d&apos;échéance mais sans heure de début planifiée se voient attribuer automatiquement une heure de début planifiée en fonction du paramètre de jours d&apos;avance.</value>
   </data>
 
 </root>

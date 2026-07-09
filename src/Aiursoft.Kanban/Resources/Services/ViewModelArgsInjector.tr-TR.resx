@@ -40,49 +40,10 @@
     <value>Anonim</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>), like this: ``` Translated word here... ```&quot;
-
-Thus we need to output:
-
-```
-Arşivlenmiş
-```
-
-But check if there is any need for case? Might be &quot;Arşivlenmiş&quot; is correct. Or &quot;Arşivlenmiş&quot;. Usually &quot;Archived&quot; as an adjective is &quot;Arşivlenmiş&quot;. Could also be &quot;Arşivli&quot; (means &quot;with archive&quot;?). But &quot;archived&quot; meaning &quot;moved to archive&quot; = &quot;Arşivlenmiş&quot;. Also &quot;Arşivlenmiş&quot; is a past participle &quot;has been archived&quot;. In UI, &quot;Archived&quot; often appears as a tab title, e.g., &quot;Archived&quot;. Turkish translation: &quot;Arşivlenmiş&quot;. For plural like &quot;Archived Boards&quot;, &quot;Arşivlenmiş Pano&quot;. But here we only have singular &quot;Archived&quot;. So output &quot;Arşivlenmiş&quot;. Wrap in triple backticks.
-
-Thus answer:
-
-``` 
-Arşivlenmiş 
-```
-
-But they said &quot;wrap it in three backticks, like this: ``` Translated word here... ```&quot;. So we should output triple backticks and then the translation. Usually they&apos;d want:
-
-```
-Arşivlenmiş
-```
-
-So final answer: triple backticks with translation inside. Let&apos;s do that.
-&lt;/think&gt;
-
-``` 
-Arşivlenmiş</value>
+    <value>Arşivlenmiş</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>Arşivlenmiş Panolar
-```
-
-But check: The original sentence is &quot;Archived Boards&quot;. Should it be &quot;Arşivlenmiş Panolar&quot;? In Turkish, &quot;Archived Boards&quot; likely would be &quot;Arşivlenmiş Panolar&quot;. There&apos;s also &quot;Archived&quot; alone earlier (just &quot;Archived&quot;): likely &quot;Arşivlenmiş&quot;. &quot;Archived Boards&quot; likely &quot;Arşivlenmiş Panolar&quot;. However, we must consider if the phrase includes proper nouns or trademarks. &quot;Boards&quot; could be &quot;Panolar&quot; (board is paneller?), but &quot;board&quot; in a Kanban context is &quot;panel&quot; maybe. In Turkish, &quot;board&quot; is &quot;panel&quot;, &quot;pano&quot;. Usually &quot;Kanban board&quot; is &quot;Kanban panosu&quot;. &quot;Board&quot; singular can be &quot;pano&quot;. Plural: &quot;pano&quot; can be &quot;panolar&quot;. So &quot;Archived Boards&quot; likely &quot;Arşivlenmiş Panolar&quot;. Should we use capitalized &quot;Arşivlenmiş Panolar&quot;? Probably same case as original: first letter capital? In code, they have it as string literal: &quot;Archived Boards&quot;. The translation should be localized, not necessary preserving capitalization but can. Usually translations preserve case (first letter capital). So &quot;Arşivlenmiş Panolar&quot;. Use three backticks.
-
-Thus output:
-
-```
-Arşivlenmiş Panolar
-```
-&lt;/think&gt;
-
-``` 
-Arşivlenmiş Panolar</value>
+    <value>Arşivlenmiş Panolar</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Arka Plan Görevleri</value>
@@ -91,43 +52,7 @@ Arşivlenmiş Panolar</value>
     <value>Geçersiz İstek</value>
   </data>
   <data name="Card Details" xml:space="preserve">
-    <value>Kart Detayları
-```
-
-But we need to ensure we only output the translated word and wrap it in triple backticks. They say &quot;Only output the translated content and wrap it in three backticks (```), like this:
-
-```
-Translated word here...
-```&quot;
-
-Thus we output:
-
-```
-Kart Detayları
-```
-
-Should we include any extra text? No, only the translated content inside triple backticks. So final answer: triple backticks with the translation.
-
-Thus final output is:
-
-``` 
-Kart Detayları
-```
-
-Make sure there are no spaces before the triple backticks. The specification: &quot;wrap it in three backticks (```), like this:
-
-```
-Translated word here...
-```&quot;
-
-Thus we output:
-
-```
-Kart Detayları
-```
-&lt;/think&gt;
-
-```Kart Detayları</value>
+    <value>Kart Detayları</value>
   </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Profil Resmini Değiştir</value>

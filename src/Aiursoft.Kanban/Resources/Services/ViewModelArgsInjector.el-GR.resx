@@ -40,37 +40,10 @@
     <value>Ανώνυμος</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Αρχειοθετημένο
-```
-
-Wrap in triple backticks as instructed. No extra content. So final answer is the translation.
-&lt;/think&gt;
-
-``` Αρχειοθετημένο</value>
+    <value>Αρχειοθετημένο</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>Αρχειοθετημένοι Πίνακες
-```
-
-That is the translation.
-
-Check if any special handling: The phrase &quot;Archived Boards&quot; is likely not a proper noun. So translation is appropriate.
-
-Thus output that.
-
-Make sure no extra content. No extra explanation. Just the triple backticks containing translation.
-
-Thus final answer: ````Αρχειοθετημένοι Πίνακες````
-
-We should confirm translation: &quot;Archived Boards&quot; in Greek translation &quot;Αρχειοθετημένοι Πίνακες&quot;. Might also use &quot;Αρχειοθετημένες Πίνακες&quot;? But &quot;board&quot; may be feminine? Let&apos;s check standard Greek translation for &quot;Board&quot; in project management contexts: Usually &quot;Πίνακας&quot; is masculine, but &quot;Board&quot; in Greek can be &quot;Συμβούλιο&quot; (council). But for Kanban boards, we might use &quot;Πίνακες&quot;. Typically &quot;Kanban board&quot; is &quot;Πίνακας Kanban&quot;. So &quot;Archived Boards&quot; -&gt; &quot;Αρχειοθετημένοι Πίνακες&quot;. That seems correct.
-
-Alternatively, &quot;Archived Boards&quot; could be &quot;Αρχειοθετημένες Σελίδες&quot;? But the context uses &quot;Kanban Board&quot;. So likely &quot;Board&quot; = &quot;Πίνακας&quot;. So &quot;Archived Boards&quot; = &quot;Αρχειοθετημένοι Πίνακες&quot;. Good.
-
-Thus answer.
-&lt;/think&gt;
-
-``` 
-Αρχειοθετημένοι Πίνακες</value>
+    <value>Αρχειοθετημένοι Πίνακες</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Ημικυκλικές Εργασίες</value>

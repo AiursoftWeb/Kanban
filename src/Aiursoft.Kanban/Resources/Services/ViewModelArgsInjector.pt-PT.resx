@@ -40,19 +40,10 @@
     <value>Anónimo</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Arquivado```.
-&lt;/think&gt;
-
-```Arquivado</value>
+    <value>Arquivado</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>Quadros Arquivados
-```
-
-Wrap in triple backticks. Ensure no extra content.
-&lt;/think&gt;
-
-```Quadros Arquivados</value>
+    <value>Quadros Arquivados</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Tarefas em Segundo Plano</value>
@@ -61,18 +52,7 @@ Wrap in triple backticks. Ensure no extra content.
     <value>Pedido Inválido</value>
   </data>
   <data name="Card Details" xml:space="preserve">
-    <value>Detalhes do Cartão```.
-
-But check if &quot;Card Details&quot; is a proper noun or trademark: It&apos;s likely a UI label, not a trademark. So translate to Portuguese. Should be &quot;Detalhes do Cartão&quot;. That is typical. Also ensure correct punctuation? The translation only. So output:
-
-```
-Detalhes do Cartão
-```
-
-Thus final answer with triple backticks.
-&lt;/think&gt;
-
-```Detalhes do Cartão</value>
+    <value>Detalhes do Cartão</value>
   </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Alterar Avatar</value>
