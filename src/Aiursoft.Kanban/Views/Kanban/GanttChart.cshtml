@@ -1,0 +1,82 @@
+@using System.Text.Json
+@model Aiursoft.Kanban.Models.KanbanViewModels.GanttChartViewModel
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section styles {
+    <link rel="stylesheet" href="~/dist/kanban-board.css" asp-append-version="true" />
+    <style>
+        html, body { height: 100%; overflow: hidden; }
+        .gantt-page { height: 100%; }
+    </style>
+}
+
+<div class="gantt-page">
+
+    @* ── Top Bar ── *@
+    <div class="gantt-topbar">
+        <div class="gantt-topbar-left">
+            <a asp-action="Index" asp-route-boardId="@Model.Board.Id" class="btn btn-outline-secondary btn-sm">
+                <i class="align-middle" style="width:16px;height:16px" data-lucide="arrow-left"></i>
+                @Localizer["Back to Kanban"]
+            </a>
+            <span class="gantt-board-name">@Model.Board.Name</span>
+            <span class="gantt-readonly-badge">
+                <i class="align-middle" style="width:12px;height:12px" data-lucide="eye"></i>
+                @Localizer["Read-only"]
+            </span>
+        </div>
+
+        @* ── Mode Switcher ── *@
+        <div class="gantt-mode-switcher" role="group" aria-label="@Localizer["Gantt display mode"]">
+            <button type="button" class="gantt-mode-btn active" data-gantt-mode="default" id="ganttModeDefault">
+                @Localizer["Default"]
+            </button>
+            <button type="button" class="gantt-mode-btn" data-gantt-mode="planned" id="ganttModePlanned">
+                @Localizer["Planned"]
+            </button>
+            <button type="button" class="gantt-mode-btn" data-gantt-mode="actual" id="ganttModeActual">
+                @Localizer["Actual"]
+            </button>
+        </div>
+    </div>
+
+    @* ── Gantt Root ── *@
+    <div id="gantt-root"></div>
+
+</div>
+
+@* ── Localization data for the Gantt TypeScript module ── *@
+@* All keys are prefixed with "gantt-" to avoid collision with #loc-data on other pages. *@
+<div id="gantt-loc-data" hidden>
+    <span data-key="gantt-cards">@Localizer["Cards"]</span>
+    <span data-key="gantt-no-dates-cards">@Localizer["Cards without dates"]</span>
+    <span data-key="gantt-no-board-cards">@Localizer["This board has no cards."]</span>
+    <span data-key="gantt-no-date-cards-for-mode">@Localizer["No cards have complete dates in this mode."]</span>
+    <span data-key="gantt-time">@Localizer["Time:"]</span>
+    <span data-key="gantt-column">@Localizer["Column:"]</span>
+    <span data-key="gantt-status">@Localizer["Status:"]</span>
+    <span data-key="gantt-assignee">@Localizer["Assignee:"]</span>
+    <span data-key="gantt-priority">@Localizer["Priority:"]</span>
+    <span data-key="gantt-status-completed">@Localizer["Completed"]</span>
+    <span data-key="gantt-status-in-progress">@Localizer["In Progress"]</span>
+    <span data-key="gantt-status-not-started">@Localizer["Not Started"]</span>
+    <span data-key="gantt-missing-planned-both">@Localizer["Missing planned start and due date"]</span>
+    <span data-key="gantt-missing-planned-start">@Localizer["Missing planned start date"]</span>
+    <span data-key="gantt-missing-due-date">@Localizer["Missing due date"]</span>
+    <span data-key="gantt-missing-actual-both">@Localizer["Missing actual start and end date"]</span>
+    <span data-key="gantt-missing-actual-start">@Localizer["Missing actual start date"]</span>
+    <span data-key="gantt-missing-actual-end">@Localizer["Missing actual end date"]</span>
+    <span data-key="gantt-missing-date-fallback">@Localizer["Missing date information (planned or actual dates are incomplete)"]</span>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
+    <script type="module">
+        import { initGanttChartPage } from '/dist/gantt-chart.js';
+
+        initGanttChartPage({
+            boardName: @Html.Raw(JsonSerializer.Serialize(Model.Board.Name)),
+            boardData: @Html.Raw(JsonSerializer.Serialize(Model.BoardData, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }))
+        });
+    </script>
+}

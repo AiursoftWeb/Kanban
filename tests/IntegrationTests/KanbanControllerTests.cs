@@ -763,4 +763,26 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual("This is a comment test", getDoc.RootElement[0].GetProperty("Content").GetString());
         Assert.AreEqual("This is a images url", getDoc.RootElement[0].GetProperty("Images").GetString());
     }
+
+    // ── GanttChart ─────────────────────────────────────────
+
+    [TestMethod]
+    public async Task GanttChart_WithBoard_ReturnsGanttPage()
+    {
+        await LoginAsAdmin();
+        var boardId = await CreateBoardAndGetIdAsync("Gantt Test Board");
+
+        var response = await Http.GetAsync($"/Kanban/GanttChart?boardId={boardId}");
+        response.EnsureSuccessStatusCode();
+        var html = await response.Content.ReadAsStringAsync();
+        Assert.Contains("Gantt Test Board", html);
+    }
+
+    [TestMethod]
+    public async Task GanttChart_Unauthenticated_RedirectsToLogin()
+    {
+        var response = await Http.GetAsync("/Kanban/GanttChart?boardId=1");
+        Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
+        StringAssert.Contains(response.Headers.Location!.OriginalString, "Login");
+    }
 }

@@ -1,0 +1,94 @@
+// ============================================================
+// index.ts — GanttChart page entry point
+// ============================================================
+
+import type { BoardData } from '../kanban-board/types';
+import type { GanttMode, GanttStrings } from './types';
+import { renderGantt } from './renderer';
+import './styles/gantt.css';
+
+interface GanttChartPageOptions {
+  boardData: BoardData;
+  boardName: string;
+}
+
+declare global {
+  interface Window {
+    lucide?: {
+      createIcons(options?: { nodes?: ParentNode[] }): void;
+    };
+  }
+}
+
+/**
+ * Read a localization string from the hidden #loc-data div.
+ * Falls back to `fallback` if the key is not found.
+ */
+function t(key: string, fallback: string): string {
+  const el = document.querySelector<HTMLElement>(`#gantt-loc-data span[data-key="${key}"]`);
+  return el?.textContent?.trim() || fallback;
+}
+
+/** Build the full GanttStrings bag from loc-data. */
+function loadStrings(): GanttStrings {
+  return {
+    cards:                t('gantt-cards',                  'Cards'),
+    noDatesCards:         t('gantt-no-dates-cards',         'Cards without dates'),
+    noBoardCards:         t('gantt-no-board-cards',         'This board has no cards.'),
+    noDateCardsForMode:   t('gantt-no-date-cards-for-mode', 'No cards have complete dates in this mode.'),
+    timeLabel:            t('gantt-time',                   'Time:'),
+    columnLabel:          t('gantt-column',                 'Column:'),
+    statusLabel:          t('gantt-status',                 'Status:'),
+    assigneeLabel:        t('gantt-assignee',               'Assignee:'),
+    priorityLabel:        t('gantt-priority',               'Priority:'),
+    statusCompleted:      t('gantt-status-completed',       'Completed'),
+    statusInProgress:     t('gantt-status-in-progress',     'In Progress'),
+    statusNotStarted:     t('gantt-status-not-started',     'Not Started'),
+    missingPlannedBoth:   t('gantt-missing-planned-both',   'Missing planned start and due date'),
+    missingPlannedStart:  t('gantt-missing-planned-start',  'Missing planned start date'),
+    missingDueDate:       t('gantt-missing-due-date',       'Missing due date'),
+    missingActualBoth:    t('gantt-missing-actual-both',    'Missing actual start and end date'),
+    missingActualStart:   t('gantt-missing-actual-start',   'Missing actual start date'),
+    missingActualEnd:     t('gantt-missing-actual-end',     'Missing actual end date'),
+    missingDateFallback:  t('gantt-missing-date-fallback',  'Missing date information (planned or actual dates are incomplete)'),
+  };
+}
+
+export function initGanttChartPage(options: GanttChartPageOptions): void {
+  const container = document.getElementById('gantt-root');
+  if (!container) return;
+
+  const strings = loadStrings();
+  let currentMode: GanttMode = 'default';
+
+  function render(): void {
+    if (!container) return;
+    renderGantt(container, options.boardData, currentMode, strings);
+    refreshIcons();
+  }
+
+  // Wire up mode toggle buttons
+  const modeButtons = document.querySelectorAll<HTMLElement>('[data-gantt-mode]');
+  modeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentMode = btn.dataset.ganttMode as GanttMode;
+      modeButtons.forEach(b => {
+        b.classList.toggle('active', b === btn);
+      });
+      render();
+    });
+  });
+
+  // Initial render
+  render();
+}
+
+function refreshIcons(node?: ParentNode): void {
+  const lucide = window.lucide;
+  if (!lucide) return;
+  if (node) {
+    lucide.createIcons({ nodes: [node] });
+  } else {
+    lucide.createIcons();
+  }
+}

@@ -1444,7 +1444,27 @@ public class KanbanController(
         "dot-pink", "dot-teal", "dot-amber", "dot-indigo"
     ];
 
+    public async Task<IActionResult> GanttChart(int boardId)
+    {
+        var userId = userManager.GetUserId(User)!;
+        var board = await LoadBoardAsync(boardId);
+        if (board == null)
+            return NotFound();
+
+        if (!await HasReadAccess(board, userId))
+            return Forbid();
+
+        var boardData = BuildBoardData(board, false);
+
+        return this.StackView(new GanttChartViewModel
+        {
+            Board = board,
+            BoardData = boardData
+        });
+    }
+
     private BoardData BuildBoardData(KanbanBoard board, bool canEdit)
+
     {
         var now = DateTime.UtcNow;
         var dotIndex = 0;

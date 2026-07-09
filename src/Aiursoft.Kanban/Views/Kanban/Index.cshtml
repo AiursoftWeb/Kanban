@@ -124,6 +124,9 @@
                 <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
                     <i class="align-middle" style="width:16px;height:16px" data-lucide="arrow-left"></i> @Localizer["All Boards"]
                 </a>
+                <a asp-action="GanttChart" asp-route-boardId="@Model.CurrentBoard.Id" class="btn btn-outline-secondary btn-sm">
+                    <i class="align-middle" style="width:16px;height:16px" data-lucide="gantt-chart"></i> @Localizer["Gantt Chart"]
+                </a>
             }
             @if (Model.CurrentBoard == null)
             {
@@ -526,6 +529,8 @@
     <span data-key="h-ago">@Localizer["h ago"]</span>
     <span data-key="d-ago">@Localizer["d ago"]</span>
     <span data-key="no-comments-yet">@Localizer["No comments yet."]</span>
+    <span data-key="saved">@Localizer["Saved"]</span>
+    <span data-key="uploading-image">@Localizer["[Uploading image...]"]</span>
 </div>
 
 @section scripts {
