@@ -62,7 +62,6 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
   let currentMode: GanttMode = 'default';
 
   function render(): void {
-    if (!container) return;
     renderGantt(container, options.boardData, currentMode, strings);
     refreshIcons();
   }

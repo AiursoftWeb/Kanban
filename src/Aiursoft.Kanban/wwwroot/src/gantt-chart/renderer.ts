@@ -66,7 +66,7 @@ export function renderGantt(
   timeline.style.minWidth = `${totalWidth}px`;
   timeline.style.position = 'relative';
 
-  const header = buildTimelineHeader(days, totalWidth);
+  const header = buildTimelineHeader(days);
   const body = buildTimelineBody(items, days, minDate, totalWidth, s);
 
   timeline.appendChild(header);
@@ -237,7 +237,7 @@ function buildAssigneeAvatar(assignee: { displayName: string; avatarUrl?: string
 
 // ---- Timeline Header ----
 
-function buildTimelineHeader(days: DayInfo[], _totalWidth: number): HTMLElement {
+function buildTimelineHeader(days: DayInfo[]): HTMLElement {
   const header = document.createElement('div');
   header.className = 'gantt-timeline-header';
 
