@@ -33,6 +33,52 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Benutzern erlauben, ihren Spitznamen auf der Seite zur Profilverwaltung anzupassen.</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Automatisch geplante Startzeit festlegen
+```
+
+But we need to consider the language nuance. &quot;Auto Set Planned Start Time&quot;. Likely a setting name for software. In German, something like &quot;Automatisch geplante Startzeit festlegen&quot; or &quot;Automatisch geplante Startzeit setzen&quot;. Let&apos;s think about the appropriate translation. The phrase likely refers to &quot;Auto Set Planned Start Time&quot;. Could be &quot;Automatisch geplante Startzeit festlegen&quot;. That seems plausible.
+
+But we need to consider the target language de-DE. &quot;Auto Set Planned Start Time&quot; could be translated as &quot;Automatisch geplante Startzeit festlegen&quot;. Or &quot;Auto Festlegen der geplanten Startzeit&quot;? Let&apos;s consider typical localization for software settings: &quot;Auto Set Planned Start Time&quot; is probably a toggle: when enabled, cards with due date but no planned start time will automatically have their planned start time set based on the advance days setting. So the name of the setting might be &quot;Automatisch geplante Startzeit festlegen&quot;. That seems correct. &quot;Auto Set&quot; could be &quot;Automatisch festgelegt&quot;. &quot;Planned Start Time&quot; = &quot;Geplante Startzeit&quot;. So combine: &quot;Automatisch geplante Startzeit festlegen&quot;. Could also be &quot;Automatisch festgelegte geplante Startzeit&quot;? But likely they want a phrase that fits as a setting name, something like &quot;Automatisch geplante Startzeit&quot;. However the phrase is &quot;Auto Set Planned Start Time&quot;. Could be &quot;Auto-Set Planned Start Time&quot;? Not sure.
+
+Let&apos;s consider typical translation: For software localization, &quot;Auto Set Planned Start Time&quot; could be translated as &quot;Automatisch geplante Startzeit setzen&quot;. But &quot;setzen&quot; is &quot;set&quot;. The phrase &quot;Auto Set&quot; is more like &quot;Auto-Set&quot;. In German, &quot;automatisch festgelegt&quot; or &quot;automatisch festgelegte&quot;. But naming convention often uses &quot;Auto&quot; as prefix to denote automatic action, e.g., &quot;Auto-Layout&quot;. &quot;Auto Set Planned Start Time&quot; perhaps is a check box: &quot;Auto set planned start time&quot; meaning &quot;Automatisch geplante Startzeit festlegen&quot;. So the translation is likely &quot;Automatisch geplante Startzeit festlegen&quot;. Indeed that phrase captures: &quot;Auto&quot; (auto), &quot;Set&quot; (set), &quot;Planned Start Time&quot; (geplante Startzeit). So &quot;Automatisch geplante Startzeit festlegen&quot; sounds like &quot;Auto set planned start time&quot;. So I will answer with that translation.
+
+Thus output:
+
+```
+Automatisch geplante Startzeit festlegen
+```
+
+But ensure it&apos;s wrapped in three backticks as per instructions. So final answer:
+
+``` Automatisch geplante Startzeit festlegen ```? Actually the instructions: &quot;Only output the translated content and wrap it in three backticks (```), like this:
+
+```
+Translated word here...
+```&quot;
+
+So we need exactly three backticks at start and end. Should we include line break after opening triple backticks? They show:
+
+```
+Translated word here...
+```
+
+So we should output:
+
+```
+Automatisch geplante Startzeit festlegen
+```
+
+Thus no extra spaces, just that phrase.
+
+Therefore final answer: a code block with that phrase.
+
+Thus I will output that.
+&lt;/think&gt;
+
+```
+Automatisch geplante Startzeit festlegen</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>Brand-Startseite-URL</value>
   </data>
@@ -47,6 +93,24 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP-Nummer</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Geplante Startzeit Vorlauf Tage
+```
+
+But maybe we should use &quot;Geplante Startzeit Vorlaufzeit (Tage)&quot;? The phrase is a Name for a setting. The translation should be &quot;Geplante Startzeit Vorlauf Tage&quot;. I think that&apos;s okay.
+
+Alternatively, &quot;Geplante Startzeit vorlaufende Tage&quot;. But &quot;vorlaufende&quot; not typical. &quot;Vorlauf&quot; is a noun meaning &quot;lead, advance&quot;. &quot;Vorlaufzeit&quot; means &quot;lead time&quot;. So &quot;Geplante Startzeit Vorlaufzeit&quot; maybe, but &quot;Vorlaufzeit&quot; alone might not convey days. So &quot;Geplante Startzeit Vorlauf Zeit&quot;? Hard.
+
+Better: &quot;Geplante Startzeit Vorlauf Tage&quot;. Or &quot;Geplante Startzeit Vorlauf&quot;. The phrase &quot;Advance Days&quot; may be &quot;Vorlauf Tage&quot;. So &quot;Geplante Startzeit Vorlauf Tage&quot;. So final output: wrap in triple backticks.
+
+Thus answer: ```
+Geplante Startzeit Vorlauf Tage
+```
+&lt;/think&gt;
+
+``` 
+Geplante Startzeit Vorlauf Tage</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Projektlogo</value>
@@ -65,6 +129,52 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Der Name des Projekts, der im Frontend angezeigt wird.</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Bei automatischer Einstellung der geplanten Startzeit: Anzahl der Tage, die vor dem Fälligkeitsdatum vorgezogen werden.```
+
+But we need to consider if any part of the sentence is a proper noun or trademark that must stay unchanged. The sentence is &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; Nothing like that is a proper noun; it&apos;s just a description. So we translate.
+
+We must not output any other content.
+
+Thus answer: wrap translation in triple backticks. Let&apos;s check if we need to preserve the colon or punctuation exactly? The original English includes a period at the end. We will include a period as part of the translation: &quot;Bei automatischer Einstellung der geplanten Startzeit: Anzahl der Tage, die vor dem Fälligkeitsdatum vorgezogen werden.&quot; The period should be at end. So final translation ends with a period.
+
+Thus output:
+
+```Bei automatischer Einstellung der geplanten Startzeit: Anzahl der Tage, die vor dem Fälligkeitsdatum vorgezogen werden.```
+
+Make sure it&apos;s just that content. Use triple backticks exactly.
+
+Thus final answer.
+&lt;/think&gt;
+
+```Bei automatischer Einstellung der geplanten Startzeit: Anzahl der Tage, die vor dem Fälligkeitsdatum vorgezogen werden.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>Wenn aktiviert, werden Karten mit einem Fälligkeitsdatum, aber ohne geplante Startzeit automatisch mit einer geplanten Startzeit versehen, die auf dem Einstellungswert für Vorlaufzeit basiert.```
+
+But we need to be careful about the phrase &quot;advance days setting.&quot; It could be &quot;Vorlaufzeit-Einstellung&quot;. In typical localization: &quot;advance days setting&quot; likely &quot;advance days&quot; is a setting name (PlannedStartTimeAdvanceDays). So the translation should reflect &quot;advance days setting&quot; as &quot;Einstellung für Vorlaufzeit&quot; or &quot;Einstellungswert für Vorlaufzeit&quot;. It&apos;s a description, so we can say &quot;dem Einstellungswert für &apos;Vorlaufzeit&apos;&quot; or &quot;dem Einstellungswert für &apos;Vorlaufzeit&apos;&quot;. But we need to keep it accurate.
+
+The English phrase: &quot;advance days setting&quot; - likely they mean &quot;advance days setting&quot;, which is the value of PlannedStartTimeAdvanceDays (the number of days to advance). So German translation: &quot;Einstellungswert für &apos;Vorlaufzeit&apos;&quot;. Could be &quot;Einstellungswert für &apos;Vorlaufzeit&apos;&quot; or &quot;Einstellungswert für Vorlaufzeit&quot;.
+
+Better: &quot;Einstellungswert für die Vorlaufzeit&quot;. So &quot;based on the advance days setting&quot; = &quot;basierend auf dem Einstellungswert für die Vorlaufzeit&quot;. So phrase: &quot;Wenn aktiviert, werden Karten mit einem Fälligkeitsdatum, aber ohne geplante Startzeit automatisch mit einer geplanten Startzeit versehen, die auf dem Einstellungswert für die Vorlaufzeit basiert.&quot;
+
+We need to output only that sentence. The user says: &quot;Please translate only the sentence or word `When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting.` in the paragraph into the target language de-DE, Deutsch (Deutschland).&quot; So they only want translation of that sentence, not other strings in the paragraph. So we output only that translation.
+
+Thus final answer: wrap translation in three backticks.
+
+Check for any issues: The user wants only the translated content, wrapped in three backticks, with no other content. So we output exactly:
+
+```Wenn aktiviert, werden Karten mit einem Fälligkeitsdatum, aber ohne geplante Startzeit automatisch mit einer geplanten Startzeit versehen, die auf dem Einstellungswert für die Vorlaufzeit basiert.```
+
+Check for grammar: &quot;Einstellungswert für die Vorlaufzeit&quot; seems odd: &quot;Einstellungswert&quot; is a term but &quot;Einstellungswert für die Vorlaufzeit&quot; could be &quot;Einstellungswert für die Vorlaufzeit&quot; maybe more clear: &quot;Einstellungswert für die Vorlaufzeit&quot;. However, the phrase &quot;advance days setting&quot; might be better translated as &quot;Einstellungswert für &apos;Vorlaufzeit&apos;&quot; or &quot;Einstellungswert für die Vorlaufzeit&quot;. But &quot;Einstellungswert&quot; is perhaps not the right term. Usually &quot;setting&quot; is &quot;Einstellung&quot;. &quot;Setting value&quot; maybe &quot;Einstellungswert&quot;. So &quot;advance days setting&quot; could be &quot;Einstellungswert für die Vorlaufzeit&quot;. But perhaps better: &quot;Einstellungswert für &apos;Vorlaufzeit&apos;&quot; is okay. However, the phrase &quot;Einstellungswert&quot; might be too technical. &quot;Einstellungswert für die Vorlaufzeit&quot; is not super common. But we can also phrase: &quot;Einstellungswert für die Vorlaufzeit&quot;. Actually, &quot;advance days setting&quot; could be &quot;Einstellungswert für die Vorlaufzeit&quot;. It might be okay.
+
+Alternatively, the translation can be: &quot;Wenn aktiviert, werden Karten mit einem Fälligkeitsdatum, aber ohne geplante Startzeit automatisch mit einer geplanten Startzeit versehen, die auf dem Einstellungswert für die Vorlaufzeit basiert.&quot; That might be a bit better: &quot;Einstellungswert&quot; is singular, but maybe &quot;Einstellungswert&quot; is okay. Could also be &quot;Einstellungswert für die Vorlaufzeit&quot;. This is fine.
+
+Thus final answer.
+&lt;/think&gt;
+
+```Wenn aktiviert, werden Karten mit einem Fälligkeitsdatum, aber ohne geplante Startzeit automatisch mit einer geplanten Startzeit versehen, die auf dem Einstellungswert für die Vorlaufzeit basiert.</value>
   </data>
 
 </root>
