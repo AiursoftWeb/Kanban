@@ -33,6 +33,34 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>プロフィール管理ページでユーザーがニックネームを調整できるようにする。</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>自動設定計画開始時刻```
+
+But check: Should we add something like &quot;自動設定計画開始時刻&quot; or &quot;自動設定の計画開始時刻&quot;? Let&apos;s see typical Japanese usage for setting names: &quot;Auto Set Planned Start Time&quot; could be something like &quot;自動設定 計画開始時間&quot;. But &quot;自動設定計画開始時刻&quot; is okay.
+
+We must ensure it&apos;s not overly literal but still accurate: The setting means &quot;Automatically set the planned start time&quot;. So translation: &quot;自動設定の計画開始時刻&quot;. But the user only wants translation of the name (the string) &quot;Auto Set Planned Start Time&quot;. So maybe they want &quot;自動設定計画開始時刻&quot;. That is concise.
+
+Check other translations in the paragraph: They have &quot;ICP Number&quot; -&gt; &quot;ICP番号&quot;? No translation required. So we just output translation.
+
+Thus output:
+
+```自動設定計画開始時刻```
+
+But ensure it&apos;s in triple backticks as requested.
+
+So final answer: triple backticks containing &quot;自動設定計画開始時刻&quot;. No other content.
+
+Double-check: The user wants only the translated content, nothing else. So output exactly:
+
+```自動設定計画開始時刻```
+
+Yes.
+
+Thus final answer.
+&lt;/think&gt;
+
+```自動設定計画開始時刻</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>ブランド ホーム URL</value>
   </data>
@@ -47,6 +75,111 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP番号</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Translated word here...
+```&quot;
+
+We need to produce the translation. The user wants only the translation for the phrase &quot;Planned Start Time Advance Days&quot;. They gave a code snippet, but they only want translation for that phrase.
+
+We need to output a translation. The phrase seems like &quot;Planned Start Time Advance Days&quot;. In Japanese, this could be something like &quot;予定開始時間提前日数&quot; perhaps? Let&apos;s think about typical translation for similar phrase in localized software: For instance, &quot;Planned Start Date&quot; might be &quot;予定開始日&quot;. &quot;Advance days&quot; could be &quot;提前日数&quot;. Japanese translation: &quot;予定開始時間提前日数&quot;? In Japanese, &quot;Advance days&quot; means &quot;前倒し日数&quot;? Or &quot;先行日数&quot;? Or &quot;Advance days&quot; could be &quot; Ahead Days&quot;. Many localizations use &quot;先行日数&quot;. If we have &quot;Planned Start Time Advance Days&quot;, we might translate as &quot;計画開始時間前日数&quot;? Let&apos;s try to think about typical localization for project management or task management. Possibly it&apos;s like &quot;Planned Start Time Advance Days&quot; is a setting name that indicates number of days to advance before due date. In similar contexts, I&apos;ve seen translations like &quot;計画開始時間前倒し日数&quot;. But I need to output a translation.
+
+First, let&apos;s consider Japanese lexical structure: &quot;Planned Start Time Advance Days&quot;. It could be broken as &quot;Planned Start Time&quot; + &quot;Advance Days&quot;. The phrase &quot;Planned Start Time&quot; is &quot;計画開始時刻&quot; or &quot;予定開始時刻&quot;. &quot;Advance Days&quot; is &quot;提前日数&quot; or &quot;前倒し日数&quot;. Could be &quot;Advance Days&quot; -&gt; &quot;先行日数&quot;. Or &quot;Advance&quot; as a verb &quot;advance before due date&quot; -&gt; &quot;前倒し&quot;. So &quot;Planned Start Time Advance Days&quot; could be &quot;計画開始時刻前倒し日数&quot;. Or maybe &quot;予定開始時刻前倒し日数&quot;. Or &quot;計画開始時間前倒し日数&quot;. &quot;Time&quot; may be &quot;時刻&quot;. &quot;Advance days&quot; likely &quot;先行日数&quot;. Many Japanese translation for &quot;advance days&quot; in scheduling context is &quot;前倒し日数&quot;. For instance, in a project schedule, &quot;Advance days&quot; could be &quot;前倒し&quot; meaning pulling schedule forward. Example: In a kanban board localization, &quot;Advance Days&quot; maybe &quot;前倒し日数&quot;. Let&apos;s search mental memory: In Trello or Jira, they have a setting &quot;Days to advance&quot; maybe &quot;前倒し日数&quot;. In Japanese localization guidelines, &quot;Planned Start Time Advance Days&quot; could be &quot;予定開始時刻前倒し日数&quot;. This is plausible.
+
+The user specifically wants only the translation for that phrase. They ask to output only the translated content and wrap it in three backticks. They also instruct if we don&apos;t understand what you want to translate, output as is. But we do understand.
+
+Thus output: &quot;予定開始時刻前倒し日数&quot;. But we need to consider if the phrase &quot;Planned Start Time Advance Days&quot; is a proper noun, and perhaps we should keep it as is? The user instruction: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them! So please consider if the sentence or word `Planned Start Time Advance Days` is one of them.&quot; So they ask to consider if it&apos;s a proper noun. It&apos;s a setting key name. In code, it is used as a key: PlannedStartTimeAdvanceDays. That is a technical term; maybe it&apos;s a proper noun, but it&apos;s a description, not a name. The phrase includes &quot;Planned Start Time&quot; which might be a concept. It&apos;s not a human name or trademark, but it&apos;s a descriptive phrase. So likely we need to translate it. The user specifically asked to translate only the sentence or word &quot;Planned Start Time Advance Days&quot;. So translation is needed.
+
+Thus we output the Japanese translation.
+
+Potential translations:
+
+- &quot;計画開始時刻前倒し日数&quot;
+- &quot;予定開始時刻前倒し日数&quot;
+- &quot;計画開始時間前倒し日数&quot;
+- &quot;予定開始時刻先行日数&quot;
+- &quot;計画開始時間先行日数&quot;
+- &quot;計画開始時刻前日数&quot;
+- &quot;計画開始時刻先行日数&quot;
+
+Which is more natural? &quot;前倒し&quot; means &quot;advancing schedule forward&quot;. So &quot;前倒し日数&quot; is &quot;the number of days to advance&quot;. So &quot;Planned Start Time Advance Days&quot; could be &quot;計画開始時刻前倒し日数&quot;. This is a plausible translation.
+
+Alternatively, &quot;Advance days&quot; could be &quot;提前&quot; from Chinese? But we are Japanese, so &quot;前倒し&quot; is typical. &quot;先行&quot; also possible but less used.
+
+Check typical Japanese localizations: In similar settings for task planning, I recall &quot;Planned Start Time&quot; -&gt; &quot;開始予定時刻&quot; or &quot;開始予定日時&quot;. In Japanese, &quot;計画開始時刻&quot; is used. &quot;Advance days&quot; might be &quot;先行日数&quot;. But &quot;先行&quot; is used for &quot;lead days&quot;. For example, &quot;Lead days&quot; for schedule &quot;先行日数&quot; is used. In project management, &quot;Lead days&quot; is &quot;先行日数&quot;. &quot;Advance days&quot; might be &quot;先行日数&quot;. So &quot;Planned Start Time Advance Days&quot; could be &quot;計画開始時刻先行日数&quot;. But &quot;Lead days&quot; is more like &quot;先行&quot;. However, &quot;advance days&quot; could be &quot;先行&quot;. In scheduling, &quot;Lead time&quot; is &quot;先行時間&quot;. So &quot;Advance days&quot; could be &quot;先行日数&quot;. So &quot;計画開始時刻先行日数&quot;. That is also plausible.
+
+Alternatively, &quot;Advance days before due date&quot; - maybe &quot;前倒し日数&quot;. I think &quot;前倒し&quot; fits. Let&apos;s search mental memory: In English, &quot;Advance&quot; can be noun &quot;advance days&quot; in schedule planning meaning &quot;days to advance (move forward) the start date relative to due date.&quot; In Japanese, they often use &quot;前倒し&quot;. E.g., &quot;前倒しスケジュール&quot; means &quot;schedule acceleration&quot;. So &quot;Advance days&quot; = &quot;前倒し&quot;. So &quot;前倒し日数&quot;. So &quot;Planned Start Time Advance Days&quot; = &quot;計画開始時刻前倒し日数&quot;. That seems plausible.
+
+Alternatively, &quot;Advance days&quot; could be &quot;提前&quot; Chinese. Not appropriate.
+
+Thus we can output &quot;計画開始時刻前倒し日数&quot;. However, &quot;Advance Days&quot; maybe &quot;前倒し&quot;. So final translation: &quot;計画開始時刻前倒し日数&quot;. However, the phrase includes &quot;Planned Start Time&quot;. So maybe &quot;計画開始時刻&quot; is okay. But &quot;Start Time&quot; could be &quot;開始時刻&quot;. &quot;Planned&quot; could be &quot;計画&quot;. In Japanese, &quot;Planned Start Time&quot; could be &quot;計画開始時刻&quot;. But &quot;開始時刻&quot; might be redundant. Might be &quot;開始時刻&quot;. So &quot;計画開始時刻前倒し日数&quot;. That seems to translate the concept.
+
+We need to be sure we output only the translation and wrap in triple backticks. So output:
+
+```
+計画開始時刻前倒し日数
+```
+
+But maybe they want a more natural phrase: &quot;計画開始時間前倒し日数&quot; if &quot;Time&quot; is &quot;時間&quot; not &quot;時刻&quot;. &quot;時間&quot; means a duration; &quot;時刻&quot; means a point in time. &quot;Planned Start Time&quot; is a point, so &quot;時刻&quot;. So &quot;計画開始時刻&quot;. However, &quot;Advance Days&quot; maybe &quot;先行日数&quot;. Which is more natural? &quot;先行日数&quot; means &quot;lead days&quot;. If you have a due date and you want to set start date earlier by certain days, that could be &quot;先行日数&quot;. So &quot;計画開始時刻先行日数&quot;. This seems a bit unnatural: &quot;開始時刻先行日数&quot;? Actually &quot;先行日数&quot; is the number of days in advance, i.e., lead days. So &quot;計画開始時刻先行日数&quot;. However, &quot;開始時刻先行日数&quot; doesn&apos;t sound right because &quot;先行&quot; modifies &quot;開始時刻&quot; maybe &quot;開始時刻を先行日数分前倒し&quot;. But &quot;先行&quot; is usually &quot;lead days&quot; meaning &quot;days in advance&quot;. So &quot;開始時刻の先行日数&quot; could be a phrase. But we can use &quot;計画開始時刻の先行日数&quot;. That is &quot;the lead days for planned start time&quot;. But the phrase might be just a setting name: &quot;PlannedStartTimeAdvanceDays&quot;. In localization, they often treat setting name as a phrase without &quot;の&quot;. So &quot;計画開始時刻先行日数&quot;. That&apos;s okay.
+
+But &quot;Advance Days&quot; as &quot;前倒し日数&quot; is also plausible. Let&apos;s think about typical Japanese translation for &quot;Advance Days&quot;. Searching my memory: In Microsoft Project, &quot;Advanced Start&quot; or &quot;Advance start date&quot; might be &quot;前倒し開始&quot;. For &quot;Days to advance&quot;, they&apos;d use &quot;前倒し日数&quot;. So &quot;計画開始時刻前倒し日数&quot;. That is a direct translation of &quot;planned start time advance days&quot;. So we can propose that.
+
+Thus output:
+
+```
+計画開始時刻前倒し日数
+```
+
+We need to consider that the phrase may need to be &quot;計画開始時刻前倒し日数&quot; (no punctuation). That should be correct.
+
+Check if any &quot;human names, nicknames, proper nouns, symbols&quot; exist? The phrase is not a proper noun. So it&apos;s okay.
+
+Thus output:
+
+```
+計画開始時刻前倒し日数
+```
+
+Double-check: Japanese reading: &quot;計画&quot; (keikaku) = plan. &quot;開始&quot; (kaishi) = start. &quot;時刻&quot; (jikoku) = time. &quot;前倒し&quot; (maeikaoshi?) Actually &quot;maeikaoshi&quot; is not standard; &quot;mae-kaoshi&quot;? Usually &quot;前倒し&quot; is &quot;mae-kaoshi&quot;? Actually &quot;mae-kaoshi&quot; is &quot;mae-kaoshi&quot;? Let&apos;s check: &quot;前倒し&quot; is a Japanese term meaning &quot;advancing the schedule ahead of time&quot;. &quot;前倒し&quot; is &quot;mae-kaoshi&quot;? The reading is &quot;mae-kaoshi&quot;? Actually &quot;mae-kaoshi&quot; is not common. The kanji for &quot;advance&quot; could be &quot;前倒し&quot;. The reading for &quot;前倒し&quot; is &quot;mae-kaoshi&quot;? Let&apos;s check: &quot;前倒し&quot; is read as &quot;mae-kaoshi&quot;? The reading for the term is &quot;mae-kaoshi&quot;? Let me check typical Japanese reading: &quot;mae&quot; is &quot;前&quot;. &quot;kaoshi&quot; is &quot;倒し&quot;. So &quot;mae-kaoshi&quot;. But many people would read it as &quot;mae-kaoshi&quot;? However, common reading is &quot; mae-kaoshi&quot;? Actually &quot;mae&quot; is the reading for &quot;前&quot;. &quot;倒し&quot; is read as &quot;倒し&quot; (kaishi?). Wait &quot;倒し&quot; reading: &quot;倒し&quot; reading &quot;kaishi&quot;? It could be &quot;kaishi&quot;? Let&apos;s check Japanese dictionary: &quot;倒す&quot; is &quot;kaesu&quot;? No. &quot;倒す&quot; reading: &quot;kaesu&quot;? Let&apos;s check: &quot;倒す&quot; is &quot;taosu&quot;. That&apos;s &quot;taosu&quot;. &quot;倒し&quot; is &quot;taoshi&quot;? Actually &quot;倒し&quot; is &quot;taoshi&quot;. So &quot;前倒し&quot; reading: &quot;mae-taoshi&quot;. I think &quot;mae-taoshi&quot;. Yes &quot;前倒し&quot; is &quot;mae-taoshi&quot;. So &quot;mae-taoshi&quot; meaning &quot;advance by moving schedule earlier&quot;.
+
+Thus &quot;計画開始時刻前倒し日数&quot; reading: &quot;keikaku kaishi jikoku mae taoshi nissu&quot;? Actually &quot;計画開始時刻前倒し日数&quot; reading: &quot;keikaku kaishi jikoku mae-taoshi nissu&quot;. &quot;日数&quot; is &quot;nissu&quot;. So &quot;計画開始時刻前倒し日数&quot;. This is a possible translation.
+
+But we need to be careful about reading. We don&apos;t have to worry about reading because the user only wants translation content. They didn&apos;t ask for romanization.
+
+Thus output: &quot;計画開始時刻前倒し日数&quot;. This appears plausible.
+
+But check if &quot;Advance Days&quot; might be &quot;先行日数&quot;. &quot;先行日数&quot; reading &quot;senkou nissu&quot;. The phrase &quot;計画開始時刻先行日数&quot; reading &quot;keikaku kaishi jikoku senkou nissu&quot;. That is also plausible.
+
+Which one is more natural? In Japanese UI, they&apos;d likely use &quot;前倒し日数&quot; for &quot;advance days&quot;. For example, &quot;自動計画前倒し日数&quot; might be used. But let&apos;s search memory: In &quot;Microsoft Project&quot; Japanese translation, &quot;Advance&quot; might be &quot;先行&quot;. Actually &quot;Advance&quot; in project scheduling could be &quot;advance start&quot; which is &quot;先行開始&quot;. &quot;Advance days&quot; maybe &quot;先行日数&quot;. For example, in &quot;Microsoft Project&quot;, the &quot;Advance start&quot; concept is &quot;先行開始&quot;. However, &quot;Advance&quot; also can be &quot;前倒し&quot;. For schedule acceleration, &quot;前倒し&quot;. So both possible.
+
+Which is more likely used in Japanese UI for a setting &quot;PlannedStartTimeAdvanceDays&quot;? We can try to search online memory: I recall some localization for &quot;Trello&quot; maybe had &quot;Auto-set planned start date advance days&quot;. But not sure. In &quot;Asana&quot; maybe &quot;Advance days before due date&quot;. They might translate as &quot;前倒し&quot;. In &quot;Jira&quot;, &quot;Advance&quot; could be &quot;先行&quot;. But they also have &quot;Lead Days&quot;. Actually &quot;Lead Days&quot; is &quot;先行日数&quot;. In project management, &quot;Lead time&quot; is &quot;先行時間&quot;. &quot;Advance days&quot; might be &quot;先行&quot;. But &quot;advance days before due date&quot; perhaps &quot;前倒し&quot;. In schedule terms, &quot;Advance&quot; can be &quot;先]&quot; but also &quot;前倒し&quot; means moving schedule earlier. &quot;Lead days&quot; is used for &quot;the amount of time a predecessor can be advanced before the successor.&quot; In Japanese, &quot;先行&quot; is used for &quot;lead&quot;. For example, &quot;先行開始&quot; meaning &quot;Start earlier than predecessor&quot;. Actually &quot;Lead days&quot; used for predecessor tasks can start earlier relative to successor. So &quot;Lead days&quot; is &quot;先行&quot;. So &quot;Planned Start Time Advance Days&quot; may be &quot;先行開始&quot; but &quot;Advance days&quot; might be &quot;先行日数&quot;. So &quot;計画開始時刻先行日数&quot; could be plausible.
+
+But which translation is more natural for a setting name like &quot;PlannedStartTimeAdvanceDays&quot;? Let&apos;s consider typical naming conventions: Setting names are often short and descriptive, e.g., &quot;AutoSetPlannedStartTime&quot;. They use &quot;Auto-set Planned Start Time&quot;. Then &quot;PlannedStartTimeAdvanceDays&quot;. In the UI, this might be used to set &quot;Advance days to set planned start time&quot;. The translation likely should convey &quot;事前開始時間前倒し日数&quot;. Something like &quot;事前開始時間前倒し日数&quot;. &quot;事前&quot; means &quot;prior to something&quot;. But we used &quot;計画&quot;. Actually &quot;Planned start time&quot; may be &quot;計画開始時刻&quot;. But &quot;Planned&quot; can be &quot;計画&quot;. However &quot;Planned start time&quot; might be &quot;予定開始時刻&quot;. Actually &quot;Planned start time&quot; in scheduling context is &quot;計画開始時刻&quot;. &quot;Schedule&quot; is &quot;計画&quot;. So &quot;計画開始時刻&quot; is likely fine.
+
+Thus &quot;計画開始時刻前倒し日数&quot;. Could also be &quot;計画開始時間前倒し日数&quot;. Let&apos;s decide.
+
+&quot;時刻&quot; vs &quot;時間&quot;: &quot;時刻&quot; is a point in time, &quot;時間&quot; is a duration. &quot;Planned start time&quot; is a point in time, so &quot;開始時刻&quot;. So &quot;計画開始時刻&quot;. So &quot;計画開始時刻前倒し日数&quot;. This seems consistent.
+
+Thus answer: &quot;計画開始時刻前倒し日数&quot;. We&apos;ll output that inside triple backticks.
+
+Now check if any additional requirement: The user asks: &quot;Please translate only the sentence or word `Planned Start Time Advance Days` in the paragraph into the target language ja-JP, 日本語 (日本).&quot; So we need to output just the translation. They also require &quot;Do **NOT** output any other content. Only output the translated content and wrap it in three backticks, like this:
+
+```
+Translated word here...
+```&quot;
+
+Thus we must output only the triple backticks with the translation inside. No additional explanation. So output:
+
+```
+計画開始時刻前倒し日数
+```
+
+Now, ensure no extra characters. Just triple backticks with the translation. That is all.
+
+Thus answer: (three backticks with phrase inside).
+&lt;/think&gt;
+
+```計画開始時刻前倒し日数</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>プロジェクトロゴ</value>
@@ -65,6 +198,94 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>フロントエンドに表示されるプロジェクト名</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>)&quot;.
+
+Thus output something like:
+
+```
+自動設定計画開始時間の場合、期日の前に Advanceする日数。
+```
+
+But more natural: &quot;自動設定された計画開始時間の場合、期日前倒し日数&quot; but need to keep meaning: When auto-setting planned start time, the number of days to advance before the due date. That&apos;s a description of the setting: &quot;When auto-setting the planned start time, the number of days to advance before the due date.&quot; Japanese translation: &quot;自動設定された計画開始時間の場合、期日の前に何日前に設定するかを指定します。&quot; Or more concise: &quot;自動設定された計画開始時間の場合、期日の前にAdvanceする日数を指定します。&quot; Could also be &quot;自動設定された計画開始時間の場合、期日の前に進む日数を指定します。&quot; Or &quot;自動設定された計画開始時間の場合、期日の前に何日前に設定するかを指定します。&quot; Or &quot;自動設定された計画開始時間の場合、期日の前に Advance する日数を指定します。&quot; I think a straightforward translation: &quot;自動設定された計画開始時間の場合、期日の前に Advanceする日数を指定します。&quot; But &quot;Advance&quot; might be translated as &quot;前倒し&quot; (advance). Let&apos;s consider natural Japanese phrasing:
+
+&quot;自動設定された計画開始時間の場合、期日の前に Advanceする日数を指定します。&quot; might be okay but &quot;Advance&quot; is not a Japanese word. It could be &quot;前倒し&quot; meaning &quot;advance&quot;. So maybe: &quot;自動設定された計画開始時間の場合、期日の前に前倒しする日数を指定します。&quot; That is a bit unnatural, maybe more natural: &quot;自動設定された計画開始時間の場合、期日の前に前倒しする日数を指定します。&quot; That sounds okay.
+
+Alternatively: &quot;自動設定された計画開始時間の場合、期日の前に何日前に設定するかを指定します。&quot; This is straightforward.
+
+The user says &quot;Do not output any other content. Only output the translated content and wrap it in three backticks (```).&quot; So output:
+
+```
+自動設定された計画開始時間の場合、期日の前に何日前に設定するかを指定します。
+```
+
+But &quot;何日前に設定するかを指定します&quot; means &quot;Specify how many days before the due date to set.&quot; That&apos;s okay.
+
+Alternatively: &quot;自動設定された計画開始時間の場合、期日の前に Advanceする日数を指定します。&quot; It may be okay but &quot;Advance&quot; is English and should not be translated. However &quot;Advance&quot; might be a proper term used in the code? The user says &quot;If you don&apos;t understand what you want to translate, please output it as it is!&quot; The phrase &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; We can translate that as: &quot;自動設定された計画開始時間の場合、期日の前に Advanceする日数を指定します。&quot; But &quot;Advance&quot; might be a term. The code likely uses &quot;AdvanceDays&quot; etc. The sentence mentions &quot;auto-setting planned start time&quot;. That is a specific setting. Should we translate &quot;auto-setting&quot; to &quot;自動設定&quot;? Yes, &quot;auto-setting&quot; can be &quot;自動設定&quot;. &quot;planned start time&quot; can be &quot;計画開始時刻&quot;. &quot;number of days to advance before the due date&quot; can be &quot;期日前倒しの日数&quot;. So translation: &quot;自動設定された計画開始時間の場合、期日前に前倒しする日数を指定します。&quot; That is natural.
+
+Thus final answer: 
+```自動設定された計画開始時間の場合、期日前に前倒しする日数を指定します。``` or similar.
+
+Make sure to wrap in triple backticks.
+
+Thus output exactly one line in triple backticks with translation.
+
+Check user instructions: &quot;Only output the translated content and wrap it in three backticks (```), like this: ``` Translated word here... ```&quot;. So we output:
+
+```自動設定された計画開始時間の場合、期日前に前倒しする日数を指定します。```
+
+Check if any human names etc. Should not translate proper nouns? There&apos;s none. &quot;Dummy&quot;, &quot;Dummy Number&quot;, etc. Not relevant. The specific sentence does not contain any proper nouns or trademark names. It&apos;s a description.
+
+Thus final answer is a code block with Japanese translation.
+
+Double-check: The phrase &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; is the description. We can translate as &quot;自動設定された計画開始時間の場合、期日の前に Advanceする日数を指定します。&quot; But &quot;Advance&quot; is an English word. Might be okay to leave &quot;Advance&quot; as is or translate as &quot;前倒し&quot;. In Japanese software localization, often they leave English words as is if they are technical. &quot;Advance&quot; is part of the term &quot;PlannedStartTimeAdvanceDays&quot;. So perhaps translation: &quot;自動設定された計画開始時間の場合、期日の前に Advanceする日数を指定します。&quot; But if &quot;Advance&quot; is not a proper noun, it&apos;s okay to translate it as &quot;前倒し&quot;. But the original sentence says &quot;advance&quot;. So &quot;advance days&quot;. &quot;Advance&quot; might be part of the key &quot;AdvanceDays&quot;. The translation could keep &quot;Advance&quot;. Typically translation of description in config files may preserve English term &quot;Advance&quot;. However for readability Japanese users may want translation &quot;前倒し&quot;. But to preserve meaning, we can translate &quot;days to advance&quot; as &quot;前倒し日数&quot;. So &quot;前倒し日数&quot; is a noun phrase. So &quot;days to advance&quot; becomes &quot;前倒し日数&quot;. So &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; =&gt; &quot;自動設定された計画開始時間の場合、期日の前に前倒しする日数を指定します。&quot; That&apos;s okay.
+
+Thus final answer: triple backticks with translation.
+
+Make sure no extra content. Output only the translation in code block.
+&lt;/think&gt;
+
+```自動設定された計画開始時間の場合、期日の前に前倒しする日数を指定します。</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>有効にすると、期日があるのに計画開始時間が設定されていないカードについて、自動的に計画開始時間を前倒し日数設定に基づいて設定します。
+```
+
+Check for any proper nouns: &quot;Localizer&quot; is not part of the sentence. &quot;Advance days setting&quot; is a term maybe. But we are translating it as &quot;前倒し日数設定&quot;. Should we keep &quot;advance days setting&quot;? It&apos;s a setting name: &quot;PlannedStartTimeAdvanceDays&quot;. The description says &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; That is separate.
+
+But the user request: &quot;translate only the sentence or word ... in the paragraph into the target language ja-JP&quot;. So they want translation of the sentence. Use translation not include code context. So we must output only the translation. No extra content. So we must output translation in triple backticks. That is correct.
+
+Make sure to not include any other content. So only the translation.
+
+Double-check translation accuracy: &quot;When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting.&quot;
+
+The translation we propose: &quot;有効にすると、期日があるのに計画開始時間が設定されていないカードについて、自動的に計画開始時間を前倒し日数設定に基づいて設定します。&quot;
+
+This is a good translation.
+
+We might also include &quot;設定&quot; vs &quot;設定されます&quot;. The original &quot;will automatically have ... set&quot;. That can be &quot;自動的に...設定されます&quot;. The translation as &quot;設定します&quot; also works.
+
+We need to decide between &quot;設定します&quot; and &quot;設定されます&quot;. &quot; Automatically have their planned start time set&quot; =&gt; &quot;自動的に計画開始時間が設定されます&quot;. So we could do &quot;自動的に計画開始時間が設定されます&quot;. That may be more literal.
+
+Thus translation: &quot;有効にすると、期日があるのに計画開始時間が設定されていないカードについて、自動的に計画開始時間が前倒し日数設定に基づいて設定されます。&quot;
+
+That&apos;s good.
+
+Make sure the Japanese is natural. &quot;期日があるのに計画開始時間が設定されていないカード&quot; - maybe &quot;期日があるのに計画開始時間が設定されていないカード&quot;. Could also be &quot;期日があるのに計画開始時間がないカード&quot;. But &quot;設定されていない&quot; is okay. &quot;期日があるのに計画開始時間がないカード&quot; may be easier: &quot;期日があるのに計画開始時間がないカード&quot;. The phrase &quot;がない&quot; is natural. &quot;設定されていない&quot; implies it may be defined but not set. Both fine.
+
+Thus translation: &quot;有効にすると、期日があるのに計画開始時間がないカードについて、自動的に計画開始時間が前倒し日数設定に基づいて設定されます。&quot;
+
+Check grammar: &quot;有効にすると、期日があるのに計画開始時間がないカードについて、自動的に計画開始時間が前倒し日数設定に基づいて設定されます。&quot;
+
+Yes, that sounds natural.
+
+Make sure we wrap in triple backticks. Also we need to output only that.
+
+Thus final answer: ```有効にすると、期日があるのに計画開始時間がないカードについて、自動的に計画開始時間が前倒し日数設定に基づいて設定されます。```
+&lt;/think&gt;
+
+```有効にすると、期日があるのに計画開始時間がないカードについて、自動的に計画開始時間が前倒し日数設定に基づいて設定されます。</value>
   </data>
 
 </root>

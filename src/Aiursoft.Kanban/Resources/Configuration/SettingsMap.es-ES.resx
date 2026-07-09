@@ -33,6 +33,31 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Permitir a los usuarios ajustar su apodo en la página de gestión de perfil.</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Establecer automáticamente la hora de inicio planificada
+```
+
+Alternatively &quot;Establecer automáticamente el tiempo de inicio planificado&quot;. Let&apos;s decide which is better. The phrase &quot;Auto Set Planned Start Time&quot; maybe can be &quot;Establecer automáticamente la hora de inicio planificada&quot;. The Spanish phrase &quot;hora de inicio planificada&quot; is a common translation for &quot;planned start time&quot;. &quot;Auto Set&quot; -&gt; &quot;Establecer automáticamente&quot;. So final translation: &quot;Establecer automáticamente la hora de inicio planificada&quot;.
+
+Thus output that.
+
+But check user instructions: &quot;Do NOT output any other content. Only output the translated content and wrap it in three backticks (```), like this:
+
+```
+Translated word here...
+```&quot;
+
+So output exactly that. No extra content. So final answer: triple backticks with Spanish translation.
+
+Thus final answer: 
+
+```
+Establecer automáticamente la hora de inicio planificada
+```
+&lt;/think&gt;
+
+```Establecer automáticamente la hora de inicio planificada</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>URL de inicio de la marca</value>
   </data>
@@ -47,6 +72,36 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>Número ICP</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Días de anticipación del tiempo de inicio planificado
+```
+
+But check if we need to output the entire phrase only, not any surrounding text. That&apos;s correct.
+
+Check if any other content: The instruction says &quot;Only output the translated content and wrap it in three backticks&quot;. So we must output the translation inside triple backticks. Should we include trailing spaces? No.
+
+The translation: &quot;Días de anticipación del tiempo de inicio planificado&quot;. That is the translation.
+
+One nuance: Some software may use &quot;Advance Days&quot; as &quot;Días de avance&quot;. But &quot;Advance&quot; is better &quot;anticipación&quot;. &quot;Planned Start Time&quot; is &quot;Tiempo de inicio planificado&quot;. So &quot;Días de anticipación del tiempo de inicio planificado&quot;. I think it&apos;s fine.
+
+Double-check guidelines: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them! So please consider if the sentence or word `Planned Start Time Advance Days` is one of them.&quot; It&apos;s not a proper noun, it&apos;s a phrase. So we translate.
+
+Thus final answer: three backticks with translation.
+
+Thus output:
+
+``` 
+Días de anticipación del tiempo de inicio planificado
+``` 
+
+Make sure triple backticks start and end. Possibly no spaces before or after. Use exactly three backticks.
+
+Thus final.
+&lt;/think&gt;
+
+``` 
+Días de anticipación del tiempo de inicio planificado</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Logotipo del proyecto</value>
@@ -65,6 +120,39 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>El nombre del proyecto mostrado en la interfaz de usuario.</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Al configurar automáticamente la hora de inicio planificada, el número de días a avanzar antes de la fecha de vencimiento.
+```
+
+But they ask to wrap in three backticks, like this:
+
+```
+Translated word here...
+```
+
+So we output inside triple backticks the translation only.
+
+Thus final answer: triple backticks with translation. Ensure no extra content.
+
+Proceed.
+&lt;/think&gt;
+
+``` 
+Al configurar automáticamente la hora de inicio planificada, el número de días a avanzar antes de la fecha de vencimiento.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>Cuando está habilitado, las tarjetas con fecha de vencimiento pero sin hora de inicio planificada automáticamente tendrán su hora de inicio planificada establecida según la configuración de días de anticipación.
+```
+
+Check if any part is missing: &quot;advance days setting&quot; could be &quot;configuración de días de anticipación&quot; or &quot;configuración de días avance&quot;. &quot;advance days setting&quot; probably means the setting that controls how many days in advance to set the start time. So translation might be &quot;configuración de días de anticipación&quot;. Good.
+
+Thus final answer: single line with three backticks. Should we include any trailing spaces? No.
+
+Thus final answer.
+&lt;/think&gt;
+
+```Cuando está habilitado, las tarjetas con fecha de vencimiento pero sin hora de inicio planificada automáticamente tendrán su hora de inicio planificada establecida según la configuración de días de anticipación.</value>
   </data>
 
 </root>

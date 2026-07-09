@@ -33,6 +33,22 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>允许用户在个人资料管理页面调整其昵称。</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Translated word here...```&quot;. So we need to output the translation. So just:
+
+```自动设置计划开始时间```
+
+But maybe they&apos;d like it without quotes, just the text. Yes.
+
+Thus answer: ```自动设置计划开始时间```
+
+But check: Are there any special considerations? The phrase &quot;Auto Set Planned Start Time&quot; includes &quot;Auto Set&quot; which might be &quot;自动设置&quot;. &quot;Planned Start Time&quot; may be &quot;计划开始时间&quot;. So combine.
+
+Thus final answer.
+&lt;/think&gt;
+
+```自动设置计划开始时间</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>品牌主页链接</value>
   </data>
@@ -47,6 +63,20 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP 备案号</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>计划开始时间提前天数```.
+
+Double-check: The phrase &quot;Planned Start Time Advance Days&quot; describes &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; So translation: &quot;计划开始时间提前天数&quot;. It&apos;s likely appropriate.
+
+The user instruction: &quot;Do NOT output any other content. Only output the translated content and wrap it in three backticks, like this: ```Translated word here...```&quot;
+
+Thus we output:
+
+```计划开始时间提前天数```
+&lt;/think&gt;
+
+```计划开始时间提前天数</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>项目标志</value>
@@ -65,6 +95,24 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>项目在前端显示的名称。</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>在自动设置计划开始时间时，在到期日之前提前的天数。
+```
+
+Check: Should we keep punctuation? The original ends with a period. Chinese may not require period; we can include period or not? The original: &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; It ends with a period. Chinese translation may end with &quot;。&quot; Chinese full stop. So we can use &quot;在自动设置计划开始时间时，在到期日之前提前的天数。&quot; That ends with Chinese full stop, which is appropriate.
+
+Thus output in triple backticks.
+
+Make sure not to output any other content.
+
+Thus final.
+&lt;/think&gt;
+
+```在自动设置计划开始时间时，在到期日之前提前的天数。</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>启用后，有截止日期但没有计划开始时间的卡片将自动根据提前天数设置来设定其计划开始时间。</value>
   </data>
 
 </root>

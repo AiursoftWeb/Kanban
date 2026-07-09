@@ -33,6 +33,55 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>프로필 관리 페이지에서 사용자가 닉네임을 수정할 수 있도록 허용합니다.</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>automatically set planned start time? No. Just the translation string: &quot;자동 설정 예정 시작 시간&quot;. They want only output. Should we include the translation string inside triple backticks, like:
+
+``` 
+자동 설정 예정 시작 시간
+``` but must be exactly three backticks, no language identifier needed.
+
+We must output only the translation wrapped in triple backticks. The user said: &quot;Do **NOT** output any other content. Only output the translated content and wrap it in three backticks (```), like this:
+
+```
+Translated word here...
+```&quot;
+
+Thus we output:
+
+```
+자동 설정 예정 시작 시간
+```
+
+But they said &quot;wrap it in three backticks (```), like this:
+
+```
+Translated word here...
+```&quot;. So we output three backticks then newline then translation then newline then three backticks? The example shows code block with backticks content and newline after opening backticks? Actually they show:
+
+```
+Translated word here...
+```
+
+Interpretation: They want a code block where the content is &quot;Translated word here...&quot;. So we must output exactly:
+
+``` 
+자동 설정 예정 시작 시간
+```
+
+But need to ensure proper formatting: triple backticks line, then content on its own line, then triple backticks line. So:
+
+```
+자동 설정 예정 시작 시간
+```
+
+That is correct.
+
+Thus answer: just output that code block. No extra.
+&lt;/think&gt;
+
+``` 
+자동 설정 예정 시작 시간</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>브랜드 홈 URL</value>
   </data>
@@ -47,6 +96,39 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP 번호</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>예정 시작 시간 사전 일수
+```
+
+But check the target language: Korean. Should we use &quot;예정된&quot;? Many times the translation would be &quot;예정 시작 시간 사전 일수&quot;. Usually &quot;Planned Start Time&quot; is &quot;예정된 시작 시간&quot; or &quot;예정 시작 시간&quot;. The phrase &quot;Planned Start Time Advance Days&quot; might be used as a name for a setting. For UI consistency, it&apos;s advisable to use &quot;예정 시작 시간 사전 일수&quot;.
+
+Thus output just that.
+
+But check the user instruction: &quot;Please translate only the sentence or word `Planned Start Time Advance Days` in the paragraph into the target language ko-KR, 한국어 (대한민국).&quot; They want only the translated word wrapped in triple backticks.
+
+Thus final answer: three backticks with translation.
+
+Thus:
+
+```
+예정 시작 시간 사전 일수
+```
+
+Double-check if there is any nuance: &quot;Planned Start Time Advance Days&quot;. Could also be &quot;계획된 시작 시간 사전 일수&quot;. Which is more literal? &quot;Planned&quot; can be &quot;계획된&quot; which means &quot;planned&quot;. &quot;Start Time&quot; can be &quot;시작 시간&quot;. &quot;Advance Days&quot; can be &quot;사전 일수&quot;. So &quot;계획된 시작 시간 사전 일수&quot;. But &quot;Planning start time&quot; is not quite same as &quot;Planned start time&quot;. Usually you would say &quot;예정&quot; for &quot;planned&quot;. &quot;예정된&quot; vs &quot;예정&quot;. Usually &quot;예정된 시작 시간&quot;. So &quot;예정된 시작 시간 사전 일수&quot; seems correct.
+
+But translation guidelines: &quot;Planned&quot; in UI often translated as &quot;예정&quot;. Eg &quot;Planned Date&quot; =&gt; &quot;예정일&quot;. So &quot;Planned Start Time&quot; =&gt; &quot;예정 시작 시간&quot;. Not &quot;예정된 시작 시간&quot;. But &quot;예정&quot; alone is an adjective like &quot;예정&quot;. So &quot;예정 시작 시간&quot;. So &quot;예정 시작 시간&quot; might be ambiguous but could be &quot;예정 시작 시간&quot;. Actually, &quot;예정 시작 시간&quot; reads as &quot;scheduled start time&quot;. That&apos;s fine.
+
+Thus &quot;예정 시작 시간 사전 일수&quot;. Usually &quot;사전 일수&quot; is not common phrase; &quot;사전 일&quot; is used, but &quot;사전 일수&quot; is okay. But &quot;사전&quot; means &quot;pre-&quot; or &quot;advance&quot;. So &quot;사전 일수&quot; means &quot;number of days in advance&quot;. That is correct.
+
+Thus translation: &quot;예정 시작 시간 사전 일수&quot;. I think that is correct. Let&apos;s also check typical translation of &quot;Advance days&quot; phrase in Korean: &quot;사전 일수&quot; is indeed used for &quot;advance days&quot;. Eg &quot;advance notice days&quot; =&gt; &quot;사전 통보 일수&quot;. So &quot;사전 일수&quot; is okay.
+
+Thus answer: ```예정 시작 시간 사전 일수```. Ensure no extra text.
+
+Thus final answer is triple backticks with translation.
+&lt;/think&gt;
+
+```예정 시작 시간 사전 일수</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>프로젝트 로고</value>
@@ -65,6 +147,73 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>프론트엔드에 표시되는 프로젝트 이름</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>자동으로 계획 시작 시간을 설정할 때, 마감일 이전에 앞당길 일수.
+```
+
+But we must be careful about punctuation. Should we include a period? The original description ends with a period: &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; In Korean translation, we can add a period at the end: &quot;자동으로 계획 시작 시간을 설정할 때, 마감일 이전에 앞당길 일수.&quot; That includes a period after &quot;일수&quot;. This seems appropriate.
+
+But we need to consider the guidelines: &quot;If you don&apos;t understand what you want to translate, please output it as it is!&quot; We understand. So we need to output translation in Korean.
+
+Let&apos;s confirm the translation: &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot;
+
+- &quot;When auto-setting planned start time&quot; =&gt; &quot;자동으로 계획 시작 시간을 설정할 때&quot; or &quot;자동 설정으로 계획 시작 시간을 설정할 때&quot;. Could also be &quot;자동으로 계획 시작 시간을 설정하는 경우&quot;. Both are okay. Let&apos;s aim for natural Korean: &quot;자동으로 계획 시작 시간을 설정할 때&quot; (When auto-setting the planned start time). &quot;the number of days to advance before the due date&quot; =&gt; &quot;마감일 이전에 앞당길 일수&quot; (the number of days to advance before the due date). Combining: &quot;자동으로 계획 시작 시간을 설정할 때, 마감일 이전에 앞당길 일수.&quot; This seems correct.
+
+But perhaps &quot;advance before the due date&quot; means &quot;advance days before the due date&quot;. So &quot;마감일 전에 앞당길 일수&quot; is okay. So translation: &quot;자동으로 계획 시작 시간을 설정할 때, 마감일 전에 앞당길 일수.&quot; However, &quot;before the due date&quot; may be &quot;마감일 이전&quot;. So &quot;마감일 이전에 앞당길 일수.&quot; This is more literal.
+
+Thus final translation: &quot;자동으로 계획 시작 시간을 설정할 때, 마감일 이전에 앞당길 일수.&quot; That&apos;s a proper Korean sentence.
+
+But we need to output exactly that, wrapped in triple backticks.
+
+Thus final answer: triple backtick code block containing Korean translation. Ensure no extra content. Use triple backticks with maybe language tags not required. Just plain triple backticks and translation inside.
+
+We&apos;ll output:
+
+```
+자동으로 계획 시작 시간을 설정할 때, 마감일 이전에 앞당길 일수.
+```
+
+Now check if any parts of the original sentence need to be considered as &quot;proper nouns&quot;? For instance &quot;auto-setting&quot;, &quot;planned start time&quot;, &quot;due date&quot; are generic terms. But they might be considered proper nouns? The instruction: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them! So please consider if the sentence or word `When auto-setting planned start time, the number of days to advance before the due date.` is one of them.&quot; So we need to consider if that entire phrase is considered a proper noun or not. It&apos;s not a human name, nickname, trademark, etc. It&apos;s a description. So we translate.
+
+Thus output only translation. We&apos;ll output exactly:
+
+``` 
+automatically set the planned start time, the number of days to advance before the due date.
+```
+
+But we must produce Korean. So final answer: triple backticks with Korean translation.
+
+Thus output: 
+
+```
+자동으로 계획 시작 시간을 설정할 때, 마감일 이전에 앞당길 일수.
+```
+
+That&apos;s it.
+
+Double-check: The translation must be accurate, fluent, natural. Yes.
+
+We need to output only that. So the final answer is:
+
+``` 
+자동으로 계획 시작 시간을 설정할 때, 마감일 이전에 앞당길 일수.
+```
+&lt;/think&gt;
+
+```자동으로 계획 시작 시간을 설정할 때, 마감일 이전에 앞당길 일수.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>활성화되면, 마감일이 있지만 계획된 시작 시간이 없는 카드는 자동으로 계획된 시작 시간을 사전에 설정된 일수에 따라 설정합니다.
+```
+
+Make sure no extra content. Must output only the translation wrapped in backticks.
+
+Thus final answer.
+&lt;/think&gt;
+
+```kotlin
+활성화되면, 마감일이 있지만 계획된 시작 시간이 없는 카드는 자동으로 계획된 시작 시간을 사전에 설정된 일수에 따라 설정합니다.</value>
   </data>
 
 </root>

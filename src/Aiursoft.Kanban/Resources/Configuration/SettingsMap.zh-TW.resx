@@ -33,6 +33,22 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>允許使用者在個人檔案管理頁面中調整其暱稱。</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>自動設定預定開始時間```
+
+Make sure we output only that. No extra content. That satisfies.
+
+But let’s double-check potential nuance: &quot;Auto Set Planned Start Time&quot;. If we consider &quot;auto set&quot; as &quot;自動設定&quot;. So &quot;Auto Set Planned Start Time&quot; becomes &quot;自動設定預定開始時間&quot;. That is the translation. Should we include &quot;自動設定預定開始時間&quot;? Yes.
+
+Alternatively &quot;自動設定計畫開始時間&quot;? In Chinese, &quot;Planned&quot; can be &quot;預定&quot; or &quot;計畫&quot;. &quot;預定&quot; means pre-arranged or scheduled. &quot;計畫&quot; means plan, schedule. Both plausible. Which more likely used in UI? For example, in &quot;Planned Start Time Advance Days&quot; maybe used &quot;預定開始時間&quot;. Actually in many localization contexts, &quot;Planned Start Time&quot; is translated as &quot;預定開始時間&quot;. For example, in JIRA, &quot;Planned Start Date&quot; may be &quot;預定開始日期&quot;. So &quot;Planned Start Time&quot; -&gt; &quot;預定開始時間&quot;. So &quot;Auto Set Planned Start Time&quot; -&gt; &quot;自動設定預定開始時間&quot;. That is good.
+
+Thus output: ```自動設定預定開始時間```.
+
+Make sure no other content. Use three backticks only. Good.
+&lt;/think&gt;
+
+```自動設定預定開始時間</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>品牌首頁網址</value>
   </data>
@@ -47,6 +63,130 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP編號</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>...translation...
+```
+
+We must not output any other content.
+
+But we also have the policy: &quot;If you don&apos;t understand what you want to translate, please output it as it is.&quot; But we probably can translate.
+
+Thus: translation. We need to think about how to translate &quot;Planned Start Time Advance Days&quot;. It likely means the number of days to advance before the due date when auto-setting planned start time. So maybe something like &quot;計劃開始時間提前天數&quot; or &quot;计划开始时间提前天数&quot;. But in zh-TW we use Traditional Chinese. Traditional Chinese: &quot;計畫開始時間提前天數&quot;? Let&apos;s see. &quot;Planned Start Time Advance Days&quot;. Equivalent translation: &quot;計畫開始時間提前天數&quot;? Could be &quot;計畫開始時間提前天數&quot;. Or &quot;預計開始時間提前天數&quot;. Let&apos;s think.
+
+The phrase is used as a name for a setting. &quot;Planned Start Time Advance Days&quot;. It might be &quot;計劃開始時間提前天數&quot;. Another possible translation: &quot;預定開始時間提前天數&quot;. However &quot;Planned Start Time&quot; could be &quot;排程開始時間&quot; if referring to a schedule. In software UI, &quot;Planned Start Time&quot; might be &quot;計畫開始時間&quot;. For &quot;Advance Days&quot;, could be &quot;提前天數&quot;. So maybe &quot;計畫開始時間提前天數&quot;. That seems plausible.
+
+Alternatively &quot;計畫開始時間提前天數&quot; is maybe too literal. In Chinese UI, they might want &quot;提前天數&quot; as the whole phrase: &quot;提前天數&quot;. Or &quot;提前天數&quot; alone. But the user wants translation of the phrase &quot;Planned Start Time Advance Days&quot;. They want to keep proper nouns etc. The phrase includes &quot;Planned Start Time&quot; and &quot;Advance Days&quot;. If we translate literally: &quot;計畫開始時間提前天數&quot;. But is &quot;計畫&quot; correct or &quot;計畫&quot;? The Traditional Chinese for &quot;Planned&quot; is &quot;計畫&quot; (plan) or &quot;計畫中&quot;? Usually &quot;Planned Start Time&quot; could be &quot;預定開始時間&quot;. In Chinese, &quot;Planned&quot; can be &quot;預定&quot; (prearranged), &quot;计划&quot; is simplified, but in Traditional, it&apos;s &quot;計畫&quot;. However &quot;Planned&quot; as adjective: &quot;已计划的&quot; maybe not. Could also be &quot;已安排的開始時間&quot;. But &quot;Planned Start Time&quot; in UI might be &quot;计划开始时间&quot;. Usually UI translations in Chinese use &quot;计划开始时间&quot; (Simplified) or &quot;计划开始时间&quot;. In Traditional Chinese, &quot;计画开始时间&quot; is maybe &quot;計畫開始時間&quot;. Also &quot;Advance Days&quot; as &quot;提前天數&quot;. So full translation: &quot;計畫開始時間提前天數&quot;. That seems right.
+
+Alternatively, they might want &quot;提前天数&quot; as the translation. But that loses &quot;Planned Start Time&quot;. But maybe they only want the translation of the whole phrase &quot;Planned Start Time Advance Days&quot; as a UI label. Typically translation of UI label &quot;Planned Start Time Advance Days&quot; into Chinese would be something like &quot;提前天數&quot;. But we need to consider context: In the paragraph, this phrase is used as Name = Localizer[&quot;Planned Start Time Advance Days&quot;]; Description = Localizer[&quot;When auto-setting planned start time, ...&quot;]; So Name might be something like &quot;提前天数&quot;. But the description is about planned start time. Name could be &quot;提前天數&quot;. That might be okay. But they ask &quot;Please translate only the sentence or word `Planned Start Time Advance Days` in the paragraph&quot;. They may want to know translation for the name string.
+
+So translation: &quot;提前天數&quot;? The phrase &quot;Planned Start Time Advance Days&quot; perhaps is &quot;计划开始时间提前天数&quot;. In Traditional Chinese: &quot;計畫開始時間提前天數&quot;. But &quot;计画&quot; is not typical; &quot;计画&quot; is a Japanese term, not used in Chinese. &quot;计画&quot; is rarely used. In Chinese, &quot;计划&quot; (jìhuà) is simplified; in Traditional Chinese, &quot;計畫&quot;. So &quot;計畫開始時間提前天數&quot;. This is likely what they&apos;d want.
+
+Thus output: &quot;計畫開始時間提前天數&quot;. Wrapped in three backticks. So:
+
+```計畫開始時間提前天數```
+
+But the user wants exactly the translation. Let&apos;s verify policy: No content besides translation. Must output only translation and wrap in three backticks. So final answer: three backticks, translation inside. Must not include any extra commentary. So output:
+
+```計畫開始時間提前天數```.
+
+But check: The code includes backticks in the output, like triple backticks with the translation inside and no other content. So final answer: three backticks, then translation, then three backticks. Wait the user says &quot;wrap it in three backticks (```), like this:
+
+```
+Translated word here...
+```&quot;
+
+Thus we need to output exactly the translation inside triple backticks with nothing else. So we output:
+
+```計畫開始時間提前天數```
+
+But note they said &quot;wrap it in three backticks (```), like this: ``` Translated word here... ```&quot;. In the example they have triple backticks with line break and translation inside, then triple backticks. Usually you write:
+
+``` 
+Translated word here...
+```
+
+So we need to output:
+
+```
+計畫開始時間提前天數
+```
+
+But they say &quot;Only output the translated content and wrap it in three backticks&quot;. So we need triple backticks at start and end, and the translation inside. So:
+
+``` 
+計畫開始時間提前天數
+```
+
+Will there be a space after triple backticks? The example shows:
+
+```
+Translated word here...
+```
+
+So we should output exactly like that but with translation.
+
+Thus final answer: three backticks newline translation newline three backticks. That is:
+
+``` 
+計畫開始時間提前天數
+```.
+
+But maybe they don&apos;t want a space after triple backticks. Usually you write:
+
+```計畫開始時間提前天數```
+
+That&apos;s three backticks, then translation, then three backticks. But they show example with newline. Actually example:
+
+```
+Translated word here...
+```
+
+ Means triple backticks on its own line, then translation on a new line, then triple backticks on its own line. So we should match that. However the user instruction says &quot;wrap it in three backticks (```), like this:
+
+```
+Translated word here...
+```&quot;
+
+Thus they put triple backticks on a line, then translation, then triple backticks on a line. So we need to replicate that. So output:
+
+``` 
+計畫開始時間提前天數
+``` 
+
+But I think better to not have spaces before translation. The example uses newline after triple backticks. They show:
+
+```
+Translated word here...
+```
+
+The triple backticks on line, then text, then triple backticks. So we output:
+
+``` 
+計畫開始時間提前天數
+``` 
+
+I think that&apos;s correct. But the user says &quot;wrap it in three backticks (```), like this:
+
+```
+Translated word here...
+```&quot;
+
+Thus final answer: triple backticks, newline translation, triple backticks.
+
+Hence final answer:
+
+``` 
+計畫開始時間提前天數
+```.
+
+Will there be a stray space before? The example shows triple backticks on line, then translation, then triple backticks on separate line. So we do that.
+
+Thus final answer.
+&lt;/think&gt;
+
+```  
+計畫開始時間提前天數</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>專案標誌</value>
@@ -65,6 +205,36 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>專案在前端顯示的名稱。</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>當自動設定計劃開始時間時，提前的天數（相對於截止日期）。
+```
+
+Check: Must be only translation content, no other. Wrap in three backticks. Yes.
+
+We must not include any extra content. Provide translation only. Use three backticks.
+
+Thus answer.
+&lt;/think&gt;
+
+```當自動設定計劃開始時間時，提前的天數（相對於截止日期）。</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>\n當啟用時，具有截止日期但無計劃開始時間的卡片，將根據「提前天數」設定自動設定其計劃開始時間。\n```
+
+Make sure to include triple backticks. Let&apos;s follow exactly.
+
+Thus final output:
+
+```
+當啟用時，具有截止日期但無計劃開始時間的卡片，將根據「提前天數」設定自動設定其計劃開始時間。
+```
+
+That&apos;s it.
+&lt;/think&gt;
+
+```
+當啟用時，具有截止日期但無計劃開始時間的卡片，將根據「提前天數」設定自動設定其計劃開始時間。</value>
   </data>
 
 </root>
