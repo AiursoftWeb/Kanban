@@ -40,103 +40,10 @@
     <value>Anonimowy</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Archiwum
-```
-
-But need to consider proper translation of &quot;Archived&quot; into Polish. In software contexts, &quot;Archived&quot; could be translated as &quot;Archiwum&quot; (the noun) or &quot;Zarchiwizowane&quot;. Typically for board or tasks, &quot;Archived&quot; is often &quot;Archiwum&quot; as a label (like &quot;Archived Boards&quot; -&gt; &quot;Zarządzane tablice&quot;? No, &quot;Archived Boards&quot; is likely &quot;Zarchiwizowane tablice&quot; or &quot;Zarchiwizowane&quot;. In Polish UI, &quot;Archived&quot; could be &quot;Zarchiwizowane&quot; or &quot;Archiwum&quot;. Which is more common? Many UI uses &quot;Archiwum&quot; for &quot;Archived&quot; like &quot;Zarządzane&quot;? Actually &quot;Archiving&quot; is &quot;Archiwizacja&quot;. &quot;Archived&quot; could be &quot;Zarchiwizowane&quot;. Eg, in JIRA they have &quot;Archiwum&quot; as a board? In English, &quot;Archived&quot; often used as an adjective or past participle: &quot;Archived Items&quot;, &quot;Archived Tasks&quot;. In Polish UI, often &quot;Zarchiwizowane&quot; used as adjective, but for noun &quot;Archiwum&quot; used as a noun meaning &quot;archive&quot;. Let&apos;s see typical translation: &quot;Archived&quot; -&gt; &quot;Zarchiwizowane&quot; (for plural). For singular feminine maybe &quot;Zarchiwizowana&quot;. However in UI strings often &quot;Archived&quot; used as a noun? Let&apos;s examine context: The paragraph includes strings like &quot;Kanban Board&quot;, &quot;My Boards&quot;, &quot;My Tasks&quot;, &quot;View All Notifications&quot;, &quot;View All&quot;, &quot;Shared with Me&quot;, &quot;Overview Kanban&quot;, &quot;My Created&quot;, &quot;All Boards&quot;, &quot;Edit Board&quot;, &quot;AI Assistant&quot;, &quot;Kanban AI Assistant&quot;, &quot;Overview&quot;, &quot;My Notifications&quot;, &quot;Notifications&quot;, &quot;Card Details&quot;, &quot;Daily Assistant&quot;, &quot;Report Details&quot;, &quot;My Operation Logs&quot;, &quot;Operation Logs&quot;, &quot;Archived&quot;, &quot;Archived Boards&quot;. So &quot;Archived Boards&quot; is also present; that would translate to &quot;Zarchiwizowane tablice&quot;? Actually &quot;Archived Boards&quot; is a plural phrase; &quot;Archived Boards&quot; likely &quot;Zarchiwizowane tablice&quot; or &quot;Zarchiwizowane tablice&quot;? Hmm.
-
-In Polish, &quot;Archiving&quot; &quot;Archiwizacja&quot;? &quot;Archived Boards&quot; might be &quot;Zarchiwizowane tablice&quot;? Or &quot;Archiwum&quot;? Let’s think: The typical translation for &quot;Archived Boards&quot; could be &quot;Zarchiwizowane tablice&quot; or &quot;Zarchiwizowane tablice&quot;? But &quot;Zarchiwizowane tablice&quot; is unnatural. Usually &quot;Archived Boards&quot; could be &quot;Zarchiwizowane tablice&quot;? Or &quot;Archiwum tablice&quot;? Not typical. The best translation for &quot;Archived Boards&quot; might be &quot;Zarchiwizowane tablice&quot; (adjective from &quot;zarchiwizowany&quot; - past participle). However &quot;Zarchiwizowany&quot; is derived from &quot;archiwizować&quot;? Actually the verb &quot;archiwizować&quot; means to archive. Past participle &quot;zarchiwizowany&quot; is &quot;archived&quot;. So &quot;Zarchiwizowane tablice&quot; is plausible. Alternatively &quot;Archiwum tablice&quot;? Could be &quot;Tablice archiwum&quot;? Eh.
-
-But we only need to translate the single word &quot;Archived&quot;. It might be used as a header for &quot;Archived Boards&quot;. In UI often &quot;Archived&quot; as an attribute label could be &quot;Archiwum&quot;. For example, in Google tasks: &quot;Archived&quot; (for tasks that have been archived) -&gt; &quot;Zarchiwizowane&quot;. In Trello, there is &quot;Archived&quot; (label for archived cards). In Polish translation of Trello, &quot;Archived&quot; is &quot;Zarchiwizowane&quot;. For &quot;Archived&quot; as a noun maybe &quot;Archiwum&quot; but less likely. In context of a board list, &quot;Archived Boards&quot; could be &quot;Zarchiwizowane tablice&quot;. So the translation for &quot;Archived&quot; could be &quot;Archiwum&quot;? Let&apos;s search memory: In Polish UI for &quot;Archived&quot; (adjective) commonly &quot;Zarchiwizowane&quot;. Eg, in a ticketing system &quot;Archived&quot; -&gt; &quot;Zarchiwizowane&quot;. Also &quot;archived&quot; could be &quot;archiwizowane&quot;? Actually &quot;archiwizować&quot; (imperfective) to &quot;archiwizuj&quot;? Wait, &quot;archiwizować&quot; is a verb meaning &quot;to archive (place in archive)&quot;. Past participle would be &quot;archiwizowany&quot;? Actually the verb is &quot;archiwizować&quot; (archiwizuje) meaning &quot;to archive&quot;. Past participle &quot;archiwizowany&quot; is &quot;archived&quot;. So &quot;archiwizowane&quot; (plural) could be used.
-
-But &quot;archiwizowane&quot; is not standard? Let&apos;s think of morphological forms: &quot;archiwizować&quot; is second imperfective? I think &quot;archiwizować&quot; is a transitive verb: &quot;archiwizować dokumenty&quot;. Past participle: &quot;archiwizowany&quot; (masculine). So &quot;archiwizowane&quot; (plural). So &quot;Archived Boards&quot; -&gt; &quot;Zarchiwizowane tablice&quot;? Actually &quot;archiwizowane&quot; vs &quot;zarchiwizowane&quot;? Wait there is also &quot;zarchiwizować&quot; (perfective). &quot;Zarchiwizować&quot; is a perfective verb: &quot;to archive&quot;. Past participle: &quot;zarchiwizowany&quot;. So &quot;zarchiwizowany&quot; is &quot;archived&quot;. So &quot;Zarchiwizowane tablice&quot; is plausible.
-
-However translation of &quot;Archived&quot; alone maybe &quot;Archiwum&quot; is simpler and more commonly used as a noun for &quot;Archive&quot;. Eg &quot;Archived&quot; (the status) -&gt; &quot;Archiwum&quot;. But the context is &quot;Archived&quot; as an attribute of items. In many UI, &quot;Archived&quot; as an adjective (like &quot;Archived Items&quot;) -&gt; &quot;Archiwizowane&quot;. In a UI list of items like boards, &quot;Archived Boards&quot; is &quot;Zarchiwizowane tablice&quot;. The single word &quot;Archived&quot; might be used as a title or label for a section &quot;Archived&quot;, like &quot;Archived items&quot;. In that case, translation could be &quot;Archiwum&quot; (noun) or &quot;Zarchiwizowane&quot; (adjective). Usually you&apos;d want &quot;Archiwum&quot; for &quot;Archive&quot; as a noun meaning &quot;Archive&quot;. Eg in a ticketing system, &quot;Archive&quot; is &quot;Archiwum&quot;. In Trello, &quot;Archive&quot; is &quot;Archiwum&quot;. But the phrase is &quot;Archived&quot; not &quot;Archive&quot;. But &quot;Archive&quot; vs &quot;Archived&quot;? &quot;Archive&quot; is noun; &quot;Archived&quot; is past participle. The translation for the noun &quot;Archive&quot; is &quot;Archiwum&quot;. So &quot;Archived&quot; might be &quot;Archiwum&quot;? But it&apos;s ambiguous.
-
-User instruction: &quot;Please translate only the sentence or word `Archived` in the paragraph into the target language pl-PL, Polski (Polska).&quot; So we need to provide translation. Must output only the translation in three backticks.
-
-Thus output:
-
-```Archiwum
-```
-
-But need to be careful: Should we output &quot;Archiwum&quot; or &quot;Zarchiwizowane&quot;? Let&apos;s examine typical Polish UI translations of &quot;Archived&quot; as a label. We need to consider that &quot;Archived&quot; can be both an adjective (zarchiwizowany) and a noun (archiwum). In English UI often &quot;Archived&quot; is used as a heading for archived items. Usually translation is &quot;Archiwum&quot;. Eg in Microsoft Teams, &quot;Archived&quot; -&gt; &quot;Zarchiwizowane&quot;? In MS Planner, &quot;Archived&quot; is &quot;Zarchiwizowane&quot;. In Polish translation of JIRA, &quot;Archived&quot; -&gt; &quot;Zarchiwizowane&quot;. I recall &quot;Archived&quot; as a status is &quot;Zarchiwizowane&quot;. Eg &quot;Archived&quot; items in Outlook: &quot;Zarchiwizowane&quot;. In Outlook Web, &quot;Archive&quot; folder is &quot;Archiwum&quot;. In Outlook desktop, &quot;Archive&quot; folder is &quot;Archiwum&quot;. So for items that are archived, &quot;Archived&quot; -&gt; &quot;Zarchiwizowane&quot;. For &quot;Archived Boards&quot;, it might be &quot;Zarchiwizowane tablice&quot;. For &quot;Archived&quot; used as a label for board, it might be &quot;Zarchiwizowane&quot;. &quot;Archiwum&quot; is used for the archive location/folder. If you have a section &quot;Archived&quot;, it&apos;s likely &quot;Archiwum&quot;. However &quot;Archiwum&quot; is a noun meaning the archive itself. The context does not include &quot;Archived&quot; as a folder but as a status. We need to decide.
-
-The user instruction: &quot;Please translate only the sentence or word `Archived` in the paragraph into the target language pl-PL, Polski (Polska).&quot; So we need to output the translation. Let&apos;s think about typical usage. In Polish UI, &quot;Archived&quot; as an adjective for items often &quot;Zarchiwizowane&quot;. Example: &quot;Archived items&quot; -&gt; &quot;Zarchiwizowane elementy&quot;. The word &quot;Zarchiwizowane&quot; is used as past participle of &quot;zarchiwizować&quot;. It&apos;s standard. However some localizers prefer &quot;Archiwizowane&quot;. &quot;archiwizowane&quot;? Actually &quot;archiwizowany&quot; is the past participle of &quot;archiwizować&quot;. But &quot;archiwizowane&quot; is also plausible? Usually &quot;archiwizować&quot; (imperfective) meaning &quot;to put into archive&quot;. Past participle: &quot;archiwizowany&quot;. So &quot;archiwizowane&quot; is plural (feminine). So &quot;archiwizowane&quot; could be used. However &quot;archiwizowany&quot; may be more common. Let&apos;s check typical translations: &quot;Archived&quot; -&gt; &quot;Zarchiwizowane&quot; (common). Eg in Atlassian Jira, &quot;Archived&quot; -&gt; &quot;Zarchiwizowane&quot;. Many Polish translations for Trello use &quot;Zarchiwizowane&quot;. So I think best translation is &quot;Zarchiwizowane&quot;. However &quot;Archived Boards&quot; might be &quot;Zarchiwizowane tablice&quot;. So &quot;Archived&quot; singular could be &quot;Zarchiwizowane&quot;. For the board list, &quot;Archived Boards&quot; is plural, so &quot;Zarchiwizowane tablice&quot;. That matches.
-
-Thus translation: &quot;Zarchiwizowane&quot;. That is plural (feminine/masculine? Actually for neutrals it&apos;s used for plural nouns of any gender). So I&apos;d output &quot;Zarchiwizowane&quot;. The user wants only translation. So output:
-
-```Zarchiwizowane
-```
-
-We should ensure we output only the translation inside three backticks.
-
-Thus final answer: a code block with &quot;Zarchiwizowane&quot;. Ensure no extra content.
-
-But double-check: user said: &quot;Do **NOT** output any other content. Only output the translated content and wrap it in three backticks (```), like this:
-
-```
-Translated word here...
-```&quot;
-
-So we must output just the code block, with content &quot;Zarchiwizowane&quot;. Or maybe &quot;Archiwum&quot;? Let&apos;s think further about translation.
-
-The phrase &quot;Archived&quot; can also be translated as &quot;Archiwum&quot;. In many UI, &quot;Archived&quot; might be used as a heading for &quot;Archive&quot;. E.g., &quot;Archived&quot; in English could be &quot;Archiwum&quot;. However &quot;Archived&quot; is an adjective derived from past participle of &quot;archive&quot;. In Polish, &quot;Archiwum&quot; is a noun meaning &quot;archive&quot;. If you want a heading &quot;Archived&quot; you could use &quot;Archiwum&quot; meaning the archive itself. Eg in a &quot;Kanban Board&quot;, you have a list of boards: &quot;All Boards&quot;, &quot;My Boards&quot;, &quot;Shared with Me&quot;, &quot;Archived&quot;. In this context, &quot;Archived&quot; could be a tab &quot;Archived&quot; (like you have boards that are archived). That would be &quot;Archiwum&quot;? Actually in Trello, you have &quot;Boards: All Boards, My Boards, Shared with Me, Archived&quot;. The translation for &quot;Archived&quot; is &quot;Archiwum&quot;? Wait, in Trello Polish translation: &quot;Zarchiwizowane&quot;? Let&apos;s check memory: Trello uses &quot;Archived&quot; as a board list item: &quot;Zarchiwizowane&quot;. I&apos;m not entirely sure. But many translation uses &quot;Archiwum&quot; for &quot;Archive&quot; (noun). Eg &quot;Archive&quot; -&gt; &quot;Archiwum&quot;. &quot;Archived&quot; might be &quot;Zarchiwizowane&quot;.
-
-Let&apos;s research known translations: In Outlook, &quot;Archive&quot; folder is &quot;Archiwum&quot;. &quot;Archived Items&quot; is &quot;Zarchiwizowane elementy&quot;. In Microsoft Teams, &quot;Archived&quot; as a label for threads? Not sure.
-
-In general translation guidelines: Translate past participles as adjectives: &quot;archived&quot; -&gt; &quot;zarchiwizowany&quot;. So &quot;Archived&quot; -&gt; &quot;Zarchiwizowane&quot;. This seems right.
-
-Thus I will output &quot;Zarchiwizowane&quot;. That is the Polish translation of &quot;Archived&quot;.
-
-Check user instruction: &quot;Please translate only the sentence or word `Archived` in the paragraph into the target language pl-PL, Polski (Polska).&quot; So we output translation.
-
-Thus final answer:
-
-```Zarchiwizowane
-```
-&lt;/think&gt;
-
-```Zarchiwizowane</value>
+    <value>Archiwum</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>), like this: 
-```
-Translated word here...
-```.
-
-We need to produce only the translation of &quot;Archived Boards&quot; into Polish (pl-PL). The user says &quot;translate only the sentence or word &apos;Archived Boards&apos;&quot;. So the translation in Polish is &quot;Zarchiwizowane tablice&quot;? Or &quot;Zarchiwizowane tablice&quot;? Let&apos;s think. &quot;Archived Boards&quot; could be &quot;Zarchiwizowane tablice&quot; or &quot;Zarchiwizowane deski&quot;? In Polish, &quot;board&quot; is &quot;tablica&quot; (for a message board) or &quot;deska&quot;? &quot;Board&quot; in context of project management could be &quot;deska&quot; (like board of tasks). In Kanban context, &quot;board&quot; is &quot;deska&quot;. &quot;Archived Boards&quot; likely means &quot;Zarchiwizowane deski&quot;? Usually &quot;archiwizowanie&quot; or &quot;archiwizacja&quot;? Use &quot;Zarchiwizowane deski&quot; or &quot;Zarchiwizowane tablice&quot;? Let&apos;s examine typical translations in similar localization tasks. Usually &quot;archived boards&quot; in English may be &quot;Zarchiwizowane tablice&quot;. In software, many translations use &quot;Zarchiwizowane tablice&quot;. For instance, Trello localized to pl: &quot;Zarchiwizowane tablice&quot;. Let&apos;s check typical usage: Trello is a Kanban board tool. In Polish translation of Trello (if available), &quot;Archived boards&quot; would be &quot;Zarchiwizowane tablice&quot;. Yes, Trello uses &quot;Zarchiwizowane tablice&quot; as translation for &quot;Archived Boards&quot;. So the translation likely is &quot;Zarchiwizowane tablice&quot;. Another possibility: &quot;Zarchiwizowane deski&quot;. However, &quot;Tablice&quot; is more common. Let&apos;s search memory: I recall reading a Polish translation for Trello: &quot;Tablice&quot;, &quot;Zarchiwizowane tablice&quot;. Many localization strings: &quot;My Boards&quot; is &quot;Moje tablice&quot;. &quot;All Boards&quot; is &quot;Wszystkie tablice&quot;. So &quot;Archived Boards&quot; would be &quot;Zarchiwizowane tablice&quot;. So we output that.
-
-The user says output only the translation wrapped in three backticks: ```Translated word here...```. So output:
-
-```Zarchiwizowane tablice```
-
-But ensure that we output only the translation, wrapped in three backticks. They specifically said:
-
-```
-Translated word here...
-```
-
-So we must output exactly three backticks with the translation inside. Should there be newline? The instruction: &quot;wrap it in three backticks (```), like this: ``` Translated word here... ```&quot;. So we output:
-
-```Zarchiwizowane tablice```
-
-No extra text. No other content. So answer accordingly.
-
-Potential nuance: The instructions: &quot;Only output the translated content and wrap it in three backticks&quot;. So we must output only that line. Let&apos;s confirm: The user says &quot;Please translate only the sentence or word `Archived Boards` in the paragraph into the target language pl-PL, Polski (Polska).&quot; So we must output translation only.
-
-Thus answer: ```Zarchiwizowane tablice```.
-
-Double-check: Are there any proper nouns? &quot;Archived Boards&quot; is not a proper noun. It&apos;s a phrase. So translation is okay. The user says &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them! So please consider if the sentence or word `Archived Boards` is one of them.&quot; It&apos;s not a proper noun. So fine.
-
-Thus answer: Zarchiwizowane tablice.
-
-One more nuance: Should we add trailing newline? Possibly not needed. We&apos;ll just output exactly.
-
-Thus final.
-&lt;/think&gt;
-
-```Zarchiwizowane tablice</value>
+    <value>Zarchiwizowane tablice</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Zadania w tle</value>
@@ -145,12 +52,7 @@ Thus final.
     <value>Błędne żądanie</value>
   </data>
   <data name="Card Details" xml:space="preserve">
-    <value>Szczegóły karty
-```
-&lt;/think&gt;
-
-``` 
-Szczegóły karty</value>
+    <value>Szczegóły karty</value>
   </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>Zmień awatar</value>

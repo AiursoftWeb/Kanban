@@ -40,68 +40,10 @@
     <value>अनाम</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>), like this:
-
-```
-Translated word here...
-```
-
-The request: The user wants only the translation of the word &quot;Archived&quot;. They want a hi-IN, हिन्दी translation. They want only the translated content, wrapped in triple backticks.
-
-Thus we need to provide the translation of &quot;Archived&quot; into Hindi. This is a straightforward translation: &quot;Archived&quot; means something like &quot;संग्रहीत&quot; or &quot;अभिलेखित&quot;? Let&apos;s think about common translation of &quot;Archived&quot; in software UI in Hindi.
-
-In many Indian language localizations, &quot;Archived&quot; is often translated as &quot;संग्रहित&quot; (Sañgraharit?), but more likely &quot;संग्रहीत&quot;. &quot;Archived&quot; means &quot;Archived&quot; (past participle) &quot;stored in an archive&quot;. Hindi words: &quot;अभिलेखित&quot; (Abhikshit) maybe used for &quot;archived&quot;? But often translation of &quot;archived&quot; in UI is &quot;संग्रहीत&quot;. Let&apos;s check common translation practices: Many translation resources for Hindi for software: &quot;Archived&quot; -&gt; &quot;संग्रहित&quot;. &quot;Archived&quot; as a label for a board is &quot;संग्रहित&quot;. Example: In Trello, &quot;Archived&quot; is &quot;संग्रहित&quot;. For boards, &quot;Archived Boards&quot; -&gt; &quot;संग्रहीत बोर्ड&quot;. However &quot;Archived&quot; as an adjective: &quot;Archived&quot; (past) used as a label: &quot;Archived&quot; -&gt; &quot;संग्रहीत&quot;. Or &quot;Archived&quot; could be &quot;अभिलेखित&quot;. Let&apos;s see typical translation for &quot;Archived&quot; in a software context: In Hindi, &quot;archived&quot; often translates to &quot;संग्रहित&quot; (means &quot;preserved, archived&quot;). For example, &quot;Archived Items&quot; -&gt; &quot;संग्रहीत आइटम&quot;. So the translation should be &quot;संग्रहीत&quot;. Another alternative: &quot;अभिलेखित&quot; is less common, but &quot;Archived&quot; could be &quot;अभिलेखित&quot;. Let&apos;s see what translation for &quot;Archived&quot; is used in Indian government portals: They often use &quot;संग्रहित&quot; for &quot;Archived&quot;. For example, a translation of &quot;Archived&quot; in Hindi in a UI is &quot;संग्रहीत&quot;. So I think it&apos;s safe to output &quot;संग्रहीत&quot;. The user wants hi-IN, हिन्दी (भारत) translation.
-
-Thus output:
-
-```
-संग्रहीत
-```
-
-Wrap in triple backticks.
-
-Make sure no extra content. Provide only translation. Should we include the word &quot;Archived&quot; as is? The user specifically says &quot;Please translate only the sentence or word `Archived` in the paragraph into the target language hi-IN, हिन्दी (भारत). Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them! So please consider if the sentence or word `Archived` is one of them.&quot; The word &quot;Archived&quot; is not a proper noun, it&apos;s a generic UI term. So we translate it.
-
-Thus output:
-
-``` 
-संग्रहीत 
-``` But with triple backticks. Let&apos;s follow the format exactly:
-
-```
-संग्रहीत
-```
-
-Yes.
-
-Thus final answer.
-&lt;/think&gt;
-
-```संग्रहीत</value>
+    <value>अभिलेखित</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>अभिलेखित बोर्ड्स```.
-
-But need to consider if they want a translation or just the word &quot;Archived Boards&quot; in Hindi. It&apos;s not a proper noun or trademark; it&apos;s a UI string. So translation is appropriate. The instruction: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them!&quot; The phrase &quot;Archived Boards&quot; is a UI string, not a proper noun. So we can translate it.
-
-Thus answer: Provide translation in triple backticks. Use Hindi characters? The language is hi-IN, so Hindi script Devanagari. So we need to output in Devanagari. The translation: &quot;अभिलेखित बोर्ड्स&quot;. Could also be &quot;संग्रहीत बोर्ड्स&quot;. Which is more accurate? Let&apos;s see standard translation guidelines. &quot;Archived&quot; in context of boards is likely &quot;संग्रहीत&quot; for stored/archived. However, &quot;Archived&quot; is often &quot;अभिलेखित&quot; (recorded, filed). So &quot;Archived Boards&quot; =&gt; &quot;अभिलेखित बोर्ड्स&quot;. I think this is appropriate.
-
-Thus output: ```अभिलेखित बोर्ड्स```.
-
-Check: Are we supposed to keep &quot;Board&quot; as &quot;बोर्ड&quot;? Yes. &quot;Boards&quot; plural, &quot;बोर्ड्स&quot;. Use Hindi plural? Usually &quot;बोर्ड्स&quot;. So final answer: ```अभिलेखित बोर्ड्स```.
-
-Double-check: The phrase &quot;Archived Boards&quot; might also be &quot;पुरालेख बोर्ड&quot; but no.
-
-We need to be careful about translation of &quot;Archived Boards&quot; in Hindi: &quot;अभिलेखित बोर्ड्स&quot; fits. The user request: &quot;Please translate only the sentence or word `Archived Boards` in the paragraph into the target language hi-IN, हिन्दी (भारत).&quot;
-
-Thus answer: ```अभिलेखित बोर्ड्स```.
-
-Make sure output only the translation inside triple backticks. No other content. That&apos;s it.
-
-Thus final.
-&lt;/think&gt;
-
-```अभिलेखित बोर्ड्स</value>
+    <value>अभिलेखित बोर्ड्स</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>बैकग्राउंड जॉब्स</value>

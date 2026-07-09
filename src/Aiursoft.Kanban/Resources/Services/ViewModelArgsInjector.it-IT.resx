@@ -40,40 +40,10 @@
     <value>Anonimo</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Archiviato
-```
-
-Check: The user says &quot;Do NOT output any other content. Only output the translated content and wrap it in three backticks (```), like this&quot;. So we must output exactly:
-
-```
-Archiviato
-```
-
-Make sure no extra spaces or text. The output must be a code block.
-
-Thus final answer: triple backticks with Archiviato.
-&lt;/think&gt;
-
-``` 
-Archiviato</value>
+    <value>Archiviato</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>Bacheche archiviate```.
-
-Check instructions: &quot;Only output the translated content and wrap it in three backticks (```), like this: ```Translated word here...```&quot;. So we output:
-
-```Bacheche archiviate```
-
-Make sure no extra content.
-
-Thus answer: triple backticks with translation.
-
-Check for any nuance: Should we preserve case? &quot;Archived Boards&quot; capitalizing? Possibly we might output &quot;Bacheche archiviate&quot; with capital B? Usually translation is lower case unless specified. We can output capitalizing first letter: &quot;Bacheche archiviate&quot;. That&apos;s okay. In Italian, it&apos;s capitalized at start of sentence but here it&apos;s likely used as a UI label; often they are capitalized. However typical translation for UI labels might be &quot;Bacheche archiviate&quot;. Let&apos;s output that.
-
-Thus final.
-&lt;/think&gt;
-
-```Bacheche archiviate</value>
+    <value>Bacheche archiviate</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Lavori in background</value>

@@ -43,36 +43,10 @@
     <value>Anonymous</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Archived
-```
-
-Make sure no extra content.
-&lt;/think&gt;
-
-``` 
-Archived</value>
+    <value>Archived</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>Archived Boards
-```
-
-We must output only that line, within triple backticks.
-
-Check if any other content. The user says &quot;Please translate only the sentence or word `Archived Boards` in the paragraph into the target language en-GB, English (United Kingdom).&quot; So the translation is just &quot;Archived Boards&quot;. However, maybe &quot;Archived Boards&quot; could be &quot;Archived boards&quot; (lowercase &apos;b&apos;? But it&apos;s a title. The code uses localizer[] with the string &quot;Archived Boards&quot;. The translation may be &quot;Archived Boards&quot;. That&apos;s the translation.
-
-Thus output:
-
-```
-Archived Boards
-```
-
-Make sure triple backticks.
-
-We must not output any other content. So final answer: triple backticks containing &quot;Archived Boards&quot;.
-&lt;/think&gt;
-
-``` 
-Archived Boards</value>
+    <value>Archived Boards</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Background Jobs</value>

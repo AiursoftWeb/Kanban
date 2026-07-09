@@ -34,16 +34,7 @@
     <value>Cho phép người dùng điều chỉnh biệt danh của họ trên trang quản lý hồ sơ.</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
-    <value>Tự động đặt thời gian bắt đầu dự kiến
-```
-
-Wrap in triple backticks exactly as required.
-
-Thus answer is the translation only. No extra content. Ensure it is exactly inside triple backticks. Provide only the translation line. Ok.
-&lt;/think&gt;
-
-``` 
-Tự động đặt thời gian bắt đầu dự kiến</value>
+    <value>Tự động đặt thời gian bắt đầu dự kiến</value>
   </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>URL trang chủ thương hiệu</value>
@@ -61,24 +52,7 @@ Tự động đặt thời gian bắt đầu dự kiến</value>
     <value>Số đăng ký ICP</value>
   </data>
   <data name="Planned Start Time Advance Days" xml:space="preserve">
-    <value>Số ngày trước thời gian bắt đầu theo kế hoạch```
-
-But check user instruction: &quot;Only output the translated content and wrap it in three backticks (```), like this:
-
-```
-Translated word here...
-```&quot;
-
-Thus output exactly:
-
-```Số ngày trước thời gian bắt đầu theo kế hoạch```
-
-Check for any punctuation. Should be exactly the translation, no extra. Must not include any other content. So answer: three backticks with translation.
-
-Thus final answer.
-&lt;/think&gt;
-
-```Số ngày trước thời gian bắt đầu theo kế hoạch</value>
+    <value>Số ngày trước thời gian bắt đầu theo kế hoạch</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Logo dự án</value>
@@ -99,73 +73,10 @@ Thus final answer.
     <value>Tên dự án được hiển thị trên giao diện người dùng</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
-    <value>Khi tự động đặt thời gian bắt đầu dự kiến, số ngày cần đặt trước ngày đến hạn.
-```
-
-Alternatively we could use a more natural phrasing: &quot;Khi tự động đặt thời gian bắt đầu dự kiến, đây là số ngày cần đặt trước ngày đến hạn.&quot; But &quot;đây là&quot; might be extra.
-
-Let&apos;s examine typical Vietnamese localization for UI strings: Usually they would use a concise phrase without extra &quot;when&quot;. Example: &quot;Số ngày cần đặt trước ngày đến hạn khi tự động đặt thời gian bắt đầu dự kiến.&quot; This is a more direct translation: &quot;Số ngày cần đặt trước ngày đến hạn khi tự động đặt thời gian bắt đầu dự kiến.&quot;
-
-The phrase &quot;the number of days to advance before the due date&quot; could be translated as &quot;số ngày cần đặt trước ngày đến hạn&quot;. So &quot;advance before the due date&quot; -&gt; &quot;đặt trước ngày đến hạn&quot;. So translation: &quot;Khi tự động đặt thời gian bắt đầu dự kiến, đây là số ngày cần đặt trước ngày đến hạn.&quot; This seems good.
-
-But the phrase &quot;the number of days to advance before the due date&quot; could also be &quot;số ngày cần tiến trước ngày đến hạn&quot;. However, &quot;tiến trước&quot; is not common. &quot;Đặt trước&quot; seems more natural: &quot;đặt trước&quot; means &quot;set ahead&quot;. So &quot;đặt trước ngày đến hạn&quot; is &quot;set before the due date&quot;. That matches &quot;advance before due date&quot;? Actually &quot;advance&quot; as verb &quot;advance before the due date&quot; could be interpreted as &quot;advance (the planned start time) before the due date&quot;. That is effectively &quot;set before the due date&quot;, so &quot;đặt trước ngày đến hạn&quot;. So we can use that.
-
-Thus final translation: &quot;Khi tự động đặt thời gian bắt đầu dự kiến, đây là số ngày cần đặt trước ngày đến hạn.&quot;
-
-Alternatively we could drop &quot;đây là&quot;: &quot;Khi tự động đặt thời gian bắt đầu dự kiến, số ngày cần đặt trước ngày đến hạn.&quot; This might be more natural as a description.
-
-Let&apos;s decide: The original English sentence: &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot; So a literal translation: &quot;Khi tự động đặt thời gian bắt đầu dự kiến, số ngày cần đặt trước ngày đến hạn.&quot; That seems good.
-
-Thus we output that wrapped in triple backticks:
-
-``` 
-Khi tự động đặt thời gian bắt đầu dự kiến, số ngày cần đặt trước ngày đến hạn.
-```
-
-But note that they requested to output only the translated conclusion and nothing else, wrapped in three backticks. So we output exactly that. No extra lines.
-
-Thus final answer.
-&lt;/think&gt;
-
-``` 
-Khi tự động đặt thời gian bắt đầu dự kiến, số ngày cần đặt trước ngày đến hạn.</value>
+    <value>Khi tự động đặt thời gian bắt đầu dự kiến, số ngày cần đặt trước ngày đến hạn.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
-    <value>), like this: `Translated word here...`&quot;. So we must output just the translation inside triple backticks.
-
-Thus final output:
-
-```
-Khi bật, các thẻ có ngày đến hạn nhưng không có thời gian bắt đầu dự kiến sẽ tự động được đặt thời gian bắt đầu dự kiến theo cài đặt số ngày trước.
-```
-
-But maybe better: &quot;Khi bật, các thẻ có ngày đến hạn mà không có thời gian bắt đầu dự kiến sẽ tự động được thiết lập thời gian bắt đầu dự kiến dựa trên cài đặt số ngày trước.&quot;
-
-We need to decide a final translation. Let&apos;s aim for natural Vietnamese, with proper grammar.
-
-The original English sentence: &quot;When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting.&quot;
-
-We can break into parts:
-
-- &quot;When enabled&quot;: Khi được bật (or Khi bật)
-- &quot;cards with a due date but no planned start time&quot;: các thẻ có ngày đến hạn nhưng không có thời gian bắt đầu dự kiến (or &quot;các thẻ có ngày đến hạn mà không có thời gian bắt đầu dự kiến&quot;)
-- &quot;will automatically have their planned start time set&quot;: sẽ tự động được thiết lập thời gian bắt đầu dự kiến
-- &quot;based on the advance days setting&quot;: dựa trên cài đặt số ngày trước.
-
-Thus full: &quot;Khi bật, các thẻ có ngày đến hạn mà không có thời gian bắt đầu dự kiến sẽ tự động được thiết lập thời gian bắt đầu dự kiến dựa trên cài đặt số ngày trước.&quot;
-
-Better use &quot;Khi được bật&quot; for &quot;When enabled&quot;. Also &quot;các thẻ có ngày đến hạn&quot; is okay.
-
-Thus final: &quot;Khi được bật, các thẻ có ngày đến hạn mà không có thời gian bắt đầu dự kiến sẽ tự động được thiết lập thời gian bắt đầu dự kiến dựa trên cài đặt số ngày trước.&quot;
-
-That seems fine.
-
-Now ensure no extra content. Provide only triple backticks with translation.
-
-Thus final answer: triple backticks with translation.
-&lt;/think&gt;
-
-```Khi được bật, các thẻ có ngày đến hạn mà không có thời gian bắt đầu dự kiến sẽ tự động được thiết lập thời gian bắt đầu dự kiến dựa trên cài đặt số ngày trước.</value>
+    <value>Khi được bật, các thẻ có ngày hết hạn nhưng không có thời gian bắt đầu theo kế hoạch sẽ tự động được đặt thời gian bắt đầu theo kế hoạch dựa trên cài đặt số ngày trước.</value>
   </data>
 
 </root>

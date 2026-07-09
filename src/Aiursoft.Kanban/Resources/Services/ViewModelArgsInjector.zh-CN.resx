@@ -43,34 +43,10 @@
     <value>匿名</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>已归档```
-
-Check constraints: no extra content. Only output the translated word and wrap in triple backticks.
-
-Potential nuance: The user says &quot;If you don&apos;t understand what you want to translate, please output it as it is!&quot; Not needed. We understand.
-
-Thus final answer: ```已归档```.
-
-Make sure to include triple backticks around it exactly.
-&lt;/think&gt;
-
-```已归档</value>
+    <value>已归档</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>已归档的看板```
-
-But let&apos;s double-check: The phrase includes &quot;Archived&quot; and &quot;Boards&quot;. In Chinese, &quot;归档的&quot; is &quot;archived&quot;. &quot;看板&quot; is &quot;board&quot;. So &quot;已归档的看板&quot; indeed. Another possible translation: &quot;已存档的看板&quot;. Which is more appropriate? Typically &quot;archived&quot; used &quot;归档&quot;. In UI Chinese, &quot;归档的看板&quot; might be used. The phrase &quot;Archived Boards&quot; may be in menu: &quot;已归档看板&quot;. But I&apos;m leaning to &quot;已归档的看板&quot;. That is typical translation.
-
-We need to output only translation in triple backticks. No extra content. So answer:
-
-```已归档的看板```
-
-We need to ensure no other output. So final answer: a triple backticks with translation.
-
-Thus final.
-&lt;/think&gt;
-
-```已归档的看板</value>
+    <value>已归档的看板</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>后台任务</value>
@@ -79,24 +55,7 @@ Thus final.
     <value>错误的请求</value>
   </data>
   <data name="Card Details" xml:space="preserve">
-    <value>卡片详情```.
-
-Check: The user explicitly said &quot;Please output the translated conclusion and nothing else. Do not output any other content!&quot; So we must output only the translated content inside triple backticks. Not any extra text. So produce:
-
-```卡片详情```
-
-But check if we need to include the translation inside triple backticks exactly as they instructed. Yes.
-
-Thus final answer: triple backticks with content.
-
-Thus output: ```卡片详情```.
-
-We should double-check any nuance: They want translation only for `Card Details`. Could also be &quot;卡片详情&quot; (common). Let&apos;s think about typical translation: In UI, &quot;Card Details&quot; is a page title for a Kanban board, showing details of a card. Chinese translation: &quot;卡片详情&quot; (Ka Pi Qiang Xi?). Actually &quot;卡&quot; is a noun &quot;card&quot;, &quot;片&quot; as part of &quot;卡&quot;? Wait, &quot;卡&quot; is used as a transliteration of &quot;card&quot;. Chinese commonly uses &quot;卡片&quot; for a physical card, but &quot;卡&quot; alone is used for a &quot;card&quot; in digital contexts, e.g., &quot;卡号&quot; (card number). &quot;卡片&quot; is also common. So &quot;卡片详情&quot; is fine. Many Chinese UI uses &quot;卡片详情&quot;. Indeed &quot;卡片详情&quot; appears in many translation sets. So translation should be &quot;卡片详情&quot;. Let&apos;s check synonyms: &quot;卡片详情&quot; vs &quot;卡详情&quot;? Typically &quot;卡片&quot; is more idiomatic. So we choose &quot;卡片详情&quot;. That is safe.
-
-Thus answer.
-&lt;/think&gt;
-
-```卡片详情</value>
+    <value>卡片详情</value>
   </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>更换头像</value>

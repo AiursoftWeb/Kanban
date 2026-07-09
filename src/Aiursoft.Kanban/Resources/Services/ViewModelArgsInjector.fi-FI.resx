@@ -40,82 +40,10 @@
     <value>Anonyymi</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Arkistoitu
-```
-
-Make sure to include only the translation inside triple backticks, nothing else. So output:
-
-``` 
- Arkistoitu 
-```
-
-But note: we need to output exactly the translation. The user instructions: &quot;Do **NOT** output any other content. Only output the translated content and wrap it in three backticks (```), like this:
-
-```
-Translated word here...
-```&quot;
-
-Thus we should output:
-
-``` 
-Arkistoitu
-```
-
-Or just &quot;Arkistoitu&quot;. The code block can be with triple backticks and the word inside. The format: ``` Arkistoitu ```? Actually they gave example: 
-```
-Translated word here...
-```
-So they used triple backticks block with the content inside. So we can output:
-
-```Arkistoitu```? They said &quot;wrap it in three backticks (```), like this:
-
-```
-Translated word here...
-```&quot;
-
-Thus they want:
-
-```
-Arkistoitu
-```
-
-So output exactly:
-
-```
-Arkistoitu
-```
-&lt;/think&gt;
-
-``` 
-Arkistoitu</value>
+    <value>Arkistoitu</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>Arkistoidut taulut
-```
-
-Wrap in triple backticks as requested.
-
-Check instructions: They want only the translated word, wrapped in triple backticks, no other content. Should we include translation exactly like &quot;Arkistoidut taulut&quot;? Yes.
-
-Make sure not to add extra newline. They want output like:
-
-```
-Translated word here...
-```
-
-So we need:
-
-``` 
-Arkistoidut taulut
-```
-
-Make sure triple backticks open and close. That is fine.
-
-Thus answer: triple backticks with translation.
-&lt;/think&gt;
-
-``` 
-Arkistoidut taulut</value>
+    <value>Arkistoidut taulut</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Taustatehtävät</value>

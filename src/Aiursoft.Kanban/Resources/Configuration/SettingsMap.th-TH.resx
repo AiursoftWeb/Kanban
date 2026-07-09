@@ -34,36 +34,7 @@
     <value>อนุญาตให้ผู้ใช้ปรับชื่อเล่นของตนเองได้ในหน้าจัดการโปรไฟล์</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
-    <value>ตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ```
-
-Alternatively, &quot;การตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ&quot;. But &quot;การตั้งค่า&quot; means &quot;setting&quot; like &quot;setting auto set...&quot;. In UI strings, often &quot;Auto Set Planned Start Time&quot; would be used as Name or Label: maybe &quot;ตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ&quot;. That seems more appropriate. I think &quot;ตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ&quot;. Actually, &quot;Auto Set Planned Start Time&quot; could be interpreted as &quot;ตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ&quot;. But it&apos;s ambiguous: &quot;Auto Set&quot; might be part of the name. In many UI, &quot;Auto Set Planned Start Time&quot; is a setting toggle. So translation as a phrase may be &quot;ตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ&quot;. However, we might also want &quot;การตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ&quot;. Which one is more natural? If we use &quot;การตั้งค่า&quot;, it&apos;s a noun phrase: &quot;การตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ&quot;. In UI, often they use &quot;การตั้งค่าเวลาเริ่มต้นอัตโนมัติ&quot;. But they&apos;d likely keep &quot;Auto Set&quot; as &quot;อัตโนมัติ&quot; maybe &quot;ตั้งค่าเวลาเริ่มต้นอัตโนมัติ&quot;. But &quot;Planned Start Time&quot; is a concept, maybe &quot;เวลาเริ่มต้นที่วางแผนไว้&quot;. So translation: &quot;ตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ&quot;. That&apos;s probably good.
-
-Thus output exactly that phrase in triple backticks.
-
-We must not include any additional content. The user explicitly said: &quot;Do **NOT** output any other content. Only output the translated content and wrap it in three backticks (```), like this:
-
-```
-Translated word here...
-```&quot;
-
-Thus answer is:
-
-```ตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ```
-
-That is correct.
-
-Double-check: Are there any issues with policy? No. No disallowed content. The translation is presumably correct. Should we include any notes? No, user wants only translation.
-
-Thus final answer is triple backticks with Thai translation.
-
-But we must ensure we didn&apos;t include any extra spaces or line breaks beyond required. Use exactly three backticks, newline, content, newline, three backticks.
-
-Thus:
-
-```ตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ```
-&lt;/think&gt;
-
-```ตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ</value>
+    <value>ตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ</value>
   </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>URL หน้าหลักของแบรนด์</value>
@@ -81,42 +52,7 @@ Thus:
     <value>เลขที่ ICP</value>
   </data>
   <data name="Planned Start Time Advance Days" xml:space="preserve">
-    <value>จำนวนวันล่วงหน้าของเวลาเริ่มต้นตามแผน```.
-
-Check: &quot;Planned Start Time Advance Days&quot;. The phrase comprises three words: &quot;Planned&quot;, &quot;Start Time&quot;, &quot;Advance Days&quot;. Thai translation could be &quot;วันล่วงหน้าของเวลาเริ่มต้นตามแผน&quot;. That expresses &quot;Advance days of planned start time&quot;. Another possible translation: &quot;ระยะเวลาเลื่อนเริ่มต้น&quot;. But &quot;Advance days&quot; might be &quot;จำนวนวันล่วงหน้า&quot; (number of advance days). &quot;Planned start time&quot; could be &quot;เวลาเริ่มต้นตามแผน&quot;. So combine: &quot;จำนวนวันล่วงหน้าของเวลาเริ่มต้นตามแผน&quot;. That&apos;s quite literal but understandable.
-
-Better translation: &quot;วันล่วงหน้าของเวลาเริ่มต้นตามแผน&quot;. Slightly more natural.
-
-The user might expect translation of &quot;Planned Start Time Advance Days&quot; =&gt; &quot;วันล่วงหน้าของเวลาเริ่มต้นตามแผน&quot;. So output that.
-
-Check instruction: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them! So please consider if the sentence or word `Planned Start Time Advance Days` is one of them.&quot; This phrase is not a proper noun, but it&apos;s a setting name. They might be okay to translate. So we translate.
-
-Thus final answer: ```จำนวนวันล่วงหน้าของเวลาเริ่มต้นตามแผน``` or ```วันล่วงหน้าของเวลาเริ่มต้นตามแผน```. Which is better? &quot;จำนวนวันล่วงหน้าของเวลาเริ่มต้นตามแผน&quot; includes &quot;จำนวนวัน&quot;, maybe too explicit about number. But it&apos;s okay. However &quot;วันล่วงหน้าของเวลาเริ่มต้นตามแผน&quot; is concise.
-
-User specifically said &quot;translate only the sentence or word `Planned Start Time Advance Days`&quot;. So we need to translate that phrase, not to explain. So we output Thai translation. Use triple backticks.
-
-Thus final: ```วันล่วงหน้าของเวลาเริ่มต้นตามแผน```.
-
-Check if we need to preserve any punctuation? No.
-
-Thus answer.
-
-But we need to be absolutely sure the phrase is correctly translated. Could also be &quot;วันล่วงหน้าของเวลาเริ่มต้นตามแผน&quot;. That is &quot;Advance days of planned start time&quot;. Might be okay.
-
-Let&apos;s double-check Thai translation guidelines: &quot;Planned Start Time Advance Days&quot; is a setting name. In UI, they&apos;d use &quot;วันล่วงหน้าของเวลาเริ่มต้นตามแผน&quot;. Could also be &quot;จำนวนวันล่วงหน้าของเวลาเริ่มต้นตามแผน&quot;. The extra &quot;จำนวน&quot; (number) may be redundant. Typically the UI name is short: &quot;วันล่วงหน้า&quot; alone might be enough but need context.
-
-Better to translate exactly the phrase: &quot;Planned Start Time Advance Days&quot;. So translation: &quot;วันล่วงหน้าของเวลาเริ่มต้นตามแผน&quot;. That&apos;s good.
-
-Thus output only that.
-
-Make sure no extra content.
-
-Thus final answer:
-
-```วันล่วงหน้าของเวลาเริ่มต้นตามแผน```
-&lt;/think&gt;
-
-```วันล่วงหน้าของเวลาเริ่มต้นตามแผน</value>
+    <value>จำนวนวันล่วงหน้าของเวลาเริ่มต้นตามแผน</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>โลโก้โครงการ</value>
@@ -137,87 +73,10 @@ Thus final answer:
     <value>ชื่อโปรเจกต์ที่แสดงในหน้าแสดงผล</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
-    <value>เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด```
-
-But check if we need to preserve the original phrase as is if we don&apos;t understand? We understand.
-
-Check if any proper nouns: &quot;Auto-setting&quot;, &quot;planned start time&quot;, &quot;due date&quot;. &quot;auto-setting&quot; maybe &quot;auto-setting&quot; can be transliterated &quot;อัตโนมัติ&quot;. &quot;planned start time&quot; is &quot;เวลาเริ่มต้นแผน&quot;. &quot;due date&quot; is &quot;วันครบกำหนด&quot;. So translation:
-
-&quot;เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด&quot;
-
-Better: &quot;เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องการให้ก้าวไปก่อนวันครบกำหนด&quot;
-
-Simplify: &quot;เมื่อตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด&quot;
-
-The instruction: &quot;Name = Localizer[...], Description = Localizer[...], ...&quot; So we are to translate only the sentence inside the Description field: &quot;When auto-setting planned start time, the number of days to advance before the due date.&quot;
-
-Thus we output:
-
-```เมื่อตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด```
-
-But maybe better: &quot;เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด&quot;. It&apos;s okay.
-
-The user instruction: &quot;Please translate only the sentence or word `When auto-setting planned start time, the number of days to advance before the due date.` in the paragraph into the target language th-TH, ภาษาไทย (ประเทศไทย).&quot; So translation: &quot;เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด&quot;. That is presumably acceptable.
-
-But perhaps we should also consider that &quot;auto-setting&quot; is not &quot;auto-setting&quot;, but &quot;การตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ&quot;. It could be &quot;เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ&quot;. Or &quot;เมื่อตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ&quot;. There&apos;s also &quot;planned start time&quot; is &quot;เวลาเริ่มต้นแผน&quot;. &quot;due date&quot; is &quot;วันครบกำหนด&quot;. So &quot;จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด&quot; means &quot;the number of days to advance before the due date&quot;.
-
-Thus translation: &quot;เมื่อตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด&quot;. That seems okay.
-
-Alternatively, &quot;เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด&quot;. Slightly longer.
-
-Better to keep sense: &quot;เมื่อตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด&quot;. The phrase &quot;auto-setting&quot; may be redundant; maybe we can translate as &quot;เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ&quot; which is &quot;When auto-setting the planned start time&quot;.
-
-But we can also incorporate &quot;auto-setting&quot; as part of the description, but it&apos;s part of the translation. So we can say &quot;เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด&quot;. That works.
-
-The user instruction: &quot;Only output the translated content and wrap it in three backticks, like this: ```Translated word here...```&quot;
-
-Thus final answer: triple backticks with Thai translation.
-
-Check for any error: We must not output any other content. So only the triple backticks.
-
-Thus final answer:
-
-```เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด```
-&lt;/think&gt;
-
-```เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด</value>
+    <value>เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
-    <value>เมื่อเปิดใช้งาน การ์ดที่มีวันที่กำหนดไว้แต่ไม่มีเวลาเริ่มต้นที่วางแผนไว้ จะถูกตั้งค่าเวลาเริ่มต้นที่วางแผนไว้โดยอัตโนมัติตามการตั้งค่าจำนวนวันล่วงหน้า
-```
-
-But need to check if they want &quot;เมื่อเปิดใช้งาน&quot; or &quot;เมื่อเปิดใช้งาน&quot;. Let&apos;s think. The English sentence: &quot;When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting.&quot; So translation should be something like: &quot;เมื่อเปิดใช้งาน การ์ดที่มีวันที่ครบกำหนดแต่ไม่มีเวลาเริ่มต้นที่วางแผนไว้ จะถูกตั้งค่าเวลาเริ่มต้นที่วางแผนไว้โดยอัตโนมัติตามการตั้งค่าจำนวนวันล่วงหน้า&quot;. Or &quot;เมื่อเปิดใช้งาน ... จะถูกตั้งค่าเวลาเริ่มต้นที่วางแผนไว้โดยอัตโนมัติตามการตั้งค่าจำนวนวันล่วงหน้า&quot;. We need to be accurate.
-
-We need to think about the term &quot;cards&quot; in context. In project management software, &quot;cards&quot; could be &quot;บัตร&quot; or &quot;การ์ด&quot;. In Thai language, &quot;cards&quot; may be &quot;การ์ด&quot; (card as a noun) or &quot;บัตร&quot;. Usually in software UI, &quot;cards&quot; might be &quot;การ์ด&quot; (like Trello). So we can use &quot;การ์ด&quot;.
-
-&quot;Duedate&quot; could be &quot;วันที่ครบกำหนด&quot; (due date). &quot;Planned start time&quot; could be &quot;เวลาเริ่มต้นที่วางแผนไว้&quot;. &quot;Advance days setting&quot; maybe &quot;การตั้งค่าจำนวนวันล่วงหน้า&quot;. So translation could be &quot;เมื่อเปิดใช้งาน การ์ดที่มีวันที่ครบกำหนดแต่ไม่มีเวลาเริ่มต้นที่วางแผนไว้ จะถูกตั้งค่าเวลาเริ่มต้นที่วางแผนไว้โดยอัตโนมัติตามการตั้งค่าจำนวนวันล่วงหน้า&quot;. That seems fine.
-
-Thus the output: triple backticks with Thai translation. Ensure no extra content. Provide only translation. Let&apos;s output exactly that.
-
-But double-check: They said &quot;Do not output any other content&quot;. So we must not include any explanation. Just the translation in code block with backticks. They want &quot;Translated word here...&quot; inside triple backticks. So we will output exactly:
-
-```เมื่อเปิดใช้งาน การ์ดที่มีวันที่ครบกำหนดแต่ไม่มีเวลาเริ่มต้นที่วางแผนไว้ จะถูกตั้งค่าเวลาเริ่มต้นที่วางแผนไว้โดยอัตโนมัติตามการตั้งค่าจำนวนวันล่วงหน้า```
-
-That is the translation. Let&apos;s check if any technical term like &quot;Auto Set Planned Start Time&quot; might be considered proper nouns, but it&apos;s not part of the sentence. The sentence has &quot;advance days setting&quot;. This is a concept, not a proper noun.
-
-Make sure to not include any extra punctuation beyond what is necessary. The translation is okay.
-
-Potential nuance: &quot;When enabled&quot; can be &quot;เมื่อเปิดใช้งาน&quot;. Could also be &quot;เมื่อเปิดใช้งาน&quot;. Might be &quot;เมื่อเปิดใช้งาน&quot; or &quot;เมื่อเปิดใช้งาน&quot;. I think &quot;เมื่อเปิดใช้งาน&quot; is fine. Alternatively &quot;เมื่อเปิดใช้งาน&quot; (when the setting is enabled). It&apos;s correct.
-
-But could also be &quot;เมื่อเปิดใช้งาน&quot; meaning &quot;when enabled&quot;. &quot;เมื่อ&quot; is &quot;when&quot;. &quot;เปิดใช้งาน&quot; is &quot;enable&quot;. So yes.
-
-Thus final answer: triple backticks with Thai translation.
-
-Double-check: Should we include punctuation like period? In English sentence ends with period. In Thai translation, we may include a period at the end: &quot;。&quot; but that&apos;s a full stop in Thai. Usually Thai uses &quot;。&quot; or &quot; .&quot;. We can include a period &quot;.&quot; at end for consistency. But it&apos;s okay to leave no period. The instruction is just to translate the sentence, not to preserve punctuation? They didn&apos;t specify punctuation. I think we can include a period at the end. But in Thai writing, it&apos;s common to use &quot;。&quot; or nothing. But we can include a period as English punctuation. Usually for translation, it&apos;s okay to keep punctuation. We&apos;ll include a period at the end for consistency.
-
-Thus final output:
-
-```เมื่อเปิดใช้งาน การ์ดที่มีวันที่ครบกำหนดแต่ไม่มีเวลาเริ่มต้นที่วางแผนไว้ จะถูกตั้งค่าเวลาเริ่มต้นที่วางแผนไว้โดยอัตโนมัติตามการตั้งค่าจำนวนวันล่วงหน้า.```
-
-But they said &quot;Do not output any other content. Only output the translated content and wrap it in three backticks (```)&quot;. So we output only that. Let&apos;s do that.
-&lt;/think&gt;
-
-```เมื่อเปิดใช้งาน การ์ดที่มีวันที่ครบกำหนดแต่ไม่มีเวลาเริ่มต้นที่วางแผนไว้ จะถูกตั้งค่าเวลาเริ่มต้นที่วางแผนไว้โดยอัตโนมัติตามการตั้งค่าจำนวนวันล่วงหน้า.</value>
+    <value>เมื่อเปิดใช้งาน การ์ดที่มีวันที่กำหนดไว้แต่ไม่มีเวลาเริ่มต้นที่วางแผนไว้ จะถูกตั้งค่าเวลาเริ่มต้นที่วางแผนไว้โดยอัตโนมัติตามการตั้งค่าจำนวนวันล่วงหน้า</value>
   </data>
 
 </root>

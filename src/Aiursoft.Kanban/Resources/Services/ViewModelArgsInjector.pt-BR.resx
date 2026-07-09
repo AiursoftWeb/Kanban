@@ -40,30 +40,10 @@
     <value>Anônimo</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Arquivado
-```
-
-Make sure no other content. So final answer: triple backticks with &quot;Arquivado&quot;.
-&lt;/think&gt;
-
-``` 
-Arquivado</value>
+    <value>Arquivado</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>Quadros Arquivados```.
-
-But ensure no extra content. According to instruction: &quot;Do not output any other content. Only output the translated content and wrap it in three backticks (```), like this: ``` Translated word here...```&quot;. They gave example with spaces inside backticks. So we need to output:
-
-```
-Quadros Arquivados
-```
-
-We must not output any other content. Ensure no extra newline? Usually fine.
-
-Thus answer.
-&lt;/think&gt;
-
-```Quadros Arquivados</value>
+    <value>Quadros Arquivados</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Trabalhos em Segundo Plano</value>

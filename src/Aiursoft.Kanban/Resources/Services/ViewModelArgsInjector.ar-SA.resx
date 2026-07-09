@@ -40,39 +40,10 @@
     <value>مجهول</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>مؤرشفة
-```
-
-Make sure no extra content. Let&apos;s comply.
-
-But we should double-check the user instructions: &quot;Do not output any other content!&quot; They want only the translated word, wrapped in three backticks.
-
-Thus final answer: a code block with Arabic translation.
-
-Note: The user might expect &quot;مؤرشفة&quot;. Let&apos;s confirm typical translation: &quot;Archived&quot; as adjective for feminine singular: &quot;مؤرشفة&quot;. For masculine singular, &quot;مؤرشف&quot;. But typically Arabic uses &quot;مؤرشفة&quot; for feminine nouns. In UI for a board, board is maybe &quot;لوحة&quot;. &quot;لوحة مؤرشفة&quot;. &quot;Archived&quot; is singular masculine? Actually &quot;archived boards&quot; might be feminine? In Arabic, &quot;board&quot; (لوحة) is feminine. &quot;Archived&quot; could be &quot;مؤرشفة&quot;. So translation &quot;مؤرشفة&quot; is appropriate.
-
-Thus output should be:
-
-```
-مؤرشفة
-```
-
-That is the answer.
-&lt;/think&gt;
-
-```مؤرشفة</value>
+    <value>مؤرشفة</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>لوحات مؤرشفة
-```.
-
-Thus output: only translation wrapped in triple backticks. Ensure no extra content. Should we include any other text? No, only the translation. So answer: ```
-لوحات مؤرشفة
-```
-&lt;/think&gt;
-
-```
-لوحات مؤرشفة</value>
+    <value>لوحات مؤرشفة</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>المهام الخلفية</value>

@@ -40,24 +40,10 @@
     <value>Anonym</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Arkiverad```.
-&lt;/think&gt;
-
-```Arkiverad</value>
+    <value>Arkiverad</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>Arkiverade tavlor```
-
-Make sure only output that wrapped in triple backticks. No extra.
-
-Thus output:
-
-```
-Arkiverade tavlor
-```
-&lt;/think&gt;
-
-```Arkiverade tavlor</value>
+    <value>Arkiverade tavlor</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Bakgrundsjobb</value>

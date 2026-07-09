@@ -43,47 +43,10 @@
     <value>匿名</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Translated word here...
-```
-
-They say &quot;Please translate only the sentence or word `Archived` in the paragraph into the target language zh-TW, 中文 (台灣).&quot;
-
-So I need to output the translation for &quot;Archived&quot;. In Traditional Chinese, &quot;Archived&quot; could be &quot;已封存&quot;, &quot;已存档&quot;? Usually in UI they might use &quot;已封存&quot; (means archived). Or &quot;已存檔&quot;? Let&apos;s think. &quot;Archived&quot; is past participle of &quot;archive&quot;. In Chinese UI for &quot;Archived&quot;, maybe &quot;已封存&quot; or &quot;已归档&quot;. Actually &quot;归档&quot; is &quot;archive&quot; as a verb, but &quot;归档&quot; might be used. &quot;Archived&quot; likely means &quot;已封存&quot;, &quot;已归档&quot;. In Chinese (Taiwan) UI, typical translations: &quot;已封存&quot; (archived) used for &quot;Archived&quot; as in &quot;Archived items&quot;. So translation: &quot;已封存&quot;. Or &quot;已归档&quot;. Let&apos;s see typical usage. For &quot;Archived&quot; as a label for a board list maybe &quot;已封存&quot;. In software like Trello (Kanban board) they have &quot;Archived&quot; boards. Trello uses &quot;已封存&quot;. Trello Chinese version: &quot;已封存&quot;. So translation: &quot;已封存&quot;.
-
-Thus output:
-
-```
-已封存
-```
-
-But need to check if any constraints: Must output only the translation, wrap in triple backticks. The word &quot;Archived&quot; is not a proper noun, but we can translate. They want &quot;only the sentence or word `Archived` in the paragraph into the target language zh-TW, 中文 (台灣).&quot; So just &quot;已封存&quot;. Wrap in backticks.
-
-Thus output:
-
-```
-已封存
-```
-
-Make sure no other content. So final answer: code block with translation.
-
-One more thing: The instruction says: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them! So please consider if the sentence or word `Archived` is one of them.&quot; Archived is not a proper noun. So we translate.
-
-Thus final.
-&lt;/think&gt;
-
-```已封存</value>
+    <value>已封存</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>已存檔的看板```
-
-But they said: &quot;Output the translated content and wrap it in three backticks (```), like this: ```Translated word here...```&quot; So we need to output just the translation within triple backticks. So answer:
-
-```已存檔的看板```
-
-Make sure not to output any other content. Let&apos;s follow that exactly.
-&lt;/think&gt;
-
-```已存檔的看板</value>
+    <value>已存檔的看板</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>背景工作</value>
@@ -92,12 +55,7 @@ Make sure not to output any other content. Let&apos;s follow that exactly.
     <value>錯誤的請求</value>
   </data>
   <data name="Card Details" xml:space="preserve">
-    <value>卡片詳情```.
-
-Make sure no extra content. That meets requirement.
-&lt;/think&gt;
-
-```卡片詳情</value>
+    <value>卡片詳情</value>
   </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>變更大頭貼</value>

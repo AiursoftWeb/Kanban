@@ -40,66 +40,10 @@
     <value>Anoniem</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Archived translation...
-```
-
-We need to output only the translated word in Dutch.
-
-&quot;Archived&quot; is an adjective meaning &quot;gearchiveerd&quot;. In Dutch, &quot;archived&quot; would be &quot;gearchiveerd&quot;. However, translation of UI strings often use past participle of &quot;archiveren&quot; to produce &quot;Gearchiveerd&quot;. In Dutch, capitalized &quot;Gearchiveerd&quot; if used as label? UI strings may be title case &quot;Gearchiveerd&quot;. The user didn&apos;t specify case. Typically UI string translations preserve case? In many locales, translation will preserve case but it&apos;s not mandatory. They said &quot;Only output the translated content and wrap it in three backticks&quot;. So we output &quot;Gearchiveerd&quot;. Should we include the quotes? No, just the translated content. They said only output the translated word and wrap it in three backticks. So output:
-
-``` 
-Gearchiveerd
-```
-
-But need to use three backticks (```). The example given is:
-
-```
-Translated word here...
-```
-
-So output exactly:
-
-``` 
-Gearchiveerd
-```
-
-But with three backticks and newline? The example shows three backticks on one line (like start and end). Usually one writes:
-
-``` 
-Gearchiveerd
-```
-
-Thus as three backticks line then content then end backticks. They said &quot;wrap it in three backticks, like this:
-
-```
-Translated word here...
-```
-
-In their example, they put three backticks on a line, then newline, content, newline, three backticks on a line. So we follow that format.
-
-Thus answer: 
-
-``` 
-Gearchiveerd
-```
-&lt;/think&gt;
-
-``` 
-Gearchiveerd</value>
+    <value>Archived translation...</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>Gearchiveerde borden
-```
-
-Double-check: &quot;Archived Boards&quot; (plural) should be &quot;Gearchiveerde borden&quot; (plural). In Dutch, adjectives change: &quot;gearchiveerd&quot; (past participle) as adjective before noun. Usually &quot;gearchiveerd&quot; is invariable if the noun is plural? Eg &quot;gearchiveerde borden&quot;. Yes, &quot;gearchiveerd&quot; becomes &quot;gearchiveerde&quot;. So &quot;Gearchiveerde borden&quot;. Or &quot;Gearchiveerde bord&quot;. Actually &quot;boards&quot; plural. So &quot;Borden&quot;. So final answer: Gearchiveerde borden. Provide as code block. That&apos;s it.
-
-Thus output.
-
-Make sure we output only the translation. No other content.
-&lt;/think&gt;
-
-``` 
-Gearchiveerde borden</value>
+    <value>Gearchiveerde borden</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>Achtergrondtaken</value>

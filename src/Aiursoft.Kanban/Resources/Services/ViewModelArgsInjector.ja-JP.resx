@@ -43,62 +43,10 @@
     <value>匿名</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Translated word here...```&quot;
-
-Thus the assistant must output only the translation of &quot;Archived&quot; into Japanese, formatted with three backticks and no other text.
-
-But we must consider that &quot;Archived&quot; is a term. In Japanese translation, &quot;Archived&quot; could be &quot;アーカイブ済み&quot; (ākaibu zumi) or &quot;アーカイブされた&quot; etc. The typical translation for &quot;Archived&quot; in software context is &quot;アーカイブ済み&quot;. For a UI label, &quot;Archived&quot; could be &quot;アーカイブ済み&quot; (archived). Alternatively &quot;アーカイブ&quot; (noun &quot;Archive&quot;) but &quot;Archived&quot; (adjective) could be &quot;アーカイブ済み&quot;. Let&apos;s think.
-
-Also need to consider the instruction: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them! So please consider if the sentence or word `Archived` is one of them.&quot;
-
-Is &quot;Archived&quot; a proper noun? It&apos;s not a human name, it&apos;s a generic term. So we translate.
-
-Thus output:
-
-```アーカイブ済み```
-
-But we need to check the exact translation. Japanese translation for &quot;Archived&quot;: could be &quot;アーカイブ済み&quot;. Also &quot;アーカイブされた&quot;. However, in UI, often &quot;Archived&quot; is used for a board that has been archived; translation often &quot;アーカイブ済み&quot;. For a button, they might use &quot;アーカイブ済み&quot; as an adjective phrase. Example: &quot;Archived Boards&quot; -&gt; &quot;アーカイブ済みボード&quot;. For singular &quot;Archived&quot;, it might be &quot;アーカイブ済み&quot;. So translation: &quot;アーカイブ済み&quot;. Should we include any punctuation? No, just the translation.
-
-Thus output in three backticks: ```アーカイブ済み```
-
-But need to ensure no other content. Only that. So we output exactly:
-
-```アーカイブ済み```
-
-But we must consider the instruction: &quot;Only output the translated content and wrap it in three backticks (```), like this:
-
-```
-Translated word here...
-```&quot;
-
-Thus output exactly that.
-
-Thus final answer: a code block with &quot;アーカイブ済み&quot;. Probably that&apos;s correct.
-
-Double-check: The user wants &quot;Archived&quot; only. Japanese translation for &quot;archived&quot; is &quot;アーカイブ済み&quot; (akaibu zumi). Might also be &quot;アーカイブ済み&quot;. Could also be &quot;アーカイブされた&quot;. But &quot;Archived&quot; (past participle) as an adjective often &quot;アーカイブ済み&quot;. So answer: &quot;アーカイブ済み&quot;. Should we include &quot;アーカイブ済み&quot; (without extra spaces) as translation. Yes.
-
-Thus final: code block containing &quot;アーカイブ済み&quot;.
-&lt;/think&gt;
-
-```アーカイブ済み</value>
+    <value>アーカイブ済み</value>
   </data>
   <data name="Archived Boards" xml:space="preserve">
-    <value>アーカイブ済みボード
-```
-
-Probably exactly as:
-
-``` 
-アーカイブ済みボード
-```
-
-Make sure no extra whitespace outside backticks. Provide exactly triple backticks with content inside. That is all.
-
-Thus answer: ```\nアーカイブ済みボード\n```
-&lt;/think&gt;
-
-``` 
-アーカイブ済みボード</value>
+    <value>アーカイブ済みボード</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>バックグラウンドジョブ</value>
@@ -107,36 +55,7 @@ Thus answer: ```\nアーカイブ済みボード\n```
     <value>Bad Request</value>
   </data>
   <data name="Card Details" xml:space="preserve">
-    <value>カード詳細```
-
-But check guidelines: &quot;Human names, Nicknames, Proper nouns, symbols, trademarks, etc. must be output as it is and do not translate them!&quot; Is &quot;Card Details&quot; a proper noun? It may be considered a UI label for a card details view. Usually &quot;Card Details&quot; can be translated as &quot;カード詳細&quot;. In Japanese UI translation, it&apos;s common to translate &quot;Card Details&quot; as &quot;カード詳細&quot;. So we should output the translation: カード詳細.
-
-The user instruction says &quot;Do not output any other content. Only output the translated content and wrap it in three backticks (```) like this:
-
-```
-Translated word here...
-```&quot;
-
-So we need to output:
-
-```カード詳細```
-
-Double-check: Should we include any other translation context? No.
-
-Thus final answer: &quot;カード詳細&quot;. Ensure triple backticks around it.
-
-Potential nuance: The user says &quot;If you don&apos;t understand what you want to translate, please output it as it is!&quot; But we can translate &quot;Card Details&quot; as &quot;カード詳細&quot;. So fine.
-
-Thus final output: 
-
-```カード詳細```
-
-We need to ensure no extra content. So final answer: triple backticks with translation.
-
-Let&apos;s output accordingly.
-&lt;/think&gt;
-
-```カード詳細</value>
+    <value>カード詳細</value>
   </data>
   <data name="Change Avatar" xml:space="preserve">
     <value>アバターを変更</value>
