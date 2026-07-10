@@ -117,6 +117,8 @@ public class ViewModelArgsInjector(
     
         _ = localizer["Archived"];
         _ = localizer["Archived Boards"];
+    
+        _ = localizer["Gantt Chart"];
     }
 
     public void InjectSimple(
