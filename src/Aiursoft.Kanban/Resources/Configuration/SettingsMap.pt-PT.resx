@@ -33,6 +33,9 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Permitir que os utilizadores ajustem o seu apelido na página de gestão de perfil.</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Definir Automaticamente a Hora Planejada de Início</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>URL da Página Inicial da Marca</value>
   </data>
@@ -47,6 +50,9 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>Número ICP</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Dias de Antecipação do Horário Planeado de Início</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Logotipo do Projeto</value>
@@ -65,6 +71,12 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>O nome do projeto apresentado na interface de utilizador.</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Ao definir automaticamente a hora de início planeada, o número de dias para adiantar antes da data de vencimento.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>Ao ser ativado, os cartões com data de vencimento, mas sem hora planeada de início, terão a sua hora planeada de início definida automaticamente com base na definição de dias de antecedência.</value>
   </data>
 
 </root>

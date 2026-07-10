@@ -33,6 +33,9 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Tillåt användare att ändra sitt smeknamn på sidan för profilhantering.</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Automatisk inställning av planerad starttid</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>Hemsida för varumärke</value>
   </data>
@@ -47,6 +50,9 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP-nummer</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Antal dagar för planerad starttid framåt</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Projektlogotyp</value>
@@ -65,6 +71,12 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Projektets namn som visas i frontend</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Vid automatisk inställning av planerad starttid, antalet dagar att flytta fram innan förfallodatum.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>När aktiverat kommer kort med ett förfallodatum men utan planerad starttid automatiskt att få sin planerade starttid inställd baserat på inställningen för avancemangs-dagar.</value>
   </data>
 
 </root>

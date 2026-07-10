@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actual" xml:space="preserve">
+    <value>Rzeczywisty</value>
+  </data>
+  <data name="Assignee:" xml:space="preserve">
+    <value>Osoba odpowiedzialna:</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Powrót do Kanban</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Karty</value>
+  </data>
+  <data name="Cards without dates" xml:space="preserve">
+    <value>Karty bez dat</value>
+  </data>
+  <data name="Column:" xml:space="preserve">
+    <value>Kolumna:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Ukończono</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Domyślny</value>
+  </data>
+  <data name="Gantt display mode" xml:space="preserve">
+    <value>Tryb wyświetlania diagramu Gantta</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>W trakcie</value>
+  </data>
+  <data name="Missing actual end date" xml:space="preserve">
+    <value>Brak rzeczywistej daty zakończenia</value>
+  </data>
+  <data name="Missing actual start and end date" xml:space="preserve">
+    <value>Brak faktycznej daty rozpoczęcia i zakończenia</value>
+  </data>
+  <data name="Missing actual start date" xml:space="preserve">
+    <value>Brakuje rzeczywistej daty rozpoczęcia</value>
+  </data>
+  <data name="Missing date information (planned or actual dates are incomplete)" xml:space="preserve">
+    <value>Brakujące informacje o dacie (niekompletne daty planowane lub rzeczywiste)</value>
+  </data>
+  <data name="Missing due date" xml:space="preserve">
+    <value>Brak daty zakończenia</value>
+  </data>
+  <data name="Missing planned start and due date" xml:space="preserve">
+    <value>Brak zaplanowanej daty rozpoczęcia i terminu zakończenia</value>
+  </data>
+  <data name="Missing planned start date" xml:space="preserve">
+    <value>Brak zaplanowanej daty rozpoczęcia</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>Brak kart z kompletnymi datami w tym trybie.</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Nie rozpoczęto</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planowany</value>
+  </data>
+  <data name="Priority:" xml:space="preserve">
+    <value>Priorytet:</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Tylko do odczytu</value>
+  </data>
+  <data name="Status:" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>Na tej tablicy nie ma kart.</value>
+  </data>
+  <data name="Time:" xml:space="preserve">
+    <value>Czas:</value>
+  </data>
+
+</root>

@@ -102,6 +102,9 @@
   <data name="Features" xml:space="preserve">
     <value>Возможности</value>
   </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>Диаграмма Ганта</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>Глобальные настройки</value>
   </data>

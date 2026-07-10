@@ -18,11 +18,26 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Edit Board" xml:space="preserve">
+      <data name="Add Card" xml:space="preserve">
+    <value>新增卡片</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Drop cards here" xml:space="preserve">
+    <value>在此放下卡片</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
     <value>編輯看板</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>進行中</value>
   </data>
   <data name="No cards" xml:space="preserve">
     <value>沒有卡片</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>未開始</value>
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>唯讀檢視</value>

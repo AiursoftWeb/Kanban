@@ -33,6 +33,9 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>प्रोफ़ाइल प्रबंधन पृष्ठ पर उपयोगकर्ताओं को अपना निकनेम समायोजित करने की अनुमति दें।</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>योजनाबद्ध प्रारंभ समय स्वतः निर्धारित करें</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>ब्रांड होम URL</value>
   </data>
@@ -47,6 +50,9 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP संख्या</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>योजनाबद्ध प्रारंभ समय अग्रदिन</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>प्रोजेक्ट लोगो</value>
@@ -65,6 +71,12 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>फ्रंटएंड में प्रदर्शित प्रोजेक्ट का नाम।</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>जब योजनाबद्ध प्रारंभ समय स्वतः सेट किया जाता है, नियत तारीख से पहले आगे बढ़ने के दिनों की संख्या।</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>सक्षम होने पर, शेष तिथि वाला लेकिन नियोजित प्रारंभ समय नहीं होने वाले कार्डों के लिए नियोजित प्रारंभ समय अग्रिम दिनों सेटिंग के आधार पर स्वचालित रूप से निर्धारित किया जाएगा।</value>
   </data>
 
 </root>

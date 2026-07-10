@@ -102,6 +102,9 @@
   <data name="Features" xml:space="preserve">
     <value>Λειτουργίες</value>
   </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>Διάγραμμα Gantt</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>Καθολικές Ρυθμίσεις</value>
   </data>

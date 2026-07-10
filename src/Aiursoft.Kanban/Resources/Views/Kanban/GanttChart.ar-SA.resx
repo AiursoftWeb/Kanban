@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actual" xml:space="preserve">
+    <value>الفعلي</value>
+  </data>
+  <data name="Assignee:" xml:space="preserve">
+    <value>المكلف بـ:</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>العودة إلى كانبان</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>بطاقات</value>
+  </data>
+  <data name="Cards without dates" xml:space="preserve">
+    <value>البطاقات دون تواريخ</value>
+  </data>
+  <data name="Column:" xml:space="preserve">
+    <value>العمود:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>مكتمل</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>الافتراضي</value>
+  </data>
+  <data name="Gantt display mode" xml:space="preserve">
+    <value>وضع عرض غانت</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>قيد التنفيذ</value>
+  </data>
+  <data name="Missing actual end date" xml:space="preserve">
+    <value>تاريخ النهاية الفعلي مفقود</value>
+  </data>
+  <data name="Missing actual start and end date" xml:space="preserve">
+    <value>تاريخ البدء والنهاية الفعليين مفقودان</value>
+  </data>
+  <data name="Missing actual start date" xml:space="preserve">
+    <value>تاريخ البدء الفعلي مفقود</value>
+  </data>
+  <data name="Missing date information (planned or actual dates are incomplete)" xml:space="preserve">
+    <value>معلومات التاريخ مفقودة (تواريخ المخطط أو الفعلية غير مكتملة)</value>
+  </data>
+  <data name="Missing due date" xml:space="preserve">
+    <value>تاريخ الانتهاء مفقود</value>
+  </data>
+  <data name="Missing planned start and due date" xml:space="preserve">
+    <value>تاريخ البدء المخطط له تاريخ الاستحقاق مفقودان</value>
+  </data>
+  <data name="Missing planned start date" xml:space="preserve">
+    <value>تاريخ البدء المخطط مفقود</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>لا تحتوي أي بطاقات على تواريخ كاملة في هذا الوضع.</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>لم يبدأ بعد</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>مخطط</value>
+  </data>
+  <data name="Priority:" xml:space="preserve">
+    <value>الأولوية:</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>للقراءة فقط</value>
+  </data>
+  <data name="Status:" xml:space="preserve">
+    <value>الحالة:</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>لا تحتوي هذه اللوحة على أي بطاقات.</value>
+  </data>
+  <data name="Time:" xml:space="preserve">
+    <value>الوقت:</value>
+  </data>
+
+</root>

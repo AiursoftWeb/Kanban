@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Archived</value>
+  </data>
+  <data name="Archived At" xml:space="preserve">
+    <value>Archived At</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Archived Boards</value>
+  </data>
+  <data name="Board" xml:space="preserve">
+    <value>Board</value>
+  </data>
+  <data name="Boards that have been archived by their owners and are now read-only." xml:space="preserve">
+    <value>Boards that have been archived by their owners and are now read-only.</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Direct Share" xml:space="preserve">
+    <value>Direct Share</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Unfinished</value>
+  </data>
+  <data name="My Archived Boards" xml:space="preserve">
+    <value>My Archived Boards</value>
+  </data>
+  <data name="No archived boards" xml:space="preserve">
+    <value>No archived boards</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="Shared Archived Boards" xml:space="preserve">
+    <value>Shared Archived Boards</value>
+  </data>
+  <data name="Shared Via" xml:space="preserve">
+    <value>Shared Via</value>
+  </data>
+  <data name="Unarchive" xml:space="preserve">
+    <value>Unarchive</value>
+  </data>
+  <data name="Unarchive this board?" xml:space="preserve">
+    <value>Unarchive this board?</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Unassigned</value>
+  </data>
+  <data name="Via Role" xml:space="preserve">
+    <value>By Role</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="When you archive a board, it will appear here." xml:space="preserve">
+    <value>When you archive a board, it will appear here.</value>
+  </data>
+
+</root>
