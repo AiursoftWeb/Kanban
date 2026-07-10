@@ -169,10 +169,15 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   min-width: 0;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .gantt-sidebar-row:last-child {
   border-bottom: none;
+}
+
+.gantt-sidebar-row:hover {
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .gantt-priority-dot {
@@ -314,6 +319,11 @@
   height: 44px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   position: relative;
+  cursor: pointer;
+}
+
+.gantt-row:hover {
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .gantt-row-bg-weekend {
@@ -330,7 +340,7 @@
   transform: translateY(-50%);
   height: 26px;
   border-radius: 6px;
-  cursor: default;
+  cursor: pointer;
   transition: filter 0.15s ease, transform 0.15s ease;
   min-width: 6px;
   overflow: hidden;
@@ -489,10 +499,15 @@
   padding: 10px 14px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   font-size: 0.82rem;
+  cursor: pointer;
 }
 
 .gantt-no-dates-item:last-child {
   border-bottom: none;
+}
+
+.gantt-no-dates-item:hover {
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .gantt-no-dates-item-title {

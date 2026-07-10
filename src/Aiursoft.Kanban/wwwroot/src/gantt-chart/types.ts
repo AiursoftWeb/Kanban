@@ -12,6 +12,7 @@ export type GanttMode = 'default' | 'planned' | 'actual';
 /** A resolved card item ready to render on the Gantt timeline */
 export interface GanttItem {
   cardId: number;
+  boardId: number;
   title: string;
   columnId: number;
   columnName: string;
@@ -25,6 +26,7 @@ export interface GanttItem {
 /** A card that could not be resolved for the current mode */
 export interface UnresolvableCard {
   cardId: number;
+  boardId: number;
   title: string;
   columnName: string;
   columnStatus: ColumnStatus;
