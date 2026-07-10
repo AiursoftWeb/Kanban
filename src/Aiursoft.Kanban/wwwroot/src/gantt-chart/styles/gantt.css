@@ -89,6 +89,14 @@
 }
 
 /* ---------- Gantt Chart Container ---------- */
+#gantt-root {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .gantt-wrapper {
   flex: 1;
   overflow: auto;
