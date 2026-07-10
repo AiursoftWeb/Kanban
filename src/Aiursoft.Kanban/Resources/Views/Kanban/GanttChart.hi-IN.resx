@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actual" xml:space="preserve">
+    <value>वास्तविक</value>
+  </data>
+  <data name="Assignee:" xml:space="preserve">
+    <value>असाइन किए गए व्यक्ति:</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>कानban पर वापस जाएं</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>कार्ड</value>
+  </data>
+  <data name="Cards without dates" xml:space="preserve">
+    <value>तिथि रहित कार्ड</value>
+  </data>
+  <data name="Column:" xml:space="preserve">
+    <value>कॉलम:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>पूर्ण</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>डिफ़ॉल्ट</value>
+  </data>
+  <data name="Gantt display mode" xml:space="preserve">
+    <value>गन्ट प्रदर्शन मोड</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>प्रगति पर</value>
+  </data>
+  <data name="Missing actual end date" xml:space="preserve">
+    <value>वास्तविक समाप्ति तिथि अनुपस्थित है</value>
+  </data>
+  <data name="Missing actual start and end date" xml:space="preserve">
+    <value>वास्तविक प्रारंभ और समाप्ति तिथि अनुपलब्ध है</value>
+  </data>
+  <data name="Missing actual start date" xml:space="preserve">
+    <value>वास्तविक शुरुआती तिथि अनुपलब्ध है</value>
+  </data>
+  <data name="Missing date information (planned or actual dates are incomplete)" xml:space="preserve">
+    <value>दितीय जानकारी अनुपलब्ध है (आयोजित या वास्तविक तिथियां अपूर्ण हैं)</value>
+  </data>
+  <data name="Missing due date" xml:space="preserve">
+    <value>कार्यावधि दिनांक अनुपलब्ध है</value>
+  </data>
+  <data name="Missing planned start and due date" xml:space="preserve">
+    <value>योजनाबद्ध शुरुआत और जमा करने की तारीख गायब है</value>
+  </data>
+  <data name="Missing planned start date" xml:space="preserve">
+    <value>योजनाबद्ध प्रारंभ तिथि अनुपलब्ध है</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>इस मोड में किसी भी कार्ड के पूर्ण दिनांक नहीं हैं।</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>आरंभ नहीं हुआ</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>योजनाबद्ध</value>
+  </data>
+  <data name="Priority:" xml:space="preserve">
+    <value>प्राथमिकता:</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>केवल-पढ़ें</value>
+  </data>
+  <data name="Status:" xml:space="preserve">
+    <value>स्थिति:</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>इस बोर्ड में कोई कार्ड नहीं है।</value>
+  </data>
+  <data name="Time:" xml:space="preserve">
+    <value>समय:</value>
+  </data>
+
+</root>
