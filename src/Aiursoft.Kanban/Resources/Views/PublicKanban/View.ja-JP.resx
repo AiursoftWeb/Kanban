@@ -18,11 +18,26 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Edit Board" xml:space="preserve">
+      <data name="Add Card" xml:space="preserve">
+    <value>カードを追加</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="Drop cards here" xml:space="preserve">
+    <value>ここにカードをドロップ</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
     <value>ボードを編集</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>進行中</value>
   </data>
   <data name="No cards" xml:space="preserve">
     <value>カードがありません</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>未着手</value>
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>読み取り専用ビュー</value>

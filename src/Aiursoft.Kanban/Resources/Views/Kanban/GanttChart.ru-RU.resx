@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actual" xml:space="preserve">
+    <value>Фактический</value>
+  </data>
+  <data name="Assignee:" xml:space="preserve">
+    <value>Назначенный:</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Назад к Kanban</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Карты</value>
+  </data>
+  <data name="Cards without dates" xml:space="preserve">
+    <value>Карточки без дат</value>
+  </data>
+  <data name="Column:" xml:space="preserve">
+    <value>Колонка:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Выполнено</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="Gantt display mode" xml:space="preserve">
+    <value>Режим отображения диаграммы Ганта</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="Missing actual end date" xml:space="preserve">
+    <value>Отсутствует фактическая дата окончания</value>
+  </data>
+  <data name="Missing actual start and end date" xml:space="preserve">
+    <value>Отсутствуют даты фактического начала и завершения</value>
+  </data>
+  <data name="Missing actual start date" xml:space="preserve">
+    <value>Отсутствует фактическая дата начала</value>
+  </data>
+  <data name="Missing date information (planned or actual dates are incomplete)" xml:space="preserve">
+    <value>Отсутствует информация о датах (запланированные или фактические даты указаны неполностью)</value>
+  </data>
+  <data name="Missing due date" xml:space="preserve">
+    <value>Отсутствует дедлайн</value>
+  </data>
+  <data name="Missing planned start and due date" xml:space="preserve">
+    <value>Отсутствуют планируемые даты начала и завершения</value>
+  </data>
+  <data name="Missing planned start date" xml:space="preserve">
+    <value>Отсутствует запланированная дата начала</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>В этом режиме у карточек нет полных дат.</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Не начато</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Запланировано</value>
+  </data>
+  <data name="Priority:" xml:space="preserve">
+    <value>Приоритет:</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Только для чтения</value>
+  </data>
+  <data name="Status:" xml:space="preserve">
+    <value>Статус:</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>В этой доске нет карточек.</value>
+  </data>
+  <data name="Time:" xml:space="preserve">
+    <value>Время:</value>
+  </data>
+
+</root>

@@ -102,6 +102,9 @@
   <data name="Features" xml:space="preserve">
     <value>الميزات</value>
   </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>مخطط جانت</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>الإعدادات العامة</value>
   </data>

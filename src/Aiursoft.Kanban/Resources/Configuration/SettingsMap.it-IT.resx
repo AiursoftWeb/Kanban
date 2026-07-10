@@ -33,6 +33,9 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Consenti agli utenti di modificare il proprio nickname nella pagina di gestione del profilo.</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Imposta automaticamente l&apos;ora pianificata di inizio</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>URL home del marchio</value>
   </data>
@@ -47,6 +50,9 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>Numero ICP</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Giorni di anticipo dell&apos;ora di inizio pianificata</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Logo del Progetto</value>
@@ -65,6 +71,12 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Il nome del progetto visualizzato nel frontend.</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Quando si imposta automaticamente l&apos;ora di pianificazione dell&apos;inizio, il numero di giorni da anticipare rispetto alla data di scadenza.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>Se attivata, le schede con una data di scadenza ma senza un&apos;ora pianificata di inizio avranno automaticamente l&apos;ora pianificata di inizio impostata in base all&apos;impostazione dei giorni avanzati.</value>
   </data>
 
 </root>

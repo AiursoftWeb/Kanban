@@ -105,6 +105,9 @@
   <data name="Features" xml:space="preserve">
     <value>คุณสมบัติ</value>
   </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>แผนภูมิแกนต์</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>การตั้งค่าทั่วไป</value>
   </data>

@@ -33,6 +33,9 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Salli käyttäjien muuttaa nimimerkkiään profiilin hallintasivulla.</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Automaattinen suunnitellun alkamisaian asettaminen</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>Brändin kotisivun URL</value>
   </data>
@@ -47,6 +50,9 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP-numero</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Suunnitellun aloitusajan päivämäärien edellä</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Projektin logo</value>
@@ -65,6 +71,12 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Projektin nimi, joka näytetään käyttöliittymässä.</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Kun automaattinen suunnitellun aloitusajan asetus on käytössä, etupäivien määrä ennen eräpäivää.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>Kun tämä on käytössä, korteille, joissa on erääpäivä mutta ei suunniteltua aloitusajankohtaa, asetetaan suunniteltu aloitusajankohta automaattisesti edellispäivi-asetuksen mukaisesti.</value>
   </data>
 
 </root>

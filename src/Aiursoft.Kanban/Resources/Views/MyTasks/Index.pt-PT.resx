@@ -18,7 +18,61 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="All" xml:space="preserve">
+      <data name=" - actual end ascending." xml:space="preserve">
+    <value> - actual end ascending.</value>
+  </data>
+  <data name=" - actual end descending." xml:space="preserve">
+    <value> - actual end descending.</value>
+  </data>
+  <data name=" - actual start ascending." xml:space="preserve">
+    <value> - actual start ascending.</value>
+  </data>
+  <data name=" - actual start descending." xml:space="preserve">
+    <value> - actual start descending.</value>
+  </data>
+  <data name=" - newest first." xml:space="preserve">
+    <value> - newest first.</value>
+  </data>
+  <data name=" - oldest first." xml:space="preserve">
+    <value> - oldest first.</value>
+  </data>
+  <data name=" - planned end ascending." xml:space="preserve">
+    <value> - planned end ascending.</value>
+  </data>
+  <data name=" - planned end descending." xml:space="preserve">
+    <value> - planned end descending.</value>
+  </data>
+  <data name=" - planned start ascending." xml:space="preserve">
+    <value> - planned start ascending.</value>
+  </data>
+  <data name=" - planned start descending." xml:space="preserve">
+    <value> - planned start descending.</value>
+  </data>
+  <data name=" - title A-Z." xml:space="preserve">
+    <value> - title A-Z.</value>
+  </data>
+  <data name=" - title Z-A." xml:space="preserve">
+    <value> - title Z-A.</value>
+  </data>
+  <data name=" - urgency ascending." xml:space="preserve">
+    <value> - urgency ascending.</value>
+  </data>
+  <data name=" - urgency descending." xml:space="preserve">
+    <value> - urgency descending.</value>
+  </data>
+  <data name="Actual End (newest first)" xml:space="preserve">
+    <value>Actual End (newest first)</value>
+  </data>
+  <data name="Actual End (oldest first)" xml:space="preserve">
+    <value>Actual End (oldest first)</value>
+  </data>
+  <data name="Actual Start (newest first)" xml:space="preserve">
+    <value>Actual Start (newest first)</value>
+  </data>
+  <data name="Actual Start (oldest first)" xml:space="preserve">
+    <value>Actual Start (oldest first)</value>
+  </data>
+  <data name="All" xml:space="preserve">
     <value>Todas</value>
   </data>
   <data name="Any" xml:space="preserve">
@@ -42,6 +96,9 @@
   <data name="Everything assigned to you" xml:space="preserve">
     <value>Tudo atribuído a si</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>High</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>Em andamento</value>
   </data>
@@ -51,25 +108,24 @@
   <data name="Label mode" xml:space="preserve">
     <value>Modo de rótulo</value>
   </data>
+  <data name="Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>As minhas tarefas</value>
   </data>
   <data name="No tasks found" xml:space="preserve">
     <value>Nenhuma tarefa encontrada</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Não Iniciado</value>
   </data>
-  <data name="Planned start:" xml:space="preserve">
-    <value>Início planeado:</value>
-  </data>
-  <data name="Sort" xml:space="preserve">
-    <value>Ordenar</value>
-  </data>
-  <data name="Try switching the status tab or adjusting your label filters." xml:space="preserve">
-    <value>Tente alternar a separador de estado ou ajustar os seus filtros de etiqueta.</value>
-  </data>
-
   <data name="Planned End (newest first)" xml:space="preserve">
     <value>Planned End (newest first)</value>
   </data>
@@ -82,88 +138,32 @@
   <data name="Planned Start (oldest first)" xml:space="preserve">
     <value>Planned Start (oldest first)</value>
   </data>
-  <data name="Actual End (newest first)" xml:space="preserve">
-    <value>Actual End (newest first)</value>
-  </data>
-  <data name="Actual End (oldest first)" xml:space="preserve">
-    <value>Actual End (oldest first)</value>
-  </data>
-  <data name="Actual Start (newest first)" xml:space="preserve">
-    <value>Actual Start (newest first)</value>
-  </data>
-  <data name="Actual Start (oldest first)" xml:space="preserve">
-    <value>Actual Start (oldest first)</value>
-  </data>
-  <data name="Priority (low to high)" xml:space="preserve">
-    <value>Priority (low to high)</value>
+  <data name="Planned start:" xml:space="preserve">
+    <value>Início planeado:</value>
   </data>
   <data name="Priority (high to low)" xml:space="preserve">
     <value>Priority (high to low)</value>
   </data>
-  <data name="Title (Z → A)" xml:space="preserve">
-    <value>Title (Z → A)</value>
+  <data name="Priority (low to high)" xml:space="preserve">
+    <value>Priority (low to high)</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Ordenar</value>
   </data>
   <data name="Title (A → Z)" xml:space="preserve">
     <value>Title (A → Z)</value>
   </data>
-  <data name=" - planned end descending." xml:space="preserve">
-    <value> - planned end descending.</value>
+  <data name="Title (Z → A)" xml:space="preserve">
+    <value>Title (Z → A)</value>
   </data>
-  <data name=" - planned end ascending." xml:space="preserve">
-    <value> - planned end ascending.</value>
-  </data>
-  <data name=" - planned start descending." xml:space="preserve">
-    <value> - planned start descending.</value>
-  </data>
-  <data name=" - planned start ascending." xml:space="preserve">
-    <value> - planned start ascending.</value>
-  </data>
-  <data name=" - urgency ascending." xml:space="preserve">
-    <value> - urgency ascending.</value>
-  </data>
-  <data name=" - urgency descending." xml:space="preserve">
-    <value> - urgency descending.</value>
-  </data>
-  <data name=" - actual start descending." xml:space="preserve">
-    <value> - actual start descending.</value>
-  </data>
-  <data name=" - actual start ascending." xml:space="preserve">
-    <value> - actual start ascending.</value>
-  </data>
-  <data name=" - actual end descending." xml:space="preserve">
-    <value> - actual end descending.</value>
-  </data>
-  <data name=" - actual end ascending." xml:space="preserve">
-    <value> - actual end ascending.</value>
-  </data>
-  <data name=" - newest first." xml:space="preserve">
-    <value> - newest first.</value>
-  </data>
-  <data name=" - oldest first." xml:space="preserve">
-    <value> - oldest first.</value>
-  </data>
-  <data name=" - title A-Z." xml:space="preserve">
-    <value> - title A-Z.</value>
-  </data>
-  <data name=" - title Z-A." xml:space="preserve">
-    <value> - title Z-A.</value>
+  <data name="Try switching the status tab or adjusting your label filters." xml:space="preserve">
+    <value>Tente alternar a separador de estado ou ajustar os seus filtros de etiqueta.</value>
   </data>
   <data name="Urgent" xml:space="preserve">
     <value>Urgent</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>High</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Medium</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Low</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>None</value>
-  </data>
   <data name="You" xml:space="preserve">
     <value>You</value>
   </data>
+
 </root>

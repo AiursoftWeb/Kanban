@@ -48,6 +48,12 @@
   <data name="All Boards" xml:space="preserve">
     <value>所有看板</value>
   </data>
+  <data name="Archive" xml:space="preserve">
+    <value>归档</value>
+  </data>
+  <data name="Archive this board?" xml:space="preserve">
+    <value>是否要存档此看板？</value>
+  </data>
   <data name="Are you sure you want to delete" xml:space="preserve">
     <value>您确定要删除吗？</value>
   </data>
@@ -275,6 +281,9 @@
   </data>
   <data name="Filter" xml:space="preserve">
     <value>筛选</value>
+  </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>甘特图</value>
   </data>
   <data name="h ago" xml:space="preserve">
     <value>小时前</value>

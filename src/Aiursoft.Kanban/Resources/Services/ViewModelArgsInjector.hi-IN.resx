@@ -102,6 +102,9 @@
   <data name="Features" xml:space="preserve">
     <value>विशेषताएँ</value>
   </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>गannt चार्ट</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>सार्वभौम सेटिंग्स</value>
   </data>

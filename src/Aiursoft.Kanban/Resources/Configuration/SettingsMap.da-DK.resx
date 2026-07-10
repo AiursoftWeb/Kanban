@@ -33,6 +33,9 @@
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Tillad brugere at justere deres nickname på siden til at administrere profil.</value>
   </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Autoindstil planlagt starttidspunkt</value>
+  </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>Brand Home URL</value>
   </data>
@@ -47,6 +50,9 @@
   </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP-nummer</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Forudplanlagt starttidspunkt forsinkelsesdage</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Projekttast</value>
@@ -65,6 +71,12 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Navnet på projektet, der vises i brugergrænsefladen.</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Når planlagt starttid indstilles automatisk, er antallet af dage, der skal flyttes frem før forfaldsdatoen.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>Når aktiveret får kort med en forfaldsdato, men uden planlagt starttid, automatisk deres planlagte starttid indstillet baseret på indstillingen for fremrykkede dage.</value>
   </data>
 
 </root>

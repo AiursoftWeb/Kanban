@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Acțiuni</value>
+  </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Arhivate</value>
+  </data>
+  <data name="Archived At" xml:space="preserve">
+    <value>Arhivat la</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Tablouri arhivate</value>
+  </data>
+  <data name="Board" xml:space="preserve">
+    <value>Consolă</value>
+  </data>
+  <data name="Boards that have been archived by their owners and are now read-only." xml:space="preserve">
+    <value>Tablourile care au fost arhivate de către proprietari și sunt acum doar de citire.</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Coloane</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Finalizate</value>
+  </data>
+  <data name="Direct Share" xml:space="preserve">
+    <value>Partajare directă</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>În curs</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Necompletate</value>
+  </data>
+  <data name="My Archived Boards" xml:space="preserve">
+    <value>Planșele mele arhivate</value>
+  </data>
+  <data name="No archived boards" xml:space="preserve">
+    <value>Nu există planșe arhivate</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>În întârziere</value>
+  </data>
+  <data name="Shared Archived Boards" xml:space="preserve">
+    <value>Scaune Arhivate Partajate</value>
+  </data>
+  <data name="Shared Via" xml:space="preserve">
+    <value>Partajare prin</value>
+  </data>
+  <data name="Unarchive" xml:space="preserve">
+    <value>Dezarhivare</value>
+  </data>
+  <data name="Unarchive this board?" xml:space="preserve">
+    <value>Dezarhivați acest tablou?</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Neasignat</value>
+  </data>
+  <data name="Via Role" xml:space="preserve">
+    <value>Prin rol</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Vizualizare</value>
+  </data>
+  <data name="When you archive a board, it will appear here." xml:space="preserve">
+    <value>Când arhivați o tablă, aceasta va apărea aici.</value>
+  </data>
+
+</root>

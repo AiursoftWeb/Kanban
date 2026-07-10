@@ -102,6 +102,9 @@
   <data name="Features" xml:space="preserve">
     <value>Fitur</value>
   </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>Bagan Gantt</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>Pengaturan Global</value>
   </data>

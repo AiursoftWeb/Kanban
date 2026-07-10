@@ -18,7 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Actions" xml:space="preserve">
+      <data name="?" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
     <value>Acțiuni</value>
   </data>
   <data name="Actual End" xml:space="preserve">
@@ -45,6 +48,15 @@
   <data name="All Boards" xml:space="preserve">
     <value>Toate tablourile</value>
   </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Arhivare</value>
+  </data>
+  <data name="Archive this board?" xml:space="preserve">
+    <value>Arhivați acest panou?</value>
+  </data>
+  <data name="Are you sure you want to delete" xml:space="preserve">
+    <value>Ești sigur că dorești să ștergi</value>
+  </data>
   <data name="Are you sure you want to delete the board" xml:space="preserve">
     <value>Sigur doriți să ștergeți panoul</value>
   </data>
@@ -53,6 +65,9 @@
   </data>
   <data name="Are you sure you want to delete this comment?" xml:space="preserve">
     <value>Sunteți sigur că doriți să ștergeți acest comentariu?</value>
+  </data>
+  <data name="Assigned to" xml:space="preserve">
+    <value>Împuternicit către</value>
   </data>
   <data name="Assignee" xml:space="preserve">
     <value>Atribuit</value>
@@ -96,6 +111,9 @@
   <data name="Columns" xml:space="preserve">
     <value>Coloane</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comentariu</value>
+  </data>
   <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
     <value>Comentariul este prea lung (maxim 2000 de caractere).</value>
   </data>
@@ -132,6 +150,9 @@
   <data name="d ago" xml:space="preserve">
     <value>d în urmă</value>
   </data>
+  <data name="Day" xml:space="preserve">
+    <value>Zi</value>
+  </data>
   <data name="Days" xml:space="preserve">
     <value>Zile</value>
   </data>
@@ -140,6 +161,9 @@
   </data>
   <data name="Delete Board" xml:space="preserve">
     <value>Șterge panoul</value>
+  </data>
+  <data name="Delete card" xml:space="preserve">
+    <value>Șterge cardul</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Șterge coloana</value>
@@ -158,6 +182,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Descriere</value>
+  </data>
+  <data name="Drag to reorder" xml:space="preserve">
+    <value>Trage pentru a rearanja</value>
   </data>
   <data name="Drop cards here" xml:space="preserve">
     <value>Trageți aici cardurile</value>
@@ -192,8 +219,17 @@
   <data name="Failed to delete board:" xml:space="preserve">
     <value>Nu s-a putut șterge tabloul:</value>
   </data>
+  <data name="Failed to delete board." xml:space="preserve">
+    <value>Eșec la ștergerea planșei.</value>
+  </data>
+  <data name="Failed to delete card." xml:space="preserve">
+    <value>Nu s-a reușit ștergerea cardului.</value>
+  </data>
   <data name="Failed to delete column:" xml:space="preserve">
     <value>Nu s-a putut șterge coloana:</value>
+  </data>
+  <data name="Failed to delete column." xml:space="preserve">
+    <value>Nu s-a reușit ștergerea coloanei.</value>
   </data>
   <data name="Failed to delete comment." xml:space="preserve">
     <value>Eșec la ștergerea comentariului.</value>
@@ -207,11 +243,17 @@
   <data name="Failed to move card:" xml:space="preserve">
     <value>Nu s-a putut muta cartea:</value>
   </data>
+  <data name="Failed to move card." xml:space="preserve">
+    <value>Nu s-a reușit mutarea cardului.</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Eșec la ștergerea etichetei.</value>
   </data>
   <data name="Failed to rename board:" xml:space="preserve">
     <value>Nu s-a putut redenumi tabloul:</value>
+  </data>
+  <data name="Failed to rename board." xml:space="preserve">
+    <value>Nu s-a putut redenumi tabla.</value>
   </data>
   <data name="Failed to rename column:" xml:space="preserve">
     <value>Nepreîntâlnit redenumirea coloanei:</value>
@@ -219,14 +261,29 @@
   <data name="Failed to save:" xml:space="preserve">
     <value>Salvarea a eșuat:</value>
   </data>
+  <data name="Failed to save." xml:space="preserve">
+    <value>Nu s-a putut salva.</value>
+  </data>
   <data name="Failed to transfer card:" xml:space="preserve">
     <value>Transferul cardului a eșuat:</value>
+  </data>
+  <data name="Failed to transfer card." xml:space="preserve">
+    <value>Transferarea cardului a eșuat.</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Actualizarea culorii etichetei a eșuat.</value>
   </data>
+  <data name="Failed to upload image." xml:space="preserve">
+    <value>Încărcarea imaginii a eșuat.</value>
+  </data>
+  <data name="Failed to upload pasted image." xml:space="preserve">
+    <value>Încărcarea imaginii lipite a eșuat.</value>
+  </data>
   <data name="Filter" xml:space="preserve">
     <value>Filtrare</value>
+  </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>Diagramă Gantt</value>
   </data>
   <data name="h ago" xml:space="preserve">
     <value>acum o oră</value>
@@ -255,6 +312,9 @@
   <data name="Loading target boards..." xml:space="preserve">
     <value>Se încarcă tablourile țintă...</value>
   </data>
+  <data name="Loading..." xml:space="preserve">
+    <value>Se încarcă...</value>
+  </data>
   <data name="Low" xml:space="preserve">
     <value>Scăzută</value>
   </data>
@@ -263,6 +323,9 @@
   </data>
   <data name="Medium" xml:space="preserve">
     <value>Mediu</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Lună</value>
   </data>
   <data name="Months" xml:space="preserve">
     <value>Luni</value>
@@ -330,6 +393,9 @@
   <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
     <value>Apăsați Enter pentru a adăuga o etichetă sau pentru a crea una nouă imediat.</value>
   </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Previzualizare</value>
+  </data>
   <data name="Previous column" xml:space="preserve">
     <value>Coloana anterioară</value>
   </data>
@@ -339,8 +405,17 @@
   <data name="Read-only" xml:space="preserve">
     <value>Doar citire</value>
   </data>
+  <data name="Recurrence" xml:space="preserve">
+    <value>Recurență</value>
+  </data>
+  <data name="Recurring" xml:space="preserve">
+    <value>Periodic</value>
+  </data>
   <data name="Recurring task" xml:space="preserve">
     <value>Sarcină recurentă</value>
+  </data>
+  <data name="Release to add images" xml:space="preserve">
+    <value>Eliberează pentru a adăuga imagini</value>
   </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>Elimină {{0}}</value>
@@ -359,6 +434,9 @@
   </data>
   <data name="Saving..." xml:space="preserve">
     <value>Se salvează...</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Caută</value>
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>Căutați sau creați o etichetă</value>
@@ -402,6 +480,9 @@
   <data name="This column contains" xml:space="preserve">
     <value>Această coloană conține</value>
   </data>
+  <data name="This column contains cards that will be deleted together." xml:space="preserve">
+    <value>Această coloană conține carduri care vor fi șterse împreună.</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Titlu</value>
   </data>
@@ -423,11 +504,17 @@
   <data name="Unknown error" xml:space="preserve">
     <value>Eroare necunoscută</value>
   </data>
+  <data name="Uploading images..." xml:space="preserve">
+    <value>Se încarcă imaginile...</value>
+  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Urgent</value>
   </data>
   <data name="View" xml:space="preserve">
     <value>Vizualizare</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Săptămână</value>
   </data>
   <data name="Weeks" xml:space="preserve">
     <value>Săptămâni</value>
@@ -435,8 +522,17 @@
   <data name="What needs to be done?" xml:space="preserve">
     <value>Ce trebuie făcut?</value>
   </data>
+  <data name="Write a comment..." xml:space="preserve">
+    <value>Scrie un comentariu...</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>An</value>
+  </data>
   <data name="Years" xml:space="preserve">
     <value>Ani</value>
+  </data>
+  <data name="You can drag images here or paste from clipboard." xml:space="preserve">
+    <value>Aici puteți trage imagini sau le puteți lipi din clipboard.</value>
   </data>
 
 </root>

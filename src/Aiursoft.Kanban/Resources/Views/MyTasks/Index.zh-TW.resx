@@ -18,7 +18,61 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="All" xml:space="preserve">
+      <data name=" - actual end ascending." xml:space="preserve">
+    <value> - 按實際結束時間升序。</value>
+  </data>
+  <data name=" - actual end descending." xml:space="preserve">
+    <value> - 按實際結束時間倒序。</value>
+  </data>
+  <data name=" - actual start ascending." xml:space="preserve">
+    <value> - 按實際開始時間升序。</value>
+  </data>
+  <data name=" - actual start descending." xml:space="preserve">
+    <value> - 按實際開始時間倒序。</value>
+  </data>
+  <data name=" - newest first." xml:space="preserve">
+    <value> - 最新優先。</value>
+  </data>
+  <data name=" - oldest first." xml:space="preserve">
+    <value> - 最早優先。</value>
+  </data>
+  <data name=" - planned end ascending." xml:space="preserve">
+    <value> - 按計劃結束時間升序。</value>
+  </data>
+  <data name=" - planned end descending." xml:space="preserve">
+    <value> - 按計劃結束時間倒序。</value>
+  </data>
+  <data name=" - planned start ascending." xml:space="preserve">
+    <value> - 按計劃開始時間升序。</value>
+  </data>
+  <data name=" - planned start descending." xml:space="preserve">
+    <value> - 按計劃開始時間倒序。</value>
+  </data>
+  <data name=" - title A-Z." xml:space="preserve">
+    <value> - 標題 A-Z。</value>
+  </data>
+  <data name=" - title Z-A." xml:space="preserve">
+    <value> - 標題 Z-A。</value>
+  </data>
+  <data name=" - urgency ascending." xml:space="preserve">
+    <value> - 按緊急程度升序。</value>
+  </data>
+  <data name=" - urgency descending." xml:space="preserve">
+    <value> - 按緊急程度倒序。</value>
+  </data>
+  <data name="Actual End (newest first)" xml:space="preserve">
+    <value>實際結束時間（最新優先）</value>
+  </data>
+  <data name="Actual End (oldest first)" xml:space="preserve">
+    <value>實際結束時間（最早優先）</value>
+  </data>
+  <data name="Actual Start (newest first)" xml:space="preserve">
+    <value>實際開始時間（最新優先）</value>
+  </data>
+  <data name="Actual Start (oldest first)" xml:space="preserve">
+    <value>實際開始時間（最早優先）</value>
+  </data>
+  <data name="All" xml:space="preserve">
     <value>全部</value>
   </data>
   <data name="Any" xml:space="preserve">
@@ -42,6 +96,9 @@
   <data name="Everything assigned to you" xml:space="preserve">
     <value>所有指派給您的工作</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>高</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>處理中</value>
   </data>
@@ -51,25 +108,24 @@
   <data name="Label mode" xml:space="preserve">
     <value>標籤模式</value>
   </data>
+  <data name="Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
   <data name="My Tasks" xml:space="preserve">
     <value>我的任務</value>
   </data>
   <data name="No tasks found" xml:space="preserve">
     <value>未找到任務</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>無</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>尚未開始</value>
   </data>
-  <data name="Planned start:" xml:space="preserve">
-    <value>計畫開始：</value>
-  </data>
-  <data name="Sort" xml:space="preserve">
-    <value>排序</value>
-  </data>
-  <data name="Try switching the status tab or adjusting your label filters." xml:space="preserve">
-    <value>請嘗試切換狀態分頁或調整標籤篩選器。</value>
-  </data>
-
   <data name="Planned End (newest first)" xml:space="preserve">
     <value>計劃結束時間（最新優先）</value>
   </data>
@@ -82,88 +138,32 @@
   <data name="Planned Start (oldest first)" xml:space="preserve">
     <value>計劃開始時間（最早優先）</value>
   </data>
-  <data name="Actual End (newest first)" xml:space="preserve">
-    <value>實際結束時間（最新優先）</value>
-  </data>
-  <data name="Actual End (oldest first)" xml:space="preserve">
-    <value>實際結束時間（最早優先）</value>
-  </data>
-  <data name="Actual Start (newest first)" xml:space="preserve">
-    <value>實際開始時間（最新優先）</value>
-  </data>
-  <data name="Actual Start (oldest first)" xml:space="preserve">
-    <value>實際開始時間（最早優先）</value>
-  </data>
-  <data name="Priority (low to high)" xml:space="preserve">
-    <value>優先級（從低到高）</value>
+  <data name="Planned start:" xml:space="preserve">
+    <value>計畫開始：</value>
   </data>
   <data name="Priority (high to low)" xml:space="preserve">
     <value>優先級（從高到低）</value>
   </data>
-  <data name="Title (Z → A)" xml:space="preserve">
-    <value>標題（Z → A）</value>
+  <data name="Priority (low to high)" xml:space="preserve">
+    <value>優先級（從低到高）</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>排序</value>
   </data>
   <data name="Title (A → Z)" xml:space="preserve">
     <value>標題（A → Z）</value>
   </data>
-  <data name=" - planned end descending." xml:space="preserve">
-    <value> - 按計劃結束時間倒序。</value>
+  <data name="Title (Z → A)" xml:space="preserve">
+    <value>標題（Z → A）</value>
   </data>
-  <data name=" - planned end ascending." xml:space="preserve">
-    <value> - 按計劃結束時間升序。</value>
-  </data>
-  <data name=" - planned start descending." xml:space="preserve">
-    <value> - 按計劃開始時間倒序。</value>
-  </data>
-  <data name=" - planned start ascending." xml:space="preserve">
-    <value> - 按計劃開始時間升序。</value>
-  </data>
-  <data name=" - urgency ascending." xml:space="preserve">
-    <value> - 按緊急程度升序。</value>
-  </data>
-  <data name=" - urgency descending." xml:space="preserve">
-    <value> - 按緊急程度倒序。</value>
-  </data>
-  <data name=" - actual start descending." xml:space="preserve">
-    <value> - 按實際開始時間倒序。</value>
-  </data>
-  <data name=" - actual start ascending." xml:space="preserve">
-    <value> - 按實際開始時間升序。</value>
-  </data>
-  <data name=" - actual end descending." xml:space="preserve">
-    <value> - 按實際結束時間倒序。</value>
-  </data>
-  <data name=" - actual end ascending." xml:space="preserve">
-    <value> - 按實際結束時間升序。</value>
-  </data>
-  <data name=" - newest first." xml:space="preserve">
-    <value> - 最新優先。</value>
-  </data>
-  <data name=" - oldest first." xml:space="preserve">
-    <value> - 最早優先。</value>
-  </data>
-  <data name=" - title A-Z." xml:space="preserve">
-    <value> - 標題 A-Z。</value>
-  </data>
-  <data name=" - title Z-A." xml:space="preserve">
-    <value> - 標題 Z-A。</value>
+  <data name="Try switching the status tab or adjusting your label filters." xml:space="preserve">
+    <value>請嘗試切換狀態分頁或調整標籤篩選器。</value>
   </data>
   <data name="Urgent" xml:space="preserve">
     <value>緊急</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>高</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>中</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>低</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>無</value>
-  </data>
   <data name="You" xml:space="preserve">
     <value>您</value>
   </data>
+
 </root>
