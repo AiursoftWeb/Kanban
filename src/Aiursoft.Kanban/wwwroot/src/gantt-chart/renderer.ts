@@ -18,6 +18,7 @@ export function renderGantt(
 ): void {
   container.innerHTML = '';
 
+  const boardId = data.id;
   const { items, unresolvable } = collectItems(data, mode, s);
 
   if (items.length === 0 && unresolvable.length === 0) {
@@ -102,6 +103,7 @@ function collectItems(
       if (dates) {
         items.push({
           cardId: card.id,
+          boardId: data.id,
           title: card.title,
           columnId: col.id,
           columnName: col.name,
@@ -114,6 +116,7 @@ function collectItems(
       } else {
         unresolvable.push({
           cardId: card.id,
+          boardId: data.id,
           title: card.title,
           columnName: col.name,
           columnStatus: col.status,
@@ -169,6 +172,12 @@ function buildDayArray(minDate: Date, maxDate: Date): DayInfo[] {
   return days;
 }
 
+// ---- Navigation helper ----
+
+function navigateToCard(cardId: number, boardId: number): void {
+  window.location.href = `/Cards/${cardId}?returnBoardId=${boardId}`;
+}
+
 // ---- Sidebar ----
 
 function buildSidebar(items: GanttItem[], s: GanttStrings): HTMLElement {
@@ -184,6 +193,7 @@ function buildSidebar(items: GanttItem[], s: GanttStrings): HTMLElement {
     const row = document.createElement('div');
     row.className = 'gantt-sidebar-row';
     row.dataset.ganttCardId = String(item.cardId);
+    row.addEventListener('click', () => navigateToCard(item.cardId, item.boardId));
 
     const dot = document.createElement('div');
     dot.className = 'gantt-priority-dot';
@@ -331,6 +341,7 @@ function buildTimelineBody(
     const row = document.createElement('div');
     row.className = 'gantt-row';
     row.dataset.ganttCardId = String(item.cardId);
+    row.addEventListener('click', () => navigateToCard(item.cardId, item.boardId));
 
     const startOffset = (item.start.getTime() - minTime) / DAY_MS;
     const duration = Math.max(1, (item.end.getTime() - item.start.getTime()) / DAY_MS + 1);
@@ -439,6 +450,7 @@ function buildNoDatesSection(items: UnresolvableCard[], s: GanttStrings): HTMLEl
   for (const item of items) {
     const el = document.createElement('div');
     el.className = 'gantt-no-dates-item';
+    el.addEventListener('click', () => navigateToCard(item.cardId, item.boardId));
 
     const dot = document.createElement('div');
     dot.className = 'gantt-priority-dot';
