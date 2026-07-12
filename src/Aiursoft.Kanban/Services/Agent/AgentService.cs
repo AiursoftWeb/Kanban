@@ -8,7 +8,6 @@ using Aiursoft.Kanban.Events;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using ModelContextProtocol.Server;
 using Newtonsoft.Json;
 
