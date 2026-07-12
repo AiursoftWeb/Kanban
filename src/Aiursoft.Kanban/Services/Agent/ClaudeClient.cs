@@ -2,13 +2,13 @@ using System.Text;
 using System.Text.Json;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Scanner.Abstractions;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Aiursoft.Kanban.Services.Agent;
 
 public class ClaudeClient : ISingletonDependency
 {
-    private readonly AnthropicConfiguration _config;
+    private readonly IServiceProvider _serviceProvider;
     private readonly ILogger<ClaudeClient> _logger;
     private readonly HttpClient _http;
 
@@ -18,9 +18,9 @@ public class ClaudeClient : ISingletonDependency
         PropertyNameCaseInsensitive = true
     };
 
-    public ClaudeClient(IOptions<AnthropicConfiguration> config, ILogger<ClaudeClient> logger)
+    public ClaudeClient(IServiceProvider serviceProvider, ILogger<ClaudeClient> logger)
     {
-        _config = config.Value;
+        _serviceProvider = serviceProvider;
         _logger = logger;
         _http = new HttpClient { Timeout = TimeSpan.FromMinutes(3) };
     }
@@ -32,13 +32,19 @@ public class ClaudeClient : ISingletonDependency
         CancellationToken ct = default,
         int maxTokens = 4096)
     {
-        if (string.IsNullOrWhiteSpace(_config.CompletionApiUrl))
+        // Resolve per-call so settings changes take effect without restart
+        var globalSettings = _serviceProvider.GetRequiredService<GlobalSettingsService>();
+        var endpoint = await globalSettings.GetSettingValueAsync(SettingsMap.OpenAiChatEndpoint);
+        var model = await globalSettings.GetSettingValueAsync(SettingsMap.OpenAiModel);
+        var token = await globalSettings.GetSettingValueAsync(SettingsMap.OpenAiApiToken);
+
+        if (string.IsNullOrWhiteSpace(endpoint))
             throw new InvalidOperationException(
-                "LLM CompletionApiUrl is not configured. Set AppSettings:Anthropic:CompletionApiUrl in appsettings.json.");
+                "AI Chat Endpoint is not configured. Set it in Admin → Global Settings → OpenAI Chat Endpoint.");
 
         var request = new ClaudeRequest
         {
-            Model = _config.Model,
+            Model = model,
             MaxTokens = maxTokens,
             System = systemPrompt,
             Messages = messages,
@@ -49,14 +55,14 @@ public class ClaudeClient : ISingletonDependency
         var json = JsonSerializer.Serialize(request, JsonOptions);
         _logger.LogDebug("Claude request: {Json}", json);
 
-        var httpRequest = new HttpRequestMessage(HttpMethod.Post, _config.CompletionApiUrl)
+        var httpRequest = new HttpRequestMessage(HttpMethod.Post, endpoint)
         {
             Content = new StringContent(json, Encoding.UTF8, "application/json")
         };
 
-        if (!string.IsNullOrWhiteSpace(_config.Token))
+        if (!string.IsNullOrWhiteSpace(token))
         {
-            httpRequest.Headers.Add("x-api-key", _config.Token);
+            httpRequest.Headers.Add("x-api-key", token);
         }
 
         var response = await _http.SendAsync(httpRequest, ct);

@@ -153,7 +153,7 @@ public class AgentTests : TestBase
         var service = GetService<IAgentService>();
         const string userId = "admin";
 
-        var conversationId = service.StartRun(userId, boardId, "Hello");
+        var conversationId = await service.StartRun(userId, boardId, "Hello");
 
         var conversation = service.GetConversation(conversationId)!;
         Assert.AreEqual(userId, conversation.UserId);
@@ -176,7 +176,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var service = GetService<IAgentService>();
 
-        var conversationId = service.StartRun("admin", boardId, "Hello");
+        var conversationId = await service.StartRun("admin", boardId, "Hello");
         Assert.IsNotNull(service.GetConversation(conversationId));
 
         service.CancelRun(conversationId);
@@ -420,7 +420,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var service = GetService<IAgentService>();
 
-        var conversationId = service.StartRun("fake-attacker-id", boardId,
+        var conversationId = await service.StartRun("fake-attacker-id", boardId,
             "Create a board for user X");
 
         // Even though the caller passed "fake-attacker-id", the conversation
@@ -512,7 +512,7 @@ public class AgentTests : TestBase
         var adminUser = await userManager.FindByEmailAsync("admin@default.com");
         var realUserId = adminUser!.Id;
 
-        var conversationId = agentService.StartRun(realUserId, boardId, "Hello");
+        var conversationId = await agentService.StartRun(realUserId, boardId, "Hello");
         var conversation = agentService.GetConversation(conversationId)!;
         Assert.AreEqual(realUserId, conversation.UserId);
         Assert.AreEqual(boardId, conversation.BoardId);
@@ -535,7 +535,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var service = GetService<IAgentService>();
 
-        var conversationId = service.StartRun("admin", boardId, "First message");
+        var conversationId = await service.StartRun("admin", boardId, "First message");
         var conversation = service.GetConversation(conversationId)!;
         var originalCount = conversation.Messages.Count;
         Assert.IsTrue(originalCount >= 2); // system + user (plus possibly assistant from background task)
@@ -561,7 +561,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var service = GetService<IAgentService>();
 
-        var conversationId = service.StartRun("admin", boardId, "Hello");
+        var conversationId = await service.StartRun("admin", boardId, "Hello");
         var conversation = service.GetConversation(conversationId)!;
         conversation.State = AgentState.Completed;
 
@@ -577,7 +577,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var service = GetService<IAgentService>();
 
-        var conversationId = service.StartRun("admin", boardId, "Hello");
+        var conversationId = await service.StartRun("admin", boardId, "Hello");
         // State is Thinking (not yet completed)
 
         var result = service.ContinueRun(conversationId, "admin", "Are you done yet?");
@@ -1445,13 +1445,13 @@ public class AgentTests : TestBase
         var service = GetService<IAgentService>();
 
         // Create a conversation and set it as expired (30+ min ago)
-        var expiredId = service.StartRun("admin", boardId, "Old message");
+        var expiredId = await service.StartRun("admin", boardId, "Old message");
         var expiredConv = service.GetConversation(expiredId);
         Assert.IsNotNull(expiredConv);
         expiredConv.LastActivity = DateTime.UtcNow - TimeSpan.FromMinutes(31);
 
         // Create a new conversation — this triggers cleanup
-        service.StartRun("admin", boardId, "New message");
+        await service.StartRun("admin", boardId, "New message");
 
         // Expired conversation should be removed
         Assert.IsNull(service.GetConversation(expiredId),
@@ -1466,11 +1466,11 @@ public class AgentTests : TestBase
         var service = GetService<IAgentService>();
 
         // Create an active conversation (just now)
-        var activeId = service.StartRun("admin", boardId, "Recent message");
+        var activeId = await service.StartRun("admin", boardId, "Recent message");
         Assert.IsNotNull(service.GetConversation(activeId));
 
         // Trigger cleanup via another StartRun
-        service.StartRun("admin", boardId, "Another message");
+        await service.StartRun("admin", boardId, "Another message");
 
         // Active conversation should still exist
         Assert.IsNotNull(service.GetConversation(activeId),
@@ -1486,7 +1486,7 @@ public class AgentTests : TestBase
         var adviceService = GetService<AdviceService>();
 
         // Create a conversation with expired advice
-        var convId = service.StartRun("admin", boardId, "Message");
+        var convId = await service.StartRun("admin", boardId, "Message");
         var advice = adviceService.Create(convId, "CreateCard", "Create Card", "",
             new Dictionary<string, object?>(), "test", "call_1");
 
@@ -1494,7 +1494,7 @@ public class AgentTests : TestBase
         conv!.LastActivity = DateTime.UtcNow - TimeSpan.FromMinutes(31);
 
         // Trigger cleanup
-        service.StartRun("admin", boardId, "New message");
+        await service.StartRun("admin", boardId, "New message");
 
         // Both conversation and advice should be gone
         Assert.IsNull(service.GetConversation(convId));
@@ -1510,7 +1510,7 @@ public class AgentTests : TestBase
         var service = GetService<IAgentService>();
         var adviceService = GetService<AdviceService>();
 
-        var convId = service.StartRun("admin", boardId, "Message");
+        var convId = await service.StartRun("admin", boardId, "Message");
         adviceService.Create(convId, "T1", "T1", "", new(), "", "c1");
         adviceService.Create(convId, "T2", "T2", "", new(), "", "c2");
 

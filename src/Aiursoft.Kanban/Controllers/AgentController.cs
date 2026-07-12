@@ -88,7 +88,7 @@ public class AgentController(
                 return Forbid();
         }
 
-        var newConversationId = agentService.StartRun(userId, request.BoardId, request.Message);
+        var newConversationId = await agentService.StartRun(userId, request.BoardId, request.Message);
         return Ok(new { ConversationId = newConversationId });
     }
 

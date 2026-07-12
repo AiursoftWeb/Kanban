@@ -8,7 +8,7 @@ using Aiursoft.Kanban.Events;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
 using ModelContextProtocol.Server;
 using Newtonsoft.Json;
 
@@ -20,9 +20,8 @@ public class AgentService : IAgentService
     private readonly ServiceTaskQueue _taskQueue;
     private readonly ToolRegistry _toolRegistry;
     private readonly AdviceService _adviceService;
-    private readonly AgentPromptConfig _promptConfig;
+    private readonly IServiceProvider _services;
     private readonly ClaudeClient _claudeClient;
-    private readonly IServiceProvider _rootServices;
     private readonly ILogger<AgentService> _logger;
 
     private const int MaxLoops = 15;
@@ -50,21 +49,19 @@ public class AgentService : IAgentService
         ServiceTaskQueue taskQueue,
         ToolRegistry toolRegistry,
         AdviceService adviceService,
-        IOptions<AgentPromptConfig> promptConfig,
         ClaudeClient claudeClient,
-        IServiceProvider rootServices,
+        IServiceProvider services,
         ILogger<AgentService> logger)
     {
         _taskQueue = taskQueue;
         _toolRegistry = toolRegistry;
         _adviceService = adviceService;
-        _promptConfig = promptConfig.Value;
         _claudeClient = claudeClient;
-        _rootServices = rootServices;
+        _services = services;
         _logger = logger;
     }
 
-    public Guid StartRun(string userId, int boardId, string userMessage)
+    public async Task<Guid> StartRun(string userId, int boardId, string userMessage)
     {
         CleanupExpiredConversations();
 
@@ -77,10 +74,11 @@ public class AgentService : IAgentService
         // System prompt includes injected user context (name, roles, boards).
         // The context is NOT a user-visible message — it lives in the system prompt.
         var userContext = BuildUserContextBlock(userId, boardId);
+        var systemPrompt = await GetGlobalSettingService().GetSettingValueAsync(SettingsMap.AgentSystemPrompt);
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "system",
-            Content = _promptConfig.SystemPrompt
+            Content = systemPrompt
                 .Replace("{userContext}", userContext)
                 .Replace("{currentDateTime}", GetCurrentDateTimeBlock())
         });
@@ -617,6 +615,11 @@ public class AgentService : IAgentService
     /// Builds a string like "Current time: Wednesday, June 10, 2026, 03:45 PM (UTC+8)"
     /// injected into the system-reminder via {currentDateTime}.
     /// </summary>
+    private GlobalSettingsService GetGlobalSettingService()
+    {
+        return _services.GetRequiredService<GlobalSettingsService>();
+    }
+
     private static string GetCurrentDateTimeBlock()
     {
         var chinaNow = DateTime.UtcNow + TimeSpan.FromHours(8);
@@ -687,7 +690,7 @@ public class AgentService : IAgentService
     /// </summary>
     private string BuildRecentCardsBlock(string userId, int count = 10)
     {
-        using var scope = _rootServices.CreateScope();
+        using var scope = _services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
 
         var recentCards = db.KanbanCards
@@ -735,7 +738,7 @@ public class AgentService : IAgentService
     /// </summary>
     private string BuildAssignedCardsBlock(string userId)
     {
-        using var scope = _rootServices.CreateScope();
+        using var scope = _services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
 
         var assignedCards = db.KanbanCards
@@ -789,7 +792,7 @@ public class AgentService : IAgentService
     /// </summary>
     private string BuildUnreadNotificationsBlock(string userId)
     {
-        using var scope = _rootServices.CreateScope();
+        using var scope = _services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
 
         var totalCount = db.Notifications
@@ -867,7 +870,7 @@ public class AgentService : IAgentService
     /// </summary>
     private string BuildUserContextBlock(string userId, int boardId)
     {
-        using var scope = _rootServices.CreateScope();
+        using var scope = _services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
