@@ -27,11 +27,23 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Ett dummynummer för testning.</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Agentens systemprompt</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>AI-modell</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Tillåt Användare Ändra Smeknamn</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Tillåt användare att ändra sitt smeknamn på sidan för profilhantering.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Anthropic API-slutpunkt</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Anthropic API-nyckel</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Automatisk inställning av planerad starttid</value>
@@ -60,17 +72,29 @@
   <data name="Project Name" xml:space="preserve">
     <value>Projektnamn</value>
   </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Slutändpunkten för Anthropic Messages API som används av Kanban AI-agenten. Måste vara den fullständiga URL:en inklusive /v1/messages, t.ex. https://ollama.example.com/v1/messages. Lämnas tom inaktiveras AI-agenten.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Det varumärke som visas i sidfoten.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>ICP-licensnummer för användare i Kina. Lämna tomt för att dölja.</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>Namnet på LLM-modellen som används för Kanban AI-agenten, t.ex. aiursoft-instruct:latest, claude-sonnet-4-5 eller deepseek-chat. Måste vara tillgänglig vid Anthropic API-slutpunkten ovan.</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Logotypen för projektet som visas i navigeringsfältet och sidfoten. Stöd för jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Projektets namn som visas i frontend</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>Systempromptet som skickas till LLM:n som rolldefinition för Kanban AI-agenten. Stöder platshållare: {userContext} — infogas vid körning med aktuell användares namn, roller, ägda board och aktivt boardnamn/ID. Stöder {currentDateTime} för aktuell UTC-tid.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>x-api-token för autentisering med Anthropic API-slutpunkt. Lämna tomt om slutpunkten inte kräver autentisering.</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Vid automatisk inställning av planerad starttid, antalet dagar att flytta fram innan förfallodatum.</value>

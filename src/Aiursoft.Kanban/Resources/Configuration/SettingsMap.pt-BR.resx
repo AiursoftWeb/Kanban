@@ -27,11 +27,23 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Um número fictício para testes.</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Prompt do Sistema do Agente</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>Modelo de IA</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Permitir que o Usuário Altere o Apelido</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Permitir que os usuários ajustem seu apelido na página de gerenciamento de perfil.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Endpoint da API Anthropic</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Token da API Anthropic</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Definir automaticamente a data/hora planejada de início</value>
@@ -60,17 +72,29 @@
   <data name="Project Name" xml:space="preserve">
     <value>Nome do Projeto</value>
   </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>O endpoint da API de Mensagens da Anthropic usado pelo agente de IA do Kanban. Deve ser a URL completa incluindo /v1/messages, por exemplo, https://ollama.example.com/v1/messages. Deixe vazio para desativar o agente de IA.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>O nome da marca exibido no rodapé.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>O número de licença ICP para usuários da China continental. Deixe em branco para ocultar.</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>O nome do modelo LLM usado para o agente de IA Kanban, por exemplo, aiursoft-instruct:latest, claude-sonnet-4-5 ou deepseek-chat. Deve estar disponível no Endpoint da API Anthropic acima.</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>O logotipo do projeto exibido na barra de navegação e no rodapé. Suporta jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>O nome do projeto exibido na interface do usuário.</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>O prompt do sistema enviado ao LLM como definição de papel para o agente Kanban AI. Suporta placeholder: {userContext} — injetado em tempo de execução com o nome, funções, quadros de propriedade e o nome/ID do quadro ativo do usuário atual. Suporta {currentDateTime} para a data e hora UTC atuais.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>O token x-api-key para autenticação com o endpoint da API Anthropic. Deixe vazio se o endpoint não exigir autenticação.</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Ao definir automaticamente a data de início planejada, o número de dias para adiantar antes da data final.</value>
