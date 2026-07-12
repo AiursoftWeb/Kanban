@@ -99,6 +99,7 @@
 
 .gantt-wrapper {
   flex: 1;
+  min-height: 0;
   overflow: auto;
   padding: 16px 20px 24px;
 }
