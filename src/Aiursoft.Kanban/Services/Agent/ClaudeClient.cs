@@ -2,7 +2,6 @@ using System.Text;
 using System.Text.Json;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Scanner.Abstractions;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Aiursoft.Kanban.Services.Agent;
 
