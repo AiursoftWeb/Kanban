@@ -34,13 +34,13 @@ public class ClaudeClient : ISingletonDependency
     {
         // Resolve per-call so settings changes take effect without restart
         var globalSettings = _serviceProvider.GetRequiredService<GlobalSettingsService>();
-        var endpoint = await globalSettings.GetSettingValueAsync(SettingsMap.OpenAiChatEndpoint);
-        var model = await globalSettings.GetSettingValueAsync(SettingsMap.OpenAiModel);
-        var token = await globalSettings.GetSettingValueAsync(SettingsMap.OpenAiApiToken);
+        var endpoint = await globalSettings.GetSettingValueAsync(SettingsMap.AnthropicChatEndpoint);
+        var model = await globalSettings.GetSettingValueAsync(SettingsMap.AnthropicModel);
+        var token = await globalSettings.GetSettingValueAsync(SettingsMap.AnthropicApiToken);
 
         if (string.IsNullOrWhiteSpace(endpoint))
             throw new InvalidOperationException(
-                "AI Chat Endpoint is not configured. Set it in Admin → Global Settings → OpenAI Chat Endpoint.");
+                "Anthropic API Endpoint is not configured. Set it in Admin → Global Settings → Anthropic API Endpoint.");
 
         var request = new ClaudeRequest
         {

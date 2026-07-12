@@ -12,9 +12,9 @@ public class SettingsMap
     public const string Icp = "Icp";
     public const string DummyNumber = "DummyNumber";
     public const string DummyChoice = "DummyChoice";
-    public const string OpenAiChatEndpoint = "OpenAiChatEndpoint";
-    public const string OpenAiModel = "OpenAiModel";
-    public const string OpenAiApiToken = "OpenAiApiToken";
+    public const string AnthropicChatEndpoint = "AnthropicChatEndpoint";
+    public const string AnthropicModel = "AnthropicModel";
+    public const string AnthropicApiToken = "AnthropicApiToken";
     public const string AgentSystemPrompt = "AgentSystemPrompt";
     public const string AutoSetPlannedStartTime = "AutoSetPlannedStartTime";
     public const string PlannedStartTimeAdvanceDays = "PlannedStartTimeAdvanceDays";
@@ -100,28 +100,28 @@ public class SettingsMap
                 { "B", "Option B" }
             }
         },
-        // ── AI: Chat / Agent (4 settings) ──────────────────────────────────────────
+        // ── AI: Anthropic Agent (4 settings) ──────────────────────────────────────
         new GlobalSettingDefinition
         {
-            Key = OpenAiChatEndpoint,
-            Name = Localizer["OpenAI Chat Endpoint"],
-            Description = Localizer["The OpenAI-compatible chat completions endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent."],
+            Key = AnthropicChatEndpoint,
+            Name = Localizer["Anthropic API Endpoint"],
+            Description = Localizer["The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent."],
             Type = SettingType.Text,
             DefaultValue = ""
         },
         new GlobalSettingDefinition
         {
-            Key = OpenAiModel,
+            Key = AnthropicModel,
             Name = Localizer["AI Model"],
-            Description = Localizer["The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, deepseek-chat, or gpt-4o. Must be available at the OpenAI Chat Endpoint above."],
+            Description = Localizer["The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above."],
             Type = SettingType.Text,
             DefaultValue = "aiursoft-instruct:latest"
         },
         new GlobalSettingDefinition
         {
-            Key = OpenAiApiToken,
-            Name = Localizer["OpenAI API Token"],
-            Description = Localizer["The bearer token for authenticating with the OpenAI Chat Endpoint, e.g. sk-abc123... or 5a0fbdefa19f.... Leave empty if the endpoint does not require authentication."],
+            Key = AnthropicApiToken,
+            Name = Localizer["Anthropic API Token"],
+            Description = Localizer["The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication."],
             Type = SettingType.Text,
             DefaultValue = ""
         },
