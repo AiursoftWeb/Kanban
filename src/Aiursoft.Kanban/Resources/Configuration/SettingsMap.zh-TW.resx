@@ -27,11 +27,23 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>測試用的虛擬數字。</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>代理系統提示詞</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>AI 模型</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>允許使用者修改暱稱</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>允許使用者在個人檔案管理頁面中調整其暱稱。</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Anthropic API 端點</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Anthropic API Token</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>自動設定預定開始時間</value>
@@ -60,17 +72,29 @@
   <data name="Project Name" xml:space="preserve">
     <value>專案名稱</value>
   </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Kanban AI 代理程式所使用的 Anthropic Messages API 端點。必須包含完整網址，且需帶有 /v1/messages 路徑，例如 https://ollama.example.com/v1/messages。留空即可停用該 AI 代理程式。</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>頁尾顯示的品牌名稱</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>適用於中國大陸使用者的 ICP 備案號碼。留空則隱藏。</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>用於 Kanban AI 代理模型的 LLM 模型名稱，例如 aiursoft-instruct:latest、claude-sonnet-4-5 或 deepseek-chat。此模型必須在上述 Anthropic API Endpoint 中可用。</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>專案的標誌顯示於導覽列與頁尾。支援 jpg、png、svg 格式。</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>專案在前端顯示的名稱。</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>傳送給 LLM 的系統提示，作為 Kanban AI 代理的角色定義。支援佔位符：{userContext} — 在執行階段注入當前使用者的名稱、角色、擁有的看板以及活躍看板的名称/ID。支援 {currentDateTime} 以取得目前的 UTC 時間。</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>用於與 Anthropic API Endpoint 進行驗證的 x-api-key token。如果該端點不需要驗證，請留空。</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>當自動設定計劃開始時間時，提前的天數（相對於截止日期）。</value>

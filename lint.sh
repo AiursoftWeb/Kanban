@@ -22,14 +22,8 @@ else
 fi
 
 echo "Restoring dependencies..."
-if ! dotnet restore --configfile nuget.config; then
-    echo "Restore failed. Retrying in 10 seconds..."
-    sleep 10
-    if ! dotnet restore --configfile nuget.config; then
-        echo "Restore failed again. Exiting."
-        exit 1
-    fi
-fi
+dotnet restore --no-cache --configfile nuget.config || \
+(echo "Restore failed. Retrying in 10 seconds..." && sleep 10 && dotnet restore --no-cache --configfile nuget.config)
 
 echo "Running ReSharper Code Inspection..."
 # 3 times retry because sometimes the first time will fail (copied from CI)

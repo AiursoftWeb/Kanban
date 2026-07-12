@@ -27,11 +27,23 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Ένας εικονικός αριθμός για δοκιμές.</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Πρότροπο Συστήματος Πράκτορα</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>Πρότυπο Τεχνητής Νοημοσύνης</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Επιτρέψτε στον Χρήστη να Τροποποιήσει το Παρασκήνιο Όνομα</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Επιτρέψτε στους χρήστες να τροποποιήσουν το ψευδώνυμό τους στη σελίδα διαχείρισης προφίλ.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Τελικό Σημείο API Anthropic</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Πρόσβαση API Anthropic</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Αυτόματη Ρύθμιση Προγραμματισμένης Ώρας Έναρξης</value>
@@ -60,17 +72,29 @@
   <data name="Project Name" xml:space="preserve">
     <value>Όνομα Έργου</value>
   </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Το endpoint της Anthropic Messages API που χρησιμοποιείται από τον Kanban AI agent. Πρέπει να είναι η πλήρης διεύθυνση URL συμπεριλαμβανομένου του /v1/messages, π.χ. https://ollama.example.com/v1/messages. Αφήστε το κενό για απενεργοποίηση του AI agent.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Το όνομα της εταιρείας που εμφανίζεται στον ποδόσκαλο.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Ο αριθμός άδειας ICP για χρήστες της κυρίως Κίνας. Αφήστε κενό για να κρυφτεί.</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>Το όνομα του μοντέλου LLM που χρησιμοποιείται για τον Kanban AI agent, π.χ. aiursoft-instruct:latest, claude-sonnet-4-5 ή deepseek-chat. Πρέπει να είναι διαθέσιμο στο Anthropic API Endpoint παραπάνω.</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Το λογότυπο του έργου που εμφανίζεται στην ναβιγατόρια και τον ποδοσκαλο. Υποστήριξη jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Το όνομα του έργου που εμφανίζεται στον προβολέα</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>Το σύστημα prompt που αποστέλλεται στο LLM ως ορισμός ρόλου για τον AI πράκτορα Kanban. Υποστηρίζει τοποθετητή: {userContext} — παρεμβάλλεται κατά τη λειτουργία με το όνομα του τρέχοντος χρήστη, τους ρόλους, τις ιδιόκτητες επιτροπές και το όνομα/ID της ενεργής επιτροπής. Υποστηρίζει το {currentDateTime} για την τρέχουσα ώρα UTC.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>Το token x-api-key για την αυθεντικοποίηση με το Anthropic API Endpoint. Αφήστε κενό εάν το endpoint δεν απαιτεί αυθεντικοποίηση.</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Όταν ρυθμίζεται αυτόματα η προγραμματισμένη ώρα έναρξης, ο αριθμός των ημερών που πρέπει να προβληθούν πριν από την ημερομηνία λήξης.</value>

@@ -27,11 +27,23 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Un număr dummy pentru testare.</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Solicitarea sistemului agentului</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>Model AI</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Permite utilizatorului să-și ajusteze nickname-ul</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Permite utilizatorilor să-și ajusteze nickname-ul în pagina de gestionare a profilului.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Punct de terminare API Anthropic</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Token API Anthropic</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Setare automată a orei planificate de început</value>
@@ -60,17 +72,29 @@
   <data name="Project Name" xml:space="preserve">
     <value>Numele proiectului</value>
   </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Punctul final al API-ului Anthropic Messages folosit de agentul AI Kanban. Trebuie să fie URL-ul complet, inclusiv /v1/messages, de exemplu, https://ollama.example.com/v1/messages. Lăsați necompletat pentru a dezactiva agentul AI.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Numele mărcii afișat în subsol.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Numărul de înregistrare ICP pentru utilizatorii din China continentală. Lăsați gol pentru a ascunde.</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>Numele modelului LLM utilizat pentru agentul AI Kanban, de exemplu aiursoft-instruct:latest, claude-sonnet-4-5 sau deepseek-chat. Trebuie să fie disponibil la capătul Endpoint API Anthropic de mai sus.</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Logoul proiectului afișat în bara de navigare și în subsol. Suportă jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Numele proiectului afișat în interfața frontend</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>Comanda de sistem trimisă LLM-ului ca definiție a rolului pentru agentul AI Kanban. Suportă placeholder-e: {userContext} — injectat în timpul execuției cu numele utilizatorului curent, rolurile, tablourile deținute și numele/ID-ul tabloului activ. Suportă {currentDateTime} pentru ora UTC curentă.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>Tokenul x-api-key pentru autentificare cu Endpoint-ul Anthropic API. Lăsați gol dacă endpoint-ul nu necesită autentificare.</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>La stabilirea automată a orei planificate de începere, numărul de zile înainte de data limită.</value>
