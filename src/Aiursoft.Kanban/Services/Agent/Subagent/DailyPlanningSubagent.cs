@@ -37,15 +37,15 @@ public class DailyPlanningSubagent : SubagentBase, ISingletonDependency
 
         ## Output Format
 
-        Return a well-structured essay in Chinese. Structure:
+        Return a well-structured essay in the language specified in the user's request. Structure:
 
-        **你好！** (one line neutral greeting — avoid time-specific greetings since the report may be viewed at any time)
+        **Greeting** (one line neutral greeting — avoid time-specific greetings since the report may be viewed at any time)
 
-        **📊 今日概览 / Today's Overview**
+        **📊 Today's Overview / 今日概览**
         1-2 sentences summarizing the work landscape. How many tasks total,
         how many overdue, how many in progress.
 
-        **🔥 优先事项 / Priority Items**
+        **🔥 Priority Items / 优先事项**
         Bullet list of the top 3-5 most urgent/important tasks. For each:
         - Task name (from the card title)
         - Which board it belongs to
@@ -53,16 +53,16 @@ public class DailyPlanningSubagent : SubagentBase, ISingletonDependency
         - Priority level
         - A brief note on why it matters today
 
-        **✅ 可完成目标 / Achievable Goals**
+        **✅ Achievable Goals / 可完成目标**
         2-3 items that can realistically be completed today based on their
         current status and complexity.
 
-        **⏰ 时间建议 / Time Suggestions**
+        **⏰ Time Suggestions / 时间建议**
         Brief suggestion on how to sequence the work (e.g., "Start with the
         overdue items first, then tackle the high-priority features, and
         leave the administrative tasks for the afternoon.")
 
-        **💪 鼓励语 / Encouragement**
+        **💪 Encouragement / 鼓励语**
         One encouraging sentence to motivate the user.
 
         ## Guidelines

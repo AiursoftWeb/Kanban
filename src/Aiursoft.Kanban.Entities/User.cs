@@ -15,5 +15,8 @@ public class User : IdentityUser
 
     [MaxLength(150)] [MinLength(2)] public string AvatarRelativePath { get; set; } = DefaultAvatarPath;
 
+    [MaxLength(10)] 
+    public string DailyReportLanguage { get; set; } = "en";
+
     public DateTime CreationTime { get; init; } = DateTime.UtcNow;
 }

@@ -154,14 +154,17 @@ public class DailyReportController : Controller
             ? (ISubagent)_planningSubagent
             : _summarySubagent;
 
+        var user = await _userManager.FindByIdAsync(userId);
+        var language = DailyReportBackgroundJob.GetLanguageName(user?.DailyReportLanguage ?? "en");
+
         var cardContext = await DailyReportBackgroundJob.BuildCardContextAsync(_db, _userManager, userId, reportType);
         var prompt = reportType == DailyReportType.Plan
             ? cardContext +
               $"\nGenerate a daily plan for {chinaNow:yyyy-MM-dd HH:mm} (UTC+8). " +
-              "Analyze the data above, then produce a structured plan essay in Chinese."
+              $"Analyze the data above, then produce a structured plan essay in {language}."
             : cardContext +
               $"\nGenerate a daily summary for {chinaNow:yyyy-MM-dd HH:mm} (UTC+8). " +
-              "Review the data above, then produce a structured summary essay in Chinese.";
+              $"Review the data above, then produce a structured summary essay in {language}.";
 
         string content;
         try

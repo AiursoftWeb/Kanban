@@ -36,31 +36,31 @@ public class DailySummarySubagent : SubagentBase, ISingletonDependency
 
         ## Output Format
 
-        Return a well-structured essay in Chinese. Structure:
+        Return a well-structured essay in the language specified in the user's request. Structure:
 
-        **你好！** (one line neutral greeting — avoid time-specific greetings since the report may be viewed at any time)
+        **Greeting** (one line neutral greeting — avoid time-specific greetings since the report may be viewed at any time)
 
-        **✅ 今日完成 / Completed Today**
+        **✅ Completed Today / 今日完成**
         List of cards that were completed today, citing board and column names.
         If nothing was completed, state that honestly and constructively.
 
-        **📈 今日进展 / Progress Today**
+        **📈 Progress Today / 今日进展**
         Cards that were started or progressed (moved to In Progress column).
 
-        **🆕 新任务 / New Tasks**
+        **🆕 New Tasks / 新任务**
         Cards created today that add to the workload.
 
-        **📋 待处理 / Remaining**
+        **📋 Remaining / 待处理**
         The top 3-5 remaining incomplete items with their priority and board.
         Highlight anything overdue or approaching its due date.
 
-        **🧠 总结 / Reflection**
+        **🧠 Reflection / 总结**
         1-2 sentences objectively assessing the day. What went well? What
         could have gone better? Be factual — if little was accomplished,
         acknowledge that without being negative. If a lot was done,
         celebrate the achievement.
 
-        **🔭 明日展望 / Tomorrow's Outlook**
+        **🔭 Tomorrow's Outlook / 明日展望**
         1 sentence about what to tackle next based on remaining priorities.
 
         ## Guidelines
