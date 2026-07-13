@@ -26,6 +26,64 @@
         letter-spacing: 0.05em;
     }
 
+    /* Exact copy of .description-preview from card.css */
+    .description-preview {
+        color: var(--bs-body-color);
+        line-height: 1.55;
+    }
+
+    .description-preview > :last-child {
+        margin-bottom: 0;
+    }
+
+    .description-preview pre {
+        padding: 0.75rem;
+        border-radius: 8px;
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        overflow-x: auto;
+    }
+
+    .description-preview code {
+        font-size: 0.85em;
+    }
+
+    .description-preview table {
+        width: 100%;
+        margin-bottom: 1rem;
+        border-collapse: collapse;
+    }
+
+    .description-preview th,
+    .description-preview td {
+        padding: 0.4rem 0.55rem;
+        border: 1px solid var(--bs-border-color, #dee2e6);
+    }
+
+    .description-preview blockquote {
+        margin: 0 0 1rem;
+        padding: 0.5rem 0.8rem;
+        border-left: 4px solid var(--bs-primary, #4dabf7);
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        color: var(--bs-secondary-color);
+        border-radius: 0 8px 8px 0;
+    }
+
+    .description-preview img,
+    .description-preview svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Highlight preview uses description-preview styles with line clamp */
+    .highlight-preview {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 0.9rem;
+    }
+
+    /* Plain-text preview for history table */
     .report-content-preview {
         display: -webkit-box;
         -webkit-line-clamp: 4;
@@ -35,13 +93,7 @@
         font-size: 0.9rem;
         line-height: 1.6;
         white-space: pre-wrap;
-    }
-
-    .report-content-full {
-        white-space: pre-wrap;
-        line-height: 1.8;
-        font-size: 0.95rem;
-        color: var(--bs-body-color);
+        word-break: break-word;
     }
 
     .clickable-row {
@@ -115,7 +167,8 @@
                     </form>
                 </div>
             </div>
-            <div class="report-content-preview">@Model.TodayPlan.Content</div>
+            <div class="description-preview highlight-preview" id="todayPlanPreview"></div>
+            <textarea id="todayPlanRaw" class="d-none">@Model.TodayPlan.Content</textarea>
         </div>
     }
     else
@@ -162,7 +215,8 @@ else if (Model.CanSummarize)
                     </form>
                 </div>
             </div>
-            <div class="report-content-preview">@Model.TodaySummary.Content</div>
+            <div class="description-preview highlight-preview" id="todaySummaryPreview"></div>
+            <textarea id="todaySummaryRaw" class="d-none">@Model.TodaySummary.Content</textarea>
         </div>
     }
     else
@@ -229,7 +283,7 @@ else if (Model.CanSummarize)
                                 </span>
                             </td>
                             <td>
-                                <div class="report-content-preview">@TruncateContent(report.Content, 150)</div>
+                                <div class="report-content-preview" data-raw-content="@TruncateContent(report.Content, 150)"></div>
                             </td>
                             <td class="text-muted"><label data-utc-time="@report.GeneratedAt.ToHtmlDateTime()" style="display:inline"></label></td>
                         </tr>
@@ -276,6 +330,8 @@ else if (Model.CanSummarize)
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
+<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+<script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
 <script>
     document.querySelectorAll('.clickable-row').forEach(function(row) {
         row.addEventListener('click', function() {
@@ -283,5 +339,65 @@ else if (Model.CanSummarize)
             if (href) window.location.href = href;
         });
     });
+
+    function stripMarkdown(md) {
+        if (!md) return '';
+        return md
+            .replace(/^#{1,6}\s+/gm, '')
+            .replace(/\*\*(.+?)\*\*/g, '$1')
+            .replace(/\*(.+?)\*/g, '$1')
+            .replace(/`{1,3}[^`]*`{1,3}/g, '')
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+            .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+            .replace(/^>\s+/gm, '')
+            .replace(/^[-*+]\s+/gm, '')
+            .replace(/^\d+\.\s+/gm, '')
+            .replace(/~~(.+?)~~/g, '$1')
+            .replace(/^---+$/gm, '')
+            .trim();
+    }
+
+    (function () {
+        // Render today's highlight — exact same approach as card description
+        var planRaw = document.getElementById('todayPlanRaw');
+        var planTarget = document.getElementById('todayPlanPreview');
+        if (planRaw && planTarget && typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+            marked.setOptions({ breaks: true, gfm: true });
+            var rawHtml = marked.parse(planRaw.value);
+            var cleanHtml = DOMPurify.sanitize(rawHtml, {
+                ADD_ATTR: ['target'],
+                FORBID_TAGS: ['script', 'style'],
+                FORBID_ATTR: ['style'],
+            });
+            planTarget.innerHTML = cleanHtml;
+            planTarget.querySelectorAll('a[href]').forEach(function (link) {
+                link.rel = 'noopener noreferrer';
+                link.target = '_blank';
+            });
+        }
+
+        var summaryRaw = document.getElementById('todaySummaryRaw');
+        var summaryTarget = document.getElementById('todaySummaryPreview');
+        if (summaryRaw && summaryTarget && typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+            marked.setOptions({ breaks: true, gfm: true });
+            var rawHtml2 = marked.parse(summaryRaw.value);
+            var cleanHtml2 = DOMPurify.sanitize(rawHtml2, {
+                ADD_ATTR: ['target'],
+                FORBID_TAGS: ['script', 'style'],
+                FORBID_ATTR: ['style'],
+            });
+            summaryTarget.innerHTML = cleanHtml2;
+            summaryTarget.querySelectorAll('a[href]').forEach(function (link) {
+                link.rel = 'noopener noreferrer';
+                link.target = '_blank';
+            });
+        }
+
+        // Strip markdown from history table previews
+        document.querySelectorAll('.report-content-preview[data-raw-content]').forEach(function (el) {
+            var raw = el.getAttribute('data-raw-content') || '';
+            el.textContent = stripMarkdown(raw);
+        });
+    })();
 </script>
 }
