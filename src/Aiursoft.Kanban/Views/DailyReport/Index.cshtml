@@ -26,6 +26,64 @@
         letter-spacing: 0.05em;
     }
 
+    /* Exact copy of .description-preview from card.css */
+    .description-preview {
+        color: var(--bs-body-color);
+        line-height: 1.55;
+    }
+
+    .description-preview > :last-child {
+        margin-bottom: 0;
+    }
+
+    .description-preview pre {
+        padding: 0.75rem;
+        border-radius: 8px;
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        overflow-x: auto;
+    }
+
+    .description-preview code {
+        font-size: 0.85em;
+    }
+
+    .description-preview table {
+        width: 100%;
+        margin-bottom: 1rem;
+        border-collapse: collapse;
+    }
+
+    .description-preview th,
+    .description-preview td {
+        padding: 0.4rem 0.55rem;
+        border: 1px solid var(--bs-border-color, #dee2e6);
+    }
+
+    .description-preview blockquote {
+        margin: 0 0 1rem;
+        padding: 0.5rem 0.8rem;
+        border-left: 4px solid var(--bs-primary, #4dabf7);
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        color: var(--bs-secondary-color);
+        border-radius: 0 8px 8px 0;
+    }
+
+    .description-preview img,
+    .description-preview svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Highlight preview uses description-preview styles with line clamp */
+    .highlight-preview {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 0.9rem;
+    }
+
+    /* Plain-text preview for history table */
     .report-content-preview {
         display: -webkit-box;
         -webkit-line-clamp: 4;
@@ -35,38 +93,7 @@
         font-size: 0.9rem;
         line-height: 1.6;
         white-space: pre-wrap;
-    }
-
-    .report-content-preview.rendered {
-        white-space: normal;
-    }
-
-    .report-content-preview.rendered p {
-        margin-bottom: 0.25rem;
-    }
-
-    .report-content-preview.rendered strong {
-        font-weight: 600;
-    }
-
-    .report-content-preview.rendered ul,
-    .report-content-preview.rendered ol {
-        padding-left: 1.2rem;
-        margin-bottom: 0.25rem;
-    }
-
-    .report-content-preview.rendered code {
-        background: var(--bs-tertiary-bg);
-        padding: 0.1em 0.3em;
-        border-radius: 3px;
-        font-size: 0.875em;
-    }
-
-    .report-content-full {
-        white-space: pre-wrap;
-        line-height: 1.8;
-        font-size: 0.95rem;
-        color: var(--bs-body-color);
+        word-break: break-word;
     }
 
     .clickable-row {
@@ -140,8 +167,8 @@
                     </form>
                 </div>
             </div>
-            <div class="report-content-preview rendered" id="todayPlanPreview"></div>
-            <script type="text/plain" id="todayPlanRaw">@Model.TodayPlan.Content</script>
+            <div class="description-preview highlight-preview" id="todayPlanPreview"></div>
+            <textarea id="todayPlanRaw" class="d-none">@Model.TodayPlan.Content</textarea>
         </div>
     }
     else
@@ -188,8 +215,8 @@ else if (Model.CanSummarize)
                     </form>
                 </div>
             </div>
-            <div class="report-content-preview rendered" id="todaySummaryPreview"></div>
-            <script type="text/plain" id="todaySummaryRaw">@Model.TodaySummary.Content</script>
+            <div class="description-preview highlight-preview" id="todaySummaryPreview"></div>
+            <textarea id="todaySummaryRaw" class="d-none">@Model.TodaySummary.Content</textarea>
         </div>
     }
     else
@@ -330,37 +357,40 @@ else if (Model.CanSummarize)
             .trim();
     }
 
-    function renderSafeMarkdown(rawContent, targetElement) {
-        if (typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+    (function () {
+        // Render today's highlight — exact same approach as card description
+        var planRaw = document.getElementById('todayPlanRaw');
+        var planTarget = document.getElementById('todayPlanPreview');
+        if (planRaw && planTarget && typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
             marked.setOptions({ breaks: true, gfm: true });
-            var rawHtml = marked.parse(rawContent);
+            var rawHtml = marked.parse(planRaw.value);
             var cleanHtml = DOMPurify.sanitize(rawHtml, {
                 ADD_ATTR: ['target'],
                 FORBID_TAGS: ['script', 'style'],
                 FORBID_ATTR: ['style'],
             });
-            targetElement.innerHTML = cleanHtml;
-            targetElement.querySelectorAll('a[href]').forEach(function (link) {
+            planTarget.innerHTML = cleanHtml;
+            planTarget.querySelectorAll('a[href]').forEach(function (link) {
                 link.rel = 'noopener noreferrer';
                 link.target = '_blank';
             });
-        } else {
-            targetElement.textContent = rawContent;
-        }
-    }
-
-    (function () {
-        // Render today's highlight (plan or summary)
-        var planRaw = document.getElementById('todayPlanRaw');
-        var planTarget = document.getElementById('todayPlanPreview');
-        if (planRaw && planTarget) {
-            renderSafeMarkdown(planRaw.textContent, planTarget);
         }
 
         var summaryRaw = document.getElementById('todaySummaryRaw');
         var summaryTarget = document.getElementById('todaySummaryPreview');
-        if (summaryRaw && summaryTarget) {
-            renderSafeMarkdown(summaryRaw.textContent, summaryTarget);
+        if (summaryRaw && summaryTarget && typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+            marked.setOptions({ breaks: true, gfm: true });
+            var rawHtml2 = marked.parse(summaryRaw.value);
+            var cleanHtml2 = DOMPurify.sanitize(rawHtml2, {
+                ADD_ATTR: ['target'],
+                FORBID_TAGS: ['script', 'style'],
+                FORBID_ATTR: ['style'],
+            });
+            summaryTarget.innerHTML = cleanHtml2;
+            summaryTarget.querySelectorAll('a[href]').forEach(function (link) {
+                link.rel = 'noopener noreferrer';
+                link.target = '_blank';
+            });
         }
 
         // Strip markdown from history table previews
