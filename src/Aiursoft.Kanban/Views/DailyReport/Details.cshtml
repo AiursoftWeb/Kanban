@@ -15,10 +15,102 @@
     }
 
     .report-content {
-        white-space: pre-wrap;
         line-height: 1.8;
         font-size: 0.95rem;
         color: var(--bs-body-color);
+    }
+
+    .report-content h1,
+    .report-content h2,
+    .report-content h3,
+    .report-content h4,
+    .report-content h5,
+    .report-content h6 {
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+        color: var(--bs-heading-color);
+    }
+
+    .report-content h2 {
+        font-size: 1.4rem;
+        border-bottom: 1px solid var(--bs-border-color);
+        padding-bottom: 0.4rem;
+    }
+
+    .report-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .report-content p {
+        margin-bottom: 0.75rem;
+    }
+
+    .report-content ul,
+    .report-content ol {
+        margin-bottom: 0.75rem;
+        padding-left: 1.5rem;
+    }
+
+    .report-content li {
+        margin-bottom: 0.25rem;
+    }
+
+    .report-content code {
+        background: var(--bs-tertiary-bg);
+        padding: 0.15em 0.4em;
+        border-radius: 4px;
+        font-size: 0.875em;
+        font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    .report-content pre {
+        background: var(--bs-tertiary-bg);
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin-bottom: 1rem;
+    }
+
+    .report-content pre code {
+        background: none;
+        padding: 0;
+        border-radius: 0;
+    }
+
+    .report-content strong {
+        font-weight: 600;
+    }
+
+    .report-content blockquote {
+        border-left: 3px solid var(--bs-primary);
+        padding-left: 1rem;
+        margin-left: 0;
+        color: var(--bs-secondary-color);
+    }
+
+    .report-content hr {
+        margin: 1.5rem 0;
+        border: 0;
+        border-top: 1px solid var(--bs-border-color);
+    }
+
+    .report-content table {
+        width: 100%;
+        margin-bottom: 1rem;
+        border-collapse: collapse;
+    }
+
+    .report-content th,
+    .report-content td {
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--bs-border-color);
+        text-align: left;
+    }
+
+    .report-content th {
+        background: var(--bs-tertiary-bg);
+        font-weight: 600;
     }
 
     .type-badge-plan {
@@ -59,9 +151,8 @@
 
             <hr />
 
-            <div class="report-content">
-                @Model.Report.Content
-            </div>
+            <div class="report-content" id="reportContent"></div>
+            <script type="text/plain" id="reportRawContent">@Model.Report.Content</script>
         </div>
 
         <div class="text-center mt-4">
@@ -72,3 +163,32 @@
     </div>
 </div>
 
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+<script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
+<script>
+(function () {
+    var rawContent = document.getElementById('reportRawContent').textContent;
+    var target = document.getElementById('reportContent');
+
+    if (typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+        marked.setOptions({ breaks: true, gfm: true });
+        var rawHtml = marked.parse(rawContent);
+        var cleanHtml = DOMPurify.sanitize(rawHtml, {
+            ADD_ATTR: ['target'],
+            FORBID_TAGS: ['script', 'style'],
+            FORBID_ATTR: ['style'],
+        });
+        target.innerHTML = cleanHtml;
+
+        target.querySelectorAll('a[href]').forEach(function (link) {
+            link.rel = 'noopener noreferrer';
+            link.target = '_blank';
+        });
+    } else {
+        target.textContent = rawContent;
+    }
+})();
+</script>
+}

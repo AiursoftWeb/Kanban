@@ -37,6 +37,31 @@
         white-space: pre-wrap;
     }
 
+    .report-content-preview.rendered {
+        white-space: normal;
+    }
+
+    .report-content-preview.rendered p {
+        margin-bottom: 0.25rem;
+    }
+
+    .report-content-preview.rendered strong {
+        font-weight: 600;
+    }
+
+    .report-content-preview.rendered ul,
+    .report-content-preview.rendered ol {
+        padding-left: 1.2rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .report-content-preview.rendered code {
+        background: var(--bs-tertiary-bg);
+        padding: 0.1em 0.3em;
+        border-radius: 3px;
+        font-size: 0.875em;
+    }
+
     .report-content-full {
         white-space: pre-wrap;
         line-height: 1.8;
@@ -115,7 +140,8 @@
                     </form>
                 </div>
             </div>
-            <div class="report-content-preview">@Model.TodayPlan.Content</div>
+            <div class="report-content-preview rendered" id="todayPlanPreview"></div>
+            <script type="text/plain" id="todayPlanRaw">@Model.TodayPlan.Content</script>
         </div>
     }
     else
@@ -162,7 +188,8 @@ else if (Model.CanSummarize)
                     </form>
                 </div>
             </div>
-            <div class="report-content-preview">@Model.TodaySummary.Content</div>
+            <div class="report-content-preview rendered" id="todaySummaryPreview"></div>
+            <script type="text/plain" id="todaySummaryRaw">@Model.TodaySummary.Content</script>
         </div>
     }
     else
@@ -229,7 +256,7 @@ else if (Model.CanSummarize)
                                 </span>
                             </td>
                             <td>
-                                <div class="report-content-preview">@TruncateContent(report.Content, 150)</div>
+                                <div class="report-content-preview" data-raw-content="@TruncateContent(report.Content, 150)"></div>
                             </td>
                             <td class="text-muted"><label data-utc-time="@report.GeneratedAt.ToHtmlDateTime()" style="display:inline"></label></td>
                         </tr>
@@ -276,6 +303,8 @@ else if (Model.CanSummarize)
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
+<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+<script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
 <script>
     document.querySelectorAll('.clickable-row').forEach(function(row) {
         row.addEventListener('click', function() {
@@ -283,5 +312,62 @@ else if (Model.CanSummarize)
             if (href) window.location.href = href;
         });
     });
+
+    function stripMarkdown(md) {
+        if (!md) return '';
+        return md
+            .replace(/^#{1,6}\s+/gm, '')
+            .replace(/\*\*(.+?)\*\*/g, '$1')
+            .replace(/\*(.+?)\*/g, '$1')
+            .replace(/`{1,3}[^`]*`{1,3}/g, '')
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+            .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+            .replace(/^>\s+/gm, '')
+            .replace(/^[-*+]\s+/gm, '')
+            .replace(/^\d+\.\s+/gm, '')
+            .replace(/~~(.+?)~~/g, '$1')
+            .replace(/^---+$/gm, '')
+            .trim();
+    }
+
+    function renderSafeMarkdown(rawContent, targetElement) {
+        if (typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+            marked.setOptions({ breaks: true, gfm: true });
+            var rawHtml = marked.parse(rawContent);
+            var cleanHtml = DOMPurify.sanitize(rawHtml, {
+                ADD_ATTR: ['target'],
+                FORBID_TAGS: ['script', 'style'],
+                FORBID_ATTR: ['style'],
+            });
+            targetElement.innerHTML = cleanHtml;
+            targetElement.querySelectorAll('a[href]').forEach(function (link) {
+                link.rel = 'noopener noreferrer';
+                link.target = '_blank';
+            });
+        } else {
+            targetElement.textContent = rawContent;
+        }
+    }
+
+    (function () {
+        // Render today's highlight (plan or summary)
+        var planRaw = document.getElementById('todayPlanRaw');
+        var planTarget = document.getElementById('todayPlanPreview');
+        if (planRaw && planTarget) {
+            renderSafeMarkdown(planRaw.textContent, planTarget);
+        }
+
+        var summaryRaw = document.getElementById('todaySummaryRaw');
+        var summaryTarget = document.getElementById('todaySummaryPreview');
+        if (summaryRaw && summaryTarget) {
+            renderSafeMarkdown(summaryRaw.textContent, summaryTarget);
+        }
+
+        // Strip markdown from history table previews
+        document.querySelectorAll('.report-content-preview[data-raw-content]').forEach(function (el) {
+            var raw = el.getAttribute('data-raw-content') || '';
+            el.textContent = stripMarkdown(raw);
+        });
+    })();
 </script>
 }
