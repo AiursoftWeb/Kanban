@@ -2330,7 +2330,7 @@ public class AgentTests : TestBase
 
         // Batch assign to user2
         var result = await batchTools.BatchAssignCards(
-            System.Text.Json.JsonSerializer.Serialize(cardIds), user2.Id);
+            JsonSerializer.Serialize(cardIds), user2.Id);
         StringAssert.Contains(result, "assigned 3 card(s)");
 
         // Verify all cards are assigned
@@ -2366,7 +2366,7 @@ public class AgentTests : TestBase
 
         // Unassign all
         var result = await batchTools.BatchAssignCards(
-            System.Text.Json.JsonSerializer.Serialize(cardIds), "");
+            JsonSerializer.Serialize(cardIds), "");
         StringAssert.Contains(result, "unassigned 2 card(s)");
 
         // Verify all are unassigned
@@ -2432,7 +2432,7 @@ public class AgentTests : TestBase
         var batchTools2 = scope2.ServiceProvider.GetRequiredService<BatchWriteTools>();
 
         var result = await batchTools2.BatchAssignCards(
-            System.Text.Json.JsonSerializer.Serialize(new[] { cardId }), otherUser.Id);
+            JsonSerializer.Serialize(new[] { cardId }), otherUser.Id);
         StringAssert.Contains(result, "Error: You do not have permission");
     }
 
