@@ -91,7 +91,7 @@
     <value>專案在前端顯示的名稱。</value>
   </data>
   <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
-    <value>傳送給 LLM 的系統提示，作為 Kanban AI 代理的角色定義。支援佔位符：{userContext} — 在執行階段注入當前使用者的名稱、角色、擁有的看板以及活躍看板的名称/ID。支援 {currentDateTime} 以取得目前的 UTC 時間。</value>
+    <value>傳送給 LLM 的系統提示，作為 Kanban AI 代理的角色定義。支援佔位符：{{userContext}} — 在執行階段注入當前使用者的名稱、角色、擁有的看板以及活躍看板的名称/ID。支援 {{currentDateTime}} 以取得目前的 UTC 時間。</value>
   </data>
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>用於與 Anthropic API Endpoint 進行驗證的 x-api-key token。如果該端點不需要驗證，請留空。</value>

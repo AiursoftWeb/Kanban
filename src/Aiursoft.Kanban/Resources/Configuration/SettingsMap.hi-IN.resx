@@ -91,7 +91,7 @@
     <value>फ्रंटएंड में प्रदर्शित प्रोजेक्ट का नाम।</value>
   </data>
   <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
-    <value>Karbon AI एजेंट के लिए भूमिका परिभाषा के रूप में LLM को भेजी जाने वाली सिस्टम प्रॉम्प्ट। प्लेसहोल्डर का समर्थन करता है: {userContext} — रनटाइम पर वर्तमान उपयोगकर्ता के नाम, भूमिकाओं, स्वामित्व वाले बोर्ड और सक्रिय बोर्ड के नाम/ID के साथ इंजेक्ट किया जाता है। वर्तमान UTC समय के लिए {currentDateTime} का समर्थन करता है।</value>
+    <value>Karbon AI एजेंट के लिए भूमिका परिभाषा के रूप में LLM को भेजी जाने वाली सिस्टम प्रॉम्प्ट। प्लेसहोल्डर का समर्थन करता है: {{userContext}} — रनटाइम पर वर्तमान उपयोगकर्ता के नाम, भूमिकाओं, स्वामित्व वाले बोर्ड और सक्रिय बोर्ड के नाम/ID के साथ इंजेक्ट किया जाता है। वर्तमान UTC समय के लिए {{currentDateTime}} का समर्थन करता है।</value>
   </data>
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>प्रमाणीकरण के लिए एक्स-एपीआई-की टोकन। यदि अंतर्बिंदु को प्रमाणीकरण की आवश्यकता नहीं है, तो खाली छोड़ें।</value>
