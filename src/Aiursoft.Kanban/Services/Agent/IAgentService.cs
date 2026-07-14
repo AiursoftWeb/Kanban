@@ -2,8 +2,8 @@ namespace Aiursoft.Kanban.Services.Agent;
 
 public interface IAgentService
 {
-    Task<Guid> StartRun(string userId, int boardId, string userMessage);
-    Guid? ContinueRun(Guid conversationId, string userId, string userMessage);
+    Task<Guid> StartRun(string userId, int boardId, string userMessage, string? excelMarkdown = null);
+    Guid? ContinueRun(Guid conversationId, string userId, string userMessage, string? excelMarkdown = null);
     AgentConversation? GetConversation(Guid conversationId);
     void ApproveAdvice(Guid conversationId, Guid adviceId);
     void RejectAdvice(Guid conversationId, Guid adviceId);

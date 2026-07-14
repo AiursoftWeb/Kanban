@@ -7,7 +7,7 @@ namespace Aiursoft.Kanban.Services.Agent;
 
 public class ClaudeClient : ISingletonDependency
 {
-    private readonly IServiceProvider _serviceProvider;
+    private readonly IServiceScopeFactory _scopeFactory;
     private readonly ILogger<ClaudeClient> _logger;
     private readonly HttpClient _http;
 
@@ -17,9 +17,9 @@ public class ClaudeClient : ISingletonDependency
         PropertyNameCaseInsensitive = true
     };
 
-    public ClaudeClient(IServiceProvider serviceProvider, ILogger<ClaudeClient> logger)
+    public ClaudeClient(IServiceScopeFactory scopeFactory, ILogger<ClaudeClient> logger)
     {
-        _serviceProvider = serviceProvider;
+        _scopeFactory = scopeFactory;
         _logger = logger;
         _http = new HttpClient { Timeout = TimeSpan.FromMinutes(3) };
     }
@@ -32,7 +32,8 @@ public class ClaudeClient : ISingletonDependency
         int maxTokens = 4096)
     {
         // Resolve per-call so settings changes take effect without restart
-        var globalSettings = _serviceProvider.GetRequiredService<GlobalSettingsService>();
+        using var scope = _scopeFactory.CreateScope();
+        var globalSettings = scope.ServiceProvider.GetRequiredService<GlobalSettingsService>();
         var endpoint = await globalSettings.GetSettingValueAsync(SettingsMap.AnthropicChatEndpoint);
         var model = await globalSettings.GetSettingValueAsync(SettingsMap.AnthropicModel);
         var token = await globalSettings.GetSettingValueAsync(SettingsMap.AnthropicApiToken);

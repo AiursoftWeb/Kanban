@@ -19,7 +19,8 @@ public class AgentController(
     AdviceService adviceService,
     KanbanAccessService access,
     TemplateDbContext db,
-    UserManager<User> userManager) : Controller
+    UserManager<User> userManager,
+    MarkItDownService markItDownService) : Controller
 {
     [HttpGet]
     [RenderInNavBar(
@@ -60,6 +61,34 @@ public class AgentController(
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ConvertExcel(IFormFile? file)
+    {
+        if (file == null || file.Length == 0)
+            return BadRequest(new { Error = "No file uploaded." });
+
+        var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+        if (extension != ".xlsx")
+            return BadRequest(new { Error = "Only .xlsx files are supported. Please convert .xls to .xlsx before uploading." });
+
+        // 10 MB limit
+        if (file.Length > 10 * 1024 * 1024)
+            return BadRequest(new { Error = "File size exceeds 10 MB limit." });
+
+        try
+        {
+            using var stream = file.OpenReadStream();
+            var markdown = await markItDownService.ConvertExcelToMarkdownAsync(
+                stream, file.FileName, HttpContext.RequestAborted);
+            return Ok(new { markdown, fileName = file.FileName });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(502, new { Error = $"Excel conversion failed: {ex.Message}" });
+        }
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.Message))
@@ -71,7 +100,7 @@ public class AgentController(
         if (request.ConversationId.HasValue)
         {
             var conversationId = agentService.ContinueRun(
-                request.ConversationId.Value, userId, request.Message);
+                request.ConversationId.Value, userId, request.Message, request.ExcelMarkdown);
             if (conversationId == null)
                 return BadRequest(new { Error = "Conversation not found, not yours, or still processing." });
             return Ok(new { ConversationId = conversationId.Value });
@@ -88,7 +117,7 @@ public class AgentController(
                 return Forbid();
         }
 
-        var newConversationId = await agentService.StartRun(userId, request.BoardId, request.Message);
+        var newConversationId = await agentService.StartRun(userId, request.BoardId, request.Message, request.ExcelMarkdown);
         return Ok(new { ConversationId = newConversationId });
     }
 

@@ -296,3 +296,50 @@
 .agent-thinking-indicator {
     display: none;
 }
+
+/* ── Excel attach button ───────────────────────── */
+
+.agent-chat-input button#agent-attach-btn {
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.agent-chat-input button#agent-attach-btn:hover {
+    background: var(--bs-primary-bg-subtle, #e7f5ff);
+}
+
+/* ── File chip ─────────────────────────────────── */
+
+.agent-file-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    margin: 0 12px 4px;
+    background: var(--bs-light, #f8f9fa);
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--bs-secondary-color, #6c757d);
+    max-width: fit-content;
+}
+
+.agent-file-chip span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.agent-file-remove {
+    background: none;
+    border: none;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--bs-secondary-color, #6c757d);
+    padding: 0 2px;
+}
+
+.agent-file-remove:hover {
+    color: var(--bs-danger, #dc3545);
+}

@@ -6,6 +6,8 @@
     var lastMessageCount = 0;
     var token = '';
     var pollInterval = 1000;
+    var excelMarkdown = null;
+    var attachedFileName = null;
 
     function loc(key, fallback) {
         var el = document.querySelector('#agent-loc-data span[data-key="' + key + '"]');
@@ -37,6 +39,18 @@
         if (newChatBtn) {
             newChatBtn.addEventListener('click', function() { resetConversation(); });
         }
+
+        var attachBtn = document.getElementById('agent-attach-btn');
+        var excelInput = document.getElementById('agent-excel-input');
+        var fileRemoveBtn = document.getElementById('agent-file-remove');
+
+        if (attachBtn && excelInput) {
+            attachBtn.addEventListener('click', function() { excelInput.click(); });
+            excelInput.addEventListener('change', handleExcelFile);
+            if (fileRemoveBtn) {
+                fileRemoveBtn.addEventListener('click', clearExcelFile);
+            }
+        }
     }
 
     function sendMessage(boardId) {
@@ -52,14 +66,21 @@
 
         input.value = '';
 
-        // Show thinking immediately — the poll will render the user message
-        // and assistant response. No manual DOM append avoids duplication.
-        showThinking();
-
+        // Clear file state on send
+        var hasExcel = !!excelMarkdown;
         var body = { boardId: boardId, message: message };
         if (conversationId) {
             body.ConversationId = conversationId;
         }
+        if (excelMarkdown) {
+            body.ExcelMarkdown = excelMarkdown;
+        }
+        excelMarkdown = null;
+        clearExcelFile();
+
+        // Show thinking immediately — the poll will render the user message
+        // and assistant response. No manual DOM append avoids duplication.
+        showThinking();
 
         fetch('/Agent/SendMessage', {
             method: 'POST',
@@ -332,6 +353,7 @@
         conversationId = null;
         lastMessageCount = 0;
         renderedAdviceIds = [];
+        clearExcelFile();
         stopPolling();
         hideThinking();
 
@@ -347,6 +369,59 @@
 
         var statusEl = document.getElementById('agent-status-text');
         if (statusEl) statusEl.textContent = loc('ready', 'Ready');
+    }
+
+    function handleExcelFile() {
+        var input = document.getElementById('agent-excel-input');
+        if (!input || !input.files || input.files.length === 0) return;
+
+        var file = input.files[0];
+        var ext = file.name.split('.').pop().toLowerCase();
+        if (ext !== 'xlsx') {
+            appendMessage('assistant', 'Only .xlsx files are supported. Please convert .xls to .xlsx before uploading.');
+            input.value = '';
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/Agent/ConvertExcel', {
+            method: 'POST',
+            headers: { 'RequestVerificationToken': token },
+            body: formData
+        })
+        .then(function(r) {
+            if (!r.ok) return r.json().then(function(d) { throw new Error(d.Error || 'Upload failed'); });
+            return r.json();
+        })
+        .then(function(data) {
+            excelMarkdown = data.markdown;
+            attachedFileName = data.fileName;
+            showFileChip(data.fileName);
+        })
+        .catch(function(err) {
+            appendMessage('assistant', 'Excel upload failed: ' + err.message);
+            clearExcelFile();
+        });
+
+        input.value = '';
+    }
+
+    function showFileChip(name) {
+        var chip = document.getElementById('agent-file-chip');
+        var nameSpan = document.getElementById('agent-file-name');
+        if (chip) chip.style.display = 'flex';
+        if (nameSpan) nameSpan.textContent = name;
+    }
+
+    function clearExcelFile() {
+        excelMarkdown = null;
+        attachedFileName = null;
+        var chip = document.getElementById('agent-file-chip');
+        if (chip) chip.style.display = 'none';
+        var input = document.getElementById('agent-excel-input');
+        if (input) input.value = '';
     }
 
     function escapeHtml(text) {

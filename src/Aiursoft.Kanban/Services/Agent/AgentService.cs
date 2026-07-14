@@ -19,7 +19,7 @@ public class AgentService : IAgentService
     private readonly ServiceTaskQueue _taskQueue;
     private readonly ToolRegistry _toolRegistry;
     private readonly AdviceService _adviceService;
-    private readonly IServiceProvider _services;
+    private readonly IServiceScopeFactory _scopeFactory;
     private readonly ClaudeClient _claudeClient;
     private readonly ILogger<AgentService> _logger;
 
@@ -44,23 +44,36 @@ public class AgentService : IAgentService
         "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses.\nIf the user gives a task, you need to put it in the most relevant Kanban board. For example: configuring the Kanban API key should be placed in the Kanban development task board.\n" +
         "</system-reminder>";
 
+    private const string ExcelSystemReminder =
+        "<system-reminder>\n" +
+        "The user has attached an Excel spreadsheet converted to markdown format below. When processing this table:\n" +
+        "- Accurately identify rows and columns from the markdown table structure.\n" +
+        "- Correctly determine which row contains the header/column names -- look for the separator row (|---|---|) to identify headers.\n" +
+        "- Note that \"Unnamed: N\" column headers mean the original Excel had no header in that column -- infer the meaning from the cell content if possible, or treat row 1 as data rather than header.\n" +
+        "- Be aware that the spreadsheet may contain merged cells, which can cause irregular column counts or missing cell values. Handle these carefully.\n" +
+        "- Merged cells in the original Excel may cause missing values (NaN or empty cells) -- do not treat these as errors, they inherit the value from the nearest non-empty cell above or to the left.\n" +
+        "- Pay special attention to multi-level or nested headers that may span multiple rows.\n" +
+        "- If the table structure is ambiguous, ask the user for clarification before making assumptions.\n" +
+        "- Process and respond to the user's request based on this table data.\n" +
+        "</system-reminder>";
+
     public AgentService(
         ServiceTaskQueue taskQueue,
         ToolRegistry toolRegistry,
         AdviceService adviceService,
         ClaudeClient claudeClient,
-        IServiceProvider services,
+        IServiceScopeFactory scopeFactory,
         ILogger<AgentService> logger)
     {
         _taskQueue = taskQueue;
         _toolRegistry = toolRegistry;
         _adviceService = adviceService;
         _claudeClient = claudeClient;
-        _services = services;
+        _scopeFactory = scopeFactory;
         _logger = logger;
     }
 
-    public async Task<Guid> StartRun(string userId, int boardId, string userMessage)
+    public async Task<Guid> StartRun(string userId, int boardId, string userMessage, string? excelMarkdown = null)
     {
         CleanupExpiredConversations();
 
@@ -73,7 +86,9 @@ public class AgentService : IAgentService
         // System prompt includes injected user context (name, roles, boards).
         // The context is NOT a user-visible message — it lives in the system prompt.
         var userContext = BuildUserContextBlock(userId, boardId);
-        var systemPrompt = await GetGlobalSettingService().GetSettingValueAsync(SettingsMap.AgentSystemPrompt);
+        using var settingsScope = _scopeFactory.CreateScope();
+        var globalSettings = settingsScope.ServiceProvider.GetRequiredService<GlobalSettingsService>();
+        var systemPrompt = await globalSettings.GetSettingValueAsync(SettingsMap.AgentSystemPrompt);
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "system",
@@ -145,6 +160,22 @@ public class AgentService : IAgentService
             Content = userMessage
         });
 
+        if (!string.IsNullOrWhiteSpace(excelMarkdown))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = ExcelSystemReminder,
+                IsMeta = true
+            });
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = excelMarkdown,
+                IsMeta = true
+            });
+        }
+
         _conversations[conversation.Id] = conversation;
 
         _taskQueue.QueueWithDependency<IServiceProvider>(
@@ -155,7 +186,7 @@ public class AgentService : IAgentService
         return conversation.Id;
     }
 
-    public Guid? ContinueRun(Guid conversationId, string userId, string userMessage)
+    public Guid? ContinueRun(Guid conversationId, string userId, string userMessage, string? excelMarkdown = null)
     {
         if (!_conversations.TryGetValue(conversationId, out var conversation))
             return null;
@@ -217,6 +248,22 @@ public class AgentService : IAgentService
             Role = "user",
             Content = userMessage
         });
+
+        if (!string.IsNullOrWhiteSpace(excelMarkdown))
+        {
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = ExcelSystemReminder,
+                IsMeta = true
+            });
+            conversation.Messages.Add(new ToolMessagesItem
+            {
+                Role = "user",
+                Content = excelMarkdown,
+                IsMeta = true
+            });
+        }
 
         conversation.State = AgentState.Thinking;
         conversation.LastActivity = DateTime.UtcNow;
@@ -611,13 +658,8 @@ public class AgentService : IAgentService
     }
 
     /// <summary>
-    /// Builds a string like "Current time: Wednesday, June 10, 2026, 03:45 PM (UTC+8)"
     /// injected into the system-reminder via {currentDateTime}.
     /// </summary>
-    private GlobalSettingsService GetGlobalSettingService()
-    {
-        return _services.GetRequiredService<GlobalSettingsService>();
-    }
 
     private static string GetCurrentDateTimeBlock()
     {
@@ -689,7 +731,7 @@ public class AgentService : IAgentService
     /// </summary>
     private string BuildRecentCardsBlock(string userId, int count = 10)
     {
-        using var scope = _services.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
 
         var recentCards = db.KanbanCards
@@ -737,7 +779,7 @@ public class AgentService : IAgentService
     /// </summary>
     private string BuildAssignedCardsBlock(string userId)
     {
-        using var scope = _services.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
 
         var assignedCards = db.KanbanCards
@@ -791,7 +833,7 @@ public class AgentService : IAgentService
     /// </summary>
     private string BuildUnreadNotificationsBlock(string userId)
     {
-        using var scope = _services.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
 
         var totalCount = db.Notifications
@@ -869,7 +911,7 @@ public class AgentService : IAgentService
     /// </summary>
     private string BuildUserContextBlock(string userId, int boardId)
     {
-        using var scope = _services.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 

@@ -5,6 +5,7 @@
 }
 
 <div class="agent-chat-widget collapsed" id="agent-chat-widget">
+    <input type="file" accept=".xlsx" id="agent-excel-input" style="display:none" />
     <div class="agent-chat-header">
         <div>
             <h6>@Localizer["Kanban AI Assistant"]</h6>
@@ -27,8 +28,15 @@
         <span class="agent-thinking-text">@Localizer["Thinking..."]</span>
     </div>
     <div class="agent-chat-input">
+        <button class="btn btn-outline-secondary btn-sm" id="agent-attach-btn" title="@Localizer["Attach Excel file"]" type="button">
+            <i class="align-middle" data-lucide="paperclip"></i>
+        </button>
         <textarea id="agent-input" rows="1" placeholder="@Localizer["Type a message..."]"></textarea>
         <button class="btn btn-primary btn-sm" id="agent-send-btn">@Localizer["Send"]</button>
+    </div>
+    <div class="agent-file-chip" id="agent-file-chip" style="display:none">
+        <span id="agent-file-name"></span>
+        <button type="button" class="agent-file-remove" id="agent-file-remove" title="@Localizer["Remove file"]">&times;</button>
     </div>
 </div>
 
