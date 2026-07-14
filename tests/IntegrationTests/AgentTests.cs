@@ -2223,6 +2223,219 @@ public class AgentTests : TestBase
         Assert.IsNotNull(userMsg, "User message should be present as non-meta");
     }
 
+    // ── BatchCreateCards with dates ────────────────────────
+
+    [TestMethod]
+    public async Task BatchCreateCards_WithOptionalDates()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"Task with dates","plannedStartTime":"2026-07-01","dueDate":"2026-07-15"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 1 card(s)");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual("Task with dates", card.Title);
+        Assert.IsNotNull(card.PlannedStartTime, "PlannedStartTime should be set");
+        // DateTime.TryParse treats input as local time; ToUniversalTime() shifts by timezone offset
+        Assert.AreEqual(new DateTime(2026, 7, 1, 0, 0, 0, DateTimeKind.Local).ToUniversalTime(),
+            card.PlannedStartTime!.Value);
+        Assert.IsNotNull(card.DueDate, "DueDate should be set");
+        Assert.AreEqual(new DateTime(2026, 7, 15, 0, 0, 0, DateTimeKind.Local).ToUniversalTime(),
+            card.DueDate!.Value);
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_MixedWithAndWithoutDates()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"With date","dueDate":"2026-12-31"},{"title":"No date"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 2 card(s)");
+
+        var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).OrderBy(c => c.Order).ToList();
+        Assert.AreEqual(2, cards.Count);
+        Assert.IsNotNull(cards[0].DueDate, "Card with date should have DueDate set");
+        Assert.IsNull(cards[1].DueDate, "Card without date should have null DueDate");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_InvalidDateFormatIgnoresField()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"Bad date","dueDate":"not-a-date"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 1 card(s)");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual("Bad date", card.Title);
+        Assert.IsNull(card.DueDate, "Invalid date string should leave DueDate as null");
+    }
+
+    // ── BatchAssignCards ──────────────────────────────────
+
+    [TestMethod]
+    public async Task BatchAssignCards_AssignToUser()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        // Register target user and add them to board
+        var (user2Email, _) = await RegisterAndLoginAsync();
+        await LoginAsAdmin();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+
+        // Add user2 to board
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+        var board = db.KanbanBoards.First(b => b.Id == boardId);
+        await shareTools.ShareBoard(board.Id, user2.Id, null, "ReadOnly");
+
+        // Create cards
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        await batchTools.BatchCreateCards(columnId, """[{"title":"Card A"},{"title":"Card B"},{"title":"Card C"}]""");
+
+        var cardIds = db.KanbanCards.Where(c => c.ColumnId == columnId).Select(c => c.Id).ToList();
+        Assert.AreEqual(3, cardIds.Count);
+
+        // Batch assign to user2
+        var result = await batchTools.BatchAssignCards(
+            System.Text.Json.JsonSerializer.Serialize(cardIds), user2.Id);
+        StringAssert.Contains(result, "assigned 3 card(s)");
+
+        // Verify all cards are assigned
+        await db.Entry(board).ReloadAsync();
+        foreach (var card in db.KanbanCards.Where(c => c.ColumnId == columnId))
+        {
+            Assert.AreEqual(user2.Id, card.AssignedUserId, $"Card {card.Id} should be assigned to user2");
+        }
+    }
+
+    [TestMethod]
+    public async Task BatchAssignCards_Unassign()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        // Create cards (auto-assigned to current user)
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        await batchTools.BatchCreateCards(columnId, """[{"title":"Card A"},{"title":"Card B"}]""");
+
+        var cardIds = db.KanbanCards.Where(c => c.ColumnId == columnId).Select(c => c.Id).ToList();
+
+        // Verify they are assigned to admin
+        foreach (var card in db.KanbanCards.Where(c => c.ColumnId == columnId))
+        {
+            Assert.AreEqual(adminUser.Id, card.AssignedUserId);
+        }
+
+        // Unassign all
+        var result = await batchTools.BatchAssignCards(
+            System.Text.Json.JsonSerializer.Serialize(cardIds), "");
+        StringAssert.Contains(result, "unassigned 2 card(s)");
+
+        // Verify all are unassigned
+        foreach (var card in db.KanbanCards.Where(c => c.ColumnId == columnId))
+        {
+            Assert.IsNull(card.AssignedUserId, $"Card {card.Id} should be unassigned");
+        }
+    }
+
+    [TestMethod]
+    public async Task BatchAssignCards_InvalidJson_ReturnsError()
+    {
+        await LoginAsAdmin();
+        await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchAssignCards("not-json", "user-id");
+        StringAssert.Contains(result, "Invalid JSON format");
+    }
+
+    [TestMethod]
+    public async Task BatchAssignCards_EmptyArray_ReturnsError()
+    {
+        await LoginAsAdmin();
+        await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchAssignCards("[]", "user-id");
+        StringAssert.Contains(result, "No card IDs specified");
+    }
+
+    [TestMethod]
+    public async Task BatchAssignCards_NoPermission_ReturnsError()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        // Create a card
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        await batchTools.BatchCreateCards(columnId, """[{"title":"Card A"}]""");
+        var cardId = db.KanbanCards.First(c => c.ColumnId == columnId).Id;
+
+        // Register a second user who does NOT own the board
+        var (otherEmail, _) = await RegisterAndLoginAsync();
+
+        var scope2 = Server!.Services.CreateScope();
+        var otherUser = scope2.ServiceProvider.GetRequiredService<TemplateDbContext>().Users.First(u => u.Email == otherEmail);
+        scope2.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = otherUser.Id;
+        var batchTools2 = scope2.ServiceProvider.GetRequiredService<BatchWriteTools>();
+
+        var result = await batchTools2.BatchAssignCards(
+            System.Text.Json.JsonSerializer.Serialize(new[] { cardId }), otherUser.Id);
+        StringAssert.Contains(result, "Error: You do not have permission");
+    }
+
     // ── Helpers ─────────────────────────────────────────────
 
     private async Task<(int boardId, int firstColumnId)> CreateBoardAndFirstColumnAsync()
