@@ -24,6 +24,9 @@
   <data name="Approved - executing..." xml:space="preserve">
     <value>Godkänd - utför...</value>
   </data>
+  <data name="Attach Excel file" xml:space="preserve">
+    <value>Bifoga Excel-fil</value>
+  </data>
   <data name="click to expand" xml:space="preserve">
     <value>klicka för att expandera</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Rejected" xml:space="preserve">
     <value>Avvisad</value>
+  </data>
+  <data name="Remove file" xml:space="preserve">
+    <value>Ta bort fil</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Skicka</value>

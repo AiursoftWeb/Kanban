@@ -24,6 +24,9 @@
   <data name="Approved - executing..." xml:space="preserve">
     <value>Затверджено — виконується...</value>
   </data>
+  <data name="Attach Excel file" xml:space="preserve">
+    <value>Прикріпити файл Excel</value>
+  </data>
   <data name="click to expand" xml:space="preserve">
     <value>натисніть, щоб розгорнути</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Rejected" xml:space="preserve">
     <value>Відхилено</value>
+  </data>
+  <data name="Remove file" xml:space="preserve">
+    <value>Видалити файл</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Надіслати</value>

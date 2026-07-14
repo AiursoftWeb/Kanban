@@ -24,6 +24,9 @@
   <data name="Approved - executing..." xml:space="preserve">
     <value>Hyväksytty – suoritetaan...</value>
   </data>
+  <data name="Attach Excel file" xml:space="preserve">
+    <value>Liitä Excel-tiedosto</value>
+  </data>
   <data name="click to expand" xml:space="preserve">
     <value>napsauta laajentaaksesi</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Rejected" xml:space="preserve">
     <value>Hylätty</value>
+  </data>
+  <data name="Remove file" xml:space="preserve">
+    <value>Poista tiedosto</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Lähetä</value>
