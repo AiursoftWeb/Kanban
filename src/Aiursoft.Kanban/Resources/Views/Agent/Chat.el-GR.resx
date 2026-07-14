@@ -24,6 +24,9 @@
   <data name="Approved - executing..." xml:space="preserve">
     <value>Επικύρωση - εκτέλεση...</value>
   </data>
+  <data name="Attach Excel file" xml:space="preserve">
+    <value>Επισύναψη αρχείου Excel</value>
+  </data>
   <data name="click to expand" xml:space="preserve">
     <value>κλικ για επέκταση</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Rejected" xml:space="preserve">
     <value>Απορρίφθηκε</value>
+  </data>
+  <data name="Remove file" xml:space="preserve">
+    <value>Κατάργηση αρχείου</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Αποστολή</value>

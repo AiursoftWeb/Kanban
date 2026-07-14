@@ -24,6 +24,9 @@
   <data name="Approved - executing..." xml:space="preserve">
     <value>已批准 - 执行中...</value>
   </data>
+  <data name="Attach Excel file" xml:space="preserve">
+    <value>附加 Excel 文件</value>
+  </data>
   <data name="click to expand" xml:space="preserve">
     <value>点击展开</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Rejected" xml:space="preserve">
     <value>已拒绝</value>
+  </data>
+  <data name="Remove file" xml:space="preserve">
+    <value>删除文件</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>发送</value>

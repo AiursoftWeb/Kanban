@@ -24,6 +24,9 @@
   <data name="Approved - executing..." xml:space="preserve">
     <value>Approvato - in esecuzione...</value>
   </data>
+  <data name="Attach Excel file" xml:space="preserve">
+    <value>Allega file Excel</value>
+  </data>
   <data name="click to expand" xml:space="preserve">
     <value>clicca per espandere</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Rejected" xml:space="preserve">
     <value>Rifiutato</value>
+  </data>
+  <data name="Remove file" xml:space="preserve">
+    <value>Rimuovi file</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Invia</value>

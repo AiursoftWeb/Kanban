@@ -24,6 +24,9 @@
   <data name="Approved - executing..." xml:space="preserve">
     <value>承認済み - 実行中...</value>
   </data>
+  <data name="Attach Excel file" xml:space="preserve">
+    <value>Excel ファイルを添付</value>
+  </data>
   <data name="click to expand" xml:space="preserve">
     <value>クリックして展開</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Rejected" xml:space="preserve">
     <value>却下</value>
+  </data>
+  <data name="Remove file" xml:space="preserve">
+    <value>ファイルを削除</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>送信</value>
