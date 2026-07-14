@@ -396,9 +396,9 @@
             return r.json();
         })
         .then(function(data) {
-            excelMarkdown = data.Markdown;
-            attachedFileName = data.FileName;
-            showFileChip(data.FileName);
+            excelMarkdown = data.markdown;
+            attachedFileName = data.fileName;
+            showFileChip(data.fileName);
         })
         .catch(function(err) {
             appendMessage('assistant', 'Excel upload failed: ' + err.message);

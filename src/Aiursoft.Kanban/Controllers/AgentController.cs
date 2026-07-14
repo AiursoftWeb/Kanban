@@ -79,7 +79,7 @@ public class AgentController(
             using var stream = file.OpenReadStream();
             var markdown = await markItDownService.ConvertExcelToMarkdownAsync(
                 stream, file.FileName, HttpContext.RequestAborted);
-            return Ok(new { Markdown = markdown, FileName = file.FileName });
+            return Ok(new { markdown, fileName = file.FileName });
         }
         catch (Exception ex)
         {

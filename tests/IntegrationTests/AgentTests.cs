@@ -2133,6 +2133,96 @@ public class AgentTests : TestBase
         Assert.IsTrue(result.Length > 0, "Subagent should return a non-empty result");
     }
 
+    // ── ConvertExcel ───────────────────────────────────────
+
+    [TestMethod]
+    public async Task AgentController_ConvertExcel_RequiresAuth()
+    {
+        var content = new MultipartFormDataContent();
+        content.Add(new ByteArrayContent("test"u8.ToArray()), "file", "test.xlsx");
+        var response = await Http.PostAsync("/Agent/ConvertExcel", content);
+        Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task AgentController_ConvertExcel_RequiresAntiForgeryToken()
+    {
+        await LoginAsAdmin();
+        var content = new MultipartFormDataContent();
+        content.Add(new ByteArrayContent("test"u8.ToArray()), "file", "test.xlsx");
+        var response = await Http.PostAsync("/Agent/ConvertExcel", content);
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task AgentController_ConvertExcel_NoFile_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var token = await GetAntiCsrfToken("/");
+        var content = new MultipartFormDataContent();
+        content.Headers.Add("RequestVerificationToken", token);
+        var response = await Http.PostAsync("/Agent/ConvertExcel", content);
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task AgentController_ConvertExcel_WrongExtension_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var token = await GetAntiCsrfToken("/");
+        var content = new MultipartFormDataContent();
+        content.Headers.Add("RequestVerificationToken", token);
+        content.Add(new ByteArrayContent("test"u8.ToArray()), "file", "test.xls");
+        var response = await Http.PostAsync("/Agent/ConvertExcel", content);
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        var body = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<JsonElement>(body);
+        Assert.IsTrue(result.TryGetProperty("Error", out var error));
+        StringAssert.Contains(error.GetString()!, "xlsx");
+    }
+
+    [TestMethod]
+    public async Task AgentController_SendMessage_WithExcelMarkdown()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var token = await GetAntiCsrfToken("/");
+
+        var json = JsonSerializer.Serialize(new
+        {
+            boardId,
+            message = "Analyze this spreadsheet",
+            ExcelMarkdown = "| Col A | Col B |\n|---|---|\n| 1 | 2 |"
+        });
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        content.Headers.Add("RequestVerificationToken", token);
+
+        var response = await Http.PostAsync("/Agent/SendMessage", content);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        var body = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<JsonElement>(body);
+        var conversationId = result.GetProperty("ConversationId").GetString()!;
+
+        var agentService = GetService<IAgentService>();
+        var conversation = agentService.GetConversation(Guid.Parse(conversationId))!;
+        Assert.IsNotNull(conversation);
+
+        // Verify Excel system reminder and markdown are present as meta messages
+        var excelReminder = conversation.Messages.FirstOrDefault(m => m.IsMeta && m.Content != null &&
+            m.Content.Contains("The user has attached an Excel spreadsheet"));
+        Assert.IsNotNull(excelReminder, "Excel system reminder should be present as meta message");
+
+        var excelMarkdownMsg = conversation.Messages.FirstOrDefault(m => m.IsMeta && m.Content != null &&
+            m.Content.Contains("| Col A | Col B |"));
+        Assert.IsNotNull(excelMarkdownMsg, "Excel markdown should be present as meta message");
+
+        // The original user message should still be present (non-meta)
+        var userMsg = conversation.Messages.FirstOrDefault(m => !m.IsMeta &&
+            m.Role == "user" && m.Content == "Analyze this spreadsheet");
+        Assert.IsNotNull(userMsg, "User message should be present as non-meta");
+    }
+
     // ── Helpers ─────────────────────────────────────────────
 
     private async Task<(int boardId, int firstColumnId)> CreateBoardAndFirstColumnAsync()
