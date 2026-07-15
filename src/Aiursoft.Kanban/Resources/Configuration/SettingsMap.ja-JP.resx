@@ -91,7 +91,7 @@
     <value>フロントエンドに表示されるプロジェクト名</value>
   </data>
   <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
-    <value>Kanban AIエージェントのロール定義としてLLMに送信されるシステムプロンプト。プレースホルダーに対応：{userContext} — 実行時に現在のユーザー名、役割、所有ボード、アクティブなボードの名前/IDで注入されます。現在のUTC時刻には{currentDateTime}を使用します。</value>
+    <value>Kanban AIエージェントのロール定義としてLLMに送信されるシステムプロンプト。プレースホルダーに対応：{{userContext}} — 実行時に現在のユーザー名、役割、所有ボード、アクティブなボードの名前/IDで注入されます。現在のUTC時刻には{{currentDateTime}}を使用します。</value>
   </data>
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>Anthropic API エンドポイントとの認証に使用する x-api-key トークン。エンドポイントで認証が必要ない場合は空のままにしてください。</value>

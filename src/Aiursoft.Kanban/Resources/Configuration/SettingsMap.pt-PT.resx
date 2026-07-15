@@ -91,7 +91,7 @@
     <value>O nome do projeto apresentado na interface de utilizador.</value>
   </data>
   <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
-    <value>A prompt de sistema enviada para o LLM como definição do papel do agente Kanban AI. Suporta o marcador {userContext} — injetado em tempo de execução com o nome, cargos, tabuleiros de propriedade do utilizador atual e o nome/ID do tabuleiro ativo. Suporta {currentDateTime} para a data/hora UTC atual.</value>
+    <value>A prompt de sistema enviada para o LLM como definição do papel do agente Kanban AI. Suporta o marcador {{userContext}} — injetado em tempo de execução com o nome, cargos, tabuleiros de propriedade do utilizador atual e o nome/ID do tabuleiro ativo. Suporta {{currentDateTime}} para a data/hora UTC atual.</value>
   </data>
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>O token x-api-key para autenticação no Endpoint da API Anthropic. Deixe vazio se o endpoint não exigir autenticação.</value>
