@@ -18,4 +18,11 @@ public class AppSettings
     /// Automatically assign the user to this role when they log in.
     /// </summary>
     public string? DefaultRole { get; init; } = string.Empty;
+
+    public required MarkItDownSettings MarkItDown { get; init; }
+}
+
+public class MarkItDownSettings
+{
+    public string Endpoint { get; init; } = "http://markitdown:8000/api/convert";
 }

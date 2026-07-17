@@ -27,11 +27,23 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Một số giả mạo để kiểm thử.</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Nhắc nhở Hệ thống Tác nhân</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>Mô hình AI</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Cho phép người dùng chỉnh sửa biệt danh</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Cho phép người dùng điều chỉnh biệt danh của họ trên trang quản lý hồ sơ.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Điểm cuối API của Anthropic</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Mã thông báo API Anthropic</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Tự động đặt thời gian bắt đầu dự kiến</value>
@@ -60,17 +72,29 @@
   <data name="Project Name" xml:space="preserve">
     <value>Tên dự án</value>
   </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Điểm cuối API Messages của Anthropic do tác nhân AI Kanban sử dụng. Phải là URL đầy đủ bao gồm /v1/messages, ví dụ: https://ollama.example.com/v1/messages. Để trống để vô hiệu hóa tác nhân AI.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Tên thương hiệu được hiển thị trong chân trang.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Số giấy phép ICP cho người dùng tại Trung Quốc đại lục. Để trống để ẩn.</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>Tên mô hình LLM được sử dụng cho tác nhân AI Kanban, ví dụ: aiursoft-instruct:latest, claude-sonnet-4-5 hoặc deepseek-chat. Phải khả dụng tại Điểm cuối API Anthropic ở trên.</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Logo của dự án được hiển thị trong thanh điều hướng và chân trang. Hỗ trợ định dạng jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Tên dự án được hiển thị trên giao diện người dùng</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>Lệnh hệ thống được gửi đến LLM dưới dạng định nghĩa vai trò cho tác nhân AI Kanban. Hỗ trợ chỗ chứa: {{userContext}} — được ghép nối tại thời điểm chạy với tên, vai trò, các bảng sở hữu của người dùng hiện tại và tên/ID của bảng đang hoạt động. Hỗ trợ {{currentDateTime}} để lấy thời gian UTC hiện tại.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>Mã thông báo x-api-key dùng để xác thực với Điểm cuối API của Anthropic. Để trống nếu Điểm cuối không yêu cầu xác thực.</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Khi tự động đặt thời gian bắt đầu dự kiến, số ngày cần đặt trước ngày đến hạn.</value>

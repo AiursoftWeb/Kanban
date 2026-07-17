@@ -27,11 +27,23 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Eine Dummy-Zahl zum Testen.</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Systemaufforderung des Agents</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>KI-Modell</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Benutzer-Nickname bearbeiten erlauben</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Benutzern erlauben, ihren Spitznamen auf der Seite zur Profilverwaltung anzupassen.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Anthropic-API-Endpunkt</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Anthropic-API-Token</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Automatisch geplante Startzeit festlegen</value>
@@ -60,17 +72,29 @@
   <data name="Project Name" xml:space="preserve">
     <value>Projektname</value>
   </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Der Anthropic Messages-API-Endpunkt, der vom Kanban-AI-Agent verwendet wird. Muss die vollständige URL einschließlich /v1/messages sein, z. B. https://ollama.example.com/v1/messages. Leer lassen, um den KI-Agenten zu deaktivieren.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Der Markenname, der im Footer angezeigt wird.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Die ICP-Lizenznummer für Nutzer in der Volksrepublik China. Leer lassen, um sie auszublenden.</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>Der Name der für den Kanban-KI-Agenten verwendeten LLM-Modell, z. B. aiursoft-instruct:latest, claude-sonnet-4-5 oder deepseek-chat. Muss unter dem oben genannten Anthropic-API-Endpunkt verfügbar sein.</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Das Logo des Projekts wird in der Navigationsleiste und im Footer angezeigt. Unterstützt jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Der Name des Projekts, der im Frontend angezeigt wird.</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>Das System-Prompt, das an das LLM als Rollendefinition für den Kanban-KI-Agenten gesendet wird. Unterstützt Platzhalter: {{userContext}} — zur Laufzeit mit dem Namen, den Rollen, denowned Boards und dem aktuellen Board-Namen/ID des Benutzers eingefügt. Unterstützt {{currentDateTime}} für die aktuelle UTC-Zeit.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>Das x-api-key-Token zur Authentifizierung am Anthropic-API-Endpunkt. Lassen Sie dieses Feld leer, wenn der Endpunkt keine Authentifizierung erfordert.</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Bei automatischer Einstellung der geplanten Startzeit: Anzahl der Tage, die vor dem Fälligkeitsdatum vorgezogen werden.</value>

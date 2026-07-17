@@ -27,11 +27,26 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Um número fictício para teste.</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Prompt do Sistema do Agente</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>Modelo de IA</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Permitir ao Utilizador Alterar o Apelido</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Permitir que os utilizadores ajustem o seu apelido na página de gestão de perfil.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Ponto de extremidade da API Anthropic</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Token da API Anthropic</value>
+  </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Definir Automaticamente a Hora Planejada de Início</value>
   </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>URL da Página Inicial da Marca</value>
@@ -48,11 +63,17 @@
   <data name="ICP Number" xml:space="preserve">
     <value>Número ICP</value>
   </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Dias de Antecipação do Horário Planeado de Início</value>
+  </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Logotipo do Projeto</value>
   </data>
   <data name="Project Name" xml:space="preserve">
     <value>Nome do Projeto</value>
+  </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>O ponto de extremidade da API de Mensagens Anthropic utilizado pelo agente Kanban AI. Deve ser o URL completo, incluindo /v1/messages, por ex., https://ollama.example.com/v1/messages. Deixe em branco para desativar o agente AI.</value>
   </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>O nome da marca exibido no rodapé.</value>
@@ -60,11 +81,26 @@
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>O número de licença ICP para utilizadores da China continental. Deixe em branco para ocultar.</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>O nome do modelo LLM utilizado pelo agente Kanban AI, por exemplo aiursoft-instruct:latest, claude-sonnet-4-5 ou deepseek-chat. Deve estar disponível no Endpoint da API Anthropic acima.</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>O logótipo do projeto exibido na barra de navegação e no rodapé. Suporta jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>O nome do projeto apresentado na interface de utilizador.</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>A prompt de sistema enviada para o LLM como definição do papel do agente Kanban AI. Suporta o marcador {{userContext}} — injetado em tempo de execução com o nome, cargos, tabuleiros de propriedade do utilizador atual e o nome/ID do tabuleiro ativo. Suporta {{currentDateTime}} para a data/hora UTC atual.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>O token x-api-key para autenticação no Endpoint da API Anthropic. Deixe vazio se o endpoint não exigir autenticação.</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Ao definir automaticamente a hora de início planeada, o número de dias para adiantar antes da data de vencimento.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>Ao ser ativado, os cartões com data de vencimento, mas sem hora planeada de início, terão a sua hora planeada de início definida automaticamente com base na definição de dias de antecedência.</value>
   </data>
 
 </root>

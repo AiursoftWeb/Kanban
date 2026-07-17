@@ -18,11 +18,26 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Edit Board" xml:space="preserve">
+      <data name="Add Card" xml:space="preserve">
+    <value>Adicionar cartão</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Concluído</value>
+  </data>
+  <data name="Drop cards here" xml:space="preserve">
+    <value>Solte os cartões aqui</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
     <value>Editar Quadro</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Em progresso</value>
   </data>
   <data name="No cards" xml:space="preserve">
     <value>Nenhum cartão</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Não iniciado</value>
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>Visualização somente leitura</value>

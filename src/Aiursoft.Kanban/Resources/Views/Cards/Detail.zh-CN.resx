@@ -18,7 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Actions" xml:space="preserve">
+      <data name="[Uploading image...]" xml:space="preserve">
+    <value>[上传图片中...]</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
     <value>操作</value>
   </data>
   <data name="Actual end" xml:space="preserve">
@@ -51,6 +54,9 @@
   <data name="comment image" xml:space="preserve">
     <value>评论图片</value>
   </data>
+  <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
+    <value>评论过长（最多2000个字符）。</value>
+  </data>
   <data name="comments" xml:space="preserve">
     <value>条评论</value>
   </data>
@@ -65,6 +71,9 @@
   </data>
   <data name="Creator" xml:space="preserve">
     <value>创建者</value>
+  </data>
+  <data name="d ago" xml:space="preserve">
+    <value>天前</value>
   </data>
   <data name="Days" xml:space="preserve">
     <value>天</value>
@@ -90,11 +99,53 @@
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
+  <data name="Edit assignee" xml:space="preserve">
+    <value>编辑负责人</value>
+  </data>
   <data name="Every" xml:space="preserve">
     <value>每</value>
   </data>
+  <data name="Failed to add comment." xml:space="preserve">
+    <value>添加评论失败。</value>
+  </data>
+  <data name="Failed to add label." xml:space="preserve">
+    <value>添加标签失败。</value>
+  </data>
+  <data name="Failed to delete card." xml:space="preserve">
+    <value>删除卡片失败。</value>
+  </data>
+  <data name="Failed to delete comment." xml:space="preserve">
+    <value>删除评论失败。</value>
+  </data>
+  <data name="Failed to move card." xml:space="preserve">
+    <value>移动卡片失败。</value>
+  </data>
+  <data name="Failed to remove label." xml:space="preserve">
+    <value>移除标签失败。</value>
+  </data>
+  <data name="Failed to save." xml:space="preserve">
+    <value>保存失败。</value>
+  </data>
+  <data name="Failed to transfer card." xml:space="preserve">
+    <value>转移卡片失败。</value>
+  </data>
+  <data name="Failed to upload image." xml:space="preserve">
+    <value>上传图片失败。</value>
+  </data>
+  <data name="Failed to upload pasted image." xml:space="preserve">
+    <value>上传粘贴的图片失败。</value>
+  </data>
+  <data name="h ago" xml:space="preserve">
+    <value>小时前</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>刚刚</value>
+  </data>
   <data name="Labels" xml:space="preserve">
     <value>标签</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>分钟前</value>
   </data>
   <data name="Markdown, Mermaid and KaTeX are all supported." xml:space="preserve">
     <value>支持 Markdown、Mermaid 和 KaTeX。</value>
@@ -117,6 +168,12 @@
   <data name="No description yet. Capture the context, plan, or acceptance notes for this card here." xml:space="preserve">
     <value>暂无描述。在此记录此卡片的背景、计划或验收说明。</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Notice" xml:space="preserve">
+    <value>提示</value>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>确定</value>
   </data>
@@ -135,8 +192,17 @@
   <data name="Recurring task" xml:space="preserve">
     <value>周期性任务</value>
   </data>
+  <data name="Recurring task has been returned to {0}." xml:space="preserve">
+    <value>周期性任务已返回到 {0}。</value>
+  </data>
+  <data name="Release to add images" xml:space="preserve">
+    <value>释放以添加图片</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>已保存</value>
   </data>
   <data name="Schedule &amp; status" xml:space="preserve">
     <value>Schedule &amp; status</value>
@@ -159,6 +225,12 @@
   <data name="Send" xml:space="preserve">
     <value>发送</value>
   </data>
+  <data name="Sending..." xml:space="preserve">
+    <value>发送中...</value>
+  </data>
+  <data name="Server error" xml:space="preserve">
+    <value>服务器错误</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>开始</value>
   </data>
@@ -177,6 +249,12 @@
   <data name="Transfer" xml:space="preserve">
     <value>转移</value>
   </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未分配</value>
+  </data>
+  <data name="Uploading images..." xml:space="preserve">
+    <value>正在上传图片...</value>
+  </data>
   <data name="Use labels to cluster work across the board and the detail page." xml:space="preserve">
     <value>使用标签在看板和详情页中对工作进行分组。</value>
   </data>
@@ -192,83 +270,8 @@
   <data name="Years" xml:space="preserve">
     <value>年</value>
   </data>
-
-  <data name="Notice" xml:space="preserve">
-    <value>提示</value>
-  </data>
-  <data name="Sending..." xml:space="preserve">
-    <value>发送中...</value>
-  </data>
-  <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
-    <value>评论过长（最多2000个字符）。</value>
-  </data>
-  <data name="Failed to add comment." xml:space="preserve">
-    <value>添加评论失败。</value>
-  </data>
-  <data name="Failed to delete comment." xml:space="preserve">
-    <value>删除评论失败。</value>
-  </data>
-  <data name="Failed to save." xml:space="preserve">
-    <value>保存失败。</value>
-  </data>
-  <data name="Failed to add label." xml:space="preserve">
-    <value>添加标签失败。</value>
-  </data>
-  <data name="Failed to remove label." xml:space="preserve">
-    <value>移除标签失败。</value>
-  </data>
-  <data name="Failed to upload image." xml:space="preserve">
-    <value>上传图片失败。</value>
-  </data>
-  <data name="Failed to upload pasted image." xml:space="preserve">
-    <value>上传粘贴的图片失败。</value>
-  </data>
-  <data name="Uploading images..." xml:space="preserve">
-    <value>正在上传图片...</value>
-  </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>您可以在此拖放图片或从剪贴板粘贴。</value>
   </data>
-  <data name="Release to add images" xml:space="preserve">
-    <value>释放以添加图片</value>
-  </data>
-  <data name="Failed to delete card." xml:space="preserve">
-    <value>删除卡片失败。</value>
-  </data>
-  <data name="Failed to move card." xml:space="preserve">
-    <value>移动卡片失败。</value>
-  </data>
-  <data name="Failed to transfer card." xml:space="preserve">
-    <value>转移卡片失败。</value>
-  </data>
-  <data name="Recurring task has been returned to {0}." xml:space="preserve">
-    <value>周期性任务已返回到 {0}。</value>
-  </data>
-  <data name="Server error" xml:space="preserve">
-    <value>服务器错误</value>
-  </data>
-  <data name="just now" xml:space="preserve">
-    <value>刚刚</value>
-  </data>
-  <data name="m ago" xml:space="preserve">
-    <value>分钟前</value>
-  </data>
-  <data name="h ago" xml:space="preserve">
-    <value>小时前</value>
-  </data>
-  <data name="d ago" xml:space="preserve">
-    <value>天前</value>
-  </data>
-  <data name="Unassigned" xml:space="preserve">
-    <value>未分配</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>无</value>
-  </data>
-  <data name="Saved" xml:space="preserve">
-    <value>已保存</value>
-  </data>
-  <data name="[Uploading image...]" xml:space="preserve">
-    <value>[上传图片中...]</value>
-  </data>
+
 </root>

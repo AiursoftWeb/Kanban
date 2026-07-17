@@ -14,11 +14,52 @@
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     }
 
-    .report-content {
-        white-space: pre-wrap;
-        line-height: 1.8;
-        font-size: 0.95rem;
+    /* Exact copy of .description-preview from card.css */
+    .description-preview {
         color: var(--bs-body-color);
+        line-height: 1.55;
+    }
+
+    .description-preview > :last-child {
+        margin-bottom: 0;
+    }
+
+    .description-preview pre {
+        padding: 0.75rem;
+        border-radius: 8px;
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        overflow-x: auto;
+    }
+
+    .description-preview code {
+        font-size: 0.85em;
+    }
+
+    .description-preview table {
+        width: 100%;
+        margin-bottom: 1rem;
+        border-collapse: collapse;
+    }
+
+    .description-preview th,
+    .description-preview td {
+        padding: 0.4rem 0.55rem;
+        border: 1px solid var(--bs-border-color, #dee2e6);
+    }
+
+    .description-preview blockquote {
+        margin: 0 0 1rem;
+        padding: 0.5rem 0.8rem;
+        border-left: 4px solid var(--bs-primary, #4dabf7);
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        color: var(--bs-secondary-color);
+        border-radius: 0 8px 8px 0;
+    }
+
+    .description-preview img,
+    .description-preview svg {
+        max-width: 100%;
+        height: auto;
     }
 
     .type-badge-plan {
@@ -59,9 +100,8 @@
 
             <hr />
 
-            <div class="report-content">
-                @Model.Report.Content
-            </div>
+            <div class="description-preview" id="reportContent"></div>
+            <textarea id="reportRawContent" class="d-none">@Model.Report.Content</textarea>
         </div>
 
         <div class="text-center mt-4">
@@ -72,3 +112,32 @@
     </div>
 </div>
 
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+<script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
+<script>
+(function () {
+    var rawContent = document.getElementById('reportRawContent').value;
+    var target = document.getElementById('reportContent');
+
+    if (typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+        marked.setOptions({ breaks: true, gfm: true });
+        var rawHtml = marked.parse(rawContent);
+        var cleanHtml = DOMPurify.sanitize(rawHtml, {
+            ADD_ATTR: ['target'],
+            FORBID_TAGS: ['script', 'style'],
+            FORBID_ATTR: ['style'],
+        });
+        target.innerHTML = cleanHtml;
+
+        target.querySelectorAll('a[href]').forEach(function (link) {
+            link.rel = 'noopener noreferrer';
+            link.target = '_blank';
+        });
+    } else {
+        target.textContent = rawContent;
+    }
+})();
+</script>
+}

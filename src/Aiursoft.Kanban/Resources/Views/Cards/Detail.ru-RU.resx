@@ -18,7 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Actions" xml:space="preserve">
+      <data name="[Uploading image...]" xml:space="preserve">
+    <value>[Uploading image...]</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
   <data name="Actual end" xml:space="preserve">
@@ -51,6 +54,9 @@
   <data name="comment image" xml:space="preserve">
     <value>comment image</value>
   </data>
+  <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
+    <value>Comment is too long (max 2000 characters).</value>
+  </data>
   <data name="comments" xml:space="preserve">
     <value>comments</value>
   </data>
@@ -65,6 +71,9 @@
   </data>
   <data name="Creator" xml:space="preserve">
     <value>Creator</value>
+  </data>
+  <data name="d ago" xml:space="preserve">
+    <value>d ago</value>
   </data>
   <data name="Days" xml:space="preserve">
     <value>Days</value>
@@ -90,11 +99,53 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="Edit assignee" xml:space="preserve">
+    <value>Изменить ответственного</value>
+  </data>
   <data name="Every" xml:space="preserve">
     <value>Every</value>
   </data>
+  <data name="Failed to add comment." xml:space="preserve">
+    <value>Failed to add comment.</value>
+  </data>
+  <data name="Failed to add label." xml:space="preserve">
+    <value>Failed to add label.</value>
+  </data>
+  <data name="Failed to delete card." xml:space="preserve">
+    <value>Failed to delete card.</value>
+  </data>
+  <data name="Failed to delete comment." xml:space="preserve">
+    <value>Failed to delete comment.</value>
+  </data>
+  <data name="Failed to move card." xml:space="preserve">
+    <value>Failed to move card.</value>
+  </data>
+  <data name="Failed to remove label." xml:space="preserve">
+    <value>Failed to remove label.</value>
+  </data>
+  <data name="Failed to save." xml:space="preserve">
+    <value>Failed to save.</value>
+  </data>
+  <data name="Failed to transfer card." xml:space="preserve">
+    <value>Failed to transfer card.</value>
+  </data>
+  <data name="Failed to upload image." xml:space="preserve">
+    <value>Failed to upload image.</value>
+  </data>
+  <data name="Failed to upload pasted image." xml:space="preserve">
+    <value>Failed to upload pasted image.</value>
+  </data>
+  <data name="h ago" xml:space="preserve">
+    <value>h ago</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>just now</value>
+  </data>
   <data name="Labels" xml:space="preserve">
     <value>Labels</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>m ago</value>
   </data>
   <data name="Markdown, Mermaid and KaTeX are all supported." xml:space="preserve">
     <value>Markdown, Mermaid and KaTeX are all supported.</value>
@@ -117,6 +168,12 @@
   <data name="No description yet. Capture the context, plan, or acceptance notes for this card here." xml:space="preserve">
     <value>No description yet. Capture the context, plan, or acceptance notes for this card here.</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Notice</value>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -135,8 +192,17 @@
   <data name="Recurring task" xml:space="preserve">
     <value>Recurring task</value>
   </data>
+  <data name="Recurring task has been returned to {0}." xml:space="preserve">
+    <value>Recurring task has been returned to {0}.</value>
+  </data>
+  <data name="Release to add images" xml:space="preserve">
+    <value>Release to add images</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Saved</value>
   </data>
   <data name="Schedule &amp; status" xml:space="preserve">
     <value>Schedule &amp; status</value>
@@ -159,6 +225,12 @@
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
+  <data name="Sending..." xml:space="preserve">
+    <value>Sending...</value>
+  </data>
+  <data name="Server error" xml:space="preserve">
+    <value>Server error</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
@@ -177,6 +249,12 @@
   <data name="Transfer" xml:space="preserve">
     <value>Transfer</value>
   </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Unassigned</value>
+  </data>
+  <data name="Uploading images..." xml:space="preserve">
+    <value>Uploading images...</value>
+  </data>
   <data name="Use labels to cluster work across the board and the detail page." xml:space="preserve">
     <value>Use labels to group work across the board and the detail page.</value>
   </data>
@@ -192,83 +270,8 @@
   <data name="Years" xml:space="preserve">
     <value>Years</value>
   </data>
-
-  <data name="Notice" xml:space="preserve">
-    <value>Notice</value>
-  </data>
-  <data name="Sending..." xml:space="preserve">
-    <value>Sending...</value>
-  </data>
-  <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
-    <value>Comment is too long (max 2000 characters).</value>
-  </data>
-  <data name="Failed to add comment." xml:space="preserve">
-    <value>Failed to add comment.</value>
-  </data>
-  <data name="Failed to delete comment." xml:space="preserve">
-    <value>Failed to delete comment.</value>
-  </data>
-  <data name="Failed to save." xml:space="preserve">
-    <value>Failed to save.</value>
-  </data>
-  <data name="Failed to add label." xml:space="preserve">
-    <value>Failed to add label.</value>
-  </data>
-  <data name="Failed to remove label." xml:space="preserve">
-    <value>Failed to remove label.</value>
-  </data>
-  <data name="Failed to upload image." xml:space="preserve">
-    <value>Failed to upload image.</value>
-  </data>
-  <data name="Failed to upload pasted image." xml:space="preserve">
-    <value>Failed to upload pasted image.</value>
-  </data>
-  <data name="Uploading images..." xml:space="preserve">
-    <value>Uploading images...</value>
-  </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>You can drag images here or paste from clipboard.</value>
   </data>
-  <data name="Release to add images" xml:space="preserve">
-    <value>Release to add images</value>
-  </data>
-  <data name="Failed to delete card." xml:space="preserve">
-    <value>Failed to delete card.</value>
-  </data>
-  <data name="Failed to move card." xml:space="preserve">
-    <value>Failed to move card.</value>
-  </data>
-  <data name="Failed to transfer card." xml:space="preserve">
-    <value>Failed to transfer card.</value>
-  </data>
-  <data name="Recurring task has been returned to {0}." xml:space="preserve">
-    <value>Recurring task has been returned to {0}.</value>
-  </data>
-  <data name="Server error" xml:space="preserve">
-    <value>Server error</value>
-  </data>
-  <data name="just now" xml:space="preserve">
-    <value>just now</value>
-  </data>
-  <data name="m ago" xml:space="preserve">
-    <value>m ago</value>
-  </data>
-  <data name="h ago" xml:space="preserve">
-    <value>h ago</value>
-  </data>
-  <data name="d ago" xml:space="preserve">
-    <value>d ago</value>
-  </data>
-  <data name="Unassigned" xml:space="preserve">
-    <value>Unassigned</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="Saved" xml:space="preserve">
-    <value>Saved</value>
-  </data>
-  <data name="[Uploading image...]" xml:space="preserve">
-    <value>[Uploading image...]</value>
-  </data>
+
 </root>

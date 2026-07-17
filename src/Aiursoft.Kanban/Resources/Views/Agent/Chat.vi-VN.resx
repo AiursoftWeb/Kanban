@@ -24,6 +24,9 @@
   <data name="Approved - executing..." xml:space="preserve">
     <value>Đã phê duyệt - đang thực hiện...</value>
   </data>
+  <data name="Attach Excel file" xml:space="preserve">
+    <value>Đính kèm tệp Excel</value>
+  </data>
   <data name="click to expand" xml:space="preserve">
     <value>nhấp để mở rộng</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Rejected" xml:space="preserve">
     <value>Bị từ chối</value>
+  </data>
+  <data name="Remove file" xml:space="preserve">
+    <value>Xóa tệp</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Gửi</value>

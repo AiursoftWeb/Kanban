@@ -24,6 +24,9 @@
   <data name="Approved - executing..." xml:space="preserve">
     <value>Aprobat - se execută...</value>
   </data>
+  <data name="Attach Excel file" xml:space="preserve">
+    <value>Atașează fișierul Excel</value>
+  </data>
   <data name="click to expand" xml:space="preserve">
     <value>click pentru a extinde</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Rejected" xml:space="preserve">
     <value>Respins</value>
+  </data>
+  <data name="Remove file" xml:space="preserve">
+    <value>Elimină fișierul</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Trimite</value>

@@ -18,11 +18,26 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Edit Board" xml:space="preserve">
+      <data name="Add Card" xml:space="preserve">
+    <value>Kart Ekle</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Tamamlandı</value>
+  </data>
+  <data name="Drop cards here" xml:space="preserve">
+    <value>Buraya kartları bırakın</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
     <value>Paneli Düzenle</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Devam Ediyor</value>
   </data>
   <data name="No cards" xml:space="preserve">
     <value>Kart yok</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Başlatılmadı</value>
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>Salt okunabilir görünüm</value>

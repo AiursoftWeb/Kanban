@@ -27,11 +27,23 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Un nombre fictif à des fins de test.</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Invite système de l&apos;agent</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>Modèle d&apos;IA</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Autoriser l&apos;utilisateur à modifier son surnom</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Autoriser les utilisateurs à modifier leur surnom sur la page de gestion du profil.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Point de terminaison de l&apos;API Anthropic</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Clé API Anthropic</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Définir automatiquement l&apos;heure de début planifiée</value>
@@ -60,17 +72,29 @@
   <data name="Project Name" xml:space="preserve">
     <value>Nom du projet</value>
   </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Le point de terminaison de l&apos;API Messages Anthropic utilisé par l&apos;agent IA Kanban. Doit être l&apos;URL complète incluant /v1/messages, par ex. https://ollama.example.com/v1/messages. Laissez vide pour désactiver l&apos;agent IA.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Le nom de la marque affiché dans le pied de page.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Le numéro de licence ICP pour les utilisateurs du continent chinois. Laissez vide pour masquer.</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>Le nom du modèle LLM utilisé pour l&apos;agent IA Kanban, par ex. aiursoft-instruct:latest, claude-sonnet-4-5 ou deepseek-chat. Doit être disponible au point de terminaison API Anthropic ci-dessus.</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Le logo du projet affiché dans la barre de navigation et le pied de page. Prise en charge des formats jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Le nom du projet affiché dans l&apos;interface utilisateur.</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>Le prompt système envoyé au LLM en tant que définition du rôle pour l&apos;agent Kanban IA. Prend en charge le placeholder : {{userContext}} — injecté au moment de l&apos;exécution avec le nom, les rôles, les tableaux possédés et le nom/l&apos;ID du tableau actif de l&apos;utilisateur actuel. Prend en charge {{currentDateTime}} pour l&apos;heure UTC actuelle.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>Le jeton x-api-key utilisé pour l&apos;authentification auprès du point de terminaison de l&apos;API Anthropic. Laissez ce champ vide si le point de terminaison ne nécessite pas d&apos;authentification.</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>When auto-setting planned start time, the number of days to advance before the due date.</value>

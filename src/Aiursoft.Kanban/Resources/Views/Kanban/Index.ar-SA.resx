@@ -18,7 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Actions" xml:space="preserve">
+      <data name="?" xml:space="preserve">
+    <value>؟</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
     <value>الإجراءات</value>
   </data>
   <data name="Actual End" xml:space="preserve">
@@ -45,6 +48,15 @@
   <data name="All Boards" xml:space="preserve">
     <value>كل اللوحات</value>
   </data>
+  <data name="Archive" xml:space="preserve">
+    <value>أرشفة</value>
+  </data>
+  <data name="Archive this board?" xml:space="preserve">
+    <value>هل تريد أرشفة هذه اللوحة؟</value>
+  </data>
+  <data name="Are you sure you want to delete" xml:space="preserve">
+    <value>هل أنت متأكد من رغبتك في حذف</value>
+  </data>
   <data name="Are you sure you want to delete the board" xml:space="preserve">
     <value>هل أنت متأكد أنك تريد حذف اللوحة؟</value>
   </data>
@@ -53,6 +65,9 @@
   </data>
   <data name="Are you sure you want to delete this comment?" xml:space="preserve">
     <value>هل أنت متأكد من أنك تريد حذف هذا التعليق؟</value>
+  </data>
+  <data name="Assigned to" xml:space="preserve">
+    <value>مُعيَّن إلى</value>
   </data>
   <data name="Assignee" xml:space="preserve">
     <value>المسؤول</value>
@@ -96,6 +111,9 @@
   <data name="Columns" xml:space="preserve">
     <value>الأعمدة</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>تعليق</value>
+  </data>
   <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
     <value>التعليق طويل جدًا (الحد الأقصى 2000 حرف).</value>
   </data>
@@ -132,6 +150,9 @@
   <data name="d ago" xml:space="preserve">
     <value>د قبل</value>
   </data>
+  <data name="Day" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
   <data name="Days" xml:space="preserve">
     <value>أيام</value>
   </data>
@@ -140,6 +161,9 @@
   </data>
   <data name="Delete Board" xml:space="preserve">
     <value>حذف اللوحة</value>
+  </data>
+  <data name="Delete card" xml:space="preserve">
+    <value>حذف البطاقة</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>حذف العمود</value>
@@ -158,6 +182,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>الوصف</value>
+  </data>
+  <data name="Drag to reorder" xml:space="preserve">
+    <value>اسحب لإعادة الترتيب</value>
   </data>
   <data name="Drop cards here" xml:space="preserve">
     <value>أسقط البطاقات هنا</value>
@@ -192,8 +219,17 @@
   <data name="Failed to delete board:" xml:space="preserve">
     <value>فشل في حذف اللوحة:</value>
   </data>
+  <data name="Failed to delete board." xml:space="preserve">
+    <value>فشل حذف اللوحة.</value>
+  </data>
+  <data name="Failed to delete card." xml:space="preserve">
+    <value>فشل حذف البطاقة.</value>
+  </data>
   <data name="Failed to delete column:" xml:space="preserve">
     <value>فشل في حذف العمود:</value>
+  </data>
+  <data name="Failed to delete column." xml:space="preserve">
+    <value>فشل حذف العمود.</value>
   </data>
   <data name="Failed to delete comment." xml:space="preserve">
     <value>فشل في حذف التعليق.</value>
@@ -207,11 +243,17 @@
   <data name="Failed to move card:" xml:space="preserve">
     <value>فشل في نقل البطاقة:</value>
   </data>
+  <data name="Failed to move card." xml:space="preserve">
+    <value>فشل نقل البطاقة.</value>
+  </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>فشل في إزالة التسمية.</value>
   </data>
   <data name="Failed to rename board:" xml:space="preserve">
     <value>فشل في إعادة تسمية اللوحة:</value>
+  </data>
+  <data name="Failed to rename board." xml:space="preserve">
+    <value>فشل في إعادة تسمية اللوحة.</value>
   </data>
   <data name="Failed to rename column:" xml:space="preserve">
     <value>فشل في إعادة تسمية العمود:</value>
@@ -219,14 +261,29 @@
   <data name="Failed to save:" xml:space="preserve">
     <value>فشل في الحفظ:</value>
   </data>
+  <data name="Failed to save." xml:space="preserve">
+    <value>فشل الحفظ.</value>
+  </data>
   <data name="Failed to transfer card:" xml:space="preserve">
     <value>فشل في نقل البطاقة:</value>
+  </data>
+  <data name="Failed to transfer card." xml:space="preserve">
+    <value>فشل نقل البطاقة.</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>فشل في تحديث لون التسمية.</value>
   </data>
+  <data name="Failed to upload image." xml:space="preserve">
+    <value>فشل تحميل الصورة.</value>
+  </data>
+  <data name="Failed to upload pasted image." xml:space="preserve">
+    <value>فشل تحميل الصورة المُلصقة.</value>
+  </data>
   <data name="Filter" xml:space="preserve">
     <value>تصفية</value>
+  </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>مخطط جانت</value>
   </data>
   <data name="h ago" xml:space="preserve">
     <value>ساعات مضت</value>
@@ -255,6 +312,9 @@
   <data name="Loading target boards..." xml:space="preserve">
     <value>جاري تحميل اللوحات المستهدفة...</value>
   </data>
+  <data name="Loading..." xml:space="preserve">
+    <value>جاري التحميل...</value>
+  </data>
   <data name="Low" xml:space="preserve">
     <value>منخفضة</value>
   </data>
@@ -263,6 +323,9 @@
   </data>
   <data name="Medium" xml:space="preserve">
     <value>متوسط</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>شهر</value>
   </data>
   <data name="Months" xml:space="preserve">
     <value>أشهر</value>
@@ -330,6 +393,9 @@
   <data name="Press Enter to add a label or create a new one on the fly." xml:space="preserve">
     <value>اضغط Enter لإضافة ملصق أو إنشاء جديد.</value>
   </data>
+  <data name="Preview" xml:space="preserve">
+    <value>معاينة</value>
+  </data>
   <data name="Previous column" xml:space="preserve">
     <value>العمود السابق</value>
   </data>
@@ -339,8 +405,17 @@
   <data name="Read-only" xml:space="preserve">
     <value>للقراءة فقط</value>
   </data>
+  <data name="Recurrence" xml:space="preserve">
+    <value>التكرار</value>
+  </data>
+  <data name="Recurring" xml:space="preserve">
+    <value>متكرر</value>
+  </data>
   <data name="Recurring task" xml:space="preserve">
     <value>مهمة متكررة</value>
+  </data>
+  <data name="Release to add images" xml:space="preserve">
+    <value>أفلِت لإضافة صور</value>
   </data>
   <data name="Remove {{0}}" xml:space="preserve">
     <value>إزالة {{0}}</value>
@@ -359,6 +434,9 @@
   </data>
   <data name="Saving..." xml:space="preserve">
     <value>جارٍ الحفظ...</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
   </data>
   <data name="Search or create a label" xml:space="preserve">
     <value>البحث أو إنشاء تسمية</value>
@@ -402,6 +480,9 @@
   <data name="This column contains" xml:space="preserve">
     <value>يحتوي هذا العمود</value>
   </data>
+  <data name="This column contains cards that will be deleted together." xml:space="preserve">
+    <value>يحتوي هذا العمود على بطاقات سيتم حذفها معًا.</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>العنوان</value>
   </data>
@@ -423,11 +504,17 @@
   <data name="Unknown error" xml:space="preserve">
     <value>خطأ غير معروف</value>
   </data>
+  <data name="Uploading images..." xml:space="preserve">
+    <value>جاري تحميل الصور...</value>
+  </data>
   <data name="Urgent" xml:space="preserve">
     <value>عاجل</value>
   </data>
   <data name="View" xml:space="preserve">
     <value>عرض</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>أسبوع</value>
   </data>
   <data name="Weeks" xml:space="preserve">
     <value>أسابيع</value>
@@ -435,8 +522,17 @@
   <data name="What needs to be done?" xml:space="preserve">
     <value>ما الذي يجب تنفيذه؟</value>
   </data>
+  <data name="Write a comment..." xml:space="preserve">
+    <value>اكتب تعليقاً...</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>السنة</value>
+  </data>
   <data name="Years" xml:space="preserve">
     <value>سنوات</value>
+  </data>
+  <data name="You can drag images here or paste from clipboard." xml:space="preserve">
+    <value>يمكنك سحب الصور إلى هنا أو لصقها من الحافظة.</value>
   </data>
 
 </root>

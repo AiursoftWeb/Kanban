@@ -105,6 +105,9 @@
   <data name="Features" xml:space="preserve">
     <value>功能</value>
   </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>甘特图</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>全局设置</value>
   </data>

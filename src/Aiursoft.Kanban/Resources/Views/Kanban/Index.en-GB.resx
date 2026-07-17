@@ -48,6 +48,12 @@
   <data name="All Boards" xml:space="preserve">
     <value>All Boards</value>
   </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="Archive this board?" xml:space="preserve">
+    <value>Archive this board?</value>
+  </data>
   <data name="Are you sure you want to delete" xml:space="preserve">
     <value>Are you sure you want to delete</value>
   </data>
@@ -275,6 +281,9 @@
   </data>
   <data name="Filter" xml:space="preserve">
     <value>Filter</value>
+  </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>Gantt chart</value>
   </data>
   <data name="h ago" xml:space="preserve">
     <value>h ago</value>

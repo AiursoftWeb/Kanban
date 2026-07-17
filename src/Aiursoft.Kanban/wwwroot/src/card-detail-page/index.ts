@@ -662,8 +662,10 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
           ${editBtnHtml}`;
       }
 
-      // Re-bind the edit button after re-render
+      // Re-bind the edit button after re-render and update the ref so the
+      // document click guard below knows which element is the current button.
       const newEditBtn = refs.overviewAssignee.querySelector<HTMLButtonElement>('#btnEditAssignee');
+      refs.btnEditAssignee = newEditBtn;
       if (newEditBtn && options.canEdit) {
         newEditBtn.addEventListener('click', () => {
           openAssigneeEditor();

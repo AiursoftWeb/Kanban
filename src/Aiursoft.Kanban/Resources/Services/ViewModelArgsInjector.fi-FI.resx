@@ -102,6 +102,9 @@
   <data name="Features" xml:space="preserve">
     <value>Ominaisuudet</value>
   </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>Gantt-kaavio</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>Yleiset asetukset</value>
   </data>

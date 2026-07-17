@@ -105,6 +105,9 @@
   <data name="Features" xml:space="preserve">
     <value>Funktionen</value>
   </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>Gantt-Diagramm</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>Globale Einstellungen</value>
   </data>

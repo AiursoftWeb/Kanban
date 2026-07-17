@@ -27,11 +27,23 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>テスト用のダミー番号です。</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>エージェント システム プロンプト</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>AIモデル</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>ユーザーがニックネームを変更できるようにする</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>プロフィール管理ページでユーザーがニックネームを調整できるようにする。</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Anthropic API エンドポイント</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Anthropic API トークン</value>
   </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>自動設定計画開始時刻</value>
@@ -60,17 +72,29 @@
   <data name="Project Name" xml:space="preserve">
     <value>プロジェクト名</value>
   </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Kanban AIエージェントで使用されるAnthropic Messages APIのエンドポイント。/v1/messagesを含む完全なURLである必要があります（例：https://ollama.example.com/v1/messages）。AIエージェントを無効にするには空のままにしてください。</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>フッターに表示されるブランド名。</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>中国本土ユーザー向けのICPライセンス番号。空欄のままにすると非表示になります。</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>Kanban AIエージェントで使用するLLMモデル名（例：aiursoft-instruct:latest、claude-sonnet-4-5、deepseek-chatなど）。上記のAnthropic APIエンドポイントで利用可能である必要があります。</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>ナビゲーションバーとフッターに表示されるプロジェクトのロゴ。jpg、png、svg形式をサポート。</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>フロントエンドに表示されるプロジェクト名</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>Kanban AIエージェントのロール定義としてLLMに送信されるシステムプロンプト。プレースホルダーに対応：{{userContext}} — 実行時に現在のユーザー名、役割、所有ボード、アクティブなボードの名前/IDで注入されます。現在のUTC時刻には{{currentDateTime}}を使用します。</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>Anthropic API エンドポイントとの認証に使用する x-api-key トークン。エンドポイントで認証が必要ない場合は空のままにしてください。</value>
   </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>)&quot;.

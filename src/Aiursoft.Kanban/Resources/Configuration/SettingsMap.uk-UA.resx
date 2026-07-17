@@ -27,11 +27,26 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Псевдонімне число для тестування.</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Системний промпт агента</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>Штучний інтелект модель</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Дозволити користувачеві змінювати прізвисько</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Дозволити користувачам змінювати свій прізвисько на сторінці керування профілем.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Кінцевий пункт API Anthropic</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Токен Anthropic API</value>
+  </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Автоматичне встановлення запланованого часу початку</value>
   </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>URL домашньої сторінки бренду</value>
@@ -48,11 +63,17 @@
   <data name="ICP Number" xml:space="preserve">
     <value>Номер ICP</value>
   </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Кількість днів запланованого старту</value>
+  </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Логотип проекту</value>
   </data>
   <data name="Project Name" xml:space="preserve">
     <value>Назва проекту</value>
+  </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Кінцевая точка Anthropic Messages API, яку використовує Kanban AI агент. Повинна бути повною URL-адресою, що включає /v1/messages, наприклад, https://ollama.example.com/v1/messages. Залиште порожнім, щоб вимкнути AI агент.</value>
   </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Назва бренду, що відображається в підвалі.</value>
@@ -60,11 +81,26 @@
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Номер ліцензії ICP для користувачів материкового Китаю. Залиште порожнім, щоб приховати.</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>Назва LLM-моделі, яка використовується для Kanban AI-агента, наприклад aiursoft-instruct:latest, claude-sonnet-4-5 або deepseek-chat. Має бути доступна за вказаним вище кінцевою точкою Anthropic API.</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Логотип проекту, який відображається в навбарі та футері. Підтримується jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Назва проекту, що відображається на фронтенді.</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>Системний промпт, який надсилається LLM як визначення ролі для Kanban AI-агента. Підтримує плейсхолдер: {{userContext}} — підставляється в реальному часі іменем користувача, його ролями, власними дошками та назвою/ID активної дошки. Підтримує {{currentDateTime}} для поточного часу UTC.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>Токен x-api-key для автентифікації в кінцевій точці Anthropic API. Залиште порожнім, якщо кінцева точка не вимагає автентифікації.</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Під час автоматичного встановлення планованої дати початку — кількість днів для зміщення щодо дедлайну.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>Якщо увімкнуто, картки зі строком виконання, але без запланованого часу початку, автоматично отримуватимуть запланований час початку на основі налаштування «Дні випередження».</value>
   </data>
 
 </root>

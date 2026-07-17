@@ -27,11 +27,26 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Väliaikainen luku testaamista varten.</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Agentin järjestelmäkehotteet</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>Teottomalli</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Salli käyttäjän muokata nimimerkkiä</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Salli käyttäjien muuttaa nimimerkkiään profiilin hallintasivulla.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Anthropic API -päätepiste</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Anthropic API -avain</value>
+  </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Automaattinen suunnitellun alkamisaian asettaminen</value>
   </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>Brändin kotisivun URL</value>
@@ -48,11 +63,17 @@
   <data name="ICP Number" xml:space="preserve">
     <value>ICP-numero</value>
   </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Suunnitellun aloitusajan päivämäärien edellä</value>
+  </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Projektin logo</value>
   </data>
   <data name="Project Name" xml:space="preserve">
     <value>Projektin nimi</value>
+  </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Kanban AI -agentin käyttämä Anthropic Messages API -päätepiste. Oltava täydellinen URL-osoite, joka sisältää kohdan /v1/messages, esim. https://ollama.example.com/v1/messages. Jätä tyhjäksi, jos haluat ottaa AI-agentin pois käytöstä.</value>
   </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Brändin nimi, joka näytetään alatunnisteessa.</value>
@@ -60,11 +81,26 @@
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>ICP-lisenssinumero Kiinan päävaltakunnan käyttäjille. Jätä tyhjäksi piilottaaksesi.</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>Suuri kielimalli (LLM) -mallin nimi, jota Kanban-tekoälyagentti käyttää, esim. aiursoft-instruct:latest, claude-sonnet-4-5 tai deepseek-chat. Pitää olla saatavilla yllä mainitussa Anthropicin API-päätepisteessä.</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Projektin logo näytetään navigointipalkissa ja alatunnisteessa. Tuki jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Projektin nimi, joka näytetään käyttöliittymässä.</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>Järjestelmakehote, joka lähetetään LLM:lle Kanban AI-avustajan roolimääritelmänä. Tukee paikanpitäjää: {{userContext}} — syötetään ajoittain nykyisen käyttäjän nimeä, rooleja, omistamia tauluja ja aktiivisen taulun nimeä/tunnusta. Tukee {{currentDateTime}} nykyisen UTC-ajan osalta.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>x-api-key-tokeni Anthropicin API-päätteen todentamiseen. Jätä tyhjäksi, jos pääte ei vaadi todentamista.</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Kun automaattinen suunnitellun aloitusajan asetus on käytössä, etupäivien määrä ennen eräpäivää.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>Kun tämä on käytössä, korteille, joissa on erääpäivä mutta ei suunniteltua aloitusajankohtaa, asetetaan suunniteltu aloitusajankohta automaattisesti edellispäivi-asetuksen mukaisesti.</value>
   </data>
 
 </root>

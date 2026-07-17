@@ -105,6 +105,9 @@
   <data name="Features" xml:space="preserve">
     <value>Tính năng</value>
   </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>Biểu đồ Gantt</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>Cài đặt chung</value>
   </data>

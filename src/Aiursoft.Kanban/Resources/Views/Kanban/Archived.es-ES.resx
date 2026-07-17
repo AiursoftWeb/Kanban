@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Archivado</value>
+  </data>
+  <data name="Archived At" xml:space="preserve">
+    <value>Archivado el</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Tableros archivados</value>
+  </data>
+  <data name="Board" xml:space="preserve">
+    <value>Tablero</value>
+  </data>
+  <data name="Boards that have been archived by their owners and are now read-only." xml:space="preserve">
+    <value>Tableros que han sido archivados por sus propietarios y ahora son de solo lectura.</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Columnas</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completados</value>
+  </data>
+  <data name="Direct Share" xml:space="preserve">
+    <value>Compartido directamente</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>En progreso</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Sin completar</value>
+  </data>
+  <data name="My Archived Boards" xml:space="preserve">
+    <value>Mis tableros archivados</value>
+  </data>
+  <data name="No archived boards" xml:space="preserve">
+    <value>No hay tableros archivados</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Vencido</value>
+  </data>
+  <data name="Shared Archived Boards" xml:space="preserve">
+    <value>Tableros archivados compartidos</value>
+  </data>
+  <data name="Shared Via" xml:space="preserve">
+    <value>Compartido por</value>
+  </data>
+  <data name="Unarchive" xml:space="preserve">
+    <value>Desarchivar</value>
+  </data>
+  <data name="Unarchive this board?" xml:space="preserve">
+    <value>¿Desarchivar este tablero?</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Sin asignar</value>
+  </data>
+  <data name="Via Role" xml:space="preserve">
+    <value>A través de rol</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="When you archive a board, it will appear here." xml:space="preserve">
+    <value>Cuando archives un tablero, aparecerá aquí.</value>
+  </data>
+
+</root>

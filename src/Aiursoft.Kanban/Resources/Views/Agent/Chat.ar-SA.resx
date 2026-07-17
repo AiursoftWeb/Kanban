@@ -24,6 +24,9 @@
   <data name="Approved - executing..." xml:space="preserve">
     <value>تمت الموافقة - جاري التنفيذ...</value>
   </data>
+  <data name="Attach Excel file" xml:space="preserve">
+    <value>إرفاق ملف Excel</value>
+  </data>
   <data name="click to expand" xml:space="preserve">
     <value>انقر للتوسيع</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Rejected" xml:space="preserve">
     <value>مرفوض</value>
+  </data>
+  <data name="Remove file" xml:space="preserve">
+    <value>إزالة الملف</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>إرسال</value>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actual" xml:space="preserve">
+    <value>Thực tế</value>
+  </data>
+  <data name="Assignee:" xml:space="preserve">
+    <value>Người được chỉ định:</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Quay lại Kanban</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Thẻ</value>
+  </data>
+  <data name="Cards without dates" xml:space="preserve">
+    <value>Thẻ không có ngày</value>
+  </data>
+  <data name="Column:" xml:space="preserve">
+    <value>Cột:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Mặc định</value>
+  </data>
+  <data name="Gantt display mode" xml:space="preserve">
+    <value>Chế độ hiển thị Gantt</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Đang tiến hành</value>
+  </data>
+  <data name="Missing actual end date" xml:space="preserve">
+    <value>Thiếu ngày kết thúc thực tế</value>
+  </data>
+  <data name="Missing actual start and end date" xml:space="preserve">
+    <value>Thiếu ngày bắt đầu và kết thúc thực tế</value>
+  </data>
+  <data name="Missing actual start date" xml:space="preserve">
+    <value>Thiếu ngày bắt đầu thực tế</value>
+  </data>
+  <data name="Missing date information (planned or actual dates are incomplete)" xml:space="preserve">
+    <value>Thông tin ngày bị thiếu (ngày lên kế hoạch hoặc ngày thực tế chưa đầy đủ)</value>
+  </data>
+  <data name="Missing due date" xml:space="preserve">
+    <value>Thiếu ngày đến hạn</value>
+  </data>
+  <data name="Missing planned start and due date" xml:space="preserve">
+    <value>Thiếu ngày bắt đầu và ngày đến hạn dự kiến</value>
+  </data>
+  <data name="Missing planned start date" xml:space="preserve">
+    <value>Thiếu ngày bắt đầu dự kiến</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>Không có thẻ nào có đủ ngày trong chế độ này.</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Chưa bắt đầu</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Đã lập kế hoạch</value>
+  </data>
+  <data name="Priority:" xml:space="preserve">
+    <value>Độ ưu tiên:</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Chỉ đọc</value>
+  </data>
+  <data name="Status:" xml:space="preserve">
+    <value>Trạng thái:</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>Bảng này không có thẻ nào.</value>
+  </data>
+  <data name="Time:" xml:space="preserve">
+    <value>Thời gian:</value>
+  </data>
+
+</root>

@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=" - actual start ascending." xml:space="preserve">
+      <data name=" - actual end ascending." xml:space="preserve">
+    <value> - 按实际结束时间升序。</value>
+  </data>
+  <data name=" - actual end descending." xml:space="preserve">
+    <value> - 按实际结束时间倒序。</value>
+  </data>
+  <data name=" - actual start ascending." xml:space="preserve">
     <value> - 按实际开始时间升序。</value>
+  </data>
+  <data name=" - actual start descending." xml:space="preserve">
+    <value> - 按实际开始时间倒序。</value>
   </data>
   <data name=" - due date ascending." xml:space="preserve">
     <value> - 到期时间升序。</value>
@@ -39,6 +48,18 @@
   <data name=" - overdue first." xml:space="preserve">
     <value> - 逾期任务优先。</value>
   </data>
+  <data name=" - planned end ascending." xml:space="preserve">
+    <value> - 按计划结束时间升序。</value>
+  </data>
+  <data name=" - planned end descending." xml:space="preserve">
+    <value> - 按计划结束时间倒序。</value>
+  </data>
+  <data name=" - planned start ascending." xml:space="preserve">
+    <value> - 按计划开始时间升序。</value>
+  </data>
+  <data name=" - planned start descending." xml:space="preserve">
+    <value> - 按计划开始时间倒序。</value>
+  </data>
   <data name=" - recently started first." xml:space="preserve">
     <value> - 最近开始优先。</value>
   </data>
@@ -47,6 +68,12 @@
   </data>
   <data name=" - title Z-A." xml:space="preserve">
     <value> - 标题 Z-A。</value>
+  </data>
+  <data name=" - urgency ascending." xml:space="preserve">
+    <value> - 按紧急程度升序。</value>
+  </data>
+  <data name=" - urgency descending." xml:space="preserve">
+    <value> - 按紧急程度倒序。</value>
   </data>
   <data name="{0} day overdue" xml:space="preserve">
     <value>逾期 {0} 天</value>
@@ -80,6 +107,18 @@
   </data>
   <data name="🔽 Urgency ↓" xml:space="preserve">
     <value>🔽 紧急程度 ↓</value>
+  </data>
+  <data name="Actual End (newest first)" xml:space="preserve">
+    <value>实际结束时间（最新优先）</value>
+  </data>
+  <data name="Actual End (oldest first)" xml:space="preserve">
+    <value>实际结束时间（最早优先）</value>
+  </data>
+  <data name="Actual Start (newest first)" xml:space="preserve">
+    <value>实际开始时间（最新优先）</value>
+  </data>
+  <data name="Actual Start (oldest first)" xml:space="preserve">
+    <value>实际开始时间（最早优先）</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>全部</value>
@@ -132,25 +171,12 @@
   <data name="No tasks found" xml:space="preserve">
     <value>未找到任务</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>无</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>未开始</value>
   </data>
-  <data name="Planned start:" xml:space="preserve">
-    <value>计划开始：</value>
-  </data>
-  <data name="Sort" xml:space="preserve">
-    <value>排序</value>
-  </data>
-  <data name="Try switching the status tab or adjusting your label filters." xml:space="preserve">
-    <value>尝试切换状态标签页或调整标签筛选条件。</value>
-  </data>
-  <data name="Urgent" xml:space="preserve">
-    <value>紧急</value>
-  </data>
-  <data name="You" xml:space="preserve">
-    <value>您</value>
-  </data>
-
   <data name="Planned End (newest first)" xml:space="preserve">
     <value>计划结束时间（最新优先）</value>
   </data>
@@ -163,58 +189,32 @@
   <data name="Planned Start (oldest first)" xml:space="preserve">
     <value>计划开始时间（最早优先）</value>
   </data>
-  <data name="Actual End (newest first)" xml:space="preserve">
-    <value>实际结束时间（最新优先）</value>
-  </data>
-  <data name="Actual End (oldest first)" xml:space="preserve">
-    <value>实际结束时间（最早优先）</value>
-  </data>
-  <data name="Actual Start (newest first)" xml:space="preserve">
-    <value>实际开始时间（最新优先）</value>
-  </data>
-  <data name="Actual Start (oldest first)" xml:space="preserve">
-    <value>实际开始时间（最早优先）</value>
-  </data>
-  <data name="Priority (low to high)" xml:space="preserve">
-    <value>优先级（从低到高）</value>
+  <data name="Planned start:" xml:space="preserve">
+    <value>计划开始：</value>
   </data>
   <data name="Priority (high to low)" xml:space="preserve">
     <value>优先级（从高到低）</value>
   </data>
-  <data name="Title (Z → A)" xml:space="preserve">
-    <value>标题（Z → A）</value>
+  <data name="Priority (low to high)" xml:space="preserve">
+    <value>优先级（从低到高）</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>排序</value>
   </data>
   <data name="Title (A → Z)" xml:space="preserve">
     <value>标题（A → Z）</value>
   </data>
-  <data name=" - planned end descending." xml:space="preserve">
-    <value> - 按计划结束时间倒序。</value>
+  <data name="Title (Z → A)" xml:space="preserve">
+    <value>标题（Z → A）</value>
   </data>
-  <data name=" - planned end ascending." xml:space="preserve">
-    <value> - 按计划结束时间升序。</value>
+  <data name="Try switching the status tab or adjusting your label filters." xml:space="preserve">
+    <value>尝试切换状态标签页或调整标签筛选条件。</value>
   </data>
-  <data name=" - planned start descending." xml:space="preserve">
-    <value> - 按计划开始时间倒序。</value>
+  <data name="Urgent" xml:space="preserve">
+    <value>紧急</value>
   </data>
-  <data name=" - planned start ascending." xml:space="preserve">
-    <value> - 按计划开始时间升序。</value>
+  <data name="You" xml:space="preserve">
+    <value>您</value>
   </data>
-  <data name=" - urgency ascending." xml:space="preserve">
-    <value> - 按紧急程度升序。</value>
-  </data>
-  <data name=" - urgency descending." xml:space="preserve">
-    <value> - 按紧急程度倒序。</value>
-  </data>
-  <data name=" - actual start descending." xml:space="preserve">
-    <value> - 按实际开始时间倒序。</value>
-  </data>
-  <data name=" - actual end descending." xml:space="preserve">
-    <value> - 按实际结束时间倒序。</value>
-  </data>
-  <data name=" - actual end ascending." xml:space="preserve">
-    <value> - 按实际结束时间升序。</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>无</value>
-  </data>
+
 </root>

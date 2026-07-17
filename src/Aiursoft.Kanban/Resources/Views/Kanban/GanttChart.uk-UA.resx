@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actual" xml:space="preserve">
+    <value>Фактичний</value>
+  </data>
+  <data name="Assignee:" xml:space="preserve">
+    <value>Виконавець:</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Назад до Kanban</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Картки</value>
+  </data>
+  <data name="Cards without dates" xml:space="preserve">
+    <value>Картки без дат</value>
+  </data>
+  <data name="Column:" xml:space="preserve">
+    <value>Колонка:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>За замовчуванням</value>
+  </data>
+  <data name="Gantt display mode" xml:space="preserve">
+    <value>Режим відображення Гантта</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Виконується</value>
+  </data>
+  <data name="Missing actual end date" xml:space="preserve">
+    <value>Відсутня фактична кінцева дата</value>
+  </data>
+  <data name="Missing actual start and end date" xml:space="preserve">
+    <value>Відсутні фактичні дати початку та завершення</value>
+  </data>
+  <data name="Missing actual start date" xml:space="preserve">
+    <value>Не вказано фактичну дату початку</value>
+  </data>
+  <data name="Missing date information (planned or actual dates are incomplete)" xml:space="preserve">
+    <value>Відсутня інформація про дати (заплановані або фактичні дати є неповними)</value>
+  </data>
+  <data name="Missing due date" xml:space="preserve">
+    <value>Відсутній крайній термін</value>
+  </data>
+  <data name="Missing planned start and due date" xml:space="preserve">
+    <value>Відсутні планована дата початку та дата завершення</value>
+  </data>
+  <data name="Missing planned start date" xml:space="preserve">
+    <value>Відсутня запланована дата початку</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>У цьому режимі немає карток із повними датами.</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Не розпочато</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Заплановано</value>
+  </data>
+  <data name="Priority:" xml:space="preserve">
+    <value>Пріоритет:</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Тільки читання</value>
+  </data>
+  <data name="Status:" xml:space="preserve">
+    <value>Статус:</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>На цій дошці немає карток.</value>
+  </data>
+  <data name="Time:" xml:space="preserve">
+    <value>Час:</value>
+  </data>
+
+</root>

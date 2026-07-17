@@ -32,8 +32,6 @@ public class Startup : IWebStartup
     {
         // AppSettings.
         services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
-        services.Configure<AnthropicConfiguration>(configuration.GetSection("AppSettings:Anthropic"));
-        services.Configure<AgentPromptConfig>(configuration.GetSection("AppSettings:Agent"));
         services.Configure<ClickhouseOptions>(configuration.GetSection("AuditLogs:Clickhouse"));
 
 

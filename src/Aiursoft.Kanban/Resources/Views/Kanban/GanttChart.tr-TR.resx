@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actual" xml:space="preserve">
+    <value>Gerçek</value>
+  </data>
+  <data name="Assignee:" xml:space="preserve">
+    <value>Atanan Kişi:</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Kanban&apos;a geri dön</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Kartlar</value>
+  </data>
+  <data name="Cards without dates" xml:space="preserve">
+    <value>Tarih bilgisi olmayan kartlar</value>
+  </data>
+  <data name="Column:" xml:space="preserve">
+    <value>Sütun:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Tamamlandı</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="Gantt display mode" xml:space="preserve">
+    <value>Gantt görünüm modu</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>Devam Ediyor</value>
+  </data>
+  <data name="Missing actual end date" xml:space="preserve">
+    <value>Gerçek bitiş tarihi eksik</value>
+  </data>
+  <data name="Missing actual start and end date" xml:space="preserve">
+    <value>Planlanan ve gerçek başlangıç ile bitiş tarihi eksik</value>
+  </data>
+  <data name="Missing actual start date" xml:space="preserve">
+    <value>Eksik gerçek başlangıç tarihi</value>
+  </data>
+  <data name="Missing date information (planned or actual dates are incomplete)" xml:space="preserve">
+    <value>Tarih bilgisi eksik (planlanan veya gerçek tarihler eksiksiz değil)</value>
+  </data>
+  <data name="Missing due date" xml:space="preserve">
+    <value>Son tarih eksik</value>
+  </data>
+  <data name="Missing planned start and due date" xml:space="preserve">
+    <value>Planlanan başlangıç ve bitiş tarihi eksik</value>
+  </data>
+  <data name="Missing planned start date" xml:space="preserve">
+    <value>Planlanan başlangıç tarihi eksik</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>Bu kipte tam tarihleri olan kart yok.</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Başlamadı</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planlanan</value>
+  </data>
+  <data name="Priority:" xml:space="preserve">
+    <value>Öncelik:</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Salt okunur</value>
+  </data>
+  <data name="Status:" xml:space="preserve">
+    <value>Durum:</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>Bu tahtada kart yok.</value>
+  </data>
+  <data name="Time:" xml:space="preserve">
+    <value>Zaman:</value>
+  </data>
+
+</root>

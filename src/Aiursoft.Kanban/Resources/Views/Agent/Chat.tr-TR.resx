@@ -24,6 +24,9 @@
   <data name="Approved - executing..." xml:space="preserve">
     <value>Onaylandı - çalıştırılıyor...</value>
   </data>
+  <data name="Attach Excel file" xml:space="preserve">
+    <value>Excel dosyası ekle</value>
+  </data>
   <data name="click to expand" xml:space="preserve">
     <value>genişletmek için tıklayın</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Rejected" xml:space="preserve">
     <value>Reddedildi</value>
+  </data>
+  <data name="Remove file" xml:space="preserve">
+    <value>Dosyayı kaldır</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Gönder</value>

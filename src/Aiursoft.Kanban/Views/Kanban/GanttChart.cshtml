@@ -6,7 +6,14 @@
     <link rel="stylesheet" href="~/dist/kanban-board.css" asp-append-version="true" />
     <style>
         html, body { height: 100%; overflow: hidden; }
+        /* Propagate height constraint from body through wrapper → main → content → gantt.
+           Without these rules the flex chain resolves every height to auto,
+           .gantt-wrapper never gets a constrained height, and overflow:auto never fires. */
+        .wrapper { height: 100%; }
+        main.content { min-height: 0; overflow: hidden; }
+        main.content > .container-fluid { height: 100%; overflow: hidden; }
         .gantt-page { height: 100%; }
+        .gantt-wrapper { min-height: 0; }
     </style>
 }
 

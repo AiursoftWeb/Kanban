@@ -105,6 +105,9 @@
   <data name="Features" xml:space="preserve">
     <value>機能</value>
   </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>ガントチャート</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>グローバル設定</value>
   </data>

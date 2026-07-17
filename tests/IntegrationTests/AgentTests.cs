@@ -153,7 +153,7 @@ public class AgentTests : TestBase
         var service = GetService<IAgentService>();
         const string userId = "admin";
 
-        var conversationId = service.StartRun(userId, boardId, "Hello");
+        var conversationId = await service.StartRun(userId, boardId, "Hello");
 
         var conversation = service.GetConversation(conversationId)!;
         Assert.AreEqual(userId, conversation.UserId);
@@ -176,7 +176,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var service = GetService<IAgentService>();
 
-        var conversationId = service.StartRun("admin", boardId, "Hello");
+        var conversationId = await service.StartRun("admin", boardId, "Hello");
         Assert.IsNotNull(service.GetConversation(conversationId));
 
         service.CancelRun(conversationId);
@@ -420,7 +420,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var service = GetService<IAgentService>();
 
-        var conversationId = service.StartRun("fake-attacker-id", boardId,
+        var conversationId = await service.StartRun("fake-attacker-id", boardId,
             "Create a board for user X");
 
         // Even though the caller passed "fake-attacker-id", the conversation
@@ -512,7 +512,7 @@ public class AgentTests : TestBase
         var adminUser = await userManager.FindByEmailAsync("admin@default.com");
         var realUserId = adminUser!.Id;
 
-        var conversationId = agentService.StartRun(realUserId, boardId, "Hello");
+        var conversationId = await agentService.StartRun(realUserId, boardId, "Hello");
         var conversation = agentService.GetConversation(conversationId)!;
         Assert.AreEqual(realUserId, conversation.UserId);
         Assert.AreEqual(boardId, conversation.BoardId);
@@ -535,7 +535,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var service = GetService<IAgentService>();
 
-        var conversationId = service.StartRun("admin", boardId, "First message");
+        var conversationId = await service.StartRun("admin", boardId, "First message");
         var conversation = service.GetConversation(conversationId)!;
         var originalCount = conversation.Messages.Count;
         Assert.IsTrue(originalCount >= 2); // system + user (plus possibly assistant from background task)
@@ -561,7 +561,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var service = GetService<IAgentService>();
 
-        var conversationId = service.StartRun("admin", boardId, "Hello");
+        var conversationId = await service.StartRun("admin", boardId, "Hello");
         var conversation = service.GetConversation(conversationId)!;
         conversation.State = AgentState.Completed;
 
@@ -577,7 +577,7 @@ public class AgentTests : TestBase
         var (boardId, _) = await CreateBoardAndFirstColumnAsync();
         var service = GetService<IAgentService>();
 
-        var conversationId = service.StartRun("admin", boardId, "Hello");
+        var conversationId = await service.StartRun("admin", boardId, "Hello");
         // State is Thinking (not yet completed)
 
         var result = service.ContinueRun(conversationId, "admin", "Are you done yet?");
@@ -1445,13 +1445,13 @@ public class AgentTests : TestBase
         var service = GetService<IAgentService>();
 
         // Create a conversation and set it as expired (30+ min ago)
-        var expiredId = service.StartRun("admin", boardId, "Old message");
+        var expiredId = await service.StartRun("admin", boardId, "Old message");
         var expiredConv = service.GetConversation(expiredId);
         Assert.IsNotNull(expiredConv);
         expiredConv.LastActivity = DateTime.UtcNow - TimeSpan.FromMinutes(31);
 
         // Create a new conversation — this triggers cleanup
-        service.StartRun("admin", boardId, "New message");
+        await service.StartRun("admin", boardId, "New message");
 
         // Expired conversation should be removed
         Assert.IsNull(service.GetConversation(expiredId),
@@ -1466,11 +1466,11 @@ public class AgentTests : TestBase
         var service = GetService<IAgentService>();
 
         // Create an active conversation (just now)
-        var activeId = service.StartRun("admin", boardId, "Recent message");
+        var activeId = await service.StartRun("admin", boardId, "Recent message");
         Assert.IsNotNull(service.GetConversation(activeId));
 
         // Trigger cleanup via another StartRun
-        service.StartRun("admin", boardId, "Another message");
+        await service.StartRun("admin", boardId, "Another message");
 
         // Active conversation should still exist
         Assert.IsNotNull(service.GetConversation(activeId),
@@ -1486,7 +1486,7 @@ public class AgentTests : TestBase
         var adviceService = GetService<AdviceService>();
 
         // Create a conversation with expired advice
-        var convId = service.StartRun("admin", boardId, "Message");
+        var convId = await service.StartRun("admin", boardId, "Message");
         var advice = adviceService.Create(convId, "CreateCard", "Create Card", "",
             new Dictionary<string, object?>(), "test", "call_1");
 
@@ -1494,7 +1494,7 @@ public class AgentTests : TestBase
         conv!.LastActivity = DateTime.UtcNow - TimeSpan.FromMinutes(31);
 
         // Trigger cleanup
-        service.StartRun("admin", boardId, "New message");
+        await service.StartRun("admin", boardId, "New message");
 
         // Both conversation and advice should be gone
         Assert.IsNull(service.GetConversation(convId));
@@ -1510,7 +1510,7 @@ public class AgentTests : TestBase
         var service = GetService<IAgentService>();
         var adviceService = GetService<AdviceService>();
 
-        var convId = service.StartRun("admin", boardId, "Message");
+        var convId = await service.StartRun("admin", boardId, "Message");
         adviceService.Create(convId, "T1", "T1", "", new(), "", "c1");
         adviceService.Create(convId, "T2", "T2", "", new(), "", "c2");
 
@@ -2131,6 +2131,309 @@ public class AgentTests : TestBase
 
         Assert.IsNotNull(result, "Subagent should return a non-null result");
         Assert.IsTrue(result.Length > 0, "Subagent should return a non-empty result");
+    }
+
+    // ── ConvertExcel ───────────────────────────────────────
+
+    [TestMethod]
+    public async Task AgentController_ConvertExcel_RequiresAuth()
+    {
+        var content = new MultipartFormDataContent();
+        content.Add(new ByteArrayContent("test"u8.ToArray()), "file", "test.xlsx");
+        var response = await Http.PostAsync("/Agent/ConvertExcel", content);
+        Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task AgentController_ConvertExcel_RequiresAntiForgeryToken()
+    {
+        await LoginAsAdmin();
+        var content = new MultipartFormDataContent();
+        content.Add(new ByteArrayContent("test"u8.ToArray()), "file", "test.xlsx");
+        var response = await Http.PostAsync("/Agent/ConvertExcel", content);
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task AgentController_ConvertExcel_NoFile_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var token = await GetAntiCsrfToken("/");
+        var content = new MultipartFormDataContent();
+        content.Headers.Add("RequestVerificationToken", token);
+        var response = await Http.PostAsync("/Agent/ConvertExcel", content);
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task AgentController_ConvertExcel_WrongExtension_ReturnsBadRequest()
+    {
+        await LoginAsAdmin();
+        var token = await GetAntiCsrfToken("/");
+        var content = new MultipartFormDataContent();
+        content.Headers.Add("RequestVerificationToken", token);
+        content.Add(new ByteArrayContent("test"u8.ToArray()), "file", "test.xls");
+        var response = await Http.PostAsync("/Agent/ConvertExcel", content);
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        var body = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<JsonElement>(body);
+        Assert.IsTrue(result.TryGetProperty("Error", out var error));
+        StringAssert.Contains(error.GetString()!, "xlsx");
+    }
+
+    [TestMethod]
+    public async Task AgentController_SendMessage_WithExcelMarkdown()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var token = await GetAntiCsrfToken("/");
+
+        var json = JsonSerializer.Serialize(new
+        {
+            boardId,
+            message = "Analyze this spreadsheet",
+            ExcelMarkdown = "| Col A | Col B |\n|---|---|\n| 1 | 2 |"
+        });
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        content.Headers.Add("RequestVerificationToken", token);
+
+        var response = await Http.PostAsync("/Agent/SendMessage", content);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        var body = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<JsonElement>(body);
+        var conversationId = result.GetProperty("ConversationId").GetString()!;
+
+        var agentService = GetService<IAgentService>();
+        var conversation = agentService.GetConversation(Guid.Parse(conversationId))!;
+        Assert.IsNotNull(conversation);
+
+        // Verify Excel system reminder and markdown are present as meta messages
+        var excelReminder = conversation.Messages.FirstOrDefault(m => m.IsMeta && m.Content != null &&
+            m.Content.Contains("The user has attached an Excel spreadsheet"));
+        Assert.IsNotNull(excelReminder, "Excel system reminder should be present as meta message");
+
+        var excelMarkdownMsg = conversation.Messages.FirstOrDefault(m => m.IsMeta && m.Content != null &&
+            m.Content.Contains("| Col A | Col B |"));
+        Assert.IsNotNull(excelMarkdownMsg, "Excel markdown should be present as meta message");
+
+        // The original user message should still be present (non-meta)
+        var userMsg = conversation.Messages.FirstOrDefault(m => !m.IsMeta &&
+            m.Role == "user" && m.Content == "Analyze this spreadsheet");
+        Assert.IsNotNull(userMsg, "User message should be present as non-meta");
+    }
+
+    // ── BatchCreateCards with dates ────────────────────────
+
+    [TestMethod]
+    public async Task BatchCreateCards_WithOptionalDates()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"Task with dates","plannedStartTime":"2026-07-01","dueDate":"2026-07-15"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 1 card(s)");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual("Task with dates", card.Title);
+        Assert.IsNotNull(card.PlannedStartTime, "PlannedStartTime should be set");
+        // DateTime.TryParse treats input as local time; ToUniversalTime() shifts by timezone offset
+        Assert.AreEqual(new DateTime(2026, 7, 1, 0, 0, 0, DateTimeKind.Local).ToUniversalTime(),
+            card.PlannedStartTime!.Value);
+        Assert.IsNotNull(card.DueDate, "DueDate should be set");
+        Assert.AreEqual(new DateTime(2026, 7, 15, 0, 0, 0, DateTimeKind.Local).ToUniversalTime(),
+            card.DueDate!.Value);
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_MixedWithAndWithoutDates()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"With date","dueDate":"2026-12-31"},{"title":"No date"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 2 card(s)");
+
+        var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).OrderBy(c => c.Order).ToList();
+        Assert.AreEqual(2, cards.Count);
+        Assert.IsNotNull(cards[0].DueDate, "Card with date should have DueDate set");
+        Assert.IsNull(cards[1].DueDate, "Card without date should have null DueDate");
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_InvalidDateFormatIgnoresField()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var cardsJson = """[{"title":"Bad date","dueDate":"not-a-date"}]""";
+
+        var result = await batchTools.BatchCreateCards(columnId, cardsJson);
+        StringAssert.Contains(result, "Created 1 card(s)");
+
+        var card = db.KanbanCards.First(c => c.ColumnId == columnId);
+        Assert.AreEqual("Bad date", card.Title);
+        Assert.IsNull(card.DueDate, "Invalid date string should leave DueDate as null");
+    }
+
+    // ── BatchAssignCards ──────────────────────────────────
+
+    [TestMethod]
+    public async Task BatchAssignCards_AssignToUser()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        // Register target user and add them to board
+        var (user2Email, _) = await RegisterAndLoginAsync();
+        await LoginAsAdmin();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        var user2 = db.Users.First(u => u.Email == user2Email);
+
+        // Add user2 to board
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var shareTools = scope.ServiceProvider.GetRequiredService<ShareWriteTools>();
+        var board = db.KanbanBoards.First(b => b.Id == boardId);
+        await shareTools.ShareBoard(board.Id, user2.Id, null, "ReadOnly");
+
+        // Create cards
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        await batchTools.BatchCreateCards(columnId, """[{"title":"Card A"},{"title":"Card B"},{"title":"Card C"}]""");
+
+        var cardIds = db.KanbanCards.Where(c => c.ColumnId == columnId).Select(c => c.Id).ToList();
+        Assert.AreEqual(3, cardIds.Count);
+
+        // Batch assign to user2
+        var result = await batchTools.BatchAssignCards(
+            JsonSerializer.Serialize(cardIds), user2.Id);
+        StringAssert.Contains(result, "assigned 3 card(s)");
+
+        // Verify all cards are assigned
+        await db.Entry(board).ReloadAsync();
+        foreach (var card in db.KanbanCards.Where(c => c.ColumnId == columnId))
+        {
+            Assert.AreEqual(user2.Id, card.AssignedUserId, $"Card {card.Id} should be assigned to user2");
+        }
+    }
+
+    [TestMethod]
+    public async Task BatchAssignCards_Unassign()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        // Create cards (auto-assigned to current user)
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        await batchTools.BatchCreateCards(columnId, """[{"title":"Card A"},{"title":"Card B"}]""");
+
+        var cardIds = db.KanbanCards.Where(c => c.ColumnId == columnId).Select(c => c.Id).ToList();
+
+        // Verify they are assigned to admin
+        foreach (var card in db.KanbanCards.Where(c => c.ColumnId == columnId))
+        {
+            Assert.AreEqual(adminUser.Id, card.AssignedUserId);
+        }
+
+        // Unassign all
+        var result = await batchTools.BatchAssignCards(
+            JsonSerializer.Serialize(cardIds), "");
+        StringAssert.Contains(result, "unassigned 2 card(s)");
+
+        // Verify all are unassigned
+        foreach (var card in db.KanbanCards.Where(c => c.ColumnId == columnId))
+        {
+            Assert.IsNull(card.AssignedUserId, $"Card {card.Id} should be unassigned");
+        }
+    }
+
+    [TestMethod]
+    public async Task BatchAssignCards_InvalidJson_ReturnsError()
+    {
+        await LoginAsAdmin();
+        await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchAssignCards("not-json", "user-id");
+        StringAssert.Contains(result, "Invalid JSON format");
+    }
+
+    [TestMethod]
+    public async Task BatchAssignCards_EmptyArray_ReturnsError()
+    {
+        await LoginAsAdmin();
+        await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        var result = await batchTools.BatchAssignCards("[]", "user-id");
+        StringAssert.Contains(result, "No card IDs specified");
+    }
+
+    [TestMethod]
+    public async Task BatchAssignCards_NoPermission_ReturnsError()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        // Create a card
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(u => u.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var batchTools = scope.ServiceProvider.GetRequiredService<BatchWriteTools>();
+        await batchTools.BatchCreateCards(columnId, """[{"title":"Card A"}]""");
+        var cardId = db.KanbanCards.First(c => c.ColumnId == columnId).Id;
+
+        // Register a second user who does NOT own the board
+        var (otherEmail, _) = await RegisterAndLoginAsync();
+
+        var scope2 = Server!.Services.CreateScope();
+        var otherUser = scope2.ServiceProvider.GetRequiredService<TemplateDbContext>().Users.First(u => u.Email == otherEmail);
+        scope2.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = otherUser.Id;
+        var batchTools2 = scope2.ServiceProvider.GetRequiredService<BatchWriteTools>();
+
+        var result = await batchTools2.BatchAssignCards(
+            JsonSerializer.Serialize(new[] { cardId }), otherUser.Id);
+        StringAssert.Contains(result, "Error: You do not have permission");
     }
 
     // ── Helpers ─────────────────────────────────────────────

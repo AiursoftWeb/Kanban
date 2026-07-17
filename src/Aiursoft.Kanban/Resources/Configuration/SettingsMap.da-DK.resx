@@ -27,11 +27,26 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Et dummytal til test.</value>
   </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Agent systemprompt</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>AI-model</value>
+  </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Tillad bruger at ændre apelation</value>
   </data>
   <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
     <value>Tillad brugere at justere deres nickname på siden til at administrere profil.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Anthropic API-endepunkt</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Anthropic API-token</value>
+  </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Autoindstil planlagt starttidspunkt</value>
   </data>
   <data name="Brand Home URL" xml:space="preserve">
     <value>Brand Home URL</value>
@@ -48,11 +63,17 @@
   <data name="ICP Number" xml:space="preserve">
     <value>ICP-nummer</value>
   </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Forudplanlagt starttidspunkt forsinkelsesdage</value>
+  </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Projekttast</value>
   </data>
   <data name="Project Name" xml:space="preserve">
     <value>Projektnavn</value>
+  </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Endpointet til Anthropic Messages API, som bruges af Kanban AI-agenten. Skal være den fulde URL med /v1/messages inkluderet, f.eks. https://ollama.example.com/v1/messages. Efterlad tomt for at deaktivere AI-agenten.</value>
   </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Det brands navn, der vises i foden.</value>
@@ -60,11 +81,26 @@
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>ICP-licensenr. for brugere i Kina. Lad stå tomt for at skjule.</value>
   </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>Navnet på LLM-modellen, der bruges til Kanban AI-agenten, f.eks. aiursoft-instruct:latest, claude-sonnet-4-5 eller deepseek-chat. Skal være tilgængelig ved Anthropic API-endepunktet ovenfor.</value>
+  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Det projektlogo, der vises i navigationen og foden. Støtter jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Navnet på projektet, der vises i brugergrænsefladen.</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>Systempromptet sendt til LLM&apos;et som rolledefinition for Kanban AI-agenten. Understøtter pladsholder: {{userContext}} — indsprøjtet i runtime med det aktuelle brugers navn, roller, ejede boards og det aktive board&apos;s navn/ID. Understøtter {{currentDateTime}} for det aktuelle UTC-tidspunkt.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>x-api-key-tokenet til autentificering af Anthropic API Endpoint. Efterlad tomt, hvis endpoint ikke kræver autentificering.</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Når planlagt starttid indstilles automatisk, er antallet af dage, der skal flyttes frem før forfaldsdatoen.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>Når aktiveret får kort med en forfaldsdato, men uden planlagt starttid, automatisk deres planlagte starttid indstillet baseret på indstillingen for fremrykkede dage.</value>
   </data>
 
 </root>
