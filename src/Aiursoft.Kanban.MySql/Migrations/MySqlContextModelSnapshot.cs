@@ -393,6 +393,11 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("DailyReportLanguage")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
                     b.Property<string>("DisplayName")
                         .IsRequired()
                         .HasMaxLength(30)
