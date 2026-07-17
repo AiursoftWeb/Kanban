@@ -11,6 +11,7 @@ public static class AppPermissionNames
     public const string CanAddUsers = nameof(CanAddUsers);
     public const string CanEditUsers = nameof(CanEditUsers);
     public const string CanAssignRoleToUser = nameof(CanAssignRoleToUser);
+    public const string CanViewAnyUserTasks = nameof(CanViewAnyUserTasks);
 
     // Role Management
     public const string CanReadRoles = nameof(CanReadRoles);

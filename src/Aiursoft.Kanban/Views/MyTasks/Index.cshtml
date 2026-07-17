@@ -10,6 +10,11 @@
         var selectedSort = sort ?? Model.SelectedSort;
         var selectedIds = (labelIds ?? Model.SelectedLabelIds).Distinct().OrderBy(id => id).ToList();
 
+        if (Model.IsViewingOtherUser)
+        {
+            query.Add($"targetUserId={Uri.EscapeDataString(Model.TargetUser.Id)}");
+        }
+
         if (!string.Equals(selectedStatus, "incomplete", StringComparison.OrdinalIgnoreCase))
         {
             query.Add($"status={Uri.EscapeDataString(selectedStatus)}");
@@ -178,10 +183,21 @@
 
 <div class="row mb-4">
     <div class="col-12">
-        <h2 class="mb-1">@Localizer["My Tasks"]</h2>
-        <p class="text-muted mb-0">@Localizer["Everything assigned to you"]@SortDescription(Model.SelectedSort)</p>
+        <h2 class="mb-1">@(Model.IsViewingOtherUser ? $"{Model.TargetUser.DisplayName}'s Tasks" : Localizer["My Tasks"])</h2>
+        <p class="text-muted mb-0">@(Model.IsViewingOtherUser ? Localizer["Everything assigned to this user"] : Localizer["Everything assigned to you"])@SortDescription(Model.SelectedSort)</p>
     </div>
 </div>
+
+@if (Model.IsViewingOtherUser)
+{
+    <div class="alert alert-warning d-flex align-items-center mb-4">
+        <i class="icon me-2">eye</i> 
+        <div>
+            @Localizer["You are currently viewing tasks assigned to"] <strong>@Model.TargetUser.DisplayName</strong>.
+            <a href="/MyTasks" class="alert-link ms-2">@Localizer["Return to my tasks"]</a>
+        </div>
+    </div>
+}
 
 <div class="card filters-card border-0 shadow-sm mb-4">
     <div class="card-body p-4">
@@ -193,9 +209,10 @@
             <a class="btn @(Model.SelectedStatus == "completed" ? "btn-primary" : "btn-outline-secondary") filter-tab" href="@BuildUrl(status: "completed")">@Localizer["Completed"]</a>
         </div>
 
-        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-            <span class="fw-semibold">@Localizer["Sort"]</span>
-            <select class="form-select sort-select" style="width:auto" onchange="window.location=this.value">
+        <div class="d-flex flex-wrap align-items-center gap-4 mb-3">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fw-semibold">@Localizer["Sort"]</span>
+                <select class="form-select sort-select" style="width:auto" onchange="window.location=this.value">
                 @{
                     var sortOptions = new (string Value, string Label)[]
                     {
@@ -225,6 +242,26 @@
                     }
                 }
             </select>
+            </div>
+            @if (Model.HasViewAnyUserTasksPermission && Model.AvailableUsers != null)
+            {
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fw-semibold">@Localizer["User"]</span>
+                    <select class="form-select sort-select" style="width:auto" onchange="window.location.href='?targetUserId=' + this.value">
+                        @foreach (var user in Model.AvailableUsers)
+                        {
+                            if (Model.TargetUser.Id == user.Id)
+                            {
+                                <option value="@user.Id" selected>@user.DisplayName</option>
+                            }
+                            else
+                            {
+                                <option value="@user.Id">@user.DisplayName</option>
+                            }
+                        }
+                    </select>
+                </div>
+            }
         </div>
 
         @if (Model.AvailableLabels.Count > 0)

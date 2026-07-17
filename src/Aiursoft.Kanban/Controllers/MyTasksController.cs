@@ -1,3 +1,4 @@
+using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.MyTasksViewModels;
 using Aiursoft.Kanban.Services;
@@ -14,7 +15,8 @@ namespace Aiursoft.Kanban.Controllers;
 [LimitPerMin]
 public class MyTasksController(
     TemplateDbContext db,
-    UserManager<User> userManager) : Controller
+    UserManager<User> userManager,
+    IAuthorizationService authorizationService) : Controller
 {
     [RenderInNavBar(
         NavGroupName = "Features",
@@ -24,9 +26,30 @@ public class MyTasksController(
         CascadedLinksOrder = 3,
         LinkText = "My Tasks",
         LinkOrder = 10)]
-    public async Task<IActionResult> Index(string status = "incomplete", string? labelIds = null, string labelMode = "any", string sort = "planned-end-desc")
+    public async Task<IActionResult> Index(string? targetUserId = null, string status = "incomplete", string? labelIds = null, string labelMode = "any", string sort = "planned-end-desc")
     {
-        var userId = userManager.GetUserId(User)!;
+        var currentUserId = userManager.GetUserId(User)!;
+        var queryUserId = string.IsNullOrWhiteSpace(targetUserId) ? currentUserId : targetUserId;
+
+        var hasViewAnyUserTasksPermission = (await authorizationService.AuthorizeAsync(User, AppPermissionNames.CanViewAnyUserTasks)).Succeeded;
+
+        if (queryUserId != currentUserId && !hasViewAnyUserTasksPermission)
+        {
+            return Forbid();
+        }
+
+        var targetUser = await userManager.FindByIdAsync(queryUserId);
+        if (targetUser == null)
+        {
+            return NotFound();
+        }
+
+        List<User>? availableUsers = null;
+        if (hasViewAnyUserTasksPermission)
+        {
+            availableUsers = await db.Users.OrderBy(u => u.DisplayName).ToListAsync();
+        }
+
         var normalizedStatus = NormalizeStatus(status);
         var normalizedLabelMode = NormalizeLabelMode(labelMode);
         var normalizedSort = NormalizeSort(sort);
@@ -38,7 +61,7 @@ public class MyTasksController(
             .Include(card => card.Column)
                 .ThenInclude(column => column.Board)
             .Include(card => card.AssignedUser)
-            .Where(card => card.AssignedUserId == userId);
+            .Where(card => card.AssignedUserId == queryUserId);
 
         cardsQuery = normalizedStatus switch
         {
@@ -79,7 +102,11 @@ public class MyTasksController(
 
         return this.StackView(new IndexViewModel
         {
+            HasViewAnyUserTasksPermission = hasViewAnyUserTasksPermission,
+            AvailableUsers = availableUsers,
             Cards = orderedCards,
+            TargetUser = targetUser,
+            IsViewingOtherUser = queryUserId != currentUserId,
             AvailableLabels = availableLabels,
             SelectedLabelIds = selectedLabelIds,
             SelectedStatus = normalizedStatus,

@@ -3,6 +3,7 @@ using System.Text.Json;
 using Aiursoft.Kanban.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Aiursoft.Kanban.Authorization;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
 
@@ -270,6 +271,55 @@ public class PriorityLabelsAssigneeTests : TestBase
 
         // When no label is selected, chips use the default muted style (no inline color)
         Assert.DoesNotContain("label-filter-chip active", noSelectionHtml);
+    }
+
+    [TestMethod]
+    public async Task MyTasks_ViewOtherUserTasks_WithoutPermission_ReturnsForbid()
+    {
+        var (managerEmail, _) = await RegisterAndLoginAsync();
+        await LogoutAsync();
+
+        var (employeeEmail, _) = await RegisterAndLoginAsync();
+        var employeeId = await GetUserIdByEmailAsync(employeeEmail);
+        await LogoutAsync();
+
+        await LoginAsync(managerEmail, "Test-Password-123");
+
+        var response = await Http.GetAsync($"/MyTasks/Index?targetUserId={employeeId}");
+        Assert.IsTrue(response.StatusCode == HttpStatusCode.Forbidden || response.StatusCode == HttpStatusCode.Found);
+    }
+
+    [TestMethod]
+    public async Task MyTasks_ViewOtherUserTasks_WithPermission_ReturnsOtherUserTasks()
+    {
+        var (managerEmail, _) = await RegisterAndLoginAsync();
+        var managerId = await GetUserIdByEmailAsync(managerEmail);
+        await AssignPermissionToUserAsync(managerId, AppPermissionNames.CanViewAnyUserTasks);
+        await LogoutAsync();
+
+        var (employeeEmail, _) = await RegisterAndLoginAsync();
+        var employeeId = await GetUserIdByEmailAsync(employeeEmail);
+        await LogoutAsync();
+
+        var (_, todoColumnId, _, _) = await CreateBoardWithStatusesAsync(employeeId, "Employee Board");
+        await CreateCardAsync(todoColumnId, "Employee Task 1", employeeId, Priority.High);
+
+        await LoginAsync(managerEmail, "Test-Password-123");
+
+        var response = await Http.GetAsync($"/MyTasks/Index?targetUserId={employeeId}");
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        var html = await response.Content.ReadAsStringAsync();
+        Assert.Contains("Employee Task 1", html);
+        Assert.Contains("You are currently viewing tasks assigned to", html);
+    }
+
+    private async Task AssignPermissionToUserAsync(string userId, string permissionName)
+    {
+        using var scope = CreateScope();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+        var user = await userManager.FindByIdAsync(userId);
+        await userManager.AddClaimAsync(user!, new System.Security.Claims.Claim(AppPermissions.Type, permissionName));
     }
 
     private async Task<string> GetUserIdByEmailAsync(string email)
