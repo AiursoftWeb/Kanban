@@ -316,15 +316,18 @@ public class DailyReportBackgroundJob : IBackgroundJob
             ? (ISubagent)_planningSubagent
             : _summarySubagent;
 
+        var user = await _userManager.FindByIdAsync(userId);
+        var language = GetLanguageName(user?.DailyReportLanguage ?? "en");
+
         var chinaNow = DateTime.UtcNow + TimeSpan.FromHours(8);
         var cardContext = await BuildCardContextAsync(_db, _userManager, userId, reportType);
         var prompt = reportType == DailyReportType.Plan
             ? cardContext +
               $"\nGenerate a daily plan for {chinaNow:yyyy-MM-dd HH:mm} (UTC+8). " +
-              "Analyze the user's boards and tasks above, then produce a structured plan essay in Chinese."
+              $"Analyze the user's boards and tasks above, then produce a structured plan essay in {language}."
             : cardContext +
               $"\nGenerate a daily summary for {chinaNow:yyyy-MM-dd HH:mm} (UTC+8). " +
-              "Review the data above to understand what the user completed and what remains, then produce a structured summary essay in Chinese.";
+              $"Review the data above to understand what the user completed and what remains, then produce a structured summary essay in {language}.";
 
         _logger.LogInformation(
             "Calling subagent {SubagentName} for user {UserId}",
@@ -374,4 +377,15 @@ public class DailyReportBackgroundJob : IBackgroundJob
             "Saved {ReportType} for user {UserId}, content length={Length} chars",
             reportType, userId, content.Length);
     }
+
+    /// <summary>
+    /// Maps a DailyReportLanguage code to a human-readable language name for LLM prompts.
+    /// </summary>
+    internal static string GetLanguageName(string code) => code switch
+    {
+        "zh" => "Chinese (中文)",
+        "ja" => "Japanese (日本語)",
+        "ko" => "Korean (한국어)",
+        _ => "English"
+    };
 }

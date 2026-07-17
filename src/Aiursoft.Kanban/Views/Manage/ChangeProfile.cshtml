@@ -20,6 +20,17 @@
                 <small class="form-text text-muted">@Localizer["This name will be displayed publicly across the application."]</small>
             </div>
 
+            <div class="mb-3">
+                <label asp-for="DailyReportLanguage" class="form-label">@Localizer["Daily Report Language"]</label>
+                <select asp-for="DailyReportLanguage" class="form-select form-select-lg">
+                    <option value="en">English</option>
+                    <option value="zh">中文 (Chinese)</option>
+                    <option value="ja">日本語 (Japanese)</option>
+                    <option value="ko">한국어 (Korean)</option>
+                </select>
+                <small class="form-text text-muted">@Localizer["The language used when generating your daily plan and summary reports."]</small>
+            </div>
+
             <div class="mt-4">
                 <button type="submit" class="btn btn-primary">@Localizer["Save changes"]</button>
                 @* A "Cancel" button is added as a standard UX best practice for consistent navigation. *@

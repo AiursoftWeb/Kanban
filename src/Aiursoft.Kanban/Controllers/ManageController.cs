@@ -114,7 +114,8 @@ public class ManageController(
         var user = await GetCurrentUserAsync();
         return this.StackView(new ChangeProfileViewModel
         {
-            Name = user!.DisplayName
+            Name = user!.DisplayName,
+            DailyReportLanguage = user.DailyReportLanguage
         });
     }
 
@@ -138,6 +139,7 @@ public class ManageController(
         if (user != null)
         {
             user.DisplayName = model.Name;
+            user.DailyReportLanguage = model.DailyReportLanguage ?? "en";
             await userManager.UpdateAsync(user);
             await signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangeProfileSuccess });
