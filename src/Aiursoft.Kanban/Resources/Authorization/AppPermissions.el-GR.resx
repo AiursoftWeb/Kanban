@@ -66,6 +66,9 @@
   <data name="Allows viewing the list of roles and their assigned permissions." xml:space="preserve">
     <value>Επιτρέπει την προβολή της λίστας των ρόλων και των ανατεθέντων σε αυτούς δικαιωμάτων.</value>
   </data>
+  <data name="Allows viewing the task list of any user in the system." xml:space="preserve">
+    <value>Επιτρέπει την προβολή της λίστας εργασιών οποιουδήποτε χρήστη στο σύστημα.</value>
+  </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>Ανάθεση Ρόλων σε Χρήστες</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="Reboot This App" xml:space="preserve">
     <value>Επανεκκίνηση αυτής της εφαρμογής</value>
+  </data>
+  <data name="View Any User Tasks" xml:space="preserve">
+    <value>Προβολή εργασιών οποιουδήποτε χρήστη</value>
   </data>
   <data name="View Background Jobs" xml:space="preserve">
     <value>Προβολή Εργασιών Παρασκηνίου</value>

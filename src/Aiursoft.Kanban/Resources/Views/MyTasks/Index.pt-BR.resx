@@ -147,6 +147,9 @@
   <data name="Priority (low to high)" xml:space="preserve">
     <value>Priority (low to high)</value>
   </data>
+  <data name="Return to my tasks" xml:space="preserve">
+    <value>Voltar às minhas tarefas</value>
+  </data>
   <data name="Sort" xml:space="preserve">
     <value>Ordenar</value>
   </data>
@@ -162,8 +165,14 @@
   <data name="Urgent" xml:space="preserve">
     <value>Urgent</value>
   </data>
+  <data name="User" xml:space="preserve">
+    <value>Usuário</value>
+  </data>
   <data name="You" xml:space="preserve">
     <value>You</value>
+  </data>
+  <data name="You are currently viewing tasks assigned to" xml:space="preserve">
+    <value>Você está visualizando tarefas atribuídas a</value>
   </data>
 
 </root>

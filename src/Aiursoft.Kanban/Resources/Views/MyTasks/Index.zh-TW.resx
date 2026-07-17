@@ -147,6 +147,9 @@
   <data name="Priority (low to high)" xml:space="preserve">
     <value>優先級（從低到高）</value>
   </data>
+  <data name="Return to my tasks" xml:space="preserve">
+    <value>返回我的任務</value>
+  </data>
   <data name="Sort" xml:space="preserve">
     <value>排序</value>
   </data>
@@ -162,8 +165,14 @@
   <data name="Urgent" xml:space="preserve">
     <value>緊急</value>
   </data>
+  <data name="User" xml:space="preserve">
+    <value>使用者</value>
+  </data>
   <data name="You" xml:space="preserve">
     <value>您</value>
+  </data>
+  <data name="You are currently viewing tasks assigned to" xml:space="preserve">
+    <value>您目前正在查看指派給</value>
   </data>
 
 </root>

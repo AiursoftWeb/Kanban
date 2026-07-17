@@ -66,6 +66,9 @@
   <data name="Allows viewing the list of roles and their assigned permissions." xml:space="preserve">
     <value>Giver mulighed for at se listen over roller og deres tildelte tilladelser.</value>
   </data>
+  <data name="Allows viewing the task list of any user in the system." xml:space="preserve">
+    <value>Gør det muligt at se opgavelisten for enhver bruger i systemet.</value>
+  </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>Tildel roller til brugere</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="Reboot This App" xml:space="preserve">
     <value>Genstart denne app</value>
+  </data>
+  <data name="View Any User Tasks" xml:space="preserve">
+    <value>Vis opgaver for enhver bruger</value>
   </data>
   <data name="View Background Jobs" xml:space="preserve">
     <value>Vis baggrundsjob</value>

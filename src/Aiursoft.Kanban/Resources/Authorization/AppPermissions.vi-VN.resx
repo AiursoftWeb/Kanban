@@ -66,6 +66,9 @@
   <data name="Allows viewing the list of roles and their assigned permissions." xml:space="preserve">
     <value>Cho phép xem danh sách các vai trò và quyền đã được gán cho chúng.</value>
   </data>
+  <data name="Allows viewing the task list of any user in the system." xml:space="preserve">
+    <value>Cho phép xem danh sách tác vụ của bất kỳ người dùng nào trong hệ thống.</value>
+  </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>Gán Vai trò cho Người dùng</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="Reboot This App" xml:space="preserve">
     <value>Khởi Động Lại Ứng Dụng Này</value>
+  </data>
+  <data name="View Any User Tasks" xml:space="preserve">
+    <value>Xem nhiệm vụ của bất kỳ người dùng nào</value>
   </data>
   <data name="View Background Jobs" xml:space="preserve">
     <value>Xem các nhiệm vụ nền</value>

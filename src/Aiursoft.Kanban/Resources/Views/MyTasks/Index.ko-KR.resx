@@ -147,6 +147,9 @@
   <data name="Priority (low to high)" xml:space="preserve">
     <value>Priority (low to high)</value>
   </data>
+  <data name="Return to my tasks" xml:space="preserve">
+    <value>내 작업으로 돌아가기</value>
+  </data>
   <data name="Sort" xml:space="preserve">
     <value>정렬</value>
   </data>
@@ -162,8 +165,14 @@
   <data name="Urgent" xml:space="preserve">
     <value>Urgent</value>
   </data>
+  <data name="User" xml:space="preserve">
+    <value>사용자</value>
+  </data>
   <data name="You" xml:space="preserve">
     <value>You</value>
+  </data>
+  <data name="You are currently viewing tasks assigned to" xml:space="preserve">
+    <value>현재 다음 사용자에게 할당된 작업을 보고 있습니다.</value>
   </data>
 
 </root>

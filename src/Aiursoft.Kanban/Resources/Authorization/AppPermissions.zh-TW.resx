@@ -66,6 +66,9 @@
   <data name="Allows viewing the list of roles and their assigned permissions." xml:space="preserve">
     <value>允許檢視角色清單及其分配的權限。</value>
   </data>
+  <data name="Allows viewing the task list of any user in the system." xml:space="preserve">
+    <value>允許查看系統中任何使用者的任務清單。</value>
+  </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>指派角色給使用者</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="Reboot This App" xml:space="preserve">
     <value>重新啟動此應用程式</value>
+  </data>
+  <data name="View Any User Tasks" xml:space="preserve">
+    <value>查看任何使用者工作項目</value>
   </data>
   <data name="View Background Jobs" xml:space="preserve">
     <value>檢視背景工作</value>
