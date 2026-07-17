@@ -66,6 +66,9 @@
   <data name="Allows viewing the list of roles and their assigned permissions." xml:space="preserve">
     <value>역할 목록과 할당된 권한을 볼 수 있습니다.</value>
   </data>
+  <data name="Allows viewing the task list of any user in the system." xml:space="preserve">
+    <value>시스템 내 모든 사용자의 작업 목록을 조회할 수 있습니다.</value>
+  </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>사용자에게 역할 할당</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="Reboot This App" xml:space="preserve">
     <value>이 앱 재시작</value>
+  </data>
+  <data name="View Any User Tasks" xml:space="preserve">
+    <value>모든 사용자 작업 보기</value>
   </data>
   <data name="View Background Jobs" xml:space="preserve">
     <value>백그라운드 작업 보기</value>

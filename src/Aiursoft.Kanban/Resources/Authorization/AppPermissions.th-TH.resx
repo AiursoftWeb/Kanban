@@ -66,6 +66,9 @@
   <data name="Allows viewing the list of roles and their assigned permissions." xml:space="preserve">
     <value>อนุญาตให้ดูรายการบทบาทและสิทธิ์ที่กำหนดให้</value>
   </data>
+  <data name="Allows viewing the task list of any user in the system." xml:space="preserve">
+    <value>อนุญาตให้ดูรายการงานของผู้ใช้รายใดก็ได้ในระบบ</value>
+  </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>กำหนดบทบาทให้ผู้ใช้</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="Reboot This App" xml:space="preserve">
     <value>รีบูตแอปนี้</value>
+  </data>
+  <data name="View Any User Tasks" xml:space="preserve">
+    <value>ดูงานของผู้ใช้ใดๆ</value>
   </data>
   <data name="View Background Jobs" xml:space="preserve">
     <value>ดูงานเบื้องหลัง</value>

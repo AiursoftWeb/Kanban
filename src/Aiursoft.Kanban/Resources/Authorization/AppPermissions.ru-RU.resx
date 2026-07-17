@@ -66,6 +66,9 @@
   <data name="Allows viewing the list of roles and their assigned permissions." xml:space="preserve">
     <value>Позволяет просматривать список ролей и назначенные им разрешения.</value>
   </data>
+  <data name="Allows viewing the task list of any user in the system." xml:space="preserve">
+    <value>Позволяет просматривать список задач любого пользователя в системе.</value>
+  </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>Назначение ролей пользователям</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="Reboot This App" xml:space="preserve">
     <value>Перезапустить это приложение</value>
+  </data>
+  <data name="View Any User Tasks" xml:space="preserve">
+    <value>Просмотр задач любого пользователя</value>
   </data>
   <data name="View Background Jobs" xml:space="preserve">
     <value>Просмотр фоновых заданий</value>
