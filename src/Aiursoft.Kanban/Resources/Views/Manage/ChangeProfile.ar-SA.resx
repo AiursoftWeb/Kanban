@@ -24,6 +24,9 @@
   <data name="Change profile" xml:space="preserve">
     <value>تعديل الملف الشخصي</value>
   </data>
+  <data name="Daily Report Language" xml:space="preserve">
+    <value>لغة التقرير اليومي</value>
+  </data>
   <data name="Display Name" xml:space="preserve">
     <value>الاسم المعروض</value>
   </data>
@@ -38,6 +41,9 @@
   </data>
   <data name="Save changes" xml:space="preserve">
     <value>حفظ التغييرات</value>
+  </data>
+  <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
+    <value>اللغة المستخدمة عند إنشاء خططك اليومية وتقارير الملخصات.</value>
   </data>
   <data name="This name will be displayed publicly across the application." xml:space="preserve">
     <value>هذا الاسم سيظهر علنًا عبر التطبيق.</value>

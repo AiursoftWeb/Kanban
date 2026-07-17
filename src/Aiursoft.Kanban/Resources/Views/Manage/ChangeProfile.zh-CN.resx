@@ -24,6 +24,9 @@
   <data name="Change profile" xml:space="preserve">
     <value>修改个人资料</value>
   </data>
+  <data name="Daily Report Language" xml:space="preserve">
+    <value>每日报告语言</value>
+  </data>
   <data name="Display Name" xml:space="preserve">
     <value>显示名称</value>
   </data>
@@ -38,6 +41,9 @@
   </data>
   <data name="Save changes" xml:space="preserve">
     <value>保存更改</value>
+  </data>
+  <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
+    <value>生成每日计划和总结报告时使用的语言。</value>
   </data>
   <data name="This name will be displayed publicly across the application." xml:space="preserve">
     <value>此名称将在整个应用程序中公开显示。</value>

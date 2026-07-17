@@ -24,6 +24,9 @@
   <data name="Change profile" xml:space="preserve">
     <value>プロフィールを変更</value>
   </data>
+  <data name="Daily Report Language" xml:space="preserve">
+    <value>日報の言語</value>
+  </data>
   <data name="Display Name" xml:space="preserve">
     <value>表示名</value>
   </data>
@@ -38,6 +41,9 @@
   </data>
   <data name="Save changes" xml:space="preserve">
     <value>変更を保存</value>
+  </data>
+  <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
+    <value>毎日の計画とサマリーレポートの生成時に使用される言語です。</value>
   </data>
   <data name="This name will be displayed publicly across the application." xml:space="preserve">
     <value>この名前はアプリケーション全体で公開表示されます。</value>
