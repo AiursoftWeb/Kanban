@@ -24,6 +24,9 @@
   <data name="Change profile" xml:space="preserve">
     <value>Змінити профіль</value>
   </data>
+  <data name="Daily Report Language" xml:space="preserve">
+    <value>Мова щоденного звіту</value>
+  </data>
   <data name="Display Name" xml:space="preserve">
     <value>Відображуване ім&apos;я</value>
   </data>
@@ -38,6 +41,9 @@
   </data>
   <data name="Save changes" xml:space="preserve">
     <value>Зберегти зміни</value>
+  </data>
+  <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
+    <value>Мова, яка використовується під час генерації вашого щоденного плану та звітів-підсумків.</value>
   </data>
   <data name="This name will be displayed publicly across the application." xml:space="preserve">
     <value>Це ім&apos;я буде публічно відображатися в усій програмі.</value>

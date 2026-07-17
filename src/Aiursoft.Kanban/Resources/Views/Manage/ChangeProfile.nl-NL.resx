@@ -24,6 +24,9 @@
   <data name="Change profile" xml:space="preserve">
     <value>Profiel wijzigen</value>
   </data>
+  <data name="Daily Report Language" xml:space="preserve">
+    <value>Taal dagelijks rapport</value>
+  </data>
   <data name="Display Name" xml:space="preserve">
     <value>Weergavenaam</value>
   </data>
@@ -38,6 +41,9 @@
   </data>
   <data name="Save changes" xml:space="preserve">
     <value>Wijzigingen opslaan</value>
+  </data>
+  <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
+    <value>De taal die wordt gebruikt bij het genereren van uw dagelijkse planning en samenvattingsrapporten.</value>
   </data>
   <data name="This name will be displayed publicly across the application." xml:space="preserve">
     <value>Deze naam wordt overal in de applicatie openbaar weergegeven.</value>

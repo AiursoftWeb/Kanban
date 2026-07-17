@@ -24,6 +24,9 @@
   <data name="Change profile" xml:space="preserve">
     <value>Muokkaa profiilia</value>
   </data>
+  <data name="Daily Report Language" xml:space="preserve">
+    <value>Päiväraportin kieli</value>
+  </data>
   <data name="Display Name" xml:space="preserve">
     <value>Näyttönimi</value>
   </data>
@@ -38,6 +41,9 @@
   </data>
   <data name="Save changes" xml:space="preserve">
     <value>Tallenna muutokset</value>
+  </data>
+  <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
+    <value>Kieli, jota käytetään päivittäisten suunnitelmiesi ja yhteenvetoraporttisi luomisessa.</value>
   </data>
   <data name="This name will be displayed publicly across the application." xml:space="preserve">
     <value>Tämä nimi näytetään julkisesti koko sovelluksessa.</value>
