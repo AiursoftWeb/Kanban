@@ -8,7 +8,6 @@
     var returnBoardUrl = Url.Action("Index", "Kanban", new { boardId = Model.ReturnBoardId }) ?? "/Kanban";
     var backToBoardUrl = Url.Action("Index", "Kanban", new { boardId = Model.ReturnBoardId, highlightCard = Model.CardId }) ?? returnBoardUrl;
     var kanbanImageUploadUrl = StorageService.GetUploadUrl("kanban-images");
-    ViewData["Title"] = Model.Title;
 }
 
 @* ReSharper disable once Razor.SectionNotResolved *@

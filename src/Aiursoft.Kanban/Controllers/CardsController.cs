@@ -74,6 +74,7 @@ public class CardsController(
 
         var model = new CardDetailViewModel
         {
+            PageTitle = card.Title,
             CardId = card.Id,
             Title = card.Title,
             Description = card.Description ?? string.Empty,
