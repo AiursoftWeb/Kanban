@@ -3,11 +3,13 @@ using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.ManageViewModels;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
+using Aiursoft.UiStack.Layout;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Diagnostics.CodeAnalysis;
@@ -205,7 +207,7 @@ public class ManageController(
             ownedBoardsCount = await context.KanbanBoards.CountAsync(b => b.UserId == user.Id);
         }
         ViewData["OwnedBoardsCount"] = ownedBoardsCount;
-        return this.StackView(new Aiursoft.UiStack.Layout.UiStackLayoutViewModel());
+        return this.StackView(new UiStackLayoutViewModel());
     }
 
     //
