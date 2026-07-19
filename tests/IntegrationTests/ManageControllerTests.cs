@@ -5,7 +5,6 @@ using Aiursoft.Kanban.Services.FileStorage;
 using Aiursoft.Kanban.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
 
 [TestClass]
