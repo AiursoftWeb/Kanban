@@ -2,6 +2,10 @@ using System.Net;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
 
+using Aiursoft.Kanban.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
 
 [TestClass]
@@ -112,5 +116,75 @@ public class ManageControllerTests : TestBase
     private class UploadResult
     {
         public string Path { get; init; } = string.Empty;
+    }
+
+    [TestMethod]
+    public async Task TestDeleteAccount_WithAssets_Blocked()
+    {
+        // Arrange: register, login, and create an asset owned by the user
+        var (email, _) = await RegisterAndLoginAsync();
+
+        string userId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            var user = await userManager.FindByEmailAsync(email);
+            userId = user!.Id;
+
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.KanbanBoards.Add(new KanbanBoard { Name = "test-delete-board", UserId = userId });
+            await db.SaveChangesAsync();
+        }
+
+        // Act: try to delete account
+        var deleteResponse = await PostForm("/Manage/DeleteAccountPost", new(), tokenUrl: "/Manage/ChangePassword");
+
+        // Assert: blocked — redirected back to confirmation page, NOT "/"
+        AssertRedirect(deleteResponse, "/Manage/DeleteAccount");
+
+        // Assert: user still exists
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            Assert.IsNotNull(await userManager.FindByEmailAsync(email));
+        }
+
+        // Assert: asset still exists
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.IsTrue(await db.KanbanBoards.AnyAsync(b => b.UserId == userId));
+        }
+    }
+
+    [TestMethod]
+    public async Task TestDeleteAccount_NoAssets_Succeeds()
+    {
+        // Arrange: register and login (no assets created)
+        var (email, _) = await RegisterAndLoginAsync();
+
+        // Act: confirmation page loads
+        var deletePage = await Http.GetAsync("/Manage/DeleteAccount");
+        deletePage.EnsureSuccessStatusCode();
+
+        // Act: confirm deletion
+        var deleteResponse = await PostForm("/Manage/DeleteAccountPost", new(), tokenUrl: "/Manage/DeleteAccount");
+        AssertRedirect(deleteResponse, "/");
+
+        // Assert: signed out
+        var managePage = await Http.GetAsync("/Manage/Index");
+        Assert.AreEqual(HttpStatusCode.Found, managePage.StatusCode);
+
+        // Assert: user gone from DB
+        using var scope = Server!.Services.CreateScope();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+        Assert.IsNull(await userManager.FindByEmailAsync(email));
+    }
+
+    [TestMethod]
+    public async Task TestDeleteAccount_Unauthenticated_RedirectsToLogin()
+    {
+        var deletePage = await Http.GetAsync("/Manage/DeleteAccount");
+        Assert.AreEqual(HttpStatusCode.Found, deletePage.StatusCode);
     }
 }
