@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Are you sure you want to delete your account?" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa tài khoản của mình không?</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Quay lại</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="Danger Zone" xml:space="preserve">
+    <value>Khu vực nguy hiểm</value>
+  </data>
+  <data name="Delete Account" xml:space="preserve">
+    <value>Xóa tài khoản</value>
+  </data>
+  <data name="Delete Account Data" xml:space="preserve">
+    <value>Xóa dữ liệu tài khoản</value>
+  </data>
+  <data name="Go to my boards" xml:space="preserve">
+    <value>Đến bảng của tôi</value>
+  </data>
+  <data name="Kanban board(s)." xml:space="preserve">
+    <value>Bảng Kanban.</value>
+  </data>
+  <data name="This action will permanently erase your profile and you will be removed from all shared boards. This action cannot be undone." xml:space="preserve">
+    <value>Hành động này sẽ xóa vĩnh viễn hồ sơ của bạn và bạn sẽ bị xóa khỏi tất cả các bảng chia sẻ. Hành động này không thể hoàn tác.</value>
+  </data>
+  <data name="To prevent disrupting your team members, you must first manually delete these boards or transfer their ownership before you can delete your account." xml:space="preserve">
+    <value>Để tránh gây gián đoạn cho các thành viên trong nhóm của bạn, bạn phải xóa thủ công các bảng này hoặc chuyển quyền sở hữu của chúng trước khi có thể xóa tài khoản của mình.</value>
+  </data>
+  <data name="Yes, delete my account" xml:space="preserve">
+    <value>Có, xóa tài khoản của tôi</value>
+  </data>
+  <data name="You are currently the owner of" xml:space="preserve">
+    <value>Bạn hiện là chủ sở hữu của</value>
+  </data>
+  <data name="You cannot delete your account yet." xml:space="preserve">
+    <value>Bạn chưa thể xóa tài khoản của mình ngay bây giờ.</value>
+  </data>
+
+</root>

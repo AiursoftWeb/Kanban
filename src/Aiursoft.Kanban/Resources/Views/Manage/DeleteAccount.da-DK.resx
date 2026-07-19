@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Are you sure you want to delete your account?" xml:space="preserve">
+    <value>Er du sikker på, at du vil slette din konto?</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Tilbage</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="Danger Zone" xml:space="preserve">
+    <value>Farezone</value>
+  </data>
+  <data name="Delete Account" xml:space="preserve">
+    <value>Slet konto</value>
+  </data>
+  <data name="Delete Account Data" xml:space="preserve">
+    <value>Slet kontodata</value>
+  </data>
+  <data name="Go to my boards" xml:space="preserve">
+    <value>Gå til mine tavler</value>
+  </data>
+  <data name="Kanban board(s)." xml:space="preserve">
+    <value>Kanban-bræt(-brædder).</value>
+  </data>
+  <data name="This action will permanently erase your profile and you will be removed from all shared boards. This action cannot be undone." xml:space="preserve">
+    <value>Denne handling sletter din profil permanent, og du bliver fjernet fra alle delte tavler. Denne handling kan ikke fortrydes.</value>
+  </data>
+  <data name="To prevent disrupting your team members, you must first manually delete these boards or transfer their ownership before you can delete your account." xml:space="preserve">
+    <value>For at undgå at forstyrre dine teammedlemmer, skal du først manuelt slette disse tavler eller overdrage ejerskabet af dem, før du kan slette din konto.</value>
+  </data>
+  <data name="Yes, delete my account" xml:space="preserve">
+    <value>Ja, slet min konto</value>
+  </data>
+  <data name="You are currently the owner of" xml:space="preserve">
+    <value>Du er i øjeblikket ejer af</value>
+  </data>
+  <data name="You cannot delete your account yet." xml:space="preserve">
+    <value>Du kan ikke slette din konto endnu.</value>
+  </data>
+
+</root>
