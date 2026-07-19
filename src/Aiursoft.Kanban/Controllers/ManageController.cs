@@ -207,7 +207,7 @@ public class ManageController(
             ownedBoardsCount = await context.KanbanBoards.CountAsync(b => b.UserId == user.Id);
         }
         ViewData["OwnedBoardsCount"] = ownedBoardsCount;
-        return this.StackView(new UiStackLayoutViewModel());
+        return this.StackView(new UiStackLayoutViewModel { PageTitle = "Delete Account" });
     }
 
     //
