@@ -193,6 +193,44 @@ public class ManageController(
         return this.StackView(model);
     }
 
+    //
+    // GET: /Manage/DeleteAccount
+    [HttpGet]
+    public async Task<IActionResult> DeleteAccount([FromServices] TemplateDbContext context)
+    {
+        var user = await GetCurrentUserAsync();
+        int ownedBoardsCount = 0;
+        if (user != null)
+        {
+            ownedBoardsCount = await context.KanbanBoards.CountAsync(b => b.UserId == user.Id);
+        }
+        ViewData["OwnedBoardsCount"] = ownedBoardsCount;
+        return this.StackView(new Aiursoft.UiStack.Layout.UiStackLayoutViewModel());
+    }
+
+    //
+    // POST: /Manage/DeleteAccount
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteAccountPost([FromServices] TemplateDbContext context)
+    {
+        var user = await GetCurrentUserAsync();
+        if (user != null)
+        {
+            var hasBoards = await context.KanbanBoards.AnyAsync(b => b.UserId == user.Id);
+            if (hasBoards)
+            {
+                // Can't delete if owning boards
+                return RedirectToAction(nameof(DeleteAccount));
+            }
+            await signInManager.SignOutAsync();
+            await userManager.DeleteAsync(user);
+            logger.LogInformation(3, "User deleted their account successfully");
+            return Redirect("/");
+        }
+        return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+    }
+
     #region Helpers
 
     private void AddErrors(IdentityResult result)

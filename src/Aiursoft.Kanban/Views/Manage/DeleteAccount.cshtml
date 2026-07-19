@@ -1,0 +1,63 @@
+@model dynamic
+@{
+    ViewData["Title"] = Localizer["Delete Account"];
+}
+
+<h1 class="h3 mb-3">@ViewData["Title"]</h1>
+
+<div class="card border-danger">
+    <div class="card-header bg-danger text-white">
+        <h5 class="card-title mb-0 text-white"><i class="align-middle me-2" data-lucide="alert-triangle"></i> @Localizer["Danger Zone"]</h5>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.OwnedBoardsCount > 0)
+        {
+            <h5 class="text-danger">@Localizer["You cannot delete your account yet."]</h5>
+            <p>
+                @Localizer["You are currently the owner of"] <strong>@ViewBag.OwnedBoardsCount</strong> @Localizer["Kanban board(s)."]
+            </p>
+            <p>
+                @Localizer["To prevent disrupting your team members, you must first manually delete these boards or transfer their ownership before you can delete your account."]
+            </p>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">@Localizer["Go to my boards"]</a>
+            <a asp-action="Index" class="btn btn-outline-secondary ms-2">@Localizer["Back"]</a>
+        }
+        else
+        {
+            <h5 class="text-danger">@Localizer["Are you sure you want to delete your account?"]</h5>
+            <p>
+                @Localizer["This action will permanently erase your profile and you will be removed from all shared boards. This action cannot be undone."]
+            </p>
+            <form asp-action="DeleteAccountPost" method="post" id="delete-form">
+                <button type="submit" class="btn btn-danger" id="delete-btn" disabled>
+                    <i class="align-middle me-1" data-lucide="trash-2"></i> 
+                    <span id="btn-text">@Localizer["Yes, delete my account"]</span> 
+                    (<span id="countdown">10</span>s)
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary ms-2">@Localizer["Cancel"]</a>
+            </form>
+        }
+    </div>
+</div>
+
+@if (ViewBag.OwnedBoardsCount == 0)
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let timeLeft = 10;
+            const btn = document.getElementById("delete-btn");
+            const countdownSpan = document.getElementById("countdown");
+            
+            const timer = setInterval(function() {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    btn.removeAttribute("disabled");
+                    countdownSpan.parentElement.innerHTML = document.getElementById("btn-text").innerHTML;
+                } else {
+                    countdownSpan.textContent = timeLeft;
+                }
+            }, 1000);
+        });
+    </script>
+}

@@ -25,6 +25,12 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     {
         base.OnModelCreating(builder);
 
+        builder.Entity<KanbanBoard>()
+            .HasOne(b => b.User)
+            .WithMany()
+            .HasForeignKey(b => b.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         ConfigureKanbanCardLabel(builder.Entity<KanbanCardLabel>());
         builder.Entity<KanbanCard>()
             .HasOne(card => card.AssignedUser)
