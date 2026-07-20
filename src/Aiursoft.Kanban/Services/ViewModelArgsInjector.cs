@@ -119,6 +119,8 @@ public class ViewModelArgsInjector(
         _ = localizer["Archived Boards"];
     
         _ = localizer["Gantt Chart"];
+    
+        _ = localizer["Delete Account"];
     }
 
     public void InjectSimple(
