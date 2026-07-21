@@ -110,12 +110,23 @@ public class DailyReportBackgroundJob : IBackgroundJob
     private async Task<List<string>> GetUsersNeedingGeneration(
         DailyReportType reportType, DateTime todayChina)
     {
-        // Find all users who own boards (the primary audience for daily reports)
-        var activeUserIds = await _db.KanbanBoards
+        // Find users who own boards OR have boards directly shared with them.
+        var ownedUserIds = await _db.KanbanBoards
             .Where(b => b.UserId != null)
             .Select(b => b.UserId!)
             .Distinct()
             .ToListAsync();
+
+        var sharedUserIds = await _db.BoardShares
+            .Where(s => s.SharedWithUserId != null)
+            .Select(s => s.SharedWithUserId!)
+            .Distinct()
+            .ToListAsync();
+
+        var activeUserIds = ownedUserIds
+            .Concat(sharedUserIds)
+            .Distinct()
+            .ToList();
 
         var needingGeneration = new List<string>();
 
@@ -135,15 +146,26 @@ public class DailyReportBackgroundJob : IBackgroundJob
             }
 
             // Check if any cards were created after the report was generated
-            var userBoardIds = await _db.KanbanBoards
+            // across ALL boards accessible to this user (owned + shared).
+            var ownedBoardIds = await _db.KanbanBoards
                 .Where(b => b.UserId == userId)
                 .Select(b => b.Id)
                 .ToListAsync();
 
-            if (userBoardIds.Count == 0) continue;
+            var sharedBoardIds = await _db.BoardShares
+                .Where(s => s.SharedWithUserId == userId)
+                .Select(s => s.BoardId)
+                .ToListAsync();
+
+            var allBoardIds = ownedBoardIds
+                .Concat(sharedBoardIds)
+                .Distinct()
+                .ToList();
+
+            if (allBoardIds.Count == 0) continue;
 
             var columnIds = await _db.KanbanColumns
-                .Where(c => userBoardIds.Contains(c.BoardId))
+                .Where(c => allBoardIds.Contains(c.BoardId))
                 .Select(c => c.Id)
                 .ToListAsync();
 
