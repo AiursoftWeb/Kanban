@@ -92,8 +92,8 @@ public class DailyReportController : Controller
             TodaySummary = todaySummary,
             CurrentPage = page,
             TotalPages = totalPages,
-            CanPlan = chinaNow.Hour < 16,
-            CanSummarize = chinaNow.Hour >= 16
+            CanPlan = chinaNow.Hour < 16 && await HasAccessibleBoardsAsync(userId),
+            CanSummarize = chinaNow.Hour >= 16 && await HasAccessibleBoardsAsync(userId)
         });
     }
 
@@ -134,6 +134,11 @@ public class DailyReportController : Controller
             reportType = DailyReportType.Summary;
         }
         else
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        if (!await HasAccessibleBoardsAsync(userId))
         {
             return RedirectToAction(nameof(Index));
         }
@@ -192,5 +197,18 @@ public class DailyReportController : Controller
         await _db.SaveChangesAsync();
 
         return RedirectToAction(nameof(Index));
+    }
+
+    private async Task<bool> HasAccessibleBoardsAsync(string userId)
+    {
+        var owned = await _db.KanbanBoards
+            .AnyAsync(b => b.UserId == userId);
+
+        if (owned) return true;
+
+        var shared = await _db.BoardShares
+            .AnyAsync(s => s.SharedWithUserId == userId);
+
+        return shared;
     }
 }
