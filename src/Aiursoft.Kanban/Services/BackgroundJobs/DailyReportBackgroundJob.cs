@@ -110,27 +110,53 @@ public class DailyReportBackgroundJob : IBackgroundJob
     private async Task<List<string>> GetUsersNeedingGeneration(
         DailyReportType reportType, DateTime todayChina)
     {
-        // Find users who own boards OR have boards directly shared with them.
-        var ownedUserIds = await _db.KanbanBoards
+        // Collect all users who have any stake in the Kanban system:
+        // board owners, card assignees, direct share recipients, and role-based share recipients.
+        var userIds = new HashSet<string>();
+
+        // 1. Board owners
+        var ownerIds = await _db.KanbanBoards
             .Where(b => b.UserId != null)
             .Select(b => b.UserId!)
+            .ToListAsync();
+        foreach (var id in ownerIds) userIds.Add(id);
+
+        // 2. Card assignees
+        var assigneeIds = await _db.KanbanCards
+            .Where(c => c.AssignedUserId != null)
+            .Select(c => c.AssignedUserId!)
             .Distinct()
             .ToListAsync();
+        foreach (var id in assigneeIds) userIds.Add(id);
 
+        // 3. Direct share recipients
         var sharedUserIds = await _db.BoardShares
             .Where(s => s.SharedWithUserId != null)
             .Select(s => s.SharedWithUserId!)
+            .ToListAsync();
+        foreach (var id in sharedUserIds) userIds.Add(id);
+
+        // 4. Role-based share recipients
+        var sharedRoleIds = await _db.BoardShares
+            .Where(s => s.SharedWithRoleId != null)
+            .Select(s => s.SharedWithRoleId!)
             .Distinct()
             .ToListAsync();
 
-        var activeUserIds = ownedUserIds
-            .Concat(sharedUserIds)
-            .Distinct()
-            .ToList();
+        if (sharedRoleIds.Count > 0)
+        {
+            var roleUserIds = await _db.UserRoles
+                .Where(ur => sharedRoleIds.Contains(ur.RoleId))
+                .Select(ur => ur.UserId)
+                .Distinct()
+                .ToListAsync();
+            foreach (var id in roleUserIds) userIds.Add(id);
+        }
 
+        // 5. Check existing reports and change detection for each candidate
         var needingGeneration = new List<string>();
 
-        foreach (var userId in activeUserIds)
+        foreach (var userId in userIds)
         {
             var existingReport = await _db.DailyReports
                 .Where(r => r.UserId == userId
