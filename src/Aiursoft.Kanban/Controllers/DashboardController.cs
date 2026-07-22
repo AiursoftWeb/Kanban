@@ -1,4 +1,5 @@
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Models.DailyReportViewModels;
 using Aiursoft.Kanban.Models.DashboardViewModels;
 using Aiursoft.Kanban.Services;
 using Aiursoft.UiStack.Navigation;
@@ -85,6 +86,33 @@ public class DashboardController(
             .Take(8)
             .ToListAsync();
 
+        var todayChina = (now + TimeSpan.FromHours(8)).Date;
+        var latestPlan = await db.DailyReports
+            .Where(r => r.UserId == userId && r.ReportType == DailyReportType.Plan && r.Date == todayChina)
+            .OrderByDescending(r => r.GeneratedAt)
+            .Select(r => new DailyReportItemViewModel
+            {
+                Id = r.Id,
+                ReportType = r.ReportType,
+                Content = r.Content,
+                Date = r.Date,
+                GeneratedAt = r.GeneratedAt
+            })
+            .FirstOrDefaultAsync();
+
+        var latestSummary = await db.DailyReports
+            .Where(r => r.UserId == userId && r.ReportType == DailyReportType.Summary && r.Date == todayChina)
+            .OrderByDescending(r => r.GeneratedAt)
+            .Select(r => new DailyReportItemViewModel
+            {
+                Id = r.Id,
+                ReportType = r.ReportType,
+                Content = r.Content,
+                Date = r.Date,
+                GeneratedAt = r.GeneratedAt
+            })
+            .FirstOrDefaultAsync();
+
         return this.StackView(new IndexViewModel
         {
             OwnedBoardCount = ownedBoards.Count,
@@ -96,7 +124,9 @@ public class DashboardController(
             OwnedBoards = ownedBoards
                 .Select(board => ToBoardSummary(board, now))
                 .ToList(),
-            SharedBoards = sharedBoards
+            SharedBoards = sharedBoards,
+            LatestPlan = latestPlan,
+            LatestSummary = latestSummary
         });
     }
 

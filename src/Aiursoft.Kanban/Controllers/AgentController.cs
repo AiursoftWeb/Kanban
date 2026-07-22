@@ -26,11 +26,11 @@ public class AgentController(
     [RenderInNavBar(
         NavGroupName = "Features",
         NavGroupOrder = 2,
-        CascadedLinksGroupName = "Overview Kanban",
+        CascadedLinksGroupName = "My Tasks",
         CascadedLinksIcon = "bot",
-        CascadedLinksOrder = 2,
+        CascadedLinksOrder = 3,
         LinkText = "AI Assistant",
-        LinkOrder = 3)]
+        LinkOrder = 2)]
     public async Task<IActionResult> Index(int? boardId)
     {
         var userId = userManager.GetUserId(User)!;

@@ -46,11 +46,11 @@ public class DailyReportController : Controller
     [RenderInNavBar(
         NavGroupName = "Features",
         NavGroupOrder = 2,
-        CascadedLinksGroupName = "Daily Assistant",
+        CascadedLinksGroupName = "My Tasks",
         CascadedLinksIcon = "sparkles",
-        CascadedLinksOrder = 4,
+        CascadedLinksOrder = 3,
         LinkText = "Daily Assistant",
-        LinkOrder = 11)]
+        LinkOrder = 3)]
     public async Task<IActionResult> Index(int page = 1)
     {
         var userId = _userManager.GetUserId(User)!;
