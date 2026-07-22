@@ -120,6 +120,9 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>具備內建檔案管理系統，並支援自動頭像壓縮功能。</value>
   </data>
+  <data name="Generated at:" xml:space="preserve">
+    <value>產生於：</value>
+  </data>
   <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
     <value>使用內建助理協助讀取及更新看板狀態。</value>
   </data>
@@ -239,6 +242,12 @@
   </data>
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>這是一個模板專案，我們將在此開啟探索之旅...</value>
+  </data>
+  <data name="Today&apos;s Plan" xml:space="preserve">
+    <value>今日計畫</value>
+  </data>
+  <data name="Today&apos;s Summary" xml:space="preserve">
+    <value>今日摘要</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>歡迎</value>

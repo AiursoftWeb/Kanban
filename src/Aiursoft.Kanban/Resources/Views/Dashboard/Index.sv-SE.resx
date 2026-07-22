@@ -120,6 +120,9 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>Har ett inbyggt filhanteringssystem med automatisk komprimering av avatarer.</value>
   </data>
+  <data name="Generated at:" xml:space="preserve">
+    <value>Genererad kl:</value>
+  </data>
   <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
     <value>Få hjälp med att läsa och uppdatera whiteboardets status med den inbyggda assistenten.</value>
   </data>
@@ -239,6 +242,12 @@
   </data>
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Det här är ett mallprojekt, där vi börjar resan...</value>
+  </data>
+  <data name="Today&apos;s Plan" xml:space="preserve">
+    <value>Dagens plan</value>
+  </data>
+  <data name="Today&apos;s Summary" xml:space="preserve">
+    <value>Dagens sammanfattning</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Välkommen</value>
