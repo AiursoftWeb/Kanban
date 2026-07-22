@@ -93,7 +93,30 @@
     .priority-high { background: rgba(253, 126, 20, 0.14); color: #fd7e14; }
     .priority-medium { background: rgba(255, 193, 7, 0.18); color: #8a6d00; }
     .priority-low { background: rgba(13, 110, 253, 0.14); color: #0d6efd; }
-    .priority-none { display: none; }
+    .report-content-preview {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        color: var(--bs-secondary-color);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .dashboard-report {
+        border-left: 4px solid var(--bs-primary);
+        background: var(--bs-primary-bg-subtle);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .dashboard-report.summary {
+        border-left-color: var(--bs-success);
+        background: var(--bs-success-bg-subtle);
+    }
 </style>
 }
 
@@ -166,6 +189,56 @@
         </div>
     </div>
 </div>
+
+@if (Model.LatestPlan != null || Model.LatestSummary != null)
+{
+<div class="row g-4 mb-4">
+    @if (Model.LatestPlan != null)
+    {
+    <div class="col-12 @(Model.LatestSummary != null ? "col-xl-6" : "col-xl-12")">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-transparent d-flex align-items-center justify-content-between">
+                <h5 class="card-title mb-0">
+                    <i class="align-middle me-2 text-primary" data-lucide="clipboard-list"></i> @Localizer["Today's Plan"]
+                </h5>
+                <a asp-controller="DailyReport" asp-action="Index" class="btn btn-sm btn-outline-secondary">
+                    <i class="align-middle" data-lucide="external-link"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="description-preview" id="dashboardPlanPreview" style="max-height: 400px; overflow-y: auto;"></div>
+                <textarea id="dashboardPlanRaw" class="d-none">@Model.LatestPlan.Content</textarea>
+                <div class="text-muted small mt-2">
+                    @Localizer["Generated at:"] <span data-utc-time="@Model.LatestPlan.GeneratedAt.ToHtmlDateTime()"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    @if (Model.LatestSummary != null)
+    {
+    <div class="col-12 @(Model.LatestPlan != null ? "col-xl-6" : "col-xl-12")">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-transparent d-flex align-items-center justify-content-between">
+                <h5 class="card-title mb-0">
+                    <i class="align-middle me-2 text-success" data-lucide="file-text"></i> @Localizer["Today's Summary"]
+                </h5>
+                <a asp-controller="DailyReport" asp-action="Index" class="btn btn-sm btn-outline-secondary">
+                    <i class="align-middle" data-lucide="external-link"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="description-preview" id="dashboardSummaryPreview" style="max-height: 400px; overflow-y: auto;"></div>
+                <textarea id="dashboardSummaryRaw" class="d-none">@Model.LatestSummary.Content</textarea>
+                <div class="text-muted small mt-2">
+                    @Localizer["Generated at:"] <span data-utc-time="@Model.LatestSummary.GeneratedAt.ToHtmlDateTime()"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+}
 
 <div class="row g-4 mb-4">
     <div class="col-12 col-xl-8">
@@ -327,3 +400,38 @@
         </div>
     </div>
 </div>
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+<script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
+<script>
+(function () {
+    function renderReport(rawId, targetId) {
+        var rawContent = document.getElementById(rawId);
+        var target = document.getElementById(targetId);
+        if (!rawContent || !target) return;
+
+        if (typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+            marked.setOptions({ breaks: true, gfm: true });
+            var rawHtml = marked.parse(rawContent.value);
+            var cleanHtml = DOMPurify.sanitize(rawHtml, {
+                ADD_ATTR: ['target'],
+                FORBID_TAGS: ['script', 'style'],
+                FORBID_ATTR: ['style'],
+            });
+            target.innerHTML = cleanHtml;
+            target.querySelectorAll('a[href]').forEach(function (link) {
+                link.rel = 'noopener noreferrer';
+                link.target = '_blank';
+            });
+        } else {
+            target.textContent = rawContent.value;
+        }
+    }
+
+    renderReport('dashboardPlanRaw', 'dashboardPlanPreview');
+    renderReport('dashboardSummaryRaw', 'dashboardSummaryPreview');
+})();
+</script>
+}

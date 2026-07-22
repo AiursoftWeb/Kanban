@@ -1,4 +1,5 @@
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Models.DailyReportViewModels;
 using Aiursoft.UiStack.Layout;
 
 namespace Aiursoft.Kanban.Models.DashboardViewModels;
@@ -18,6 +19,8 @@ public class IndexViewModel : UiStackLayoutViewModel
     public required List<KanbanCard> AssignedTasks { get; init; }
     public required List<BoardSummaryViewModel> OwnedBoards { get; init; }
     public required List<BoardSummaryViewModel> SharedBoards { get; init; }
+    public DailyReportItemViewModel? LatestPlan { get; init; }
+    public DailyReportItemViewModel? LatestSummary { get; init; }
 }
 
 public class BoardSummaryViewModel
