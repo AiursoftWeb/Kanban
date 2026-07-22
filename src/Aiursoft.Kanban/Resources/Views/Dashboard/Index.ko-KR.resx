@@ -120,6 +120,9 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>내장된 파일 관리 시스템과 자동 아바타 압축 기능을 제공합니다.</value>
   </data>
+  <data name="Generated at:" xml:space="preserve">
+    <value>생성 시각:</value>
+  </data>
   <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
     <value>내장된 보조 도구를 사용하여 보드 상태 읽기 및 업데이트 도움을 받으세요.</value>
   </data>
@@ -239,6 +242,12 @@
   </data>
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>이것은 템플릿 프로젝트로, 우리의 항해를 시작하는 곳입니다...</value>
+  </data>
+  <data name="Today&apos;s Plan" xml:space="preserve">
+    <value>오늘의 계획</value>
+  </data>
+  <data name="Today&apos;s Summary" xml:space="preserve">
+    <value>오늘의 요약</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>환영합니다</value>

@@ -120,6 +120,9 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>Містить вбудовану систему керування файлами з автоматичним стисненням аватарів.</value>
   </data>
+  <data name="Generated at:" xml:space="preserve">
+    <value>Згенеровано о:</value>
+  </data>
   <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
     <value>Отримайте допомогу у перегляді та оновленні стану дошки за допомогою вбудованого помічника.</value>
   </data>
@@ -239,6 +242,12 @@
   </data>
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Це шаблонний проект, з якого ми розпочинаємо нашу подорож...</value>
+  </data>
+  <data name="Today&apos;s Plan" xml:space="preserve">
+    <value>План на сьогодні</value>
+  </data>
+  <data name="Today&apos;s Summary" xml:space="preserve">
+    <value>Підсумки за сьогодні</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Ласкаво просимо</value>

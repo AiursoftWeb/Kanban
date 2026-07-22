@@ -120,6 +120,9 @@
   <data name="Features a built-in file management system with automatic avatar compression." xml:space="preserve">
     <value>स्वचालित अवतार संपीड़न के साथ एक अंतर्निहित फ़ाइल प्रबंधन प्रणाली की सुविधा प्रदान करता है।</value>
   </data>
+  <data name="Generated at:" xml:space="preserve">
+    <value>उत्पन्न समय:</value>
+  </data>
   <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
     <value>बिल्ट-इन असिस्टेंट के साथ बोर्ड स्थिति को पढ़ने और अपडेट करने में मदद लें।</value>
   </data>
@@ -239,6 +242,12 @@
   </data>
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>यह एक टेम्पलेट प्रोजेक्ट है, जहाँ से हम अपनी यात्रा शुरू करते हैं...</value>
+  </data>
+  <data name="Today&apos;s Plan" xml:space="preserve">
+    <value>आज की योजना</value>
+  </data>
+  <data name="Today&apos;s Summary" xml:space="preserve">
+    <value>आज का सारांश</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>स्वागत है</value>
