@@ -131,7 +131,6 @@
   display: flex;
   min-width: 900px;
   border-radius: 12px;
-  overflow: hidden;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
   background: var(--bs-body-bg, #fff);
 }
@@ -144,6 +143,9 @@
   flex-direction: column;
   border-right: 1px solid rgba(0, 0, 0, 0.08);
   background: var(--bs-body-bg, #fff);
+  position: sticky;
+  left: 0;
+  z-index: 3;
 }
 
 .gantt-sidebar-header {
@@ -253,7 +255,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   position: relative;
 }
 
