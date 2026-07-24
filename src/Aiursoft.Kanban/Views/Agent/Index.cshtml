@@ -7,58 +7,10 @@
             <h1 class="h4 mb-1">@Localizer["Kanban AI Assistant"]</h1>
             <p class="text-muted small mb-3">@Localizer["Ask the AI to help manage your Kanban boards — create cards, move items, update details, and more."]</p>
 
-            @if (Model.UserBoards.Count > 0)
-            {
-                <div class="d-flex align-items-center gap-2 flex-wrap">
-                    <label for="board-selector" class="form-label mb-0 text-nowrap">@Localizer["Board:"]</label>
-                    <select id="board-selector" class="form-select" style="max-width: 320px;">
-                        <option value="">@Localizer["— Select a board —"]</option>
-                        @foreach (var board in Model.UserBoards)
-                        {
-                            var selected = Model.CurrentBoard != null && board.Id == Model.CurrentBoard.Id;
-                            <option value="@board.Id" selected="@(selected ? "selected" : null)">@board.Name</option>
-                        }
-                    </select>
-                    @if (Model.CurrentBoard != null)
-                    {
-                        <a asp-controller="Kanban" asp-action="Index" asp-route-boardId="@Model.CurrentBoard.Id"
-                           class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">
-                            @Localizer["Open board in new tab"]
-                        </a>
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="alert alert-info" role="alert">
-                    <div class="d-flex align-items-start">
-                        <div class="alert-icon pe-3">
-                            <i class="align-middle" data-lucide="info"></i>
-                        </div>
-                        <div class="alert-message">
-                            @Localizer["You don't have any boards yet. Create one on the Kanban page first."]
-                            <a asp-controller="Kanban" asp-action="Index" class="alert-link">@Localizer["Go to Kanban"]</a>
-                        </div>
-                    </div>
-                </div>
-            }
         </div>
     </div>
 
     <div class="agent-chat-container">
         <partial name="~/Views/Agent/Chat.cshtml" model="Model" />
-        @if (Model.CurrentBoard == null)
-        {
-            <p class="text-muted small mt-2 text-center">@Localizer["Select a board above to enable board-aware tools like creating cards, moving items, and managing columns."]</p>
-        }
     </div>
 </div>
-
-<script>
-    document.getElementById('board-selector')?.addEventListener('change', function () {
-        var boardId = this.value;
-        var url = boardId ? '@Url.Action("Index", "Agent")' + '?boardId=' + boardId
-                          : '@Url.Action("Index", "Agent")';
-        window.location.href = url;
-    });
-</script>
