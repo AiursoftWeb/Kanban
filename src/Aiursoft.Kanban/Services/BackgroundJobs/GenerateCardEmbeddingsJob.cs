@@ -22,17 +22,16 @@ public class GenerateCardEmbeddingsJob(
 
     public async Task ExecuteAsync()
     {
-        var enableAiSearch = await settingsService.GetBoolSettingAsync(SettingsMap.EnableEmbeddingBasedSearch);
-        if (!enableAiSearch)
+        if (!await settingsService.IsAiSearchEnabledAsync())
         {
-            logger.LogInformation("GenerateCardEmbeddingsJob: EnableEmbeddingBasedSearch is disabled. Skipping.");
+            logger.LogInformation("GenerateCardEmbeddingsJob: Embedding endpoint not configured. Skipping.");
             return;
         }
 
-        var instance = await settingsService.GetEmbeddingEndpointAsync();
-        if (string.IsNullOrWhiteSpace(instance))
+        var enabled = await settingsService.GetBoolSettingAsync(SettingsMap.EnableEmbeddingBasedSearch);
+        if (!enabled)
         {
-            logger.LogInformation("GenerateCardEmbeddingsJob: Ollama endpoint not configured. Skipping.");
+            logger.LogInformation("GenerateCardEmbeddingsJob: EnableEmbeddingBasedSearch is disabled. Skipping.");
             return;
         }
 
@@ -43,8 +42,9 @@ public class GenerateCardEmbeddingsJob(
             return;
         }
 
-        var token = await settingsService.GetEmbeddingTokenAsync();
-        var baseUri = new Uri(instance);
+        var endpoint = await settingsService.GetEmbeddingEndpointAsync();
+        var token    = await settingsService.GetEmbeddingTokenAsync();
+        var baseUri = new Uri(endpoint);
         var embedEndpoint = $"{baseUri.Scheme}://{baseUri.Authority}/api/embed?keep_alive=-1";
 
         using var scope = scopeFactory.CreateScope();
