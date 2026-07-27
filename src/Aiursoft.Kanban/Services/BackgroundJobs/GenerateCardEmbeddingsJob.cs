@@ -151,7 +151,7 @@ public class GenerateCardEmbeddingsJob(
             var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8,
                 "application/json");
 
-            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(120));
             var response = await http.PostAsync(embedEndpoint, content, cts.Token);
 
             if (response.IsSuccessStatusCode)
