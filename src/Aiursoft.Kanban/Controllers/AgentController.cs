@@ -122,6 +122,7 @@ public class AgentController(
     }
 
     [HttpGet]
+    [LimitPerMin(120)]
     public IActionResult Status(Guid conversationId)
     {
         var conversation = agentService.GetConversation(conversationId);
