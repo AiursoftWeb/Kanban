@@ -50,4 +50,10 @@ public class KanbanCard
     public RecurrenceUnit RecurrenceUnit { get; set; } = RecurrenceUnit.None;
 
     public DateTime CreationTime { get; init; } = DateTime.UtcNow;
+
+    public DateTime LastUpdatedAt { get; set; } = DateTime.UtcNow;
+
+    public byte[]? Embedding { get; set; }
+
+    public DateTime LastEmbeddedAt { get; set; } = DateTime.MinValue;
 }

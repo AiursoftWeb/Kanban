@@ -102,6 +102,19 @@ public class Startup : IWebStartup
             period:      TimeSpan.FromMinutes(30),
             startDelay:  TimeSpan.FromMinutes(3));
 
+        // Vector Embedding Background Jobs
+        var generateEmbeddingsJob = services.RegisterBackgroundJob<GenerateCardEmbeddingsJob>();
+        services.RegisterScheduledTask(
+            registration: generateEmbeddingsJob,
+            period: TimeSpan.FromMinutes(30),
+            startDelay: TimeSpan.FromMinutes(50));
+
+        var refreshEmbeddingCacheJob = services.RegisterBackgroundJob<RefreshCardEmbeddingCacheJob>();
+        services.RegisterScheduledTask(
+            registration: refreshEmbeddingCacheJob,
+            period: TimeSpan.FromMinutes(60),
+            startDelay: TimeSpan.FromMinutes(1));
+
         // Controllers and localization
         services.AddControllersWithViews(options => options.Filters.Add<AuditActionFilter>())
             .AddNewtonsoftJson(options =>

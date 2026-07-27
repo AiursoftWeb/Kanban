@@ -174,6 +174,15 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<byte[]>("Embedding")
+                        .HasColumnType("longblob");
+
+                    b.Property<DateTime>("LastEmbeddedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("LastUpdatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
@@ -371,6 +380,33 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.SearchEmbedding", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<byte[]>("Embedding")
+                        .IsRequired()
+                        .HasColumnType("longblob");
+
+                    b.Property<DateTime>("LastAccessedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("QueryText")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SearchEmbeddings");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.User", b =>

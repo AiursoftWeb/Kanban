@@ -18,6 +18,14 @@ public abstract class Program
         await app.UpdateDbAsync<TemplateDbContext>();
         await app.SeedAsync();
         await app.CopyAvatarFileAsync();
+        
+        using (var scope = app.Services.CreateScope())
+        {
+            var cache = scope.ServiceProvider.GetRequiredService<Aiursoft.Kanban.Services.CardEmbeddingCache>();
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            await cache.LoadAsync(db);
+        }
+
         await app.RunAsync();
     }
 }
