@@ -111,6 +111,9 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>甘特圖</value>
   </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>全域搜尋</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>全域設定</value>
   </data>
@@ -203,6 +206,12 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>角色</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜尋</value>
+  </data>
+  <data name="Search cards…" xml:space="preserve">
+    <value>搜尋卡片…</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>設定</value>

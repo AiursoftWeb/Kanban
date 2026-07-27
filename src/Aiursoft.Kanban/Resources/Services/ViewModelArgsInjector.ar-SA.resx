@@ -108,6 +108,9 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>مخطط جانت</value>
   </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>البحث العالمي</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>الإعدادات العامة</value>
   </data>
@@ -200,6 +203,12 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>الأدوار</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="Search cards…" xml:space="preserve">
+    <value>البحث عن البطاقات…</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>الإعدادات</value>

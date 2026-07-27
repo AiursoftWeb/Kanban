@@ -111,6 +111,9 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>แผนภูมิแกนต์</value>
   </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>ค้นหาทั้งหมด</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>การตั้งค่าทั่วไป</value>
   </data>
@@ -203,6 +206,12 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>บทบาท</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>ค้นหา</value>
+  </data>
+  <data name="Search cards…" xml:space="preserve">
+    <value>ค้นหาการ์ด…</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>การตั้งค่า</value>

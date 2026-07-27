@@ -108,6 +108,9 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>Διάγραμμα Gantt</value>
   </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>Κατάλογος Αναζήτησης</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>Καθολικές Ρυθμίσεις</value>
   </data>
@@ -200,6 +203,12 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Ρόλοι</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="Search cards…" xml:space="preserve">
+    <value>Αναζήτηση κάρτων…</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Ρυθμίσεις</value>

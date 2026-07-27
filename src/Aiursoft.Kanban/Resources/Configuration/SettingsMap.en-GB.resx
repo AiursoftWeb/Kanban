@@ -60,8 +60,32 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>Dummy Number</value>
   </data>
+  <data name="Embedding API Endpoint" xml:space="preserve">
+    <value>Embedding API Endpoint</value>
+  </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>Embedding API Token</value>
+  </data>
+  <data name="Embedding Model Name" xml:space="preserve">
+    <value>Embedding Model Name</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>Embedding Query Cache Limit</value>
+  </data>
+  <data name="Enable Embedding-based Search" xml:space="preserve">
+    <value>Enable Embedding-based Search</value>
+  </data>
+  <data name="Enable semantic vector search powered by an embedding model. Fallbacks to plain text search if disabled or unavailable." xml:space="preserve">
+    <value>Enable semantic vector search powered by an embedding model. Falls back to plain text search if disabled or unavailable.</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP Number</value>
+  </data>
+  <data name="Maximum number of query embeddings to cache in the database. Defaults to 2000." xml:space="preserve">
+    <value>Maximum number of query embeddings to cache in the database. Defaults to 2000.</value>
+  </data>
+  <data name="Optional Bearer token for authenticating with the embedding API." xml:space="preserve">
+    <value>Optional Bearer token for authenticating with the embedding API.</value>
   </data>
   <data name="Planned Start Time Advance Days" xml:space="preserve">
     <value>Planned start time advance days</value>
@@ -75,6 +99,9 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent.</value>
   </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>The brand name displayed in the footer.</value>
   </data>
@@ -86,6 +113,9 @@
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>The logo of the project displayed in the navbar and footer. Support jpg, png, svg.</value>
+  </data>
+  <data name="The model name used for embeddings, e.g. bge-m3:latest. Requires dimensions to match the float32 array serialization (1024 for bge-m3)." xml:space="preserve">
+    <value>The model name used for embeddings, e.g. bge-m3:latest. Requires dimensions to match the float32 array serialisation (1024 for bge-m3).</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>The name of the project displayed in the frontend.</value>

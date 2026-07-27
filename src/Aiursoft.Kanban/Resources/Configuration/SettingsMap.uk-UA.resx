@@ -60,8 +60,32 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>Псевдонім</value>
   </data>
+  <data name="Embedding API Endpoint" xml:space="preserve">
+    <value>Кінцева точка API вбудовування</value>
+  </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>Токен API вбудовування</value>
+  </data>
+  <data name="Embedding Model Name" xml:space="preserve">
+    <value>Назва моделі вбудовування</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>Ліміт кешування запитів вбудовування</value>
+  </data>
+  <data name="Enable Embedding-based Search" xml:space="preserve">
+    <value>Увімкнути пошук на основі векторних представлень</value>
+  </data>
+  <data name="Enable semantic vector search powered by an embedding model. Fallbacks to plain text search if disabled or unavailable." xml:space="preserve">
+    <value>Увімкнути семантичний векторний пошук на основі моделі вбудовування. Якщо функцію вимкнено або вона недоступна, використовується звичайний текстовий пошук.</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>Номер ICP</value>
+  </data>
+  <data name="Maximum number of query embeddings to cache in the database. Defaults to 2000." xml:space="preserve">
+    <value>Максимальна кількість ембедингів запитів для кешування в базі даних. За замовчуванням 2000.</value>
+  </data>
+  <data name="Optional Bearer token for authenticating with the embedding API." xml:space="preserve">
+    <value>Необов&apos;язковий Bearer-токен для автентифікації з API вбудовування.</value>
   </data>
   <data name="Planned Start Time Advance Days" xml:space="preserve">
     <value>Кількість днів запланованого старту</value>
@@ -75,6 +99,9 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>Кінцевая точка Anthropic Messages API, яку використовує Kanban AI агент. Повинна бути повною URL-адресою, що включає /v1/messages, наприклад, https://ollama.example.com/v1/messages. Залиште порожнім, щоб вимкнути AI агент.</value>
   </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>Базова URL-адреса API для вбудовування (наприклад, Ollama). Не повинна містити шлях, наприклад http://localhost:11434. Залиште порожнім, щоб вимкнути.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Назва бренду, що відображається в підвалі.</value>
   </data>
@@ -86,6 +113,9 @@
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Логотип проекту, який відображається в навбарі та футері. Підтримується jpg, png, svg.</value>
+  </data>
+  <data name="The model name used for embeddings, e.g. bge-m3:latest. Requires dimensions to match the float32 array serialization (1024 for bge-m3)." xml:space="preserve">
+    <value>Назва моделі, що використовується для ембедингів, наприклад, bge-m3:latest. Вимагає, щоб розмірність збігалася з серіалізацією масиву float32 (1024 для bge-m3).</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Назва проекту, що відображається на фронтенді.</value>

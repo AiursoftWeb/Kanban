@@ -122,6 +122,9 @@ public class ViewModelArgsInjector(
         _ = localizer["Gantt Chart"];
     
         _ = localizer["Delete Account"];
+    
+        _ = localizer["Global Search"];
+        _ = localizer["Search"];
     }
 
     public void InjectSimple(

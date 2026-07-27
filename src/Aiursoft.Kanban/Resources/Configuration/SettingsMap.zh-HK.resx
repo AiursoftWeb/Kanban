@@ -60,8 +60,32 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>測試用數字</value>
   </data>
+  <data name="Embedding API Endpoint" xml:space="preserve">
+    <value>嵌入 API 端點</value>
+  </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>嵌入 API 令牌</value>
+  </data>
+  <data name="Embedding Model Name" xml:space="preserve">
+    <value>嵌入模型名稱</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>嵌入查詢快取上限</value>
+  </data>
+  <data name="Enable Embedding-based Search" xml:space="preserve">
+    <value>啟用基於嵌入的搜尋</value>
+  </data>
+  <data name="Enable semantic vector search powered by an embedding model. Fallbacks to plain text search if disabled or unavailable." xml:space="preserve">
+    <value>啟用由嵌入模型驅動語義向量搜索。如果禁用或不可用，則回退到純文本搜索。</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP編號</value>
+  </data>
+  <data name="Maximum number of query embeddings to cache in the database. Defaults to 2000." xml:space="preserve">
+    <value>資料庫中快取查詢嵌入的最大數量。預設值為 2000。</value>
+  </data>
+  <data name="Optional Bearer token for authenticating with the embedding API." xml:space="preserve">
+    <value>用於驗證嵌入 API 的選用 Bearer 令牌。</value>
   </data>
   <data name="Planned Start Time Advance Days" xml:space="preserve">
     <value>計劃開始時間提前天數</value>
@@ -75,6 +99,9 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>Kanban AI 代理所使用的 Anthropic Messages API 端點。必須包含 /v1/messages 的完整 URL，例如 https://ollama.example.com/v1/messages。留空即可停用該 AI 代理。</value>
   </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>嵌入 API 嘅基礎 URL（例如 Ollama）。必須唔包含路徑，例如 http://localhost:11434。留空即可停用。</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>顯示於頁尾的品牌名稱</value>
   </data>
@@ -86,6 +113,9 @@
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>項目圖標顯示於導航列及頁腳。支援 jpg、png、svg 格式。</value>
+  </data>
+  <data name="The model name used for embeddings, e.g. bge-m3:latest. Requires dimensions to match the float32 array serialization (1024 for bge-m3)." xml:space="preserve">
+    <value>用於嵌入的模型名稱，例如 bge-m3:latest。需要維度與 float32 陣列序列化相匹配（bge-m3 為 1024）。</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>項目在前端顯示的名稱。</value>
