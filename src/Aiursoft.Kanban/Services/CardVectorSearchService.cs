@@ -1,4 +1,5 @@
 using System.Text;
+using System.Net.Http.Json;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Util;
@@ -6,8 +7,6 @@ using Aiursoft.Scanner.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
-using System.Net.Http;
-using System.Net.Http.Json;
 
 namespace Aiursoft.Kanban.Services;
 
@@ -29,8 +28,7 @@ public class CardVectorSearchService(
         int pageSize,
         CancellationToken ct = default)
     {
-        if (!await settingsService.GetBoolSettingAsync(SettingsMap.EnableEmbeddingBasedSearch) ||
-            !await IsAiSearchEnabledAsync())
+        if (!await settingsService.IsAiSearchEnabledAsync())
         {
             return (false, [], 0);
         }
@@ -88,26 +86,7 @@ public class CardVectorSearchService(
         return (true, ordered, total);
     }
 
-    private async Task<bool> IsAiSearchEnabledAsync()
-    {
-        var instance = await GetEmbeddingInstanceAsync();
-        if (string.IsNullOrWhiteSpace(instance)) return false;
 
-        var model = await settingsService.GetSettingValueAsync(SettingsMap.EmbeddingModel);
-        if (string.IsNullOrWhiteSpace(model)) return false;
-
-        return true;
-    }
-
-    private async Task<string> GetEmbeddingInstanceAsync()
-    {
-        return await settingsService.GetSettingValueAsync(SettingsMap.EmbeddingOllamaInstance);
-    }
-
-    private async Task<string> GetEmbeddingTokenAsync()
-    {
-        return await settingsService.GetSettingValueAsync(SettingsMap.EmbeddingApiToken);
-    }
 
     private async Task<float[]?> EmbedQueryAsync(string text, CancellationToken ct)
     {
@@ -132,9 +111,9 @@ public class CardVectorSearchService(
             }
         }
 
-        var instance = await GetEmbeddingInstanceAsync();
+        var instance = await settingsService.GetEmbeddingEndpointAsync();
         var model = await settingsService.GetSettingValueAsync(SettingsMap.EmbeddingModel);
-        var token = await GetEmbeddingTokenAsync();
+        var token = await settingsService.GetEmbeddingTokenAsync();
 
         const int maxQueryChars = 8000;
         var input = text.Length > maxQueryChars ? text[..maxQueryChars] : text;

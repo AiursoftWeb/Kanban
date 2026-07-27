@@ -383,9 +383,13 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
 
                     b.Property<string>("QueryText")
                         .IsRequired()
+                        .HasMaxLength(40)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("QueryText")
+                        .IsUnique();
 
                     b.ToTable("SearchEmbeddings");
                 });

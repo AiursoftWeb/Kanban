@@ -1,4 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.Kanban.Entities;
 
@@ -7,13 +9,16 @@ namespace Aiursoft.Kanban.Entities;
 /// Avoids redundant round-trips to the embedding model for repeated search terms.
 /// </summary>
 [ExcludeFromCodeCoverage]
+[Index(nameof(QueryText), IsUnique = true)]
 public class SearchEmbedding
 {
+    [Key]
     public int Id { get; set; }
 
     /// <summary>
     /// The search query text (truncated to 40 chars before embedding).
     /// </summary>
+    [MaxLength(40)]
     public required string QueryText { get; set; }
 
     /// <summary>
