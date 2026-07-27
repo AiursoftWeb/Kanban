@@ -60,8 +60,32 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>Số giả mạo</value>
   </data>
+  <data name="Embedding API Endpoint" xml:space="preserve">
+    <value>Điểm cuối API Nhúng</value>
+  </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>Mã thông báo API nhúng</value>
+  </data>
+  <data name="Embedding Model Name" xml:space="preserve">
+    <value>Tên mô hình nhúng</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>Giới hạn bộ nhớ đệm truy vấn nhúng</value>
+  </data>
+  <data name="Enable Embedding-based Search" xml:space="preserve">
+    <value>Bật Tìm kiếm Dựa trên Embedding</value>
+  </data>
+  <data name="Enable semantic vector search powered by an embedding model. Fallbacks to plain text search if disabled or unavailable." xml:space="preserve">
+    <value>Bật tìm kiếm vectơ ngữ nghĩa được hỗ trợ bởi mô hình nhúng. Tự động chuyển sang tìm kiếm văn bản thuần túy nếu tính năng này bị tắt hoặc không khả dụng.</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>Số đăng ký ICP</value>
+  </data>
+  <data name="Maximum number of query embeddings to cache in the database. Defaults to 2000." xml:space="preserve">
+    <value>Số lượng tối đa các embedding truy vấn được lưu vào bộ nhớ đệm trong cơ sở dữ liệu. Mặc định là 2000.</value>
+  </data>
+  <data name="Optional Bearer token for authenticating with the embedding API." xml:space="preserve">
+    <value>Token Bearer tùy chọn để xác thực với API nhúng.</value>
   </data>
   <data name="Planned Start Time Advance Days" xml:space="preserve">
     <value>Số ngày trước thời gian bắt đầu theo kế hoạch</value>
@@ -75,6 +99,9 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>Điểm cuối API Messages của Anthropic do tác nhân AI Kanban sử dụng. Phải là URL đầy đủ bao gồm /v1/messages, ví dụ: https://ollama.example.com/v1/messages. Để trống để vô hiệu hóa tác nhân AI.</value>
   </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>URL gốc của API nhúng (ví dụ: Ollama). Không được bao gồm đường dẫn, ví dụ: http://localhost:11434. Để trống để vô hiệu hóa.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Tên thương hiệu được hiển thị trong chân trang.</value>
   </data>
@@ -86,6 +113,9 @@
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Logo của dự án được hiển thị trong thanh điều hướng và chân trang. Hỗ trợ định dạng jpg, png, svg.</value>
+  </data>
+  <data name="The model name used for embeddings, e.g. bge-m3:latest. Requires dimensions to match the float32 array serialization (1024 for bge-m3)." xml:space="preserve">
+    <value>Tên mô hình được sử dụng cho embeddings, ví dụ: bge-m3:latest. Yêu cầu số chiều phải khớp với quá trình tuần tự hóa mảng float32 (1024 đối với bge-m3).</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Tên dự án được hiển thị trên giao diện người dùng</value>

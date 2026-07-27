@@ -60,8 +60,32 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>임시 번호</value>
   </data>
+  <data name="Embedding API Endpoint" xml:space="preserve">
+    <value>임베딩 API 엔드포인트</value>
+  </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>임베딩 API 토큰</value>
+  </data>
+  <data name="Embedding Model Name" xml:space="preserve">
+    <value>임베딩 모델 이름</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>임베딩 쿼리 캐시 한도</value>
+  </data>
+  <data name="Enable Embedding-based Search" xml:space="preserve">
+    <value>임베딩 기반 검색 활성화</value>
+  </data>
+  <data name="Enable semantic vector search powered by an embedding model. Fallbacks to plain text search if disabled or unavailable." xml:space="preserve">
+    <value>임베딩 모델 기반의 의미 벡터 검색을 활성화합니다. 비활성화되거나 사용할 수 없는 경우 일반 텍스트 검색으로 대체됩니다.</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP 번호</value>
+  </data>
+  <data name="Maximum number of query embeddings to cache in the database. Defaults to 2000." xml:space="preserve">
+    <value>데이터베이스에 캐싱할 쿼리 임베딩의 최대 수입니다. 기본값은 2000입니다.</value>
+  </data>
+  <data name="Optional Bearer token for authenticating with the embedding API." xml:space="preserve">
+    <value>임베딩 API 인증을 위한 선택적 Bearer 토큰입니다.</value>
   </data>
   <data name="Planned Start Time Advance Days" xml:space="preserve">
     <value>예정 시작 시간 사전 일수</value>
@@ -75,6 +99,9 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>Kanban AI 에이전트에서 사용하는 Anthropic Messages API 엔드포인트입니다. /v1/messages를 포함한 전체 URL이어야 합니다. 예: https://ollama.example.com/v1/messages. AI 에이전트를 비활성화하려면 비워 두세요.</value>
   </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>임베딩 API의 기본 URL(예: Ollama). 경로를 포함해서는 안 되며, 예: http://localhost:11434. 비활성화하려면 비워 둡니다.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>푸터에 표시되는 브랜드 이름</value>
   </data>
@@ -86,6 +113,9 @@
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>네비게이션 바와 푸터에 표시되는 프로젝트의 로고입니다. jpg, png, svg 형식을 지원합니다.</value>
+  </data>
+  <data name="The model name used for embeddings, e.g. bge-m3:latest. Requires dimensions to match the float32 array serialization (1024 for bge-m3)." xml:space="preserve">
+    <value>임베딩에 사용되는 모델 이름입니다(예: bge-m3:latest). 차원은 float32 배열 직렬화와 일치해야 합니다(bge-m3의 경우 1024).</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>프론트엔드에 표시되는 프로젝트 이름</value>

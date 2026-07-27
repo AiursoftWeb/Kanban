@@ -108,6 +108,9 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>Диаграмма Ганта</value>
   </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>Глобальный поиск</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>Глобальные настройки</value>
   </data>
@@ -200,6 +203,12 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Роли</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Search cards…" xml:space="preserve">
+    <value>Поиск карточек…</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>

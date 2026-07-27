@@ -108,6 +108,9 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>Gantt Chart</value>
   </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>Pesquisa Global</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>Definições Globais</value>
   </data>
@@ -200,6 +203,12 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Funções</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
+  <data name="Search cards…" xml:space="preserve">
+    <value>Pesquisar cartões…</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Definições</value>

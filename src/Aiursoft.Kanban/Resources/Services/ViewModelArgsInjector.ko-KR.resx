@@ -111,6 +111,9 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>간트 차트</value>
   </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>전체 검색</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>전역 설정</value>
   </data>
@@ -203,6 +206,12 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>역할</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>검색</value>
+  </data>
+  <data name="Search cards…" xml:space="preserve">
+    <value>카드 검색…</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>설정</value>

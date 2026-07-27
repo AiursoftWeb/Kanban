@@ -60,8 +60,32 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>Número de Teste</value>
   </data>
+  <data name="Embedding API Endpoint" xml:space="preserve">
+    <value>Endpoint da API de Incorporação</value>
+  </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>Token da API de Incorporação</value>
+  </data>
+  <data name="Embedding Model Name" xml:space="preserve">
+    <value>Nome do Modelo de Incorporação</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>Limite do Cache de Consultas de Incorporação</value>
+  </data>
+  <data name="Enable Embedding-based Search" xml:space="preserve">
+    <value>Ativar busca baseada em embeddings</value>
+  </data>
+  <data name="Enable semantic vector search powered by an embedding model. Fallbacks to plain text search if disabled or unavailable." xml:space="preserve">
+    <value>Ative a pesquisa vetorial semântica baseada em um modelo de embedding. Recorre à pesquisa de texto simples se desativado ou indisponível.</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>Número do ICP</value>
+  </data>
+  <data name="Maximum number of query embeddings to cache in the database. Defaults to 2000." xml:space="preserve">
+    <value>Número máximo de embeddings de consulta a serem armazenados em cache no banco de dados. O padrão é 2000.</value>
+  </data>
+  <data name="Optional Bearer token for authenticating with the embedding API." xml:space="preserve">
+    <value>Token Bearer opcional para autenticação com a API de embeddings.</value>
   </data>
   <data name="Planned Start Time Advance Days" xml:space="preserve">
     <value>Dias de Antecedência do Horário de Início Planejado</value>
@@ -75,6 +99,9 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>O endpoint da API de Mensagens da Anthropic usado pelo agente de IA do Kanban. Deve ser a URL completa incluindo /v1/messages, por exemplo, https://ollama.example.com/v1/messages. Deixe vazio para desativar o agente de IA.</value>
   </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>A URL base da API de incorporação (ex.: Ollama). Não deve incluir o caminho, ex.: http://localhost:11434. Deixe vazio para desativar.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>O nome da marca exibido no rodapé.</value>
   </data>
@@ -86,6 +113,9 @@
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>O logotipo do projeto exibido na barra de navegação e no rodapé. Suporta jpg, png, svg.</value>
+  </data>
+  <data name="The model name used for embeddings, e.g. bge-m3:latest. Requires dimensions to match the float32 array serialization (1024 for bge-m3)." xml:space="preserve">
+    <value>O nome do modelo usado para embeddings, por exemplo, bge-m3:latest. Requer que as dimensões correspondam à serialização da matriz float32 (1024 para bge-m3).</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>O nome do projeto exibido na interface do usuário.</value>

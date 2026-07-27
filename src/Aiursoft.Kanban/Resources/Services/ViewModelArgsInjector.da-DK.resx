@@ -108,6 +108,9 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>Gantt-diagram</value>
   </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>Global søgning</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>Globale indstillinger</value>
   </data>
@@ -200,6 +203,12 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Roller</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Søg</value>
+  </data>
+  <data name="Search cards…" xml:space="preserve">
+    <value>Søg efter kort…</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Indstillinger</value>

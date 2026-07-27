@@ -60,8 +60,32 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>Standaardnummer</value>
   </data>
+  <data name="Embedding API Endpoint" xml:space="preserve">
+    <value>Embedding-API-eindpunt</value>
+  </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>Embedding-API-token</value>
+  </data>
+  <data name="Embedding Model Name" xml:space="preserve">
+    <value>Naam embeddingmodel</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>Limiet voor embedding querycache</value>
+  </data>
+  <data name="Enable Embedding-based Search" xml:space="preserve">
+    <value>Embeddingsgebaseerd zoeken inschakelen</value>
+  </data>
+  <data name="Enable semantic vector search powered by an embedding model. Fallbacks to plain text search if disabled or unavailable." xml:space="preserve">
+    <value>Schakel semantische vectorzoekopdrachten in, aangedreven door een embedding-model. Terugvallen naar gewone tekstzoekopdrachten als deze uitgeschakeld of niet beschikbaar is.</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP-nummer</value>
+  </data>
+  <data name="Maximum number of query embeddings to cache in the database. Defaults to 2000." xml:space="preserve">
+    <value>Maximaal aantal query-embeddings om in de database te cachen. Standaard 2000.</value>
+  </data>
+  <data name="Optional Bearer token for authenticating with the embedding API." xml:space="preserve">
+    <value>Optionele Bearer-token voor authenticatie bij de embedding-API.</value>
   </data>
   <data name="Planned Start Time Advance Days" xml:space="preserve">
     <value>Aantal dagen voor geplande starttijd</value>
@@ -75,6 +99,9 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>Het Anthropic Messages API-eindpunt dat wordt gebruikt door de Kanban AI-agent. Moet de volledige URL zijn, inclusief /v1/messages, bijv. https://ollama.example.com/v1/messages. Laat leeg om de AI-agent uit te schakelen.</value>
   </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>De basis-URL van de embedding-API (bijv. Ollama). Mag geen pad bevatten, bijv. http://localhost:11434. Laat leeg om uit te schakelen.</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>De merknaam die wordt weergegeven in de voettekst.</value>
   </data>
@@ -86,6 +113,9 @@
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Het logo van het project dat wordt weergegeven in de navigatiebalk en voettekst. Ondersteunt jpg, png, svg.</value>
+  </data>
+  <data name="The model name used for embeddings, e.g. bge-m3:latest. Requires dimensions to match the float32 array serialization (1024 for bge-m3)." xml:space="preserve">
+    <value>De modelnaam die wordt gebruikt voor embeddings, bijv. bge-m3:latest. Vereist dat de dimensies overeenkomen met de float32-arrayserialisatie (1024 voor bge-m3).</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>De naam van het project dat wordt weergegeven in de frontend.</value>

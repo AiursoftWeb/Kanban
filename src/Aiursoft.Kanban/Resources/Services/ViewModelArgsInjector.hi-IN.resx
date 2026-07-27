@@ -108,6 +108,9 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>गannt चार्ट</value>
   </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>वैश्विक खोज</value>
+  </data>
   <data name="Global Settings" xml:space="preserve">
     <value>सार्वभौम सेटिंग्स</value>
   </data>
@@ -200,6 +203,12 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>भूमिकाएँ</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>खोजें</value>
+  </data>
+  <data name="Search cards…" xml:space="preserve">
+    <value>कार्ड खोजें…</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>सेटिंग्स</value>
