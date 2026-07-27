@@ -5,9 +5,18 @@
     var pollTimer = null;
     var lastMessageCount = 0;
     var token = '';
-    var pollInterval = 1000;
     var excelMarkdown = null;
     var attachedFileName = null;
+
+    // ── Adaptive polling ──────────────────────────────────────────
+    // State-aware intervals (ms) to avoid 429 rate limiting
+    var BASE_INTERVALS = {
+        'Thinking':          3000,  // LLM takes seconds per turn; 3s is responsive enough
+        'AwaitingApproval':  5000,  // user is reading/deciding; 5s is plenty
+        'default':           2000
+    };
+    var currentInterval = 2000;
+    var currentBackoff = 1000;   // grows on 429, resets on success
 
     function loc(key, fallback) {
         var el = document.querySelector('#agent-loc-data span[data-key="' + key + '"]');
@@ -98,7 +107,6 @@
                 return;
             }
             conversationId = data.ConversationId;
-            pollStatus(); // Immediate first poll
             startPolling();
         })
         .catch(function(err) {
@@ -108,20 +116,43 @@
     }
 
     function startPolling() {
-        if (pollTimer) clearInterval(pollTimer);
-        pollTimer = setInterval(pollStatus, pollInterval);
+        if (pollTimer) clearTimeout(pollTimer);
+        // Reset to an optimistic interval when a user action triggers a fresh poll
+        currentInterval = 2000;
+        currentBackoff = 1000;
+        // Fire immediately; pollStatus schedules the next one on success
+        pollStatus();
     }
 
     function stopPolling() {
-        if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+        if (pollTimer) { clearTimeout(pollTimer); pollTimer = null; }
+    }
+
+    function scheduleNext() {
+        if (!conversationId) return;
+        pollTimer = setTimeout(pollStatus, currentInterval);
     }
 
     function pollStatus() {
         if (!conversationId) { stopPolling(); return; }
 
         fetch('/Agent/Status?conversationId=' + conversationId)
-            .then(function(r) { return r.json(); })
+            .then(function(r) {
+                if (r.status === 429) {
+                    // Exponential backoff with jitter
+                    currentBackoff = Math.min(currentBackoff * 2, 30000); // max 30s
+                    var jitter = currentBackoff * (0.5 + Math.random() * 0.5); // 50%-100% of backoff
+                    currentInterval = Math.round(jitter);
+                    scheduleNext();
+                    return null; // skip .json()
+                }
+                // Success: reset backoff
+                currentBackoff = 1000;
+                return r.json();
+            })
             .then(function(data) {
+                if (!data) return; // 429 case, already rescheduled
+
                 if (data.Error) { stopPolling(); return; }
                 renderMessages(data);
                 renderAdvice(data);
@@ -136,12 +167,17 @@
                         appendMessage('assistant', loc('error', 'Error'));
                     }
                 } else if (data.State === 'Completed') {
-                    // Keep conversationId so the user can continue the conversation.
-                    // Only stop polling — the next message resumes the same conversation.
                     stopPolling();
+                } else {
+                    currentInterval = BASE_INTERVALS[data.State] || BASE_INTERVALS['default'];
+                    scheduleNext();
                 }
             })
-            .catch(function() { /* retry on next poll */ });
+            .catch(function() {
+                // Network error — back off gently and retry
+                currentInterval = Math.min(currentInterval * 2, 15000);
+                scheduleNext();
+            });
     }
 
     function renderMessages(data) {
