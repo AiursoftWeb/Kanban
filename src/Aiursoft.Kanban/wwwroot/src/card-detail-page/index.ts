@@ -232,6 +232,43 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       });
     });
 
+    if (refs.descriptionTextarea) {
+      let dragCounter = 0;
+
+      refs.descriptionTextarea.addEventListener('dragenter', event => {
+        event.preventDefault();
+        dragCounter += 1;
+        refs.descriptionTextarea?.classList.add('dragover');
+      });
+
+      refs.descriptionTextarea.addEventListener('dragover', event => {
+        event.preventDefault();
+      });
+
+      refs.descriptionTextarea.addEventListener('dragleave', event => {
+        event.preventDefault();
+        dragCounter -= 1;
+        if (dragCounter <= 0) {
+          dragCounter = 0;
+          refs.descriptionTextarea?.classList.remove('dragover');
+        }
+      });
+
+      refs.descriptionTextarea.addEventListener('drop', event => {
+        event.preventDefault();
+        dragCounter = 0;
+        refs.descriptionTextarea?.classList.remove('dragover');
+
+        const files = Array.from(event.dataTransfer?.files ?? [])
+          .filter(file => file.type.startsWith('image/'));
+        if (files.length > 0) {
+          insertImagesIntoTextarea(refs.descriptionTextarea!, files, options.imageUploadUrl, refs.saveDescriptionButton).catch(problem => {
+            showFriendlyDialog(getErrorMessage(problem, t('failed-upload-pasted-image', 'Failed to upload pasted image.')));
+          });
+        }
+      });
+    }
+
     if (refs.titleDisplay && refs.titleInput && options.canEdit) {
       refs.titleDisplay.addEventListener('click', () => {
         refs.titleDisplay?.classList.add('d-none');
@@ -1361,6 +1398,15 @@ async function uploadPastedImagesIntoTextarea(
 
   event.preventDefault();
   event.stopPropagation();
+  await insertImagesIntoTextarea(textarea, files, uploadUrl, busyButton);
+}
+
+async function insertImagesIntoTextarea(
+  textarea: HTMLTextAreaElement,
+  files: File[],
+  uploadUrl: string,
+  busyButton?: HTMLButtonElement | null,
+): Promise<void> {
   if (busyButton) busyButton.disabled = true;
 
   try {
