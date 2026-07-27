@@ -27,7 +27,7 @@ public class CardVectorSearchService(
         int pageSize,
         CancellationToken ct = default)
     {
-        if (!await settingsService.IsAiSearchEnabledAsync())
+        if (!await ShouldAttemptVectorSearchAsync())
         {
             return (false, [], 0);
         }
@@ -106,6 +106,18 @@ public class CardVectorSearchService(
     }
 
 
+
+    private async Task<bool> ShouldAttemptVectorSearchAsync()
+    {
+        var enabled = await settingsService.GetBoolSettingAsync(SettingsMap.EnableEmbeddingBasedSearch);
+        if (!enabled) return false;
+
+        var endpoint = await settingsService.GetEmbeddingEndpointAsync();
+        if (string.IsNullOrWhiteSpace(endpoint)) return false;
+
+        var model = await settingsService.GetSettingValueAsync(SettingsMap.EmbeddingModel);
+        return !string.IsNullOrWhiteSpace(model);
+    }
 
     private static string ComputeQueryCacheKey(string text)
     {
