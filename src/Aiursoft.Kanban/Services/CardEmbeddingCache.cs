@@ -61,8 +61,8 @@ public class CardEmbeddingCache(ILogger<CardEmbeddingCache> logger) : ISingleton
         if (total > MaxEntries)
         {
             logger.LogWarning(
-                "{Count} card embeddings exceed cache limit of {MaxEntries}. Capping to most recent {MaxEntries} entries.",
-                total, MaxEntries, MaxEntries);
+                "{Count} card embeddings exceed cache limit of {Limit}. Capping to most recent entries.",
+                total, MaxEntries);
             embeddings = embeddings.Take(MaxEntries).ToList();
         }
 
