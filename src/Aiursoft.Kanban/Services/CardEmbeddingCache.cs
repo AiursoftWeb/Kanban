@@ -14,6 +14,8 @@ namespace Aiursoft.Kanban.Services;
 [ExcludeFromCodeCoverage]
 public class CardEmbeddingCache(ILogger<CardEmbeddingCache> logger) : ISingletonDependency
 {
+    private const int MaxEntries = 10_000;
+
     // Dictionary<BoardId, Dictionary<CardId, float[]>>
     private Dictionary<int, Dictionary<int, float[]>> _cache = [];
     private readonly Lock _lock = new();
@@ -55,8 +57,17 @@ public class CardEmbeddingCache(ILogger<CardEmbeddingCache> logger) : ISingleton
             .Select(r => new { r.Id, r.Column.BoardId, r.Embedding })
             .ToListAsync();
 
+        int total = embeddings.Count;
+        if (total > MaxEntries)
+        {
+            logger.LogWarning(
+                "{Count} card embeddings exceed cache limit of {MaxEntries}. Capping to most recent {MaxEntries} entries.",
+                total, MaxEntries, MaxEntries);
+            embeddings = embeddings.Take(MaxEntries).ToList();
+        }
+
         var newCache = new Dictionary<int, Dictionary<int, float[]>>();
-        
+
         foreach (var item in embeddings)
         {
             var vector = EmbeddingHelper.Deserialize(item.Embedding!);
