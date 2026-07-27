@@ -1,12 +1,10 @@
 using System.Text;
-using System.Net.Http.Json;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Util;
 using Aiursoft.Scanner.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Logging;
 
 namespace Aiursoft.Kanban.Services;
 

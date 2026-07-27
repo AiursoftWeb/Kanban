@@ -1,9 +1,6 @@
 using Aiursoft.Kanban.Entities;
-using Aiursoft.Kanban.Models;
-using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Models.SearchViewModels;
-using Aiursoft.Kanban.Services.Access;
-using Aiursoft.UiStack.Layout;
+using Aiursoft.Kanban.Services;
 using Aiursoft.UiStack.Navigation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

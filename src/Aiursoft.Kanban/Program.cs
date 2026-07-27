@@ -3,6 +3,7 @@ using Aiursoft.ClickhouseLoggerProvider;
 using Aiursoft.DbTools;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Extensions;
+using Aiursoft.Kanban.Services;
 using static Aiursoft.WebTools.Extends;
 
 namespace Aiursoft.Kanban;
@@ -21,7 +22,7 @@ public abstract class Program
         
         using (var scope = app.Services.CreateScope())
         {
-            var cache = scope.ServiceProvider.GetRequiredService<Aiursoft.Kanban.Services.CardEmbeddingCache>();
+            var cache = scope.ServiceProvider.GetRequiredService<CardEmbeddingCache>();
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             await cache.LoadAsync(db);
         }

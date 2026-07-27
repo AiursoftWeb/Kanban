@@ -1,9 +1,6 @@
+using Aiursoft.Canon.BackgroundJobs;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
-using Aiursoft.Kanban.Services;
-using Aiursoft.Canon.BackgroundJobs;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Aiursoft.Kanban.Services.BackgroundJobs;
 

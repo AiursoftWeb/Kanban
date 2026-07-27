@@ -108,7 +108,7 @@ public class GenerateCardEmbeddingsJob(
                     float[]? embedding = null;
                     await retryEngine.RunWithRetry(async _ =>
                     {
-                        embedding = await CallEmbedApiAsync(embedEndpoint, model, token, http, card);
+                        embedding = await CallEmbedApiAsync(embedEndpoint, model, http, card);
                     });
 
                     if (await TrySaveEmbeddingIfCardUnchangedAsync(db, card, sourceUpdatedAt, embedding!))
@@ -139,7 +139,7 @@ public class GenerateCardEmbeddingsJob(
     }
 
     private async Task<float[]> CallEmbedApiAsync(
-        string embedEndpoint, string model, string token, HttpClient http, KanbanCard card)
+        string embedEndpoint, string model, HttpClient http, KanbanCard card)
     {
         var rawText = $"{card.Title}\n{card.Description ?? ""}".Trim();
         var maxChars = 8000;

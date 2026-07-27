@@ -3,7 +3,6 @@ using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Util;
 using Microsoft.EntityFrameworkCore;
 using Aiursoft.Scanner.Abstractions;
-using Microsoft.Extensions.Logging;
 
 namespace Aiursoft.Kanban.Services;
 
@@ -53,7 +52,7 @@ public class CardEmbeddingCache(ILogger<CardEmbeddingCache> logger) : ISingleton
             .Include(c => c.Column)
             .Where(r => r.Embedding != null)
             .OrderByDescending(r => r.LastEmbeddedAt)
-            .Select(r => new { r.Id, BoardId = r.Column.BoardId, r.Embedding })
+            .Select(r => new { r.Id, r.Column.BoardId, r.Embedding })
             .ToListAsync();
 
         var newCache = new Dictionary<int, Dictionary<int, float[]>>();
