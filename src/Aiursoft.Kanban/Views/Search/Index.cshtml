@@ -1,0 +1,67 @@
+@model Aiursoft.Kanban.Models.SearchViewModels.SearchResultViewModel
+@using Aiursoft.Kanban.Entities
+
+@{
+    ViewData["Title"] = "Search Cards";
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="get" class="d-flex gap-2">
+                <input type="text" name="q" value="@Model.Query" class="form-control" placeholder="Search cards by title or description..." />
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
+            </form>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Query))
+    {
+        <h4 class="mb-3">
+            Search Results for "@Model.Query"
+            @if (Model.UsedAi)
+            {
+                <span class="badge bg-success ms-2"><i class="bi bi-robot"></i> AI Powered</span>
+            }
+            <small class="text-muted fs-6">(@Model.TotalCount results)</small>
+        </h4>
+
+        @if (Model.Cards.Any())
+        {
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+                @foreach (var card in Model.Cards)
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-start border-4 @(card.Priority == Priority.Urgent ? "border-danger" : card.Priority == Priority.High ? "border-warning" : "border-secondary")">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="@Url.Action("Detail", "Cards", new { id = card.Id, returnBoardId = card.Column.BoardId })" class="text-decoration-none">
+                                        @card.Title
+                                    </a>
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <i class="bi bi-kanban"></i> @card.Column.Board.Name / @card.Column.Name
+                                </h6>
+                                <p class="card-text text-truncate">
+                                    @(string.IsNullOrWhiteSpace(card.Description) ? "No description" : card.Description)
+                                </p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                @foreach (var labelLink in card.CardLabels)
+                                {
+                                    <span class="badge" style="background-color: @labelLink.Label.Color">@labelLink.Label.Name</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                No cards found matching your query.
+            </div>
+        }
+    }
+</div>

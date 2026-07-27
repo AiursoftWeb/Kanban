@@ -18,6 +18,11 @@ public class SettingsMap
     public const string AgentSystemPrompt = "AgentSystemPrompt";
     public const string AutoSetPlannedStartTime = "AutoSetPlannedStartTime";
     public const string PlannedStartTimeAdvanceDays = "PlannedStartTimeAdvanceDays";
+    public const string EmbeddingOllamaInstance = "EmbeddingOllamaInstance";
+    public const string EmbeddingModel = "EmbeddingModel";
+    public const string EmbeddingApiToken = "EmbeddingApiToken";
+    public const string EnableEmbeddingBasedSearch = "EnableEmbeddingBasedSearch";
+    public const string EmbeddingQueryCacheLimit = "EmbeddingQueryCacheLimit";
 
     public class FakeLocalizer
     {
@@ -164,6 +169,47 @@ For operations that modify data, the system will ask the user to approve before 
             Description = Localizer["When auto-setting planned start time, the number of days to advance before the due date."],
             Type = SettingType.Number,
             DefaultValue = "4"
+        },
+        // ── AI: Vector Embeddings (5 settings) ──────────────────────────────────────
+        new GlobalSettingDefinition
+        {
+            Key = EnableEmbeddingBasedSearch,
+            Name = Localizer["Enable Embedding-based Search"],
+            Description = Localizer["Enable semantic vector search powered by an embedding model. Fallbacks to plain text search if disabled or unavailable."],
+            Type = SettingType.Bool,
+            DefaultValue = "False"
+        },
+        new GlobalSettingDefinition
+        {
+            Key = EmbeddingOllamaInstance,
+            Name = Localizer["Embedding API Endpoint"],
+            Description = Localizer["The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable."],
+            Type = SettingType.Text,
+            DefaultValue = ""
+        },
+        new GlobalSettingDefinition
+        {
+            Key = EmbeddingModel,
+            Name = Localizer["Embedding Model Name"],
+            Description = Localizer["The model name used for embeddings, e.g. bge-m3:latest. Requires dimensions to match the float32 array serialization (1024 for bge-m3)."],
+            Type = SettingType.Text,
+            DefaultValue = "bge-m3:latest"
+        },
+        new GlobalSettingDefinition
+        {
+            Key = EmbeddingApiToken,
+            Name = Localizer["Embedding API Token"],
+            Description = Localizer["Optional Bearer token for authenticating with the embedding API."],
+            Type = SettingType.Text,
+            DefaultValue = ""
+        },
+        new GlobalSettingDefinition
+        {
+            Key = EmbeddingQueryCacheLimit,
+            Name = Localizer["Embedding Query Cache Limit"],
+            Description = Localizer["Maximum number of query embeddings to cache in the database. Defaults to 2000."],
+            Type = SettingType.Number,
+            DefaultValue = "2000"
         }
     };
 }

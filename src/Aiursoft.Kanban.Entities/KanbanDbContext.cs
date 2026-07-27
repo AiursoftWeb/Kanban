@@ -20,6 +20,20 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<KanbanCardComment> KanbanCardComments => Set<KanbanCardComment>();
     public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<DailyReport> DailyReports => Set<DailyReport>();
+    public DbSet<SearchEmbedding> SearchEmbeddings => Set<SearchEmbedding>();
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        var entries = ChangeTracker.Entries<KanbanCard>()
+            .Where(e => e.State == EntityState.Modified);
+
+        foreach (var entry in entries)
+        {
+            entry.Entity.LastUpdatedAt = DateTime.UtcNow;
+        }
+
+        return base.SaveChangesAsync(cancellationToken);
+    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

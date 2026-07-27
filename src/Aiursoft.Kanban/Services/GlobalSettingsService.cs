@@ -62,6 +62,29 @@ public class GlobalSettingsService(
         return int.TryParse(value, out var result) ? result : 0;
     }
 
+    public async Task<bool> IsAiSearchEnabledAsync()
+    {
+        var enableAiSearch = await GetBoolSettingAsync(SettingsMap.EnableEmbeddingBasedSearch);
+        var instance = await GetSettingValueAsync(SettingsMap.EmbeddingOllamaInstance);
+        var model = await GetSettingValueAsync(SettingsMap.EmbeddingModel);
+        
+        return enableAiSearch && !string.IsNullOrWhiteSpace(instance) && !string.IsNullOrWhiteSpace(model);
+    }
+
+    public async Task<string> GetEmbeddingEndpointAsync()
+    {
+        var instance = await GetSettingValueAsync(SettingsMap.EmbeddingOllamaInstance);
+        return instance.TrimEnd('/');
+    }
+
+    public async Task<string> GetEmbeddingTokenAsync()
+    {
+        var dedicated = await GetSettingValueAsync(SettingsMap.EmbeddingApiToken);
+        if (!string.IsNullOrWhiteSpace(dedicated)) return dedicated;
+
+        return await GetSettingValueAsync(SettingsMap.AnthropicApiToken);
+    }
+
     public bool IsOverriddenByConfig(string key)
     {
         return !string.IsNullOrWhiteSpace(configuration[$"GlobalSettings:{key}"]) ||
