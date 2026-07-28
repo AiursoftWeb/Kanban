@@ -20,6 +20,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<KanbanCardComment> KanbanCardComments => Set<KanbanCardComment>();
     public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<DailyReport> DailyReports => Set<DailyReport>();
+    public DbSet<WeeklyReport> WeeklyReports => Set<WeeklyReport>();
     public DbSet<SearchEmbedding> SearchEmbeddings => Set<SearchEmbedding>();
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -110,6 +111,15 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .OnDelete(DeleteBehavior.Cascade);
         builder.Entity<DailyReport>()
             .HasIndex(r => new { r.UserId, r.Date, r.ReportType })
+            .IsUnique();
+
+        builder.Entity<WeeklyReport>()
+            .HasOne(r => r.User)
+            .WithMany()
+            .HasForeignKey(r => r.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<WeeklyReport>()
+            .HasIndex(r => new { r.UserId, r.WeekStart })
             .IsUnique();
     }
 

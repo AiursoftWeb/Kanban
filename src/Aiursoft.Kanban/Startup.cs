@@ -95,6 +95,13 @@ public class Startup : IWebStartup
             period:      TimeSpan.FromMinutes(30),
             startDelay:  TimeSpan.FromMinutes(2));
 
+        // Weekly Report background job — runs every hour, generates on Friday afternoon
+        var weeklyReportJob = services.RegisterBackgroundJob<WeeklyReportBackgroundJob>();
+        services.RegisterScheduledTask(
+            registration: weeklyReportJob,
+            period:      TimeSpan.FromHours(1),
+            startDelay:  TimeSpan.FromMinutes(7));
+
         // Auto Set Planned Start Time background job — scans every 30 minutes
         var autoSetPlannedStartTimeJob = services.RegisterBackgroundJob<AutoSetPlannedStartTimeBackgroundJob>();
         services.RegisterScheduledTask(
