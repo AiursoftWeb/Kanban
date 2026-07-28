@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="AI-generated weekly summary of your completed tasks, available every Friday afternoon." xml:space="preserve">
+    <value>สรุปงานรายสัปดาห์ที่สร้างโดย AI จากงานที่คุณเสร็จสิ้นแล้ว พร้อมใช้งานทุกวันศุกร์บ่าย</value>
+  </data>
+  <data name="Are you sure you want to discard this weekly report? A new one will be generated on the next hourly run." xml:space="preserve">
+    <value>คุณแน่ใจหรือไม่ว่าต้องการยกเลิกรายงานประจำสัปดาห์นี้? รายงานฉบับใหม่จะถูกสร้างขึ้นในการรันรายชั่วโมงถัดไป</value>
+  </data>
+  <data name="Click to generate your weekly report summarizing all completed tasks this week." xml:space="preserve">
+    <value>คลิกเพื่อสร้างรายงานประจำสัปดาห์โดยสรุปงานทั้งหมดที่เสร็จสิ้นในสัปดาห์นี้</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Generate Report" xml:space="preserve">
+    <value>สร้างรายงาน</value>
+  </data>
+  <data name="Generated At" xml:space="preserve">
+    <value>สร้างเมื่อ</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>ประวัติ</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>ถัดไป</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>ยังไม่มีรายงาน</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>ตัวอย่าง</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>ก่อนหน้า</value>
+  </data>
+  <data name="This Week" xml:space="preserve">
+    <value>สัปดาห์นี้</value>
+  </data>
+  <data name="This Week&apos;s Report" xml:space="preserve">
+    <value>รายงานสัปดาห์นี้</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>ดู</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>สัปดาห์</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>รายงานประจำสัปดาห์</value>
+  </data>
+  <data name="Weekly reports become available every Friday afternoon (UTC+8). Check back then!" xml:space="preserve">
+    <value>รายงานประจำสัปดาห์จะเปิดให้เข้าถึงทุกวันศุกร์บ่าย (UTC+8) โปรดกลับมาตรวจสอบในเวลานั้น!</value>
+  </data>
+  <data name="Your weekly reports will appear here." xml:space="preserve">
+    <value>รายงานประจำสัปดาห์ของคุณจะแสดงที่นี่</value>
+  </data>
+
+</root>

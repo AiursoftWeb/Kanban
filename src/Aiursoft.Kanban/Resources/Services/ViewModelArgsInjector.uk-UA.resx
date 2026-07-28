@@ -30,6 +30,9 @@
   <data name="AI Assistant" xml:space="preserve">
     <value>Штучний інтелект-помічник</value>
   </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>Налаштування звітів ШІ</value>
+  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Шаблон Aiursoft</value>
   </data>
@@ -242,6 +245,12 @@
   </data>
   <data name="View All Notifications" xml:space="preserve">
     <value>Переглянути всі сповіщення</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>Щотижневий звіт</value>
+  </data>
+  <data name="Weekly Report Details" xml:space="preserve">
+    <value>Деталі щотижневого звіту</value>
   </data>
 
 </root>

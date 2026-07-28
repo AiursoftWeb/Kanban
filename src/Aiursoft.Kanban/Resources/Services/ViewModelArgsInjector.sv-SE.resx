@@ -30,6 +30,9 @@
   <data name="AI Assistant" xml:space="preserve">
     <value>AI-assistent</value>
   </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>Inställningar för AI-rapport</value>
+  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Mall</value>
   </data>
@@ -242,6 +245,12 @@
   </data>
   <data name="View All Notifications" xml:space="preserve">
     <value>Visa alla aviseringar</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>Veckovisning</value>
+  </data>
+  <data name="Weekly Report Details" xml:space="preserve">
+    <value>Veckorapportdetaljer</value>
   </data>
 
 </root>

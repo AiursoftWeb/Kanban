@@ -30,6 +30,9 @@
   <data name="AI Assistant" xml:space="preserve">
     <value>مساعد الذكاء الاصطناعي</value>
   </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>إعدادات تقرير الذكاء الاصطناعي</value>
+  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>قالب Aiursoft</value>
   </data>
@@ -242,6 +245,12 @@
   </data>
   <data name="View All Notifications" xml:space="preserve">
     <value>عرض جميع الإشعارات</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>التقرير الأسبوعي</value>
+  </data>
+  <data name="Weekly Report Details" xml:space="preserve">
+    <value>تفاصيل التقرير الأسبوعي</value>
   </data>
 
 </root>

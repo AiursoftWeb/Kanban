@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="AI-generated weekly summary of your completed tasks, available every Friday afternoon." xml:space="preserve">
+    <value>매주 금요일 오후에 제공되는 완료된 작업에 대한 AI 생성 주간 요약입니다.</value>
+  </data>
+  <data name="Are you sure you want to discard this weekly report? A new one will be generated on the next hourly run." xml:space="preserve">
+    <value>이번 주간 보고서를 삭제하시겠습니까? 다음 시간 단위 실행 시 새 보고서가 생성됩니다.</value>
+  </data>
+  <data name="Click to generate your weekly report summarizing all completed tasks this week." xml:space="preserve">
+    <value>이번 주에 완료된 모든 작업을 요약한 주간 보고서를 생성하려면 클릭하세요.</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="Generate Report" xml:space="preserve">
+    <value>보고서 생성</value>
+  </data>
+  <data name="Generated At" xml:space="preserve">
+    <value>생성 일시</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>이력</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>다음</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>아직 보고서가 없습니다</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>미리보기</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>이전</value>
+  </data>
+  <data name="This Week" xml:space="preserve">
+    <value>이번 주</value>
+  </data>
+  <data name="This Week&apos;s Report" xml:space="preserve">
+    <value>이번 주 보고서</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>보기</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>주</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>주간 보고서</value>
+  </data>
+  <data name="Weekly reports become available every Friday afternoon (UTC+8). Check back then!" xml:space="preserve">
+    <value>주간 보고서는 매주 금요일 오후(UTC+8)에 제공됩니다. 그 후에 다시 확인해 주세요!</value>
+  </data>
+  <data name="Your weekly reports will appear here." xml:space="preserve">
+    <value>주간 보고서가 여기에 표시됩니다.</value>
+  </data>
+
+</root>

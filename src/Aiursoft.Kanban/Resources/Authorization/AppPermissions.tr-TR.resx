@@ -45,6 +45,9 @@
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
     <value>Tüm kullanıcılar için günlük planları ve özetleri görüntülemeye ve yönetmeye olanak tanır.</value>
   </data>
+  <data name="Allows viewing and managing weekly reports for all users." xml:space="preserve">
+    <value>Tüm kullanıcılar için haftalık raporların görüntülenmesine ve yönetilmesine izin verir.</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Genel uygulama ayarlarını görüntüleme ve değiştirme izni verir.</value>
   </data>
@@ -98,6 +101,9 @@
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
     <value>Herhangi Bir Günlük Raporu Yönet</value>
+  </data>
+  <data name="Manage Any Weekly Report" xml:space="preserve">
+    <value>Her Haftalık Raporu Yönet</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Genel Ayarları Yönet</value>

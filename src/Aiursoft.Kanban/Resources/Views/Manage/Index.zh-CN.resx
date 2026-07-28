@@ -21,6 +21,12 @@
       <data name="Account Management" xml:space="preserve">
     <value>账户管理</value>
   </data>
+  <data name="AI" xml:space="preserve">
+    <value>AI</value>
+  </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>AI 报告设置</value>
+  </data>
   <data name="auth provider" xml:space="preserve">
     <value>认证提供方</value>
   </data>

@@ -21,6 +21,12 @@
       <data name="Account Management" xml:space="preserve">
     <value>Hesap Yönetimi</value>
   </data>
+  <data name="AI" xml:space="preserve">
+    <value>Yapay Zeka</value>
+  </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>AI Rapor Ayarları</value>
+  </data>
   <data name="auth provider" xml:space="preserve">
     <value>kimlik sağlayıcı</value>
   </data>

@@ -33,6 +33,9 @@
   <data name="AI Assistant" xml:space="preserve">
     <value>Assistant IA</value>
   </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>Paramètres du rapport IA</value>
+  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Modèle Aiursoft</value>
   </data>
@@ -245,6 +248,12 @@
   </data>
   <data name="View All Notifications" xml:space="preserve">
     <value>Voir toutes les notifications</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>Rapport hebdomadaire</value>
+  </data>
+  <data name="Weekly Report Details" xml:space="preserve">
+    <value>Détails du rapport hebdomadaire</value>
   </data>
 
 </root>

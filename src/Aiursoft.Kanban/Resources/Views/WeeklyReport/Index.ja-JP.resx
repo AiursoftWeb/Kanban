@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="AI-generated weekly summary of your completed tasks, available every Friday afternoon." xml:space="preserve">
+    <value>完了したタスクのAI生成週次サマリー。毎週金曜午後に利用可能。</value>
+  </data>
+  <data name="Are you sure you want to discard this weekly report? A new one will be generated on the next hourly run." xml:space="preserve">
+    <value>この週次レポートを破棄してもよろしいですか？次の1時間ごとの実行時に新しいレポートが生成されます。</value>
+  </data>
+  <data name="Click to generate your weekly report summarizing all completed tasks this week." xml:space="preserve">
+    <value>今週完了したすべてのタスクをまとめた週間レポートを生成するには、ここをクリックしてください。</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>破棄</value>
+  </data>
+  <data name="Generate Report" xml:space="preserve">
+    <value>レポートを生成</value>
+  </data>
+  <data name="Generated At" xml:space="preserve">
+    <value>生成日時</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>履歴</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>次へ</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>まだレポートがありません</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>前へ</value>
+  </data>
+  <data name="This Week" xml:space="preserve">
+    <value>今週</value>
+  </data>
+  <data name="This Week&apos;s Report" xml:space="preserve">
+    <value>今週のレポート</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>表示</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>週次レポート</value>
+  </data>
+  <data name="Weekly reports become available every Friday afternoon (UTC+8). Check back then!" xml:space="preserve">
+    <value>週次レポートは毎週金曜日の午後（UTC+8）に公開されます。その際に確認してください！</value>
+  </data>
+  <data name="Your weekly reports will appear here." xml:space="preserve">
+    <value>週次レポートはここに表示されます。</value>
+  </data>
+
+</root>

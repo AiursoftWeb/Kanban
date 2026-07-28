@@ -30,6 +30,9 @@
   <data name="AI Assistant" xml:space="preserve">
     <value>AI सहायक</value>
   </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>AI रिपोर्ट सेटिंग्स</value>
+  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft टेम्पलेट</value>
   </data>
@@ -242,6 +245,12 @@
   </data>
   <data name="View All Notifications" xml:space="preserve">
     <value>सभी सूचनाएं देखें</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>साप्ताहिक रिपोर्ट</value>
+  </data>
+  <data name="Weekly Report Details" xml:space="preserve">
+    <value>साप्ताहिक रिपोर्ट विवरण</value>
   </data>
 
 </root>

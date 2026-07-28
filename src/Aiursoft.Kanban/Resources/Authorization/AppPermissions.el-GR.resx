@@ -45,6 +45,9 @@
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
     <value>Επιτρέπει την προβολή και διαχείριση των ημερήσιων σχεδίων και συγκεντρωτικών αναφορών για όλους τους χρήστες.</value>
   </data>
+  <data name="Allows viewing and managing weekly reports for all users." xml:space="preserve">
+    <value>Επιτρέπει την προβολή και τη διαχείριση εβδομαδιαίων αναφορών για όλους τους χρήστες.</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Επιτρέπει την προβολή και την τροποποίηση των γενικών ρυθμίσεων της εφαρμογής.</value>
   </data>
@@ -98,6 +101,9 @@
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
     <value>Διαχείριση Οποιουδήποτε Ημερήσιου Απολογισμού</value>
+  </data>
+  <data name="Manage Any Weekly Report" xml:space="preserve">
+    <value>Διαχείριση Οποιουδήποτε Εβδομαδιαίου Αναφοράς</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Διαχείριση Γενικών Ρυθμίσεων</value>

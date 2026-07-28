@@ -21,6 +21,12 @@
       <data name="Account Management" xml:space="preserve">
     <value>Quản lý Tài khoản</value>
   </data>
+  <data name="AI" xml:space="preserve">
+    <value>AI</value>
+  </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>Cài đặt báo cáo AI</value>
+  </data>
   <data name="auth provider" xml:space="preserve">
     <value>nhà cung cấp xác thực</value>
   </data>
