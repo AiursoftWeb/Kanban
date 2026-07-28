@@ -17,8 +17,4 @@ public class ChangeProfileViewModel : UiStackLayoutViewModel
     [MaxLength(30, ErrorMessage = "The {0} must be at max {1} characters long.")]
     [MinLength(2, ErrorMessage = "The {0} must be at least {1} characters long.")]
     public string? Name { get; set; }
-
-    [Display(Name = "Daily Report Language")]
-    [MaxLength(10)]
-    public string? DailyReportLanguage { get; set; }
 }

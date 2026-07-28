@@ -116,8 +116,7 @@ public class ManageController(
         var user = await GetCurrentUserAsync();
         return this.StackView(new ChangeProfileViewModel
         {
-            Name = user!.DisplayName,
-            DailyReportLanguage = user.DailyReportLanguage
+            Name = user!.DisplayName
         });
     }
 
@@ -141,9 +140,41 @@ public class ManageController(
         if (user != null)
         {
             user.DisplayName = model.Name;
-            user.DailyReportLanguage = model.DailyReportLanguage ?? "en";
             await userManager.UpdateAsync(user);
             await signInManager.SignInAsync(user, isPersistent: false);
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangeProfileSuccess });
+        }
+        return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+    }
+
+    //
+    // GET: /Manage/AIReportSettings
+    [HttpGet]
+    public async Task<IActionResult> AIReportSettings()
+    {
+        var user = await GetCurrentUserAsync();
+        return this.StackView(new AIReportSettingsViewModel
+        {
+            DailyReportLanguage = user!.DailyReportLanguage
+        });
+    }
+
+    //
+    // POST: /Manage/AIReportSettings
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AIReportSettings(AIReportSettingsViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return this.StackView(model);
+        }
+
+        var user = await GetCurrentUserAsync();
+        if (user != null)
+        {
+            user.DailyReportLanguage = model.DailyReportLanguage ?? "en";
+            await userManager.UpdateAsync(user);
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangeProfileSuccess });
         }
         return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });

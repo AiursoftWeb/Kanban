@@ -1,0 +1,31 @@
+@model Aiursoft.Kanban.Models.ManageViewModels.AIReportSettingsViewModel
+
+<h1 class="h3 mb-3">@Localizer["AI Report Settings"]</h1>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">@Localizer["Daily Report Preferences"]</h5>
+    </div>
+    <div class="card-body">
+        <form asp-controller="Manage" asp-action="AIReportSettings" method="post">
+
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="DailyReportLanguage" class="form-label">@Localizer["Daily Report Language"]</label>
+                <select asp-for="DailyReportLanguage" class="form-select form-select-lg">
+                    <option value="en">English</option>
+                    <option value="zh">中文 (Chinese)</option>
+                    <option value="ja">日本語 (Japanese)</option>
+                    <option value="ko">한국어 (Korean)</option>
+                </select>
+                <small class="form-text text-muted">@Localizer["The language used when generating your daily plan and summary reports."]</small>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">@Localizer["Save changes"]</button>
+                <a asp-controller="Manage" asp-action="Index" class="btn btn-light">@Localizer["Cancel"]</a>
+            </div>
+        </form>
+    </div>
+</div>
