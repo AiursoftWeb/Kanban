@@ -38,6 +38,7 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section styles {
+    <link rel="stylesheet" href="~/node_modules/@@highlightjs/cdn-assets/styles/github.min.css" asp-append-version="true" />
 <style>
     .dashboard-stat {
         border: 1px solid var(--bs-border-color);
@@ -403,8 +404,9 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
-<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+<script src="~/node_modules/markdown-it/dist/markdown-it.min.js" asp-append-version="true"></script>
 <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
+<partial name="_MarkdownReaderAssets" />
 <script>
 (function () {
     function renderReport(rawId, targetId) {
@@ -412,15 +414,15 @@
         var target = document.getElementById(targetId);
         if (!rawContent || !target) return;
 
-        if (typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
-            marked.setOptions({ breaks: true, gfm: true });
-            var rawHtml = marked.parse(rawContent.value);
+        if (typeof markdownit !== 'undefined' && typeof DOMPurify !== 'undefined') {
+            var rawHtml = markdownit({ html: false, linkify: true, breaks: true, typographer: true }).render(rawContent.value);
             var cleanHtml = DOMPurify.sanitize(rawHtml, {
                 ADD_ATTR: ['target'],
                 FORBID_TAGS: ['script', 'style'],
                 FORBID_ATTR: ['style'],
             });
             target.innerHTML = cleanHtml;
+            target.classList.add('markdown-content');
             target.querySelectorAll('a[href]').forEach(function (link) {
                 link.rel = 'noopener noreferrer';
                 link.target = '_blank';

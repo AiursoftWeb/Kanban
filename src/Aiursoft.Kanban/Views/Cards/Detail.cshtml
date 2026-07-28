@@ -757,25 +757,12 @@
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['\\(', '\\)']],
-                displayMath: [['\\[', '\\]']],
-            },
-            svg: {
-                fontCache: 'global'
-            }
-        };
-    </script>
     <script src="~/node_modules/markdown-it/dist/markdown-it.min.js" asp-append-version="true"></script>
     <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
-    <script src="~/node_modules/@@highlightjs/cdn-assets/highlight.min.js" asp-append-version="true"></script>
-    <script id="MathJax-script" async src="~/node_modules/mathjax/es5/tex-mml-chtml.js" asp-append-version="true"></script>
-    <script src="~/node_modules/mermaid/dist/mermaid.min.js" asp-append-version="true"></script>
-    <script>
-        if (typeof mermaid !== 'undefined') mermaid.initialize({ startOnLoad: false, securityLevel: 'strict', theme: '@(isDarkMode ? "dark" : "default")' });
-    </script>
+    @{
+        ViewData["MarkdownTheme"] = isDarkMode ? "dark" : "default";
+    }
+    <partial name="_MarkdownReaderAssets" />
     <script type="module">
         import { initCardDetailPage } from '/dist/card-detail-page.js';
 

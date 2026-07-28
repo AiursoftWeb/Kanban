@@ -10,7 +10,7 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section styles {
-    <link rel="stylesheet" href="~/node_modules/katex/dist/katex.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/node_modules/@@highlightjs/cdn-assets/styles/github.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/dist/kanban-board.css" asp-append-version="true" />
     <style>
         html, body { height: 100%; overflow: hidden; }
@@ -534,13 +534,12 @@
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
-    <script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+    <script src="~/node_modules/markdown-it/dist/markdown-it.min.js" asp-append-version="true"></script>
     <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
-    <script src="~/node_modules/katex/dist/katex.min.js" asp-append-version="true"></script>
-    <script src="~/node_modules/mermaid/dist/mermaid.min.js" asp-append-version="true"></script>
-    <script>
-    if (typeof mermaid !== 'undefined') mermaid.initialize({ startOnLoad: false, securityLevel: 'strict' });
-    </script>
+    @{
+        ViewData["MarkdownTheme"] = "default";
+    }
+    <partial name="_MarkdownReaderAssets" />
     <script type="module">
     import { initKanbanIndexPage } from '/dist/kanban-page.js';
 

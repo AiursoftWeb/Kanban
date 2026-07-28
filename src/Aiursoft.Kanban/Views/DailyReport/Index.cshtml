@@ -5,6 +5,7 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section styles {
+    <link rel="stylesheet" href="~/node_modules/@@highlightjs/cdn-assets/styles/github.min.css" asp-append-version="true" />
 <style>
     .today-highlight {
         border-left: 4px solid var(--bs-primary);
@@ -330,8 +331,9 @@ else if (Model.CanSummarize)
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
-<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+<script src="~/node_modules/markdown-it/dist/markdown-it.min.js" asp-append-version="true"></script>
 <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
+<partial name="_MarkdownReaderAssets" />
 <script>
     document.querySelectorAll('.clickable-row').forEach(function(row) {
         row.addEventListener('click', function() {
@@ -361,15 +363,15 @@ else if (Model.CanSummarize)
         // Render today's highlight — exact same approach as card description
         var planRaw = document.getElementById('todayPlanRaw');
         var planTarget = document.getElementById('todayPlanPreview');
-        if (planRaw && planTarget && typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
-            marked.setOptions({ breaks: true, gfm: true });
-            var rawHtml = marked.parse(planRaw.value);
+        if (planRaw && planTarget && typeof markdownit !== 'undefined' && typeof DOMPurify !== 'undefined') {
+            var rawHtml = markdownit({ html: false, linkify: true, breaks: true, typographer: true }).render(planRaw.value);
             var cleanHtml = DOMPurify.sanitize(rawHtml, {
                 ADD_ATTR: ['target'],
                 FORBID_TAGS: ['script', 'style'],
                 FORBID_ATTR: ['style'],
             });
             planTarget.innerHTML = cleanHtml;
+            planTarget.classList.add('markdown-content');
             planTarget.querySelectorAll('a[href]').forEach(function (link) {
                 link.rel = 'noopener noreferrer';
                 link.target = '_blank';
@@ -378,15 +380,15 @@ else if (Model.CanSummarize)
 
         var summaryRaw = document.getElementById('todaySummaryRaw');
         var summaryTarget = document.getElementById('todaySummaryPreview');
-        if (summaryRaw && summaryTarget && typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
-            marked.setOptions({ breaks: true, gfm: true });
-            var rawHtml2 = marked.parse(summaryRaw.value);
+        if (summaryRaw && summaryTarget && typeof markdownit !== 'undefined' && typeof DOMPurify !== 'undefined') {
+            var rawHtml2 = markdownit({ html: false, linkify: true, breaks: true, typographer: true }).render(summaryRaw.value);
             var cleanHtml2 = DOMPurify.sanitize(rawHtml2, {
                 ADD_ATTR: ['target'],
                 FORBID_TAGS: ['script', 'style'],
                 FORBID_ATTR: ['style'],
             });
             summaryTarget.innerHTML = cleanHtml2;
+            summaryTarget.classList.add('markdown-content');
             summaryTarget.querySelectorAll('a[href]').forEach(function (link) {
                 link.rel = 'noopener noreferrer';
                 link.target = '_blank';

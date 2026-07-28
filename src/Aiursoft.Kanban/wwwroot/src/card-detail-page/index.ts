@@ -93,6 +93,10 @@ interface ImageDropzoneApi {
   clearFiles(): void;
 }
 
+interface AiursoftMarkdownLike {
+  render(options?: { selector?: string; theme?: string }): Promise<void>;
+}
+
 declare global {
   interface Window {
     bootstrap?: {
@@ -104,6 +108,7 @@ declare global {
     MathJax?: MathJaxLike;
     hljs?: { highlightAll(): void; getLanguage(lang: string): boolean };
     mermaid?: MermaidLike;
+    AiursoftMarkdown?: AiursoftMarkdownLike;
   }
 }
 
@@ -859,6 +864,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     }
 
     refs.commentsList.innerHTML = comments.map(renderCommentHtml).join('');
+    refs.commentsList.classList.add('markdown-content');
+    window.AiursoftMarkdown?.render().catch(() => {});
     refreshIcons(refs.commentsList);
   }
 
@@ -984,9 +991,8 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
   }
 
   container.innerHTML = renderSafeMarkdownHtml(description);
-  renderMathJax(container);
-  renderMermaidInDescription(container);
-  renderMermaidInDescription(container);
+  container.classList.add('markdown-content');
+  window.AiursoftMarkdown?.render().catch(() => {});
   container.querySelectorAll<HTMLImageElement>('img').forEach(image => {
     image.setAttribute('data-fullscreen-src', image.currentSrc || image.src);
   });

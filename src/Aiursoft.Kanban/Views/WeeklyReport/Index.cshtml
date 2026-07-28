@@ -4,6 +4,7 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section styles {
+    <link rel="stylesheet" href="~/node_modules/@@highlightjs/cdn-assets/styles/github.min.css" asp-append-version="true" />
 <style>
     .this-week-highlight {
         border-left: 4px solid var(--bs-primary);
@@ -287,8 +288,9 @@ else
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
-<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+<script src="~/node_modules/markdown-it/dist/markdown-it.min.js" asp-append-version="true"></script>
 <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
+<partial name="_MarkdownReaderAssets" />
 <script>
     document.querySelectorAll('.clickable-row').forEach(function(row) {
         row.addEventListener('click', function() {
@@ -317,15 +319,15 @@ else
     (function () {
         var raw = document.getElementById('thisWeekRaw');
         var target = document.getElementById('thisWeekPreview');
-        if (raw && target && typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
-            marked.setOptions({ breaks: true, gfm: true });
-            var rawHtml = marked.parse(raw.value);
+        if (raw && target && typeof markdownit !== 'undefined' && typeof DOMPurify !== 'undefined') {
+            var rawHtml = markdownit({ html: false, linkify: true, breaks: true, typographer: true }).render(raw.value);
             var cleanHtml = DOMPurify.sanitize(rawHtml, {
                 ADD_ATTR: ['target'],
                 FORBID_TAGS: ['script', 'style'],
                 FORBID_ATTR: ['style'],
             });
             target.innerHTML = cleanHtml;
+            target.classList.add('markdown-content');
             target.querySelectorAll('a[href]').forEach(function (link) {
                 link.rel = 'noopener noreferrer';
                 link.target = '_blank';
