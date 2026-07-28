@@ -5,51 +5,103 @@
     ViewData["Title"] = "Search Cards";
 }
 
-<div class="container-fluid py-4">
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <form method="get" class="d-flex gap-2">
-                <input type="text" name="q" value="@Model.Query" class="form-control" placeholder="Search cards by title or description..." />
-                <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
+<style>
+    .search-card-hover {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .search-card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+    .text-hover-primary:hover {
+        color: var(--bs-primary) !important;
+    }
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .search-input-wrapper:focus-within {
+        box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), .25);
+    }
+</style>
+
+<div class="container-fluid py-4 px-md-4 px-xl-5">
+    <!-- Sleek Search Bar -->
+    <div class="row justify-content-center mb-5 pt-3">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form method="get">
+                <div class="input-group input-group-lg search-input-wrapper rounded-pill bg-white border shadow-sm overflow-hidden" style="transition: box-shadow 0.3s ease;">
+                    <span class="input-group-text bg-transparent border-0 text-muted ps-4 pe-2">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text" name="q" value="@Model.Query" class="form-control border-0 shadow-none bg-transparent px-2" placeholder="Search cards, tasks, or documents..." />
+                    <button type="submit" class="btn btn-primary px-4 px-md-5 fw-semibold rounded-pill m-1">
+                        Search
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 
     @if (!string.IsNullOrWhiteSpace(Model.Query))
     {
-        <h4 class="mb-3">
-            Search Results for "@Model.Query"
-            @if (Model.UsedAi)
-            {
-                <span class="badge bg-success ms-2"><i class="bi bi-robot"></i> AI Powered</span>
-            }
-            <small class="text-muted fs-6">(@Model.TotalCount results)</small>
-        </h4>
+        <!-- Results Header -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 pb-3 border-bottom">
+            <div>
+                <h4 class="mb-2 fw-bold text-dark">
+                    Results for "@Model.Query"
+                </h4>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="text-muted fs-6">@Model.TotalCount results found</span>
+                    @if (Model.UsedAi)
+                    {
+                        <span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1 fw-medium">
+                            <i class="bi bi-stars me-1"></i> AI Powered
+                        </span>
+                    }
+                </div>
+            </div>
+        </div>
 
         @if (Model.Cards.Any())
         {
-            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4">
                 @foreach (var card in Model.Cards)
                 {
                     <div class="col">
-                        <div class="card h-100 shadow-sm border-start border-4 @(card.Priority == Priority.Urgent ? "border-danger" : card.Priority == Priority.High ? "border-warning" : "border-secondary")">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="@Url.Action("Detail", "Cards", new { id = card.Id, returnBoardId = card.Column.BoardId })" class="text-decoration-none">
-                                        @card.Title
-                                    </a>
-                                </h5>
-                                <h6 class="card-subtitle mb-2 text-muted">
-                                    <i class="bi bi-kanban"></i> @card.Column.Board.Name / @card.Column.Name
-                                </h6>
-                                <p class="card-text text-truncate">
-                                    @(string.IsNullOrWhiteSpace(card.Description) ? "No description" : card.Description)
+                        <div class="card h-100 border-0 shadow-sm rounded-4 search-card-hover overflow-hidden">
+                            <!-- Priority indicator line at top -->
+                            <div class="card-header p-0 border-0 @(card.Priority == Priority.Urgent ? "bg-danger" : card.Priority == Priority.High ? "bg-warning" : "bg-secondary")" style="height: 4px; opacity: 0.8;"></div>
+                            
+                            <div class="card-body p-4 d-flex flex-column">
+                                <div class="mb-3">
+                                    <span class="badge bg-light text-secondary border fw-normal mb-3">
+                                        <i class="bi bi-kanban"></i> @card.Column.Board.Name / @card.Column.Name
+                                    </span>
+                                    <h5 class="card-title fw-bold mb-0" style="line-height: 1.4;">
+                                        <a href="@Url.Action("Detail", "Cards", new { id = card.Id, returnBoardId = card.Column.BoardId })" class="text-dark text-decoration-none text-hover-primary stretched-link">
+                                            @card.Title
+                                        </a>
+                                    </h5>
+                                </div>
+                                
+                                <p class="card-text text-muted line-clamp-3 flex-grow-1" style="font-size: 0.95rem;">
+                                    @(string.IsNullOrWhiteSpace(card.Description) ? "No description provided." : card.Description)
                                 </p>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                @foreach (var labelLink in card.CardLabels)
+
+                                @if (card.CardLabels.Any())
                                 {
-                                    <span class="badge" style="background-color: @labelLink.Label.Color">@labelLink.Label.Name</span>
+                                    <div class="d-flex flex-wrap gap-2 mt-3 pt-3 border-top position-relative" style="z-index: 2;">
+                                        @foreach (var labelLink in card.CardLabels)
+                                        {
+                                            <span class="badge rounded-pill bg-white text-dark border fw-medium d-flex align-items-center shadow-sm" style="font-size: 0.75rem; padding: 0.4em 0.8em;">
+                                                <span class="d-inline-block rounded-circle me-2" style="width: 8px; height: 8px; background-color: @labelLink.Label.Color;"></span>
+                                                @labelLink.Label.Name
+                                            </span>
+                                        }
+                                    </div>
                                 }
                             </div>
                         </div>
@@ -59,8 +111,12 @@
         }
         else
         {
-            <div class="alert alert-info">
-                No cards found matching your query.
+            <div class="text-center py-5 my-5">
+                <div class="display-1 text-muted mb-4 opacity-25">
+                    <i class="bi bi-search"></i>
+                </div>
+                <h3 class="fw-bold text-dark mb-3">No results found</h3>
+                <p class="text-muted fs-5">We couldn't find anything matching "@Model.Query".<br>Try adjusting your search terms or using broader keywords.</p>
             </div>
         }
     }
