@@ -125,6 +125,10 @@ public class ViewModelArgsInjector(
     
         _ = localizer["Global Search"];
         _ = localizer["Search"];
+    
+        _ = localizer["AI Report Settings"];
+        _ = localizer["Weekly Report"];
+        _ = localizer["Weekly Report Details"];
     }
 
     public void InjectSimple(

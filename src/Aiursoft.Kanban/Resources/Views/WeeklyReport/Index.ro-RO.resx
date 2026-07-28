@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="AI-generated weekly summary of your completed tasks, available every Friday afternoon." xml:space="preserve">
+    <value>Sinteza săptămânală generată de AI a sarcinilor tale finalizate, disponibilă în fiecare vineri după-amiază.</value>
+  </data>
+  <data name="Are you sure you want to discard this weekly report? A new one will be generated on the next hourly run." xml:space="preserve">
+    <value>Sigur doriți să renunțați la acest raport săptămânal? Unul nou va fi generat la următoarea execuție orară.</value>
+  </data>
+  <data name="Click to generate your weekly report summarizing all completed tasks this week." xml:space="preserve">
+    <value>Faceți clic pentru a genera raportul săptămânal care rezumă toate sarcinile finalizate în această săptămână.</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>Respinge</value>
+  </data>
+  <data name="Generate Report" xml:space="preserve">
+    <value>Generează raportul</value>
+  </data>
+  <data name="Generated At" xml:space="preserve">
+    <value>Generat la</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Istoric</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Următorul</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Încă nu există rapoarte</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Previzualizare</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="This Week" xml:space="preserve">
+    <value>Săptămâna aceasta</value>
+  </data>
+  <data name="This Week&apos;s Report" xml:space="preserve">
+    <value>Raportul Săptămânii</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Vizualizare</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Săptămână</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>Raport Săptămânal</value>
+  </data>
+  <data name="Weekly reports become available every Friday afternoon (UTC+8). Check back then!" xml:space="preserve">
+    <value>Rapoartele săptămânale devin disponibile în fiecare vineri după-amiază (UTC+8). Reveniți atunci!</value>
+  </data>
+  <data name="Your weekly reports will appear here." xml:space="preserve">
+    <value>Rapoartele dvs. săptămânale vor apărea aici.</value>
+  </data>
+
+</root>

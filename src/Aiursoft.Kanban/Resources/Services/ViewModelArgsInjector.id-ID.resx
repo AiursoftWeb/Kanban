@@ -30,6 +30,9 @@
   <data name="AI Assistant" xml:space="preserve">
     <value>Asisten AI</value>
   </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>Pengaturan Laporan AI</value>
+  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Template Aiursoft</value>
   </data>
@@ -242,6 +245,12 @@
   </data>
   <data name="View All Notifications" xml:space="preserve">
     <value>Lihat Semua Notifikasi</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>Laporan Mingguan</value>
+  </data>
+  <data name="Weekly Report Details" xml:space="preserve">
+    <value>Detail Laporan Mingguan</value>
   </data>
 
 </root>

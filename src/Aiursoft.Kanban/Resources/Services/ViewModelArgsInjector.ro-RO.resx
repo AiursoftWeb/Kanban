@@ -30,6 +30,9 @@
   <data name="AI Assistant" xml:space="preserve">
     <value>Asistent AI</value>
   </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>Setări Raport IA</value>
+  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Șablon Aiursoft</value>
   </data>
@@ -242,6 +245,12 @@
   </data>
   <data name="View All Notifications" xml:space="preserve">
     <value>Vizualizare toate notificările</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>Raport Săptămânal</value>
+  </data>
+  <data name="Weekly Report Details" xml:space="preserve">
+    <value>Detalii Raport Săptămânal</value>
   </data>
 
 </root>

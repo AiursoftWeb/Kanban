@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="AI-generated weekly summary of your completed tasks, available every Friday afternoon." xml:space="preserve">
+    <value>KI-generierter Wochenbericht Ihrer abgeschlossenen Aufgaben, jeden Freitag nachmittag verfügbar.</value>
+  </data>
+  <data name="Are you sure you want to discard this weekly report? A new one will be generated on the next hourly run." xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie diesen Wochenbericht verwerfen möchten? Ein neuer wird bei der nächsten stündlichen Ausführung erstellt.</value>
+  </data>
+  <data name="Click to generate your weekly report summarizing all completed tasks this week." xml:space="preserve">
+    <value>Klicken Sie hier, um Ihren Wochenbericht zu erstellen, der alle in dieser Woche abgeschlossenen Aufgaben zusammenfasst.</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>Verwerfen</value>
+  </data>
+  <data name="Generate Report" xml:space="preserve">
+    <value>Bericht generieren</value>
+  </data>
+  <data name="Generated At" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Verlauf</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Weiter</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Noch keine Berichte vorhanden</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Vorschau</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Vorherige</value>
+  </data>
+  <data name="This Week" xml:space="preserve">
+    <value>Diese Woche</value>
+  </data>
+  <data name="This Week&apos;s Report" xml:space="preserve">
+    <value>Bericht dieser Woche</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Ansicht</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Woche</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>Wochenbericht</value>
+  </data>
+  <data name="Weekly reports become available every Friday afternoon (UTC+8). Check back then!" xml:space="preserve">
+    <value>Wöchentliche Berichte sind jeden Freitag nachmittags (UTC+8) verfügbar. Schauen Sie dann wieder vorbei!</value>
+  </data>
+  <data name="Your weekly reports will appear here." xml:space="preserve">
+    <value>Ihre Wochenberichte werden hier angezeigt.</value>
+  </data>
+
+</root>

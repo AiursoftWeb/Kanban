@@ -30,6 +30,9 @@
   <data name="AI Assistant" xml:space="preserve">
     <value>Βοηθός Τεχνητής Νοημοσύνης</value>
   </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>Ρυθμίσεις Αναφοράς Τεχνητής Νοημοσύνης</value>
+  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Πρότυπο</value>
   </data>
@@ -242,6 +245,12 @@
   </data>
   <data name="View All Notifications" xml:space="preserve">
     <value>Προβολή Όλων των Ειδοποιήσεων</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>Εβδομαδιαία Αναφορά</value>
+  </data>
+  <data name="Weekly Report Details" xml:space="preserve">
+    <value>Λεπτομέρειες εβδομαδιαίας αναφοράς</value>
   </data>
 
 </root>

@@ -21,6 +21,12 @@
       <data name="Account Management" xml:space="preserve">
     <value>계정 관리</value>
   </data>
+  <data name="AI" xml:space="preserve">
+    <value>AI</value>
+  </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>AI 보고서 설정</value>
+  </data>
   <data name="auth provider" xml:space="preserve">
     <value>인증 공급자</value>
   </data>

@@ -45,6 +45,9 @@
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
     <value>모든 사용자의 일일 계획 및 요약을 조회하고 관리할 수 있습니다.</value>
   </data>
+  <data name="Allows viewing and managing weekly reports for all users." xml:space="preserve">
+    <value>모든 사용자의 주간 보고서를 확인하고 관리할 수 있습니다.</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>전역 애플리케이션 설정을 확인하고 수정할 수 있습니다.</value>
   </data>
@@ -98,6 +101,9 @@
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
     <value>모든 일간 보고서 관리</value>
+  </data>
+  <data name="Manage Any Weekly Report" xml:space="preserve">
+    <value>모든 주간 보고서 관리</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>전역 설정 관리</value>

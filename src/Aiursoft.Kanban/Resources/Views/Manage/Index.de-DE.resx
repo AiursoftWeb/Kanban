@@ -21,6 +21,12 @@
       <data name="Account Management" xml:space="preserve">
     <value>Kontoverwaltung</value>
   </data>
+  <data name="AI" xml:space="preserve">
+    <value>KI</value>
+  </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>KI-Berichteinstellungen</value>
+  </data>
   <data name="auth provider" xml:space="preserve">
     <value>Authentifizierungsanbieter</value>
   </data>

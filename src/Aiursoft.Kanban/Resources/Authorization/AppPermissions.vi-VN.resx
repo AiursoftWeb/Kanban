@@ -45,6 +45,9 @@
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
     <value>Cho phép xem và quản lý kế hoạch hàng ngày cũng như tóm tắt cho tất cả người dùng.</value>
   </data>
+  <data name="Allows viewing and managing weekly reports for all users." xml:space="preserve">
+    <value>Cho phép xem và quản lý báo cáo hàng tuần của tất cả người dùng.</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Cho phép xem và chỉnh sửa cài đặt toàn cục của ứng dụng.</value>
   </data>
@@ -98,6 +101,9 @@
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
     <value>Quản lý báo cáo hàng ngày</value>
+  </data>
+  <data name="Manage Any Weekly Report" xml:space="preserve">
+    <value>Quản lý báo cáo tuần của bất kỳ ai</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Quản lý Cài đặt Toàn cầu</value>

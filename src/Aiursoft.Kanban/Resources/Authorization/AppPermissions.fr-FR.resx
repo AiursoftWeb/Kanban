@@ -45,6 +45,9 @@
   <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
     <value>Permet de consulter et de gérer les plans et résumés quotidiens de tous les utilisateurs.</value>
   </data>
+  <data name="Allows viewing and managing weekly reports for all users." xml:space="preserve">
+    <value>Permet de consulter et de gérer les rapports hebdomadaires pour tous les utilisateurs.</value>
+  </data>
   <data name="Allows viewing and modifying global application settings." xml:space="preserve">
     <value>Permet de visualiser et de modifier les paramètres globaux de l&apos;application.</value>
   </data>
@@ -98,6 +101,9 @@
   </data>
   <data name="Manage Any Daily Report" xml:space="preserve">
     <value>Gérer tous les rapports quotidiens</value>
+  </data>
+  <data name="Manage Any Weekly Report" xml:space="preserve">
+    <value>Gérer tout rapport hebdomadaire</value>
   </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Gérer les paramètres globaux</value>
