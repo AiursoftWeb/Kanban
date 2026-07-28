@@ -5,11 +5,13 @@
   "author": "Anduin Xue",
   "license": "MIT",
   "dependencies": {
+    "@highlightjs/cdn-assets": "^11.11.1",
     "dompurify": "^3.4.11",
     "dropify": "^0.2.2",
-    "katex": "^0.17.0",
-    "marked": "^18.0.5",
-    "mermaid": "^11.15.0",
+    "markdown-it": "^14.1.0",
+    "mathjax": "^3.2.2",
+    "mermaid": "^11.16.0",
+    "monaco-editor": "^0.55.1",
     "sortablejs": "^1.15.6"
   },
   "devDependencies": {
@@ -17,11 +19,13 @@
     "vite": "^7.0.0"
   },
   "keep": {
+    "@highlightjs/cdn-assets": ".",
     "dompurify": "dist",
     "dropify": "dist",
-    "katex": "dist",
-    "marked": "lib",
-    "mermaid": "dist"
+    "markdown-it": "dist",
+    "mathjax": "es5",
+    "mermaid": "dist",
+    "monaco-editor": "min"
   },
   "scripts": {
     "build": "vite build && node build.mjs",

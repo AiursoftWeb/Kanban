@@ -65,17 +65,17 @@ interface LucideLike {
   createIcons(options?: { nodes?: ParentNode[] }): void;
 }
 
-interface MarkedLike {
-  setOptions(options: Record<string, unknown>): void;
-  parse(markdown: string): string;
+interface MarkdownItLike {
+  render(markdown: string): string;
+  utils: { escapeHtml(str: string): string };
 }
 
 interface DomPurifyLike {
   sanitize(html: string, options?: Record<string, unknown>): string;
 }
 
-interface KatexLike {
-  render(tex: string, element: HTMLElement, options?: { displayMode?: boolean; throwOnError?: boolean }): void;
+interface MathJaxLike {
+  typesetPromise(elements?: HTMLElement[]): Promise<void>;
 }
 
 interface MermaidRenderResult {
@@ -99,9 +99,10 @@ declare global {
       Modal?: BootstrapModalStatic;
     };
     lucide?: LucideLike;
-    marked?: MarkedLike;
+    markdownit?: MarkdownItLike;
     DOMPurify?: DomPurifyLike;
-    katex?: KatexLike;
+    MathJax?: MathJaxLike;
+    hljs?: { highlightAll(): void; getLanguage(lang: string): boolean };
     mermaid?: MermaidLike;
   }
 }
@@ -982,9 +983,9 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
     return false;
   }
 
-  const mathItems: Array<{ token: string; tex: string; displayMode: boolean }> = [];
-  container.innerHTML = renderSafeMarkdownHtml(description, mathItems);
-  renderMathPlaceholders(container, mathItems);
+  container.innerHTML = renderSafeMarkdownHtml(description);
+  renderMathJax(container);
+  renderMermaidInDescription(container);
   renderMermaidInDescription(container);
   container.querySelectorAll<HTMLImageElement>('img').forEach(image => {
     image.setAttribute('data-fullscreen-src', image.currentSrc || image.src);
@@ -996,20 +997,42 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
   return true;
 }
 
-function renderSafeMarkdownHtml(description: string, mathItems: Array<{ token: string; tex: string; displayMode: boolean }>): string {
-  const marked = window.marked;
+// Shared markdown-it instance — created lazily with Kanban-appropriate options
+let _mdInstance: MarkdownItLike | null = null;
+function getMarkdownIt(): MarkdownItLike | null {
+  if (_mdInstance) return _mdInstance;
+  const factory = window.markdownit;
+  if (typeof factory !== 'function') return null;
+  _mdInstance = factory({
+    html: false,
+    linkify: true,
+    breaks: true,
+    typographer: true,
+    highlight: function (str: string, lang: string) {
+      if (lang === 'mermaid') {
+        return '<div class="mermaid">' + _mdInstance!.utils.escapeHtml(str) + '</div>';
+      }
+      if (window.hljs && window.hljs.getLanguage(lang)) {
+        try {
+          return '<pre><code class="hljs language-' + lang + '">' +
+            window.hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+            '</code></pre>';
+        } catch (_) {}
+      }
+      return '<pre><code class="hljs">' + _mdInstance!.utils.escapeHtml(str) + '</code></pre>';
+    },
+  }) as unknown as MarkdownItLike;
+  return _mdInstance;
+}
+
+function renderSafeMarkdownHtml(description: string): string {
+  const md = getMarkdownIt();
   const domPurify = window.DOMPurify;
-  if (!marked || !domPurify) {
+  if (!md || !domPurify) {
     return escapeHtml(description).replace(/\n/g, '<br>');
   }
 
-  marked.setOptions({
-    breaks: true,
-    gfm: true,
-  });
-
-  const protectedDescription = protectMathInMarkdown(description, mathItems);
-  const rawHtml = marked.parse(protectedDescription);
+  const rawHtml = md.render(description);
   return domPurify.sanitize(rawHtml, {
     ADD_ATTR: ['target'],
     FORBID_TAGS: ['script', 'style'],
@@ -1018,117 +1041,28 @@ function renderSafeMarkdownHtml(description: string, mathItems: Array<{ token: s
 }
 
 function renderSafeCommentHtml(content: string): string {
-  const marked = window.marked;
+  const md = getMarkdownIt();
   const domPurify = window.DOMPurify;
-  if (!marked || !domPurify) {
+  if (!md || !domPurify) {
     return escapeHtml(content).replace(/\n/g, '<br>');
   }
 
-  marked.setOptions({
-    breaks: true,
-    gfm: true,
-  });
-
-  const rawHtml = marked.parse(content);
+  const rawHtml = md.render(content);
   return domPurify.sanitize(rawHtml, {
     FORBID_TAGS: ['script', 'style'],
     FORBID_ATTR: ['style'],
   });
 }
 
-function createMathPlaceholder(mathItems: Array<{ token: string; tex: string; displayMode: boolean }>, tex: string, displayMode: boolean): string {
-  const token = `KANBAN_MATH_${mathItems.length}_TOKEN`;
-  mathItems.push({ token, tex, displayMode });
-  return token;
-}
+// ── MathJax rendering for card detail views ──
 
-function protectInlineMath(line: string, mathItems: Array<{ token: string; tex: string; displayMode: boolean }>): string {
-  let result = '';
-  let index = 0;
-
-  while (index < line.length) {
-    const start = line.indexOf('$', index);
-    if (start < 0) {
-      result += line.substring(index);
-      break;
-    }
-
-    const nextChar = line[start + 1] || '';
-    if ((start > 0 && line[start - 1] === '\\') || nextChar === '$' || /\s|\d/.test(nextChar)) {
-      result += line.substring(index, start + 1);
-      index = start + 1;
-      continue;
-    }
-
-    let end = line.indexOf('$', start + 1);
-    while (end > start && line[end - 1] === '\\') {
-      end = line.indexOf('$', end + 1);
-    }
-
-    if (end < 0 || /\s/.test(line[end - 1])) {
-      result += line.substring(index, start + 1);
-      index = start + 1;
-      continue;
-    }
-
-    result += line.substring(index, start);
-    result += createMathPlaceholder(mathItems, line.substring(start + 1, end), false);
-    index = end + 1;
+function renderMathJax(container: HTMLElement): void {
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    window.MathJax.typesetPromise([container]).catch(() => {});
   }
-
-  return result;
 }
 
-function protectMathInMarkdown(description: string, mathItems: Array<{ token: string; tex: string; displayMode: boolean }>): string {
-  const lines = description.split(/\r?\n/);
-  let inFence = false;
-
-  return lines.map(line => {
-    if (/^\s*(```|~~~)/.test(line)) {
-      inFence = !inFence;
-      return line;
-    }
-    if (inFence) return line;
-
-    const protectedLine = line.replace(/\$\$([\s\S]*?)\$\$/g, (_, tex: string) => createMathPlaceholder(mathItems, tex, true));
-    return protectInlineMath(protectedLine, mathItems);
-  }).join('\n');
-}
-
-function renderMathPlaceholders(container: HTMLElement, mathItems: Array<{ token: string; tex: string; displayMode: boolean }>): void {
-  const katex = window.katex;
-  if (!katex || mathItems.length === 0) return;
-
-  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
-  const textNodes: Text[] = [];
-  while (walker.nextNode()) {
-    textNodes.push(walker.currentNode as Text);
-  }
-
-  textNodes.forEach(textNode => {
-    const value = textNode.nodeValue ?? '';
-    const matchedItems = mathItems.filter(item => value.includes(item.token));
-    if (matchedItems.length === 0) return;
-
-    const fragment = document.createDocumentFragment();
-    let remaining = value;
-    matchedItems.forEach(item => {
-      const tokenIndex = remaining.indexOf(item.token);
-      if (tokenIndex < 0) return;
-
-      fragment.appendChild(document.createTextNode(remaining.substring(0, tokenIndex)));
-      const mathNode = document.createElement(item.displayMode ? 'div' : 'span');
-      katex.render(item.tex, mathNode, {
-        displayMode: item.displayMode,
-        throwOnError: false,
-      });
-      fragment.appendChild(mathNode);
-      remaining = remaining.substring(tokenIndex + item.token.length);
-    });
-    fragment.appendChild(document.createTextNode(remaining));
-    textNode.replaceWith(fragment);
-  });
-}
+// ── Mermaid rendering in description ──
 
 function normalizeMermaidSource(source: string): string {
   return source.replace(/\{([^}"\n]*\?[^}"\n]*)\}/g, (_, label: string) => `{"${label.replace(/"/g, '\\"')}"}`);
@@ -1137,11 +1071,9 @@ function normalizeMermaidSource(source: string): string {
 function renderMermaidInDescription(container: HTMLElement): void {
   const mermaid = window.mermaid;
   if (!mermaid) return;
-
   container.querySelectorAll<HTMLElement>('pre > code.language-mermaid, pre > code.lang-mermaid').forEach(code => {
     const pre = code.closest('pre');
     if (!pre) return;
-
     const diagram = document.createElement('div');
     const source = code.textContent ?? '';
     const renderId = `card-detail-mermaid-${Date.now()}-${Math.random().toString(16).slice(2)}`;
