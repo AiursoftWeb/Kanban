@@ -23,6 +23,8 @@ using Aiursoft.Kanban.Services.Auditing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics.CodeAnalysis;
+using Ganss.Xss;
+using Markdig;
 
 namespace Aiursoft.Kanban;
 
@@ -114,6 +116,17 @@ public class Startup : IWebStartup
             registration: refreshEmbeddingCacheJob,
             period: TimeSpan.FromMinutes(60),
             startDelay: TimeSpan.FromMinutes(1));
+
+        // Add the markdown pipeline and HTML sanitizer
+        var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+        services.AddSingleton(pipeline);
+        services.AddSingleton(_ =>
+        {
+            var sanitizer = new HtmlSanitizer();
+            sanitizer.AllowedTags.Add("br");
+            sanitizer.AllowedAttributes.Add("class");
+            return sanitizer;
+        });
 
         // Controllers and localization
         services.AddControllersWithViews(options => options.Filters.Add<AuditActionFilter>())
