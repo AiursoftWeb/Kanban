@@ -104,7 +104,7 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
     /// <summary>
     /// Gets the Monday (midnight UTC) of the current UTC+8 week.
     /// </summary>
-    internal static DateTime GetCurrentWeekStart(DateTime chinaNow)
+    public static DateTime GetCurrentWeekStart(DateTime chinaNow)
     {
         var daysSinceMonday = ((int)chinaNow.DayOfWeek + 6) % 7;
         var monday = chinaNow.Date.AddDays(-daysSinceMonday);
