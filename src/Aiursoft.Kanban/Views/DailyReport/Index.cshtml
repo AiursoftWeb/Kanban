@@ -331,7 +331,6 @@ else if (Model.CanSummarize)
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
-<script src="~/node_modules/markdown-it/dist/markdown-it.min.js" asp-append-version="true"></script>
 <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
 <partial name="_MarkdownReaderAssets" />
 <script>
@@ -363,8 +362,8 @@ else if (Model.CanSummarize)
         // Render today's highlight — exact same approach as card description
         var planRaw = document.getElementById('todayPlanRaw');
         var planTarget = document.getElementById('todayPlanPreview');
-        if (planRaw && planTarget && typeof markdownit !== 'undefined' && typeof DOMPurify !== 'undefined') {
-            var rawHtml = markdownit({ html: false, linkify: true, breaks: true, typographer: true }).render(planRaw.value);
+        if (planRaw && planTarget && window.AiursoftMarkdownUi && typeof DOMPurify !== 'undefined') {
+            var rawHtml = window.AiursoftMarkdownUi.renderMarkdown(planRaw.value, { breaks: true });
             var cleanHtml = DOMPurify.sanitize(rawHtml, {
                 ADD_ATTR: ['target'],
                 FORBID_TAGS: ['script', 'style'],
@@ -380,8 +379,8 @@ else if (Model.CanSummarize)
 
         var summaryRaw = document.getElementById('todaySummaryRaw');
         var summaryTarget = document.getElementById('todaySummaryPreview');
-        if (summaryRaw && summaryTarget && typeof markdownit !== 'undefined' && typeof DOMPurify !== 'undefined') {
-            var rawHtml2 = markdownit({ html: false, linkify: true, breaks: true, typographer: true }).render(summaryRaw.value);
+        if (summaryRaw && summaryTarget && window.AiursoftMarkdownUi && typeof DOMPurify !== 'undefined') {
+            var rawHtml2 = window.AiursoftMarkdownUi.renderMarkdown(summaryRaw.value, { breaks: true });
             var cleanHtml2 = DOMPurify.sanitize(rawHtml2, {
                 ADD_ATTR: ['target'],
                 FORBID_TAGS: ['script', 'style'],

@@ -65,11 +65,6 @@ interface LucideLike {
   createIcons(options?: { nodes?: ParentNode[] }): void;
 }
 
-interface MarkdownItLike {
-  render(markdown: string): string;
-  utils: { escapeHtml(str: string): string };
-}
-
 interface DomPurifyLike {
   sanitize(html: string, options?: Record<string, unknown>): string;
 }
@@ -78,23 +73,14 @@ interface MathJaxLike {
   typesetPromise(elements?: HTMLElement[]): Promise<void>;
 }
 
-interface MermaidRenderResult {
-  svg: string;
-  bindFunctions?: (element: Element) => void;
-}
-
-interface MermaidLike {
-  initialize(options: Record<string, unknown>): void;
-  render(id: string, source: string): Promise<MermaidRenderResult>;
-}
-
 interface ImageDropzoneApi {
   getFiles(): File[];
   clearFiles(): void;
 }
 
-interface AiursoftMarkdownLike {
-  render(options?: { selector?: string; theme?: string }): Promise<void>;
+interface AiursoftMarkdownUiLike {
+  renderMarkdown(markdown: string, options?: { breaks?: boolean }): string;
+  enhanceMarkdown(options: { container: string | HTMLElement | Iterable<HTMLElement> }): Promise<void>;
 }
 
 declare global {
@@ -103,12 +89,9 @@ declare global {
       Modal?: BootstrapModalStatic;
     };
     lucide?: LucideLike;
-    markdownit?: MarkdownItLike;
     DOMPurify?: DomPurifyLike;
     MathJax?: MathJaxLike;
-    hljs?: { highlightAll(): void; getLanguage(lang: string): boolean };
-    mermaid?: MermaidLike;
-    AiursoftMarkdown?: AiursoftMarkdownLike;
+    AiursoftMarkdownUi?: AiursoftMarkdownUiLike;
   }
 }
 
@@ -865,7 +848,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
     refs.commentsList.innerHTML = comments.map(renderCommentHtml).join('');
     refs.commentsList.classList.add('markdown-content');
-    window.AiursoftMarkdown?.render().catch(() => {});
+    void window.AiursoftMarkdownUi?.enhanceMarkdown({ container: refs.commentsList });
     refreshIcons(refs.commentsList);
   }
 
@@ -992,7 +975,7 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
 
   container.innerHTML = renderSafeMarkdownHtml(description);
   container.classList.add('markdown-content');
-  window.AiursoftMarkdown?.render().catch(() => {});
+  void window.AiursoftMarkdownUi?.enhanceMarkdown({ container });
   container.querySelectorAll<HTMLImageElement>('img').forEach(image => {
     image.setAttribute('data-fullscreen-src', image.currentSrc || image.src);
   });
@@ -1003,42 +986,14 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
   return true;
 }
 
-// Shared markdown-it instance — created lazily with Kanban-appropriate options
-let _mdInstance: MarkdownItLike | null = null;
-function getMarkdownIt(): MarkdownItLike | null {
-  if (_mdInstance) return _mdInstance;
-  const factory = window.markdownit;
-  if (typeof factory !== 'function') return null;
-  _mdInstance = factory({
-    html: false,
-    linkify: true,
-    breaks: true,
-    typographer: true,
-    highlight: function (str: string, lang: string) {
-      if (lang === 'mermaid') {
-        return '<div class="mermaid">' + _mdInstance!.utils.escapeHtml(str) + '</div>';
-      }
-      if (window.hljs && window.hljs.getLanguage(lang)) {
-        try {
-          return '<pre><code class="hljs language-' + lang + '">' +
-            window.hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-            '</code></pre>';
-        } catch (_) {}
-      }
-      return '<pre><code class="hljs">' + _mdInstance!.utils.escapeHtml(str) + '</code></pre>';
-    },
-  }) as unknown as MarkdownItLike;
-  return _mdInstance;
-}
-
 function renderSafeMarkdownHtml(description: string): string {
-  const md = getMarkdownIt();
   const domPurify = window.DOMPurify;
-  if (!md || !domPurify) {
+  const markdownUi = window.AiursoftMarkdownUi;
+  if (!domPurify || !markdownUi) {
     return escapeHtml(description).replace(/\n/g, '<br>');
   }
 
-  const rawHtml = md.render(description);
+  const rawHtml = markdownUi.renderMarkdown(description, { breaks: true });
   return domPurify.sanitize(rawHtml, {
     ADD_ATTR: ['target'],
     FORBID_TAGS: ['script', 'style'],
@@ -1047,56 +1002,16 @@ function renderSafeMarkdownHtml(description: string): string {
 }
 
 function renderSafeCommentHtml(content: string): string {
-  const md = getMarkdownIt();
   const domPurify = window.DOMPurify;
-  if (!md || !domPurify) {
+  const markdownUi = window.AiursoftMarkdownUi;
+  if (!domPurify || !markdownUi) {
     return escapeHtml(content).replace(/\n/g, '<br>');
   }
 
-  const rawHtml = md.render(content);
+  const rawHtml = markdownUi.renderMarkdown(content, { breaks: true });
   return domPurify.sanitize(rawHtml, {
     FORBID_TAGS: ['script', 'style'],
     FORBID_ATTR: ['style'],
-  });
-}
-
-// ── MathJax rendering for card detail views ──
-
-function renderMathJax(container: HTMLElement): void {
-  if (window.MathJax && window.MathJax.typesetPromise) {
-    window.MathJax.typesetPromise([container]).catch(() => {});
-  }
-}
-
-// ── Mermaid rendering in description ──
-
-function normalizeMermaidSource(source: string): string {
-  return source.replace(/\{([^}"\n]*\?[^}"\n]*)\}/g, (_, label: string) => `{"${label.replace(/"/g, '\\"')}"}`);
-}
-
-function renderMermaidInDescription(container: HTMLElement): void {
-  const mermaid = window.mermaid;
-  if (!mermaid) return;
-  container.querySelectorAll<HTMLElement>('pre > code.language-mermaid, pre > code.lang-mermaid').forEach(code => {
-    const pre = code.closest('pre');
-    if (!pre) return;
-    const diagram = document.createElement('div');
-    const source = code.textContent ?? '';
-    const renderId = `card-detail-mermaid-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-    diagram.className = 'mermaid';
-    pre.replaceWith(diagram);
-
-    mermaid.render(renderId, normalizeMermaidSource(source)).then(result => {
-      diagram.innerHTML = result.svg;
-      result.bindFunctions?.(diagram);
-    }).catch(() => {
-      const restoredPre = document.createElement('pre');
-      const restoredCode = document.createElement('code');
-      restoredCode.className = 'language-mermaid';
-      restoredCode.textContent = source;
-      restoredPre.appendChild(restoredCode);
-      diagram.replaceWith(restoredPre);
-    });
   });
 }
 

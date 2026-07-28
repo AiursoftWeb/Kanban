@@ -115,7 +115,6 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
-<script src="~/node_modules/markdown-it/dist/markdown-it.min.js" asp-append-version="true"></script>
 <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
 <partial name="_MarkdownReaderAssets" />
 <script>
@@ -123,8 +122,8 @@
     var rawContent = document.getElementById('reportRawContent').value;
     var target = document.getElementById('reportContent');
 
-    if (typeof markdownit !== 'undefined' && typeof DOMPurify !== 'undefined') {
-        var rawHtml = markdownit({ html: false, linkify: true, breaks: true, typographer: true }).render(rawContent);
+    if (window.AiursoftMarkdownUi && typeof DOMPurify !== 'undefined') {
+        var rawHtml = window.AiursoftMarkdownUi.renderMarkdown(rawContent, { breaks: true });
         var cleanHtml = DOMPurify.sanitize(rawHtml, {
             ADD_ATTR: ['target'],
             FORBID_TAGS: ['script', 'style'],

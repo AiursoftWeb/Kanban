@@ -5,10 +5,10 @@
   "author": "Anduin Xue",
   "license": "MIT",
   "dependencies": {
+    "@aiursoft/uistack-markdown-ui": "1.0.1",
     "@highlightjs/cdn-assets": "^11.11.1",
     "dompurify": "^3.4.11",
     "dropify": "^0.2.2",
-    "markdown-it": "^14.1.0",
     "mathjax": "^3.2.2",
     "mermaid": "^11.16.0",
     "monaco-editor": "^0.55.1",
@@ -19,10 +19,10 @@
     "vite": "^7.0.0"
   },
   "keep": {
+    "@aiursoft/uistack-markdown-ui": "dist",
     "@highlightjs/cdn-assets": ".",
     "dompurify": "dist",
     "dropify": "dist",
-    "markdown-it": "dist",
     "mathjax": "es5",
     "mermaid": "dist",
     "monaco-editor": "min"
