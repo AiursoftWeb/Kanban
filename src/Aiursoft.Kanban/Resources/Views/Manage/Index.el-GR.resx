@@ -21,6 +21,12 @@
       <data name="Account Management" xml:space="preserve">
     <value>Διαχείριση Λογαριασμού</value>
   </data>
+  <data name="AI" xml:space="preserve">
+    <value>Τεχνητή Νοημοσύνη</value>
+  </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>Ρυθμίσεις Αναφοράς AI</value>
+  </data>
   <data name="auth provider" xml:space="preserve">
     <value>παροχέας ταυτοποίησης</value>
   </data>
