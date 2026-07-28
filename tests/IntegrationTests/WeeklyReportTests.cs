@@ -230,7 +230,7 @@ public class WeeklyReportTests : TestBase
 
         await LogoutAsync();
 
-        var (email, password) = await RegisterAndLoginAsync();
+        var (_, _) = await RegisterAndLoginAsync();
 
         var response = await Http.GetAsync($"/WeeklyReport/Details/{reportId}");
         // Forbid() redirects to access-denied page with 302
@@ -418,7 +418,7 @@ public class WeeklyReportTests : TestBase
     public void WeeklyReportBackgroundJob_GetCurrentWeekStart_ReturnsMonday()
     {
         // Test with known dates
-        var friday = new DateTime(2026, 8, 1, 14, 0, 0); // Sat Aug 1 UTC+8 is a Saturday
+        var _ = new DateTime(2026, 8, 1, 14, 0, 0); // Sat Aug 1 UTC+8 is a Saturday
         var chinaNow = new DateTime(2026, 7, 31, 14, 0, 0); // Fri Jul 31 14:00 UTC+8
 
         var weekStart = WeeklyReportBackgroundJob.GetCurrentWeekStart(chinaNow);
