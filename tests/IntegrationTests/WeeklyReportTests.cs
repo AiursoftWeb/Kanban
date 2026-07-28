@@ -230,7 +230,7 @@ public class WeeklyReportTests : TestBase
 
         await LogoutAsync();
 
-        var (_, _) = await RegisterAndLoginAsync();
+        
 
         var response = await Http.GetAsync($"/WeeklyReport/Details/{reportId}");
         // Forbid() redirects to access-denied page with 302
