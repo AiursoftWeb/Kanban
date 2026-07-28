@@ -76,6 +76,9 @@ public class AppPermissions
             new(AppPermissionNames.CanManageAnyDailyReport,
                 localizer["Manage Any Daily Report"],
                 localizer["Allows viewing and managing daily plans and summaries for all users."]),
+            new(AppPermissionNames.CanManageAnyWeeklyReport,
+                localizer["Manage Any Weekly Report"],
+                localizer["Allows viewing and managing weekly reports for all users."]),
             new(AppPermissionNames.CanReadAuditLogs,
                 localizer["Read Audit Logs"],
                 localizer["Allows viewing operation logs for all users."])

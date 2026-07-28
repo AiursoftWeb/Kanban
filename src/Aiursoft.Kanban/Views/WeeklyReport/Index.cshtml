@@ -1,0 +1,341 @@
+@using Aiursoft.Kanban.Models.WeeklyReportViewModels
+@using Aiursoft.WebTools
+@model WeeklyReportIndexViewModel
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section styles {
+<style>
+    .this-week-highlight {
+        border-left: 4px solid var(--bs-primary);
+        background: var(--bs-primary-bg-subtle);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .highlight-badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .description-preview {
+        color: var(--bs-body-color);
+        line-height: 1.55;
+    }
+
+    .description-preview > :last-child {
+        margin-bottom: 0;
+    }
+
+    .description-preview pre {
+        padding: 0.75rem;
+        border-radius: 8px;
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        overflow-x: auto;
+    }
+
+    .description-preview code {
+        font-size: 0.85em;
+    }
+
+    .description-preview table {
+        width: 100%;
+        margin-bottom: 1rem;
+        border-collapse: collapse;
+    }
+
+    .description-preview th,
+    .description-preview td {
+        padding: 0.4rem 0.55rem;
+        border: 1px solid var(--bs-border-color, #dee2e6);
+    }
+
+    .description-preview blockquote {
+        margin: 0 0 1rem;
+        padding: 0.5rem 0.8rem;
+        border-left: 4px solid var(--bs-primary, #4dabf7);
+        background: var(--bs-tertiary-bg, #f8f9fa);
+        color: var(--bs-secondary-color);
+        border-radius: 0 8px 8px 0;
+    }
+
+    .description-preview img,
+    .description-preview svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .highlight-preview {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 0.9rem;
+    }
+
+    .report-content-preview {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        color: var(--bs-secondary-color);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .clickable-row {
+        cursor: pointer;
+    }
+
+    .clickable-row:hover {
+        background: var(--bs-tertiary-bg);
+    }
+
+    .type-badge-weekly {
+        background: var(--bs-primary);
+        color: #fff;
+    }
+
+    .empty-state {
+        border: 2px dashed var(--bs-border-color);
+        border-radius: 18px;
+        padding: 4rem 2rem;
+        text-align: center;
+        color: var(--bs-secondary-color);
+        background: var(--bs-tertiary-bg);
+    }
+
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+    }
+</style>
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="mb-1">@Localizer["Weekly Report"]</h2>
+        <p class="text-muted mb-0">@Localizer["AI-generated weekly summary of your completed tasks, available every Friday afternoon."]</p>
+    </div>
+</div>
+
+@* ── This Week's Report Section ── *@
+@if (Model.ThisWeekReport != null)
+{
+    <div class="this-week-highlight">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <span class="badge type-badge-weekly highlight-badge me-2">@Localizer["This Week's Report"]</span>
+                @if (Model.CurrentWeekStart.HasValue)
+                {
+                    <small class="text-muted">@Model.CurrentWeekStart.Value.ToString("yyyy-MM-dd") – @Model.CurrentWeekStart.Value.AddDays(6).ToString("yyyy-MM-dd")</small>
+                }
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/WeeklyReport/Details/@Model.ThisWeekReport.Id" class="btn btn-sm btn-outline-secondary">
+                    <i class="align-middle me-1" data-lucide="eye"></i> @Localizer["View"]
+                </a>
+                <form method="post" action="/WeeklyReport/Discard" style="display:inline"
+                      onsubmit="return confirm('@Localizer["Are you sure you want to discard this weekly report? A new one will be generated on the next hourly run."]')">
+                    <input type="hidden" name="id" value="@Model.ThisWeekReport.Id" />
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                        <i class="align-middle me-1" data-lucide="trash-2"></i> @Localizer["Discard"]
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="description-preview highlight-preview" id="thisWeekPreview"></div>
+        <textarea id="thisWeekRaw" class="d-none">@Model.ThisWeekReport.Content</textarea>
+    </div>
+}
+else
+{
+    <div class="this-week-highlight">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <span class="badge type-badge-weekly highlight-badge me-2">@Localizer["This Week's Report"]</span>
+                @if (Model.CurrentWeekStart.HasValue)
+                {
+                    <small class="text-muted">@Model.CurrentWeekStart.Value.ToString("yyyy-MM-dd") – @Model.CurrentWeekStart.Value.AddDays(6).ToString("yyyy-MM-dd")</small>
+                }
+            </div>
+            @if (Model.CanGenerate)
+            {
+                <form method="post" action="/WeeklyReport/Generate" style="display:inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="align-middle me-1" data-lucide="sparkles"></i> @Localizer["Generate Report"]
+                    </button>
+                </form>
+            }
+        </div>
+        <p class="text-muted mt-2 mb-0">
+            @if (Model.CanGenerate)
+            {
+                @Localizer["Click to generate your weekly report summarizing all completed tasks this week."]
+            }
+            else
+            {
+                @Localizer["Weekly reports become available every Friday afternoon (UTC+8). Check back then!"]
+            }
+        </p>
+    </div>
+}
+
+@* ── History Section ── *@
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">@Localizer["History"]</h5>
+    </div>
+    <div class="table-responsive">
+        @if (Model.Reports.Count == 0)
+        {
+            <div class="empty-state m-3">
+                <h4 class="mb-2">@Localizer["No reports yet"]</h4>
+                <p class="mb-0">@Localizer["Your weekly reports will appear here."]</p>
+            </div>
+        }
+        else
+        {
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>@Localizer["Week"]</th>
+                        <th>@Localizer["Preview"]</th>
+                        <th>@Localizer["Generated At"]</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var report in Model.Reports)
+                    {
+                        var isCurrentWeek = Model.CurrentWeekStart.HasValue && report.WeekStart.Date == Model.CurrentWeekStart.Value;
+                        <tr class="clickable-row @(isCurrentWeek ? "table-active" : "")" data-href="/WeeklyReport/Details/@report.Id">
+                            <td>
+                                @report.WeekStart.ToString("yyyy-MM-dd") – @report.WeekStart.AddDays(6).ToString("yyyy-MM-dd")
+                                @if (isCurrentWeek)
+                                {
+                                    <span class="badge bg-info ms-1">@Localizer["This Week"]</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="report-content-preview" data-raw-content="@TruncateContent(report.Content, 150)"></div>
+                            </td>
+                            <td class="text-muted"><label data-utc-time="@report.GeneratedAt.ToHtmlDateTime()" style="display:inline"></label></td>
+                            <td class="text-end">
+                                @if (isCurrentWeek)
+                                {
+                                    <form method="post" action="/WeeklyReport/Discard" style="display:inline"
+                                          onsubmit="return confirm('@Localizer["Are you sure you want to discard this weekly report? A new one will be generated on the next hourly run."]')">
+                                        <input type="hidden" name="id" value="@report.Id" />
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="align-middle me-1" data-lucide="trash-2"></i> @Localizer["Discard"]
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    @* ── Pagination ── *@
+    @if (Model.TotalPages > 1)
+    {
+        <div class="card-footer">
+            <div class="pagination-container">
+                <a href="/WeeklyReport?page=@(Model.CurrentPage - 1)"
+                   class="btn btn-sm btn-outline-secondary @(Model.CurrentPage <= 1 ? "disabled" : "")">
+                    <i class="align-middle" data-lucide="chevron-left"></i> @Localizer["Previous"]
+                </a>
+
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    <a href="/WeeklyReport?page=@i"
+                       class="btn btn-sm @(i == Model.CurrentPage ? "btn-primary" : "btn-outline-secondary")">
+                        @i
+                    </a>
+                }
+
+                <a href="/WeeklyReport?page=@(Model.CurrentPage + 1)"
+                   class="btn btn-sm btn-outline-secondary @(Model.CurrentPage >= Model.TotalPages ? "disabled" : "")">
+                    @Localizer["Next"] <i class="align-middle" data-lucide="chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+@functions {
+    string TruncateContent(string content, int maxLen)
+    {
+        if (string.IsNullOrEmpty(content)) return "";
+        return content.Length <= maxLen ? content : content[..maxLen] + "…";
+    }
+}
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+<script src="~/node_modules/marked/lib/marked.umd.js" asp-append-version="true"></script>
+<script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
+<script>
+    document.querySelectorAll('.clickable-row').forEach(function(row) {
+        row.addEventListener('click', function() {
+            var href = this.dataset.href;
+            if (href) window.location.href = href;
+        });
+    });
+
+    function stripMarkdown(md) {
+        if (!md) return '';
+        return md
+            .replace(/^#{1,6}\s+/gm, '')
+            .replace(/\*\*(.+?)\*\*/g, '$1')
+            .replace(/\*(.+?)\*/g, '$1')
+            .replace(/`{1,3}[^`]*`{1,3}/g, '')
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+            .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+            .replace(/^>\s+/gm, '')
+            .replace(/^[-*+]\s+/gm, '')
+            .replace(/^\d+\.\s+/gm, '')
+            .replace(/~~(.+?)~~/g, '$1')
+            .replace(/^---+$/gm, '')
+            .trim();
+    }
+
+    (function () {
+        var raw = document.getElementById('thisWeekRaw');
+        var target = document.getElementById('thisWeekPreview');
+        if (raw && target && typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+            marked.setOptions({ breaks: true, gfm: true });
+            var rawHtml = marked.parse(raw.value);
+            var cleanHtml = DOMPurify.sanitize(rawHtml, {
+                ADD_ATTR: ['target'],
+                FORBID_TAGS: ['script', 'style'],
+                FORBID_ATTR: ['style'],
+            });
+            target.innerHTML = cleanHtml;
+            target.querySelectorAll('a[href]').forEach(function (link) {
+                link.rel = 'noopener noreferrer';
+                link.target = '_blank';
+            });
+        }
+
+        document.querySelectorAll('.report-content-preview[data-raw-content]').forEach(function (el) {
+            var rawContent = el.getAttribute('data-raw-content') || '';
+            el.textContent = stripMarkdown(rawContent);
+        });
+    })();
+</script>
+}
