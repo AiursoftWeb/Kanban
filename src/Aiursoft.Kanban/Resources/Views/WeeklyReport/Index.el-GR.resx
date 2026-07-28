@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="AI-generated weekly summary of your completed tasks, available every Friday afternoon." xml:space="preserve">
+    <value>Εβδομαδιαία περίληψη των ολοκληρωμένων εργασιών σας, δημιουργημένη με τεχνητή νοημοσύνη, διαθέσιμη κάθε Παρασκευή το απόγευμα.</value>
+  </data>
+  <data name="Are you sure you want to discard this weekly report? A new one will be generated on the next hourly run." xml:space="preserve">
+    <value>Είστε σίγουροι ότι θέλετε να απορρίψετε αυτή την εβδομαδιαία αναφορά; Θα δημιουργηθεί μια νέα στην επόμενη ωριαία εκτέλεση.</value>
+  </data>
+  <data name="Click to generate your weekly report summarizing all completed tasks this week." xml:space="preserve">
+    <value>Κάντε κλικ για να δημιουργήσετε την εβδομαδιαία σας αναφορά που συνοψίζει όλα τα ολοκληρωμένα καθήκοντα αυτής της εβδομάδας.</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>Απόρριψη</value>
+  </data>
+  <data name="Generate Report" xml:space="preserve">
+    <value>Δημιουργία Αναφοράς</value>
+  </data>
+  <data name="Generated At" xml:space="preserve">
+    <value>Δημιουργήθηκε στις</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Ιστορικό</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Επόμενο</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Δεν υπάρχουν ακόμη αναφορές</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Προηγούμενο</value>
+  </data>
+  <data name="This Week" xml:space="preserve">
+    <value>Αυτή την Εβδομάδα</value>
+  </data>
+  <data name="This Week&apos;s Report" xml:space="preserve">
+    <value>Αναφορά Αυτής της Εβδομάδας</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Προβολή</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Εβδομάδα</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>Εβδομαδιαία Αναφορά</value>
+  </data>
+  <data name="Weekly reports become available every Friday afternoon (UTC+8). Check back then!" xml:space="preserve">
+    <value>Τα εβδομαδιαία reports διατίθενται κάθε Παρασκευή το απόγευμα (UTC+8). Επισκεφθείτε ξανά τότε!</value>
+  </data>
+  <data name="Your weekly reports will appear here." xml:space="preserve">
+    <value>Τα εβδομαδιαία σας rapports θα εμφανίζονται εδώ.</value>
+  </data>
+
+</root>
