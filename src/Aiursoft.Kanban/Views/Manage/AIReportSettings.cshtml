@@ -13,7 +13,7 @@
 
             <div class="mb-4">
                 <div class="form-check form-switch">
-                    <input asp-for="EnableDailyReport" class="form-check-input" type="checkbox" role="switch" />
+                    <input asp-for="EnableDailyReport" class="form-check-input" type="checkbox" />
                     <label asp-for="EnableDailyReport" class="form-check-label">@Localizer["Enable automatic daily planning and summary"]</label>
                 </div>
                 <small class="form-text text-muted ms-4">@Localizer["When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards."]</small>
@@ -21,7 +21,7 @@
 
             <div class="mb-4">
                 <div class="form-check form-switch">
-                    <input asp-for="EnableWeeklyReport" class="form-check-input" type="checkbox" role="switch" />
+                    <input asp-for="EnableWeeklyReport" class="form-check-input" type="checkbox" />
                     <label asp-for="EnableWeeklyReport" class="form-check-label">@Localizer["Enable automatic weekly report"]</label>
                 </div>
                 <small class="form-text text-muted ms-4">@Localizer["When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon."]</small>
