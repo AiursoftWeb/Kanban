@@ -91,15 +91,24 @@ interface MonacoEditorLike {
 
 interface AiursoftMarkdownUiLike {
   renderMarkdown(markdown: string, options?: { breaks?: boolean }): string;
-  enhanceMarkdown(options: { container: string | HTMLElement | Iterable<HTMLElement> }): Promise<void>;
+  initializeMarkdownReader(options: { container: string | HTMLElement | Iterable<HTMLElement> }): Promise<void>;
+  loadMonacoFromAmd(): Promise<unknown>;
   createMarkdownEditor(options: {
     editorContainer: HTMLElement;
     textarea: HTMLTextAreaElement;
     previewContainer: HTMLElement | null;
-    monaco: unknown;
+    loadMonaco: () => Promise<unknown>;
     uploadUrl: string;
+    editorPane?: HTMLElement;
+    previewPane?: HTMLElement;
+    initialViewMode?: 'editor' | 'split' | 'preview';
+    viewModeStorageKey?: string;
+    viewModeControls?: Iterable<{
+      element: HTMLElement;
+      mode: 'editor' | 'split' | 'preview';
+    }>;
     editorOptions?: Record<string, unknown>;
-    onPreviewRendered?: (markdown: string, container: HTMLElement) => void;
+    onPreviewRendered?: (markdown: string) => void;
     onError?: (error: unknown) => void;
   }): Promise<{
     editor: MonacoEditorLike | null;
@@ -142,12 +151,15 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     descriptionPreview: document.getElementById('descriptionPreview'),
     descriptionEdit: document.getElementById('descriptionEdit'),
     descriptionEditorContainer: document.getElementById('descEditorContainer'),
+    descriptionEditorPane: document.getElementById('descEditTab'),
     descriptionInitialValue: document.getElementById('descInitialValue') as HTMLTextAreaElement | null,
+    descriptionPreviewPane: document.getElementById('descPreviewTab'),
     descriptionLivePreview: document.getElementById('descLivePreview'),
     descriptionEmpty: document.getElementById('descriptionEmpty'),
     editDescriptionButton: document.getElementById('btnEditDesc'),
     cancelDescriptionButton: document.getElementById('btnCancelDesc'),
     saveDescriptionButton: document.getElementById('btnSaveDesc') as HTMLButtonElement | null,
+    editorTabButton: document.getElementById('btnEditorTab'),
     previewTabButton: document.getElementById('btnPreviewTab'),
     priorityGroup: document.getElementById('priorityGroup'),
     dueDateInput: document.getElementById('inputDueDate') as HTMLInputElement | null,
@@ -209,24 +221,33 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   async function initDescriptionEditor(): Promise<void> {
     if (markdownEditorController || !refs.descriptionEditorContainer || !refs.descriptionInitialValue) return;
 
-    if (!window.monaco || !window.AiursoftMarkdownUi) {
-      // Monaco is still loading via AMD; retry once after a short delay
-      setTimeout(() => { void initDescriptionEditor(); }, 200);
-      return;
-    }
+    if (!window.AiursoftMarkdownUi) return;
 
     markdownEditorController = await window.AiursoftMarkdownUi.createMarkdownEditor({
       editorContainer: refs.descriptionEditorContainer,
       textarea: refs.descriptionInitialValue,
       previewContainer: refs.descriptionLivePreview,
-      monaco: window.monaco,
+      loadMonaco: () => window.AiursoftMarkdownUi!.loadMonacoFromAmd(),
       uploadUrl: options.imageUploadUrl,
+      editorPane: refs.descriptionEditorPane ?? undefined,
+      previewPane: refs.descriptionPreviewPane ?? undefined,
+      initialViewMode: 'editor',
+      viewModeControls: [
+        { element: refs.editorTabButton!, mode: 'editor' },
+        { element: refs.previewTabButton!, mode: 'preview' },
+      ].filter(control => control.element),
       editorOptions: {
         minimap: { enabled: false },
         scrollBeyondLastLine: false,
       },
-      onPreviewRendered: (_markdown, container) => configureRenderedMarkdown(container),
-      onError: error => console.error('Markdown editor error:', error),
+      onPreviewRendered: () => {
+        if (refs.descriptionLivePreview) {
+          configureRenderedMarkdown(refs.descriptionLivePreview);
+        }
+      },
+      onError: error => {
+        console.error('Markdown editor error:', error);
+      },
     });
     monacoEditor = markdownEditorController.editor;
   }
@@ -264,10 +285,6 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       renderMainDescription();
       renderLiveDescriptionPreview();
       toggleDescriptionEdit(false);
-    });
-
-    refs.previewTabButton?.addEventListener('click', () => {
-      renderLiveDescriptionPreview();
     });
 
     refs.saveDescriptionButton?.addEventListener('click', async () => {
@@ -913,7 +930,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
     refs.commentsList.innerHTML = comments.map(renderCommentHtml).join('');
     refs.commentsList.classList.add('markdown-content');
-    void window.AiursoftMarkdownUi?.enhanceMarkdown({ container: refs.commentsList });
+    void window.AiursoftMarkdownUi?.initializeMarkdownReader({ container: refs.commentsList });
     refreshIcons(refs.commentsList);
   }
 
@@ -1040,7 +1057,7 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
 
   container.innerHTML = renderSafeMarkdownHtml(description);
   container.classList.add('markdown-content');
-  void window.AiursoftMarkdownUi?.enhanceMarkdown({ container });
+  void window.AiursoftMarkdownUi?.initializeMarkdownReader({ container });
   configureRenderedMarkdown(container);
   return true;
 }
@@ -1048,10 +1065,6 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
 function configureRenderedMarkdown(container: HTMLElement): void {
   container.querySelectorAll<HTMLImageElement>('img').forEach(image => {
     image.setAttribute('data-fullscreen-src', image.currentSrc || image.src);
-  });
-  container.querySelectorAll<HTMLAnchorElement>('a[href]').forEach(link => {
-    link.rel = 'noopener noreferrer';
-    link.target = '_blank';
   });
 }
 

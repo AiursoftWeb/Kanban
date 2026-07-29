@@ -357,32 +357,22 @@ else if (Model.CanSummarize)
             .trim();
     }
 
-    (function () {
+    document.addEventListener('DOMContentLoaded', function () {
         // Render today's highlight — exact same approach as card description
         var planRaw = document.getElementById('todayPlanRaw');
         var planTarget = document.getElementById('todayPlanPreview');
         if (planRaw && planTarget && window.AiursoftMarkdownUi ) {
-            var rawHtml = window.AiursoftMarkdownUi.renderMarkdown(planRaw.value, { breaks: true });
-            var cleanHtml = rawHtml;
-            planTarget.innerHTML = cleanHtml;
+            planTarget.innerHTML = window.AiursoftMarkdownUi.renderMarkdown(planRaw.value, { breaks: true });
             planTarget.classList.add('markdown-content');
-            planTarget.querySelectorAll('a[href]').forEach(function (link) {
-                link.rel = 'noopener noreferrer';
-                link.target = '_blank';
-            });
+            void window.AiursoftMarkdownUi.initializeMarkdownReader({ container: planTarget });
         }
 
         var summaryRaw = document.getElementById('todaySummaryRaw');
         var summaryTarget = document.getElementById('todaySummaryPreview');
         if (summaryRaw && summaryTarget && window.AiursoftMarkdownUi ) {
-            var rawHtml2 = window.AiursoftMarkdownUi.renderMarkdown(summaryRaw.value, { breaks: true });
-            var cleanHtml2 = rawHtml2;
-            summaryTarget.innerHTML = cleanHtml2;
+            summaryTarget.innerHTML = window.AiursoftMarkdownUi.renderMarkdown(summaryRaw.value, { breaks: true });
             summaryTarget.classList.add('markdown-content');
-            summaryTarget.querySelectorAll('a[href]').forEach(function (link) {
-                link.rel = 'noopener noreferrer';
-                link.target = '_blank';
-            });
+            void window.AiursoftMarkdownUi.initializeMarkdownReader({ container: summaryTarget });
         }
 
         // Strip markdown from history table previews
@@ -390,6 +380,6 @@ else if (Model.CanSummarize)
             var raw = el.getAttribute('data-raw-content') || '';
             el.textContent = stripMarkdown(raw);
         });
-    })();
+    });
 </script>
 }

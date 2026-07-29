@@ -314,24 +314,19 @@ else
             .trim();
     }
 
-    (function () {
+    document.addEventListener('DOMContentLoaded', function () {
         var raw = document.getElementById('thisWeekRaw');
         var target = document.getElementById('thisWeekPreview');
         if (raw && target && window.AiursoftMarkdownUi ) {
-            var rawHtml = window.AiursoftMarkdownUi.renderMarkdown(raw.value, { breaks: true });
-            var cleanHtml = rawHtml;
-            target.innerHTML = cleanHtml;
+            target.innerHTML = window.AiursoftMarkdownUi.renderMarkdown(raw.value, { breaks: true });
             target.classList.add('markdown-content');
-            target.querySelectorAll('a[href]').forEach(function (link) {
-                link.rel = 'noopener noreferrer';
-                link.target = '_blank';
-            });
+            void window.AiursoftMarkdownUi.initializeMarkdownReader({ container: target });
         }
 
         document.querySelectorAll('.report-content-preview[data-raw-content]').forEach(function (el) {
             var rawContent = el.getAttribute('data-raw-content') || '';
             el.textContent = stripMarkdown(rawContent);
         });
-    })();
+    });
 </script>
 }

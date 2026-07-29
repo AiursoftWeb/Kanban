@@ -117,23 +117,17 @@
 @section scripts {
 <partial name="_MarkdownReaderAssets" />
 <script>
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
     var rawContent = document.getElementById('reportRawContent').value;
     var target = document.getElementById('reportContent');
 
     if (window.AiursoftMarkdownUi ) {
-        var rawHtml = window.AiursoftMarkdownUi.renderMarkdown(rawContent, { breaks: true });
-        var cleanHtml = rawHtml;
-        target.innerHTML = cleanHtml;
+        target.innerHTML = window.AiursoftMarkdownUi.renderMarkdown(rawContent, { breaks: true });
         target.classList.add('markdown-content');
-
-        target.querySelectorAll('a[href]').forEach(function (link) {
-            link.rel = 'noopener noreferrer';
-            link.target = '_blank';
-        });
+        void window.AiursoftMarkdownUi.initializeMarkdownReader({ container: target });
     } else {
         target.textContent = rawContent;
     }
-})();
+});
 </script>
 }

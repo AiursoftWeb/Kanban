@@ -320,28 +320,28 @@
                     @if (Model.CanEdit)
                     {
                         <div id="descriptionEdit" class="d-none">
-                            <ul class="nav nav-tabs detail-description-tabs mb-3 border-0">
+                            <ul class="nav nav-tabs detail-description-tabs mb-3 border-0" aria-label="@Localizer["Markdown view mode"]">
                                 <li class="nav-item">
-                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#descEditTab" type="button">@Localizer["Edit"]</button>
+                                    <button class="nav-link active" id="btnEditorTab" type="button">@Localizer["Edit"]</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#descPreviewTab" type="button" id="btnPreviewTab">@Localizer["Preview"]</button>
+                                    <button class="nav-link" type="button" id="btnPreviewTab">@Localizer["Preview"]</button>
                                 </li>
                             </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="descEditTab">
+                            <div>
+                                <div id="descEditTab">
                                     <div class="detail-section-note mb-2">@Localizer["Markdown, Mermaid and MathJax are all supported."]</div>
                                     <div id="descEditorContainer" style="height:360px;border:1px solid var(--bs-border-color, #dee2e6);border-radius:14px;overflow:hidden"></div>
-                                    <textarea id="descInitialValue" hidden>@Model.Description</textarea>
-                                    <div class="detail-section-note mt-2">@Localizer["Tip: paste an image directly into the editor to upload and embed it."]</div>
-                                    <div class="d-flex justify-content-end mt-3 gap-2">
-                                        <button class="btn btn-outline-secondary" id="btnCancelDesc">@Localizer["Cancel"]</button>
-                                        <button class="btn btn-primary" id="btnSaveDesc">@Localizer["Save"]</button>
-                                    </div>
+                                    <textarea id="descInitialValue" class="form-control" rows="12">@Model.Description</textarea>
                                 </div>
-                                <div class="tab-pane fade" id="descPreviewTab">
-                                    <div class="description-preview border rounded-4 p-3 bg-light-subtle" id="descLivePreview" style="min-height:220px"></div>
+                                <div id="descPreviewTab" hidden>
+                                    <div class="description-preview border rounded-4 p-3 bg-light-subtle h-100" id="descLivePreview" style="min-height:360px"></div>
                                 </div>
+                            </div>
+                            <div class="detail-section-note mt-2">@Localizer["Tip: paste an image directly into the editor to upload and embed it."]</div>
+                            <div class="d-flex justify-content-end mt-3 gap-2">
+                                <button class="btn btn-outline-secondary" id="btnCancelDesc">@Localizer["Cancel"]</button>
+                                <button class="btn btn-primary" id="btnSaveDesc">@Localizer["Save"]</button>
                             </div>
                         </div>
                     }
@@ -771,11 +771,6 @@
     <partial name="_MarkdownReaderAssets" />
     <script>var require = { paths: { 'vs': '/node_modules/monaco-editor/min/vs' } };</script>
     <script src="~/node_modules/monaco-editor/min/vs/loader.js" asp-append-version="true"></script>
-    <script>
-        require(['vs/editor/editor.main'], function(monaco) {
-            window.monaco = monaco;
-        });
-    </script>
     <script type="module">
         import { initCardDetailPage } from '/dist/card-detail-page.js';
 
