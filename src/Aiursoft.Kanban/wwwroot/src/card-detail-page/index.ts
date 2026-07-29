@@ -65,10 +65,6 @@ interface LucideLike {
   createIcons(options?: { nodes?: ParentNode[] }): void;
 }
 
-interface DomPurifyLike {
-  sanitize(html: string, options?: Record<string, unknown>): string;
-}
-
 interface MathJaxLike {
   typesetPromise(elements?: HTMLElement[]): Promise<void>;
 }
@@ -89,7 +85,6 @@ declare global {
       Modal?: BootstrapModalStatic;
     };
     lucide?: LucideLike;
-    DOMPurify?: DomPurifyLike;
     MathJax?: MathJaxLike;
     AiursoftMarkdownUi?: AiursoftMarkdownUiLike;
   }
@@ -987,32 +982,21 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
 }
 
 function renderSafeMarkdownHtml(description: string): string {
-  const domPurify = window.DOMPurify;
   const markdownUi = window.AiursoftMarkdownUi;
-  if (!domPurify || !markdownUi) {
+  if (!markdownUi) {
     return escapeHtml(description).replace(/\n/g, '<br>');
   }
 
-  const rawHtml = markdownUi.renderMarkdown(description, { breaks: true });
-  return domPurify.sanitize(rawHtml, {
-    ADD_ATTR: ['target'],
-    FORBID_TAGS: ['script', 'style'],
-    FORBID_ATTR: ['style'],
-  });
+  return markdownUi.renderMarkdown(description, { breaks: true });
 }
 
 function renderSafeCommentHtml(content: string): string {
-  const domPurify = window.DOMPurify;
   const markdownUi = window.AiursoftMarkdownUi;
-  if (!domPurify || !markdownUi) {
+  if (!markdownUi) {
     return escapeHtml(content).replace(/\n/g, '<br>');
   }
 
-  const rawHtml = markdownUi.renderMarkdown(content, { breaks: true });
-  return domPurify.sanitize(rawHtml, {
-    FORBID_TAGS: ['script', 'style'],
-    FORBID_ATTR: ['style'],
-  });
+  return markdownUi.renderMarkdown(content, { breaks: true });
 }
 
 function setupImageDropzone(element: HTMLTextAreaElement): ImageDropzoneApi {

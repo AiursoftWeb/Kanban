@@ -757,7 +757,6 @@
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
-    <script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
     @{
         ViewData["MarkdownTheme"] = isDarkMode ? "dark" : "default";
     }
@@ -765,21 +764,25 @@
     <script type="module">
         import { initCardDetailPage } from '/dist/card-detail-page.js';
 
-        initCardDetailPage({
-            csrfToken: '@token',
-            cardId: @Model.CardId,
-            boardId: @Model.BoardId,
-            returnBoardId: @Model.ReturnBoardId,
-            canEdit: @Model.CanEdit.ToString().ToLowerInvariant(),
-            imageUploadUrl: '@kanbanImageUploadUrl',
-            returnBoardUrl: '@returnBoardUrl',
-            initialTitle: @Html.Raw(JsonSerializer.Serialize(Model.Title)),
-            initialPriority: @Model.Priority,
-            initialAssigneeId: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeId)),
-            initialAssigneeName: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeName)),
-            initialAssigneeInitial: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeInitial)),
-            initialAssigneeAvatarUrl: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeAvatarUrl)),
-            initialLabels: @Html.Raw(JsonSerializer.Serialize(Model.Labels.Select(l => new { id = l.Id, name = l.Name, color = l.Color })))
+        // Wait for defer scripts (AiursoftMarkdownUi, etc.) before initializing.
+        // Defer scripts execute before DOMContentLoaded, so all libraries are ready here.
+        document.addEventListener('DOMContentLoaded', () => {
+            initCardDetailPage({
+                csrfToken: '@token',
+                cardId: @Model.CardId,
+                boardId: @Model.BoardId,
+                returnBoardId: @Model.ReturnBoardId,
+                canEdit: @Model.CanEdit.ToString().ToLowerInvariant(),
+                imageUploadUrl: '@kanbanImageUploadUrl',
+                returnBoardUrl: '@returnBoardUrl',
+                initialTitle: @Html.Raw(JsonSerializer.Serialize(Model.Title)),
+                initialPriority: @Model.Priority,
+                initialAssigneeId: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeId)),
+                initialAssigneeName: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeName)),
+                initialAssigneeInitial: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeInitial)),
+                initialAssigneeAvatarUrl: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeAvatarUrl)),
+                initialLabels: @Html.Raw(JsonSerializer.Serialize(Model.Labels.Select(l => new { id = l.Id, name = l.Name, color = l.Color })))
+            });
         });
     </script>
 }

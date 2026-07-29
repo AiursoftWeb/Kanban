@@ -116,20 +116,15 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
-<script src="~/node_modules/dompurify/dist/purify.min.js" asp-append-version="true"></script>
 <partial name="_MarkdownReaderAssets" />
 <script>
 (function () {
     var rawContent = document.getElementById('reportRawContent').value;
     var target = document.getElementById('reportContent');
 
-    if (window.AiursoftMarkdownUi && typeof DOMPurify !== 'undefined') {
+    if (window.AiursoftMarkdownUi ) {
         var rawHtml = window.AiursoftMarkdownUi.renderMarkdown(rawContent, { breaks: true });
-        var cleanHtml = DOMPurify.sanitize(rawHtml, {
-            ADD_ATTR: ['target'],
-            FORBID_TAGS: ['script', 'style'],
-            FORBID_ATTR: ['style'],
-        });
+        var cleanHtml = rawHtml;
         target.innerHTML = cleanHtml;
         target.classList.add('markdown-content');
 
