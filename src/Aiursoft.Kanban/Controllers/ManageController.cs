@@ -155,7 +155,9 @@ public class ManageController(
         var user = await GetCurrentUserAsync();
         return this.StackView(new AIReportSettingsViewModel
         {
-            DailyReportLanguage = user!.DailyReportLanguage
+            DailyReportLanguage = user!.DailyReportLanguage,
+            EnableDailyReport = user.EnableDailyReport,
+            EnableWeeklyReport = user.EnableWeeklyReport
         });
     }
 
@@ -174,6 +176,8 @@ public class ManageController(
         if (user != null)
         {
             user.DailyReportLanguage = model.DailyReportLanguage ?? "en";
+            user.EnableDailyReport = model.EnableDailyReport;
+            user.EnableWeeklyReport = model.EnableWeeklyReport;
             await userManager.UpdateAsync(user);
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangeProfileSuccess });
         }

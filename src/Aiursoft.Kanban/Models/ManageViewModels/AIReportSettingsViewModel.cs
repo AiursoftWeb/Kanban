@@ -13,4 +13,10 @@ public class AIReportSettingsViewModel : UiStackLayoutViewModel
     [Display(Name = "Daily Report Language")]
     [MaxLength(10)]
     public string? DailyReportLanguage { get; set; }
+
+    [Display(Name = "Enable Daily Report")]
+    public bool EnableDailyReport { get; set; } = true;
+
+    [Display(Name = "Enable Weekly Report")]
+    public bool EnableWeeklyReport { get; set; } = true;
 }
