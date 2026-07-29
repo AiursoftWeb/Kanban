@@ -154,10 +154,20 @@ public class DailyReportBackgroundJob : IBackgroundJob
         }
 
         // 5. Check existing reports and change detection for each candidate
+
+        // Pre-fetch users who opted in to daily reports (default true, users may opt out)
+        var optedInUserIds = await _db.Users
+            .Where(u => userIds.Contains(u.Id) && u.EnableDailyReport)
+            .Select(u => u.Id)
+            .ToListAsync();
+        var optedInSet = new HashSet<string>(optedInUserIds);
+
         var needingGeneration = new List<string>();
 
         foreach (var userId in userIds)
         {
+            if (!optedInSet.Contains(userId)) continue;
+
             var existingReport = await _db.DailyReports
                 .Where(r => r.UserId == userId
                          && r.Date == todayChina
