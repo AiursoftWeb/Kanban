@@ -33,20 +33,20 @@ public class UsersControllerTests : TestBase
         Assert.IsNotNull(userId);
 
         // 3. Details
-        var detailsResponse = await Http.GetAsync($"/Users/Details/{userId}");
+        var detailsResponse = await Http.GetAsync($"/Users/Details/{userId!}");
         detailsResponse.EnsureSuccessStatusCode();
         var detailsHtml = await detailsResponse.Content.ReadAsStringAsync();
         Assert.Contains(userName, detailsHtml);
 
         // 4. Edit (GET)
-        var editPageResponse = await Http.GetAsync($"/Users/Edit/{userId}");
+        var editPageResponse = await Http.GetAsync($"/Users/Edit/{userId!}");
         editPageResponse.EnsureSuccessStatusCode();
 
         // 5. Edit (POST)
         var newDisplayName = "Updated Test User";
-        var editResponse = await PostForm($"/Users/Edit/{userId}", new Dictionary<string, string>
+        var editResponse = await PostForm($"/Users/Edit/{userId!}", new Dictionary<string, string>
         {
-            { "Id", userId },
+            { "Id", userId! },
             { "UserName", userName },
             { "Email", email },
             { "DisplayName", newDisplayName },
@@ -55,22 +55,22 @@ public class UsersControllerTests : TestBase
         AssertRedirect(editResponse, "/Users/Details/", exact: false);
 
         // 6. ManageRoles (POST)
-        var manageRolesResponse = await PostForm($"/Users/ManageRoles/{userId}", new Dictionary<string, string>
+        var manageRolesResponse = await PostForm($"/Users/ManageRoles/{userId!}", new Dictionary<string, string>
         {
-            { "id", userId },
+            { "id", userId! },
             { "AllRoles[0].RoleName", "Administrators" },
             { "AllRoles[0].IsSelected", "true" }
         });
         AssertRedirect(manageRolesResponse, "/Users/Details/", exact: false);
 
         // 7. Delete (GET)
-        var deletePageResponse = await Http.GetAsync($"/Users/Delete/{userId}");
+        var deletePageResponse = await Http.GetAsync($"/Users/Delete/{userId!}");
         deletePageResponse.EnsureSuccessStatusCode();
 
         // 8. Delete (POST)
-        var deleteResponse = await PostForm($"/Users/Delete/{userId}", new Dictionary<string, string>
+        var deleteResponse = await PostForm($"/Users/Delete/{userId!}", new Dictionary<string, string>
         {
-            { "id", userId }
+            { "id", userId! }
         });
         AssertRedirect(deleteResponse, "/Users");
     }
