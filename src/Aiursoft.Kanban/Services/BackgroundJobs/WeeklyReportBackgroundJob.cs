@@ -161,11 +161,22 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
         }
 
         // Filter: only users without existing report AND with completed cards this week
+
+        // Pre-fetch users who opted in to weekly reports (default true, users may opt out)
+        var optedInUserIds = await _db.Users
+            .Where(u => userIds.Contains(u.Id) && u.EnableWeeklyReport)
+            .Select(u => u.Id)
+            .ToListAsync();
+        var optedInSet = new HashSet<string>(optedInUserIds);
+
         var eligibleUsers = new List<string>();
         var weekEnd = weekStart.AddDays(7); // Monday of next week
 
         foreach (var userId in userIds)
         {
+            // Skip if user opted out of weekly reports
+            if (!optedInSet.Contains(userId)) continue;
+
             // Skip if already has a report for this week
             var hasReport = await _db.WeeklyReports
                 .AnyAsync(r => r.UserId == userId && r.WeekStart == weekStart);
