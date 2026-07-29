@@ -1,4 +1,3 @@
-import { renderMarkdown, enhanceMarkdown, attachImageUpload } from '@aiursoft/uistack-markdown-ui';
 import type { CardLabel } from '../kanban-board';
 import { t } from '../kanban-board/i18n';
 
@@ -90,6 +89,19 @@ interface MonacoEditorLike {
   }>): void;
 }
 
+interface AiursoftMarkdownUiLike {
+  renderMarkdown(markdown: string, options?: { breaks?: boolean }): string;
+  enhanceMarkdown(options: { container: string | HTMLElement | Iterable<HTMLElement> }): Promise<void>;
+  attachImageUpload(options: {
+    editor: MonacoEditorLike;
+    uploadUrl: string;
+    onError?: (error: unknown, file: File) => void;
+  }): {
+    upload(files: Iterable<File>): Promise<void>;
+    dispose(): void;
+  };
+}
+
 declare global {
   interface Window {
     bootstrap?: {
@@ -97,6 +109,7 @@ declare global {
     };
     lucide?: LucideLike;
     MathJax?: MathJaxLike;
+    AiursoftMarkdownUi?: AiursoftMarkdownUiLike;
     monaco?: {
       editor: {
         create(element: HTMLElement, opts: Record<string, unknown>): MonacoEditorLike;
@@ -176,7 +189,6 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   };
 
   let monacoEditor: MonacoEditorLike | null = null;
-  let imageUpload: ReturnType<typeof attachImageUpload> | null = null;
 
   function initDescriptionEditor(): void {
     if (monacoEditor || !refs.descriptionEditorContainer) return;
@@ -199,7 +211,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
     monacoEditor.onDidChangeModelContent(() => renderLiveDescriptionPreview());
 
-    imageUpload = attachImageUpload({
+    window.AiursoftMarkdownUi?.attachImageUpload({
       editor: monacoEditor,
       uploadUrl: options.imageUploadUrl,
     });
@@ -883,7 +895,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
     refs.commentsList.innerHTML = comments.map(renderCommentHtml).join('');
     refs.commentsList.classList.add('markdown-content');
-    void enhanceMarkdown({ container: refs.commentsList });
+    void window.AiursoftMarkdownUi?.enhanceMarkdown({ container: refs.commentsList });
     refreshIcons(refs.commentsList);
   }
 
@@ -1010,7 +1022,7 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
 
   container.innerHTML = renderSafeMarkdownHtml(description);
   container.classList.add('markdown-content');
-  void enhanceMarkdown({ container });
+  void window.AiursoftMarkdownUi?.enhanceMarkdown({ container });
   container.querySelectorAll<HTMLImageElement>('img').forEach(image => {
     image.setAttribute('data-fullscreen-src', image.currentSrc || image.src);
   });
@@ -1022,11 +1034,13 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
 }
 
 function renderSafeMarkdownHtml(description: string): string {
-  return renderMarkdown(description, { breaks: true });
+  return window.AiursoftMarkdownUi?.renderMarkdown(description, { breaks: true })
+    ?? escapeHtml(description).replace(/\n/g, '<br>');
 }
 
 function renderSafeCommentHtml(content: string): string {
-  return renderMarkdown(content, { breaks: true });
+  return window.AiursoftMarkdownUi?.renderMarkdown(content, { breaks: true })
+    ?? escapeHtml(content).replace(/\n/g, '<br>');
 }
 
 function setupImageDropzone(element: HTMLTextAreaElement): ImageDropzoneApi {
