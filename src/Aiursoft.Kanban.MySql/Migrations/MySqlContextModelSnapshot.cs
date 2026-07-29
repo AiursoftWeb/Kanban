@@ -450,6 +450,12 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<bool>("EnableDailyReport")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("EnableWeeklyReport")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
 
