@@ -546,7 +546,7 @@ public class AgentTests : TestBase
         // Continue with a follow-up
         var result = service.ContinueRun(conversationId, "admin", "Follow-up question");
         Assert.IsNotNull(result);
-        Assert.AreEqual(conversationId, result!.Value);
+        Assert.AreEqual(conversationId, result.Value);
 
         var continued = service.GetConversation(conversationId)!;
         Assert.AreEqual(AgentState.Thinking, continued.State);

@@ -27,7 +27,7 @@ public class RolesControllerTests : TestBase
         Assert.IsNotNull(roleId);
 
         // 3. Details
-        var detailsResponse = await Http.GetAsync($"/Roles/Details/{roleId!}");
+        var detailsResponse = await Http.GetAsync($"/Roles/Details/{roleId}");
         detailsResponse.EnsureSuccessStatusCode();
         var detailsHtml = await detailsResponse.Content.ReadAsStringAsync();
         Assert.Contains(roleName, detailsHtml);
@@ -40,18 +40,18 @@ public class RolesControllerTests : TestBase
         var newRoleName = roleName + "-Edited";
         var editContent = new Dictionary<string, string>
         {
-            { "Id", roleId! },
+            { "Id", roleId },
             { "RoleName", newRoleName },
             { "Claims[0].Key", "CanReadPermissions" },
             { "Claims[0].Name", "CanReadPermissions" },
             { "Claims[0].Description", "CanReadPermissions" },
             { "Claims[0].IsSelected", "true" }
         };
-        var editResponse = await PostForm($"/Roles/Edit/{roleId!}", editContent);
+        var editResponse = await PostForm($"/Roles/Edit/{roleId}", editContent);
         AssertRedirect(editResponse, "/Roles/Details/", exact: false);
 
         // Verify edit
-        var detailsResponse2 = await Http.GetAsync($"/Roles/Details/{roleId!}");
+        var detailsResponse2 = await Http.GetAsync($"/Roles/Details/{roleId}");
         var detailsHtml2 = await detailsResponse2.Content.ReadAsStringAsync();
         Assert.Contains(newRoleName, detailsHtml2);
 
@@ -60,9 +60,9 @@ public class RolesControllerTests : TestBase
         deletePageResponse.EnsureSuccessStatusCode();
 
         // 7. Delete (POST)
-        var deleteResponse = await PostForm($"/Roles/Delete/{roleId!}", new Dictionary<string, string>
+        var deleteResponse = await PostForm($"/Roles/Delete/{roleId}", new Dictionary<string, string>
         {
-            { "id", roleId! }
+            { "id", roleId }
         });
         AssertRedirect(deleteResponse, "/Roles");
 
@@ -92,7 +92,7 @@ public class RolesControllerTests : TestBase
         await LoginAsAdmin();
         var roleName = "TestRole-" + Guid.NewGuid();
         await PostForm("/Roles/Create", new Dictionary<string, string> { { "RoleName", roleName } });
-        
+
         var indexResponse = await Http.GetAsync("/Roles/Index");
         var indexHtml = await indexResponse.Content.ReadAsStringAsync();
         // Extract role ID from HTML

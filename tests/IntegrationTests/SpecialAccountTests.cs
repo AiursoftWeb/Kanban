@@ -67,7 +67,7 @@ public class SpecialAccountTests
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
             var user = await userManager.FindByEmailAsync(email);
             Assert.IsNotNull(user);
-            var roles = await userManager.GetRolesAsync(user!);
+            var roles = await userManager.GetRolesAsync(user);
             Assert.IsTrue(roles.Contains("Administrators"));
         }
     }
