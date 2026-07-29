@@ -1,3 +1,4 @@
+import { renderMarkdown, enhanceMarkdown, attachImageUpload } from '@aiursoft/uistack-markdown-ui';
 import type { CardLabel } from '../kanban-board';
 import { t } from '../kanban-board/i18n';
 
@@ -65,10 +66,6 @@ interface LucideLike {
   createIcons(options?: { nodes?: ParentNode[] }): void;
 }
 
-interface DomPurifyLike {
-  sanitize(html: string, options?: Record<string, unknown>): string;
-}
-
 interface MathJaxLike {
   typesetPromise(elements?: HTMLElement[]): Promise<void>;
 }
@@ -78,9 +75,19 @@ interface ImageDropzoneApi {
   clearFiles(): void;
 }
 
-interface AiursoftMarkdownUiLike {
-  renderMarkdown(markdown: string, options?: { breaks?: boolean }): string;
-  enhanceMarkdown(options: { container: string | HTMLElement | Iterable<HTMLElement> }): Promise<void>;
+interface MonacoEditorLike {
+  getValue(): string;
+  setValue(value: string): void;
+  onDidChangeModelContent(cb: () => void): { dispose(): void };
+  layout(): void;
+  focus(): void;
+  getDomNode(): HTMLElement | null;
+  getPosition(): { lineNumber: number; column: number } | null;
+  executeEdits(source: string, edits: Array<{
+    range: { startLineNumber: number; startColumn: number; endLineNumber: number; endColumn: number };
+    text: string;
+    forceMoveMarkers?: boolean;
+  }>): void;
 }
 
 declare global {
@@ -89,9 +96,12 @@ declare global {
       Modal?: BootstrapModalStatic;
     };
     lucide?: LucideLike;
-    DOMPurify?: DomPurifyLike;
     MathJax?: MathJaxLike;
-    AiursoftMarkdownUi?: AiursoftMarkdownUiLike;
+    monaco?: {
+      editor: {
+        create(element: HTMLElement, opts: Record<string, unknown>): MonacoEditorLike;
+      };
+    };
   }
 }
 
@@ -103,7 +113,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     descriptionView: document.getElementById('descriptionView'),
     descriptionPreview: document.getElementById('descriptionPreview'),
     descriptionEdit: document.getElementById('descriptionEdit'),
-    descriptionTextarea: document.getElementById('descTextarea') as HTMLTextAreaElement | null,
+    descriptionEditorContainer: document.getElementById('descEditorContainer'),
+    descriptionInitialValue: document.getElementById('descInitialValue') as HTMLTextAreaElement | null,
     descriptionLivePreview: document.getElementById('descLivePreview'),
     descriptionEmpty: document.getElementById('descriptionEmpty'),
     editDescriptionButton: document.getElementById('btnEditDesc'),
@@ -164,6 +175,40 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     commentIdToDelete: 0,
   };
 
+  let monacoEditor: MonacoEditorLike | null = null;
+  let imageUpload: ReturnType<typeof attachImageUpload> | null = null;
+
+  function initDescriptionEditor(): void {
+    if (monacoEditor || !refs.descriptionEditorContainer) return;
+
+    if (!window.monaco) {
+      // Monaco is still loading via AMD; retry once after a short delay
+      setTimeout(initDescriptionEditor, 200);
+      return;
+    }
+
+    const initialValue = refs.descriptionInitialValue?.value ?? '';
+    monacoEditor = window.monaco.editor.create(refs.descriptionEditorContainer, {
+      value: initialValue,
+      language: 'markdown',
+      automaticLayout: true,
+      wordWrap: 'on',
+      minimap: { enabled: false },
+      scrollBeyondLastLine: false,
+    });
+
+    monacoEditor.onDidChangeModelContent(() => renderLiveDescriptionPreview());
+
+    imageUpload = attachImageUpload({
+      editor: monacoEditor,
+      uploadUrl: options.imageUploadUrl,
+    });
+  }
+
+  function getDescriptionValue(): string {
+    return monacoEditor?.getValue()?.trim() ?? refs.descriptionInitialValue?.value?.trim() ?? '';
+  }
+
   const commentDropzone = options.canEdit && refs.commentInput
     ? setupImageDropzone(refs.commentInput)
     : null;
@@ -182,12 +227,13 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
   function bindEvents(): void {
     refs.editDescriptionButton?.addEventListener('click', () => {
+      initDescriptionEditor();
       toggleDescriptionEdit(true);
     });
 
     refs.cancelDescriptionButton?.addEventListener('click', () => {
-      if (refs.descriptionTextarea) {
-        refs.descriptionTextarea.value = refs.descriptionTextarea.defaultValue;
+      if (monacoEditor && refs.descriptionInitialValue) {
+        monacoEditor.setValue(refs.descriptionInitialValue.value);
       }
       renderMainDescription();
       renderLiveDescriptionPreview();
@@ -201,24 +247,13 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     refs.saveDescriptionButton?.addEventListener('click', async () => {
       try {
         await saveCardDetails();
-        if (refs.descriptionTextarea) {
-          refs.descriptionTextarea.defaultValue = refs.descriptionTextarea.value;
+        if (monacoEditor && refs.descriptionInitialValue) {
+          refs.descriptionInitialValue.value = monacoEditor.getValue();
         }
         toggleDescriptionEdit(false);
       } catch (error) {
         showFriendlyDialog(getErrorMessage(error, t('failed-save', 'Failed to save.')));
       }
-    });
-
-    refs.descriptionTextarea?.addEventListener('input', () => {
-      autoResizeTextarea(refs.descriptionTextarea);
-      renderLiveDescriptionPreview();
-    });
-
-    refs.descriptionTextarea?.addEventListener('paste', event => {
-      uploadPastedImagesIntoTextarea(refs.descriptionTextarea!, event, options.imageUploadUrl, refs.saveDescriptionButton).catch(problem => {
-        showFriendlyDialog(getErrorMessage(problem, t('failed-upload-pasted-image', 'Failed to upload pasted image.')));
-      });
     });
 
     if (refs.titleDisplay && refs.titleInput && options.canEdit) {
@@ -470,7 +505,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   }
 
   function renderMainDescription(): void {
-    const text = refs.descriptionTextarea?.value ?? '';
+    const text = getDescriptionValue();
     if (!refs.descriptionPreview || !refs.descriptionEmpty) return;
 
     if (!text.trim()) {
@@ -486,8 +521,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   }
 
   function renderLiveDescriptionPreview(): void {
-    if (!refs.descriptionLivePreview || !refs.descriptionTextarea) return;
-    renderDescriptionPreview(refs.descriptionTextarea.value, refs.descriptionLivePreview);
+    if (!refs.descriptionLivePreview) return;
+    renderDescriptionPreview(getDescriptionValue(), refs.descriptionLivePreview);
   }
 
   function toggleDescriptionEdit(editing: boolean): void {
@@ -495,9 +530,9 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     refs.descriptionEdit?.classList.toggle('d-none', !editing);
     refs.editDescriptionButton?.classList.toggle('d-none', editing);
 
-    if (editing && refs.descriptionTextarea) {
-      autoResizeTextarea(refs.descriptionTextarea);
-      refs.descriptionTextarea.focus();
+    if (editing && monacoEditor) {
+      monacoEditor.layout();
+      monacoEditor.focus();
     }
   }
 
@@ -541,7 +576,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     const response = await postForm('/Kanban/UpdateCardDetails', {
       cardId: options.cardId,
       title,
-      description: refs.descriptionTextarea?.value.trim() ?? '',
+      description: getDescriptionValue(),
       plannedStartTime: refs.plannedStartInput?.value ?? '',
       dueDate: refs.dueDateInput?.value ?? '',
       priority: state.currentPriority,
@@ -848,7 +883,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
     refs.commentsList.innerHTML = comments.map(renderCommentHtml).join('');
     refs.commentsList.classList.add('markdown-content');
-    void window.AiursoftMarkdownUi?.enhanceMarkdown({ container: refs.commentsList });
+    void enhanceMarkdown({ container: refs.commentsList });
     refreshIcons(refs.commentsList);
   }
 
@@ -975,7 +1010,7 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
 
   container.innerHTML = renderSafeMarkdownHtml(description);
   container.classList.add('markdown-content');
-  void window.AiursoftMarkdownUi?.enhanceMarkdown({ container });
+  void enhanceMarkdown({ container });
   container.querySelectorAll<HTMLImageElement>('img').forEach(image => {
     image.setAttribute('data-fullscreen-src', image.currentSrc || image.src);
   });
@@ -987,32 +1022,11 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
 }
 
 function renderSafeMarkdownHtml(description: string): string {
-  const domPurify = window.DOMPurify;
-  const markdownUi = window.AiursoftMarkdownUi;
-  if (!domPurify || !markdownUi) {
-    return escapeHtml(description).replace(/\n/g, '<br>');
-  }
-
-  const rawHtml = markdownUi.renderMarkdown(description, { breaks: true });
-  return domPurify.sanitize(rawHtml, {
-    ADD_ATTR: ['target'],
-    FORBID_TAGS: ['script', 'style'],
-    FORBID_ATTR: ['style'],
-  });
+  return renderMarkdown(description, { breaks: true });
 }
 
 function renderSafeCommentHtml(content: string): string {
-  const domPurify = window.DOMPurify;
-  const markdownUi = window.AiursoftMarkdownUi;
-  if (!domPurify || !markdownUi) {
-    return escapeHtml(content).replace(/\n/g, '<br>');
-  }
-
-  const rawHtml = markdownUi.renderMarkdown(content, { breaks: true });
-  return domPurify.sanitize(rawHtml, {
-    FORBID_TAGS: ['script', 'style'],
-    FORBID_ATTR: ['style'],
-  });
+  return renderMarkdown(content, { breaks: true });
 }
 
 function setupImageDropzone(element: HTMLTextAreaElement): ImageDropzoneApi {
@@ -1200,50 +1214,6 @@ function readUploadedImageUrl(payload: Record<string, unknown>): string {
   return url;
 }
 
-async function uploadPastedImagesIntoTextarea(
-  textarea: HTMLTextAreaElement,
-  event: ClipboardEvent,
-  uploadUrl: string,
-  busyButton?: HTMLButtonElement | null,
-): Promise<void> {
-  const files = Array.from(event.clipboardData?.items ?? [])
-    .filter(item => item.type.startsWith('image/'))
-    .map(item => item.getAsFile())
-    .filter((file): file is File => !!file);
-  if (files.length === 0) return;
-
-  event.preventDefault();
-  event.stopPropagation();
-  if (busyButton) busyButton.disabled = true;
-
-  try {
-    for (const file of files) {
-      const placeholder = t('uploading-image', '[Uploading image...]');
-      const selectionStart = textarea.selectionStart ?? textarea.value.length;
-      const selectionEnd = textarea.selectionEnd ?? selectionStart;
-      const before = textarea.value.slice(0, selectionStart);
-      const after = textarea.value.slice(selectionEnd);
-      textarea.value = `${before}${placeholder}${after}`;
-      const placeholderIndex = before.length;
-      textarea.selectionStart = placeholderIndex;
-      textarea.selectionEnd = placeholderIndex + placeholder.length;
-
-      const uploaded = await uploadImageToServer(file, uploadUrl);
-      const markdown = `\n![image](${readUploadedImageUrl(uploaded)})\n`;
-      textarea.value = textarea.value.replace(placeholder, markdown);
-      const nextCursor = textarea.value.indexOf(markdown, placeholderIndex) + markdown.length;
-      textarea.selectionStart = nextCursor;
-      textarea.selectionEnd = nextCursor;
-      textarea.dispatchEvent(new Event('input', { bubbles: true }));
-    }
-  } catch (error) {
-    textarea.value = textarea.value.replace(t('uploading-image', '[Uploading image...]'), '');
-    throw error;
-  } finally {
-    if (busyButton) busyButton.disabled = false;
-  }
-}
-
 function postForm(url: string, values: Record<string, string | number>, csrfToken: string): Promise<Response> {
   const body = new URLSearchParams();
   body.set('__RequestVerificationToken', csrfToken);
@@ -1285,12 +1255,6 @@ function readString(value: unknown): string {
 function readOptionalString(value: unknown): string | undefined {
   const text = readString(value).trim();
   return text ? text : undefined;
-}
-
-function autoResizeTextarea(textarea: HTMLTextAreaElement | null): void {
-  if (!textarea) return;
-  textarea.style.height = 'auto';
-  textarea.style.height = `${Math.min(textarea.scrollHeight, 360)}px`;
 }
 
 function formatCommentFullTime(value: string): string {
