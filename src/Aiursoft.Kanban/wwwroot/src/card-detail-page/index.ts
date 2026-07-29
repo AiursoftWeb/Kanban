@@ -92,6 +92,21 @@ interface MonacoEditorLike {
 interface AiursoftMarkdownUiLike {
   renderMarkdown(markdown: string, options?: { breaks?: boolean }): string;
   enhanceMarkdown(options: { container: string | HTMLElement | Iterable<HTMLElement> }): Promise<void>;
+  createMarkdownEditor(options: {
+    editorContainer: HTMLElement;
+    textarea: HTMLTextAreaElement;
+    previewContainer: HTMLElement | null;
+    monaco: unknown;
+    uploadUrl: string;
+    editorOptions?: Record<string, unknown>;
+    onPreviewRendered?: (markdown: string, container: HTMLElement) => void;
+    onError?: (error: unknown) => void;
+  }): Promise<{
+    editor: MonacoEditorLike | null;
+    getValue(): string;
+    setValue(value: string): void;
+    refreshPreview(): Promise<void>;
+  }>;
   attachImageUpload(options: {
     editor: MonacoEditorLike;
     uploadUrl: string;
@@ -189,36 +204,35 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   };
 
   let monacoEditor: MonacoEditorLike | null = null;
+  let markdownEditorController: Awaited<ReturnType<AiursoftMarkdownUiLike['createMarkdownEditor']>> | null = null;
 
-  function initDescriptionEditor(): void {
-    if (monacoEditor || !refs.descriptionEditorContainer) return;
+  async function initDescriptionEditor(): Promise<void> {
+    if (markdownEditorController || !refs.descriptionEditorContainer || !refs.descriptionInitialValue) return;
 
-    if (!window.monaco) {
+    if (!window.monaco || !window.AiursoftMarkdownUi) {
       // Monaco is still loading via AMD; retry once after a short delay
-      setTimeout(initDescriptionEditor, 200);
+      setTimeout(() => { void initDescriptionEditor(); }, 200);
       return;
     }
 
-    const initialValue = refs.descriptionInitialValue?.value ?? '';
-    monacoEditor = window.monaco.editor.create(refs.descriptionEditorContainer, {
-      value: initialValue,
-      language: 'markdown',
-      automaticLayout: true,
-      wordWrap: 'on',
-      minimap: { enabled: false },
-      scrollBeyondLastLine: false,
-    });
-
-    monacoEditor.onDidChangeModelContent(() => renderLiveDescriptionPreview());
-
-    window.AiursoftMarkdownUi?.attachImageUpload({
-      editor: monacoEditor,
+    markdownEditorController = await window.AiursoftMarkdownUi.createMarkdownEditor({
+      editorContainer: refs.descriptionEditorContainer,
+      textarea: refs.descriptionInitialValue,
+      previewContainer: refs.descriptionLivePreview,
+      monaco: window.monaco,
       uploadUrl: options.imageUploadUrl,
+      editorOptions: {
+        minimap: { enabled: false },
+        scrollBeyondLastLine: false,
+      },
+      onPreviewRendered: (_markdown, container) => configureRenderedMarkdown(container),
+      onError: error => console.error('Markdown editor error:', error),
     });
+    monacoEditor = markdownEditorController.editor;
   }
 
   function getDescriptionValue(): string {
-    return monacoEditor?.getValue()?.trim() ?? refs.descriptionInitialValue?.value?.trim() ?? '';
+    return markdownEditorController?.getValue()?.trim() ?? refs.descriptionInitialValue?.value?.trim() ?? '';
   }
 
   const commentDropzone = options.canEdit && refs.commentInput
@@ -239,13 +253,13 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
   function bindEvents(): void {
     refs.editDescriptionButton?.addEventListener('click', () => {
-      initDescriptionEditor();
+      void initDescriptionEditor();
       toggleDescriptionEdit(true);
     });
 
     refs.cancelDescriptionButton?.addEventListener('click', () => {
       if (monacoEditor && refs.descriptionInitialValue) {
-        monacoEditor.setValue(refs.descriptionInitialValue.value);
+        markdownEditorController?.setValue(refs.descriptionInitialValue.value);
       }
       renderMainDescription();
       renderLiveDescriptionPreview();
@@ -260,7 +274,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       try {
         await saveCardDetails();
         if (monacoEditor && refs.descriptionInitialValue) {
-          refs.descriptionInitialValue.value = monacoEditor.getValue();
+          refs.descriptionInitialValue.value = markdownEditorController?.getValue() ?? '';
         }
         toggleDescriptionEdit(false);
       } catch (error) {
@@ -534,6 +548,10 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
   function renderLiveDescriptionPreview(): void {
     if (!refs.descriptionLivePreview) return;
+    if (markdownEditorController) {
+      void markdownEditorController.refreshPreview();
+      return;
+    }
     renderDescriptionPreview(getDescriptionValue(), refs.descriptionLivePreview);
   }
 
@@ -1023,6 +1041,11 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
   container.innerHTML = renderSafeMarkdownHtml(description);
   container.classList.add('markdown-content');
   void window.AiursoftMarkdownUi?.enhanceMarkdown({ container });
+  configureRenderedMarkdown(container);
+  return true;
+}
+
+function configureRenderedMarkdown(container: HTMLElement): void {
   container.querySelectorAll<HTMLImageElement>('img').forEach(image => {
     image.setAttribute('data-fullscreen-src', image.currentSrc || image.src);
   });
@@ -1030,7 +1053,6 @@ function renderDescriptionPreview(description: string, container: HTMLElement): 
     link.rel = 'noopener noreferrer';
     link.target = '_blank';
   });
-  return true;
 }
 
 function renderSafeMarkdownHtml(description: string): string {
