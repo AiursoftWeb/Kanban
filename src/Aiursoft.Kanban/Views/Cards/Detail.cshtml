@@ -330,9 +330,10 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="descEditTab">
-                                    <div class="detail-section-note mb-2">@Localizer["Markdown, Mermaid and KaTeX are supported. Paste or drop images to upload."]</div>
+                                    <div class="detail-section-note mb-2">@Localizer["Markdown, Mermaid and MathJax are all supported."]</div>
                                     <div id="descEditorContainer" style="height:360px;border:1px solid var(--bs-border-color, #dee2e6);border-radius:14px;overflow:hidden"></div>
                                     <textarea id="descInitialValue" hidden>@Model.Description</textarea>
+                                    <div class="detail-section-note mt-2">@Localizer["Tip: paste an image directly into the editor to upload and embed it."]</div>
                                     <div class="d-flex justify-content-end mt-3 gap-2">
                                         <button class="btn btn-outline-secondary" id="btnCancelDesc">@Localizer["Cancel"]</button>
                                         <button class="btn btn-primary" id="btnSaveDesc">@Localizer["Save"]</button>
