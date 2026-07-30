@@ -67,10 +67,6 @@ interface LucideLike {
   createIcons(options?: { nodes?: ParentNode[] }): void;
 }
 
-interface MathJaxLike {
-  typesetPromise(elements?: HTMLElement[]): Promise<void>;
-}
-
 interface ImageDropzoneApi {
   getFiles(): File[];
   clearFiles(): void;
@@ -127,14 +123,6 @@ interface AiursoftMarkdownUiLike {
     setValue(value: string): void;
     refreshPreview(): Promise<void>;
   }>;
-  attachImageUpload(options: {
-    editor: MonacoEditorLike;
-    uploadUrl: string;
-    onError?: (error: unknown, file: File) => void;
-  }): {
-    upload(files: Iterable<File>): Promise<void>;
-    dispose(): void;
-  };
 }
 
 declare global {
@@ -143,7 +131,6 @@ declare global {
       Modal?: BootstrapModalStatic;
     };
     lucide?: LucideLike;
-    MathJax?: MathJaxLike;
     AiursoftMarkdownUi?: AiursoftMarkdownUiLike;
     monaco?: {
       editor: {
