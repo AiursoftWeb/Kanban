@@ -13,6 +13,7 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section styles {
+    <link rel="stylesheet" href="~/node_modules/@@fontsource/cascadia-code/index.css" asp-append-version="true" />
     @if (isDarkMode)
     {
         <link rel="stylesheet" href="~/node_modules/@@highlightjs/cdn-assets/styles/github-dark.min.css" asp-append-version="true" />
@@ -764,7 +765,7 @@
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
-    <script src="https://cdn.jsdelivr.net/npm/lucide@@0.378.0/dist/umd/lucide.min.js"></script>
+    <script src="~/node_modules/lucide/dist/umd/lucide.min.js"></script>
     @{
         ViewData["MarkdownTheme"] = isDarkMode ? "dark" : "default";
     }
@@ -784,6 +785,8 @@
                 returnBoardId: @Model.ReturnBoardId,
                 canEdit: @Model.CanEdit.ToString().ToLowerInvariant(),
                 imageUploadUrl: '@kanbanImageUploadUrl',
+                markdownEditorTheme: '@(isDarkMode ? "vs-dark" : "vs")',
+                mermaidTheme: '@(isDarkMode ? "dark" : "default")',
                 returnBoardUrl: '@returnBoardUrl',
                 initialTitle: @Html.Raw(JsonSerializer.Serialize(Model.Title)),
                 initialPriority: @Model.Priority,

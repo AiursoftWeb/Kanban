@@ -8,6 +8,8 @@ interface CardDetailPageOptions {
   returnBoardId: number;
   canEdit: boolean;
   imageUploadUrl: string;
+  markdownEditorTheme: 'vs' | 'vs-dark';
+  mermaidTheme: 'default' | 'dark';
   returnBoardUrl: string;
   initialTitle: string;
   initialPriority: number;
@@ -108,6 +110,12 @@ interface AiursoftMarkdownUiLike {
       mode: 'editor' | 'split' | 'preview';
     }>;
     editorOptions?: Record<string, unknown>;
+    imageUploadOptions?: {
+      onError?: (error: unknown, file: File) => void;
+    };
+    theme?: string;
+    mermaidTheme?: string;
+    onSave?: (markdown: string) => void | Promise<void>;
     onPreviewRendered?: (markdown: string) => void;
     onInitializationError?: (error: unknown) => void;
     onPreviewError?: (error: unknown) => void;
@@ -235,14 +243,13 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       editorPane: refs.descriptionEditorPane ?? undefined,
       previewPane: refs.descriptionPreviewPane ?? undefined,
       initialViewMode: 'editor',
+      theme: options.markdownEditorTheme,
+      mermaidTheme: options.mermaidTheme,
       viewModeControls: [
         { element: refs.editorTabButton!, mode: 'editor' },
         { element: refs.previewTabButton!, mode: 'preview' },
       ].filter(control => control.element),
-      editorOptions: {
-        minimap: { enabled: false },
-        scrollBeyondLastLine: false,
-      },
+      onSave: () => saveDescription(false),
       onPreviewRendered: () => {
         if (refs.descriptionLivePreview) {
           configureRenderedMarkdown(refs.descriptionLivePreview);
@@ -254,12 +261,34 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       onPreviewError: error => {
         console.error('Markdown preview error:', error);
       },
+      imageUploadOptions: {
+        onError: error => {
+          console.error('Image upload failed:', error);
+          showFriendlyDialog(getErrorMessage(error, t('failed-upload-image', 'Failed to upload image.')));
+        },
+      },
     });
     monacoEditor = markdownEditorController.editor;
   }
 
   function getDescriptionValue(): string {
     return markdownEditorController?.getValue()?.trim() ?? refs.descriptionInitialValue?.value?.trim() ?? '';
+  }
+
+  async function saveDescription(closeEditor: boolean): Promise<void> {
+    try {
+      await saveCardDetails();
+      if (refs.descriptionInitialValue) {
+        refs.descriptionInitialValue.value = markdownEditorController?.getValue() ?? '';
+      }
+      if (closeEditor) {
+        toggleDescriptionEdit(false);
+      } else {
+        showSavedToast();
+      }
+    } catch (error) {
+      showFriendlyDialog(getErrorMessage(error, t('failed-save', 'Failed to save.')));
+    }
   }
 
   const commentDropzone = options.canEdit && refs.commentInput
@@ -293,16 +322,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       toggleDescriptionEdit(false);
     });
 
-    refs.saveDescriptionButton?.addEventListener('click', async () => {
-      try {
-        await saveCardDetails();
-        if (monacoEditor && refs.descriptionInitialValue) {
-          refs.descriptionInitialValue.value = markdownEditorController?.getValue() ?? '';
-        }
-        toggleDescriptionEdit(false);
-      } catch (error) {
-        showFriendlyDialog(getErrorMessage(error, t('failed-save', 'Failed to save.')));
-      }
+    refs.saveDescriptionButton?.addEventListener('click', () => {
+      void saveDescription(true);
     });
 
     if (refs.titleDisplay && refs.titleInput && options.canEdit) {
