@@ -109,6 +109,9 @@ interface AiursoftMarkdownUiLike {
     }>;
     editorOptions?: Record<string, unknown>;
     onPreviewRendered?: (markdown: string) => void;
+    onInitializationError?: (error: unknown) => void;
+    onPreviewError?: (error: unknown) => void;
+    /** @deprecated Use onInitializationError and onPreviewError instead. */
     onError?: (error: unknown) => void;
   }): Promise<{
     editor: MonacoEditorLike | null;
@@ -245,8 +248,11 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
           configureRenderedMarkdown(refs.descriptionLivePreview);
         }
       },
-      onError: error => {
-        console.error('Markdown editor error:', error);
+      onInitializationError: error => {
+        console.error('Markdown editor initialization error:', error);
+      },
+      onPreviewError: error => {
+        console.error('Markdown preview error:', error);
       },
     });
     monacoEditor = markdownEditorController.editor;
