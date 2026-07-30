@@ -9,4 +9,5 @@ public enum NotificationType
     CardTransferred,
     CardUpdated,
     BoardShared,
+    Mentioned,
 }

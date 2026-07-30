@@ -2,6 +2,7 @@ using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Events;
 using Aiursoft.Kanban.Models.KanbanViewModels;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
 using Aiursoft.UiStack.Navigation;
@@ -972,6 +973,21 @@ public class KanbanController(
                 NewAssigneeId: normalizedAssignedUserId));
         }
 
+        // Parse @mentions from card description and notify mentioned users
+        if (!string.IsNullOrWhiteSpace(newDescription))
+        {
+            var mentionedUserIds = await MentionParser.ExtractMentionedUserIds(
+                db, newDescription, card.Column.BoardId, CancellationToken.None);
+            if (mentionedUserIds.Count > 0)
+            {
+                await PublishNotificationEventAsync(new CardMentionEvent(
+                    CardId: cardId,
+                    BoardId: card.Column.BoardId,
+                    ActorUserId: userId,
+                    MentionedUserIds: mentionedUserIds));
+            }
+        }
+
         var assignedUser = normalizedAssignedUserId == null
             ? null
             : await userManager.FindByIdAsync(normalizedAssignedUserId);
@@ -1370,6 +1386,19 @@ public class KanbanController(
             CardId: cardId,
             CommentId: comment.Id,
             ActorUserId: userId));
+
+        // Parse @mentions from comment content and notify mentioned users
+        // (runs after comment event so duplicates are harmless — different notification types)
+        var mentionedUserIds = await MentionParser.ExtractMentionedUserIds(
+            db, content.Trim(), card.Column.BoardId, CancellationToken.None);
+        if (mentionedUserIds.Count > 0)
+        {
+            await PublishNotificationEventAsync(new CardMentionEvent(
+                CardId: cardId,
+                BoardId: card.Column.BoardId,
+                ActorUserId: userId,
+                MentionedUserIds: mentionedUserIds));
+        }
 
         var author = await userManager.FindByIdAsync(userId);
         return Ok(new

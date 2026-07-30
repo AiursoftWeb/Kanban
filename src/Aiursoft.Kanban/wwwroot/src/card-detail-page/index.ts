@@ -1,5 +1,6 @@
 import type { CardLabel } from '../kanban-board';
 import { t } from '../kanban-board/i18n';
+import { MentionAutocomplete } from './mention-autocomplete';
 
 interface CardDetailPageOptions {
   csrfToken: string;
@@ -217,6 +218,11 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
   let monacoEditor: MonacoEditorLike | null = null;
   let markdownEditorController: Awaited<ReturnType<AiursoftMarkdownUiLike['createMarkdownEditor']>> | null = null;
+
+  /** @mention autocomplete for the comment textarea */
+  const mentionAutocomplete = refs.commentInput
+    ? new MentionAutocomplete(refs.commentInput, options.boardId)
+    : null;
 
   async function initDescriptionEditor(): Promise<void> {
     if (markdownEditorController || !refs.descriptionEditorContainer || !refs.descriptionInitialValue) return;
@@ -1002,6 +1008,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       refs.imageOverlayImage.src = '';
     }
   }
+
 }
 
 function renderCommentHtml(comment: CommentDto): string {

@@ -378,6 +378,7 @@ public class ViewModelArgsInjector(
                         NotificationType.CardTransferred => "repeat",
                         NotificationType.CardUpdated => "edit",
                         NotificationType.BoardShared => "share-2",
+                        NotificationType.Mentioned => "at-sign",
                         _ => "bell"
                     };
                     var title = NotificationTemplateService.BuildMessage(n);
