@@ -21,6 +21,8 @@ public class CardAssignedHandler(TemplateDbContext db) : INotificationHandler<Ca
             new[] { e.NewAssigneeId, e.OldAssigneeId }.OfType<string>(),
             ct);
 
+        await CardSubscriptionService.SubscribeAsync(db, e.CardId, new[] { e.NewAssigneeId }, ct);
+
         // Notify new assignee
         if (!string.IsNullOrEmpty(e.NewAssigneeId) && e.NewAssigneeId != e.ActorUserId && allowedIds.Contains(e.NewAssigneeId))
         {

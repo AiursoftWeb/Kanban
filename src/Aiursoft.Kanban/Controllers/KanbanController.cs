@@ -379,6 +379,7 @@ public class KanbanController(
             AssignedUserId = userId
         };
         db.KanbanCards.Add(card);
+        card.Subscriptions.Add(new KanbanCardSubscription { Card = card, UserId = userId });
         await db.SaveChangesAsync();
 
         var creator = await userManager.FindByIdAsync(userId);
@@ -421,7 +422,6 @@ public class KanbanController(
         var comments = await db.KanbanCardComments
             .Where(comment => comment.CardId == cardId)
             .ToListAsync();
-
         db.KanbanCardLabels.RemoveRange(cardLabels);
         db.KanbanCardComments.RemoveRange(comments);
         db.KanbanCards.Remove(card);
@@ -496,6 +496,10 @@ public class KanbanController(
         var comments = await db.KanbanCardComments
             .Where(comment => comment.CardId == cardId)
             .ToListAsync();
+        var subscriberIds = await db.KanbanCardSubscriptions
+            .Where(subscription => subscription.CardId == cardId)
+            .Select(subscription => subscription.UserId)
+            .ToListAsync();
         var transferredCard = new KanbanCard
         {
             Title = card.Title,
@@ -512,6 +516,11 @@ public class KanbanController(
         };
 
         db.KanbanCards.Add(transferredCard);
+        transferredCard.Subscriptions.AddRange(subscriberIds.Select(subscriberId => new KanbanCardSubscription
+        {
+            Card = transferredCard,
+            UserId = subscriberId
+        }));
         db.KanbanCardLabels.AddRange(card.CardLabels.Select(link => new KanbanCardLabel
         {
             Card = transferredCard,
@@ -953,6 +962,8 @@ public class KanbanController(
         card.AssignedUserId = normalizedAssignedUserId;
         card.RecurrenceInterval = newRecurrenceInterval;
         card.RecurrenceUnit = newRecurrenceUnit;
+
+        await CardSubscriptionService.SubscribeAsync(db, cardId, new[] { normalizedAssignedUserId });
 
         await db.SaveChangesAsync();
 

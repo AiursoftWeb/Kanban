@@ -37,6 +37,8 @@ public class KanbanCard
 
     public List<KanbanCardLabel> CardLabels { get; set; } = [];
 
+    public List<KanbanCardSubscription> Subscriptions { get; set; } = [];
+
     public DateTime? PlannedStartTime { get; set; }
 
     public DateTime? DueDate { get; set; }
