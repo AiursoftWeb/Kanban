@@ -1056,6 +1056,53 @@ public class KanbanControllerTests : TestBase
         Assert.IsTrue(memberIds.Contains(ownerId));
     }
 
+    [TestMethod]
+    public async Task MentionedUser_GetsSubsequentCommentNotifications()
+    {
+        // User A (owner) creates a board and shares with User B (member)
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+
+        await LogoutAsync();
+        var (memberEmail, memberPassword) = await RegisterAndLoginAsync();
+        var memberId = await GetUserIdByEmailAsync(memberEmail);
+        var memberDisplayName = await GetUserDisplayNameByIdAsync(memberId);
+
+        await LogoutAsync();
+        await LoginAsync(ownerEmail, ownerPassword);
+
+        var boardId = await CreateBoardWithOwnerAndGetIdAsync(ownerId, "Subscribe Board");
+        await AddBoardShareAsync(boardId, memberId, SharePermission.ReadOnly);
+        var board = await GetBoardAsync(boardId);
+        var columnId = board.Columns.OrderBy(c => c.Order).First().Id;
+        var card = await CreateCardAndGetIdAsync(columnId, "Subscribe Card");
+
+        // Step 1: Owner comments and @mentions member
+        await PostAsync($"/Kanban/AddComment", new Dictionary<string, string>
+        {
+            { "cardId", card.Id.ToString() },
+            { "content", $"Hey @{memberDisplayName} look at this" },
+            { "images", "" }
+        });
+
+        // Step 2: Owner comments again WITHOUT any @mention
+        await PostAsync($"/Kanban/AddComment", new Dictionary<string, string>
+        {
+            { "cardId", card.Id.ToString() },
+            { "content", "Just a follow-up comment, no mentions." },
+            { "images", "" }
+        });
+
+        // Member should get a CommentAdded notification from step 2
+        // (because they were previously @mentioned — implicit subscription)
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsTrue(await db.Notifications.AnyAsync(n =>
+            n.UserId == memberId &&
+            n.CardId == card.Id &&
+            n.Type == NotificationType.CommentAdded));
+    }
+
     // ── Helper methods for mention tests ──
 
     private async Task<string> GetUserIdByEmailAsync(string email)
