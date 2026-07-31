@@ -13,6 +13,7 @@ public static class NotificationTemplateService
         NotificationType.CardTransferred => $"{args["ActorName"]} transferred card \"{args["CardTitle"]}\" to board \"{args["BoardName"]}\"",
         NotificationType.CardUpdated => $"{args["ActorName"]} updated {args["ChangedFields"]} on card \"{args["CardTitle"]}\"",
         NotificationType.BoardShared => $"{args["ActorName"]} shared board \"{args["BoardName"]}\" with you",
+        NotificationType.Mentioned => $"{args["ActorName"]} mentioned you in card \"{args["CardTitle"]}\"",
         _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
     };
 
@@ -55,6 +56,12 @@ public static class NotificationTemplateService
             NotificationType.CardTransferred when notification.Card != null => $"{actorName} transferred card \"{notification.Card.Title}\"",
             NotificationType.CardUpdated when notification.Card != null => $"{actorName} updated card \"{notification.Card.Title}\"",
             NotificationType.BoardShared => $"{actorName} shared a board with you",
+            NotificationType.Mentioned when notification.Card != null => BuildMessage(NotificationType.Mentioned,
+                new Dictionary<string, string>
+                {
+                    ["ActorName"] = actorName,
+                    ["CardTitle"] = notification.Card.Title
+                }),
             _ => "You have a new notification"
         };
     }

@@ -785,4 +785,374 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
         StringAssert.Contains(response.Headers.Location!.OriginalString, "Login");
     }
+
+    // ── @Mention Notifications ────────────────────────────
+
+    [TestMethod]
+    public async Task AddComment_WithMention_CreatesMentionedNotification()
+    {
+        // Register two users: owner and a board member
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+
+        await LogoutAsync();
+        var (memberEmail, _) = await RegisterAndLoginAsync();
+        var memberId = await GetUserIdByEmailAsync(memberEmail);
+        var memberDisplayName = await GetUserDisplayNameByIdAsync(memberId);
+
+        await LogoutAsync();
+        await LoginAsync(ownerEmail, ownerPassword);
+
+        // Create board and share with member
+        var boardId = await CreateBoardWithOwnerAndGetIdAsync(ownerId, "Mention Board");
+        await AddBoardShareAsync(boardId, memberId, SharePermission.ReadOnly);
+        var board = await GetBoardAsync(boardId);
+        var columnId = board.Columns.OrderBy(c => c.Order).First().Id;
+        var card = await CreateCardAndGetIdAsync(columnId, "Card for mention test");
+
+        // Add a comment that @mentions the member by display name
+        var commentText = $"Hey @{memberDisplayName} check this out!";
+        var response = await PostAsync(
+            $"/Kanban/AddComment",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "content", commentText },
+                { "images", "" }
+            });
+        response.EnsureSuccessStatusCode();
+
+        // Verify notification was created for mentioned member
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsTrue(await db.Notifications.AnyAsync(n =>
+            n.UserId == memberId &&
+            n.Type == NotificationType.Mentioned &&
+            n.CardId == card.Id));
+    }
+
+    [TestMethod]
+    public async Task AddComment_WithoutMention_DoesNotCreateMentionedNotification()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Card no mention");
+
+        await PostAsync(
+            $"/Kanban/AddComment",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "content", "Just a regular comment, no mentions here." },
+                { "images", "" }
+            });
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsFalse(await db.Notifications.AnyAsync(n =>
+            n.Type == NotificationType.Mentioned && n.CardId == card.Id));
+    }
+
+    [TestMethod]
+    public async Task AddComment_MentionNonExistentUser_DoesNotCreateMentionedNotification()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Card bad mention");
+
+        await PostAsync(
+            $"/Kanban/AddComment",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "content", "Hey @NoSuchUser does this work?" },
+                { "images", "" }
+            });
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsFalse(await db.Notifications.AnyAsync(n =>
+            n.Type == NotificationType.Mentioned && n.CardId == card.Id));
+    }
+
+    [TestMethod]
+    public async Task AddComment_MentionSelf_DoesNotCreateMentionedNotification()
+    {
+        var (ownerEmail, _) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+        var ownerDisplayName = await GetUserDisplayNameByIdAsync(ownerId);
+
+        var boardId = await CreateBoardWithOwnerAndGetIdAsync(ownerId, "Self Mention Board");
+        await AddBoardShareAsync(boardId, ownerId, SharePermission.Editable);
+        var board = await GetBoardAsync(boardId);
+        var columnId = board.Columns.OrderBy(c => c.Order).First().Id;
+        var card = await CreateCardAndGetIdAsync(columnId, "Card self mention");
+
+        await PostAsync(
+            $"/Kanban/AddComment",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "content", $"Note to self @{ownerDisplayName} remember this." },
+                { "images", "" }
+            });
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        // The MentionedHandler excludes the actor, so self-mention should not create notification
+        Assert.IsFalse(await db.Notifications.AnyAsync(n =>
+            n.Type == NotificationType.Mentioned && n.UserId == ownerId));
+    }
+
+    [TestMethod]
+    public async Task UpdateCardDetails_WithMentionInDescription_CreatesMentionedNotification()
+    {
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+
+        await LogoutAsync();
+        var (memberEmail, _) = await RegisterAndLoginAsync();
+        var memberId = await GetUserIdByEmailAsync(memberEmail);
+        var memberDisplayName = await GetUserDisplayNameByIdAsync(memberId);
+
+        await LogoutAsync();
+        await LoginAsync(ownerEmail, ownerPassword);
+
+        var boardId = await CreateBoardWithOwnerAndGetIdAsync(ownerId, "Desc Mention Board");
+        await AddBoardShareAsync(boardId, memberId, SharePermission.ReadOnly);
+        var board = await GetBoardAsync(boardId);
+        var columnId = board.Columns.OrderBy(c => c.Order).First().Id;
+        var card = await CreateCardAndGetIdAsync(columnId, "Card for desc mention");
+
+        // Update card with a description that mentions the member
+        var description = $"This task needs review from @{memberDisplayName}.";
+        var response = await PostAsync(
+            $"/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "description", description },
+                { "plannedStartTime", "" },
+                { "dueDate", "" },
+                { "priority", "0" },
+                { "assignedUserId", "" },
+                { "recurrenceInterval", "" },
+                { "recurrenceUnit", "0" }
+            });
+        response.EnsureSuccessStatusCode();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsTrue(await db.Notifications.AnyAsync(n =>
+            n.UserId == memberId &&
+            n.Type == NotificationType.Mentioned &&
+            n.CardId == card.Id));
+    }
+
+    [TestMethod]
+    public async Task MentionedNotification_HasCorrectMessageTemplate()
+    {
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+
+        await LogoutAsync();
+        var (memberEmail, _) = await RegisterAndLoginAsync();
+        var memberId = await GetUserIdByEmailAsync(memberEmail);
+        var memberDisplayName = await GetUserDisplayNameByIdAsync(memberId);
+
+        await LogoutAsync();
+        await LoginAsync(ownerEmail, ownerPassword);
+
+        var boardId = await CreateBoardWithOwnerAndGetIdAsync(ownerId, "Template Board");
+        await AddBoardShareAsync(boardId, memberId, SharePermission.ReadOnly);
+        var board = await GetBoardAsync(boardId);
+        var columnId = board.Columns.OrderBy(c => c.Order).First().Id;
+        var card = await CreateCardAndGetIdAsync(columnId, "Template Card");
+
+        await PostAsync(
+            $"/Kanban/AddComment",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "content", $"@{memberDisplayName} please review" },
+                { "images", "" }
+            });
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var notification = await db.Notifications.FirstOrDefaultAsync(n =>
+            n.UserId == memberId && n.Type == NotificationType.Mentioned);
+
+        Assert.IsNotNull(notification);
+        Assert.Contains("mentioned you in card", notification.Message);
+        Assert.Contains("Template Card", notification.Message);
+    }
+
+    [TestMethod]
+    public async Task Mentioned_OnlyNotifiesUsersWithBoardAccess()
+    {
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+
+        await LogoutAsync();
+
+        // Create a user who is NOT a board member
+        var (outsiderEmail, _) = await RegisterAndLoginAsync();
+        var outsiderId = await GetUserIdByEmailAsync(outsiderEmail);
+        var outsiderDisplayName = await GetUserDisplayNameByIdAsync(outsiderId);
+
+        await LogoutAsync();
+        await LoginAsync(ownerEmail, ownerPassword);
+
+        // Create a private board (no shares)
+        var boardId = await CreateBoardWithOwnerAndGetIdAsync(ownerId, "Private Mention Board");
+        var board = await GetBoardAsync(boardId);
+        var columnId = board.Columns.OrderBy(c => c.Order).First().Id;
+        var card = await CreateCardAndGetIdAsync(columnId, "Private Card");
+
+        // Try to @mention the outsider (who has no access to this board)
+        await PostAsync(
+            $"/Kanban/AddComment",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "content", $"@{outsiderDisplayName} do you see this?" },
+                { "images", "" }
+            });
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        // Outsider should NOT get a notification because they don't have board access
+        Assert.IsFalse(await db.Notifications.AnyAsync(n =>
+            n.UserId == outsiderId && n.Type == NotificationType.Mentioned));
+    }
+
+    [TestMethod]
+    public async Task GetBoardMembers_ReturnsMembersForAutocomplete()
+    {
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+
+        await LogoutAsync();
+        var (memberEmail, _) = await RegisterAndLoginAsync();
+        var memberId = await GetUserIdByEmailAsync(memberEmail);
+
+        await LogoutAsync();
+        await LoginAsync(ownerEmail, ownerPassword);
+
+        var boardId = await CreateBoardWithOwnerAndGetIdAsync(ownerId, "Autocomplete Board");
+        await AddBoardShareAsync(boardId, memberId, SharePermission.ReadOnly);
+
+        var response = await Http.GetAsync($"/Kanban/GetBoardMembers?boardId={boardId}");
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
+        using var doc = JsonDocument.Parse(json);
+        var memberIds = doc.RootElement.EnumerateArray()
+            .Select(m => m.GetProperty("Id").GetString())
+            .ToHashSet();
+
+        Assert.IsTrue(memberIds.Contains(memberId));
+        Assert.IsTrue(memberIds.Contains(ownerId));
+    }
+
+    [TestMethod]
+    public async Task MentionedUser_GetsSubsequentCommentNotifications()
+    {
+        // User A (owner) creates a board and shares with User B (member)
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+
+        await LogoutAsync();
+        var (memberEmail, _) = await RegisterAndLoginAsync();
+        var memberId = await GetUserIdByEmailAsync(memberEmail);
+        var memberDisplayName = await GetUserDisplayNameByIdAsync(memberId);
+
+        await LogoutAsync();
+        await LoginAsync(ownerEmail, ownerPassword);
+
+        var boardId = await CreateBoardWithOwnerAndGetIdAsync(ownerId, "Subscribe Board");
+        await AddBoardShareAsync(boardId, memberId, SharePermission.ReadOnly);
+        var board = await GetBoardAsync(boardId);
+        var columnId = board.Columns.OrderBy(c => c.Order).First().Id;
+        var card = await CreateCardAndGetIdAsync(columnId, "Subscribe Card");
+
+        // Step 1: Owner comments and @mentions member
+        await PostAsync($"/Kanban/AddComment", new Dictionary<string, string>
+        {
+            { "cardId", card.Id.ToString() },
+            { "content", $"Hey @{memberDisplayName} look at this" },
+            { "images", "" }
+        });
+
+        // Step 2: Owner comments again WITHOUT any @mention
+        await PostAsync($"/Kanban/AddComment", new Dictionary<string, string>
+        {
+            { "cardId", card.Id.ToString() },
+            { "content", "Just a follow-up comment, no mentions." },
+            { "images", "" }
+        });
+
+        // Member should get a CommentAdded notification from step 2
+        // (because they were previously @mentioned — implicit subscription)
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsTrue(await db.Notifications.AnyAsync(n =>
+            n.UserId == memberId &&
+            n.CardId == card.Id &&
+            n.Type == NotificationType.CommentAdded));
+    }
+
+    // ── Helper methods for mention tests ──
+
+    private async Task<string> GetUserIdByEmailAsync(string email)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var user = await db.Users.FirstAsync(u => u.Email == email);
+        return user.Id;
+    }
+
+    private async Task<string> GetUserDisplayNameByIdAsync(string userId)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var user = await db.Users.FirstAsync(u => u.Id == userId);
+        return user.DisplayName;
+    }
+
+    private async Task<int> CreateBoardWithOwnerAndGetIdAsync(string userId, string name)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var board = new KanbanBoard { Name = name, UserId = userId };
+        db.KanbanBoards.Add(board);
+        db.KanbanColumns.AddRange(
+            new KanbanColumn { Name = "To Do", Order = 0, Board = board },
+            new KanbanColumn { Name = "In Progress", Order = 1, Board = board },
+            new KanbanColumn { Name = "Done", Order = 2, Board = board });
+        await db.SaveChangesAsync();
+        return board.Id;
+    }
+
+    private async Task<KanbanBoard> GetBoardAsync(int boardId)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        return await db.KanbanBoards.Include(b => b.Columns).FirstAsync(b => b.Id == boardId);
+    }
+
+    private async Task AddBoardShareAsync(int boardId, string userId, SharePermission permission)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        db.BoardShares.Add(new BoardShare
+        {
+            Id = Guid.NewGuid(),
+            BoardId = boardId,
+            SharedWithUserId = userId,
+            Permission = permission
+        });
+        await db.SaveChangesAsync();
+    }
 }
