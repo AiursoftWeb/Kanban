@@ -796,7 +796,7 @@ public class KanbanControllerTests : TestBase
         var ownerId = await GetUserIdByEmailAsync(ownerEmail);
 
         await LogoutAsync();
-        var (memberEmail, memberPassword) = await RegisterAndLoginAsync();
+        var (memberEmail, _) = await RegisterAndLoginAsync();
         var memberId = await GetUserIdByEmailAsync(memberEmail);
         var memberDisplayName = await GetUserDisplayNameByIdAsync(memberId);
 
@@ -835,7 +835,7 @@ public class KanbanControllerTests : TestBase
     public async Task AddComment_WithoutMention_DoesNotCreateMentionedNotification()
     {
         await LoginAsAdmin();
-        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
         var card = await CreateCardAndGetIdAsync(columnId, "Card no mention");
 
         await PostAsync(
@@ -857,7 +857,7 @@ public class KanbanControllerTests : TestBase
     public async Task AddComment_MentionNonExistentUser_DoesNotCreateMentionedNotification()
     {
         await LoginAsAdmin();
-        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
         var card = await CreateCardAndGetIdAsync(columnId, "Card bad mention");
 
         await PostAsync(
@@ -878,7 +878,7 @@ public class KanbanControllerTests : TestBase
     [TestMethod]
     public async Task AddComment_MentionSelf_DoesNotCreateMentionedNotification()
     {
-        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var (ownerEmail, _) = await RegisterAndLoginAsync();
         var ownerId = await GetUserIdByEmailAsync(ownerEmail);
         var ownerDisplayName = await GetUserDisplayNameByIdAsync(ownerId);
 
@@ -911,7 +911,7 @@ public class KanbanControllerTests : TestBase
         var ownerId = await GetUserIdByEmailAsync(ownerEmail);
 
         await LogoutAsync();
-        var (memberEmail, memberPassword) = await RegisterAndLoginAsync();
+        var (memberEmail, _) = await RegisterAndLoginAsync();
         var memberId = await GetUserIdByEmailAsync(memberEmail);
         var memberDisplayName = await GetUserDisplayNameByIdAsync(memberId);
 
@@ -957,7 +957,7 @@ public class KanbanControllerTests : TestBase
         var ownerId = await GetUserIdByEmailAsync(ownerEmail);
 
         await LogoutAsync();
-        var (memberEmail, memberPassword) = await RegisterAndLoginAsync();
+        var (memberEmail, _) = await RegisterAndLoginAsync();
         var memberId = await GetUserIdByEmailAsync(memberEmail);
         var memberDisplayName = await GetUserDisplayNameByIdAsync(memberId);
 
@@ -998,7 +998,7 @@ public class KanbanControllerTests : TestBase
         await LogoutAsync();
 
         // Create a user who is NOT a board member
-        var (outsiderEmail, outsiderPassword) = await RegisterAndLoginAsync();
+        var (outsiderEmail, _) = await RegisterAndLoginAsync();
         var outsiderId = await GetUserIdByEmailAsync(outsiderEmail);
         var outsiderDisplayName = await GetUserDisplayNameByIdAsync(outsiderId);
 
@@ -1035,7 +1035,7 @@ public class KanbanControllerTests : TestBase
         var ownerId = await GetUserIdByEmailAsync(ownerEmail);
 
         await LogoutAsync();
-        var (memberEmail, memberPassword) = await RegisterAndLoginAsync();
+        var (memberEmail, _) = await RegisterAndLoginAsync();
         var memberId = await GetUserIdByEmailAsync(memberEmail);
 
         await LogoutAsync();
@@ -1064,7 +1064,7 @@ public class KanbanControllerTests : TestBase
         var ownerId = await GetUserIdByEmailAsync(ownerEmail);
 
         await LogoutAsync();
-        var (memberEmail, memberPassword) = await RegisterAndLoginAsync();
+        var (memberEmail, _) = await RegisterAndLoginAsync();
         var memberId = await GetUserIdByEmailAsync(memberEmail);
         var memberDisplayName = await GetUserDisplayNameByIdAsync(memberId);
 
