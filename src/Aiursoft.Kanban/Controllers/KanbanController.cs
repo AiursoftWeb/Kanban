@@ -494,10 +494,10 @@ public class KanbanController(
         var comments = await db.KanbanCardComments
             .Where(comment => comment.CardId == cardId)
             .ToListAsync();
-        var subscriberIds = await db.KanbanCardSubscriptions
+        var sourceSubscriptions = await db.KanbanCardSubscriptions
             .Where(subscription => subscription.CardId == cardId)
-            .Select(subscription => subscription.UserId)
             .ToListAsync();
+        var subscriberIds = sourceSubscriptions.Select(subscription => subscription.UserId);
         var accessibleSubscriberIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(
             db, targetBoardId, subscriberIds, CancellationToken.None);
         var transferredCard = new KanbanCard
@@ -527,6 +527,7 @@ public class KanbanController(
             LabelId = link.LabelId
         }));
         db.KanbanCardComments.RemoveRange(comments);
+        db.KanbanCardSubscriptions.RemoveRange(sourceSubscriptions);
         db.KanbanCards.Remove(card);
         await db.SaveChangesAsync();
 
@@ -1284,6 +1285,11 @@ public class KanbanController(
 
         board.IsPublic = publicAccess;
         await db.SaveChangesAsync();
+        if (!publicAccess)
+        {
+            await CardSubscriptionService.RemoveSubscriptionsWithoutBoardAccessAsync(db, board.Id);
+            await db.SaveChangesAsync();
+        }
         return RedirectToAction(nameof(ManageShares), new { id });
     }
 
@@ -1357,6 +1363,8 @@ public class KanbanController(
         if (!canManage) return Forbid();
 
         db.BoardShares.Remove(share);
+        await db.SaveChangesAsync();
+        await CardSubscriptionService.RemoveSubscriptionsWithoutBoardAccessAsync(db, share.BoardId);
         await db.SaveChangesAsync();
 
         return RedirectToAction(nameof(ManageShares), new { id = share.BoardId });

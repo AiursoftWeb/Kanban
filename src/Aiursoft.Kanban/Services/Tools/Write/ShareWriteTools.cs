@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Scanner.Abstractions;
 using Microsoft.AspNetCore.Authorization;
@@ -108,6 +109,8 @@ public class ShareWriteTools(
 
         db.BoardShares.Remove(share);
         await db.SaveChangesAsync();
+        await CardSubscriptionService.RemoveSubscriptionsWithoutBoardAccessAsync(db, share.BoardId);
+        await db.SaveChangesAsync();
 
         return $"Share removed from board \"{share.Board.Name}\".";
     }
@@ -125,6 +128,11 @@ public class ShareWriteTools(
 
         board.IsPublic = isPublic;
         await db.SaveChangesAsync();
+        if (!isPublic)
+        {
+            await CardSubscriptionService.RemoveSubscriptionsWithoutBoardAccessAsync(db, board.Id);
+            await db.SaveChangesAsync();
+        }
 
         var visibility = isPublic ? "public" : "private";
         return $"Board \"{board.Name}\" is now {visibility}.";

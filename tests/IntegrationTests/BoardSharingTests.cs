@@ -451,6 +451,55 @@ public class BoardSharingTests : TestBase
     }
 
     [TestMethod]
+    public async Task RemoveShare_RemovesSubscriptionsForUserWhoLosesReadAccess()
+    {
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+        var boardId = await CreateBoardWithOwner(ownerId, "Private shared board");
+        await LogoutAsync();
+        var subscriberId = await RegisterUserAndGetIdAsync();
+        await LogoutAsync();
+        await CreateShare(boardId, subscriberId, null, SharePermission.ReadOnly);
+        var cardId = await CreateCard(boardId, "Subscribed card");
+        await AddSubscription(cardId, subscriberId);
+
+        await LoginAsync(ownerEmail, ownerPassword);
+        Guid shareId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            shareId = await db.BoardShares
+                .Where(share => share.BoardId == boardId && share.SharedWithUserId == subscriberId)
+                .Select(share => share.Id)
+                .SingleAsync();
+        }
+
+        var response = await PostForm($"/Kanban/RemoveShare?id={shareId}", new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        Assert.IsFalse(await HasSubscription(cardId, subscriberId));
+    }
+
+    [TestMethod]
+    public async Task MakingPublicBoardPrivate_RemovesSubscriptionsForUsersWithoutAnotherGrant()
+    {
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+        var boardId = await CreateBoardWithOwner(ownerId, "Public board", isPublic: true);
+        await LogoutAsync();
+        var subscriberId = await RegisterUserAndGetIdAsync();
+        await LogoutAsync();
+        await LoginAsync(ownerEmail, ownerPassword);
+        var cardId = await CreateCard(boardId, "Public subscribed card");
+        await AddSubscription(cardId, subscriberId);
+
+        var response = await PostForm(
+            $"/Kanban/UpdateVisibility?id={boardId}&publicAccess=false",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        Assert.IsFalse(await HasSubscription(cardId, subscriberId));
+    }
+
+    [TestMethod]
     public async Task MarkAsRead_CannotMarkAnotherUsersNotification()
     {
         var actorId = await RegisterUserAndGetIdAsync();
@@ -612,6 +661,22 @@ public class BoardSharingTests : TestBase
         db.KanbanCards.Add(card);
         await db.SaveChangesAsync();
         return card.Id;
+    }
+
+    private async Task AddSubscription(int cardId, string userId)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        db.KanbanCardSubscriptions.Add(new KanbanCardSubscription { CardId = cardId, UserId = userId });
+        await db.SaveChangesAsync();
+    }
+
+    private async Task<bool> HasSubscription(int cardId, string userId)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        return await db.KanbanCardSubscriptions.AnyAsync(subscription =>
+            subscription.CardId == cardId && subscription.UserId == userId);
     }
 
     private async Task CreateShare(int boardId, string? userId, string? roleId, SharePermission permission)

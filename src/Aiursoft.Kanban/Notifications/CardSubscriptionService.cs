@@ -34,4 +34,18 @@ public static class CardSubscriptionService
             .ToListAsync(ct);
         return await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(db, boardId, subscriberIds, ct);
     }
+
+    public static async Task RemoveSubscriptionsWithoutBoardAccessAsync(
+        TemplateDbContext db, int boardId, CancellationToken ct = default)
+    {
+        var subscriptions = await db.KanbanCardSubscriptions
+            .Where(subscription => subscription.Card.Column.BoardId == boardId)
+            .ToListAsync(ct);
+        if (subscriptions.Count == 0) return;
+
+        var allowedUserIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(
+            db, boardId, subscriptions.Select(subscription => subscription.UserId), ct);
+        db.KanbanCardSubscriptions.RemoveRange(
+            subscriptions.Where(subscription => !allowedUserIds.Contains(subscription.UserId)));
+    }
 }
