@@ -21,5 +21,11 @@
       <data name="Daily Report Language" xml:space="preserve">
     <value>Günlük Rapor Dili</value>
   </data>
+  <data name="Enable Daily Report" xml:space="preserve">
+    <value>Günlük Raporu Etkinleştir</value>
+  </data>
+  <data name="Enable Weekly Report" xml:space="preserve">
+    <value>Haftalık Raporu Etkinleştir</value>
+  </data>
 
 </root>

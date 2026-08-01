@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>Preferințe pentru rapoartele zilnice</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>Activați planificarea și rezumatul zilnic automat</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>Activează raportul săptămânal automat</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Salvează modificările</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>Limba utilizată la generarea planului dvs. zilnic și a rapoartelor de sinteză.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>Când este activat, un raport săptămânal care rezumă sarcinile dvs. finalizate va fi generat automat în fiecare vineri după-amiază.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>Când este activată, planurile zilnice (dimineața) și rezumatele (după-amiaza) vor fi generate automat pentru dumneavoastră pe baza tabelelor Kanban.</value>
   </data>
 
 </root>

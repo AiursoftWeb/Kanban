@@ -21,5 +21,11 @@
       <data name="Daily Report Language" xml:space="preserve">
     <value>Мова щоденного звіту</value>
   </data>
+  <data name="Enable Daily Report" xml:space="preserve">
+    <value>Увімкнути щоденний звіт</value>
+  </data>
+  <data name="Enable Weekly Report" xml:space="preserve">
+    <value>Увімкнути щотижневий звіт</value>
+  </data>
 
 </root>

@@ -21,5 +21,11 @@
       <data name="Daily Report Language" xml:space="preserve">
     <value>Limba Raportului Zilnic</value>
   </data>
+  <data name="Enable Daily Report" xml:space="preserve">
+    <value>Activează raportul zilnic</value>
+  </data>
+  <data name="Enable Weekly Report" xml:space="preserve">
+    <value>Activează raportul săptămânal</value>
+  </data>
 
 </root>

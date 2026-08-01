@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>Voorkeuren voor dagrapportage</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>Schakel automatische dagplanning en samenvatting in</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>Automatisch weekrapport inschakelen</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Wijzigingen opslaan</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>De taal die wordt gebruikt bij het genereren van uw dagelijkse planning en samenvattingsrapporten.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>Wanneer ingeschakeld, wordt er elke vrijdagmiddag automatisch een wekelijks rapport gegenereerd met een samenvatting van uw voltooide taken.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>Wanneer ingeschakeld, worden dagelijks plannen (ochtend) en samenvattingen (middag) automatisch voor u gegenereerd op basis van uw Kanban-borden.</value>
   </data>
 
 </root>

@@ -21,5 +21,11 @@
       <data name="Daily Report Language" xml:space="preserve">
     <value>Daily Report Language</value>
   </data>
+  <data name="Enable Daily Report" xml:space="preserve">
+    <value>Enable Daily Report</value>
+  </data>
+  <data name="Enable Weekly Report" xml:space="preserve">
+    <value>Enable Weekly Report</value>
+  </data>
 
 </root>

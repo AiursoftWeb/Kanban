@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>Päivittäisen raportin asetukset</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>Ota käyttöön automaattinen päivittäinen suunnittelu ja yhteenveto</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>Ota käyttöön automaattinen viikkoraportti</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Tallenna muutokset</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>Kieli, jota käytetään päivittäisen suunnitelman ja yhteenvetoraporttien luonnissa.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>Kun tämä on käytössä, viikoittainen raportti, joka tiivistää suorittamasi tehtävät, luodaan automaattisesti joka perjantai-iltapäivä.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>Kun tämä on käytössä, päivittäiset suunnitelmat (aamu) ja tiivistelmät (iltapäivä) luodaan automaattisesti sinulle Kanban-lautojesi perusteella.</value>
   </data>
 
 </root>

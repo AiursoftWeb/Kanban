@@ -147,8 +147,14 @@
   <data name="m ago" xml:space="preserve">
     <value>m ago</value>
   </data>
+  <data name="Markdown view mode" xml:space="preserve">
+    <value>Markdown-weergavemodus</value>
+  </data>
   <data name="Markdown, Mermaid and KaTeX are all supported." xml:space="preserve">
     <value>Markdown, Mermaid and KaTeX are all supported.</value>
+  </data>
+  <data name="Markdown, Mermaid and MathJax are all supported." xml:space="preserve">
+    <value>Markdown, Mermaid en MathJax worden allemaal ondersteund.</value>
   </data>
   <data name="Months" xml:space="preserve">
     <value>Months</value>
@@ -167,6 +173,9 @@
   </data>
   <data name="No description yet. Capture the context, plan, or acceptance notes for this card here." xml:space="preserve">
     <value>No description yet. Capture the context, plan, or acceptance notes for this card here.</value>
+  </data>
+  <data name="No subscribers" xml:space="preserve">
+    <value>Geen abonnees</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>None</value>
@@ -233,6 +242,12 @@
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="Subscribers" xml:space="preserve">
+    <value>Abonnees</value>
+  </data>
+  <data name="Subscribers are notified when this card changes." xml:space="preserve">
+    <value>Abonnees worden op de hoogte gesteld wanneer deze kaart wordt gewijzigd.</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>This action cannot be undone.</value>

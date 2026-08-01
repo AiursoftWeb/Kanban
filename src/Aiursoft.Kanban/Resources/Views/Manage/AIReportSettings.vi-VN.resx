@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>Tùy chọn báo cáo hàng ngày</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>Bật lập kế hoạch và tóm tắt hàng ngày tự động</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>Bật báo cáo hàng tuần tự động</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Lưu thay đổi</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>Ngôn ngữ được sử dụng khi tạo kế hoạch hàng ngày và báo cáo tóm tắt của bạn.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>Khi được bật, báo cáo hàng tuần tóm tắt các nhiệm vụ đã hoàn thành của bạn sẽ tự động được tạo vào chiều thứ Sáu hàng tuần.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>Khi bật, kế hoạch hàng ngày (buổi sáng) và tóm tắt (buổi chiều) sẽ được tự động tạo cho bạn dựa trên các bảng Kanban của bạn.</value>
   </data>
 
 </root>

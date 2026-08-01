@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>Preferensi Laporan Harian</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>Aktifkan perencanaan dan ringkasan harian otomatis</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>Aktifkan laporan mingguan otomatis</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Simpan perubahan</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>Bahasa yang digunakan saat membuat rencana harian dan laporan ringkasan Anda.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>Saat diaktifkan, laporan mingguan yang merangkum tugas Anda yang telah diselesaikan akan dibuat secara otomatis setiap sore hari Jumat.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>Saat diaktifkan, rencana harian (pagi) dan ringkasan (sore) akan secara otomatis dibuat untuk Anda berdasarkan papan Kanban Anda.</value>
   </data>
 
 </root>

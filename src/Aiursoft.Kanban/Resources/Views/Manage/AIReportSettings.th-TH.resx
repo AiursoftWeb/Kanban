@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>การตั้งค่ารายงานประจำวัน</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>เปิดใช้งานการวางแผนและสรุปผลรายวันอัตโนมัติ</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>เปิดใช้งานรายงานประจำสัปดาห์อัตโนมัติ</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>บันทึกการเปลี่ยนแปลง</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>ภาษาที่ใช้ในการสร้างแผนประจำวันและรายงานสรุปของคุณ</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>เมื่อเปิดใช้งาน ระบบจะสร้างรายงานประจำสัปดาห์สรุปงานที่เสร็จสิ้นของคุณอัตโนมัติทุกวันศุกร์ตอนบ่าย</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>เมื่อเปิดใช้งาน ระบบจะสร้างแผนประจำวัน (ช่วงเช้า) และสรุปผล (ช่วงบ่าย) ให้คุณโดยอัตโนมัติตามบอร์ด Kanban ของคุณ</value>
   </data>
 
 </root>

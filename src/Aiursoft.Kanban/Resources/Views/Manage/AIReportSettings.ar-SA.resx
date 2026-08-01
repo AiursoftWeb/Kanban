@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>تفضيلات التقرير اليومي</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>تفعيل التخطيط اليومي التلقائي والملخص</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>تفعيل التقرير الأسبوعي التلقائي</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>حفظ التغييرات</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>اللغة المستخدمة عند إنشاء خطة اليوم والتقارير الملخصية الخاصة بك.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>عند التمكين، سيتم إنشاء تقرير أسبوعي يلخص المهام المنجزة تلقائيًا كل يوم جمعة في فترة ما بعد الظهر.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>عند التفعيل، سيتم إنشاء الخطط اليومية (صباحًا) والملخصات (مساءً) تلقائيًا لك بناءً على لوحات Kanban الخاصة بك.</value>
   </data>
 
 </root>

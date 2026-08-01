@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>每日報告偏好設定</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>啟用每日自動規劃及總結</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>啟用自動每週報告</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>儲存變更</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>用於生成每日計劃和總結報告的語言。</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>啟用後，系統會於每週五下午自動生成總結您已完成任務的週報。</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>啟用後，系統將根據您的看板自動為您生成每日計劃（上午）和總結（下午）。</value>
   </data>
 
 </root>
