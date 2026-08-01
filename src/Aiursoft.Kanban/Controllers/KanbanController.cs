@@ -497,9 +497,6 @@ public class KanbanController(
         var sourceSubscriptions = await db.KanbanCardSubscriptions
             .Where(subscription => subscription.CardId == cardId)
             .ToListAsync();
-        var subscriberIds = sourceSubscriptions.Select(subscription => subscription.UserId);
-        var accessibleSubscriberIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(
-            db, targetBoardId, subscriberIds, CancellationToken.None);
         var transferredCard = new KanbanCard
         {
             Title = card.Title,
@@ -516,11 +513,11 @@ public class KanbanController(
         };
 
         db.KanbanCards.Add(transferredCard);
-        transferredCard.Subscriptions.AddRange(accessibleSubscriberIds.Select(subscriberId => new KanbanCardSubscription
+        transferredCard.Subscriptions.Add(new KanbanCardSubscription
         {
             Card = transferredCard,
-            UserId = subscriberId
-        }));
+            UserId = userId
+        });
         db.KanbanCardLabels.AddRange(card.CardLabels.Select(link => new KanbanCardLabel
         {
             Card = transferredCard,

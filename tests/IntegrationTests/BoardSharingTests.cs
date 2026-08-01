@@ -250,6 +250,11 @@ public class BoardSharingTests : TestBase
             Assert.HasCount(1, transferredCard.CardLabels);
             Assert.AreEqual(1, await db.KanbanCardLabels.CountAsync());
             Assert.IsFalse(await db.KanbanCardComments.AnyAsync());
+            var transferredSubscriberId = await db.KanbanCardSubscriptions
+                .Where(subscription => subscription.CardId == transferredCard.Id)
+                .Select(subscription => subscription.UserId)
+                .SingleAsync();
+            Assert.AreEqual(sourceOwnerId, transferredSubscriberId);
         }
     }
 
@@ -350,7 +355,7 @@ public class BoardSharingTests : TestBase
     }
 
     [TestMethod]
-    public async Task TransferCard_NotifiesOriginalAssigneeWithTargetBoardUserShare()
+    public async Task TransferCard_DropsOriginalAssigneeSubscriptionWithTargetBoardUserShare()
     {
         var (sourceOwnerEmail, sourceOwnerPassword) = await RegisterAndLoginAsync();
         var sourceOwnerId = await GetUserIdByEmailAsync(sourceOwnerEmail);
@@ -379,11 +384,12 @@ public class BoardSharingTests : TestBase
             new Dictionary<string, string>());
         Assert.AreEqual(HttpStatusCode.OK, transferResponse.StatusCode);
 
-        Assert.IsTrue(await HasNotification(assigneeId, NotificationType.CardTransferred));
+        Assert.IsFalse(await HasNotification(assigneeId, NotificationType.CardTransferred));
+        Assert.IsFalse(await HasSubscriptionForTitle("Notify shared assignee", assigneeId));
     }
 
     [TestMethod]
-    public async Task TransferCard_NotifiesOriginalAssigneeWithTargetBoardRoleShare()
+    public async Task TransferCard_DropsOriginalAssigneeSubscriptionWithTargetBoardRoleShare()
     {
         var (sourceOwnerEmail, sourceOwnerPassword) = await RegisterAndLoginAsync();
         var sourceOwnerId = await GetUserIdByEmailAsync(sourceOwnerEmail);
@@ -413,7 +419,8 @@ public class BoardSharingTests : TestBase
             new Dictionary<string, string>());
         Assert.AreEqual(HttpStatusCode.OK, transferResponse.StatusCode);
 
-        Assert.IsTrue(await HasNotification(assigneeId, NotificationType.CardTransferred));
+        Assert.IsFalse(await HasNotification(assigneeId, NotificationType.CardTransferred));
+        Assert.IsFalse(await HasSubscriptionForTitle("Notify role assignee", assigneeId));
     }
 
     [TestMethod]
@@ -512,7 +519,7 @@ public class BoardSharingTests : TestBase
         }
 
         var response = await PostForm($"/Kanban/RemoveShare?id={shareId}", new Dictionary<string, string>());
-        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        AssertRedirect(response, "/Kanban/ManageShares", exact: false);
         Assert.IsFalse(await HasSubscription(cardId, subscriberId));
     }
 
@@ -532,7 +539,7 @@ public class BoardSharingTests : TestBase
         var response = await PostForm(
             $"/Kanban/UpdateVisibility?id={boardId}&publicAccess=false",
             new Dictionary<string, string>());
-        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        AssertRedirect(response, "/Kanban/ManageShares", exact: false);
         Assert.IsFalse(await HasSubscription(cardId, subscriberId));
     }
 
@@ -714,6 +721,14 @@ public class BoardSharingTests : TestBase
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         return await db.KanbanCardSubscriptions.AnyAsync(subscription =>
             subscription.CardId == cardId && subscription.UserId == userId);
+    }
+
+    private async Task<bool> HasSubscriptionForTitle(string cardTitle, string userId)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        return await db.KanbanCardSubscriptions.AnyAsync(subscription =>
+            subscription.Card.Title == cardTitle && subscription.UserId == userId);
     }
 
     private async Task CreateShare(int boardId, string? userId, string? roleId, SharePermission permission)
