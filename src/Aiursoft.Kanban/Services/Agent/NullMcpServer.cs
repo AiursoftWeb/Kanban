@@ -12,6 +12,7 @@ internal sealed class NullMcpServer : McpServer
     public override Implementation? ClientInfo => null;
     public override McpServerOptions ServerOptions => new() { ServerInfo = new Implementation { Name = "KanbanAgent", Version = "1.0" } };
     public override IServiceProvider? Services => null;
+    [Obsolete("The MCP logging feature is deprecated as of specification version 2026-07-28.")]
     public override LoggingLevel? LoggingLevel => null;
     public override string? NegotiatedProtocolVersion => null;
     public override string? SessionId => null;
