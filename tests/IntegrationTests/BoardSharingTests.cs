@@ -294,6 +294,12 @@ public class BoardSharingTests : TestBase
             };
             db.KanbanCards.Add(card);
             await db.SaveChangesAsync();
+            db.KanbanCardSubscriptions.Add(new KanbanCardSubscription
+            {
+                CardId = card.Id,
+                UserId = assigneeId
+            });
+            await db.SaveChangesAsync();
             cardId = card.Id;
         }
 
@@ -307,6 +313,8 @@ public class BoardSharingTests : TestBase
         Assert.IsFalse(await verificationDb.Notifications.AnyAsync(notification =>
             notification.UserId == assigneeId &&
             notification.Type == NotificationType.CardTransferred));
+        Assert.IsFalse(await verificationDb.KanbanCardSubscriptions.AnyAsync(subscription =>
+            subscription.UserId == assigneeId));
     }
 
     [TestMethod]
@@ -650,6 +658,15 @@ public class BoardSharingTests : TestBase
             AssignedUserId = assignedUserId
         };
         db.KanbanCards.Add(card);
+        await db.SaveChangesAsync();
+        db.KanbanCardSubscriptions.AddRange(new[] { creatorUserId, assignedUserId }
+            .Where(userId => !string.IsNullOrWhiteSpace(userId))
+            .Distinct()
+            .Select(userId => new KanbanCardSubscription
+            {
+                CardId = card.Id,
+                UserId = userId!
+            }));
         await db.SaveChangesAsync();
         return (card.Id, targetColumnId);
     }

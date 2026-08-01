@@ -491,8 +491,6 @@ public class KanbanController(
         var maxOrder = await db.KanbanCards
             .Where(c => c.ColumnId == targetColumnId)
             .MaxAsync(c => (int?)c.Order) ?? -1;
-        var originalCreatorUserId = card.CreatorUserId;
-        var originalAssigneeUserId = card.AssignedUserId;
         var comments = await db.KanbanCardComments
             .Where(comment => comment.CardId == cardId)
             .ToListAsync();
@@ -500,6 +498,8 @@ public class KanbanController(
             .Where(subscription => subscription.CardId == cardId)
             .Select(subscription => subscription.UserId)
             .ToListAsync();
+        var accessibleSubscriberIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(
+            db, targetBoardId, subscriberIds, CancellationToken.None);
         var transferredCard = new KanbanCard
         {
             Title = card.Title,
@@ -516,7 +516,7 @@ public class KanbanController(
         };
 
         db.KanbanCards.Add(transferredCard);
-        transferredCard.Subscriptions.AddRange(subscriberIds.Select(subscriberId => new KanbanCardSubscription
+        transferredCard.Subscriptions.AddRange(accessibleSubscriberIds.Select(subscriberId => new KanbanCardSubscription
         {
             Card = transferredCard,
             UserId = subscriberId
@@ -536,9 +536,7 @@ public class KanbanController(
             TargetBoardId: targetBoardId,
             OriginalCardId: card.Id,
             SourceBoardName: card.Column.Board.Name,
-            SourceColumnName: card.Column.Name,
-            OriginalCreatorUserId: originalCreatorUserId,
-            OriginalAssigneeUserId: originalAssigneeUserId));
+            SourceColumnName: card.Column.Name));
 
         return Ok(new
         {
@@ -1072,6 +1070,7 @@ public class KanbanController(
 
         var oldAssigneeId = card.AssignedUserId;
         card.AssignedUserId = normalizedAssignedUserId;
+        await CardSubscriptionService.SubscribeAsync(db, cardId, new[] { normalizedAssignedUserId });
         await db.SaveChangesAsync();
 
         if (oldAssigneeId != normalizedAssignedUserId)
@@ -1391,6 +1390,7 @@ public class KanbanController(
             Images = images
         };
         db.KanbanCardComments.Add(comment);
+        await CardSubscriptionService.SubscribeAsync(db, cardId, new[] { userId });
         await db.SaveChangesAsync();
 
         await PublishNotificationEventAsync(new CardCommentAddedEvent(
