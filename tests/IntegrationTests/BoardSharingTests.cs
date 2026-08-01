@@ -417,6 +417,43 @@ public class BoardSharingTests : TestBase
     }
 
     [TestMethod]
+    public async Task RemovingUsersOnlySharedRole_RemovesTheirCardSubscriptions()
+    {
+        var ownerId = await RegisterUserAndGetIdAsync();
+        var boardId = await CreateBoardWithOwner(ownerId, "Role subscription board");
+        var cardId = await CreateCard(boardId, "Role subscription card");
+        await LogoutAsync();
+
+        var subscriberId = await RegisterUserAndGetIdAsync();
+        var roleName = "subscription-reviewers-" + Guid.NewGuid();
+        var roleId = await CreateRoleWithUser(roleName, subscriberId);
+        await CreateShare(boardId, null, roleId, SharePermission.ReadOnly);
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.KanbanCardSubscriptions.Add(new KanbanCardSubscription
+            {
+                CardId = cardId,
+                UserId = subscriberId
+            });
+            await db.SaveChangesAsync();
+        }
+
+        await LoginAsAdmin();
+        var response = await PostForm($"/Users/ManageRoles/{subscriberId}", new Dictionary<string, string>
+        {
+            { "id", subscriberId }
+        });
+        AssertRedirect(response, "/Users/Details/", exact: false);
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsFalse(await verificationDb.KanbanCardSubscriptions.AnyAsync(subscription =>
+            subscription.CardId == cardId && subscription.UserId == subscriberId));
+    }
+
+    [TestMethod]
     public async Task NotificationsIndex_BoardSharedWithoutCard_ReturnsOk()
     {
         var ownerId = await RegisterUserAndGetIdAsync();

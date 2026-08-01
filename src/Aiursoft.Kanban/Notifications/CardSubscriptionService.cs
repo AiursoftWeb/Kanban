@@ -48,4 +48,27 @@ public static class CardSubscriptionService
         db.KanbanCardSubscriptions.RemoveRange(
             subscriptions.Where(subscription => !allowedUserIds.Contains(subscription.UserId)));
     }
+
+    public static async Task RemoveUserSubscriptionsWithoutBoardAccessAsync(
+        TemplateDbContext db, string userId, CancellationToken ct = default)
+    {
+        var boardIds = await db.KanbanCardSubscriptions
+            .Where(subscription => subscription.UserId == userId)
+            .Select(subscription => subscription.Card.Column.BoardId)
+            .Distinct()
+            .ToListAsync(ct);
+
+        foreach (var boardId in boardIds)
+        {
+            var allowedUserIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(
+                db, boardId, new[] { userId }, ct);
+            if (allowedUserIds.Contains(userId)) continue;
+
+            var subscriptions = await db.KanbanCardSubscriptions
+                .Where(subscription => subscription.UserId == userId &&
+                                       subscription.Card.Column.BoardId == boardId)
+                .ToListAsync(ct);
+            db.KanbanCardSubscriptions.RemoveRange(subscriptions);
+        }
+    }
 }

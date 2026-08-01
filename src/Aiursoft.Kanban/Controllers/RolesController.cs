@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.RolesViewModels;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
@@ -248,7 +249,15 @@ public class RolesController(
             return NotFound();
         }
 
+        var affectedUserIds = await context.UserRoles
+            .Where(userRole => userRole.RoleId == id)
+            .Select(userRole => userRole.UserId)
+            .ToListAsync();
+
         await roleManager.DeleteAsync(role);
+        foreach (var userId in affectedUserIds)
+            await CardSubscriptionService.RemoveUserSubscriptionsWithoutBoardAccessAsync(context, userId);
+        await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 }

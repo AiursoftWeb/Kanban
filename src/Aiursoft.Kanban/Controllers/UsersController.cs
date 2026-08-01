@@ -1,6 +1,7 @@
 using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.UsersViewModels;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services;
 using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
@@ -210,6 +211,9 @@ public class UsersController(
 
         var rolesToRemove = userCurrentRoles.Except(selectedRoles);
         await userManager.RemoveFromRolesAsync(userInDb, rolesToRemove);
+
+        await CardSubscriptionService.RemoveUserSubscriptionsWithoutBoardAccessAsync(context, userInDb.Id);
+        await context.SaveChangesAsync();
 
         return RedirectToAction(nameof(Details), new { id = userInDb.Id });
     }

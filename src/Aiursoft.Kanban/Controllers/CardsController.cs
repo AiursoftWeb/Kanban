@@ -5,6 +5,7 @@
 
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.CardViewModels;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
 using Microsoft.AspNetCore.Authorization;
@@ -72,8 +73,14 @@ public class CardsController(
             CanDelete = c.AuthorId == userId || canEdit
         }).ToList();
 
-        var subscriberUsers = await db.KanbanCardSubscriptions
+        var subscriberIds = await db.KanbanCardSubscriptions
             .Where(s => s.CardId == id)
+            .Select(s => s.UserId)
+            .ToListAsync();
+        var visibleSubscriberIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(
+            db, board.Id, subscriberIds, CancellationToken.None);
+        var subscriberUsers = await db.KanbanCardSubscriptions
+            .Where(s => s.CardId == id && visibleSubscriberIds.Contains(s.UserId))
             .OrderBy(s => s.User.DisplayName)
             .Select(s => s.User)
             .ToListAsync();
