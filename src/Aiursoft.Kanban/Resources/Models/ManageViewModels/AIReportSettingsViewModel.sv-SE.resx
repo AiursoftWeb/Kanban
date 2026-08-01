@@ -21,5 +21,11 @@
       <data name="Daily Report Language" xml:space="preserve">
     <value>Språk för daglig rapport</value>
   </data>
+  <data name="Enable Daily Report" xml:space="preserve">
+    <value>Aktivera daglig rapport</value>
+  </data>
+  <data name="Enable Weekly Report" xml:space="preserve">
+    <value>Aktivera veckovis rapport</value>
+  </data>
 
 </root>

@@ -21,5 +21,11 @@
       <data name="Daily Report Language" xml:space="preserve">
     <value>日報の言語</value>
   </data>
+  <data name="Enable Daily Report" xml:space="preserve">
+    <value>日次レポートを有効にする</value>
+  </data>
+  <data name="Enable Weekly Report" xml:space="preserve">
+    <value>週次レポートを有効にする</value>
+  </data>
 
 </root>

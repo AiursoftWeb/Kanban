@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>Inställningar för daglig rapport</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>Aktivera automatisk daglig planering och sammanfattning</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>Aktivera automatisk veckovis rapport</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Spara ändringar</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>Språket som används vid generering av din dagliga plan och sammanfattningsrapporter.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>När det är aktiverat genereras en veckorapport som sammanfattar dina slutförda uppgifter automatiskt varje fredag eftermiddag.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>När det är aktiverat genereras dagliga planer (morgon) och sammanfattningar (eftermiddag) automatiskt åt dig baserat på dina Kanban-brädor.</value>
   </data>
 
 </root>

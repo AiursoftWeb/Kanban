@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>Preferenze per il report giornaliero</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>Abilita la pianificazione e il riepilogo giornalieri automatici</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>Abilita rapporto settimanale automatico</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Salva le modifiche</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>La lingua utilizzata per generare il piano giornaliero e i report di riepilogo.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>Se abilitata, una relazione settimanale che riassume le attività completate verrà generata automaticamente ogni venerdì pomeriggio.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>Se attivata, le pianificazioni giornaliere (mattina) e i riepiloghi (pomeriggio) verranno generati automaticamente per te sulla base delle tue board Kanban.</value>
   </data>
 
 </root>

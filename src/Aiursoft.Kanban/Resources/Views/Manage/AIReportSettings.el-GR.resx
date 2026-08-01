@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>Προτιμήσεις Ημερήσιας Αναφοράς</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>Ενεργοποίηση αυτόματης ημερήσιας προγραμματισμού και περίληψης</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>Ενεργοποίηση αυτόματης εβδομαδιαίας αναφοράς</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Αποθήκευση αλλαγών</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>Η γλώσσα που χρησιμοποιείται κατά τη δημιουργία των καθημερινών σας σχεδίων και αναφορών συνοπτικής επισκόπησης.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>Όταν είναι ενεργοποιημένο, μια εβδομαδιαία αναφορά που συνοψίζει τις ολοκληρωμένες εργασίες σας θα δημιουργείται αυτόματα κάθε Παρασκευή το απόγευμα.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>Όταν ενεργοποιηθεί, τα ημερήσια πλάνα (πρωί) και τα συνόψιμα (απόγευμα) θα δημιουργούνται αυτόματα για εσάς με βάση τα πίνακες Kanban σας.</value>
   </data>
 
 </root>

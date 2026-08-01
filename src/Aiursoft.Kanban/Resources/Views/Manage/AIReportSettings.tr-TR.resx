@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>Günlük Rapor Tercihleri</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>Otomatik günlük planlama ve özetini etkinleştir</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>Otomatik haftalık raporu etkinleştir</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Değişiklikleri kaydet</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>Günlük plan ve özet raporlarınız oluşturulurken kullanılan dil.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>Etkinleştirildiğinde, tamamlanan görevlerinizi özetleyen haftalık bir rapor her Cuma öğleden sonra otomatik olarak oluşturulacaktır.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>Etkinleştirildiğinde, Kanban panolarınıza göre günlük planlarınız (sabah) ve özetleriniz (öğleden sonra) sizin için otomatik olarak oluşturulacaktır.</value>
   </data>
 
 </root>

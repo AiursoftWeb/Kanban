@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>Параметры ежедневного отчета</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>Включить автоматическое планирование и подведение итогов дня</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>Включить автоматическую еженедельную отчетность</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Сохранить изменения</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>Язык, используемый при создании вашего ежедневного плана и сводных отчетов.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>При включении еженедельный отчет с кратким обзором выполненных вами задач будет автоматически создаваться каждый вечер в пятницу.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>При включении для вас будут автоматически генерироваться ежедневные планы (утром) и сводки (днем) на основе ваших досок Kanban.</value>
   </data>
 
 </root>

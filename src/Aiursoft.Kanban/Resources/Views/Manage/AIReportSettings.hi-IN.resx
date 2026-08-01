@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>दैनिक रिपोर्ट प्राथमिकताएं</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>स्वचालित दैनिक योजना और सारांश सक्षम करें</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>स्वचालित साप्ताहिक रिपोर्ट सक्षम करें</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>बदलाव सहेजें</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>आपकी दैनिक योजना और सारांश रिपोर्टें तैयार करते समय उपयोग की जाने वाली भाषा।</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>सक्रिय होने पर, आपके पूरा किए गए कार्यों का सारांश देने वाला साप्ताहिक रिपोर्ट हर शुक्रवार दोपहर को स्वचालित रूप से उत्पन्न किया जाएगा।</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>सक्षम होने पर, आपके कैनबन बोर्ड के आधार पर आपके लिए दैनिक योजनाएं (सुबह) और सारांश (दोपहर) स्वचालित रूप से उत्पन्न होंगे।</value>
   </data>
 
 </root>

@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>Daily Report Preferences</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>Enable automatic daily planning and summary</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>Enable automatic weekly report</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Save changes</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>The language used when generating your daily plan and summary reports.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>When enabled, a weekly report summarising your completed tasks will be automatically generated every Friday afternoon.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards.</value>
   </data>
 
 </root>

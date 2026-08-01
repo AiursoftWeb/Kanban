@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>일일 보고서 설정</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>자동 일일 계획 및 요약 활성화</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>주간 보고서 자동 생성 활성화</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>변경 사항 저장</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>일일 계획 및 요약 보고서 생성 시 사용되는 언어입니다.</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>활성화하면 매주 금요일 오후에 완료된 작업을 요약한 주간 보고서가 자동으로 생성됩니다.</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>활성화하면 Kanban 보드를 기준으로 일일 계획(아침) 및 요약(오후)이 자동으로 생성됩니다.</value>
   </data>
 
 </root>

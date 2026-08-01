@@ -30,11 +30,23 @@
   <data name="Daily Report Preferences" xml:space="preserve">
     <value>デイリーレポートの設定</value>
   </data>
+  <data name="Enable automatic daily planning and summary" xml:space="preserve">
+    <value>自動的な日次計画とサマリーの有効化</value>
+  </data>
+  <data name="Enable automatic weekly report" xml:space="preserve">
+    <value>自動的な週次レポートを有効にする</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>変更を保存</value>
   </data>
   <data name="The language used when generating your daily plan and summary reports." xml:space="preserve">
     <value>デイリープランと要約レポートの生成時に使用される言語。</value>
+  </data>
+  <data name="When enabled, a weekly report summarizing your completed tasks will be automatically generated every Friday afternoon." xml:space="preserve">
+    <value>有効にすると、完了したタスクをまとめた週次レポートが毎週金曜日の午後に自動的に生成されます。</value>
+  </data>
+  <data name="When enabled, daily plans (morning) and summaries (afternoon) will be automatically generated for you based on your Kanban boards." xml:space="preserve">
+    <value>有効にすると、Kanbanボードに基づいて毎日の計画（午前）とサマリー（午後）が自動的に生成されます。</value>
   </data>
 
 </root>

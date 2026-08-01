@@ -147,8 +147,14 @@
   <data name="m ago" xml:space="preserve">
     <value>分钟前</value>
   </data>
+  <data name="Markdown view mode" xml:space="preserve">
+    <value>Markdown 视图模式</value>
+  </data>
   <data name="Markdown, Mermaid and KaTeX are all supported." xml:space="preserve">
     <value>支持 Markdown、Mermaid 和 KaTeX。</value>
+  </data>
+  <data name="Markdown, Mermaid and MathJax are all supported." xml:space="preserve">
+    <value>支持 Markdown、Mermaid 和 MathJax。</value>
   </data>
   <data name="Months" xml:space="preserve">
     <value>月</value>
@@ -167,6 +173,9 @@
   </data>
   <data name="No description yet. Capture the context, plan, or acceptance notes for this card here." xml:space="preserve">
     <value>暂无描述。在此记录此卡片的背景、计划或验收说明。</value>
+  </data>
+  <data name="No subscribers" xml:space="preserve">
+    <value>暂无订阅者</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>无</value>
@@ -233,6 +242,12 @@
   </data>
   <data name="Start" xml:space="preserve">
     <value>开始</value>
+  </data>
+  <data name="Subscribers" xml:space="preserve">
+    <value>订阅者</value>
+  </data>
+  <data name="Subscribers are notified when this card changes." xml:space="preserve">
+    <value>当此卡片发生更改时，订阅者将收到通知。</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>此操作无法撤消。</value>
