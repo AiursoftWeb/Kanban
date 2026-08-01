@@ -22,6 +22,8 @@ public class MentionedHandler(TemplateDbContext db) : INotificationHandler<CardM
         var notifiableIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(
             db, e.BoardId, e.MentionedUserIds, ct);
 
+        await CardSubscriptionService.SubscribeAsync(db, e.CardId, notifiableIds, ct);
+
         foreach (var userId in notifiableIds)
         {
             db.Notifications.Add(new Notification

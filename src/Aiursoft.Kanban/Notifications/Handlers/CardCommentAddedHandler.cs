@@ -16,31 +16,8 @@ public class CardCommentAddedHandler(TemplateDbContext db) : INotificationHandle
 
         var actorName = await GetUserDisplayName(db, e.ActorUserId);
 
-        var commenterIds = await db.KanbanCardComments
-            .Where(c => c.CardId == e.CardId)
-            .Select(c => c.AuthorId)
-            .Distinct()
-            .ToListAsync(ct);
-
-        // Users previously @mentioned on this card are implicitly subscribed
-        var mentionedUserIds = await db.Notifications
-            .Where(n => n.CardId == e.CardId && n.Type == NotificationType.Mentioned)
-            .Select(n => n.UserId)
-            .Distinct()
-            .ToListAsync(ct);
-
-        var notifyIds = new HashSet<string>();
-        if (!string.IsNullOrEmpty(card.CreatorUserId))
-            notifyIds.Add(card.CreatorUserId);
-        if (!string.IsNullOrEmpty(card.AssignedUserId))
-            notifyIds.Add(card.AssignedUserId);
-        foreach (var id in commenterIds)
-            notifyIds.Add(id);
-        foreach (var id in mentionedUserIds)
-            notifyIds.Add(id);
-
-        notifyIds.Remove(e.ActorUserId);
-        notifyIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(db, card.Column.BoardId, notifyIds, ct);
+        var notifyIds = await CardSubscriptionService.GetNotificationRecipientsAsync(
+            db, e.CardId, card.Column.BoardId, e.ActorUserId, ct);
 
         foreach (var userId in notifyIds)
         {

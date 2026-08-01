@@ -29,6 +29,9 @@ public class CardDetailViewModel : UiStackLayoutViewModel
     // Permissions
     public bool CanEdit { get; set; }
 
+    public bool IsSubscribed { get; set; }
+    public List<CardSubscriberViewModel> Subscribers { get; set; } = [];
+
     // Assignee
     public string? AssigneeId { get; set; }
     public string AssigneeName { get; set; } = string.Empty;
@@ -61,6 +64,13 @@ public class CardDetailViewModel : UiStackLayoutViewModel
     // Move / transfer options
     public List<ColumnOptionViewModel> Columns { get; set; } = [];
     public List<BoardOptionViewModel> AvailableBoards { get; set; } = [];
+}
+
+public class CardSubscriberViewModel
+{
+    public string Name { get; set; } = string.Empty;
+    public string Initial { get; set; } = string.Empty;
+    public string? AvatarUrl { get; set; }
 }
 
 public class LabelViewModel

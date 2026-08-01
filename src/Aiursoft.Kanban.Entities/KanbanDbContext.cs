@@ -18,6 +18,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<KanbanCardLabel> KanbanCardLabels => Set<KanbanCardLabel>();
     public DbSet<BoardShare> BoardShares => Set<BoardShare>();
     public DbSet<KanbanCardComment> KanbanCardComments => Set<KanbanCardComment>();
+    public DbSet<KanbanCardSubscription> KanbanCardSubscriptions => Set<KanbanCardSubscription>();
     public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<DailyReport> DailyReports => Set<DailyReport>();
     public DbSet<WeeklyReport> WeeklyReports => Set<WeeklyReport>();
@@ -67,6 +68,19 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasOne(comment => comment.Card)
             .WithMany()
             .HasForeignKey(comment => comment.CardId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<KanbanCardSubscription>()
+            .HasKey(subscription => new { subscription.CardId, subscription.UserId });
+        builder.Entity<KanbanCardSubscription>()
+            .HasOne(subscription => subscription.Card)
+            .WithMany(card => card.Subscriptions)
+            .HasForeignKey(subscription => subscription.CardId)
+            .OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<KanbanCardSubscription>()
+            .HasOne(subscription => subscription.User)
+            .WithMany()
+            .HasForeignKey(subscription => subscription.UserId)
             .OnDelete(DeleteBehavior.Cascade);
         builder.Entity<KanbanCardComment>()
             .HasOne(comment => comment.Author)

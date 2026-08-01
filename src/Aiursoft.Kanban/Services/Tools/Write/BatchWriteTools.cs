@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services.Access;
 using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Scanner.Abstractions;
@@ -89,6 +90,8 @@ public class BatchWriteTools(
                 card.DueDate = dd.ToUniversalTime();
 
             db.KanbanCards.Add(card);
+            card.Subscriptions.AddRange(new[] { userId, resolvedAssignee }.Where(id => id != null).Distinct()
+                .Select(id => new KanbanCardSubscription { Card = card, UserId = id! }));
             createdIds.Add(card.Id);
         }
 
@@ -209,6 +212,7 @@ public class BatchWriteTools(
         foreach (var card in cards)
         {
             card.AssignedUserId = resolvedAssignee;
+            await CardSubscriptionService.SubscribeAsync(db, card.Id, new[] { resolvedAssignee });
         }
 
         await db.SaveChangesAsync();

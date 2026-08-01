@@ -5,6 +5,7 @@
 
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.CardViewModels;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.FileStorage;
 using Microsoft.AspNetCore.Authorization;
@@ -72,6 +73,18 @@ public class CardsController(
             CanDelete = c.AuthorId == userId || canEdit
         }).ToList();
 
+        var subscriberIds = await db.KanbanCardSubscriptions
+            .Where(s => s.CardId == id)
+            .Select(s => s.UserId)
+            .ToListAsync();
+        var visibleSubscriberIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(
+            db, board.Id, subscriberIds, CancellationToken.None);
+        var subscriberUsers = await db.KanbanCardSubscriptions
+            .Where(s => s.CardId == id && visibleSubscriberIds.Contains(s.UserId))
+            .OrderBy(s => s.User.DisplayName)
+            .Select(s => s.User)
+            .ToListAsync();
+
         var model = new CardDetailViewModel
         {
             PageTitle = card.Title,
@@ -85,6 +98,15 @@ public class CardsController(
             BoardName = board.Name,
             ReturnBoardId = returnBoardId ?? board.Id,
             CanEdit = canEdit,
+            IsSubscribed = await db.KanbanCardSubscriptions.AnyAsync(s => s.CardId == id && s.UserId == userId),
+            Subscribers = subscriberUsers.Select(subscriber => new CardSubscriberViewModel
+                {
+                    Name = subscriber.DisplayName,
+                    Initial = subscriber.DisplayName[0].ToString().ToUpperInvariant(),
+                    AvatarUrl = subscriber.AvatarRelativePath != Entities.User.DefaultAvatarPath
+                        ? $"{storage.RelativePathToInternetUrl(subscriber.AvatarRelativePath)}?w=56&square=true"
+                        : null
+                }).ToList(),
             AssigneeId = card.AssignedUserId,
             AssigneeName = card.AssignedUser?.DisplayName ?? card.AssignedUser?.UserName ?? string.Empty,
             AssigneeInitial = (card.AssignedUser?.DisplayName ?? card.AssignedUser?.UserName) is { Length: > 0 } name
@@ -150,6 +172,31 @@ public class CardsController(
             .ToListAsync();
 
         return this.StackView(model);
+    }
+
+    [HttpPost("/Cards/{id:int}/subscription")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SetSubscription(int id, [FromForm] bool subscribe)
+    {
+        var userId = userManager.GetUserId(User)!;
+        var card = await db.KanbanCards
+            .Include(c => c.Column).ThenInclude(c => c.Board)
+            .FirstOrDefaultAsync(c => c.Id == id);
+        if (card == null || !await HasReadAccess(card.Column.Board, userId)) return NotFound();
+
+        var existing = await db.KanbanCardSubscriptions
+            .FirstOrDefaultAsync(s => s.CardId == id && s.UserId == userId);
+        if (subscribe && existing == null)
+        {
+            db.KanbanCardSubscriptions.Add(new KanbanCardSubscription { CardId = id, UserId = userId });
+        }
+        else if (!subscribe && existing != null)
+        {
+            db.KanbanCardSubscriptions.Remove(existing);
+        }
+
+        await db.SaveChangesAsync();
+        return Ok(new { subscribed = subscribe });
     }
 
     private async Task<bool> HasReadAccess(KanbanBoard board, string userId)

@@ -511,6 +511,45 @@
                 <section class="detail-surface">
                     <div class="detail-surface-header">
                         <div>
+                            <div class="fw-semibold">@Localizer["Subscribers"]</div>
+                            <div class="detail-section-note">@Localizer["Subscribers are notified when this card changes."]</div>
+                        </div>
+                        <button type="button" id="btnToggleSubscription"
+                                class="btn btn-sm @(Model.IsSubscribed ? "btn-outline-secondary" : "btn-primary")"
+                                data-subscribed="@Model.IsSubscribed.ToString().ToLowerInvariant()">
+                            <i class="align-middle" style="width:14px;height:14px" data-lucide="bell"></i>
+                            <span>@(Model.IsSubscribed ? Localizer["Unsubscribe"] : Localizer["Subscribe"])</span>
+                        </button>
+                    </div>
+                    <div class="detail-surface-body">
+                        <div class="d-flex flex-wrap gap-2" id="subscriberList">
+                            @foreach (var subscriber in Model.Subscribers)
+                            {
+                                <span class="detail-meta-chip" title="@subscriber.Name">
+                                    <span class="card-assignee-avatar" style="width:24px;height:24px;font-size:.7rem">
+                                        @if (!string.IsNullOrEmpty(subscriber.AvatarUrl))
+                                        {
+                                            <img src="@subscriber.AvatarUrl" alt="@subscriber.Name" class="card-assignee-avatar-image" />
+                                        }
+                                        else
+                                        {
+                                            @subscriber.Initial
+                                        }
+                                    </span>
+                                    @subscriber.Name
+                                </span>
+                            }
+                            @if (!Model.Subscribers.Any())
+                            {
+                                <span class="text-muted small">@Localizer["No subscribers"]</span>
+                            }
+                        </div>
+                    </div>
+                </section>
+
+                <section class="detail-surface">
+                    <div class="detail-surface-header">
+                        <div>
                             <div class="fw-semibold">@Localizer["Schedule & status"]</div>
                             <div class="detail-section-note">@Localizer["This is the planning and execution timeline for the card."]</div>
                         </div>
@@ -795,6 +834,21 @@
                 initialAssigneeInitial: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeInitial)),
                 initialAssigneeAvatarUrl: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeAvatarUrl)),
                 initialLabels: @Html.Raw(JsonSerializer.Serialize(Model.Labels.Select(l => new { id = l.Id, name = l.Name, color = l.Color })))
+            });
+
+            document.getElementById('btnToggleSubscription')?.addEventListener('click', async event => {
+                const button = event.currentTarget;
+                if (!(button instanceof HTMLButtonElement)) return;
+                const subscribe = button.dataset.subscribed !== 'true';
+                button.disabled = true;
+                const body = new URLSearchParams({ subscribe: String(subscribe) });
+                const response = await fetch(`/Cards/@Model.CardId/subscription`, {
+                    method: 'POST',
+                    headers: { 'RequestVerificationToken': '@token', 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body
+                });
+                if (response.ok) location.reload();
+                else button.disabled = false;
             });
         });
     </script>

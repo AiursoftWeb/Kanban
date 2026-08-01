@@ -8,7 +8,5 @@ public record CardTransferredEvent(
     int TargetBoardId,
     int OriginalCardId,
     string SourceBoardName,
-    string SourceColumnName,
-    string? OriginalCreatorUserId,
-    string? OriginalAssigneeUserId
+    string SourceColumnName
 ) : INotification;

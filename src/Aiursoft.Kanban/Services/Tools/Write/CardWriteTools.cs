@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services.Access;
 using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Scanner.Abstractions;
@@ -56,6 +57,8 @@ public class CardWriteTools(
             AssignedUserId = resolvedAssignee
         };
         db.KanbanCards.Add(card);
+        card.Subscriptions.AddRange(new[] { userId, resolvedAssignee }.Where(id => id != null).Distinct()
+            .Select(id => new KanbanCardSubscription { Card = card, UserId = id! }));
         await db.SaveChangesAsync();
 
         return $"Card created: #{card.Id} \"{card.Title}\" in column \"{column.Name}\" (Board: \"{column.Board.Name}\").";
@@ -153,6 +156,7 @@ public class CardWriteTools(
         card.Description = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
         card.Priority = (Priority)priority;
         card.AssignedUserId = normalizedAssignedUserId;
+        await CardSubscriptionService.SubscribeAsync(db, cardId, new[] { normalizedAssignedUserId });
 
         if (DateTime.TryParse(plannedStartTime, out var pst))
             card.PlannedStartTime = pst.ToUniversalTime();
@@ -183,6 +187,7 @@ public class CardWriteTools(
             return "Error: Assigned user does not have access to this board.";
 
         card.AssignedUserId = normalizedAssignedUserId;
+        await CardSubscriptionService.SubscribeAsync(db, cardId, new[] { normalizedAssignedUserId });
         await db.SaveChangesAsync();
 
         var assigneeDisplay = normalizedAssignedUserId == null

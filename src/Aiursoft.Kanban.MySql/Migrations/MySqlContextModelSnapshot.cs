@@ -269,6 +269,25 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.ToTable("KanbanCardLabels");
                 });
 
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCardSubscription", b =>
+                {
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("varchar(450)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("CardId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("KanbanCardSubscriptions");
+                });
+
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>
                 {
                     b.Property<int>("Id")
@@ -764,6 +783,25 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.Navigation("Label");
                 });
 
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCardSubscription", b =>
+                {
+                    b.HasOne("Aiursoft.Kanban.Entities.KanbanCard", "Card")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.Kanban.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Card");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>
                 {
                     b.HasOne("Aiursoft.Kanban.Entities.KanbanBoard", "Board")
@@ -886,6 +924,8 @@ namespace Aiursoft.Kanban.MySql.Migrations
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCard", b =>
                 {
                     b.Navigation("CardLabels");
+
+                    b.Navigation("Subscriptions");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>

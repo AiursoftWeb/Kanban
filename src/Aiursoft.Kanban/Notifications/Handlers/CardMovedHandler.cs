@@ -18,14 +18,8 @@ public class CardMovedHandler(TemplateDbContext db) : INotificationHandler<CardM
 
         var actorName = await CardCommentAddedHandler.GetUserDisplayName(db, e.ActorUserId);
 
-        var notifyIds = new HashSet<string>();
-        if (!string.IsNullOrEmpty(card.CreatorUserId))
-            notifyIds.Add(card.CreatorUserId);
-        if (!string.IsNullOrEmpty(card.AssignedUserId))
-            notifyIds.Add(card.AssignedUserId);
-
-        notifyIds.Remove(e.ActorUserId);
-        notifyIds = await NotificationRecipientFilter.KeepUsersWithBoardReadAccess(db, card.Column.BoardId, notifyIds, ct);
+        var notifyIds = await CardSubscriptionService.GetNotificationRecipientsAsync(
+            db, e.CardId, card.Column.BoardId, e.ActorUserId, ct);
 
         foreach (var userId in notifyIds)
         {

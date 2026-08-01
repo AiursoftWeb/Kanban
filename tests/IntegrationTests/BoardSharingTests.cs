@@ -250,6 +250,11 @@ public class BoardSharingTests : TestBase
             Assert.HasCount(1, transferredCard.CardLabels);
             Assert.AreEqual(1, await db.KanbanCardLabels.CountAsync());
             Assert.IsFalse(await db.KanbanCardComments.AnyAsync());
+            var transferredSubscriberId = await db.KanbanCardSubscriptions
+                .Where(subscription => subscription.CardId == transferredCard.Id)
+                .Select(subscription => subscription.UserId)
+                .SingleAsync();
+            Assert.AreEqual(sourceOwnerId, transferredSubscriberId);
         }
     }
 
@@ -294,6 +299,12 @@ public class BoardSharingTests : TestBase
             };
             db.KanbanCards.Add(card);
             await db.SaveChangesAsync();
+            db.KanbanCardSubscriptions.Add(new KanbanCardSubscription
+            {
+                CardId = card.Id,
+                UserId = assigneeId
+            });
+            await db.SaveChangesAsync();
             cardId = card.Id;
         }
 
@@ -307,6 +318,8 @@ public class BoardSharingTests : TestBase
         Assert.IsFalse(await verificationDb.Notifications.AnyAsync(notification =>
             notification.UserId == assigneeId &&
             notification.Type == NotificationType.CardTransferred));
+        Assert.IsFalse(await verificationDb.KanbanCardSubscriptions.AnyAsync(subscription =>
+            subscription.UserId == assigneeId));
     }
 
     [TestMethod]
@@ -342,7 +355,7 @@ public class BoardSharingTests : TestBase
     }
 
     [TestMethod]
-    public async Task TransferCard_NotifiesOriginalAssigneeWithTargetBoardUserShare()
+    public async Task TransferCard_DropsOriginalAssigneeSubscriptionWithTargetBoardUserShare()
     {
         var (sourceOwnerEmail, sourceOwnerPassword) = await RegisterAndLoginAsync();
         var sourceOwnerId = await GetUserIdByEmailAsync(sourceOwnerEmail);
@@ -371,11 +384,12 @@ public class BoardSharingTests : TestBase
             new Dictionary<string, string>());
         Assert.AreEqual(HttpStatusCode.OK, transferResponse.StatusCode);
 
-        Assert.IsTrue(await HasNotification(assigneeId, NotificationType.CardTransferred));
+        Assert.IsFalse(await HasNotification(assigneeId, NotificationType.CardTransferred));
+        Assert.IsFalse(await HasSubscriptionForTitle("Notify shared assignee", assigneeId));
     }
 
     [TestMethod]
-    public async Task TransferCard_NotifiesOriginalAssigneeWithTargetBoardRoleShare()
+    public async Task TransferCard_DropsOriginalAssigneeSubscriptionWithTargetBoardRoleShare()
     {
         var (sourceOwnerEmail, sourceOwnerPassword) = await RegisterAndLoginAsync();
         var sourceOwnerId = await GetUserIdByEmailAsync(sourceOwnerEmail);
@@ -405,7 +419,45 @@ public class BoardSharingTests : TestBase
             new Dictionary<string, string>());
         Assert.AreEqual(HttpStatusCode.OK, transferResponse.StatusCode);
 
-        Assert.IsTrue(await HasNotification(assigneeId, NotificationType.CardTransferred));
+        Assert.IsFalse(await HasNotification(assigneeId, NotificationType.CardTransferred));
+        Assert.IsFalse(await HasSubscriptionForTitle("Notify role assignee", assigneeId));
+    }
+
+    [TestMethod]
+    public async Task RemovingUsersOnlySharedRole_RemovesTheirCardSubscriptions()
+    {
+        var ownerId = await RegisterUserAndGetIdAsync();
+        var boardId = await CreateBoardWithOwner(ownerId, "Role subscription board");
+        var cardId = await CreateCard(boardId, "Role subscription card");
+        await LogoutAsync();
+
+        var subscriberId = await RegisterUserAndGetIdAsync();
+        var roleName = "subscription-reviewers-" + Guid.NewGuid();
+        var roleId = await CreateRoleWithUser(roleName, subscriberId);
+        await CreateShare(boardId, null, roleId, SharePermission.ReadOnly);
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.KanbanCardSubscriptions.Add(new KanbanCardSubscription
+            {
+                CardId = cardId,
+                UserId = subscriberId
+            });
+            await db.SaveChangesAsync();
+        }
+
+        await LoginAsAdmin();
+        var response = await PostForm($"/Users/ManageRoles/{subscriberId}", new Dictionary<string, string>
+        {
+            { "id", subscriberId }
+        });
+        AssertRedirect(response, "/Users/Details/", exact: false);
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsFalse(await verificationDb.KanbanCardSubscriptions.AnyAsync(subscription =>
+            subscription.CardId == cardId && subscription.UserId == subscriberId));
     }
 
     [TestMethod]
@@ -440,6 +492,55 @@ public class BoardSharingTests : TestBase
         Assert.Contains("shared a board with you", content);
         Assert.Contains($"/Kanban/Index?boardId={boardId}", content);
         Assert.Contains("Open Board", content);
+    }
+
+    [TestMethod]
+    public async Task RemoveShare_RemovesSubscriptionsForUserWhoLosesReadAccess()
+    {
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+        var boardId = await CreateBoardWithOwner(ownerId, "Private shared board");
+        await LogoutAsync();
+        var subscriberId = await RegisterUserAndGetIdAsync();
+        await LogoutAsync();
+        await CreateShare(boardId, subscriberId, null, SharePermission.ReadOnly);
+        var cardId = await CreateCard(boardId, "Subscribed card");
+        await AddSubscription(cardId, subscriberId);
+
+        await LoginAsync(ownerEmail, ownerPassword);
+        Guid shareId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            shareId = await db.BoardShares
+                .Where(share => share.BoardId == boardId && share.SharedWithUserId == subscriberId)
+                .Select(share => share.Id)
+                .SingleAsync();
+        }
+
+        var response = await PostForm($"/Kanban/RemoveShare?id={shareId}", new Dictionary<string, string>());
+        AssertRedirect(response, "/Kanban/ManageShares", exact: false);
+        Assert.IsFalse(await HasSubscription(cardId, subscriberId));
+    }
+
+    [TestMethod]
+    public async Task MakingPublicBoardPrivate_RemovesSubscriptionsForUsersWithoutAnotherGrant()
+    {
+        var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+        var boardId = await CreateBoardWithOwner(ownerId, "Public board", isPublic: true);
+        await LogoutAsync();
+        var subscriberId = await RegisterUserAndGetIdAsync();
+        await LogoutAsync();
+        await LoginAsync(ownerEmail, ownerPassword);
+        var cardId = await CreateCard(boardId, "Public subscribed card");
+        await AddSubscription(cardId, subscriberId);
+
+        var response = await PostForm(
+            $"/Kanban/UpdateVisibility?id={boardId}&publicAccess=false",
+            new Dictionary<string, string>());
+        AssertRedirect(response, "/Kanban/ManageShares", exact: false);
+        Assert.IsFalse(await HasSubscription(cardId, subscriberId));
     }
 
     [TestMethod]
@@ -606,6 +707,30 @@ public class BoardSharingTests : TestBase
         return card.Id;
     }
 
+    private async Task AddSubscription(int cardId, string userId)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        db.KanbanCardSubscriptions.Add(new KanbanCardSubscription { CardId = cardId, UserId = userId });
+        await db.SaveChangesAsync();
+    }
+
+    private async Task<bool> HasSubscription(int cardId, string userId)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        return await db.KanbanCardSubscriptions.AnyAsync(subscription =>
+            subscription.CardId == cardId && subscription.UserId == userId);
+    }
+
+    private async Task<bool> HasSubscriptionForTitle(string cardTitle, string userId)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        return await db.KanbanCardSubscriptions.AnyAsync(subscription =>
+            subscription.Card.Title == cardTitle && subscription.UserId == userId);
+    }
+
     private async Task CreateShare(int boardId, string? userId, string? roleId, SharePermission permission)
     {
         using var scope = Server!.Services.CreateScope();
@@ -650,6 +775,15 @@ public class BoardSharingTests : TestBase
             AssignedUserId = assignedUserId
         };
         db.KanbanCards.Add(card);
+        await db.SaveChangesAsync();
+        db.KanbanCardSubscriptions.AddRange(new[] { creatorUserId, assignedUserId }
+            .Where(userId => !string.IsNullOrWhiteSpace(userId))
+            .Distinct()
+            .Select(userId => new KanbanCardSubscription
+            {
+                CardId = card.Id,
+                UserId = userId!
+            }));
         await db.SaveChangesAsync();
         return (card.Id, targetColumnId);
     }

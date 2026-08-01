@@ -379,6 +379,7 @@ public class KanbanController(
             AssignedUserId = userId
         };
         db.KanbanCards.Add(card);
+        card.Subscriptions.Add(new KanbanCardSubscription { Card = card, UserId = userId });
         await db.SaveChangesAsync();
 
         var creator = await userManager.FindByIdAsync(userId);
@@ -421,7 +422,6 @@ public class KanbanController(
         var comments = await db.KanbanCardComments
             .Where(comment => comment.CardId == cardId)
             .ToListAsync();
-
         db.KanbanCardLabels.RemoveRange(cardLabels);
         db.KanbanCardComments.RemoveRange(comments);
         db.KanbanCards.Remove(card);
@@ -491,10 +491,11 @@ public class KanbanController(
         var maxOrder = await db.KanbanCards
             .Where(c => c.ColumnId == targetColumnId)
             .MaxAsync(c => (int?)c.Order) ?? -1;
-        var originalCreatorUserId = card.CreatorUserId;
-        var originalAssigneeUserId = card.AssignedUserId;
         var comments = await db.KanbanCardComments
             .Where(comment => comment.CardId == cardId)
+            .ToListAsync();
+        var sourceSubscriptions = await db.KanbanCardSubscriptions
+            .Where(subscription => subscription.CardId == cardId)
             .ToListAsync();
         var transferredCard = new KanbanCard
         {
@@ -512,12 +513,18 @@ public class KanbanController(
         };
 
         db.KanbanCards.Add(transferredCard);
+        transferredCard.Subscriptions.Add(new KanbanCardSubscription
+        {
+            Card = transferredCard,
+            UserId = userId
+        });
         db.KanbanCardLabels.AddRange(card.CardLabels.Select(link => new KanbanCardLabel
         {
             Card = transferredCard,
             LabelId = link.LabelId
         }));
         db.KanbanCardComments.RemoveRange(comments);
+        db.KanbanCardSubscriptions.RemoveRange(sourceSubscriptions);
         db.KanbanCards.Remove(card);
         await db.SaveChangesAsync();
 
@@ -527,9 +534,7 @@ public class KanbanController(
             TargetBoardId: targetBoardId,
             OriginalCardId: card.Id,
             SourceBoardName: card.Column.Board.Name,
-            SourceColumnName: card.Column.Name,
-            OriginalCreatorUserId: originalCreatorUserId,
-            OriginalAssigneeUserId: originalAssigneeUserId));
+            SourceColumnName: card.Column.Name));
 
         return Ok(new
         {
@@ -954,6 +959,8 @@ public class KanbanController(
         card.RecurrenceInterval = newRecurrenceInterval;
         card.RecurrenceUnit = newRecurrenceUnit;
 
+        await CardSubscriptionService.SubscribeAsync(db, cardId, new[] { normalizedAssignedUserId });
+
         await db.SaveChangesAsync();
 
         if (changedFields.Count > 0)
@@ -1061,6 +1068,7 @@ public class KanbanController(
 
         var oldAssigneeId = card.AssignedUserId;
         card.AssignedUserId = normalizedAssignedUserId;
+        await CardSubscriptionService.SubscribeAsync(db, cardId, new[] { normalizedAssignedUserId });
         await db.SaveChangesAsync();
 
         if (oldAssigneeId != normalizedAssignedUserId)
@@ -1274,6 +1282,11 @@ public class KanbanController(
 
         board.IsPublic = publicAccess;
         await db.SaveChangesAsync();
+        if (!publicAccess)
+        {
+            await CardSubscriptionService.RemoveSubscriptionsWithoutBoardAccessAsync(db, board.Id);
+            await db.SaveChangesAsync();
+        }
         return RedirectToAction(nameof(ManageShares), new { id });
     }
 
@@ -1348,6 +1361,8 @@ public class KanbanController(
 
         db.BoardShares.Remove(share);
         await db.SaveChangesAsync();
+        await CardSubscriptionService.RemoveSubscriptionsWithoutBoardAccessAsync(db, share.BoardId);
+        await db.SaveChangesAsync();
 
         return RedirectToAction(nameof(ManageShares), new { id = share.BoardId });
     }
@@ -1380,6 +1395,7 @@ public class KanbanController(
             Images = images
         };
         db.KanbanCardComments.Add(comment);
+        await CardSubscriptionService.SubscribeAsync(db, cardId, new[] { userId });
         await db.SaveChangesAsync();
 
         await PublishNotificationEventAsync(new CardCommentAddedEvent(
