@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Json;
 using Aiursoft.Kanban.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,8 @@ namespace Aiursoft.Kanban.Tests.IntegrationTests;
 [TestClass]
 public class BoardSharingTests : TestBase
 {
+    private sealed record TransferCardResult(int Id);
+
     [TestMethod]
     public async Task Owner_CanEdit_TheirOwnBoard()
     {
@@ -228,6 +231,9 @@ public class BoardSharingTests : TestBase
             $"/Kanban/TransferCard?cardId={cardId}&targetBoardId={targetBoardId}&targetColumnId={targetColumnId}",
             new Dictionary<string, string>());
         Assert.AreEqual(HttpStatusCode.OK, transferResponse.StatusCode);
+        var transferResult = await transferResponse.Content.ReadFromJsonAsync<TransferCardResult>();
+        Assert.IsNotNull(transferResult);
+        Assert.AreNotEqual(cardId, transferResult.Id);
 
         using (var scope = Server!.Services.CreateScope())
         {
@@ -237,7 +243,7 @@ public class BoardSharingTests : TestBase
             var transferredCard = await db.KanbanCards
                 .Include(card => card.CardLabels)
                 .SingleAsync(card => card.ColumnId == targetColumnId && card.Title == "Move me");
-            Assert.AreNotEqual(cardId, transferredCard.Id);
+            Assert.AreEqual(transferResult.Id, transferredCard.Id);
             Assert.AreEqual("Move me", transferredCard.Title);
             Assert.AreEqual("Keep details", transferredCard.Description);
             Assert.AreEqual(1, transferredCard.Order);
@@ -256,6 +262,14 @@ public class BoardSharingTests : TestBase
                 .SingleAsync();
             Assert.AreEqual(sourceOwnerId, transferredSubscriberId);
         }
+
+        var transferredCardResponse = await Http.GetAsync(
+            $"/Cards/{transferResult.Id}?returnBoardId={targetBoardId}");
+        Assert.AreEqual(HttpStatusCode.OK, transferredCardResponse.StatusCode);
+
+        var originalCardResponse = await Http.GetAsync(
+            $"/Cards/{cardId}?returnBoardId={sourceBoardId}");
+        Assert.AreEqual(HttpStatusCode.NotFound, originalCardResponse.StatusCode);
     }
 
     [TestMethod]

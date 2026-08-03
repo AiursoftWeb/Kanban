@@ -41,6 +41,10 @@ interface TransferTargetDto {
   }>;
 }
 
+interface TransferCardResult {
+  Id: number;
+}
+
 interface LabelSearchResult {
   Id: number;
   Name: string;
@@ -915,13 +919,17 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     const targetColumnId = parseInt(refs.transferTargetColumn?.value ?? '0', 10);
     if (!targetBoardId || !targetColumnId) return;
 
-    await ensureOk(postForm('/Kanban/TransferCard', {
+    const response = await postForm('/Kanban/TransferCard', {
       cardId: options.cardId,
       targetBoardId,
       targetColumnId,
-    }, options.csrfToken));
+    }, options.csrfToken);
+    const transferredCard = await readJsonOrThrow<TransferCardResult>(response);
+    if (!Number.isInteger(transferredCard.Id) || transferredCard.Id <= 0) {
+      throw new Error(t('server-error', 'Server error'));
+    }
 
-    window.location.href = `/Cards/${options.cardId}?returnBoardId=${targetBoardId}`;
+    window.location.href = `/Cards/${transferredCard.Id}?returnBoardId=${targetBoardId}`;
   }
 
   async function deleteCard(): Promise<void> {
