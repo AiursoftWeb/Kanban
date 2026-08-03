@@ -1,5 +1,4 @@
 using System.Net;
-using System.Net.Http.Json;
 using Aiursoft.Kanban.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
