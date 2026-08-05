@@ -45,18 +45,10 @@ public class BatchWriteTools(
         // Validate all inputs first so the operation is atomic.
         for (var i = 0; i < inputs.Count; i++)
         {
-            var input = inputs[i];
-            if (string.IsNullOrWhiteSpace(input.Title))
+            if (string.IsNullOrWhiteSpace(inputs[i].Title))
                 return $"Error: Card at index {i} has an empty title.";
 
-            var normalizedDescription = string.IsNullOrWhiteSpace(input.Description)
-                ? null
-                : input.Description!.Trim();
-            if (normalizedDescription?.Length > KanbanCard.DescriptionMaxLength)
-                return $"Error: Card description at index {i} cannot exceed {KanbanCard.DescriptionMaxLength} characters.";
-            input.Description = normalizedDescription;
-
-            var rawAssignee = input.AssignedUserId;
+            var rawAssignee = inputs[i].AssignedUserId;
             var assignee = rawAssignee switch
             {
                 null => userId,
@@ -85,7 +77,7 @@ public class BatchWriteTools(
             var card = new KanbanCard
             {
                 Title = input.Title!.Trim(),
-                Description = input.Description,
+                Description = input.Description?.Trim(),
                 Order = maxOrder,
                 ColumnId = columnId,
                 CreatorUserId = userId,

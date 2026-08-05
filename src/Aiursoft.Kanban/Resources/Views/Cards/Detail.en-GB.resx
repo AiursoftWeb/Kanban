@@ -289,10 +289,4 @@
     <value>You can drag images here or paste from clipboard.</value>
   </data>
 
-  <data name="{0} / {1} characters" xml:space="preserve">
-    <value>{0} / {1} characters</value>
-  </data>
-  <data name="Description is too long. Remove {0} characters before saving." xml:space="preserve">
-    <value>Description is too long. Remove {0} characters before saving.</value>
-  </data>
 </root>

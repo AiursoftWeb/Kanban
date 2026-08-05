@@ -289,10 +289,4 @@
     <value>您可以在此拖放图片或从剪贴板粘贴。</value>
   </data>
 
-  <data name="{0} / {1} characters" xml:space="preserve">
-    <value>{0} / {1} 个字符</value>
-  </data>
-  <data name="Description is too long. Remove {0} characters before saving." xml:space="preserve">
-    <value>描述过长，请先删除 {0} 个字符再保存。</value>
-  </data>
 </root>

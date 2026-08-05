@@ -159,7 +159,7 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(160000)
+                        .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("DueDate")
