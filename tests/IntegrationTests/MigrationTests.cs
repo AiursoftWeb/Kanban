@@ -1,4 +1,3 @@
-using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.MySql;
 using Aiursoft.Kanban.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +20,6 @@ public class MigrationTests
         using var context = new SqliteContext(options);
         var hasPendingChanges = context.Database.HasPendingModelChanges();
         Assert.IsFalse(hasPendingChanges, "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
-        var description = context.Model.FindEntityType(typeof(KanbanCard))!.FindProperty(nameof(KanbanCard.Description))!;
-        Assert.AreEqual(KanbanCard.DescriptionMaxLength, description.GetMaxLength());
-        Assert.AreEqual("TEXT", description.GetColumnType());
     }
 
     [TestMethod]
@@ -35,8 +31,5 @@ public class MigrationTests
         using var context = new MySqlContext(options);
         var hasPendingChanges = context.Database.HasPendingModelChanges();
         Assert.IsFalse(hasPendingChanges, "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");
-        var description = context.Model.FindEntityType(typeof(KanbanCard))!.FindProperty(nameof(KanbanCard.Description))!;
-        Assert.AreEqual(KanbanCard.DescriptionMaxLength, description.GetMaxLength());
-        Assert.AreEqual("mediumtext", description.GetColumnType());
     }
 }

@@ -357,10 +357,6 @@ public class KanbanController(
         if (string.IsNullOrWhiteSpace(title))
             return BadRequest("Title is required.");
 
-        var normalizedDescription = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
-        if (normalizedDescription?.Length > KanbanCard.DescriptionMaxLength)
-            return BadRequest($"Description cannot exceed {KanbanCard.DescriptionMaxLength} characters.");
-
         var column = await db.KanbanColumns
             .Include(c => c.Board)
             .FirstOrDefaultAsync(c => c.Id == columnId);
@@ -376,7 +372,7 @@ public class KanbanController(
         var card = new KanbanCard
         {
             Title = title.Trim(),
-            Description = normalizedDescription,
+            Description = description?.Trim(),
             Order = maxOrder + 1,
             ColumnId = columnId,
             CreatorUserId = userId,
@@ -900,10 +896,6 @@ public class KanbanController(
         if (string.IsNullOrWhiteSpace(title))
             return BadRequest("Title is required.");
 
-        var newDescription = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
-        if (newDescription?.Length > KanbanCard.DescriptionMaxLength)
-            return BadRequest($"Description cannot exceed {KanbanCard.DescriptionMaxLength} characters.");
-
         if (!Enum.IsDefined(typeof(Priority), priority))
             return BadRequest("Invalid priority.");
 
@@ -939,6 +931,7 @@ public class KanbanController(
         var changedFields = new List<string>();
         if (!string.Equals(card.Title, title.Trim(), StringComparison.Ordinal))
             changedFields.Add("title");
+        var newDescription = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
         if (!string.Equals(card.Description, newDescription, StringComparison.Ordinal))
             changedFields.Add("description");
         var newPlanned = NormalizeDateTime(plannedStartTime);
