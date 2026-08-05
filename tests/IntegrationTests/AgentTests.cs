@@ -870,6 +870,49 @@ public class AgentTests : TestBase
     }
 
     [TestMethod]
+    public async Task BatchCreateCards_WithDescriptionAtLimit_CreatesCardWithoutTruncation()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(user => user.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var description = new string('中', KanbanCard.DescriptionMaxLength);
+        var cardsJson = JsonSerializer.Serialize(new[] { new { title = "Maximum", description } });
+
+        var result = await scope.ServiceProvider.GetRequiredService<BatchWriteTools>()
+            .BatchCreateCards(columnId, cardsJson);
+
+        StringAssert.Contains(result, "Created 1 card(s)");
+        Assert.AreEqual(description, db.KanbanCards.Single(card => card.ColumnId == columnId).Description);
+    }
+
+    [TestMethod]
+    public async Task BatchCreateCards_WhenAnyDescriptionIsOverLimit_RejectsEntireBatch()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(user => user.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var cardsJson = JsonSerializer.Serialize(new[]
+        {
+            new { title = "Valid", description = "Valid description" },
+            new { title = "Too long", description = new string('文', KanbanCard.DescriptionMaxLength + 1) }
+        });
+
+        var result = await scope.ServiceProvider.GetRequiredService<BatchWriteTools>()
+            .BatchCreateCards(columnId, cardsJson);
+
+        StringAssert.Contains(result, $"cannot exceed {KanbanCard.DescriptionMaxLength} characters");
+        Assert.IsFalse(db.KanbanCards.Any(card => card.ColumnId == columnId));
+    }
+
+    [TestMethod]
     public async Task BatchCreateCards_CaseInsensitivePropertyNames()
     {
         // Verifies the fix: System.Text.Json deserializes with PropertyNameCaseInsensitive = true
@@ -1614,6 +1657,71 @@ public class AgentTests : TestBase
         // Verify no card was created
         var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).ToList();
         Assert.AreEqual(0, cards.Count, "No card should be created when assignee is invalid");
+    }
+
+    [TestMethod]
+    public async Task CreateCard_WithDescriptionAtLimit_CreatesCardWithoutTruncation()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(user => user.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var description = new string('中', KanbanCard.DescriptionMaxLength);
+
+        var result = await scope.ServiceProvider.GetRequiredService<CardWriteTools>()
+            .CreateCard(columnId, "Maximum description", description);
+
+        StringAssert.Contains(result, "Card created:");
+        Assert.AreEqual(description, db.KanbanCards.Single(card => card.ColumnId == columnId).Description);
+    }
+
+    [TestMethod]
+    public async Task CreateCard_WithDescriptionOverLimit_ReturnsErrorAndCreatesNothing()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(user => user.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+
+        var result = await scope.ServiceProvider.GetRequiredService<CardWriteTools>()
+            .CreateCard(columnId, "Too long", new string('文', KanbanCard.DescriptionMaxLength + 1));
+
+        StringAssert.Contains(result, $"cannot exceed {KanbanCard.DescriptionMaxLength} characters");
+        Assert.IsFalse(db.KanbanCards.Any(card => card.ColumnId == columnId));
+    }
+
+    [TestMethod]
+    public async Task UpdateCardDetails_DescriptionLimitIsAcceptedAndOverLimitKeepsExistingCard()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var adminUser = db.Users.First(user => user.Email == "admin@default.com");
+        scope.ServiceProvider.GetRequiredService<CurrentUserService>().UserId = adminUser.Id;
+        var writeTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        await writeTools.CreateCard(columnId, "Original title", "Original description");
+        var card = db.KanbanCards.Single(entity => entity.ColumnId == columnId);
+        var descriptionAtLimit = new string('中', KanbanCard.DescriptionMaxLength);
+
+        var accepted = await writeTools.UpdateCardDetails(
+            card.Id, "Accepted title", descriptionAtLimit, null, null, (int)Priority.None, "");
+        StringAssert.Contains(accepted, "updated successfully");
+        Assert.AreEqual(descriptionAtLimit, card.Description);
+
+        var rejected = await writeTools.UpdateCardDetails(
+            card.Id, "Rejected title", new string('文', KanbanCard.DescriptionMaxLength + 1),
+            null, null, (int)Priority.None, "");
+        StringAssert.Contains(rejected, $"cannot exceed {KanbanCard.DescriptionMaxLength} characters");
+        Assert.AreEqual("Accepted title", card.Title);
+        Assert.AreEqual(descriptionAtLimit, card.Description);
     }
 
     // ── GetMyTasks ──────────────────────────────────────

@@ -1,5 +1,6 @@
 @using System.Text.Json
 @using Aiursoft.WebTools
+@using Aiursoft.Kanban.Entities
 @model Aiursoft.Kanban.Models.CardViewModels.CardDetailViewModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
 @inject Aiursoft.Kanban.Services.FileStorage.StorageService StorageService
@@ -334,6 +335,10 @@
                                     <div class="detail-section-note mb-2">@Localizer["Markdown, Mermaid and MathJax are all supported."]</div>
                                     <div id="descEditorContainer" style="height:360px;border:1px solid var(--bs-border-color, #dee2e6);border-radius:14px;overflow:hidden"></div>
                                     <textarea id="descInitialValue" class="form-control" rows="12">@Model.Description</textarea>
+                                    <div class="d-flex justify-content-between align-items-start gap-3 mt-2">
+                                        <div class="text-danger small d-none" id="descLengthError" role="alert"></div>
+                                        <div class="detail-section-note ms-auto text-nowrap" id="descCharacterCount"></div>
+                                    </div>
                                 </div>
                                 <div id="descPreviewTab" hidden>
                                     <div class="description-preview border rounded-4 p-3 bg-light-subtle h-100" id="descLivePreview" style="min-height:360px"></div>
@@ -773,6 +778,8 @@
     <span data-key="failed-add-comment">@Localizer["Failed to add comment."]</span>
     <span data-key="failed-delete-comment">@Localizer["Failed to delete comment."]</span>
     <span data-key="failed-save">@Localizer["Failed to save."]</span>
+    <span data-key="description-character-count">@Localizer["{0} / {1} characters", "{0}", "{1}"]</span>
+    <span data-key="description-too-long">@Localizer["Description is too long. Remove {0} characters before saving.", "{0}"]</span>
     <span data-key="failed-add-label">@Localizer["Failed to add label."]</span>
     <span data-key="failed-remove-label">@Localizer["Failed to remove label."]</span>
     <span data-key="failed-upload-image">@Localizer["Failed to upload image."]</span>
@@ -828,6 +835,7 @@
                 mermaidTheme: '@(isDarkMode ? "dark" : "default")',
                 returnBoardUrl: '@returnBoardUrl',
                 initialTitle: @Html.Raw(JsonSerializer.Serialize(Model.Title)),
+                descriptionMaxLength: @KanbanCard.DescriptionMaxLength,
                 initialPriority: @Model.Priority,
                 initialAssigneeId: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeId)),
                 initialAssigneeName: @Html.Raw(JsonSerializer.Serialize(Model.AssigneeName)),

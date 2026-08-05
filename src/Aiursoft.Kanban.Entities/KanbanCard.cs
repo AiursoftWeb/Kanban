@@ -7,13 +7,15 @@ namespace Aiursoft.Kanban.Entities;
 [ExcludeFromCodeCoverage]
 public class KanbanCard
 {
+    public const int DescriptionMaxLength = 160_000;
+
     public int Id { get; set; }
 
     [MaxLength(200)]
     [MinLength(1)]
     public required string Title { get; set; }
 
-    [MaxLength(2000)]
+    [MaxLength(DescriptionMaxLength)]
     public string? Description { get; set; }
 
     public int Order { get; set; }
