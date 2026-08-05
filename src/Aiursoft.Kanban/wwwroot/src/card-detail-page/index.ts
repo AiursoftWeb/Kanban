@@ -13,6 +13,7 @@ interface CardDetailPageOptions {
   mermaidTheme: 'default' | 'dark';
   returnBoardUrl: string;
   initialTitle: string;
+  descriptionMaxLength: number;
   initialPriority: number;
   initialAssigneeId?: string;
   initialAssigneeName?: string;
@@ -162,6 +163,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     editDescriptionButton: document.getElementById('btnEditDesc'),
     cancelDescriptionButton: document.getElementById('btnCancelDesc'),
     saveDescriptionButton: document.getElementById('btnSaveDesc') as HTMLButtonElement | null,
+    descriptionCharacterCount: document.getElementById('descCharacterCount'),
+    descriptionLengthError: document.getElementById('descLengthError'),
     editorTabButton: document.getElementById('btnEditorTab'),
     previewTabButton: document.getElementById('btnPreviewTab'),
     priorityGroup: document.getElementById('priorityGroup'),
@@ -266,6 +269,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       },
     });
     monacoEditor = markdownEditorController.editor;
+    monacoEditor?.onDidChangeModelContent(updateDescriptionLengthState);
+    updateDescriptionLengthState();
   }
 
   function getDescriptionValue(): string {
@@ -273,6 +278,13 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   }
 
   async function saveDescription(closeEditor: boolean): Promise<void> {
+    if (!updateDescriptionLengthState()) {
+      const excess = getDescriptionValue().length - options.descriptionMaxLength;
+      showFriendlyDialog(t('description-too-long', 'Description is too long. Remove {0} characters before saving.')
+        .replace('{0}', excess.toLocaleString()));
+      return;
+    }
+
     try {
       await saveCardDetails();
       if (refs.descriptionInitialValue) {
@@ -296,6 +308,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   renderAssigneeSummary();
   syncRecurrenceVisibility();
   renderMainDescription();
+  updateDescriptionLengthState();
   loadComments().catch(console.error);
   if (refs.transferTargetBoard) {
     loadTransferTargets().catch(console.error);
@@ -322,6 +335,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     refs.saveDescriptionButton?.addEventListener('click', () => {
       void saveDescription(true);
     });
+
+    refs.descriptionInitialValue?.addEventListener('input', updateDescriptionLengthState);
 
     if (refs.titleDisplay && refs.titleInput && options.canEdit) {
       refs.titleDisplay.addEventListener('click', () => {
@@ -585,6 +600,34 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     refs.descriptionEmpty.classList.add('d-none');
     refs.descriptionPreview.classList.remove('d-none');
     renderDescriptionPreview(text, refs.descriptionPreview);
+  }
+
+  function updateDescriptionLengthState(): boolean {
+    const length = getDescriptionValue().length;
+    const isValid = length <= options.descriptionMaxLength;
+    const formattedLength = length.toLocaleString();
+    const formattedLimit = options.descriptionMaxLength.toLocaleString();
+
+    if (refs.descriptionCharacterCount) {
+      refs.descriptionCharacterCount.textContent = t('description-character-count', '{0} / {1} characters')
+        .replace('{0}', formattedLength)
+        .replace('{1}', formattedLimit);
+      refs.descriptionCharacterCount.classList.toggle('text-danger', !isValid);
+    }
+
+    if (refs.descriptionLengthError) {
+      refs.descriptionLengthError.textContent = isValid
+        ? ''
+        : t('description-too-long', 'Description is too long. Remove {0} characters before saving.')
+          .replace('{0}', (length - options.descriptionMaxLength).toLocaleString());
+      refs.descriptionLengthError.classList.toggle('d-none', isValid);
+    }
+
+    if (refs.saveDescriptionButton) {
+      refs.saveDescriptionButton.disabled = !isValid;
+    }
+
+    return isValid;
   }
 
   function renderLiveDescriptionPreview(): void {

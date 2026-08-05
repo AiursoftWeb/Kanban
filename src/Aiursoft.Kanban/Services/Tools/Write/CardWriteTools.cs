@@ -29,6 +29,10 @@ public class CardWriteTools(
         if (string.IsNullOrWhiteSpace(title))
             return "Error: Card title is required.";
 
+        var normalizedDescription = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
+        if (normalizedDescription?.Length > KanbanCard.DescriptionMaxLength)
+            return $"Error: Card description cannot exceed {KanbanCard.DescriptionMaxLength} characters.";
+
         var column = await db.KanbanColumns.Include(c => c.Board).FirstOrDefaultAsync(c => c.Id == columnId);
         if (column == null) return "Error: Column not found.";
         if (!await access.HasEditAccess(column.Board, userId)) return "Error: You do not have permission to edit this board.";
@@ -50,7 +54,7 @@ public class CardWriteTools(
         var card = new KanbanCard
         {
             Title = title.Trim(),
-            Description = description?.Trim(),
+            Description = normalizedDescription,
             Order = maxOrder + 1,
             ColumnId = columnId,
             CreatorUserId = userId,
@@ -141,6 +145,10 @@ public class CardWriteTools(
         if (!Enum.IsDefined(typeof(Priority), priority))
             return "Error: Invalid priority. Use 0-4.";
 
+        var normalizedDescription = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
+        if (normalizedDescription?.Length > KanbanCard.DescriptionMaxLength)
+            return $"Error: Card description cannot exceed {KanbanCard.DescriptionMaxLength} characters.";
+
         var card = await db.KanbanCards
             .Include(c => c.Column).ThenInclude(col => col.Board)
             .FirstOrDefaultAsync(c => c.Id == cardId);
@@ -153,7 +161,7 @@ public class CardWriteTools(
             return "Error: Assigned user does not have access to this board.";
 
         card.Title = title.Trim();
-        card.Description = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
+        card.Description = normalizedDescription;
         card.Priority = (Priority)priority;
         card.AssignedUserId = normalizedAssignedUserId;
         await CardSubscriptionService.SubscribeAsync(db, cardId, new[] { normalizedAssignedUserId });

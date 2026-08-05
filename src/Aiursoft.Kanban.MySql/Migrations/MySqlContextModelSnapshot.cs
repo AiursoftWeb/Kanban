@@ -168,8 +168,8 @@ namespace Aiursoft.Kanban.MySql.Migrations
                         .HasColumnType("varchar(450)");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(2000)
-                        .HasColumnType("varchar(2000)");
+                        .HasMaxLength(160000)
+                        .HasColumnType("mediumtext");
 
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("datetime(6)");

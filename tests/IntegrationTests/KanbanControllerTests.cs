@@ -113,6 +113,69 @@ public class KanbanControllerTests : TestBase
     }
 
     [TestMethod]
+    public async Task CreateCard_WithOneHundredThousandCharacterDescription_PersistsAndReturnsCompleteText()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var description = string.Concat(new string('中', 50_000), "\n", new string('文', 49_999));
+
+        var response = await PostAsync(
+            $"/Kanban/CreateCard?columnId={columnId}&title=Long%20paper",
+            new Dictionary<string, string> { { "description", description } });
+        response.EnsureSuccessStatusCode();
+
+        using var document = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+        Assert.AreEqual(description, document.RootElement.GetProperty("Description").GetString());
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(description, await db.KanbanCards
+            .Where(card => card.ColumnId == columnId)
+            .Select(card => card.Description)
+            .SingleAsync());
+    }
+
+    [TestMethod]
+    public async Task CreateCard_WithDescriptionOverLimit_ReturnsBadRequestAndCreatesNothing()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        var response = await PostAsync(
+            $"/Kanban/CreateCard?columnId={columnId}&title=Too%20long",
+            new Dictionary<string, string>
+            {
+                { "description", new string('中', KanbanCard.DescriptionMaxLength + 1) }
+            });
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        StringAssert.Contains(await response.Content.ReadAsStringAsync(), KanbanCard.DescriptionMaxLength.ToString());
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsFalse(await db.KanbanCards.AnyAsync(card => card.ColumnId == columnId));
+    }
+
+    [TestMethod]
+    public async Task CreateCard_WithWhitespaceDescription_StoresNull()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+
+        var response = await PostAsync(
+            $"/Kanban/CreateCard?columnId={columnId}&title=Blank%20description",
+            new Dictionary<string, string> { { "description", " \r\n\t " } });
+        response.EnsureSuccessStatusCode();
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsNull(await db.KanbanCards
+            .Where(card => card.ColumnId == columnId)
+            .Select(card => card.Description)
+            .SingleAsync());
+    }
+
+    [TestMethod]
     public async Task CreateCard_EmptyTitle_ReturnsBadRequest()
     {
         await LoginAsAdmin();
@@ -440,6 +503,67 @@ public class KanbanControllerTests : TestBase
         var moved = await verificationDb.KanbanCards.FindAsync(card.Id);
         Assert.AreEqual(completedColumnId, moved!.ColumnId);
         Assert.AreEqual(dueDate, moved.DueDate);
+    }
+
+    [TestMethod]
+    public async Task UpdateCardDetails_WithDescriptionAtLimit_PersistsAndReturnsCompleteText()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Maximum description");
+        var description = new string('中', KanbanCard.DescriptionMaxLength);
+
+        var response = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "description", $"  {description}  " }
+            });
+        response.EnsureSuccessStatusCode();
+
+        using var document = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+        Assert.AreEqual(description, document.RootElement.GetProperty("Description").GetString());
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(description, (await db.KanbanCards.FindAsync(card.Id))!.Description);
+    }
+
+    [TestMethod]
+    public async Task UpdateCardDetails_WithDescriptionOverLimit_ReturnsBadRequestAndKeepsExistingDescription()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Keep existing description");
+        const string existingDescription = "Original description";
+
+        using (var setupScope = Server!.Services.CreateScope())
+        {
+            var setupDb = setupScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var existingCard = await setupDb.KanbanCards.FindAsync(card.Id);
+            existingCard!.Description = existingDescription;
+            await setupDb.SaveChangesAsync();
+        }
+
+        var response = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", "Changed title" },
+                { "description", new string('文', KanbanCard.DescriptionMaxLength + 1) }
+            });
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        StringAssert.Contains(await response.Content.ReadAsStringAsync(), KanbanCard.DescriptionMaxLength.ToString());
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var unchangedCard = await verificationDb.KanbanCards.FindAsync(card.Id);
+        Assert.AreEqual(card.Title, unchangedCard!.Title);
+        Assert.AreEqual(existingDescription, unchangedCard.Description);
     }
 
     [TestMethod]
