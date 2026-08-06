@@ -932,6 +932,8 @@ public class KanbanController(
         if (!string.Equals(card.Title, title.Trim(), StringComparison.Ordinal))
             changedFields.Add("title");
         var newDescription = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
+        if (newDescription?.Length > 160_000)
+            return BadRequest("Description cannot exceed 160,000 characters.");
         if (!string.Equals(card.Description, newDescription, StringComparison.Ordinal))
             changedFields.Add("description");
         var newPlanned = NormalizeDateTime(plannedStartTime);

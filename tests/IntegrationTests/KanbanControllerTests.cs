@@ -658,6 +658,64 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
     }
 
+    [TestMethod]
+    public async Task UpdateCardDetails_DescriptionAtMaximumLength_SavesCompleteDescription()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Long description");
+        var description = new string('文', 160_000);
+
+        var response = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", card.Title },
+                { "description", description }
+            });
+
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        var json = await response.Content.ReadAsStringAsync();
+        using var doc = JsonDocument.Parse(json);
+        Assert.AreEqual(description, doc.RootElement.GetProperty("Description").GetString());
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(description, (await db.KanbanCards.FindAsync(card.Id))!.Description);
+    }
+
+    [TestMethod]
+    public async Task UpdateCardDetails_DescriptionOverMaximumLength_ReturnsBadRequestWithoutChanges()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Original title");
+        const string originalDescription = "Original description";
+        using (var setupScope = Server!.Services.CreateScope())
+        {
+            var setupDb = setupScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            (await setupDb.KanbanCards.FindAsync(card.Id))!.Description = originalDescription;
+            await setupDb.SaveChangesAsync();
+        }
+
+        var response = await PostAsync(
+            "/Kanban/UpdateCardDetails",
+            new Dictionary<string, string>
+            {
+                { "cardId", card.Id.ToString() },
+                { "title", "Changed title" },
+                { "description", new string('文', 160_001) }
+            });
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var unchangedCard = await verificationDb.KanbanCards.FindAsync(card.Id);
+        Assert.AreEqual(card.Title, unchangedCard!.Title);
+        Assert.AreEqual(originalDescription, unchangedCard.Description);
+    }
+
     // ── Helpers ────────────────────────────────────────────
 
     private async Task<HttpResponseMessage> CreateBoardAsync(string name)
