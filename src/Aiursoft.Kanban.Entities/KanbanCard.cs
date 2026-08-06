@@ -13,7 +13,7 @@ public class KanbanCard
     [MinLength(1)]
     public required string Title { get; set; }
 
-    [MaxLength(2000)]
+    [MaxLength(160_000)]
     public string? Description { get; set; }
 
     public int Order { get; set; }
