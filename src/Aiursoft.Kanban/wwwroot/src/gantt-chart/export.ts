@@ -55,18 +55,26 @@ function buildOffscreenClone(source: HTMLElement): {
 // only clamps a single side that exceeds 16384, so it never bounds the total area.
 const MAX_TOTAL_PIXELS = 64_000_000; // ~8000×8000 at ratio 1
 const BASE_PIXEL_RATIO = 2;
-const MIN_PIXEL_RATIO = 0.5;
+// Below this ratio the rasterized chart is too blurry to be useful, so we
+// refuse the PNG export and point users to SVG/tiled export instead.
+const MIN_ACCEPTABLE_PIXEL_RATIO = 1;
 
 /**
- * Pick the largest pixelRatio that keeps width·height·ratio² within the cap.
- * Returns BASE_PIXEL_RATIO when the chart already fits.
+ * Compute the pixelRatio that keeps width·height·ratio² within MAX_TOTAL_PIXELS.
+ * Never returns a ratio that would exceed the budget. Throws when the chart is
+ * so large that even a 1× ratio would blow the cap, since silently dropping to
+ * a sub-1 ratio would both break the cap and produce an unreadable image.
  */
 function safePixelRatio(width: number, height: number): number {
     if (width <= 0 || height <= 0) return BASE_PIXEL_RATIO;
     const totalAtBase = width * BASE_PIXEL_RATIO * height * BASE_PIXEL_RATIO;
     if (totalAtBase <= MAX_TOTAL_PIXELS) return BASE_PIXEL_RATIO;
     const ratio = Math.sqrt(MAX_TOTAL_PIXELS / (width * height));
-    return Math.max(MIN_PIXEL_RATIO, Math.floor(ratio * 100) / 100);
+    const clamped = Math.min(BASE_PIXEL_RATIO, Math.floor(ratio * 100) / 100);
+    if (clamped < MIN_ACCEPTABLE_PIXEL_RATIO) {
+        throw new Error('Chart too large for PNG export; use SVG or tiled export.');
+    }
+    return clamped;
 }
 
 function triggerDownload(dataUrl: string, filename: string): void {

@@ -53,6 +53,7 @@ function loadStrings(): GanttStrings {
     missingActualEnd:     t('gantt-missing-actual-end',     'Missing actual end date'),
     missingDateFallback:  t('gantt-missing-date-fallback',  'Missing date information (planned or actual dates are incomplete)'),
     noExportableChart:    t('gantt-no-exportable-chart',    'No cards have complete dates to export in this mode.'),
+    chartTooLarge:         t('gantt-chart-too-large',        'This chart is too large to export as a single PNG. Use the SVG export or split it into tiles.'),
   };
 }
 
@@ -110,7 +111,9 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
         console.error('Gantt export failed:', err);
         const msg = err instanceof Error && err.message.includes('No drawable')
           ? strings.noExportableChart
-          : t('gantt-export-failed', 'Failed to export the Gantt chart. Please try again.');
+          : err instanceof Error && err.message.includes('too large')
+            ? strings.chartTooLarge
+            : t('gantt-export-failed', 'Failed to export the Gantt chart. Please try again.');
         alert(msg);
       } finally {
         updateExportButton();
