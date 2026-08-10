@@ -72,7 +72,7 @@ function safePixelRatio(width: number, height: number): number {
     const ratio = Math.sqrt(MAX_TOTAL_PIXELS / (width * height));
     const clamped = Math.min(BASE_PIXEL_RATIO, Math.floor(ratio * 100) / 100);
     if (clamped < MIN_ACCEPTABLE_PIXEL_RATIO) {
-        throw new Error('Chart too large for PNG export; use SVG or tiled export.');
+        throw new Error('Chart too large for PNG export.');
     }
     return clamped;
 }

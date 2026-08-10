@@ -53,7 +53,8 @@ function loadStrings(): GanttStrings {
     missingActualEnd:     t('gantt-missing-actual-end',     'Missing actual end date'),
     missingDateFallback:  t('gantt-missing-date-fallback',  'Missing date information (planned or actual dates are incomplete)'),
     noExportableChart:    t('gantt-no-exportable-chart',    'No cards have complete dates to export in this mode.'),
-    chartTooLarge:         t('gantt-chart-too-large',        'This chart is too large to export as a single PNG. Use the SVG export or split it into tiles.'),
+    chartTooLarge:         t('gantt-chart-too-large',        'The chart is too large to export as a PNG image.'),
+    dialogOk:              t('gantt-dialog-ok',              'OK'),
   };
 }
 
@@ -114,7 +115,7 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
           : err instanceof Error && err.message.includes('too large')
             ? strings.chartTooLarge
             : t('gantt-export-failed', 'Failed to export the Gantt chart. Please try again.');
-        alert(msg);
+        showGanttDialog(msg, strings.dialogOk);
       } finally {
         updateExportButton();
         exportBtn.innerHTML = originalLabel;
@@ -135,4 +136,32 @@ function refreshIcons(node?: ParentNode): void {
   } else {
     lucide.createIcons();
   }
+}
+
+/**
+ * Show a lightweight modal dialog (replaces native alert) with a single OK button.
+ * Clicking OK or the backdrop dismisses it.
+ */
+function showGanttDialog(message: string, okLabel: string): void {
+  const overlay = document.createElement('div');
+  overlay.className = 'gantt-dialog-overlay';
+  overlay.innerHTML = `
+    <div class="gantt-dialog" role="dialog" aria-modal="true">
+      <i data-lucide="alert-triangle" class="gantt-dialog-icon"></i>
+      <div class="gantt-dialog-message"></div>
+      <button type="button" class="btn btn-primary btn-sm gantt-dialog-ok"></button>
+    </div>`;
+  overlay.querySelector('.gantt-dialog-message')!.textContent = message;
+  const okBtn = overlay.querySelector<HTMLButtonElement>('.gantt-dialog-ok')!;
+  okBtn.textContent = okLabel;
+
+  const close = () => overlay.remove();
+  okBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) close();
+  });
+
+  document.body.appendChild(overlay);
+  refreshIcons(overlay);
+  okBtn.focus();
 }

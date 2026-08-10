@@ -541,3 +541,43 @@
   color: #9ca3af;
   white-space: nowrap;
 }
+
+/* ---------- Export dialog (replaces native alert) ---------- */
+.gantt-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.45);
+  padding: 16px;
+}
+
+.gantt-dialog {
+  max-width: 360px;
+  width: 100%;
+  background: var(--bs-body-bg, #fff);
+  border-radius: 12px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  text-align: center;
+}
+
+.gantt-dialog-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 12px;
+  color: #ef4444;
+}
+
+.gantt-dialog-message {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--bs-body-color, #1e293b);
+  margin-bottom: 18px;
+}
+
+.gantt-dialog-ok {
+  min-width: 96px;
+}
