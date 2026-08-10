@@ -11,7 +11,8 @@ namespace Aiursoft.Kanban.Services.Tools.Read;
 [McpServerToolType]
 public class NotificationReadTools(
     TemplateDbContext db,
-    CurrentUserService currentUser) : IScopedDependency
+    CurrentUserService currentUser,
+    TimeProvider timeProvider) : IScopedDependency
 {
     [McpServerTool, Description("Get the count of unread notifications for the current user")]
     public async Task<string> GetUnreadNotificationCount()
@@ -77,9 +78,9 @@ public class NotificationReadTools(
         return string.Join("\n", lines);
     }
 
-    private static string GetRelativeTime(DateTime utcTime)
+    private string GetRelativeTime(DateTime utcTime)
     {
-        var diff = DateTime.UtcNow - utcTime;
+        var diff = timeProvider.GetUtcNow().UtcDateTime - utcTime;
         return diff.TotalMinutes switch
         {
             < 1 => "just now",

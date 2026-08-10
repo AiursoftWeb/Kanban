@@ -12,7 +12,8 @@ namespace Aiursoft.Kanban.Services.Tools.Read;
 public class CardReadTools(
     TemplateDbContext db,
     KanbanAccessService access,
-    CurrentUserService currentUser) : IScopedDependency
+    CurrentUserService currentUser,
+    TimeProvider timeProvider) : IScopedDependency
 {
     [McpServerTool, Description("Get detailed information about a specific card")]
     public async Task<string> GetCardById(
@@ -90,7 +91,7 @@ public class CardReadTools(
         if (board == null) return "Board not found.";
         if (!await access.HasReadAccess(board, userId)) return "You do not have access to this board.";
 
-        var now = DateTime.UtcNow;
+        var now = timeProvider.GetUtcNow().UtcDateTime;
         var cards = await db.KanbanCards
             .Include(c => c.Column)
             .Where(c => c.Column.BoardId == boardId &&

@@ -1,5 +1,7 @@
 using System.ComponentModel;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Services.Access;
+using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Scanner.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using ModelContextProtocol.Server;
@@ -7,7 +9,10 @@ using ModelContextProtocol.Server;
 namespace Aiursoft.Kanban.Services.Tools.Read;
 
 [McpServerToolType]
-public class LabelReadTools(TemplateDbContext db) : IScopedDependency
+public class LabelReadTools(
+    TemplateDbContext db,
+    KanbanAccessService access,
+    CurrentUserService currentUser) : IScopedDependency
 {
     [McpServerTool, Description("Search for labels by name")]
     public async Task<string> SearchLabels(
@@ -35,10 +40,12 @@ public class LabelReadTools(TemplateDbContext db) : IScopedDependency
         [Description("Card ID")] int cardId)
     {
         var card = await db.KanbanCards
+            .Include(c => c.Column).ThenInclude(column => column.Board)
             .Include(c => c.CardLabels).ThenInclude(cl => cl.Label)
             .FirstOrDefaultAsync(c => c.Id == cardId);
 
-        if (card == null) return "Card not found.";
+        if (card == null || !await access.HasReadAccess(card.Column.Board, currentUser.UserId))
+            return "Error: permission_denied: You do not have permission to view this card.";
 
         var labels = card.CardLabels.Select(cl => cl.Label).ToList();
         if (labels.Count == 0) return $"Card #{cardId} has no labels.";
