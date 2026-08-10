@@ -72,9 +72,11 @@ const MIN_ACCEPTABLE_PIXEL_RATIO = 1;
  */
 function safePixelRatio(width: number, height: number): number {
     if (width <= 0 || height <= 0) return BASE_PIXEL_RATIO;
-    const totalAtBase = width * BASE_PIXEL_RATIO * height * BASE_PIXEL_RATIO;
-    if (totalAtBase <= MAX_TOTAL_PIXELS) return BASE_PIXEL_RATIO;
-    // Total-area budget and each single-side budget, whichever is the tightest.
+    // Compute all three budgets unconditionally and take the tightest one. A
+    // naive early return on the total-area budget alone lets an extreme aspect
+    // ratio slip past html-to-image's single-side cap, which then silently
+    // crushes the chart into an unreadable sliver and bypasses the minimum-ratio
+    // guard below.
     const ratioFromArea = Math.sqrt(MAX_TOTAL_PIXELS / (width * height));
     const ratioFromWidth = MAX_CANVAS_DIMENSION / width;
     const ratioFromHeight = MAX_CANVAS_DIMENSION / height;
