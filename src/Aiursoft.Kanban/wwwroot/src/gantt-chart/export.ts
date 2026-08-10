@@ -49,6 +49,26 @@ function buildOffscreenClone(source: HTMLElement): {
     };
 }
 
+// Upper bound on the exported bitmap's total pixel count. A naive pixelRatio of
+// 2 on a large board (e.g. ~280 days × ~180 cards ≈ 16240×16024 px) yields ~260M
+// pixels and a ~1GB RGBA buffer, which can hang or OOM browsers on mobile. html-to-image
+// only clamps a single side that exceeds 16384, so it never bounds the total area.
+const MAX_TOTAL_PIXELS = 64_000_000; // ~8000×8000 at ratio 1
+const BASE_PIXEL_RATIO = 2;
+const MIN_PIXEL_RATIO = 0.5;
+
+/**
+ * Pick the largest pixelRatio that keeps width·height·ratio² within the cap.
+ * Returns BASE_PIXEL_RATIO when the chart already fits.
+ */
+function safePixelRatio(width: number, height: number): number {
+    if (width <= 0 || height <= 0) return BASE_PIXEL_RATIO;
+    const totalAtBase = width * BASE_PIXEL_RATIO * height * BASE_PIXEL_RATIO;
+    if (totalAtBase <= MAX_TOTAL_PIXELS) return BASE_PIXEL_RATIO;
+    const ratio = Math.sqrt(MAX_TOTAL_PIXELS / (width * height));
+    return Math.max(MIN_PIXEL_RATIO, Math.floor(ratio * 100) / 100);
+}
+
 function triggerDownload(dataUrl: string, filename: string): void {
     const link = document.createElement('a');
     link.download = filename;
@@ -83,8 +103,11 @@ export async function exportGanttAsPng(
 ): Promise<void> {
     const { node, cleanup } = buildOffscreenClone(source);
     try {
+        // Measure the cloned chart's natural size, then clamp pixelRatio so the
+        // resulting bitmap never blows past the total-pixel budget.
+        const pixelRatio = safePixelRatio(node.offsetWidth, node.offsetHeight);
         const dataUrl = await toPng(node, {
-            pixelRatio: 2,
+            pixelRatio,
             cacheBust: true,
             backgroundColor: exportBackgroundColor(),
         });

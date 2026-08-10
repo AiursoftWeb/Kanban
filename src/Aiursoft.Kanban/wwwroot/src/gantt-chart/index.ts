@@ -52,6 +52,7 @@ function loadStrings(): GanttStrings {
     missingActualStart:   t('gantt-missing-actual-start',   'Missing actual start date'),
     missingActualEnd:     t('gantt-missing-actual-end',     'Missing actual end date'),
     missingDateFallback:  t('gantt-missing-date-fallback',  'Missing date information (planned or actual dates are incomplete)'),
+    noExportableChart:    t('gantt-no-exportable-chart',    'No cards have complete dates to export in this mode.'),
   };
 }
 
@@ -62,9 +63,22 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
   const strings = loadStrings();
   let currentMode: GanttMode = 'default';
 
+  const exportBtn = document.getElementById('gantt-export-btn') as HTMLButtonElement | null;
+
+  // The chart only renders a drawable canvas (.gantt-table) when at least one
+  // card has complete dates in the current mode. Otherwise the export would
+  // produce a blank image, so disable the button and explain why.
+  function updateExportButton(): void {
+    if (!exportBtn) return;
+    const hasChart = !!container.querySelector('.gantt-table');
+    exportBtn.disabled = !hasChart;
+    exportBtn.title = hasChart ? '' : strings.noExportableChart;
+  }
+
   function render(): void {
     renderGantt(container, options.boardData, currentMode, strings);
     refreshIcons();
+    updateExportButton();
   }
 
   // Wire up mode toggle buttons
@@ -80,10 +94,9 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
   });
 
   // Wire up export button
-  const exportBtn = document.getElementById('gantt-export-btn') as HTMLButtonElement | null;
   if (exportBtn) {
     exportBtn.addEventListener('click', async () => {
-      const wrapper = container.querySelector<HTMLElement>('.gantt-wrapper');
+      const wrapper = container.querySelector<HTMLElement>('.gantt-table');
       if (!wrapper || exportBtn.disabled) return;
 
       const originalLabel = exportBtn.innerHTML;
@@ -97,7 +110,7 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
         console.error('Gantt export failed:', err);
         alert(t('gantt-export-failed', 'Failed to export the Gantt chart. Please try again.'));
       } finally {
-        exportBtn.disabled = false;
+        updateExportButton();
         exportBtn.innerHTML = originalLabel;
         refreshIcons(exportBtn);
       }
