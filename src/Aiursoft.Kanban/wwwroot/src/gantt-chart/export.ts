@@ -54,22 +54,31 @@ function buildOffscreenClone(source: HTMLElement): {
 // pixels and a ~1GB RGBA buffer, which can hang or OOM browsers on mobile. html-to-image
 // only clamps a single side that exceeds 16384, so it never bounds the total area.
 const MAX_TOTAL_PIXELS = 64_000_000; // ~8000×8000 at ratio 1
+// html-to-image downscales any single canvas side that exceeds this limit. While
+// that keeps the export from crashing, it crushes the chart into an unreadable
+// sliver and bypasses MIN_ACCEPTABLE_PIXEL_RATIO, so we must budget for it here.
+const MAX_CANVAS_DIMENSION = 16384;
 const BASE_PIXEL_RATIO = 2;
 // Below this ratio the rasterized chart is too blurry to be useful, so we
 // refuse the PNG export and point users to SVG/tiled export instead.
 const MIN_ACCEPTABLE_PIXEL_RATIO = 1;
 
 /**
- * Compute the pixelRatio that keeps width·height·ratio² within MAX_TOTAL_PIXELS.
- * Never returns a ratio that would exceed the budget. Throws when the chart is
- * so large that even a 1× ratio would blow the cap, since silently dropping to
- * a sub-1 ratio would both break the cap and produce an unreadable image.
+ * Compute the pixelRatio that keeps the bitmap within both the total-pixel
+ * budget and html-to-image's single-side cap. Never returns a ratio that would
+ * exceed either budget. Throws when the chart is so large that even a 1× ratio
+ * would blow a budget, since silently dropping to a sub-1 ratio would both
+ * break the cap and produce an unreadable image.
  */
 function safePixelRatio(width: number, height: number): number {
     if (width <= 0 || height <= 0) return BASE_PIXEL_RATIO;
     const totalAtBase = width * BASE_PIXEL_RATIO * height * BASE_PIXEL_RATIO;
     if (totalAtBase <= MAX_TOTAL_PIXELS) return BASE_PIXEL_RATIO;
-    const ratio = Math.sqrt(MAX_TOTAL_PIXELS / (width * height));
+    // Total-area budget and each single-side budget, whichever is the tightest.
+    const ratioFromArea = Math.sqrt(MAX_TOTAL_PIXELS / (width * height));
+    const ratioFromWidth = MAX_CANVAS_DIMENSION / width;
+    const ratioFromHeight = MAX_CANVAS_DIMENSION / height;
+    const ratio = Math.min(ratioFromArea, ratioFromWidth, ratioFromHeight);
     const clamped = Math.min(BASE_PIXEL_RATIO, Math.floor(ratio * 100) / 100);
     if (clamped < MIN_ACCEPTABLE_PIXEL_RATIO) {
         throw new Error('Chart too large for PNG export.');
