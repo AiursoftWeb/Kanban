@@ -59,13 +59,16 @@ function loadStrings(): GanttStrings {
 }
 
 export function initGanttChartPage(options: GanttChartPageOptions): void {
-  const container = document.getElementById('gantt-root');
-  if (!container) return;
+  const root = document.getElementById('gantt-root');
+  if (!root) return;
+  const container: HTMLElement = root;
 
   const strings = loadStrings();
   let currentMode: GanttMode = 'default';
+  let isExporting = false;
 
   const exportBtn = document.getElementById('gantt-export-btn') as HTMLButtonElement | null;
+  const exportBtnIdleLabel = exportBtn ? exportBtn.innerHTML : '';
 
   // The chart only renders a drawable canvas (.gantt-table) when at least one
   // card has complete dates in the current mode. Otherwise the export would
@@ -73,7 +76,7 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
   function updateExportButton(): void {
     if (!exportBtn) return;
     const hasChart = !!container.querySelector('.gantt-table');
-    exportBtn.disabled = !hasChart;
+    exportBtn.disabled = !hasChart || isExporting;
     exportBtn.title = hasChart ? '' : strings.noExportableChart;
   }
 
@@ -87,6 +90,7 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
   const modeButtons = document.querySelectorAll<HTMLElement>('[data-gantt-mode]');
   modeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
+      if (isExporting) return;
       currentMode = btn.dataset.ganttMode as GanttMode;
       modeButtons.forEach(b => {
         b.classList.toggle('active', b === btn);
@@ -98,11 +102,12 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
   // Wire up export button
   if (exportBtn) {
     exportBtn.addEventListener('click', async () => {
+      if (isExporting) return;
       const wrapper = container.querySelector<HTMLElement>('.gantt-table');
-      if (!wrapper || exportBtn.disabled) return;
+      if (!wrapper) return;
 
-      const originalLabel = exportBtn.innerHTML;
-      exportBtn.disabled = true;
+      isExporting = true;
+      updateExportButton();
       exportBtn.innerHTML = '<i data-lucide="loader-circle"></i> ' + t('gantt-exporting', 'Exporting…');
       refreshIcons(exportBtn);
 
@@ -117,8 +122,9 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
             : t('gantt-export-failed', 'Failed to export the Gantt chart. Please try again.');
         showGanttDialog(msg, strings.dialogOk);
       } finally {
+        isExporting = false;
         updateExportButton();
-        exportBtn.innerHTML = originalLabel;
+        exportBtn.innerHTML = exportBtnIdleLabel;
         refreshIcons(exportBtn);
       }
     });
