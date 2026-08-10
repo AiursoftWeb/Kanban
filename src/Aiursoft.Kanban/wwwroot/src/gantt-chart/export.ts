@@ -8,39 +8,44 @@ const modeLabel: Record<GanttMode, string> = {
 };
 
 /**
- * Gantt wrapper is an overflow:auto scroll container, so a direct snapshot would
- * only capture the visible viewport. Clone its content into an offscreen,
- * full-size container to export the entire chart regardless of scrolling.
+ * Gantt wrapper is an overflow:auto scroll container, so a direct snapshot
+ * would only capture the visible viewport. Clone it off-screen and let it
+ * shrink to its real content size so small boards do not export with a huge
+ * blank area below the chart.
  */
 function buildOffscreenClone(source: HTMLElement): {
-    container: HTMLElement;
+    node: HTMLElement;
     cleanup: () => void;
 } {
     const clone = source.cloneNode(true) as HTMLElement;
     clone.style.overflow = 'visible';
-    clone.style.width = `${source.scrollWidth}px`;
-    clone.style.height = `${source.scrollHeight}px`;
-    clone.style.padding = getComputedStyle(source).padding;
-
-    const container = document.createElement('div');
-    // Keep the node at a valid on-screen position (0,0) so html-to-image can
-    // compute a correct bounding box; pushing it behind the page (negative
-    // z-index) hides it visually during capture without moving it off-screen,
-    // which would render a blank/transparent image.
-    container.style.position = 'fixed';
-    container.style.left = '0';
-    container.style.top = '0';
-    container.style.zIndex = '-99999';
-    container.style.pointerEvents = 'none';
-    container.style.width = `${source.scrollWidth}px`;
-    container.style.height = `${source.scrollHeight}px`;
-    container.style.background = getComputedStyle(source).backgroundColor || '#ffffff';
-    container.appendChild(clone);
-    document.body.appendChild(container);
+    // "Cards without dates" section is interactive UI, not part of the chart.
+    clone.querySelector('.gantt-no-dates-section')?.remove();
+    // When cloned, the wrapper is no longer inside the flex page layout, but
+    // its flex children (.gantt-wrapper flex:1, .gantt-timeline flex:1,
+    // .gantt-body flex:1) still try to grow and get stretched to a large
+    // height, leaving a blank area below the chart. Kill flex growth so the
+    // clone collapses to its actual content size.
+    clone.style.flex = 'none';
+    clone.querySelectorAll<HTMLElement>('.gantt-timeline, .gantt-body').forEach(el => {
+        el.style.flex = 'none';
+    });
+    // .gantt-wrapper is flex:1 in the live page and gets stretched to the
+    // viewport height. Outside a flex parent that rule is inert, so leaving
+    // height auto lets the clone collapse to its actual content height.
+    clone.style.height = 'auto';
+    clone.style.width = 'max-content';
+    clone.style.position = 'fixed';
+    clone.style.left = '0';
+    clone.style.top = '0';
+    clone.style.zIndex = '-99999';
+    clone.style.pointerEvents = 'none';
+    clone.style.background = 'var(--bs-body-bg, #ffffff)';
+    document.body.appendChild(clone);
 
     return {
-        container,
-        cleanup: () => container.remove(),
+        node: clone,
+        cleanup: () => clone.remove(),
     };
 }
 
@@ -57,17 +62,31 @@ function buildFilename(boardName: string, mode: GanttMode): string {
     return `gantt-${safeName}-${modeLabel[mode]}-${stamp}.png`;
 }
 
+// .gantt-wrapper itself has a transparent background; fall back to a solid
+// page color so the exported image is never transparent.
+function exportBackgroundColor(): string {
+    const pageBg = getComputedStyle(document.body).backgroundColor;
+    if (pageBg && pageBg !== 'rgba(0, 0, 0, 0)' && pageBg !== 'transparent') {
+        return pageBg;
+    }
+    const wrapperBg = getComputedStyle(document.documentElement).backgroundColor;
+    if (wrapperBg && wrapperBg !== 'rgba(0, 0, 0, 0)' && wrapperBg !== 'transparent') {
+        return wrapperBg;
+    }
+    return '#ffffff';
+}
+
 export async function exportGanttAsPng(
     boardName: string,
     mode: GanttMode,
     source: HTMLElement,
 ): Promise<void> {
-    const { container, cleanup } = buildOffscreenClone(source);
+    const { node, cleanup } = buildOffscreenClone(source);
     try {
-        const dataUrl = await toPng(container, {
+        const dataUrl = await toPng(node, {
             pixelRatio: 2,
             cacheBust: true,
-            backgroundColor: getComputedStyle(source).backgroundColor || '#ffffff',
+            backgroundColor: exportBackgroundColor(),
         });
         triggerDownload(dataUrl, buildFilename(boardName, mode));
     } finally {
@@ -80,11 +99,11 @@ export async function exportGanttAsSvg(
     mode: GanttMode,
     source: HTMLElement,
 ): Promise<void> {
-    const { container, cleanup } = buildOffscreenClone(source);
+    const { node, cleanup } = buildOffscreenClone(source);
     try {
-        const dataUrl = await toSvg(container, {
+        const dataUrl = await toSvg(node, {
             cacheBust: true,
-            backgroundColor: getComputedStyle(source).backgroundColor || '#ffffff',
+            backgroundColor: exportBackgroundColor(),
         });
         const svgName = buildFilename(boardName, mode).replace(/\.png$/, '.svg');
         triggerDownload(dataUrl, svgName);
