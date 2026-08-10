@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>Oletus</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Vie</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Viedään…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>Gantt-kaavion vienti epäonnistui. Yritä uudelleen.</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>Gantt-tilan näyttö</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>Tässä tilassa ei ole kortteja, joissa on täydelliset päivämäärät.</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>Tilassa ei ole viitteitä täydellisistä päivämääriltä viedäksesi tätä tilaa.</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Ei aloitettu</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>Suunniteltu</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Tila:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>Kaavio on liian suuri viedäksi PNG-kuvana.</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>Tällä taululla ei ole kortteja.</value>

@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>Προεπιλογή</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Εξαγωγή</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Εξαγωγή…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>Αποτυχία εξαγωγής του διαγράμματος Gantt. Προσπαθήστε ξανά.</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>Τρόπος εμφάνισης Gantt</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>Καμία κάρτα δεν έχει πλήρεις ημερομηνίες σε αυτή τη λειτουργία.</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>Δεν υπάρχουν κάρτες με πλήρη ημερομηνίες για εξαγωγή σε αυτή τη λειτουργία.</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Αρχικά</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Εντάξει</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>Προγραμματισμένο</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Κατάσταση:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>Το διάγραμμα είναι πολύ μεγάλο για να εξαχθεί ως εικόνα PNG.</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>Αυτό το board δεν έχει κάρτες.</value>

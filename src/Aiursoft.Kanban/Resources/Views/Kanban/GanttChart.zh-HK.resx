@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>預設</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>匯出</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>匯出中…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>匯出甘特圖失敗。請再試一次。</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>甘特圖顯示模式</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>在此模式下，沒有任何卡片具備完整的日期。</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>此模式下無可匯出之完整日期卡片。</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>未開始</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>確定</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>計劃中</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>狀態：</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>圖表過大，無法匯出為 PNG 圖像。</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>此工作板沒有卡片。</value>

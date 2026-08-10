@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>Domyślny</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Eksportuj</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Eksportowanie…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>Nie udało się wyeksportować diagramu Gantta. Spróbuj ponownie.</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>Tryb wyświetlania diagramu Gantta</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>Brak kart z kompletnymi datami w tym trybie.</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>Brak kart z kompletnymi datami do wyeksportowania w tym trybie.</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Nie rozpoczęto</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>Planowany</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Status:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>Wykres jest zbyt duży, aby wyeksportować go jako obraz PNG.</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>Na tej tablicy nie ma kart.</value>

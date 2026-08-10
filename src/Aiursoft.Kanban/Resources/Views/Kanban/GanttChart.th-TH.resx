@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>เริ่มต้น</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>ส่งออก</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>กำลังส่งออก…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>ไม่สามารถส่งออกแผนภูมิแกนต์ได้ โปรดลองอีกครั้ง</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>โหมดแสดงแกนต์</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>ไม่มีการ์ดใดที่มีวันที่ครบถ้วนในโหมดนี้</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>ไม่มีการ์ดที่มีวันที่ครบถ้วนสำหรับการส่งออกในโหมดนี้</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>ยังไม่เริ่ม</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>ตกลง</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>ที่วางแผนไว้</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>สถานะ:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>แผนภาพมีขนาดใหญ่เกินไปที่จะส่งออกเป็นรูปภาพ PNG</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>กระดานนี้ไม่มีการ์ด</value>

@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>Varsayılan</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Dışa Aktar</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Dışa aktarılıyor…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>Gantt grafiği dışa aktarılamadı. Lütfen tekrar deneyin.</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>Gantt görünüm modu</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>Bu kipte tam tarihleri olan kart yok.</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>Bu modda dışa aktarmak için tam tarihlerine sahip kart yok.</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Başlamadı</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Tamam</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>Planlanan</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Durum:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>Grafik PNG görüntüsü olarak dışa aktarılacak kadar büyük.</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>Bu tahtada kart yok.</value>
