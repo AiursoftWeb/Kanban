@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>기본</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>내보내기</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>내보내는 중…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>간트 차트를 내보내는 데 실패했습니다. 다시 시도해 주세요.</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>간트 표시 모드</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>이 모드에서는 모든 카드에 완전한 날짜 정보가 없습니다.</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>이 모드에서 내보낼 수 있는 완료된 날짜가 있는 카드가 없습니다.</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>시작하지 않음</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>확인</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>계획됨</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>상태:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>차트가 너무 커서 PNG 이미지로 내보낼 수 없습니다.</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>이 보드에는 카드가 없습니다.</value>

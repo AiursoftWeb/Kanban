@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>Mặc định</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Xuất</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Đang xuất…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>Không thể xuất biểu đồ Gantt. Vui lòng thử lại.</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>Chế độ hiển thị Gantt</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>Không có thẻ nào có đủ ngày trong chế độ này.</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>Không có thẻ nào có đầy đủ ngày để xuất trong chế độ này.</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Chưa bắt đầu</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Đồng ý</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>Đã lập kế hoạch</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Trạng thái:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>Biểu đồ quá lớn để xuất dưới dạng hình ảnh PNG.</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>Bảng này không có thẻ nào.</value>

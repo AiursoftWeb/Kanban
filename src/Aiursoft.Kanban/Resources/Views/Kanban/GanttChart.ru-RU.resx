@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>По умолчанию</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Экспорт</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Экспорт…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>Не удалось экспортировать диаграмму Ганта. Повторите попытку.</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>Режим отображения диаграммы Ганта</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>В этом режиме у карточек нет полных дат.</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>Нет карточек с полными датами для экспорта в этом режиме.</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Не начато</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>ОК</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>Запланировано</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Статус:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>Диаграмма слишком большая для экспорта в формате PNG.</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>В этой доске нет карточек.</value>

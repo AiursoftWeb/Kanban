@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>デフォルト</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>エクスポート中…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>ガントチャートのエクスポートに失敗しました。もう一度お試しください。</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>ガント表示モード</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>このモードでは、すべてのカードに完全な日付がありません。</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>このモードでは、エクスポート可能な日付が完全に設定されているカードがありません。</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>未着手</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>計画中</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>ステータス：</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>チャートが大きすぎてPNG画像としてエクスポートできません。</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>このボードにはカードがありません。</value>

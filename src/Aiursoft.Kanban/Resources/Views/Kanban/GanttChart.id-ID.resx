@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>Default</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Ekspor</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Mengekspor…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>Gagal mengekspor bagan Gantt. Silakan coba lagi.</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>Mode tampilan Gantt</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>Tidak ada kartu yang memiliki tanggal lengkap dalam mode ini.</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>Tidak ada kartu dengan tanggal lengkap untuk diekspor dalam mode ini.</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Belum Dimulai</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Oke</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>Terencana</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Status:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>Grafik terlalu besar untuk diekspor sebagai gambar PNG.</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>Papan ini tidak memiliki kartu.</value>

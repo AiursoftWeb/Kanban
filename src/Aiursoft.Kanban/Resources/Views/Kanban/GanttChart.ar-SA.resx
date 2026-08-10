@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>الافتراضي</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>تصدير</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>جارٍ التصدير…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>فشل تصدير مخطط غانت. يرجى المحاولة مرة أخرى.</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>وضع عرض غانت</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>لا تحتوي أي بطاقات على تواريخ كاملة في هذا الوضع.</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>لا توجد بطاقات بها تواريخ كاملة للتصدير في هذا الوضع.</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>لم يبدأ بعد</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>حسنًا</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>مخطط</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>الحالة:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>الرسم البياني كبير جدًا بحيث لا يمكن تصديره كصورة PNG.</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>لا تحتوي هذه اللوحة على أي بطاقات.</value>

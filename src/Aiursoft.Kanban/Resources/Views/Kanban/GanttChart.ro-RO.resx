@@ -42,6 +42,15 @@
   <data name="Default" xml:space="preserve">
     <value>Implicit</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportă</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Se exportă…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>Exportarea diagramei Gantt a eșuat. Vă rugăm să încercați din nou.</value>
+  </data>
   <data name="Gantt display mode" xml:space="preserve">
     <value>Mod de afișare Gantt</value>
   </data>
@@ -72,8 +81,14 @@
   <data name="No cards have complete dates in this mode." xml:space="preserve">
     <value>Nu există carduri cu date complete în această modalitate.</value>
   </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>Niciun card nu are date complete pentru export în acest mod.</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Necompletat</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Planned" xml:space="preserve">
     <value>Planificat</value>
@@ -86,6 +101,9 @@
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Stare:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>Diagrama este prea mare pentru a fi exportată ca imagine PNG.</value>
   </data>
   <data name="This board has no cards." xml:space="preserve">
     <value>Acest panou nu are carduri.</value>
