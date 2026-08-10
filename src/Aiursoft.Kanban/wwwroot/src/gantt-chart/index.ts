@@ -108,7 +108,10 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
         await exportGanttAsPng(options.boardName, currentMode, wrapper);
       } catch (err) {
         console.error('Gantt export failed:', err);
-        alert(t('gantt-export-failed', 'Failed to export the Gantt chart. Please try again.'));
+        const msg = err instanceof Error && err.message.includes('No drawable')
+          ? strings.noExportableChart
+          : t('gantt-export-failed', 'Failed to export the Gantt chart. Please try again.');
+        alert(msg);
       } finally {
         updateExportButton();
         exportBtn.innerHTML = originalLabel;

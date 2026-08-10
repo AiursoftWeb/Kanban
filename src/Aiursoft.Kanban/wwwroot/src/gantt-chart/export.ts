@@ -101,6 +101,13 @@ export async function exportGanttAsPng(
     mode: GanttMode,
     source: HTMLElement,
 ): Promise<void> {
+    // Defense-in-depth: refuse to export if the source contains no actual chart.
+    // An empty board or a mode with no dated cards produces only UI chrome
+    // (empty-state / no-dates section) and would yield a meaningless image.
+    if (!source.querySelector('.gantt-timeline')) {
+        throw new Error('No drawable Gantt chart to export.');
+    }
+
     const { node, cleanup } = buildOffscreenClone(source);
     try {
         // Measure the cloned chart's natural size, then clamp pixelRatio so the
