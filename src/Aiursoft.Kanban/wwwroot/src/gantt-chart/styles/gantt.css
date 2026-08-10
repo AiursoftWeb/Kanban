@@ -88,6 +88,19 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
 }
 
+/* ---------- Export Button ---------- */
+.gantt-export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.gantt-export-btn:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+
 /* ---------- Gantt Chart Container ---------- */
 #gantt-root {
   flex: 1;

@@ -5,6 +5,7 @@
 import type { BoardData } from '../kanban-board/types';
 import type { GanttMode, GanttStrings } from './types';
 import { renderGantt } from './renderer';
+import { exportGanttAsPng } from './export';
 import './styles/gantt.css';
 
 interface GanttChartPageOptions {
@@ -77,6 +78,31 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
       render();
     });
   });
+
+  // Wire up export button
+  const exportBtn = document.getElementById('gantt-export-btn') as HTMLButtonElement | null;
+  if (exportBtn) {
+    exportBtn.addEventListener('click', async () => {
+      const wrapper = container.querySelector<HTMLElement>('.gantt-wrapper');
+      if (!wrapper || exportBtn.disabled) return;
+
+      const originalLabel = exportBtn.innerHTML;
+      exportBtn.disabled = true;
+      exportBtn.innerHTML = '<i data-lucide="loader-circle"></i> ' + t('gantt-exporting', 'Exporting…');
+      refreshIcons(exportBtn);
+
+      try {
+        await exportGanttAsPng(options.boardName, currentMode, wrapper);
+      } catch (err) {
+        console.error('Gantt export failed:', err);
+        alert(t('gantt-export-failed', 'Failed to export the Gantt chart. Please try again.'));
+      } finally {
+        exportBtn.disabled = false;
+        exportBtn.innerHTML = originalLabel;
+        refreshIcons(exportBtn);
+      }
+    });
+  }
 
   // Initial render
   render();
