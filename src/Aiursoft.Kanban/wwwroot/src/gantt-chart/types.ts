@@ -103,6 +103,9 @@ export interface GanttStrings {
   missingActualStart: string;
   missingActualEnd: string;
   missingDateFallback: string;
+  noExportableChart: string;
+  chartTooLarge: string;
+  dialogOk: string;
 }
 
 /** Human-readable explanation for why a card is not shown */

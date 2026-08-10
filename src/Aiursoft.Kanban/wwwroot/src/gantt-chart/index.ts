@@ -5,6 +5,7 @@
 import type { BoardData } from '../kanban-board/types';
 import type { GanttMode, GanttStrings } from './types';
 import { renderGantt } from './renderer';
+import { exportGanttAsPng } from './export';
 import './styles/gantt.css';
 
 interface GanttChartPageOptions {
@@ -51,25 +52,45 @@ function loadStrings(): GanttStrings {
     missingActualStart:   t('gantt-missing-actual-start',   'Missing actual start date'),
     missingActualEnd:     t('gantt-missing-actual-end',     'Missing actual end date'),
     missingDateFallback:  t('gantt-missing-date-fallback',  'Missing date information (planned or actual dates are incomplete)'),
+    noExportableChart:    t('gantt-no-exportable-chart',    'No cards have complete dates to export in this mode.'),
+    chartTooLarge:         t('gantt-chart-too-large',        'The chart is too large to export as a PNG image.'),
+    dialogOk:              t('gantt-dialog-ok',              'OK'),
   };
 }
 
 export function initGanttChartPage(options: GanttChartPageOptions): void {
-  const container = document.getElementById('gantt-root');
-  if (!container) return;
+  const root = document.getElementById('gantt-root');
+  if (!root) return;
+  const container: HTMLElement = root;
 
   const strings = loadStrings();
   let currentMode: GanttMode = 'default';
+  let isExporting = false;
+
+  const exportBtn = document.getElementById('gantt-export-btn') as HTMLButtonElement | null;
+  const exportBtnIdleLabel = exportBtn ? exportBtn.innerHTML : '';
+
+  // The chart only renders a drawable canvas (.gantt-table) when at least one
+  // card has complete dates in the current mode. Otherwise the export would
+  // produce a blank image, so disable the button and explain why.
+  function updateExportButton(): void {
+    if (!exportBtn) return;
+    const hasChart = !!container.querySelector('.gantt-table');
+    exportBtn.disabled = !hasChart || isExporting;
+    exportBtn.title = hasChart ? '' : strings.noExportableChart;
+  }
 
   function render(): void {
     renderGantt(container, options.boardData, currentMode, strings);
     refreshIcons();
+    updateExportButton();
   }
 
   // Wire up mode toggle buttons
   const modeButtons = document.querySelectorAll<HTMLElement>('[data-gantt-mode]');
   modeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
+      if (isExporting) return;
       currentMode = btn.dataset.ganttMode as GanttMode;
       modeButtons.forEach(b => {
         b.classList.toggle('active', b === btn);
@@ -77,6 +98,37 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
       render();
     });
   });
+
+  // Wire up export button
+  if (exportBtn) {
+    exportBtn.addEventListener('click', async () => {
+      if (isExporting) return;
+      const wrapper = container.querySelector<HTMLElement>('.gantt-table');
+      if (!wrapper) return;
+
+      isExporting = true;
+      updateExportButton();
+      exportBtn.innerHTML = '<i data-lucide="loader-circle"></i> ' + t('gantt-exporting', 'Exporting…');
+      refreshIcons(exportBtn);
+
+      try {
+        await exportGanttAsPng(options.boardName, currentMode, wrapper);
+      } catch (err) {
+        console.error('Gantt export failed:', err);
+        const msg = err instanceof Error && err.message.includes('No drawable')
+          ? strings.noExportableChart
+          : err instanceof Error && err.message.includes('too large')
+            ? strings.chartTooLarge
+            : t('gantt-export-failed', 'Failed to export the Gantt chart. Please try again.');
+        showGanttDialog(msg, strings.dialogOk);
+      } finally {
+        isExporting = false;
+        updateExportButton();
+        exportBtn.innerHTML = exportBtnIdleLabel;
+        refreshIcons(exportBtn);
+      }
+    });
+  }
 
   // Initial render
   render();
@@ -90,4 +142,32 @@ function refreshIcons(node?: ParentNode): void {
   } else {
     lucide.createIcons();
   }
+}
+
+/**
+ * Show a lightweight modal dialog (replaces native alert) with a single OK button.
+ * Clicking OK or the backdrop dismisses it.
+ */
+function showGanttDialog(message: string, okLabel: string): void {
+  const overlay = document.createElement('div');
+  overlay.className = 'gantt-dialog-overlay';
+  overlay.innerHTML = `
+    <div class="gantt-dialog" role="dialog" aria-modal="true">
+      <i data-lucide="alert-triangle" class="gantt-dialog-icon"></i>
+      <div class="gantt-dialog-message"></div>
+      <button type="button" class="btn btn-primary btn-sm gantt-dialog-ok"></button>
+    </div>`;
+  overlay.querySelector('.gantt-dialog-message')!.textContent = message;
+  const okBtn = overlay.querySelector<HTMLButtonElement>('.gantt-dialog-ok')!;
+  okBtn.textContent = okLabel;
+
+  const close = () => overlay.remove();
+  okBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) close();
+  });
+
+  document.body.appendChild(overlay);
+  refreshIcons(overlay);
+  okBtn.focus();
 }
