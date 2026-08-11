@@ -13,7 +13,8 @@ namespace Aiursoft.Kanban.Services.Tools.Write;
 public class BatchWriteTools(
     TemplateDbContext db,
     KanbanAccessService access,
-    CurrentUserService currentUser) : IScopedDependency
+    CurrentUserService currentUser,
+    TimeProvider timeProvider) : IScopedDependency
 {
     [McpServerTool, Description("Create multiple cards at once in a column")]
     [Advice]
@@ -124,10 +125,19 @@ public class BatchWriteTools(
         if (cardIds == null || cardIds.Count == 0)
             return "Error: No card IDs specified.";
 
+        var normalizedCardIds = cardIds.Distinct().ToList();
+
         var cards = await db.KanbanCards
             .Include(c => c.Column).ThenInclude(col => col.Board)
-            .Where(c => cardIds.Contains(c.Id))
+            .Where(c => normalizedCardIds.Contains(c.Id))
             .ToListAsync();
+
+        if (cards.Count != normalizedCardIds.Count)
+        {
+            var foundCardIds = cards.Select(card => card.Id).ToHashSet();
+            var missingCardIds = normalizedCardIds.Where(id => !foundCardIds.Contains(id));
+            return $"Error: not_found: Card(s) not found: {string.Join(", ", missingCardIds.Select(id => $"#{id}"))}.";
+        }
 
         foreach (var card in cards)
         {
@@ -135,7 +145,10 @@ public class BatchWriteTools(
                 return $"Error: You do not have permission to move card #{card.Id}.";
         }
 
-        var now = DateTime.UtcNow;
+        if (cards.Any(card => card.Column.BoardId != column.BoardId))
+            return "Error: validation_error: Target column must belong to the same board as every card.";
+
+        var now = timeProvider.GetUtcNow().UtcDateTime;
         var maxOrder = await db.KanbanCards
             .Where(c => c.ColumnId == targetColumnId)
             .MaxAsync(c => (int?)c.Order) ?? -1;
