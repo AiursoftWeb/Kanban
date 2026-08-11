@@ -15,7 +15,8 @@ public class CardWriteTools(
     TemplateDbContext db,
     UserManager<User> userManager,
     KanbanAccessService access,
-    CurrentUserService currentUser) : IScopedDependency
+    CurrentUserService currentUser,
+    TimeProvider timeProvider) : IScopedDependency
 {
     [McpServerTool, Description("Create a new card in a column")]
     [Advice]
@@ -84,8 +85,10 @@ public class CardWriteTools(
 
         if (!await access.HasEditAccess(card.Column.Board, userId))
             return "Error: You do not have permission to edit this board.";
+        if (column.BoardId != card.Column.BoardId)
+            return "Error: validation_error: Target column must belong to the same board as the card.";
 
-        var now = DateTime.UtcNow;
+        var now = timeProvider.GetUtcNow().UtcDateTime;
         switch (column.ColumnStatus)
         {
             case ColumnStatus.InProgress:
