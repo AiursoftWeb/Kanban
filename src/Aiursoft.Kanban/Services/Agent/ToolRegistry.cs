@@ -12,38 +12,47 @@ public class ToolRegistry : ISingletonDependency
     public IReadOnlyList<McpServerTool> AllTools => _allTools;
 
     public ToolRegistry(IServiceProvider services)
+        : this(services, enabledToolNames: null)
     {
-        var toolTypes = typeof(ToolRegistry).Assembly.GetTypes()
-            .Where(t => t.GetCustomAttribute<McpServerToolTypeAttribute>() != null);
+    }
 
-        foreach (var type in toolTypes)
+    public ToolRegistry(IServiceProvider services, IReadOnlySet<string>? enabledToolNames)
+    {
+        var discoveredTools = DiscoverTools();
+        ValidateEnabledToolNames(discoveredTools, enabledToolNames);
+
+        foreach (var (name, type, method) in discoveredTools)
         {
-            foreach (var method in type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
+            if (enabledToolNames != null && !enabledToolNames.Contains(name))
             {
-                var toolAttr = method.GetCustomAttribute<McpServerToolAttribute>();
-                if (toolAttr == null) continue;
-
-                var metadata = new List<object>();
-                var adviceAttr = method.GetCustomAttribute<AdviceAttribute>();
-                if (adviceAttr != null)
-                    metadata.Add(adviceAttr);
-
-                var tool = McpServerTool.Create(
-                    method: method,
-                    createTargetFunc: ctx =>
-                        ctx.Services!.GetRequiredService(type),
-                    options: new McpServerToolCreateOptions
-                    {
-                        Name = toolAttr.Name ?? method.Name,
-                        Description = method.GetCustomAttribute<DescriptionAttribute>()?.Description,
-                        Services = services,
-                        Metadata = metadata
-                    });
-
-                _allTools.Add(tool);
+                continue;
             }
+
+            var metadata = new List<object>();
+            var adviceAttr = method.GetCustomAttribute<AdviceAttribute>();
+            if (adviceAttr != null)
+            {
+                metadata.Add(adviceAttr);
+            }
+
+            var tool = McpServerTool.Create(
+                method: method,
+                createTargetFunc: ctx =>
+                    ctx.Services!.GetRequiredService(type),
+                options: new McpServerToolCreateOptions
+                {
+                    Name = name,
+                    Description = method.GetCustomAttribute<DescriptionAttribute>()?.Description,
+                    Services = services,
+                    Metadata = metadata
+                });
+
+            _allTools.Add(tool);
         }
     }
+
+    public static IReadOnlyList<string> GetRegisteredToolNames() =>
+        DiscoverTools().Select(tool => tool.Name).ToArray();
 
     public bool IsWriteTool(string toolName)
     {
@@ -56,4 +65,61 @@ public class ToolRegistry : ISingletonDependency
     {
         return _allTools.FirstOrDefault(t => t.ProtocolTool.Name == toolName);
     }
+
+    private static IReadOnlyList<DiscoveredTool> DiscoverTools()
+    {
+        var discoveredTools = typeof(ToolRegistry).Assembly.GetTypes()
+            .Where(type => type.GetCustomAttribute<McpServerToolTypeAttribute>() != null)
+            .SelectMany(type => type
+                .GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+                .Select(method => new
+                {
+                    Type = type,
+                    Method = method,
+                    Attribute = method.GetCustomAttribute<McpServerToolAttribute>()
+                }))
+            .Where(tool => tool.Attribute != null)
+            .Select(tool => new DiscoveredTool(
+                tool.Attribute!.Name ?? tool.Method.Name,
+                tool.Type,
+                tool.Method))
+            .OrderBy(tool => tool.Name, StringComparer.Ordinal)
+            .ToArray();
+
+        var duplicateToolName = discoveredTools
+            .GroupBy(tool => tool.Name, StringComparer.Ordinal)
+            .FirstOrDefault(group => group.Count() > 1)?.Key;
+        if (duplicateToolName != null)
+        {
+            throw new InvalidOperationException($"Duplicate MCP tool name '{duplicateToolName}'.");
+        }
+
+        return discoveredTools;
+    }
+
+    private static void ValidateEnabledToolNames(
+        IReadOnlyList<DiscoveredTool> discoveredTools,
+        IReadOnlySet<string>? enabledToolNames)
+    {
+        if (enabledToolNames == null)
+        {
+            return;
+        }
+
+        var registeredToolNames = discoveredTools
+            .Select(tool => tool.Name)
+            .ToHashSet(StringComparer.Ordinal);
+        var unknownToolNames = enabledToolNames
+            .Where(toolName => !registeredToolNames.Contains(toolName))
+            .Order(StringComparer.Ordinal)
+            .ToArray();
+        if (unknownToolNames.Length > 0)
+        {
+            throw new ArgumentException(
+                $"Unknown MCP tool name(s): {string.Join(", ", unknownToolNames)}.",
+                nameof(enabledToolNames));
+        }
+    }
+
+    private sealed record DiscoveredTool(string Name, Type Type, MethodInfo Method);
 }

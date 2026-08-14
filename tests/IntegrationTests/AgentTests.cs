@@ -115,8 +115,60 @@ public class AgentTests : TestBase
 
         CollectionAssert.AreEqual(expectedNames, actualNames,
             "ToolRegistry must expose every method decorated as a production MCP tool.");
+        CollectionAssert.AreEqual(expectedNames, ToolRegistry.GetRegisteredToolNames().ToArray(),
+            "Static tool discovery must match the production registry.");
+        CollectionAssert.AreEqual(actualNames, registry.AllTools.Select(tool => tool.ProtocolTool.Name).ToArray(),
+            "Production tools must be registered in stable ordinal order.");
         Assert.AreEqual(actualNames.Length, actualNames.Distinct(StringComparer.Ordinal).Count(),
             "Production tool names must be unique.");
+    }
+
+    [TestMethod]
+    public async Task ToolRegistry_WhitelistIncludesOnlyEnabledTools()
+    {
+        await LoginAsAdmin();
+        var enabledToolNames = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "CreateCard",
+            "SearchCards"
+        };
+
+        var registry = new ToolRegistry(Server!.Services, enabledToolNames);
+
+        CollectionAssert.AreEqual(
+            new[] { "CreateCard", "SearchCards" },
+            registry.AllTools.Select(tool => tool.ProtocolTool.Name).ToArray());
+        Assert.IsTrue(registry.IsWriteTool("CreateCard"));
+        Assert.IsFalse(registry.IsWriteTool("SearchCards"));
+        Assert.IsNull(registry.GetTool("MoveCard"));
+    }
+
+    [TestMethod]
+    public async Task ToolRegistry_EmptyWhitelistDisablesAllTools()
+    {
+        await LoginAsAdmin();
+
+        var registry = new ToolRegistry(
+            Server!.Services,
+            new HashSet<string>(StringComparer.Ordinal));
+
+        Assert.AreEqual(0, registry.AllTools.Count);
+    }
+
+    [TestMethod]
+    public async Task ToolRegistry_UnknownWhitelistToolThrows()
+    {
+        await LoginAsAdmin();
+        var enabledToolNames = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "UnknownTool"
+        };
+
+        var exception = Assert.ThrowsExactly<ArgumentException>(() =>
+            new ToolRegistry(Server!.Services, enabledToolNames));
+
+        StringAssert.Contains(exception.Message, "Unknown MCP tool name(s): UnknownTool.");
+        Assert.AreEqual("enabledToolNames", exception.ParamName);
     }
 
     // ── AdviceService ───────────────────────────────────────
