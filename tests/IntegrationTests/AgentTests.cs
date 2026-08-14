@@ -1,4 +1,5 @@
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using Aiursoft.Kanban.Entities;
@@ -7,6 +8,7 @@ using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Kanban.Services.Agent.Subagent;
 using Aiursoft.Kanban.Services.Tools.Read;
 using Aiursoft.Kanban.Services.Tools.Write;
+using ModelContextProtocol.Server;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
 
@@ -81,6 +83,40 @@ public class AgentTests : TestBase
             Assert.IsTrue(raw.Contains("\"properties\""),
                 $"Tool '{tool.ProtocolTool.Name}' schema missing 'properties'");
         }
+    }
+
+    [TestMethod]
+    public async Task ToolRegistry_RegisteredToolNamesMatchProductionContract()
+    {
+        await LoginAsAdmin();
+        var registry = GetService<ToolRegistry>();
+        var actualNames = registry.AllTools
+            .Select(tool => tool.ProtocolTool.Name)
+            .Order(StringComparer.Ordinal)
+            .ToArray();
+        var expectedNames = typeof(ToolRegistry).Assembly.GetTypes()
+            .Where(type => type.GetCustomAttributes(typeof(McpServerToolTypeAttribute), false).Length > 0)
+            .SelectMany(type => type.GetMethods(
+                BindingFlags.Public |
+                BindingFlags.Instance |
+                BindingFlags.DeclaredOnly))
+            .Select(method => new
+            {
+                Method = method,
+                Attribute = method.GetCustomAttributes(
+                    typeof(McpServerToolAttribute), false)
+                    .Cast<McpServerToolAttribute>()
+                    .SingleOrDefault()
+            })
+            .Where(tool => tool.Attribute != null)
+            .Select(tool => tool.Attribute!.Name ?? tool.Method.Name)
+            .Order(StringComparer.Ordinal)
+            .ToArray();
+
+        CollectionAssert.AreEqual(expectedNames, actualNames,
+            "ToolRegistry must expose every method decorated as a production MCP tool.");
+        Assert.AreEqual(actualNames.Length, actualNames.Distinct(StringComparer.Ordinal).Count(),
+            "Production tool names must be unique.");
     }
 
     // ── AdviceService ───────────────────────────────────────
@@ -158,7 +194,14 @@ public class AgentTests : TestBase
         var conversation = service.GetConversation(conversationId)!;
         Assert.AreEqual(userId, conversation.UserId);
         Assert.AreEqual(boardId, conversation.BoardId);
-        Assert.IsTrue(conversation.Messages.Count >= 2); // system + user
+        Assert.IsTrue(conversation.Messages.Count >= 3); // system + meta reminder + user
+        Assert.AreEqual("system", conversation.Messages[0].Role);
+        Assert.AreEqual("user", conversation.Messages[1].Role);
+        Assert.IsTrue(conversation.Messages[1].IsMeta);
+        StringAssert.Contains(conversation.Messages[1].Content, "This conversation is about a Kanban board application");
+        Assert.AreEqual("user", conversation.Messages.Last().Role);
+        Assert.AreEqual("Hello", conversation.Messages.Last().Content);
+        Assert.IsFalse(conversation.Messages.Last().IsMeta);
     }
 
     [TestMethod]
