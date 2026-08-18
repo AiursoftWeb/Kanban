@@ -20,7 +20,7 @@ public class AgentService : IAgentService
     private readonly ToolRegistry _toolRegistry;
     private readonly AdviceService _adviceService;
     private readonly IServiceScopeFactory _scopeFactory;
-    private readonly ClaudeClient _claudeClient;
+    private readonly IAgentModelClient _agentModelClient;
     private readonly ILogger<AgentService> _logger;
 
     private const int MaxLoops = 15;
@@ -61,14 +61,14 @@ public class AgentService : IAgentService
         ServiceTaskQueue taskQueue,
         ToolRegistry toolRegistry,
         AdviceService adviceService,
-        ClaudeClient claudeClient,
+        IAgentModelClient agentModelClient,
         IServiceScopeFactory scopeFactory,
         ILogger<AgentService> logger)
     {
         _taskQueue = taskQueue;
         _toolRegistry = toolRegistry;
         _adviceService = adviceService;
-        _claudeClient = claudeClient;
+        _agentModelClient = agentModelClient;
         _scopeFactory = scopeFactory;
         _logger = logger;
     }
@@ -582,7 +582,7 @@ public class AgentService : IAgentService
             tools.Count,
             JsonConvert.SerializeObject(tools.Select(t => new { t.Name, t.Description })));
 
-        var response = await _claudeClient.SendAsync(systemPrompt, claudeMessages, tools);
+        var response = await _agentModelClient.SendAsync(systemPrompt, claudeMessages, tools);
 
         _logger.LogDebug("=== Agent response === Text: {Text}", TruncateDebug(response.GetText()));
         _logger.LogDebug("=== Agent response === ToolUses ({Count}): {Tools}",
