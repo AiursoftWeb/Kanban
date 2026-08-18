@@ -234,6 +234,18 @@ public class AgentTests : TestBase
     // ── AgentService ────────────────────────────────────────
 
     [TestMethod]
+    public async Task AgentModelClient_ResolvesToClaudeClient()
+    {
+        await LoginAsAdmin();
+
+        var modelClient = GetService<IAgentModelClient>();
+        var claudeClient = GetService<ClaudeClient>();
+
+        Assert.IsInstanceOfType<ClaudeClient>(modelClient);
+        Assert.AreSame(claudeClient, modelClient);
+    }
+
+    [TestMethod]
     public async Task AgentService_StartRun_CreatesConversation()
     {
         await LoginAsAdmin();

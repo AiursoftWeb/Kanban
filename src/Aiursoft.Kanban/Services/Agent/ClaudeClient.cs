@@ -5,7 +5,7 @@ using Aiursoft.Scanner.Abstractions;
 
 namespace Aiursoft.Kanban.Services.Agent;
 
-public class ClaudeClient : ISingletonDependency
+public class ClaudeClient : IAgentModelClient, ISingletonDependency
 {
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly ILogger<ClaudeClient> _logger;

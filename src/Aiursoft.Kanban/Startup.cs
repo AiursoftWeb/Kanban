@@ -67,7 +67,8 @@ public class Startup : IWebStartup
         services.AddSingleton<NavigationState<Startup>>();
 
         // Agent infrastructure
-        services.AddSingleton(TimeProvider.System);                                                                                                
+        services.AddSingleton(TimeProvider.System);
+        services.AddSingleton<IAgentModelClient>(sp => sp.GetRequiredService<ClaudeClient>());
         services.AddSingleton<IAgentService, AgentService>();
         services.AddSingleton<ISubagent>(sp => sp.GetRequiredService<TaskPlanningSubagent>());
 
