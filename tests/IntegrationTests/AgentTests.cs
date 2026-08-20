@@ -2,13 +2,16 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using Aiursoft.DbTools;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
 using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Kanban.Services.Agent.Subagent;
 using Aiursoft.Kanban.Services.Tools.Read;
 using Aiursoft.Kanban.Services.Tools.Write;
+using Aiursoft.WebTools.Abstractions;
 using ModelContextProtocol.Server;
+using static Aiursoft.WebTools.Extends;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
 
@@ -171,6 +174,111 @@ public class AgentTests : TestBase
         Assert.AreEqual("enabledToolNames", exception.ParamName);
     }
 
+    private static ClaudeResponse TextResponse(string text, string? reasoningContent = null) => new()
+    {
+        Content = [ClaudeContentBlock.TextBlock(text)],
+        StopReason = "end_turn",
+        ReasoningContent = reasoningContent
+    };
+
+    private static ClaudeResponse ToolUseResponse(
+        string id,
+        string name,
+        Dictionary<string, object?> input) => new()
+    {
+        Content = [ClaudeContentBlock.ToolUse(id, name, input)],
+        StopReason = "tool_use"
+    };
+
+    private async Task RestartServerWithModelClient(IAgentModelClient modelClient)
+    {
+        if (Server != null)
+        {
+            await Server.StopAsync();
+            Server.Dispose();
+        }
+
+        Server = await AppAsync<Startup>(
+            [],
+            port: Port,
+            plugins: [new ServiceOverridePlugin(modelClient)]);
+        await Server.UpdateDbAsync<TemplateDbContext>();
+        await Server.SeedAsync();
+        await Server.StartAsync();
+    }
+
+    private static async Task<AgentConversation> WaitForConversation(
+        IAgentService service,
+        Guid conversationId,
+        Func<AgentState, bool> isTerminal)
+    {
+        for (var attempt = 0; attempt < 500; attempt++)
+        {
+            var conversation = service.GetConversation(conversationId);
+            if (conversation != null && isTerminal(conversation.State))
+            {
+                return conversation;
+            }
+
+            await Task.Delay(20);
+        }
+
+        Assert.Fail($"Conversation {conversationId} did not reach the expected state within 10 seconds.");
+        throw new InvalidOperationException("Unreachable");
+    }
+
+    private sealed class ServiceOverridePlugin(IAgentModelClient modelClient) : IWebAppPlugin
+    {
+        public bool ShouldAddThisPlugin() => true;
+
+        public Task PreServiceConfigure(WebApplicationBuilder builder) => Task.CompletedTask;
+
+        public Task PostServiceConfigure(WebApplicationBuilder builder)
+        {
+            builder.Services.AddSingleton(modelClient);
+            return Task.CompletedTask;
+        }
+
+        public Task AppConfiguration(WebApplication builder) => Task.CompletedTask;
+    }
+
+    private sealed record AgentModelRequest(
+        string SystemPrompt,
+        List<ClaudeMessage> Messages,
+        List<ClaudeTool> Tools,
+        int MaxTokens);
+
+    private sealed class ScriptedAgentModelClient(params object[] scriptedResults) : IAgentModelClient
+    {
+        private readonly Queue<object> _scriptedResults = new(scriptedResults);
+
+        public List<AgentModelRequest> Requests { get; } = [];
+
+        public Task<ClaudeResponse> SendAsync(
+            string systemPrompt,
+            List<ClaudeMessage> messages,
+            List<ClaudeTool>? tools,
+            CancellationToken cancellationToken = default,
+            int maxTokens = 4096)
+        {
+            Requests.Add(new AgentModelRequest(
+                systemPrompt,
+                messages,
+                tools ?? [],
+                maxTokens));
+
+            if (_scriptedResults.Count == 0)
+            {
+                throw new InvalidOperationException("No scripted model response remains.");
+            }
+
+            var result = _scriptedResults.Dequeue();
+            return result is Exception exception
+                ? Task.FromException<ClaudeResponse>(exception)
+                : Task.FromResult((ClaudeResponse)result);
+        }
+    }
+
     // ── AdviceService ───────────────────────────────────────
 
     [TestMethod]
@@ -243,6 +351,178 @@ public class AgentTests : TestBase
 
         Assert.IsInstanceOfType<ClaudeClient>(modelClient);
         Assert.AreSame(claudeClient, modelClient);
+    }
+
+    [TestMethod]
+    public async Task AgentService_TextResponseCompletesConversation()
+    {
+        var modelClient = new ScriptedAgentModelClient(
+            TextResponse("Completed response", "reasoning"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        var conversationId = await service.StartRun("admin", boardId, "Hello");
+        var conversation = await WaitForConversation(
+            service,
+            conversationId,
+            state => state == AgentState.Completed);
+
+        Assert.AreEqual(1, modelClient.Requests.Count);
+        Assert.AreEqual(AgentState.Completed, conversation.State);
+        Assert.AreEqual(1, conversation.LoopCount);
+        Assert.AreEqual("Completed response", conversation.Messages.Last().Content);
+        Assert.AreEqual("reasoning", conversation.Messages.Last().ReasoningContent);
+        Assert.IsTrue(modelClient.Requests[0].Tools.Count > 0);
+    }
+
+    [TestMethod]
+    public async Task AgentService_ReadToolExecutesAndReturnsResultToModel()
+    {
+        var modelClient = new ScriptedAgentModelClient(
+            ToolUseResponse("read-1", "GetUserBoards", new()),
+            TextResponse("Read completed"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        var conversationId = await service.StartRun("admin", boardId, "List my boards");
+        var conversation = await WaitForConversation(
+            service,
+            conversationId,
+            state => state == AgentState.Completed);
+
+        Assert.AreEqual(2, modelClient.Requests.Count);
+        Assert.AreEqual(2, conversation.LoopCount);
+        var toolMessage = conversation.Messages.Single(message => message.Role == "tool");
+        Assert.AreEqual("read-1", toolMessage.ToolCallId);
+        Assert.IsFalse(string.IsNullOrWhiteSpace(toolMessage.Content));
+
+        var secondRequestMessages = modelClient.Requests[1].Messages;
+        var toolResult = secondRequestMessages
+            .SelectMany(message => message.Content as List<ClaudeContentBlock> ?? [])
+            .Single(block => block.Type == "tool_result");
+        Assert.AreEqual("read-1", toolResult.ToolUseId);
+        Assert.AreEqual(toolMessage.Content, toolResult.Content);
+    }
+
+    [TestMethod]
+    public async Task AgentService_WriteToolWaitsForApprovalWithoutExecuting()
+    {
+        var modelClient = new ScriptedAgentModelClient(
+            ToolUseResponse("write-1", "CreateBoard", new()
+            {
+                ["name"] = "Approval Contract Board"
+            }));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        var adviceService = GetService<AdviceService>();
+
+        var conversationId = await service.StartRun("admin", boardId, "Create a board");
+        var conversation = await WaitForConversation(
+            service,
+            conversationId,
+            state => state == AgentState.AwaitingApproval);
+
+        Assert.AreEqual(1, modelClient.Requests.Count);
+        Assert.AreEqual(1, conversation.LoopCount);
+        Assert.AreEqual(AgentState.AwaitingApproval, conversation.State);
+        Assert.AreEqual(1, conversation.PendingAdviceIds.Count);
+        Assert.IsFalse(conversation.Messages.Any(message => message.Role == "tool"));
+
+        var advice = adviceService.Get(conversation.PendingAdviceIds.Single());
+        Assert.IsNotNull(advice);
+        Assert.AreEqual(AdviceStatus.Pending, advice.Status);
+        Assert.AreEqual("CreateBoard", advice.ToolName);
+        Assert.AreEqual("write-1", advice.ToolCallId);
+    }
+
+    [TestMethod]
+    public async Task AgentService_RejectedWriteReturnsToolResultAndResumes()
+    {
+        var modelClient = new ScriptedAgentModelClient(
+            ToolUseResponse("write-reject-1", "CreateBoard", new()
+            {
+                ["name"] = "Rejected Board"
+            }),
+            TextResponse("Rejection acknowledged"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        var adviceService = GetService<AdviceService>();
+
+        var conversationId = await service.StartRun("admin", boardId, "Create a board");
+        var awaitingApproval = await WaitForConversation(
+            service,
+            conversationId,
+            state => state == AgentState.AwaitingApproval);
+        var adviceId = awaitingApproval.PendingAdviceIds.Single();
+
+        service.RejectAdvice(conversationId, adviceId);
+        var conversation = await WaitForConversation(
+            service,
+            conversationId,
+            state => state == AgentState.Completed);
+
+        Assert.AreEqual(2, modelClient.Requests.Count);
+        Assert.AreEqual(AdviceStatus.Rejected, adviceService.Get(adviceId)!.Status);
+        Assert.AreEqual(0, conversation.PendingAdviceIds.Count);
+        var rejectionResult = conversation.Messages.Single(message =>
+            message.Role == "tool" && message.ToolCallId == "write-reject-1");
+        Assert.AreEqual("REJECTED: User rejected this operation. Do not retry.", rejectionResult.Content);
+        Assert.AreEqual("Rejection acknowledged", conversation.Messages.Last().Content);
+    }
+
+    [TestMethod]
+    public async Task AgentService_MaximumLoopsCompletesWithGuidance()
+    {
+        var scriptedResponses = Enumerable.Range(1, 15)
+            .Select(index => (object)ToolUseResponse($"read-{index}", "GetUserBoards", new()))
+            .ToArray();
+        var modelClient = new ScriptedAgentModelClient(scriptedResponses);
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        var conversationId = await service.StartRun("admin", boardId, "Keep reading");
+        var conversation = await WaitForConversation(
+            service,
+            conversationId,
+            state => state == AgentState.Completed);
+
+        Assert.AreEqual(15, modelClient.Requests.Count);
+        Assert.AreEqual(15, conversation.LoopCount);
+        Assert.AreEqual(
+            "I've reached the maximum number of steps. Please refine your request or approve pending actions.",
+            conversation.Messages.Last().Content);
+    }
+
+    [TestMethod]
+    public async Task AgentService_ModelFailureSetsErrorState()
+    {
+        const string errorMessage = "Scripted model failure";
+        var modelClient = new ScriptedAgentModelClient(new InvalidOperationException(errorMessage));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        var conversationId = await service.StartRun("admin", boardId, "Hello");
+        var conversation = await WaitForConversation(
+            service,
+            conversationId,
+            state => state == AgentState.Error);
+
+        Assert.AreEqual(1, modelClient.Requests.Count);
+        Assert.AreEqual(AgentState.Error, conversation.State);
+        Assert.AreEqual(errorMessage, conversation.ErrorMessage);
+        Assert.AreEqual(1, conversation.LoopCount);
     }
 
     [TestMethod]
