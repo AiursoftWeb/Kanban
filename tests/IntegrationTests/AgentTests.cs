@@ -243,10 +243,8 @@ public class AgentTests : TestBase
     }
 
     private sealed record AgentModelRequest(
-        string SystemPrompt,
         List<ClaudeMessage> Messages,
-        List<ClaudeTool> Tools,
-        int MaxTokens);
+        List<ClaudeTool> Tools);
 
     private sealed class ScriptedAgentModelClient(params object[] scriptedResults) : IAgentModelClient
     {
@@ -262,10 +260,8 @@ public class AgentTests : TestBase
             int maxTokens = 4096)
         {
             Requests.Add(new AgentModelRequest(
-                systemPrompt,
                 messages,
-                tools ?? [],
-                maxTokens));
+                tools ?? []));
 
             if (_scriptedResults.Count == 0)
             {
