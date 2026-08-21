@@ -16,6 +16,7 @@ public class AgentService : IAgentService
     private readonly AdviceService _adviceService;
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly ProductionAgentExecutor _productionAgentExecutor;
+    private readonly TimeProvider _timeProvider;
 
     private static readonly TimeSpan ConversationTtl = TimeSpan.FromMinutes(30);
     private static readonly TimeSpan AdviceTtl = TimeSpan.FromMinutes(30);
@@ -54,18 +55,37 @@ public class AgentService : IAgentService
         ServiceTaskQueue taskQueue,
         AdviceService adviceService,
         IServiceScopeFactory scopeFactory,
-        ProductionAgentExecutor productionAgentExecutor)
+        ProductionAgentExecutor productionAgentExecutor,
+        TimeProvider timeProvider)
     {
         _taskQueue = taskQueue;
         _adviceService = adviceService;
         _scopeFactory = scopeFactory;
         _productionAgentExecutor = productionAgentExecutor;
+        _timeProvider = timeProvider;
     }
 
     public async Task<Guid> StartRun(string userId, int boardId, string userMessage, string? excelMarkdown = null)
     {
         CleanupExpiredConversations();
 
+        var conversation = await CreateConversation(userId, boardId, userMessage, excelMarkdown);
+        _conversations[conversation.Id] = conversation;
+
+        _taskQueue.QueueWithDependency<IServiceProvider>(
+            queueName: "KanbanAgent",
+            taskName: $"AgentRun-{conversation.Id}",
+            task: async (sp) => await ExecuteReActLoop(sp, conversation.Id));
+
+        return conversation.Id;
+    }
+
+    private async Task<AgentConversation> CreateConversation(
+        string userId,
+        int boardId,
+        string userMessage,
+        string? excelMarkdown = null)
+    {
         var conversation = new AgentConversation
         {
             UserId = userId,
@@ -165,14 +185,25 @@ public class AgentService : IAgentService
             });
         }
 
-        _conversations[conversation.Id] = conversation;
+        conversation.LastActivity = _timeProvider.GetUtcNow().UtcDateTime;
+        return conversation;
+    }
 
-        _taskQueue.QueueWithDependency<IServiceProvider>(
-            queueName: "KanbanAgent",
-            taskName: $"AgentRun-{conversation.Id}",
-            task: async (sp) => await ExecuteReActLoop(sp, conversation.Id));
-
-        return conversation.Id;
+    public async Task<AgentExecutionResult> RunDirectAsync(
+        string userId,
+        int boardId,
+        string userMessage,
+        AgentExecutionOptions options,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+        var conversation = await CreateConversation(userId, boardId, userMessage);
+        using var executionScope = _scopeFactory.CreateScope();
+        return await _productionAgentExecutor.ExecuteReActLoop(
+            executionScope.ServiceProvider,
+            conversation,
+            options,
+            cancellationToken);
     }
 
     public Guid? ContinueRun(Guid conversationId, string userId, string userMessage, string? excelMarkdown = null)
@@ -255,7 +286,7 @@ public class AgentService : IAgentService
         }
 
         conversation.State = AgentState.Thinking;
-        conversation.LastActivity = DateTime.UtcNow;
+        conversation.LastActivity = _timeProvider.GetUtcNow().UtcDateTime;
         conversation.LoopCount = 0; // Reset loop counter for the new turn
 
         _taskQueue.QueueWithDependency<IServiceProvider>(
@@ -282,7 +313,7 @@ public class AgentService : IAgentService
         if (_conversations.TryGetValue(conversationId, out var conversation))
         {
             conversation.PendingAdviceIds.Remove(adviceId);
-            conversation.LastActivity = DateTime.UtcNow;
+            conversation.LastActivity = _timeProvider.GetUtcNow().UtcDateTime;
 
             _taskQueue.QueueWithDependency<IServiceProvider>(
                 queueName: "KanbanAgent",
@@ -301,7 +332,7 @@ public class AgentService : IAgentService
         if (_conversations.TryGetValue(conversationId, out var conversation))
         {
             conversation.PendingAdviceIds.Remove(adviceId);
-            conversation.LastActivity = DateTime.UtcNow;
+            conversation.LastActivity = _timeProvider.GetUtcNow().UtcDateTime;
 
             conversation.Messages.Add(new ToolMessagesItem
             {
@@ -349,7 +380,10 @@ public class AgentService : IAgentService
     private Task ExecuteReActLoop(IServiceProvider sp, Guid conversationId)
     {
         return _conversations.TryGetValue(conversationId, out var conversation)
-            ? _productionAgentExecutor.ExecuteReActLoop(sp, conversation)
+            ? _productionAgentExecutor.ExecuteReActLoop(
+                sp,
+                conversation,
+                new AgentExecutionOptions())
             : Task.CompletedTask;
     }
 
@@ -364,9 +398,9 @@ public class AgentService : IAgentService
     /// injected into the system-reminder via {currentDateTime}.
     /// </summary>
 
-    private static string GetCurrentDateTimeBlock()
+    private string GetCurrentDateTimeBlock()
     {
-        var chinaNow = DateTime.UtcNow + TimeSpan.FromHours(8);
+        var chinaNow = _timeProvider.GetUtcNow().UtcDateTime + TimeSpan.FromHours(8);
         var daysSinceMonday = ((int)chinaNow.DayOfWeek + 6) % 7;
         var monday = chinaNow.Date.AddDays(-daysSinceMonday);
         var sunday = monday.AddDays(6);
@@ -593,9 +627,9 @@ public class AgentService : IAgentService
         return sb.ToString();
     }
 
-    private static string GetRelativeTimeBlock(DateTime utcTime)
+    private string GetRelativeTimeBlock(DateTime utcTime)
     {
-        var diff = DateTime.UtcNow - utcTime;
+        var diff = _timeProvider.GetUtcNow().UtcDateTime - utcTime;
         return diff.TotalMinutes switch
         {
             < 1 => "just now",
@@ -667,8 +701,9 @@ public class AgentService : IAgentService
     /// </summary>
     private void CleanupExpiredConversations()
     {
-        var conversationCutoff = DateTime.UtcNow - ConversationTtl;
-        var adviceCutoff = DateTime.UtcNow - AdviceTtl;
+        var utcNow = _timeProvider.GetUtcNow().UtcDateTime;
+        var conversationCutoff = utcNow - ConversationTtl;
+        var adviceCutoff = utcNow - AdviceTtl;
 
         foreach (var (id, conv) in _conversations)
         {

@@ -190,7 +190,9 @@ public class AgentTests : TestBase
         StopReason = "tool_use"
     };
 
-    private async Task RestartServerWithModelClient(IAgentModelClient modelClient)
+    private async Task RestartServerWithModelClient(
+        IAgentModelClient modelClient,
+        TimeProvider? timeProvider = null)
     {
         if (Server != null)
         {
@@ -201,7 +203,7 @@ public class AgentTests : TestBase
         Server = await AppAsync<Startup>(
             [],
             port: Port,
-            plugins: [new ServiceOverridePlugin(modelClient)]);
+            plugins: [new ServiceOverridePlugin(modelClient, timeProvider)]);
         await Server.UpdateDbAsync<TemplateDbContext>();
         await Server.SeedAsync();
         await Server.StartAsync();
@@ -227,7 +229,9 @@ public class AgentTests : TestBase
         throw new InvalidOperationException("Unreachable");
     }
 
-    private sealed class ServiceOverridePlugin(IAgentModelClient modelClient) : IWebAppPlugin
+    private sealed class ServiceOverridePlugin(
+        IAgentModelClient modelClient,
+        TimeProvider? timeProvider) : IWebAppPlugin
     {
         public bool ShouldAddThisPlugin() => true;
 
@@ -236,10 +240,19 @@ public class AgentTests : TestBase
         public Task PostServiceConfigure(WebApplicationBuilder builder)
         {
             builder.Services.AddSingleton(modelClient);
+            if (timeProvider != null)
+            {
+                builder.Services.AddSingleton(timeProvider);
+            }
             return Task.CompletedTask;
         }
 
         public Task AppConfiguration(WebApplication builder) => Task.CompletedTask;
+    }
+
+    private sealed class FixedTimeProvider(DateTimeOffset utcNow) : TimeProvider
+    {
+        public override DateTimeOffset GetUtcNow() => utcNow;
     }
 
     private sealed record AgentModelRequest(
@@ -251,6 +264,7 @@ public class AgentTests : TestBase
         private readonly Queue<object> _scriptedResults = new(scriptedResults);
 
         public List<AgentModelRequest> Requests { get; } = [];
+        public List<CancellationToken> CancellationTokens { get; } = [];
 
         public Task<ClaudeResponse> SendAsync(
             string systemPrompt,
@@ -262,6 +276,7 @@ public class AgentTests : TestBase
             Requests.Add(new AgentModelRequest(
                 messages,
                 tools ?? []));
+            CancellationTokens.Add(cancellationToken);
 
             if (_scriptedResults.Count == 0)
             {
@@ -347,6 +362,114 @@ public class AgentTests : TestBase
 
         Assert.IsInstanceOfType<ClaudeClient>(modelClient);
         Assert.AreSame(claudeClient, modelClient);
+    }
+
+    [TestMethod]
+    public async Task AgentService_DirectExecutionReturnsConversationAndFixedTime()
+    {
+        var modelClient = new ScriptedAgentModelClient(TextResponse("Direct completed"));
+        var fixedTime = new DateTimeOffset(2026, 8, 18, 9, 30, 0, TimeSpan.Zero);
+        await RestartServerWithModelClient(modelClient, new FixedTimeProvider(fixedTime));
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        var result = await service.RunDirectAsync(
+            "admin",
+            boardId,
+            "Run directly",
+            new AgentExecutionOptions());
+
+        Assert.AreEqual(AgentState.Completed, result.Conversation.State);
+        Assert.AreEqual("Direct completed", result.Conversation.Messages.Last().Content);
+        Assert.AreEqual(fixedTime.UtcDateTime, result.Conversation.LastActivity);
+        Assert.AreEqual(0, result.ToolTraces.Count);
+        Assert.IsNull(service.GetConversation(result.Conversation.Id),
+            "Direct execution must not add conversations to the Web conversation store.");
+    }
+
+    [TestMethod]
+    public async Task AgentService_DirectExecutionExplicitlyAutoApprovesWritesAndReturnsTrace()
+    {
+        var modelClient = new ScriptedAgentModelClient(
+            ToolUseResponse("direct-write-1", "CreateBoard", new()
+            {
+                ["name"] = "Direct Execution Board"
+            }),
+            TextResponse("Direct write completed"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        var adviceService = GetService<AdviceService>();
+
+        var result = await service.RunDirectAsync(
+            "admin",
+            boardId,
+            "Create a board directly",
+            new AgentExecutionOptions { AutoApproveWrites = true });
+
+        Assert.AreEqual(AgentState.Completed, result.Conversation.State);
+        Assert.AreEqual(1, result.ToolTraces.Count);
+        Assert.AreEqual("direct-write-1", result.ToolTraces[0].ToolCallId);
+        Assert.AreEqual("CreateBoard", result.ToolTraces[0].Name);
+        Assert.AreEqual(1, result.ToolTraces[0].Loop);
+        StringAssert.Contains(result.ToolTraces[0].Result, "Direct Execution Board");
+        Assert.IsFalse(result.Conversation.Messages.Any(message => message.Role == "tool" &&
+            message.ToolCallId == "direct-write-1" && string.IsNullOrWhiteSpace(message.Content)));
+        var pendingAdvice = adviceService.GetPendingForConversation(result.Conversation.Id);
+        Assert.AreEqual(0, pendingAdvice.Count);
+        Assert.AreEqual(1, result.Conversation.Messages.Count(message =>
+            message.Role == "tool" && message.ToolCallId == "direct-write-1"));
+    }
+
+    [TestMethod]
+    public async Task AgentService_DirectExecutionDefaultDoesNotAutoApproveWrites()
+    {
+        var modelClient = new ScriptedAgentModelClient(
+            ToolUseResponse("direct-pending-1", "CreateBoard", new()
+            {
+                ["name"] = "Pending Direct Board"
+            }));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+
+        var result = await service.RunDirectAsync(
+            "admin",
+            boardId,
+            "Propose creating a board",
+            new AgentExecutionOptions());
+
+        Assert.AreEqual(AgentState.AwaitingApproval, result.Conversation.State);
+        Assert.AreEqual(0, result.ToolTraces.Count);
+        Assert.AreEqual(1, result.Conversation.PendingAdviceIds.Count);
+    }
+
+    [TestMethod]
+    public async Task AgentService_DirectExecutionCancellationReachesModelAndSetsErrorState()
+    {
+        var modelClient = new ScriptedAgentModelClient(
+            new OperationCanceledException("Cancelled by test"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        using var cancellation = new CancellationTokenSource();
+
+        var result = await service.RunDirectAsync(
+            "admin",
+            boardId,
+            "Cancel this run",
+            new AgentExecutionOptions(),
+            cancellation.Token);
+
+        Assert.AreEqual(AgentState.Error, result.Conversation.State);
+        Assert.AreEqual("Cancelled by test", result.Conversation.ErrorMessage);
+        Assert.AreEqual(1, result.Conversation.LoopCount);
+        Assert.AreEqual(1, modelClient.CancellationTokens.Count);
+        Assert.AreEqual(cancellation.Token, modelClient.CancellationTokens[0]);
     }
 
     [TestMethod]

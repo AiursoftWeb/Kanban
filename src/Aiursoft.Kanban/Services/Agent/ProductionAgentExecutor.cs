@@ -12,28 +12,36 @@ public class ProductionAgentExecutor(
     ToolRegistry toolRegistry,
     AdviceService adviceService,
     IAgentModelClient agentModelClient,
+    TimeProvider timeProvider,
     ILogger<AgentService> logger)
 {
     private readonly ToolRegistry _toolRegistry = toolRegistry;
     private readonly AdviceService _adviceService = adviceService;
     private readonly IAgentModelClient _agentModelClient = agentModelClient;
+    private readonly TimeProvider _timeProvider = timeProvider;
     private readonly ILogger<AgentService> _logger = logger;
 
     private const int MaxLoops = 15;
 
-    public async Task ExecuteReActLoop(IServiceProvider sp, AgentConversation conversation)
+    public async Task<AgentExecutionResult> ExecuteReActLoop(
+        IServiceProvider sp,
+        AgentConversation conversation,
+        AgentExecutionOptions options,
+        CancellationToken cancellationToken = default)
     {
         var conversationId = conversation.Id;
+        var toolTraces = new List<AgentToolTrace>();
 
         try
         {
             while (conversation.LoopCount < MaxLoops)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 conversation.LoopCount++;
                 conversation.State = AgentState.Thinking;
-                conversation.LastActivity = DateTime.UtcNow;
+                conversation.LastActivity = _timeProvider.GetUtcNow().UtcDateTime;
 
-                var response = await CallLlmWithTools(conversation);
+                var response = await CallLlmWithTools(conversation, cancellationToken);
 
                 var toolUses = response.GetToolUses();
                 if (toolUses.Count > 0)
@@ -65,56 +73,52 @@ public class ProductionAgentExecutor(
                         if (string.IsNullOrEmpty(tu.Name)) continue;
                         var isWrite = _toolRegistry.IsWriteTool(tu.Name);
 
-                        if (isWrite)
+                        if (isWrite && !options.AutoApproveWrites)
                         {
-                            var tool = _toolRegistry.GetTool(tu.Name);
-                            var displayName = tool?.ProtocolTool.Title ?? tu.Name;
-                            var description = tool?.ProtocolTool.Description ?? "";
-
-                            var args = tu.Input ?? new Dictionary<string, object?>();
-                            var result = await BuildParameterDisplay(sp, tu.Name, args);
-
-                            var advice = _adviceService.Create(
-                                conversationId: conversationId,
-                                toolName: tu.Name,
-                                toolDisplayName: displayName,
-                                toolDescription: description,
-                                parameters: args,
-                                parameterDisplay: result.DisplayText,
-                                toolCallId: tu.Id,
-                                displayParameters: result.Parameters,
-                                resolvedName: result.ResolvedName);
-
+                            var advice = await CreateAdvice(sp, conversationId, tu);
                             adviceIds.Add(advice.Id);
-                            _logger.LogInformation("Advice created: {AdviceId} for tool {ToolName}", advice.Id, tu.Name);
+                            continue;
                         }
-                        else
+
+                        string toolResult;
+                        try
                         {
-                            string result;
-                            try
-                            {
-                                result = await ExecuteTool(sp, tu, conversation.UserId);
-                                _logger.LogInformation("Read tool executed: {ToolName}", tu.Name);
-                            }
-                            catch (Exception ex)
-                            {
-                                result = $"Error executing {tu.Name}: {ex.Message}";
-                                _logger.LogWarning(ex, "Read tool failed: {ToolName}", tu.Name);
-                            }
-                            conversation.Messages.Add(new ToolMessagesItem
-                            {
-                                Role = "tool",
-                                ToolCallId = tu.Id,
-                                Content = result
-                            });
+                            toolResult = await ExecuteTool(sp, tu, conversation.UserId, cancellationToken);
+                            _logger.LogInformation("{ToolKind} tool executed: {ToolName}",
+                                isWrite ? "Write" : "Read",
+                                tu.Name);
                         }
+                        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+                        {
+                            throw;
+                        }
+                        catch (Exception ex)
+                        {
+                            toolResult = $"Error executing {tu.Name}: {ex.Message}";
+                            _logger.LogWarning(ex, "{ToolKind} tool failed: {ToolName}",
+                                isWrite ? "Write" : "Read",
+                                tu.Name);
+                        }
+
+                        toolTraces.Add(new AgentToolTrace(
+                            tu.Id ?? "",
+                            tu.Name,
+                            UnwrapJsonElements(tu.Input ?? new()),
+                            toolResult,
+                            conversation.LoopCount));
+                        conversation.Messages.Add(new ToolMessagesItem
+                        {
+                            Role = "tool",
+                            ToolCallId = tu.Id,
+                            Content = toolResult
+                        });
                     }
 
                     if (adviceIds.Count > 0)
                     {
                         conversation.PendingAdviceIds.AddRange(adviceIds);
                         conversation.State = AgentState.AwaitingApproval;
-                        return;
+                        return new AgentExecutionResult(conversation, toolTraces);
                     }
 
                     continue;
@@ -141,7 +145,7 @@ public class ProductionAgentExecutor(
                 }
 
                 conversation.State = AgentState.Completed;
-                return;
+                return new AgentExecutionResult(conversation, toolTraces);
             }
 
             conversation.Messages.Add(new ToolMessagesItem
@@ -157,6 +161,32 @@ public class ProductionAgentExecutor(
             conversation.State = AgentState.Error;
             conversation.ErrorMessage = ex.Message;
         }
+
+        return new AgentExecutionResult(conversation, toolTraces);
+    }
+
+    private async Task<Advice> CreateAdvice(
+        IServiceProvider sp,
+        Guid conversationId,
+        ClaudeContentBlock toolUse)
+    {
+        var tool = _toolRegistry.GetTool(toolUse.Name ?? "");
+        var displayName = tool?.ProtocolTool.Title ?? toolUse.Name ?? "";
+        var description = tool?.ProtocolTool.Description ?? "";
+        var args = toolUse.Input ?? new Dictionary<string, object?>();
+        var result = await BuildParameterDisplay(sp, toolUse.Name ?? "", args);
+        var advice = _adviceService.Create(
+            conversationId: conversationId,
+            toolName: toolUse.Name ?? "",
+            toolDisplayName: displayName,
+            toolDescription: description,
+            parameters: args,
+            parameterDisplay: result.DisplayText,
+            toolCallId: toolUse.Id,
+            displayParameters: result.Parameters,
+            resolvedName: result.ResolvedName);
+        _logger.LogInformation("Advice created: {AdviceId} for tool {ToolName}", advice.Id, toolUse.Name);
+        return advice;
     }
 
     public async Task ExecuteAdviceAndResume(
@@ -228,10 +258,12 @@ public class ProductionAgentExecutor(
             }
         }
 
-        await ExecuteReActLoop(sp, conversation);
+        await ExecuteReActLoop(sp, conversation, new AgentExecutionOptions());
     }
 
-    private async Task<ClaudeResponse> CallLlmWithTools(AgentConversation conversation)
+    private async Task<ClaudeResponse> CallLlmWithTools(
+        AgentConversation conversation,
+        CancellationToken cancellationToken)
     {
         var systemPrompt = conversation.Messages
             .Where(m => m.Role == "system")
@@ -249,7 +281,11 @@ public class ProductionAgentExecutor(
             tools.Count,
             JsonConvert.SerializeObject(tools.Select(t => new { t.Name, t.Description })));
 
-        var response = await _agentModelClient.SendAsync(systemPrompt, claudeMessages, tools);
+        var response = await _agentModelClient.SendAsync(
+            systemPrompt,
+            claudeMessages,
+            tools,
+            cancellationToken);
 
         _logger.LogDebug("=== Agent response === Text: {Text}", TruncateDebug(response.GetText()));
         _logger.LogDebug("=== Agent response === ToolUses ({Count}): {Tools}",
@@ -324,7 +360,11 @@ public class ProductionAgentExecutor(
         }).ToList();
     }
 
-    private async Task<string> ExecuteTool(IServiceProvider sp, ClaudeContentBlock toolUse, string userId)
+    private async Task<string> ExecuteTool(
+        IServiceProvider sp,
+        ClaudeContentBlock toolUse,
+        string userId,
+        CancellationToken cancellationToken)
     {
         var tool = _toolRegistry.GetTool(toolUse.Name ?? "");
         if (tool == null) return $"Error: Unknown tool '{toolUse.Name}'.";
@@ -332,10 +372,15 @@ public class ProductionAgentExecutor(
         var args = UnwrapJsonElements(toolUse.Input ?? new());
         // NEVER include userId in args — user identity is injected via CurrentUserService
 
-        return await ExecuteToolWithArgs(sp, tool, args, userId);
+        return await ExecuteToolWithArgs(sp, tool, args, userId, cancellationToken);
     }
 
-    private async Task<string> ExecuteToolWithArgs(IServiceProvider sp, McpServerTool tool, Dictionary<string, object?> args, string userId)
+    private async Task<string> ExecuteToolWithArgs(
+        IServiceProvider sp,
+        McpServerTool tool,
+        Dictionary<string, object?> args,
+        string userId,
+        CancellationToken cancellationToken = default)
     {
         using var scope = sp.CreateScope();
 
@@ -369,7 +414,7 @@ public class ProductionAgentExecutor(
             Services = scope.ServiceProvider
         };
 
-        var result = await tool.InvokeAsync(request);
+        var result = await tool.InvokeAsync(request, cancellationToken);
         var textContent = result.Content.OfType<ModelContextProtocol.Protocol.TextContentBlock>().FirstOrDefault();
         var resultText = textContent?.Text ?? result.ToString() ?? "Tool executed.";
         if (_toolRegistry.IsWriteTool(tool.ProtocolTool.Name) &&
@@ -381,7 +426,7 @@ public class ProductionAgentExecutor(
                 UserId: userId,
                 UserName: user?.DisplayName ?? user?.UserName ?? userId,
                 Summary: resultText,
-                Arguments: args));
+                Arguments: args), cancellationToken);
         }
 
         return resultText;
