@@ -104,6 +104,9 @@ public sealed partial class ScenarioLoader(IReadOnlySet<string>? knownTools = nu
         RequireArrayProperty(setup, "columns");
         RequireArrayProperty(setup, "shares");
         RequireArrayProperty(setup, "cards");
+        ValidateOptionalArrayProperty(setup, "labels");
+        ValidateOptionalArrayProperty(setup, "comments");
+        ValidateOptionalArrayProperty(setup, "subscriptions");
         if (steps.ValueKind != JsonValueKind.Array)
         {
             throw new ScenarioValidationException("steps must be an array.");
@@ -146,6 +149,14 @@ public sealed partial class ScenarioLoader(IReadOnlySet<string>? knownTools = nu
             throw new ScenarioValidationException($"{name} must be an array.");
         }
         return value;
+    }
+
+    private static void ValidateOptionalArrayProperty(JsonElement element, string name)
+    {
+        if (element.TryGetProperty(name, out var value) && value.ValueKind != JsonValueKind.Array)
+        {
+            throw new ScenarioValidationException($"{name} must be an array.");
+        }
     }
 
     private void Validate(ExamScenario scenario)
@@ -296,6 +307,10 @@ public sealed partial class ScenarioLoader(IReadOnlySet<string>? knownTools = nu
         {
             AddAlias(aliases, user.Id);
             RequireText(user.DisplayName, $"User '{user.Id}' displayName");
+            foreach (var role in user.Roles)
+            {
+                RequireText(role, $"User '{user.Id}' role");
+            }
         }
         foreach (var board in setup.Boards)
         {
@@ -341,6 +356,32 @@ public sealed partial class ScenarioLoader(IReadOnlySet<string>? knownTools = nu
             }
             RequireText(card.Title, $"Card '{card.Id}' title");
             RequireEnum(CardPriorities, card.Priority, $"Card '{card.Id}' priority");
+        }
+        foreach (var label in setup.Labels)
+        {
+            AddAlias(aliases, label.Id);
+            RequireText(label.Name, $"Label '{label.Id}' name");
+            if (!ColorRegex().IsMatch(label.Color))
+            {
+                throw new ScenarioValidationException(
+                    $"Label '{label.Id}' color must use #RRGGBB format.");
+            }
+            foreach (var cardId in label.CardIds)
+            {
+                RequireReference(aliases, cardId, $"Label '{label.Id}' cardId");
+            }
+        }
+        foreach (var comment in setup.Comments)
+        {
+            AddAlias(aliases, comment.Id);
+            RequireReference(aliases, comment.CardId, $"Comment '{comment.Id}' cardId");
+            RequireReference(aliases, comment.AuthorUserId, $"Comment '{comment.Id}' authorUserId");
+            RequireText(comment.Content, $"Comment '{comment.Id}' content");
+        }
+        foreach (var subscription in setup.Subscriptions)
+        {
+            RequireReference(aliases, subscription.CardId, "Subscription cardId");
+            RequireReference(aliases, subscription.UserId, "Subscription userId");
         }
     }
 
@@ -542,4 +583,7 @@ public sealed partial class ScenarioLoader(IReadOnlySet<string>? knownTools = nu
 
     [GeneratedRegex("^[a-z0-9]+(?:[.-][a-z0-9]+)*$")]
     private static partial Regex AliasRegex();
+
+    [GeneratedRegex("^#[0-9A-Fa-f]{6}$")]
+    private static partial Regex ColorRegex();
 }

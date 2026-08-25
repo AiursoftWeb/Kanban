@@ -55,12 +55,16 @@ public sealed record ExamSetup
     public SetupColumn[] Columns { get; init; } = [];
     public SetupShare[] Shares { get; init; } = [];
     public SetupCard[] Cards { get; init; } = [];
+    public SetupLabel[] Labels { get; init; } = [];
+    public SetupComment[] Comments { get; init; } = [];
+    public SetupSubscription[] Subscriptions { get; init; } = [];
 }
 
 public sealed record SetupUser
 {
     public required string Id { get; init; }
     public required string DisplayName { get; init; }
+    public string[] Roles { get; init; } = [];
 }
 
 public sealed record SetupBoard
@@ -99,6 +103,28 @@ public sealed record SetupCard
     public string Priority { get; init; } = "None";
     public DateTimeOffset? DueDate { get; init; }
     public int Order { get; init; }
+}
+
+public sealed record SetupLabel
+{
+    public required string Id { get; init; }
+    public required string Name { get; init; }
+    public string Color { get; init; } = "#6B7280";
+    public string[] CardIds { get; init; } = [];
+}
+
+public sealed record SetupComment
+{
+    public required string Id { get; init; }
+    public required string CardId { get; init; }
+    public required string AuthorUserId { get; init; }
+    public required string Content { get; init; }
+}
+
+public sealed record SetupSubscription
+{
+    public required string CardId { get; init; }
+    public required string UserId { get; init; }
 }
 
 public sealed record ExamStep
