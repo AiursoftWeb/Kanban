@@ -10,14 +10,13 @@ using Aiursoft.AgentExam.Core.Validation;
 using Aiursoft.Kanban.ExamRunner.Configuration;
 using Aiursoft.Kanban.ExamRunner.Transport;
 using Aiursoft.Kanban.Services.Agent;
-using Aiursoft.Kanban.Services.Agent.Exam;
+using Aiursoft.Kanban.AgentExam;
 
 namespace Aiursoft.Kanban.ExamRunner.Execution;
 
 public sealed record ExamExecutionResult(
     int ExitCode,
-    string OutputDirectory,
-    ExamSummaryReport Summary);
+    string OutputDirectory);
 
 public sealed class ExamOrchestrator(
     IScenarioLoader? scenarioLoader = null,
@@ -106,7 +105,7 @@ public sealed class ExamOrchestrator(
         var failed = summary.Candidates.Any(candidate =>
             candidate.IncompleteRuns > 0 ||
             candidate.Mean < loaded.Configuration.FailBelow);
-        return new ExamExecutionResult(failed ? 2 : 0, loaded.OutputDirectory, summary);
+        return new ExamExecutionResult(failed ? 2 : 0, loaded.OutputDirectory);
     }
 
     private async Task<ScenarioResult> RunScenarioAsync(

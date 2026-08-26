@@ -1,9 +1,10 @@
 using Aiursoft.AgentExam.Core.Models;
+using Aiursoft.Kanban.Services.Agent;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Aiursoft.Kanban.Services.Agent.Exam;
+namespace Aiursoft.Kanban.AgentExam;
 
 public sealed record KanbanExamAttemptHostOptions
 {

@@ -1,7 +1,8 @@
+using Aiursoft.Kanban.Services.Agent;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Aiursoft.Kanban.Services.Agent.Exam;
+namespace Aiursoft.Kanban.AgentExam;
 
 public sealed record KanbanExamAttemptOptions
 {

@@ -1,11 +1,9 @@
 using System.Text.Json;
 using Aiursoft.AgentExam.Core.Models;
-using Aiursoft.DbTools;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Agent;
-using Aiursoft.Kanban.Services.Agent.Exam;
+using Aiursoft.Kanban.AgentExam;
 using Aiursoft.WebTools.Abstractions;
-using Microsoft.EntityFrameworkCore;
 using static Aiursoft.WebTools.Extends;
 
 namespace Aiursoft.Kanban.AgentExam.Tests;
@@ -194,7 +192,7 @@ public class KanbanExamAdapterTests
         IReadOnlySet<string> enabledTools,
         DateTimeOffset? utcNow = null)
     {
-        var port = Aiursoft.CSTools.Tools.Network.GetAvailablePort();
+        var port = CSTools.Tools.Network.GetAvailablePort();
         var host = await AppAsync<Startup>(
             [],
             port,
@@ -279,7 +277,6 @@ public class KanbanExamAdapterTests
     };
 
     private sealed record ModelRequest(
-        string SystemPrompt,
         IReadOnlyList<ClaudeMessage> Messages,
         IReadOnlyList<ClaudeTool> Tools);
 
@@ -295,7 +292,7 @@ public class KanbanExamAdapterTests
             CancellationToken cancellationToken = default,
             int maxTokens = 4096)
         {
-            Requests.Add(new ModelRequest(systemPrompt, messages, tools ?? []));
+            Requests.Add(new ModelRequest(messages, tools ?? []));
             cancellationToken.ThrowIfCancellationRequested();
             return Task.FromResult(_responses.Dequeue());
         }

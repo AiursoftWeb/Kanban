@@ -2,7 +2,6 @@ using Aiursoft.AgentExam.Core.Loading;
 using Aiursoft.AgentExam.Core.Models;
 using Aiursoft.Kanban.ExamRunner.Configuration;
 using Aiursoft.Kanban.Services.Agent;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Aiursoft.Kanban.ExamRunner.Tests;
 
@@ -73,11 +72,13 @@ public class BaselineScenarioTests
             Assert.AreEqual("apiKey", candidate.Authentication.Mode);
             Assert.AreEqual(ApiKeyEnvironmentVariable, candidate.Authentication.EnvironmentVariable);
             Assert.AreEqual("fixture-only-credential", candidate.Credential);
-            Assert.IsTrue(candidate.Candidate.Tools is { Length: > 0 });
+            var tools = candidate.Candidate.Tools;
+            Assert.IsNotNull(tools);
+            Assert.IsTrue(tools.Length > 0);
 
             var registeredTools = ToolRegistry.GetRegisteredToolNames()
                 .ToHashSet(StringComparer.Ordinal);
-            Assert.IsTrue(candidate.Candidate.Tools.All(registeredTools.Contains));
+            Assert.IsTrue(tools.All(registeredTools.Contains));
 
             var scenarios = await new ScenarioLoader(registeredTools).LoadAsync(
                 loaded.ScenarioPatterns);

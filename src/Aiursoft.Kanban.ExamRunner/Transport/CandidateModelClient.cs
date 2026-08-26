@@ -53,10 +53,8 @@ public sealed class CandidateModelClient : IAgentModelClient, IDisposable
             Tools = tools,
             Stream = false
         }, Options);
-        using var request = new HttpRequestMessage(HttpMethod.Post, endpoint)
-        {
-            Content = new StringContent(body, Encoding.UTF8, "application/json")
-        };
+        using var request = new HttpRequestMessage(HttpMethod.Post, endpoint);
+        request.Content = new StringContent(body, Encoding.UTF8, "application/json");
         ApplyAuthentication(request);
         using var response = await httpClient.SendAsync(request, cancellationToken);
         if (!response.IsSuccessStatusCode)

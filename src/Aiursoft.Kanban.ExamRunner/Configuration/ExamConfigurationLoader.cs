@@ -58,7 +58,6 @@ public static class ExamConfigurationLoader
 
         return new LoadedExamConfiguration(
             configuration,
-            configurationDirectory,
             scenarioPatterns,
             outputDirectory,
             candidates);

@@ -43,7 +43,6 @@ public sealed record CandidateAuthentication
 
 public sealed record LoadedExamConfiguration(
     ExamConfiguration Configuration,
-    string ConfigurationDirectory,
     IReadOnlyList<string> ScenarioPatterns,
     string OutputDirectory,
     IReadOnlyList<LoadedCandidate> Candidates);

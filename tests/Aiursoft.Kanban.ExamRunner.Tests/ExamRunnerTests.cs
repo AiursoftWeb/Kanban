@@ -8,7 +8,6 @@ using Aiursoft.Kanban.ExamRunner.Configuration;
 using Aiursoft.Kanban.ExamRunner.Execution;
 using Aiursoft.Kanban.ExamRunner.Transport;
 using Aiursoft.Kanban.Services.Agent;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Aiursoft.Kanban.ExamRunner.Tests;
 
@@ -212,7 +211,7 @@ public class ExamOrchestratorTests
                 Tools = ["GetBoards"]
             };
             var loaded = Loaded(output, candidate, "Exam-only prompt");
-            using var handler = new PromptRecordingHandler();
+            var handler = new PromptRecordingHandler();
 
             var result = await new ExamOrchestrator(
                 new FakeScenarioLoader([scenario]),
@@ -282,7 +281,6 @@ public class ExamOrchestratorTests
             FailBelow = 0,
             Candidates = []
         },
-        output,
         [Path.Combine(output, "scenario.json")],
         output,
         [new LoadedCandidate(candidate, new CandidateAuthentication(), null, prompt)]);

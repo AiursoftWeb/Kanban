@@ -1,8 +1,9 @@
 using System.Diagnostics;
 using System.Text.Json;
 using Aiursoft.AgentExam.Core.Models;
+using Aiursoft.Kanban.Services.Agent;
 
-namespace Aiursoft.Kanban.Services.Agent.Exam;
+namespace Aiursoft.Kanban.AgentExam;
 
 public sealed class KanbanExamAdapter(
     KanbanExamScenarioSeeder seeder,
@@ -50,7 +51,7 @@ public sealed class KanbanExamAdapter(
                     },
                     timeout.Token);
                 stopwatch.Stop();
-                var state = await snapshotter.CaptureAsync(aliases, cancellationToken);
+                var state = await snapshotter.CaptureAsync(aliases, timeout.Token);
                 var response = execution.Conversation.Messages
                     .LastOrDefault(message => message.Role == "assistant" &&
                                               message.ToolCalls is not { Count: > 0 })
@@ -80,7 +81,7 @@ public sealed class KanbanExamAdapter(
             catch (Exception exception)
             {
                 stopwatch.Stop();
-                var state = await snapshotter.CaptureAsync(aliases, cancellationToken);
+                var state = await snapshotter.CaptureAsync(aliases, timeout.Token);
                 evidence.Add(new StepEvidence(
                     stepIndex,
                     step.UserId,

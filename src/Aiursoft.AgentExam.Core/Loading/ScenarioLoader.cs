@@ -141,14 +141,13 @@ public sealed partial class ScenarioLoader(IReadOnlySet<string>? knownTools = nu
         return value;
     }
 
-    private static JsonElement RequireArrayProperty(JsonElement element, string name)
+    private static void RequireArrayProperty(JsonElement element, string name)
     {
         var value = RequireProperty(element, name);
         if (value.ValueKind != JsonValueKind.Array)
         {
             throw new ScenarioValidationException($"{name} must be an array.");
         }
-        return value;
     }
 
     private static void ValidateOptionalArrayProperty(JsonElement element, string name)

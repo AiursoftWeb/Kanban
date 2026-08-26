@@ -13,13 +13,7 @@ public static class Program
             return 1;
         }
 
-        using var cancellation = new CancellationTokenSource();
-        ConsoleCancelEventHandler handler = (_, eventArgs) =>
-        {
-            eventArgs.Cancel = true;
-            cancellation.Cancel();
-        };
-        Console.CancelKeyPress += handler;
+        using var cancellation = new ConsoleCancellation();
         try
         {
             var configuration = await ExamConfigurationLoader.LoadAsync(
@@ -41,9 +35,26 @@ public static class Program
             Console.Error.WriteLine(exception.Message);
             return 1;
         }
-        finally
+    }
+
+    private sealed class ConsoleCancellation : IDisposable
+    {
+        private readonly CancellationTokenSource source = new();
+
+        public ConsoleCancellation() => Console.CancelKeyPress += OnCancelKeyPress;
+
+        public CancellationToken Token => source.Token;
+
+        private void OnCancelKeyPress(object? sender, ConsoleCancelEventArgs eventArgs)
         {
-            Console.CancelKeyPress -= handler;
+            eventArgs.Cancel = true;
+            source.Cancel();
+        }
+
+        public void Dispose()
+        {
+            Console.CancelKeyPress -= OnCancelKeyPress;
+            source.Dispose();
         }
     }
 }

@@ -1,9 +1,8 @@
 using Aiursoft.AgentExam.Core.Models;
 using Aiursoft.Kanban.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
-namespace Aiursoft.Kanban.Services.Agent.Exam;
+namespace Aiursoft.Kanban.AgentExam;
 
 public sealed class KanbanExamScenarioSeeder(
     TemplateDbContext db,

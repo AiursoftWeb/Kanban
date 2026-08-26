@@ -1,4 +1,4 @@
-namespace Aiursoft.Kanban.Services.Agent.Exam;
+namespace Aiursoft.Kanban.AgentExam;
 
 public sealed class KanbanExamAliasMap
 {
