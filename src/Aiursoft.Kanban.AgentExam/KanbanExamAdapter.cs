@@ -9,8 +9,14 @@ public sealed class KanbanExamAdapter(
     KanbanExamStateSnapshotter snapshotter,
     IAgentService agentService)
 {
+    public Task<AttemptEvidence> RunAsync(
+        ExamScenario scenario,
+        CancellationToken cancellationToken = default) =>
+        RunAsync(scenario, null, cancellationToken);
+
     public async Task<AttemptEvidence> RunAsync(
         ExamScenario scenario,
+        string? systemPromptOverride,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(scenario);
@@ -37,7 +43,11 @@ public sealed class KanbanExamAdapter(
                     aliases.GetUser(step.UserId),
                     aliases.GetBoard(step.BoardId),
                     step.UserMessage,
-                    new AgentExecutionOptions { AutoApproveWrites = true },
+                    new AgentExecutionOptions
+                    {
+                        AutoApproveWrites = true,
+                        SystemPromptOverride = systemPromptOverride
+                    },
                     timeout.Token);
                 stopwatch.Stop();
                 var state = await snapshotter.CaptureAsync(aliases, cancellationToken);

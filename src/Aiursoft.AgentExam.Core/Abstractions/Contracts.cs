@@ -26,6 +26,11 @@ public interface IReportWriter
         ExamReport report,
         string outputDirectory,
         CancellationToken cancellationToken = default);
+
+    Task WriteSummaryAsync(
+        ExamSummaryReport report,
+        string outputDirectory,
+        CancellationToken cancellationToken = default);
 }
 
 public static class JsonDefaults

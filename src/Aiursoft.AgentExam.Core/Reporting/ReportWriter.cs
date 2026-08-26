@@ -30,6 +30,27 @@ public sealed class ReportWriter : IReportWriter
             cancellationToken);
     }
 
+    public async Task WriteSummaryAsync(
+        ExamSummaryReport report,
+        string outputDirectory,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(report);
+        var directory = Path.GetFullPath(outputDirectory);
+        Directory.CreateDirectory(directory);
+        var jsonPath = ExamValidation.ResolveContainedPath(directory, "summary.json");
+        var htmlPath = ExamValidation.ResolveContainedPath(directory, "summary.html");
+
+        await File.WriteAllTextAsync(
+            jsonPath,
+            JsonSerializer.Serialize(report, JsonDefaults.Options),
+            cancellationToken);
+        await File.WriteAllTextAsync(
+            htmlPath,
+            BuildSummaryHtml(report),
+            cancellationToken);
+    }
+
     private static string BuildHtml(ExamReport report)
     {
         var html = new StringBuilder(
@@ -56,6 +77,32 @@ public sealed class ReportWriter : IReportWriter
                 AppendScenario(html, scenario);
             }
             html.Append("</ul>");
+        }
+        html.Append("</body></html>");
+        return html.ToString();
+    }
+
+    private static string BuildSummaryHtml(ExamSummaryReport report)
+    {
+        var html = new StringBuilder(
+            "<!doctype html><html><head><meta charset=\"utf-8\">" +
+            "<title>Agent Exam Summary</title><style>" +
+            "body{font-family:sans-serif;max-width:1100px;margin:2rem auto}" +
+            "table{border-collapse:collapse;width:100%}" +
+            "td,th{border:1px solid #ccc;padding:.5rem}</style></head><body>" +
+            "<h1>Agent Exam Summary</h1>");
+        html.Append($"<p>Schema: {Encode(report.SchemaVersion)} | Started: {Encode(report.StartedAt)} | Scenario hash: {Encode(report.ScenarioHash)}</p>");
+        foreach (var candidate in report.Candidates)
+        {
+            html.Append($"<h2>{Encode(candidate.Id)} — {candidate.Mean:F1}/100</h2>");
+            html.Append($"<p>Model: {Encode(candidate.Model)} | Strategy: {Encode(candidate.StrategyId)} | Repetitions: {candidate.Repetitions} | Prompt hash: {Encode(candidate.PromptHash)}</p>");
+            html.Append($"<p>Minimum: {candidate.Minimum:F1} | Maximum: {candidate.Maximum:F1} | Standard deviation: {candidate.StandardDeviation:F1} | Completion: {candidate.CompletionRate:P1} | Incomplete runs: {candidate.IncompleteRuns} | Invalid scenarios: {candidate.InvalidScenarios}</p>");
+            html.Append("<table><tr><th>Dimension</th><th>Mean score</th><th>Mean contribution</th></tr>");
+            foreach (var dimension in candidate.Dimensions)
+            {
+                html.Append($"<tr><td>{Encode(dimension.Dimension)}</td><td>{dimension.MeanScore:F1}</td><td>{dimension.MeanContribution:F1}</td></tr>");
+            }
+            html.Append("</table>");
         }
         html.Append("</body></html>");
         return html.ToString();

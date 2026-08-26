@@ -225,6 +225,45 @@ public class ReportWriterTests
     }
 
     [TestMethod]
+    public async Task WriteSummaryAsync_WritesEncodedAggregateReport()
+    {
+        var output = Path.Combine(Path.GetTempPath(), $"agent-exam-summary-{Guid.NewGuid():N}");
+        try
+        {
+            var report = new ExamSummaryReport(
+                "1.0",
+                DateTimeOffset.Parse("2026-08-24T00:00:00Z"),
+                "hash",
+                [new CandidateSummary(
+                    "candidate-one",
+                    "model<script>",
+                    "production",
+                    "prompt-hash",
+                    2,
+                    50,
+                    0,
+                    100,
+                    50,
+                    .5,
+                    1,
+                    1,
+                    [])]);
+
+            await new ReportWriter().WriteSummaryAsync(report, output);
+
+            var json = await File.ReadAllTextAsync(Path.Combine(output, "summary.json"));
+            var html = await File.ReadAllTextAsync(Path.Combine(output, "summary.html"));
+            Assert.IsFalse(json.Contains("api-key-secret", StringComparison.Ordinal));
+            StringAssert.Contains(html, "model&lt;script&gt;");
+            Assert.IsFalse(html.Contains("model<script>", StringComparison.Ordinal));
+        }
+        finally
+        {
+            if (Directory.Exists(output)) Directory.Delete(output, true);
+        }
+    }
+
+    [TestMethod]
     public void ValidateCandidate_RejectsPathLikeId()
     {
         var candidate = new ExamCandidate

@@ -255,3 +255,29 @@ public sealed record CandidateReport(
     string PromptHash,
     CandidateScore Score,
     int Repetition = 1);
+
+public sealed record ExamSummaryReport(
+    string SchemaVersion,
+    DateTimeOffset StartedAt,
+    string ScenarioHash,
+    IReadOnlyList<CandidateSummary> Candidates);
+
+public sealed record CandidateSummary(
+    string Id,
+    string Model,
+    string StrategyId,
+    string PromptHash,
+    int Repetitions,
+    double Mean,
+    double Minimum,
+    double Maximum,
+    double StandardDeviation,
+    double CompletionRate,
+    int IncompleteRuns,
+    int InvalidScenarios,
+    IReadOnlyList<DimensionSummary> Dimensions);
+
+public sealed record DimensionSummary(
+    EvaluationDimension Dimension,
+    double MeanScore,
+    double MeanContribution);
