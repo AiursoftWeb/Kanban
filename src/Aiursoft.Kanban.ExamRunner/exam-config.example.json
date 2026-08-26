@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0",
+  "scenarios": ["Scenarios/**/*.json"],
+  "outputDirectory": "reports",
+  "failBelow": 70,
+  "candidates": [
+    {
+      "id": "claude-opus",
+      "endpoint": "https://gateway.example.test/v1/messages",
+      "model": "claude-opus-5",
+      "strategyId": "production",
+      "tools": [
+        "GetCardsByPriority",
+        "SearchCards",
+        "CreateCard",
+        "UpdateCardPriority",
+        "MoveCard",
+        "DeleteCard"
+      ],
+      "authentication": {
+        "mode": "apiKey",
+        "environmentVariable": "ANTHROPIC_API_KEY"
+      },
+      "repetitions": 1
+    }
+  ]
+}

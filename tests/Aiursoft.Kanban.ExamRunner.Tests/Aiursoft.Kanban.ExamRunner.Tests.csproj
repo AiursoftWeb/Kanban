@@ -14,4 +14,12 @@
   <ItemGroup>
     <ProjectReference Include="../../src/Aiursoft.Kanban.ExamRunner/Aiursoft.Kanban.ExamRunner.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="../../src/Aiursoft.Kanban.ExamRunner/exam-config.example.json"
+             Link="ExamFixtures/exam-config.example.json"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../src/Aiursoft.Kanban.ExamRunner/Scenarios/**/*.json"
+             Link="ExamFixtures/Scenarios/%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
