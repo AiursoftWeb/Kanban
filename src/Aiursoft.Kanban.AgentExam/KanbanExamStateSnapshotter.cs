@@ -36,73 +36,89 @@ public sealed class KanbanExamStateSnapshotter(TemplateDbContext db)
                 .OrderBy(user => user.Id, StringComparer.Ordinal)
                 .ToArray(),
             Boards = (await db.KanbanBoards.AsNoTracking().ToArrayAsync(cancellationToken))
-                .Select(board => new KanbanExamBoardState(
-                    RequiredAlias(boardsById, board.Id, "board"),
+                .Select(board => new
+                {
+                    Id = RequiredAlias(boardsById, board.Id, "board"),
                     board.Name,
-                    Alias(usersById, board.UserId),
+                    OwnerId = Alias(usersById, board.UserId),
                     board.IsPublic,
                     board.IsArchived,
-                    board.Order))
+                    board.Order
+                })
                 .OrderBy(board => board.Id, StringComparer.Ordinal)
                 .ToArray(),
             Columns = (await db.KanbanColumns.AsNoTracking().ToArrayAsync(cancellationToken))
-                .Select(column => new KanbanExamColumnState(
-                    RequiredAlias(columnsById, column.Id, "column"),
-                    RequiredAlias(boardsById, column.BoardId, "board"),
+                .Select(column => new
+                {
+                    Id = RequiredAlias(columnsById, column.Id, "column"),
+                    BoardId = RequiredAlias(boardsById, column.BoardId, "board"),
                     column.Name,
-                    column.ColumnStatus.ToString(),
-                    column.Order))
+                    Status = column.ColumnStatus.ToString(),
+                    column.Order
+                })
                 .OrderBy(column => column.Id, StringComparer.Ordinal)
                 .ToArray(),
             Cards = (await db.KanbanCards.AsNoTracking().ToArrayAsync(cancellationToken))
-                .Select(card => new KanbanExamCardState(
-                    RequiredAlias(cardsById, card.Id, "card"),
-                    RequiredAlias(columnsById, card.ColumnId, "column"),
+                .Select(card => new
+                {
+                    Id = RequiredAlias(cardsById, card.Id, "card"),
+                    ColumnId = RequiredAlias(columnsById, card.ColumnId, "column"),
                     card.Title,
-                    card.Description ?? string.Empty,
-                    Alias(usersById, card.CreatorUserId),
-                    Alias(usersById, card.AssignedUserId),
-                    card.Priority.ToString(),
+                    Description = card.Description ?? string.Empty,
+                    CreatorUserId = Alias(usersById, card.CreatorUserId),
+                    AssignedUserId = Alias(usersById, card.AssignedUserId),
+                    Priority = card.Priority.ToString(),
                     card.DueDate,
-                    card.Order))
+                    card.Order
+                })
                 .OrderBy(card => card.Id, StringComparer.Ordinal)
                 .ToArray(),
             Shares = (await db.BoardShares.AsNoTracking().ToArrayAsync(cancellationToken))
-                .Select(share => new KanbanExamShareState(
-                    RequiredAlias(boardsById, share.BoardId, "board"),
-                    Alias(usersById, share.SharedWithUserId),
-                    Alias(rolesById, share.SharedWithRoleId),
-                    share.Permission.ToString()))
+                .Select(share => new
+                {
+                    BoardId = RequiredAlias(boardsById, share.BoardId, "board"),
+                    UserId = Alias(usersById, share.SharedWithUserId),
+                    RoleName = Alias(rolesById, share.SharedWithRoleId),
+                    Permission = share.Permission.ToString()
+                })
                 .OrderBy(share => share.BoardId, StringComparer.Ordinal)
                 .ThenBy(share => share.UserId, StringComparer.Ordinal)
                 .ThenBy(share => share.RoleName, StringComparer.Ordinal)
                 .ToArray(),
             Labels = (await db.KanbanLabels.AsNoTracking().ToArrayAsync(cancellationToken))
-                .Select(label => new KanbanExamLabelState(
-                    RequiredAlias(labelsById, label.Id, "label"),
+                .Select(label => new
+                {
+                    Id = RequiredAlias(labelsById, label.Id, "label"),
                     label.Name,
-                    label.Color))
+                    label.Color
+                })
                 .OrderBy(label => label.Id, StringComparer.Ordinal)
                 .ToArray(),
             CardLabels = (await db.KanbanCardLabels.AsNoTracking().ToArrayAsync(cancellationToken))
-                .Select(link => new KanbanExamCardLabelState(
-                    RequiredAlias(cardsById, link.CardId, "card"),
-                    RequiredAlias(labelsById, link.LabelId, "label")))
+                .Select(link => new
+                {
+                    CardId = RequiredAlias(cardsById, link.CardId, "card"),
+                    LabelId = RequiredAlias(labelsById, link.LabelId, "label")
+                })
                 .OrderBy(link => link.CardId, StringComparer.Ordinal)
                 .ThenBy(link => link.LabelId, StringComparer.Ordinal)
                 .ToArray(),
             Comments = (await db.KanbanCardComments.AsNoTracking().ToArrayAsync(cancellationToken))
-                .Select(comment => new KanbanExamCommentState(
-                    RequiredAlias(commentsById, comment.Id, "comment"),
-                    RequiredAlias(cardsById, comment.CardId, "card"),
-                    RequiredAlias(usersById, comment.AuthorId, "user"),
-                    comment.Content))
+                .Select(comment => new
+                {
+                    Id = RequiredAlias(commentsById, comment.Id, "comment"),
+                    CardId = RequiredAlias(cardsById, comment.CardId, "card"),
+                    AuthorUserId = RequiredAlias(usersById, comment.AuthorId, "user"),
+                    comment.Content
+                })
                 .OrderBy(comment => comment.Id, StringComparer.Ordinal)
                 .ToArray(),
             Subscriptions = (await db.KanbanCardSubscriptions.AsNoTracking().ToArrayAsync(cancellationToken))
-                .Select(subscription => new KanbanExamSubscriptionState(
-                    RequiredAlias(cardsById, subscription.CardId, "card"),
-                    RequiredAlias(usersById, subscription.UserId, "user")))
+                .Select(subscription => new
+                {
+                    CardId = RequiredAlias(cardsById, subscription.CardId, "card"),
+                    UserId = RequiredAlias(usersById, subscription.UserId, "user")
+                })
                 .OrderBy(subscription => subscription.CardId, StringComparer.Ordinal)
                 .ThenBy(subscription => subscription.UserId, StringComparer.Ordinal)
                 .ToArray()
