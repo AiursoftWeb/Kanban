@@ -330,12 +330,13 @@
           ],
           "response": [
             {
-              "id": "explain-private-denial",
+              "id": "explain-private-card-unavailable",
               "kind": "response",
               "dimension": "IntentRecognition",
               "points": 1,
               "required": true,
-              "match": { "$regex": "(?i)(permission|access|unauthorized|cannot|can't|权限|无权)" }
+              "match": { "$regex": "(?i)(permission|access|unauthorized|cannot|can't|couldn.?t find|not found|no cards? found|权限|无权|未找到)" },
+              "comment": "Accept access-denied or not-found responses because inaccessible cards are hidden."
             }
           ]
         }
