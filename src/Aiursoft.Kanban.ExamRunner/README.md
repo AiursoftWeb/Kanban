@@ -92,14 +92,18 @@ The prompt body is not serialized into a report; reports contain its SHA-256 has
 
 ## Reports and exit codes
 
-Each repetition writes:
+Each invocation reserves a UTC timestamped directory and writes:
 
 ```text
-<output>/<candidate-id>/repetition-N/report.json
-<output>/<candidate-id>/repetition-N/report.html
+<output>/<yyyy-MM-dd-HHmmss[-NN]>/<candidate-id>/repetition-N/report.json
+<output>/<yyyy-MM-dd-HHmmss[-NN]>/<candidate-id>/repetition-N/report.html
+<output>/<yyyy-MM-dd-HHmmss[-NN]>/summary.json
+<output>/<yyyy-MM-dd-HHmmss[-NN]>/summary.html
 ```
 
-The output root also receives `summary.json` and `summary.html`. A scenario infrastructure, model, setup, timeout, or adapter failure becomes an invalid zero-score scenario; later scenarios, repetitions, and candidates continue, and reports are still produced.
+The timestamp uses UTC. If another current or historical run already owns the same second, the Runner adds `-01`, `-02`, and so on rather than overwriting it. `outputDirectory` remains the configuration-relative report root, while the CLI prints the concrete directory reserved for the current invocation.
+
+A scenario infrastructure, model, setup, timeout, or adapter failure becomes an invalid zero-score scenario; later scenarios, repetitions, and candidates continue, and reports are still produced.
 
 Exit codes:
 

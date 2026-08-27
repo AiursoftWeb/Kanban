@@ -217,13 +217,119 @@ public class ExamOrchestratorTests
                 new FakeScenarioLoader([scenario]),
                 new AssertionEvaluator(),
                 writer,
-                _ => new HttpClient(handler, false))
+                _ => new HttpClient(handler, false),
+                new TestTimeProvider(DateTimeOffset.Parse("2026-08-26T11:52:30Z")))
                 .RunAsync(loaded);
 
             var run = writer.Reports.Single().Candidates.Single();
             Assert.AreEqual(0, result.ExitCode);
+            Assert.AreEqual(
+                Path.Combine(output, "2026-08-26-115230"),
+                result.OutputDirectory);
+            Assert.AreEqual(
+                Path.Combine(result.OutputDirectory, "candidate-one", "repetition-1"),
+                writer.ReportDirectories.Single());
+            Assert.AreEqual(result.OutputDirectory, writer.SummaryDirectory);
             Assert.AreEqual("Exam-only prompt", handler.SystemPrompt);
             Assert.IsFalse(run.Score.Incomplete);
+        }
+        finally
+        {
+            if (Directory.Exists(output)) Directory.Delete(output, true);
+        }
+    }
+
+    [TestMethod]
+    public async Task RunAsync_PreservesExistingTimestampDirectory()
+    {
+        var output = Path.Combine(Path.GetTempPath(), $"agent-exam-{Guid.NewGuid():N}");
+        var existing = Path.Combine(output, "2026-08-26-115230");
+        try
+        {
+            Directory.CreateDirectory(existing);
+            var sentinel = Path.Combine(existing, "sentinel.txt");
+            await File.WriteAllTextAsync(sentinel, "historical report");
+            var scenario = Scenario("success") with
+            {
+                Setup = new ExamSetup
+                {
+                    Users = [new SetupUser { Id = "user.owner", DisplayName = "Owner" }],
+                    Boards = [new SetupBoard { Id = "board.main", Name = "Main", OwnerId = "user.owner" }],
+                    Columns = [new SetupColumn { Id = "column.main", BoardId = "board.main", Name = "To Do" }]
+                }
+            };
+            var writer = new RecordingWriter();
+            using var handler = new PromptRecordingHandler();
+            var candidate = new ExamCandidate
+            {
+                Id = "candidate-one",
+                Endpoint = "http://127.0.0.1/v1/messages",
+                Model = "test-model",
+                Tools = ["GetBoards"]
+            };
+
+            var result = await new ExamOrchestrator(
+                new FakeScenarioLoader([scenario]),
+                new AssertionEvaluator(),
+                writer,
+                _ => new HttpClient(handler, false),
+                new TestTimeProvider(DateTimeOffset.Parse("2026-08-26T11:52:30Z")))
+                .RunAsync(Loaded(output, candidate, null));
+
+            Assert.AreEqual(
+                Path.Combine(output, "2026-08-26-115230-01"),
+                result.OutputDirectory);
+            Assert.AreEqual("historical report", await File.ReadAllTextAsync(sentinel));
+        }
+        finally
+        {
+            if (Directory.Exists(output)) Directory.Delete(output, true);
+        }
+    }
+
+    [TestMethod]
+    public async Task RunAsync_ConcurrentRunsReserveDistinctDirectories()
+    {
+        var output = Path.Combine(Path.GetTempPath(), $"agent-exam-{Guid.NewGuid():N}");
+        try
+        {
+            var scenario = Scenario("failure");
+            var candidate = new ExamCandidate
+            {
+                Id = "candidate-one",
+                Endpoint = "http://127.0.0.1/v1/messages",
+                Model = "test-model",
+                Tools = ["GetBoards"]
+            };
+            var loaded = Loaded(output, candidate, null);
+            var timeProvider = new TestTimeProvider(
+                DateTimeOffset.Parse("2026-08-26T11:52:30Z"));
+            var first = new ExamOrchestrator(
+                new FakeScenarioLoader([scenario]),
+                new AssertionEvaluator(),
+                new RecordingWriter(),
+                _ => new HttpClient(new FailureHandler()),
+                timeProvider);
+            var second = new ExamOrchestrator(
+                new FakeScenarioLoader([scenario]),
+                new AssertionEvaluator(),
+                new RecordingWriter(),
+                _ => new HttpClient(new FailureHandler()),
+                timeProvider);
+
+            var results = await Task.WhenAll(
+                first.RunAsync(loaded),
+                second.RunAsync(loaded));
+
+            Assert.AreNotEqual(results[0].OutputDirectory, results[1].OutputDirectory);
+            CollectionAssert.AreEquivalent(
+                new[]
+                {
+                    Path.Combine(output, "2026-08-26-115230"),
+                    Path.Combine(output, "2026-08-26-115230-01")
+                },
+                results.Select(result => result.OutputDirectory).ToArray());
+            Assert.IsTrue(results.All(result => Directory.Exists(result.OutputDirectory)));
         }
         finally
         {
@@ -260,6 +366,14 @@ public class ExamOrchestratorTests
 
             Assert.AreEqual(2, result.ExitCode);
             Assert.AreEqual(2, writer.Reports.Count);
+            CollectionAssert.AreEquivalent(
+                new[]
+                {
+                    Path.Combine(result.OutputDirectory, "candidate-one", "repetition-1"),
+                    Path.Combine(result.OutputDirectory, "candidate-one", "repetition-2")
+                },
+                writer.ReportDirectories.ToArray());
+            Assert.AreEqual(result.OutputDirectory, writer.SummaryDirectory);
             Assert.IsNotNull(writer.Summary);
             Assert.AreEqual(2, writer.Summary.Candidates.Single().IncompleteRuns);
             Assert.AreEqual(4, writer.Summary.Candidates.Single().InvalidScenarios);
@@ -318,6 +432,11 @@ public class ExamOrchestratorTests
         ]
     };
 
+    private sealed class TestTimeProvider(DateTimeOffset utcNow) : TimeProvider
+    {
+        public override DateTimeOffset GetUtcNow() => utcNow;
+    }
+
     private sealed class FailureHandler : HttpMessageHandler
     {
         protected override Task<HttpResponseMessage> SendAsync(
@@ -361,7 +480,9 @@ public class ExamOrchestratorTests
     private sealed class RecordingWriter : IReportWriter
     {
         public List<ExamReport> Reports { get; } = [];
+        public List<string> ReportDirectories { get; } = [];
         public ExamSummaryReport? Summary { get; private set; }
+        public string? SummaryDirectory { get; private set; }
 
         public Task WriteAsync(
             ExamReport report,
@@ -369,6 +490,7 @@ public class ExamOrchestratorTests
             CancellationToken cancellationToken = default)
         {
             Reports.Add(report);
+            ReportDirectories.Add(outputDirectory);
             return Task.CompletedTask;
         }
 
@@ -378,6 +500,7 @@ public class ExamOrchestratorTests
             CancellationToken cancellationToken = default)
         {
             Summary = report;
+            SummaryDirectory = outputDirectory;
             return Task.CompletedTask;
         }
     }

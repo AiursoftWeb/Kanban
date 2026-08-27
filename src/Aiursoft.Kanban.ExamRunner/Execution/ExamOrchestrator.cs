@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -22,7 +23,8 @@ public sealed class ExamOrchestrator(
     IScenarioLoader? scenarioLoader = null,
     IAssertionEvaluator? evaluator = null,
     IReportWriter? reportWriter = null,
-    Func<LoadedCandidate, HttpClient?>? httpClientFactory = null)
+    Func<LoadedCandidate, HttpClient?>? httpClientFactory = null,
+    TimeProvider? timeProvider = null)
 {
     private readonly IScenarioLoader scenarioLoader = scenarioLoader ?? new ScenarioLoader(
         ToolRegistry.GetRegisteredToolNames().ToHashSet(StringComparer.Ordinal));
@@ -30,6 +32,7 @@ public sealed class ExamOrchestrator(
     private readonly IReportWriter reportWriter = reportWriter ?? new ReportWriter();
     private readonly Func<LoadedCandidate, HttpClient?> httpClientFactory =
         httpClientFactory ?? (_ => null);
+    private readonly TimeProvider timeProvider = timeProvider ?? TimeProvider.System;
 
     public async Task<ExamExecutionResult> RunAsync(
         LoadedExamConfiguration loaded,
@@ -52,7 +55,8 @@ public sealed class ExamOrchestrator(
                     $"Scenario '{scenario.Id}' has unsupported domain '{scenario.Domain}'.");
             }
         }
-        var startedAt = DateTimeOffset.UtcNow;
+        var startedAt = timeProvider.GetUtcNow();
+        var outputDirectory = ReserveRunDirectory(loaded.OutputDirectory, startedAt);
         var allRuns = new List<CandidateReport>();
 
         foreach (var loadedCandidate in loaded.Candidates)
@@ -86,7 +90,7 @@ public sealed class ExamOrchestrator(
                     repetition);
                 allRuns.Add(report);
                 var runDirectory = ExamValidation.ResolveContainedPath(
-                    loaded.OutputDirectory,
+                    outputDirectory,
                     candidate.Id,
                     $"repetition-{repetition}");
                 await reportWriter.WriteAsync(
@@ -101,11 +105,53 @@ public sealed class ExamOrchestrator(
             startedAt,
             scenarioHash,
             loaded.Candidates.Select(candidate => BuildSummary(candidate, allRuns)).ToArray());
-        await reportWriter.WriteSummaryAsync(summary, loaded.OutputDirectory, cancellationToken);
+        await reportWriter.WriteSummaryAsync(summary, outputDirectory, cancellationToken);
         var failed = summary.Candidates.Any(candidate =>
             candidate.IncompleteRuns > 0 ||
             candidate.Mean < loaded.Configuration.FailBelow);
-        return new ExamExecutionResult(failed ? 2 : 0, loaded.OutputDirectory);
+        return new ExamExecutionResult(failed ? 2 : 0, outputDirectory);
+    }
+
+    private static string ReserveRunDirectory(
+        string outputRoot,
+        DateTimeOffset startedAt)
+    {
+        Directory.CreateDirectory(outputRoot);
+        var timestamp = startedAt.UtcDateTime.ToString(
+            "yyyy-MM-dd-HHmmss",
+            CultureInfo.InvariantCulture);
+        var temporaryDirectory = ExamValidation.ResolveContainedPath(
+            outputRoot,
+            $".run-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(temporaryDirectory);
+        try
+        {
+            for (var suffix = 0; ; suffix++)
+            {
+                var directoryName = suffix == 0
+                    ? timestamp
+                    : $"{timestamp}-{suffix:00}";
+                var runDirectory = ExamValidation.ResolveContainedPath(
+                    outputRoot,
+                    directoryName);
+                try
+                {
+                    Directory.Move(temporaryDirectory, runDirectory);
+                    return runDirectory;
+                }
+                catch (IOException) when (Directory.Exists(runDirectory))
+                {
+                    // Another current or historical run owns this name.
+                }
+            }
+        }
+        finally
+        {
+            if (Directory.Exists(temporaryDirectory))
+            {
+                Directory.Delete(temporaryDirectory);
+            }
+        }
     }
 
     private async Task<ScenarioResult> RunScenarioAsync(
