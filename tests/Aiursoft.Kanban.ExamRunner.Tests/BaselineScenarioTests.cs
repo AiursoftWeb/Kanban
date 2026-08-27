@@ -64,9 +64,9 @@ public class BaselineScenarioTests
             Assert.AreEqual(Path.Combine(fixtureDirectory, "reports"), loaded.OutputDirectory);
 
             var candidate = loaded.Candidates.Single();
-            Assert.AreEqual("claude-opus", candidate.Candidate.Id);
-            Assert.AreEqual("https://gateway.example.test/v1/messages", candidate.Candidate.Endpoint);
-            Assert.AreEqual("claude-opus-5", candidate.Candidate.Model);
+            Assert.AreEqual("aiursoft-instruct", candidate.Candidate.Id);
+            Assert.AreEqual("https://ollama.aiursoft.com/v1/messages", candidate.Candidate.Endpoint);
+            Assert.AreEqual("aiursoft-instruct:latest", candidate.Candidate.Model);
             Assert.AreEqual("production", candidate.Candidate.StrategyId);
             Assert.AreEqual(1, candidate.Candidate.Repetitions);
             Assert.AreEqual("apiKey", candidate.Authentication.Mode);
