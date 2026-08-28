@@ -2,6 +2,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Aiursoft.Kanban.ExamRunner.Tests</RootNamespace>
     <IsTestProject>true</IsTestProject>
     <IsPackable>false</IsPackable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -16,11 +17,7 @@
     <ProjectReference Include="../../src/Aiursoft.Kanban.ExamRunner/Aiursoft.Kanban.ExamRunner.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="../../src/Aiursoft.Kanban.ExamRunner/exam-config.example.json"
-             Link="ExamFixtures/exam-config.example.json"
-             CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="../../src/Aiursoft.Kanban.ExamRunner/Scenarios/**/*.json"
-             Link="ExamFixtures/Scenarios/%(RecursiveDir)%(Filename)%(Extension)"
-             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../src/Aiursoft.Kanban.ExamRunner/exam-config.example.json" Link="ExamFixtures/exam-config.example.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../src/Aiursoft.Kanban.ExamRunner/Scenarios/**/*.json" Link="ExamFixtures/Scenarios/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

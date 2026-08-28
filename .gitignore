@@ -20,5 +20,3 @@ app.db*
 .angular/
 .yarn/
 *.tsbuildinfo
-reports/
-exam-config.json
