@@ -259,7 +259,7 @@ public class ExamOrchestratorTests
                 }
             };
             var writer = new RecordingWriter();
-            using var handler = new PromptRecordingHandler();
+            var handler = new PromptRecordingHandler();
             var candidate = new ExamCandidate
             {
                 Id = "candidate-one",
