@@ -3,6 +3,7 @@ namespace Aiursoft.Kanban.Services.Agent;
 public sealed record AgentExecutionOptions
 {
     public bool AutoApproveWrites { get; init; }
+    public string? SystemPromptOverride { get; init; }
 }
 
 public sealed record AgentToolTrace
