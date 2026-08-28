@@ -4,12 +4,12 @@
     <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>Aiursoft.Kanban.ExamRunner</AssemblyName>
     <RootNamespace>Aiursoft.Kanban.ExamRunner</RootNamespace>
+    <IsTestProject>false</IsTestProject>
     <IsPackable>false</IsPackable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="../Aiursoft.AgentExam.Core/Aiursoft.AgentExam.Core.csproj" />
     <ProjectReference Include="../Aiursoft.Kanban.AgentExam/Aiursoft.Kanban.AgentExam.csproj" />
   </ItemGroup>
 </Project>
