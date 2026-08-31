@@ -10,6 +10,7 @@ using AndroidX.AppCompat.App;
 using AndroidX.Activity;
 using AndroidX.Core.View;
 using AndroidX.DrawerLayout.Widget;
+using Aiursoft.Kanban.Android.Oidc;
 using Aiursoft.Kanban.SDK;
 using Aiursoft.Kanban.SDK.Models;
 using Google.Android.Material.BottomSheet;
@@ -584,6 +585,12 @@ public sealed class MainActivity : AppCompatActivity
 
     private void ShowError(Exception exception, bool retryBoards)
     {
+        if (exception is KanbanAuthenticationRequiredException)
+        {
+            ReturnToLogin();
+            return;
+        }
+
         var bar = Snackbar.Make(_workspace, FriendlyMessage(exception), Snackbar.LengthLong);
         bar.SetAction("Retry", ignoredView =>
         {

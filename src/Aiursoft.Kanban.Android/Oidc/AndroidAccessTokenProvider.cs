@@ -41,7 +41,12 @@ public sealed class AndroidAccessTokenProvider : IKanbanAccessTokenProvider
     {
         if (!string.IsNullOrWhiteSpace(_localToken))
         {
-            return _localTokenExpiresAt > DateTimeOffset.UtcNow ? _localToken : null;
+            if (_localTokenExpiresAt > DateTimeOffset.UtcNow)
+            {
+                return _localToken;
+            }
+            Clear();
+            throw new KanbanAuthenticationRequiredException("Your session expired. Sign in again.");
         }
         if (_tokens == null)
         {
@@ -57,6 +62,11 @@ public sealed class AndroidAccessTokenProvider : IKanbanAccessTokenProvider
         {
             if (_tokens.ExpiresAt <= DateTimeOffset.UtcNow.AddMinutes(1))
             {
+                if (string.IsNullOrWhiteSpace(_tokens.RefreshToken))
+                {
+                    Clear();
+                    throw new KanbanAuthenticationRequiredException("Your session expired. Sign in again.");
+                }
                 _tokens = await (_oidc ?? throw new InvalidOperationException("OIDC client is unavailable."))
                     .RefreshAsync(_tokens, cancellationToken);
             }
@@ -68,3 +78,5 @@ public sealed class AndroidAccessTokenProvider : IKanbanAccessTokenProvider
         }
     }
 }
+
+public sealed class KanbanAuthenticationRequiredException(string message) : InvalidOperationException(message);
