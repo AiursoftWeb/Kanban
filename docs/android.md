@@ -71,12 +71,27 @@ The web client and Android client are different OIDC client types:
    **Public**, client ID to `kanban-android`, and enable Authorization Code with PKCE.
    Do not create or ship a client secret.
 2. Add the strict redirect URI `com.aiursoft.kanban:/oauth2redirect` and allow the
-   `openid`, `profile`, `email`, and `offline_access` scopes.
+   `openid`, `profile`, `email`, and `offline_access` scopes. In **Advanced protocol
+   settings**, use these values:
+
+   | Setting | Value |
+   | --- | --- |
+   | Access Code Validity | `minutes=1` |
+   | Access Token Validity | `minutes=5` |
+   | Refresh Token Validity | `days=30` |
+   | Refresh Token Threshold | `hours=1` |
+
+   Move Authentik's built-in **OpenID `offline_access`** mapping into **Selected
+   Scopes**, alongside `openid`, `profile`, and `email`. Leave **Encryption Key** empty
+   unless the application explicitly supports JWE tokens.
 3. Create an Authentik application with slug `kanban-android` and assign that provider.
    Its issuer will be `https://your-authentik/application/o/kanban-android/`.
 4. Ensure the access token contains the mobile client as its audience plus the `sub`,
    `preferred_username`, `name`, and `email` claims. Then apply the self-hosted overrides
    below. Aiursoft's hosted service already matches these checked-in defaults.
+
+After saving the provider, sign out and complete a fresh Android OIDC login. Tokens
+issued before `offline_access` was enabled do not gain a refresh token retroactively.
 
 For a self-hosted deployment, override the mobile settings to match the native client
 registered with your identity provider (environment-variable form shown):
