@@ -65,6 +65,19 @@ The web client and Android client are different OIDC client types:
 - Include `sub`, `preferred_username`, `name`, and `email` in the access token for a
   first-time mobile login. Users previously linked by web login only require `sub`.
 
+### Authentik quick setup
+
+1. Create an **OAuth2/OpenID Provider** for the Android app. Set the client type to
+   **Public**, client ID to `kanban-android`, and enable Authorization Code with PKCE.
+   Do not create or ship a client secret.
+2. Add the strict redirect URI `com.aiursoft.kanban:/oauth2redirect` and allow the
+   `openid`, `profile`, `email`, and `offline_access` scopes.
+3. Create an Authentik application with slug `kanban-android` and assign that provider.
+   Its issuer will be `https://your-authentik/application/o/kanban-android/`.
+4. Ensure the access token contains the mobile client as its audience plus the `sub`,
+   `preferred_username`, `name`, and `email` claims. Then apply the self-hosted overrides
+   below. Aiursoft's hosted service already matches these checked-in defaults.
+
 For a self-hosted deployment, override the mobile settings to match the native client
 registered with your identity provider (environment-variable form shown):
 
