@@ -13,7 +13,7 @@ public sealed class AppSession : IDisposable
 {
     private const string ServerKey = "kanban.server";
     private const string SelectedBoardKey = "kanban.selected_board";
-    public const string DefaultServer = "https://192.168.50.146:5443";
+    public const string DefaultServer = "https://kanban.aiursoft.com";
 
     private readonly ISharedPreferences _preferences;
     private readonly AndroidAccessTokenProvider _tokens = new();

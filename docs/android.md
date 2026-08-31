@@ -39,10 +39,10 @@ endpoint is allowed only for the USB tunnel; use HTTPS for LAN or internet acces
 Local mobile access tokens expire after 12 hours and are protected by the server's
 ASP.NET Core Data Protection key ring.
 
-The workstation development build can alternatively expose HTTPS on port `5443` and
-pin its local certificate in the APK. That lets the installed app use
-`https://192.168.50.146:5443` on the same Wi-Fi without sending credentials or tokens
-in cleartext. Regenerate and re-pin the certificate if the workstation address changes.
+The app defaults to the primary hosted service at `https://kanban.aiursoft.com`.
+Self-hosted deployments can replace it with their own HTTP or HTTPS server URL. For
+direct LAN HTTPS during development, install or pin the development server certificate
+before connecting.
 
 ## OIDC deployment requirements
 
@@ -52,8 +52,10 @@ The web client and Android client are different OIDC client types:
 - Register a public/native client with client ID `kanban-android` (or your chosen value).
 - Enable Authorization Code flow, require PKCE with `S256`, and do not issue a client secret.
 - Register `com.aiursoft.kanban:/oauth2redirect` as an exact redirect URI.
-- Expose an API resource/scope such as `kanban-api`; its access-token audience must be
-  `kanban-api`.
+- Configure `ApiAudience` to match the access-token audience. For Authentik, this is
+  the public provider's client ID (`kanban-android`).
+- Configure `ApiScope` only when the provider exposes a separate API scope; leave it
+  empty for the Authentik setup described below.
 - Allow the native client to request `offline_access` so it can refresh expired access
   tokens without embedding or storing a password.
 - Include `sub`, `preferred_username`, `name`, and `email` in the access token for a
@@ -64,14 +66,20 @@ Configure the server (environment-variable form shown):
 ```text
 AppSettings__AuthProvider=OIDC
 AppSettings__OIDC__Authority=https://identity.example.com/application/o/kanban
+AppSettings__OIDC__MobileAuthority=https://identity.example.com/application/o/kanban-android
 AppSettings__OIDC__RequireHttpsMetadata=true
 AppSettings__OIDC__ClientId=kanban-web
 AppSettings__OIDC__ClientSecret=replace-me
 AppSettings__OIDC__MobileClientId=kanban-android
-AppSettings__OIDC__ApiAudience=kanban-api
-AppSettings__OIDC__ApiScope=kanban-api
+AppSettings__OIDC__ApiAudience=kanban-android
+AppSettings__OIDC__ApiScope=
 AppSettings__OIDC__MobileRedirectUri=com.aiursoft.kanban:/oauth2redirect
 ```
+
+`MobileAuthority` may be left empty when both clients share an issuer. Authentik assigns
+one OAuth client to each provider, so use a separate public provider/application for Android,
+set `MobileAuthority` to its issuer, use its client ID as `ApiAudience`, and leave `ApiScope`
+empty unless a custom scope mapping is configured.
 
 The app first reads `/api/v1/config`, discovers the OIDC authorization and token
 endpoints, then opens the system browser for Authorization Code + PKCE login. The API
