@@ -14,10 +14,10 @@ public class OidcSettings
     public required string Authority { get; init; } = "https://your-oidc-provider.com";
 
     /// <summary>
-    /// Optional authority used by the public mobile client. Leave empty when the identity provider
-    /// supports multiple clients under the same issuer as the confidential web client.
+    /// Authority used by the public mobile client. The default targets Aiursoft's hosted Android
+    /// provider; self-hosted deployments can override it or leave it empty to reuse Authority.
     /// </summary>
-    public string MobileAuthority { get; init; } = string.Empty;
+    public string MobileAuthority { get; init; } = "https://auth.aiursoft.com/application/o/kanban-android";
 
     public string GetMobileAuthority() =>
         string.IsNullOrWhiteSpace(MobileAuthority) ? Authority : MobileAuthority;
@@ -59,10 +59,10 @@ public class OidcSettings
     public string MobileClientId { get; init; } = "kanban-android";
 
     /// <summary>The audience that access tokens issued for the Kanban API must contain.</summary>
-    public string ApiAudience { get; init; } = "kanban-api";
+    public string ApiAudience { get; init; } = "kanban-android";
 
     /// <summary>The optional API scope requested by the Android public client.</summary>
-    public string ApiScope { get; init; } = "kanban-api";
+    public string ApiScope { get; init; } = string.Empty;
 
     /// <summary>The custom-scheme redirect URI registered for the Android public client.</summary>
     public string MobileRedirectUri { get; init; } = "com.aiursoft.kanban:/oauth2redirect";

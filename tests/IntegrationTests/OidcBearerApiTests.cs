@@ -19,6 +19,42 @@ public sealed class OidcBearerApiTests
     private static readonly HttpClient Http = new();
 
     [TestMethod]
+    public async Task HostedMobileOidcConfigurationWorksWithoutDeploymentOverrides()
+    {
+        var apiPort = Network.GetAvailablePort();
+        var api = await AppAsync<Startup>(
+        [
+            "--AppSettings:AuthProvider=OIDC",
+            "--AppSettings:OIDC:Authority=https://auth.aiursoft.com/application/o/kanban",
+            "--AppSettings:OIDC:ClientId=test-web",
+            "--AppSettings:OIDC:ClientSecret=test-secret"
+        ], port: apiPort);
+        try
+        {
+            await api.UpdateDbAsync<TemplateDbContext>();
+            await api.StartAsync();
+
+            var configuration = await Http.GetFromJsonAsync<MobileConfigurationResponse>(
+                $"http://127.0.0.1:{apiPort}/api/v1/config");
+
+            Assert.IsNotNull(configuration);
+            Assert.AreEqual(
+                "https://auth.aiursoft.com/application/o/kanban-android",
+                configuration.Authority);
+            Assert.AreEqual("kanban-android", configuration.ClientId);
+            Assert.AreEqual("com.aiursoft.kanban:/oauth2redirect", configuration.RedirectUri);
+            CollectionAssert.AreEqual(
+                new[] { "openid", "profile", "email", "offline_access" },
+                configuration.Scopes);
+        }
+        finally
+        {
+            await api.StopAsync();
+            await api.DisposeAsync();
+        }
+    }
+
+    [TestMethod]
     public async Task ValidOidcAccessTokenAuthenticatesAndLinksLocalUser()
     {
         var identityPort = Network.GetAvailablePort();

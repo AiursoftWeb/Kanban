@@ -46,6 +46,10 @@ before connecting.
 
 ## OIDC deployment requirements
 
+The checked-in defaults are already matched to `kanban.aiursoft.com` and its Authentik
+public client. The hosted deployment therefore needs only its existing confidential web
+OIDC settings; no mobile-specific environment variables are required.
+
 The web client and Android client are different OIDC client types:
 
 - Keep the existing confidential web client and its `/signin-oidc` redirect URI.
@@ -61,7 +65,8 @@ The web client and Android client are different OIDC client types:
 - Include `sub`, `preferred_username`, `name`, and `email` in the access token for a
   first-time mobile login. Users previously linked by web login only require `sub`.
 
-Configure the server (environment-variable form shown):
+For a self-hosted deployment, override the mobile settings to match the native client
+registered with your identity provider (environment-variable form shown):
 
 ```text
 AppSettings__AuthProvider=OIDC
@@ -76,7 +81,7 @@ AppSettings__OIDC__ApiScope=
 AppSettings__OIDC__MobileRedirectUri=com.aiursoft.kanban:/oauth2redirect
 ```
 
-`MobileAuthority` may be left empty when both clients share an issuer. Authentik assigns
+`MobileAuthority` may be set to an empty value when both clients share an issuer. Authentik assigns
 one OAuth client to each provider, so use a separate public provider/application for Android,
 set `MobileAuthority` to its issuer, use its client ID as `ApiAudience`, and leave `ApiScope`
 empty unless a custom scope mapping is configured.
