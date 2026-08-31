@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0",
+  "scenarios": ["Scenarios/**/*.json"],
+  "outputDirectory": "reports",
+  "failBelow": 70,
+  "candidates": [
+    {
+      "id": "aiursoft-instruct",
+      "endpoint": "https://ollama.aiursoft.com/v1/messages",
+      "model": "aiursoft-instruct:latest",
+      "strategyId": "production",
+      "tools": [
+        "GetCardsByPriority",
+        "SearchCards",
+        "CreateCard",
+        "UpdateCardPriority",
+        "MoveCard",
+        "DeleteCard"
+      ],
+      "authentication": {
+        "mode": "apiKey",
+        "environmentVariable": "ANTHROPIC_API_KEY"
+      },
+      "repetitions": 1
+    }
+  ]
+}

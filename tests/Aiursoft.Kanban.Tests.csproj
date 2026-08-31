@@ -18,6 +18,20 @@
     <PackageReference Include="MSTest.TestAdapter" Version="4.3.3" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Aiursoft.AgentExam.Core.Tests/**/*.cs" />
+    <Compile Remove="Aiursoft.Kanban.AgentExam.Tests/**/*.cs" />
+    <Compile Remove="Aiursoft.Kanban.ExamRunner.Tests/**/*.cs" />
+    <Content Remove="Aiursoft.AgentExam.Core.Tests/**" />
+    <Content Remove="Aiursoft.Kanban.AgentExam.Tests/**" />
+    <Content Remove="Aiursoft.Kanban.ExamRunner.Tests/**" />
+    <EmbeddedResource Remove="Aiursoft.AgentExam.Core.Tests/**" />
+    <EmbeddedResource Remove="Aiursoft.Kanban.AgentExam.Tests/**" />
+    <EmbeddedResource Remove="Aiursoft.Kanban.ExamRunner.Tests/**" />
+    <None Remove="Aiursoft.AgentExam.Core.Tests/**" />
+    <None Remove="Aiursoft.Kanban.AgentExam.Tests/**" />
+    <None Remove="Aiursoft.Kanban.ExamRunner.Tests/**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\src\Aiursoft.Kanban\Aiursoft.Kanban.csproj" />
   </ItemGroup>
 </Project>

@@ -84,7 +84,8 @@ public class AgentService : IAgentService
         string userId,
         int boardId,
         string userMessage,
-        string? excelMarkdown = null)
+        string? excelMarkdown = null,
+        string? systemPromptOverride = null)
     {
         var conversation = new AgentConversation
         {
@@ -97,7 +98,8 @@ public class AgentService : IAgentService
         var userContext = BuildUserContextBlock(userId, boardId);
         using var settingsScope = _scopeFactory.CreateScope();
         var globalSettings = settingsScope.ServiceProvider.GetRequiredService<GlobalSettingsService>();
-        var systemPrompt = await globalSettings.GetSettingValueAsync(SettingsMap.AgentSystemPrompt);
+        var systemPrompt = systemPromptOverride ??
+            await globalSettings.GetSettingValueAsync(SettingsMap.AgentSystemPrompt);
         conversation.Messages.Add(new ToolMessagesItem
         {
             Role = "system",
@@ -197,7 +199,11 @@ public class AgentService : IAgentService
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(options);
-        var conversation = await CreateConversation(userId, boardId, userMessage);
+        var conversation = await CreateConversation(
+            userId,
+            boardId,
+            userMessage,
+            systemPromptOverride: options.SystemPromptOverride);
         using var executionScope = _scopeFactory.CreateScope();
         return await _productionAgentExecutor.ExecuteReActLoop(
             executionScope.ServiceProvider,
