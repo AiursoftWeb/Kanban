@@ -25,6 +25,7 @@ using Newtonsoft.Json.Serialization;
 using System.Diagnostics.CodeAnalysis;
 using Ganss.Xss;
 using Markdig;
+using Aiursoft.AiurProtocol.Server;
 
 namespace Aiursoft.Kanban;
 
@@ -140,6 +141,7 @@ public class Startup : IWebStartup
 
         // Controllers and localization
         services.AddControllersWithViews(options => options.Filters.Add<AuditActionFilter>())
+            .AddAiurProtocol()
             .AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;

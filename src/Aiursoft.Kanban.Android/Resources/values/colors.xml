@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="brand_primary">#2563EB</color>
+  <color name="brand_primary_dark">#1D4ED8</color>
+  <color name="brand_container">#DBEAFE</color>
+  <color name="on_brand_container">#1E3A8A</color>
+  <color name="app_bar">#0F172A</color>
+  <color name="on_app_bar">#F8FAFC</color>
+  <color name="surface">#FFFFFF</color>
+  <color name="surface_variant">#F1F5F9</color>
+  <color name="surface_canvas">#F8FAFC</color>
+  <color name="outline">#CBD5E1</color>
+  <color name="text_primary">#0F172A</color>
+  <color name="text_secondary">#64748B</color>
+  <color name="success_container">#DCFCE7</color>
+  <color name="on_success_container">#166534</color>
+  <color name="warning_container">#FEF3C7</color>
+  <color name="on_warning_container">#92400E</color>
+</resources>

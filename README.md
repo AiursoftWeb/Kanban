@@ -1,5 +1,8 @@
 # Kanban
 
+An optional native .NET Android client is available. See [Android app and OIDC deployment](docs/android.md)
+for identity-provider registration, server settings, APK building, and sideloading.
+
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aiursoftweb/kanban/blob/master/LICENSE)
 [![Pipeline stat](https://gitlab.aiursoft.com/aiursoft/kanban/badges/master/pipeline.svg)](https://gitlab.aiursoft.com/aiursoft/kanban/-/pipelines)
 [![Test Coverage](https://gitlab.aiursoft.com/aiursoft/kanban/badges/master/coverage.svg)](https://gitlab.aiursoft.com/aiursoft/kanban/-/pipelines)

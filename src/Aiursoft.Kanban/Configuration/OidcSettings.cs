@@ -13,6 +13,9 @@ public class OidcSettings
     /// </summary>
     public required string Authority { get; init; } = "https://your-oidc-provider.com";
 
+    /// <summary>Require HTTPS for OIDC discovery. Keep enabled outside local integration tests.</summary>
+    public bool RequireHttpsMetadata { get; init; } = true;
+
     /// <summary>
     /// Extracts the scheme and host from the Authority URL.
     /// For example, if Authority is "https://auth.aiursoft.com/something", this returns "https://auth.aiursoft.com".
@@ -42,6 +45,18 @@ public class OidcSettings
     /// This is a confidential credential and must be kept secret. It's used to authenticate your application to the provider.
     /// </summary>
     public required string ClientSecret { get; init; } = "your-client-secret";
+
+    /// <summary>The public OIDC client registered for the Android application.</summary>
+    public string MobileClientId { get; init; } = "kanban-android";
+
+    /// <summary>The audience that access tokens issued for the Kanban API must contain.</summary>
+    public string ApiAudience { get; init; } = "kanban-api";
+
+    /// <summary>The API scope requested by the Android public client.</summary>
+    public string ApiScope { get; init; } = "kanban-api";
+
+    /// <summary>The custom-scheme redirect URI registered for the Android public client.</summary>
+    public string MobileRedirectUri { get; init; } = "com.aiursoft.kanban:/oauth2redirect";
 
     /// <summary>
     /// The name of the claim in the OIDC token that contains the user's roles or groups.

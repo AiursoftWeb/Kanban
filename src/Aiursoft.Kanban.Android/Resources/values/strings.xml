@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Kanban</string>
+  <string name="open_navigation">Open board navigation</string>
+  <string name="close_navigation">Close board navigation</string>
+  <string name="new_card">New card</string>
+  <string name="new_board">New board</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/brand_primary</item>
+    <item name="colorPrimaryContainer">@color/brand_container</item>
+    <item name="colorOnPrimaryContainer">@color/on_brand_container</item>
+    <item name="colorSurface">@color/surface</item>
+    <item name="colorSurfaceVariant">@color/surface_variant</item>
+    <item name="colorOutline">@color/outline</item>
+    <item name="android:fontFamily">sans</item>
+    <item name="android:windowLightStatusBar">false</item>
+    <item name="android:statusBarColor">@color/app_bar</item>
+    <item name="android:navigationBarColor">@color/surface_canvas</item>
+    <item name="android:windowBackground">@color/surface_canvas</item>
+  </style>
+</resources>
