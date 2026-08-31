@@ -105,7 +105,7 @@ public static class AuthenticationExtensions
         // tokens that pass the configured issuer and audience validation.
         authBuilder.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
         {
-            options.Authority = appSettings.OIDC.Authority;
+            options.Authority = appSettings.OIDC.GetMobileAuthority();
             options.RequireHttpsMetadata = appSettings.OIDC.RequireHttpsMetadata;
             options.Audience = appSettings.OIDC.ApiAudience;
             options.MapInboundClaims = false;

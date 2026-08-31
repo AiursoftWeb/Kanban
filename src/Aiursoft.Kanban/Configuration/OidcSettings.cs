@@ -13,6 +13,15 @@ public class OidcSettings
     /// </summary>
     public required string Authority { get; init; } = "https://your-oidc-provider.com";
 
+    /// <summary>
+    /// Optional authority used by the public mobile client. Leave empty when the identity provider
+    /// supports multiple clients under the same issuer as the confidential web client.
+    /// </summary>
+    public string MobileAuthority { get; init; } = string.Empty;
+
+    public string GetMobileAuthority() =>
+        string.IsNullOrWhiteSpace(MobileAuthority) ? Authority : MobileAuthority;
+
     /// <summary>Require HTTPS for OIDC discovery. Keep enabled outside local integration tests.</summary>
     public bool RequireHttpsMetadata { get; init; } = true;
 
@@ -52,7 +61,7 @@ public class OidcSettings
     /// <summary>The audience that access tokens issued for the Kanban API must contain.</summary>
     public string ApiAudience { get; init; } = "kanban-api";
 
-    /// <summary>The API scope requested by the Android public client.</summary>
+    /// <summary>The optional API scope requested by the Android public client.</summary>
     public string ApiScope { get; init; } = "kanban-api";
 
     /// <summary>The custom-scheme redirect URI registered for the Android public client.</summary>

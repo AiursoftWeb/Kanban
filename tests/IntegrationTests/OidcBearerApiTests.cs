@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using Aiursoft.CSTools.Tools;
 using Aiursoft.DbTools;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.SDK.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using static Aiursoft.WebTools.Extends;
@@ -33,21 +34,31 @@ public sealed class OidcBearerApiTests
             api = await AppAsync<Startup>(
             [
                 "--AppSettings:AuthProvider=OIDC",
-                $"--AppSettings:OIDC:Authority={authority}",
+                "--AppSettings:OIDC:Authority=http://web-provider.invalid",
+                $"--AppSettings:OIDC:MobileAuthority={authority}",
                 "--AppSettings:OIDC:RequireHttpsMetadata=false",
                 "--AppSettings:OIDC:ClientId=test-web",
                 "--AppSettings:OIDC:ClientSecret=test-secret",
                 "--AppSettings:OIDC:MobileClientId=test-android",
-                "--AppSettings:OIDC:ApiAudience=kanban-api",
-                "--AppSettings:OIDC:ApiScope=kanban-api"
+                "--AppSettings:OIDC:ApiAudience=test-android",
+                "--AppSettings:OIDC:ApiScope="
             ], port: apiPort);
             await api.UpdateDbAsync<TemplateDbContext>();
             await api.StartAsync();
 
+            var configuration = await Http.GetFromJsonAsync<MobileConfigurationResponse>(
+                $"http://127.0.0.1:{apiPort}/api/v1/config");
+            Assert.IsNotNull(configuration);
+            Assert.AreEqual(authority, configuration.Authority);
+            Assert.AreEqual("test-android", configuration.ClientId);
+            CollectionAssert.AreEqual(
+                new[] { "openid", "profile", "email", "offline_access" },
+                configuration.Scopes);
+
             var subject = $"mobile-{Guid.NewGuid():N}";
             var token = new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken(
                 issuer: authority,
-                audience: "kanban-api",
+                audience: "test-android",
                 claims:
                 [
                     new Claim("sub", subject),

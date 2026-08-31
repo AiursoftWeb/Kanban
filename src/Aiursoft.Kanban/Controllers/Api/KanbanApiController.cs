@@ -28,18 +28,21 @@ public sealed class KanbanApiController(
     public IActionResult Configuration()
     {
         var settings = appSettings.Value;
+        var scopes = new List<string> { "openid", "profile", "email", "offline_access" };
+        if (!string.IsNullOrWhiteSpace(settings.OIDC.ApiScope))
+        {
+            scopes.Add(settings.OIDC.ApiScope);
+        }
         return this.Protocol(new MobileConfigurationResponse
         {
             Code = Code.ResultShown,
             Message = "Mobile client configuration.",
             AuthenticationMode = settings.AuthProvider,
             AllowRegistration = settings.LocalEnabled && settings.Local.AllowRegister,
-            Authority = settings.OIDCEnabled ? settings.OIDC.Authority : string.Empty,
+            Authority = settings.OIDCEnabled ? settings.OIDC.GetMobileAuthority() : string.Empty,
             ClientId = settings.OIDCEnabled ? settings.OIDC.MobileClientId : string.Empty,
             RedirectUri = settings.OIDCEnabled ? settings.OIDC.MobileRedirectUri : string.Empty,
-            Scopes = settings.OIDCEnabled
-                ? ["openid", "profile", "email", "offline_access", settings.OIDC.ApiScope]
-                : []
+            Scopes = settings.OIDCEnabled ? scopes : []
         });
     }
 
