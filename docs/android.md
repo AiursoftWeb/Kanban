@@ -9,6 +9,11 @@ cards between columns with Android drag and drop.
 
 Authentication is a dedicated screen. After sign-in, credentials and connection
 controls are removed from the workspace and the app opens the last selected board.
+OIDC access and refresh tokens are encrypted with AES-256-GCM before persistence. The
+non-exportable encryption key remains in Android Keystore, while app-private preferences
+contain only the authenticated ciphertext and its random initialization vector. This lets
+the app restore and refresh the session after a process or device restart without storing
+tokens in plaintext. Signing out or changing servers removes the persisted session.
 
 - Open the left navigation drawer to switch between **My boards** and
   **Shared with me**. Each board shows whether the current account can edit it or

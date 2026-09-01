@@ -16,7 +16,7 @@ public sealed class AppSession : IDisposable
     public const string DefaultServer = "https://kanban.aiursoft.com";
 
     private readonly ISharedPreferences _preferences;
-    private readonly AndroidAccessTokenProvider _tokens = new();
+    private readonly AndroidAccessTokenProvider _tokens;
     private readonly HttpClient _oidcHttp;
     private readonly byte[] _pinnedCertificateHash;
     private ServiceProvider? _services;
@@ -25,6 +25,7 @@ public sealed class AppSession : IDisposable
     public AppSession(Context context)
     {
         _preferences = context.GetSharedPreferences("kanban", FileCreationMode.Private)!;
+        _tokens = new AndroidAccessTokenProvider(new AndroidKeystoreTokenStore(context));
         _pinnedCertificateHash = LoadPinnedCertificateHash(context);
         _oidcHttp = new HttpClient(CreateHttpHandler());
     }
@@ -70,10 +71,15 @@ public sealed class AppSession : IDisposable
                 Configuration.RedirectUri,
                 Configuration.Scopes,
                 cancellationToken);
+            if (_tokens.TryRestoreSession(_oidc))
+            {
+                DisplayName = "Signed in";
+            }
         }
         else if (string.Equals(Configuration.AuthenticationMode, "Local", StringComparison.OrdinalIgnoreCase))
         {
             _oidc = null;
+            _tokens.ClearOidcSession();
         }
         else
         {

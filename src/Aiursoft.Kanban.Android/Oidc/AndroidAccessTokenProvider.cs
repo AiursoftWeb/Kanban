@@ -5,6 +5,7 @@ namespace Aiursoft.Kanban.Android.Oidc;
 public sealed class AndroidAccessTokenProvider : IKanbanAccessTokenProvider
 {
     private readonly SemaphoreSlim _refreshLock = new(1, 1);
+    private readonly AndroidKeystoreTokenStore _store;
     private OidcPkceClient? _oidc;
     private OidcTokenSet? _tokens;
     private string? _localToken;
@@ -14,19 +15,51 @@ public sealed class AndroidAccessTokenProvider : IKanbanAccessTokenProvider
         _tokens != null ||
         (!string.IsNullOrWhiteSpace(_localToken) && _localTokenExpiresAt > DateTimeOffset.UtcNow);
 
+    public AndroidAccessTokenProvider(AndroidKeystoreTokenStore store)
+    {
+        _store = store;
+    }
+
     public void SetSession(OidcPkceClient oidc, OidcTokenSet tokens)
     {
         _localToken = null;
         _oidc = oidc;
         _tokens = tokens;
+        _store.Save(tokens);
     }
 
     public void SetLocalSession(string accessToken, DateTimeOffset expiresAt)
     {
         _oidc = null;
         _tokens = null;
+        _store.Clear();
         _localToken = accessToken;
         _localTokenExpiresAt = expiresAt;
+    }
+
+    public bool TryRestoreSession(OidcPkceClient oidc)
+    {
+        _localToken = null;
+        _localTokenExpiresAt = default;
+        var tokens = _store.Load();
+        if (tokens == null || !oidc.CanResume(tokens))
+        {
+            _oidc = null;
+            _tokens = null;
+            _store.Clear();
+            return false;
+        }
+
+        _oidc = oidc;
+        _tokens = tokens;
+        return true;
+    }
+
+    public void ClearOidcSession()
+    {
+        _oidc = null;
+        _tokens = null;
+        _store.Clear();
     }
 
     public void Clear()
@@ -35,6 +68,7 @@ public sealed class AndroidAccessTokenProvider : IKanbanAccessTokenProvider
         _tokens = null;
         _localToken = null;
         _localTokenExpiresAt = default;
+        _store.Clear();
     }
 
     public async ValueTask<string?> GetAccessTokenAsync(CancellationToken cancellationToken = default)
@@ -69,6 +103,7 @@ public sealed class AndroidAccessTokenProvider : IKanbanAccessTokenProvider
                 }
                 _tokens = await (_oidc ?? throw new InvalidOperationException("OIDC client is unavailable."))
                     .RefreshAsync(_tokens, cancellationToken);
+                _store.Save(_tokens);
             }
             return _tokens.AccessToken;
         }

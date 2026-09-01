@@ -118,6 +118,13 @@ public sealed class OidcPkceClient(HttpClient http, ISharedPreferences preferenc
         }, cancellationToken, current.RefreshToken);
     }
 
+    public bool CanResume(OidcTokenSet tokens)
+    {
+        EnsureConfigured();
+        return string.Equals(tokens.TokenEndpoint, _tokenEndpoint, StringComparison.Ordinal) &&
+               string.Equals(tokens.ClientId, _clientId, StringComparison.Ordinal);
+    }
+
     private async Task<OidcTokenSet> RequestTokensAsync(
         string tokenEndpoint,
         Dictionary<string, string> form,

@@ -115,6 +115,11 @@ public sealed class LoginActivity : AppCompatActivity
             SetBusy(true, "Connecting securely…");
             _serverContainer.Error = null;
             var configuration = await Session.ConnectAsync(_server.Text ?? string.Empty);
+            if (Session.IsAuthenticated)
+            {
+                OpenWorkspace();
+                return;
+            }
             _authMode.Text = configuration.AuthenticationMode.Equals("OIDC", StringComparison.OrdinalIgnoreCase)
                 ? "ORGANIZATION SIGN-IN"
                 : "LOCAL ACCOUNT";
