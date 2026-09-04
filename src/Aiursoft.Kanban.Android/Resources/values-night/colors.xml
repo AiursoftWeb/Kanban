@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="brand_primary">#93C5FD</color>
+  <color name="on_brand_primary">#0F172A</color>
   <color name="brand_primary_dark">#60A5FA</color>
   <color name="brand_container">#1E3A8A</color>
   <color name="on_brand_container">#DBEAFE</color>

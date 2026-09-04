@@ -23,6 +23,7 @@ public sealed class LoginActivity : AppCompatActivity
 {
     private TextInputEditText _server = null!;
     private TextInputLayout _serverContainer = null!;
+    private TextView _connectedServer = null!;
     private MaterialButton _connect = null!;
     private CircularProgressIndicator _progress = null!;
     private LinearLayout _authPanel = null!;
@@ -36,6 +37,9 @@ public sealed class LoginActivity : AppCompatActivity
     private MaterialButton _oidcSignIn = null!;
     private TextView _status = null!;
     private bool _registerMode;
+    private bool _connected;
+    private bool _connecting;
+    private CancellationTokenSource? _connectCancellation;
 
     private AppSession Session => ((KanbanApplication)Application!).Session;
 
@@ -61,7 +65,7 @@ public sealed class LoginActivity : AppCompatActivity
         }
         else
         {
-            _ = ConnectAsync();
+            ShowServerEntry();
         }
     }
 
@@ -79,6 +83,7 @@ public sealed class LoginActivity : AppCompatActivity
     {
         _server = FindViewById<TextInputEditText>(Resource.Id.server_input)!;
         _serverContainer = FindViewById<TextInputLayout>(Resource.Id.server_container)!;
+        _connectedServer = FindViewById<TextView>(Resource.Id.connected_server)!;
         _connect = FindViewById<MaterialButton>(Resource.Id.connect_button)!;
         _progress = FindViewById<CircularProgressIndicator>(Resource.Id.login_progress)!;
         _authPanel = FindViewById<LinearLayout>(Resource.Id.auth_panel)!;
@@ -95,7 +100,20 @@ public sealed class LoginActivity : AppCompatActivity
 
     private void WireEvents()
     {
-        _connect.Click += async (_, _) => await ConnectAsync();
+        _connect.Click += async (_, _) =>
+        {
+            if (_connecting)
+            {
+                _connectCancellation?.Cancel();
+                return;
+            }
+            if (_connected)
+            {
+                ShowServerEntry(true);
+                return;
+            }
+            await ConnectAsync();
+        };
         _localSignIn.Click += async (_, _) => await AuthenticateLocalAsync();
         _register.Click += (_, _) => ToggleRegistrationMode();
         _oidcSignIn.Click += (_, _) => BeginOidc();
@@ -110,11 +128,17 @@ public sealed class LoginActivity : AppCompatActivity
 
     private async Task ConnectAsync()
     {
+        _connectCancellation?.Dispose();
+        _connectCancellation = new CancellationTokenSource();
+        _connecting = true;
         try
         {
             SetBusy(true, "Connecting securely…");
+            ShowCancelButton();
             _serverContainer.Error = null;
-            var configuration = await Session.ConnectAsync(_server.Text ?? string.Empty);
+            var configuration = await Session.ConnectAsync(
+                _server.Text ?? string.Empty,
+                _connectCancellation.Token);
             if (Session.IsAuthenticated)
             {
                 OpenWorkspace();
@@ -131,14 +155,80 @@ public sealed class LoginActivity : AppCompatActivity
                 ? ViewStates.Visible
                 : ViewStates.Gone;
             _register.Visibility = configuration.AllowRegistration ? ViewStates.Visible : ViewStates.Gone;
+            ShowConnectedServer();
             SetBusy(false, "Connected. Sign in to continue.");
-            _identity.RequestFocus();
+            if (_localPanel.Visibility == ViewStates.Visible)
+            {
+                _identity.RequestFocus();
+            }
+        }
+        catch (global::System.OperationCanceledException)
+        {
+            ShowServerEntry();
+            SetBusy(false, "Connection cancelled.");
         }
         catch (Exception exception)
         {
             _authPanel.Visibility = ViewStates.Gone;
             _serverContainer.Error = FriendlyMessage(exception);
             SetBusy(false, "Check the server address and network connection.");
+        }
+        finally
+        {
+            _connecting = false;
+            _connectCancellation?.Dispose();
+            _connectCancellation = null;
+        }
+    }
+
+    private void ShowCancelButton()
+    {
+        _connect.Enabled = true;
+        _connect.Text = "Cancel";
+        StyleConnectButtonAsSecondary();
+    }
+
+    private void ShowConnectedServer()
+    {
+        _connected = true;
+        var manager = (InputMethodManager?)GetSystemService(InputMethodService);
+        manager?.HideSoftInputFromWindow(_server.WindowToken, HideSoftInputFlags.None);
+        _connectedServer.Text = Session.Endpoint;
+        _serverContainer.Visibility = ViewStates.Gone;
+        _connectedServer.Visibility = ViewStates.Visible;
+        _connect.Text = "Switch server";
+        StyleConnectButtonAsSecondary();
+    }
+
+    private void StyleConnectButtonAsSecondary()
+    {
+        _connect.BackgroundTintList = global::Android.Content.Res.ColorStateList.ValueOf(
+            global::Android.Graphics.Color.Transparent);
+        _connect.SetTextColor(AndroidX.Core.Content.ContextCompat.GetColorStateList(
+            this, Resource.Color.brand_primary));
+        _connect.StrokeColor = AndroidX.Core.Content.ContextCompat.GetColorStateList(this, Resource.Color.outline);
+        _connect.StrokeWidth = (int)(Resources!.DisplayMetrics!.Density + 0.5f);
+    }
+
+    private void ShowServerEntry(bool focus = false)
+    {
+        _connected = false;
+        _authPanel.Visibility = ViewStates.Gone;
+        _connectedServer.Visibility = ViewStates.Gone;
+        _serverContainer.Visibility = ViewStates.Visible;
+        _serverContainer.Error = null;
+        _connect.Text = "Connect";
+        _connect.StrokeWidth = 0;
+        _connect.BackgroundTintList = AndroidX.Core.Content.ContextCompat.GetColorStateList(this, Resource.Color.brand_primary);
+        _connect.SetTextColor(AndroidX.Core.Content.ContextCompat.GetColorStateList(
+            this, Resource.Color.on_brand_primary));
+        _status.Visibility = ViewStates.Gone;
+        if (focus)
+        {
+            _server.RequestFocus();
+            _server.SelectAll();
+            var manager = (InputMethodManager?)GetSystemService(InputMethodService);
+            manager?.ShowSoftInput(_server, ShowFlags.Implicit);
         }
     }
 
