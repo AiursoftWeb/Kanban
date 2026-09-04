@@ -1,6 +1,8 @@
 // ReSharper disable RedundantUsingDirective
 
 using System.Net;
+using System.Net.Http.Headers;
+using Aiursoft.Kanban.SDK.Models;
 using Aiursoft.Kanban.Services.FileStorage;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
@@ -88,7 +90,7 @@ public class FilesControllerTests : TestBase
     }
 
     [TestMethod]
-    public async Task AuthenticatedUploadGrantRejectsAnonymousUser()
+    public async Task AuthenticatedUploadGrantRejectsAnonymousAndAcceptsLocalBearerUser()
     {
         var storage = GetService<StorageService>();
         var policy = FileUploadPolicy.Create(
@@ -106,6 +108,27 @@ public class FilesControllerTests : TestBase
             request);
 
         Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
+
+        using var login = await Http.PostAsJsonAsync(
+            "/api/v1/auth/local/login",
+            new LocalLoginRequest
+            {
+                EmailOrUserName = "admin@default.com",
+                Password = "Admin@123456!"
+            });
+        login.EnsureSuccessStatusCode();
+        var authentication = await login.Content.ReadFromJsonAsync<LocalAuthenticationResponse>();
+        Assert.IsNotNull(authentication);
+        Http.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", authentication.AccessToken);
+        using var authenticatedRequest = new MultipartFormDataContent();
+        authenticatedRequest.Add(new StringContent("content"), "file", "document.txt");
+
+        using var authenticatedResponse = await Http.PostAsync(
+            $"/upload/authenticated?token={Uri.EscapeDataString(token)}",
+            authenticatedRequest);
+
+        authenticatedResponse.EnsureSuccessStatusCode();
     }
 
     [TestMethod]

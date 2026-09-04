@@ -3,9 +3,11 @@ using Aiursoft.AiurProtocol.Server;
 using Aiursoft.AiurProtocol.Server.Attributes;
 using Aiursoft.Kanban.Configuration;
 using Aiursoft.Kanban.Entities;
+using Aiursoft.Kanban.Events;
 using Aiursoft.Kanban.SDK.Models;
 using Aiursoft.Kanban.Services;
 using Aiursoft.Kanban.Services.Authentication;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +23,9 @@ public sealed class KanbanApiController(
     TemplateDbContext db,
     UserManager<User> userManager,
     KanbanApiAccessService access,
-    IOptions<AppSettings> appSettings) : ControllerBase
+    IOptions<AppSettings> appSettings,
+    IMediator mediator,
+    ILogger<KanbanApiController> logger) : ControllerBase
 {
     [HttpGet("config")]
     [AllowAnonymous]
@@ -107,6 +111,99 @@ public sealed class KanbanApiController(
         });
     }
 
+    [HttpGet("boards/archived")]
+    [Authorize(AuthenticationSchemes = LocalApiAuthenticationDefaults.ApiSchemes)]
+    public async Task<IActionResult> ArchivedBoards()
+    {
+        var userId = CurrentUserId();
+        var roleIds = await db.UserRoles
+            .Where(userRole => userRole.UserId == userId)
+            .Select(userRole => userRole.RoleId)
+            .ToListAsync();
+        var ownedBoards = await db.KanbanBoards
+            .Where(board => board.UserId == userId && board.IsArchived)
+            .Include(board => board.Columns)
+                .ThenInclude(column => column.Cards)
+            .OrderByDescending(board => board.ArchivedTime)
+            .ToListAsync();
+        var sharedBoardShares = await db.BoardShares
+            .Where(share => share.Board.IsArchived && share.Board.UserId != userId &&
+                (share.SharedWithUserId == userId ||
+                 (share.SharedWithRoleId != null && roleIds.Contains(share.SharedWithRoleId))))
+            .Include(share => share.Board)
+                .ThenInclude(board => board.Columns)
+                    .ThenInclude(column => column.Cards)
+            .OrderByDescending(share => share.CreationTime)
+            .ToListAsync();
+        var sharedRoleIds = sharedBoardShares
+            .Where(share => share.SharedWithRoleId != null)
+            .Select(share => share.SharedWithRoleId!)
+            .Distinct()
+            .ToList();
+        var roleNames = await db.Roles
+            .Where(role => sharedRoleIds.Contains(role.Id))
+            .ToDictionaryAsync(role => role.Id, role => role.Name ?? role.Id);
+        var now = DateTime.UtcNow;
+        var sharedBoards = sharedBoardShares
+            .GroupBy(share => share.BoardId)
+            .Select(group => group
+                .OrderByDescending(share => share.Permission)
+                .ThenByDescending(share => share.CreationTime)
+                .First())
+            .Select(share => ToArchivedDto(
+                share.Board,
+                isOwner: false,
+                now,
+                share.Permission.ToString(),
+                share.SharedWithUserId == userId
+                    ? "Direct share"
+                    : $"Role: {roleNames.GetValueOrDefault(share.SharedWithRoleId!, share.SharedWithRoleId!)}"))
+            .OrderBy(board => board.Name)
+            .ToList();
+
+        return this.Protocol(new ArchivedBoardListResponse
+        {
+            Code = Code.ResultShown,
+            Message = "Archived boards.",
+            OwnedBoards = ownedBoards
+                .Select(board => ToArchivedDto(board, isOwner: true, now))
+                .ToList(),
+            SharedBoards = sharedBoards
+        });
+    }
+
+    [HttpPut("boards/{boardId:int}/archive")]
+    [Authorize(AuthenticationSchemes = LocalApiAuthenticationDefaults.ApiSchemes)]
+    public async Task<IActionResult> SetArchived(int boardId, [FromBody] SetBoardArchiveRequest request)
+    {
+        var userId = CurrentUserId();
+        var board = await db.KanbanBoards.FindAsync(boardId);
+        if (board == null)
+        {
+            return this.Protocol(Code.NotFound, "Board not found.");
+        }
+        if (board.UserId != userId)
+        {
+            return this.Protocol(Code.Unauthorized, "Only the board owner can change archive state.");
+        }
+
+        var changed = board.IsArchived != request.Archive;
+        if (changed)
+        {
+            board.IsArchived = request.Archive;
+            board.ArchivedTime = request.Archive ? DateTime.UtcNow : null;
+            await db.SaveChangesAsync();
+        }
+        return this.Protocol(new BoardArchiveResponse
+        {
+            Code = changed ? Code.JobDone : Code.NoActionTaken,
+            Message = request.Archive ? "Board archived." : "Board restored.",
+            BoardId = board.Id,
+            IsArchived = board.IsArchived,
+            ArchivedTime = board.ArchivedTime
+        });
+    }
+
     [HttpPost("boards")]
     [Authorize(AuthenticationSchemes = LocalApiAuthenticationDefaults.ApiSchemes)]
     public async Task<IActionResult> CreateBoard([FromBody] CreateBoardRequest request)
@@ -129,6 +226,7 @@ public sealed class KanbanApiController(
         };
         db.KanbanBoards.Add(board);
         await db.SaveChangesAsync();
+        await PublishSafelyAsync(new BoardCreatedEvent(board.Id, board.Name, userId));
 
         return this.Protocol(new BoardResponse
         {
@@ -161,6 +259,8 @@ public sealed class KanbanApiController(
         };
         db.KanbanColumns.Add(column);
         await db.SaveChangesAsync();
+        await PublishSafelyAsync(new ColumnCreatedEvent(
+            column.Id, column.Name, column.BoardId, userId));
         board = (await LoadBoardAsync(board.Id))!;
 
         return this.Protocol(new BoardResponse
@@ -201,6 +301,8 @@ public sealed class KanbanApiController(
         card.Subscriptions.Add(new KanbanCardSubscription { Card = card, UserId = userId });
         db.KanbanCards.Add(card);
         await db.SaveChangesAsync();
+        await PublishSafelyAsync(new CardCreatedEvent(
+            card.Id, card.Title, column.Id, column.BoardId, userId));
 
         return this.Protocol(new CardResponse
         {
@@ -235,6 +337,55 @@ public sealed class KanbanApiController(
             return this.Protocol(Code.Unauthorized, "The board is read-only.");
         }
 
+        var fromColumnId = card.ColumnId;
+        var fromColumnName = card.Column.Name;
+        var now = DateTime.UtcNow;
+        var wasCompleted = card.Column.ColumnStatus == ColumnStatus.Completed;
+        switch (target.ColumnStatus)
+        {
+            case ColumnStatus.InProgress:
+                card.ActualStartTime ??= now;
+                card.ActualEndTime = null;
+                break;
+            case ColumnStatus.Completed:
+                card.ActualStartTime ??= now;
+                card.ActualEndTime = now;
+                break;
+        }
+
+        var shouldRecur = target.ColumnStatus == ColumnStatus.Completed &&
+            !wasCompleted &&
+            card.RecurrenceInterval is > 0 &&
+            card.RecurrenceUnit != RecurrenceUnit.None;
+        KanbanColumn? recurrenceTargetColumn = null;
+        if (shouldRecur)
+        {
+            var baseline = card.DueDate ?? now;
+            card.DueDate = AdvanceByRecurrence(
+                baseline, card.RecurrenceInterval!.Value, card.RecurrenceUnit);
+            if (card.PlannedStartTime.HasValue)
+            {
+                card.PlannedStartTime = AdvanceByRecurrence(
+                    card.PlannedStartTime.Value,
+                    card.RecurrenceInterval.Value,
+                    card.RecurrenceUnit);
+            }
+            recurrenceTargetColumn = await db.KanbanColumns
+                .Where(column => column.BoardId == target.BoardId &&
+                    column.ColumnStatus == ColumnStatus.NotStarted)
+                .OrderBy(column => column.Order)
+                .FirstOrDefaultAsync();
+            if (recurrenceTargetColumn == null)
+            {
+                shouldRecur = false;
+            }
+            else
+            {
+                card.ActualStartTime = null;
+                card.ActualEndTime = null;
+            }
+        }
+
         var cards = await db.KanbanCards
             .Where(item => item.ColumnId == target.Id && item.Id != card.Id)
             .OrderBy(item => item.Order)
@@ -247,55 +398,156 @@ public sealed class KanbanApiController(
             cards[index].Order = index;
         }
 
-        var now = DateTime.UtcNow;
-        if (target.ColumnStatus == ColumnStatus.InProgress)
+        if (shouldRecur && recurrenceTargetColumn != null)
         {
-            card.ActualStartTime ??= now;
-            card.ActualEndTime = null;
-        }
-        else if (target.ColumnStatus == ColumnStatus.Completed)
-        {
-            card.ActualStartTime ??= now;
-            card.ActualEndTime = now;
+            card.ColumnId = recurrenceTargetColumn.Id;
+            var destinationCards = await db.KanbanCards
+                .Where(item => item.ColumnId == recurrenceTargetColumn.Id && item.Id != card.Id)
+                .OrderBy(item => item.Order)
+                .ToListAsync();
+            for (var index = 0; index < destinationCards.Count; index++)
+            {
+                destinationCards[index].Order = index;
+            }
+            card.Order = destinationCards.Count;
+
+            var completedCards = await db.KanbanCards
+                .Where(item => item.ColumnId == target.Id && item.Id != card.Id)
+                .OrderBy(item => item.Order)
+                .ToListAsync();
+            for (var index = 0; index < completedCards.Count; index++)
+            {
+                completedCards[index].Order = index;
+            }
         }
         card.LastUpdatedAt = now;
         await db.SaveChangesAsync();
 
+        if (fromColumnId != card.ColumnId)
+        {
+            await PublishSafelyAsync(new CardMovedEvent(
+                card.Id,
+                userId,
+                fromColumnId,
+                fromColumnName,
+                card.ColumnId,
+                shouldRecur ? recurrenceTargetColumn!.Name : target.Name,
+                card.Order,
+                NotifyUsers: !shouldRecur));
+        }
+
         return this.Protocol(new CardResponse
         {
             Code = Code.JobDone,
-            Message = "Card moved.",
+            Message = shouldRecur
+                ? $"Recurring card reset to {recurrenceTargetColumn!.Name}."
+                : "Card moved.",
             Card = ToDto(card)
         });
     }
+
+    private async Task PublishSafelyAsync<TNotification>(TNotification notification)
+        where TNotification : INotification
+    {
+        try
+        {
+            await mediator.Publish(notification);
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(exception,
+                "Failed to publish mobile API notification event {EventType}.",
+                typeof(TNotification).Name);
+        }
+    }
+
+    private static DateTime AdvanceByRecurrence(DateTime baseline, int interval, RecurrenceUnit unit) =>
+        unit switch
+        {
+            RecurrenceUnit.Day => baseline.AddDays(interval),
+            RecurrenceUnit.Week => baseline.AddDays(7 * interval),
+            RecurrenceUnit.Month => baseline.AddMonths(interval),
+            RecurrenceUnit.Year => baseline.AddYears(interval),
+            _ => baseline
+        };
 
     private string CurrentUserId() => userManager.GetUserId(User)
         ?? throw new InvalidOperationException("The authenticated token is not linked to a local user.");
 
     private Task<KanbanBoard?> LoadBoardAsync(int boardId) => db.KanbanBoards
-        .Include(board => board.Columns.OrderBy(column => column.Order))
-            .ThenInclude(column => column.Cards.OrderBy(card => card.Order))
+        .Include(board => board.Columns)
+            .ThenInclude(column => column.Cards)
+                .ThenInclude(card => card.AssignedUser)
+        .Include(board => board.Columns)
+            .ThenInclude(column => column.Cards)
+                .ThenInclude(card => card.CardLabels)
+                    .ThenInclude(link => link.Label)
         .FirstOrDefaultAsync(board => board.Id == boardId);
 
-    private async Task<BoardDto> ToDtoAsync(KanbanBoard board, string userId) => new()
+    private static ArchivedBoardDto ToArchivedDto(
+        KanbanBoard board,
+        bool isOwner,
+        DateTime now,
+        string? permission = null,
+        string? sharedVia = null)
     {
-        Id = board.Id,
-        Name = board.Name,
-        IsOwner = board.UserId == userId,
-        CanEdit = await access.CanEditAsync(board, userId),
-        ColumnCount = board.Columns.Count,
-        CardCount = board.Columns.Sum(column => column.Cards.Count),
-        Columns = board.Columns.OrderBy(column => column.Order).Select(column => new ColumnDto
+        var cards = board.Columns.SelectMany(column => column.Cards).ToList();
+        return new ArchivedBoardDto
         {
-            Id = column.Id,
-            Name = column.Name,
-            Order = column.Order,
-            Status = column.ColumnStatus.ToString(),
-            Cards = column.Cards.OrderBy(card => card.Order).Select(ToDto).ToList()
-        }).ToList()
-    };
+            Id = board.Id,
+            Name = board.Name,
+            IsOwner = isOwner,
+            ArchivedTime = board.ArchivedTime,
+            ColumnCount = board.Columns.Count,
+            CardCount = cards.Count,
+            IncompleteCount = cards.Count(card => card.Column.ColumnStatus != ColumnStatus.Completed),
+            InProgressCount = cards.Count(card => card.Column.ColumnStatus == ColumnStatus.InProgress),
+            CompletedCount = cards.Count(card => card.Column.ColumnStatus == ColumnStatus.Completed),
+            OverdueCount = cards.Count(card => card.DueDate.HasValue && card.DueDate.Value < now &&
+                card.Column.ColumnStatus != ColumnStatus.Completed),
+            UnassignedCount = cards.Count(card => string.IsNullOrEmpty(card.AssignedUserId)),
+            Permission = permission,
+            SharedVia = sharedVia
+        };
+    }
 
-    private static CardDto ToDto(KanbanCard card) => new()
+    private async Task<BoardDto> ToDtoAsync(KanbanBoard board, string userId)
+    {
+        var cardIds = board.Columns.SelectMany(column => column.Cards).Select(card => card.Id).ToList();
+        var commentCardIds = await db.KanbanCardComments
+            .Where(comment => cardIds.Contains(comment.CardId))
+            .Select(comment => comment.CardId)
+            .ToListAsync();
+        var commentCounts = commentCardIds
+            .GroupBy(cardId => cardId)
+            .ToDictionary(group => group.Key, group => group.Count());
+        return new BoardDto
+        {
+            Id = board.Id,
+            Name = board.Name,
+            IsOwner = board.UserId == userId,
+            CanEdit = await access.CanEditAsync(board, userId),
+            IsArchived = board.IsArchived,
+            ArchivedTime = board.ArchivedTime,
+            Order = board.Order,
+            IsPublic = board.IsPublic,
+            ColumnCount = board.Columns.Count,
+            CardCount = board.Columns.Sum(column => column.Cards.Count),
+            Columns = board.Columns.OrderBy(column => column.Order).Select(column => new ColumnDto
+            {
+                Id = column.Id,
+                Name = column.Name,
+                Order = column.Order,
+                Status = column.ColumnStatus.ToString(),
+                Cards = column.Cards
+                    .OrderBy(card => card.Order)
+                    .Select(card => ToDto(card, commentCounts.GetValueOrDefault(card.Id)))
+                    .ToList()
+            }).ToList()
+        };
+    }
+
+    private static CardDto ToDto(KanbanCard card, int commentCount = 0) => new()
     {
         Id = card.Id,
         ColumnId = card.ColumnId,
@@ -303,7 +555,23 @@ public sealed class KanbanApiController(
         Description = card.Description,
         Order = card.Order,
         Priority = card.Priority.ToString(),
+        PlannedStartTime = card.PlannedStartTime,
         DueDate = card.DueDate,
-        CreationTime = card.CreationTime
+        ActualStartTime = card.ActualStartTime,
+        ActualEndTime = card.ActualEndTime,
+        RecurrenceInterval = card.RecurrenceInterval,
+        RecurrenceUnit = card.RecurrenceUnit.ToString(),
+        CreationTime = card.CreationTime,
+        AssignedUser = card.AssignedUser == null ? null : MobileApiMapper.ToUserDto(card.AssignedUser),
+        Labels = card.CardLabels
+            .OrderBy(link => link.Label.Name)
+            .Select(link => new CardLabelDto
+            {
+                Id = link.LabelId,
+                Name = link.Label.Name,
+                Color = link.Label.Color
+            })
+            .ToList(),
+        CommentCount = commentCount
     };
 }

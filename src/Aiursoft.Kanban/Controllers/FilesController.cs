@@ -1,8 +1,10 @@
 using Aiursoft.CSTools.Models;
 using Aiursoft.CSTools.Tools;
 using Aiursoft.Kanban.Services;
+using Aiursoft.Kanban.Services.Authentication;
 using Aiursoft.Kanban.Services.FileStorage;
 using Aiursoft.WebTools.Attributes;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +56,18 @@ public class FilesController(
         }
 
         var uploadPolicy = grant.UploadPolicy!;
+        if (uploadPolicy.RequireAuthenticatedUser && User.Identity?.IsAuthenticated != true)
+        {
+            foreach (var scheme in LocalApiAuthenticationDefaults.ApiSchemes.Split(','))
+            {
+                var authentication = await HttpContext.AuthenticateAsync(scheme);
+                if (authentication.Succeeded && authentication.Principal != null)
+                {
+                    HttpContext.User = authentication.Principal;
+                    break;
+                }
+            }
+        }
         if (uploadPolicy.RequireAuthenticatedUser && User.Identity?.IsAuthenticated != true)
         {
             return Unauthorized("Anonymous uploads are not allowed.");
