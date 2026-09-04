@@ -568,10 +568,19 @@ public sealed class CardApiController(
         if (canEdit)
         {
             var accessibleUserIds = await access.GetAccessibleUserIdsAsync(card.Column.Board);
-            assignees = await db.Users
+            var accessibleUsers = await db.Users
                 .Where(user => accessibleUserIds.Contains(user.Id))
                 .OrderBy(user => user.DisplayName)
                 .ThenBy(user => user.UserName)
+                .Select(user => new
+                {
+                    user.Id,
+                    user.DisplayName,
+                    user.UserName,
+                    user.Email
+                })
+                .ToListAsync();
+            assignees = accessibleUsers
                 .Select(user => new CardUserDto
                 {
                     Id = user.Id,
@@ -579,7 +588,7 @@ public sealed class CardApiController(
                         ? user.UserName ?? user.Email ?? user.Id
                         : user.DisplayName
                 })
-                .ToListAsync();
+                .ToList();
             columns = await db.KanbanColumns
                 .Where(column => column.BoardId == card.Column.BoardId)
                 .OrderBy(column => column.Order)

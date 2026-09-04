@@ -953,15 +953,17 @@ public sealed class KanbanApiTests : TestBase
 
         Assert.IsNotNull(Server);
         string assigneeId;
+        string assigneeUserName;
         await using (var memberScope = Server.Services.CreateAsyncScope())
         {
             var services = memberScope.ServiceProvider;
             var userManager = services.GetRequiredService<UserManager<User>>();
+            assigneeUserName = $"android-member-{Guid.NewGuid():N}@example.com";
             var member = new User
             {
-                UserName = $"android-member-{Guid.NewGuid():N}@example.com",
+                UserName = assigneeUserName,
                 Email = $"android-member-{Guid.NewGuid():N}@example.com",
-                DisplayName = "Android teammate"
+                DisplayName = "   "
             };
             var result = await userManager.CreateAsync(member);
             Assert.IsTrue(result.Succeeded);
@@ -988,6 +990,9 @@ public sealed class KanbanApiTests : TestBase
         Assert.IsNotNull(details.AssignedUser);
         Assert.IsTrue(details.AvailableAssignees.Any(user => user.Id == details.AssignedUser.Id));
         Assert.IsTrue(details.AvailableAssignees.Any(user => user.Id == assigneeId));
+        Assert.AreEqual(
+            assigneeUserName,
+            details.AvailableAssignees.Single(user => user.Id == assigneeId).DisplayName);
         Assert.HasCount(3, details.AvailableColumns);
 
         using var updateResponse = await Http.PutAsync(
