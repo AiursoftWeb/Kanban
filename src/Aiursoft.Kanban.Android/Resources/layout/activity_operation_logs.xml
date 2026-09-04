@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/operation_logs_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface_canvas">
+
+  <com.google.android.material.appbar.AppBarLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/app_bar"
+      app:elevation="0dp">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/operation_logs_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/app_bar"
+        android:minHeight="64dp"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIconTint="@color/on_app_bar"
+        app:subtitleTextColor="#FF94A3B8"
+        app:title="My Operation Logs"
+        app:titleTextColor="@color/on_app_bar" />
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <androidx.core.widget.NestedScrollView
+      android:id="@+id/operation_logs_scroll"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:clipToPadding="false"
+      android:fillViewport="true"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:id="@+id/operation_logs_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="32dp" />
+  </androidx.core.widget.NestedScrollView>
+
+  <com.google.android.material.progressindicator.CircularProgressIndicator
+      android:id="@+id/operation_logs_progress"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_gravity="center"
+      android:visibility="gone"
+      app:indicatorSize="48dp"
+      app:trackThickness="4dp" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

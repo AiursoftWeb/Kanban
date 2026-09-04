@@ -143,6 +143,8 @@ public sealed class AppSession : IDisposable
         SelectedBoardId = 0;
     }
 
+    public void UpdateDisplayName(string displayName) => DisplayName = displayName;
+
     public KanbanApiClient RequireApi() =>
         Api ?? throw new InvalidOperationException("Connect to a server first.");
 

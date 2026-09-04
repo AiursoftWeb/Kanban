@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/board_settings_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface_canvas">
+
+  <com.google.android.material.appbar.AppBarLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/app_bar"
+      app:elevation="0dp">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/board_settings_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/app_bar"
+        android:minHeight="64dp"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIconTint="@color/on_app_bar"
+        app:subtitleTextColor="#FF94A3B8"
+        app:title="Board settings"
+        app:titleTextColor="@color/on_app_bar" />
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <androidx.core.widget.NestedScrollView
+      android:id="@+id/board_settings_scroll"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:clipToPadding="false"
+      android:fillViewport="true"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:id="@+id/board_settings_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="36dp">
+
+      <LinearLayout
+          android:id="@+id/board_owner_settings"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BOARD"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/board_name_box"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Board name"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/board_name_input"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textCapSentences"
+              android:maxLength="100"
+              android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/board_order_box"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Sort order"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/board_order_input"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="numberSigned"
+              android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_board_button"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="12dp"
+            android:text="Save board settings"
+            android:textAllCaps="false"
+            app:cornerRadius="14dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/manage_sharing_button"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="10dp"
+            android:text="Visibility and sharing"
+            android:textAllCaps="false"
+            app:cornerRadius="14dp" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="28dp"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="COLUMNS"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_column_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="+ Add column"
+            android:textAllCaps="false" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/board_columns_list"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical" />
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/delete_board_button"
+          style="@style/Widget.Material3.Button.OutlinedButton"
+          android:layout_width="match_parent"
+          android:layout_height="54dp"
+          android:layout_marginTop="28dp"
+          android:text="Delete board permanently"
+          android:textAllCaps="false"
+          android:textColor="@color/on_danger_container"
+          app:cornerRadius="14dp"
+          app:strokeColor="@color/on_danger_container" />
+    </LinearLayout>
+  </androidx.core.widget.NestedScrollView>
+
+  <com.google.android.material.progressindicator.CircularProgressIndicator
+      android:id="@+id/board_settings_progress"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_gravity="center"
+      android:visibility="gone"
+      app:indicatorSize="48dp"
+      app:trackThickness="4dp" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

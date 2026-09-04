@@ -205,10 +205,75 @@
             android:paddingTop="12dp"
             android:paddingEnd="24dp"
             android:paddingBottom="8dp"
-            android:text="MY BOARDS"
+            android:text="DASHBOARD"
             android:textColor="@color/text_secondary"
             android:textSize="12sp"
             android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/dashboard_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="start|center_vertical"
+            android:text="Overview"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            app:icon="@drawable/ic_dashboard"
+            app:iconGravity="textStart"
+            app:iconTint="@color/text_secondary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingTop="22dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="SEARCH"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/global_search_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="start|center_vertical"
+            android:text="Global Search"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            app:icon="@drawable/ic_search"
+            app:iconGravity="textStart"
+            app:iconTint="@color/text_secondary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingTop="22dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="OVERVIEW KANBAN"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="6dp"
+            android:text="My Created"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
 
         <LinearLayout
             android:id="@+id/my_boards_list"
@@ -233,6 +298,163 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/archived_boards_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="start|center_vertical"
+            android:text="Archived"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            app:icon="@drawable/ic_archive"
+            app:iconGravity="textStart"
+            app:iconTint="@color/text_secondary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingTop="22dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="MY TASKS"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ai_assistant_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="start|center_vertical"
+            android:text="AI Assistant"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            app:icon="@drawable/ic_bot"
+            app:iconGravity="textStart"
+            app:iconTint="@color/text_secondary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/daily_reports_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="start|center_vertical"
+            android:text="Daily Assistant"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            app:icon="@drawable/ic_daily_report"
+            app:iconGravity="textStart"
+            app:iconTint="@color/text_secondary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/weekly_reports_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="start|center_vertical"
+            android:text="Weekly Report"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            app:icon="@drawable/ic_weekly_report"
+            app:iconGravity="textStart"
+            app:iconTint="@color/text_secondary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/my_tasks_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="start|center_vertical"
+            android:text="My Tasks"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            app:icon="@drawable/ic_tasks"
+            app:iconGravity="textStart"
+            app:iconTint="@color/text_secondary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingTop="22dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="MY NOTIFICATIONS"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/notifications_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="start|center_vertical"
+            android:text="Notifications"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            app:icon="@drawable/ic_notifications"
+            app:iconGravity="textStart"
+            app:iconTint="@color/text_secondary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingTop="22dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="SETTINGS"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/profile_settings_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="start|center_vertical"
+            android:text="Profile Settings"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            app:icon="@drawable/ic_account"
+            app:iconGravity="textStart"
+            app:iconTint="@color/text_secondary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/operation_logs_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="start|center_vertical"
+            android:text="My Operation Logs"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            app:icon="@drawable/ic_history"
+            app:iconGravity="textStart"
+            app:iconTint="@color/text_secondary" />
       </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

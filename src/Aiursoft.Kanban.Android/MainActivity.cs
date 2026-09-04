@@ -41,11 +41,24 @@ public sealed class MainActivity : AppCompatActivity
     private ExtendedFloatingActionButton _newCard = null!;
     private LinearLayout _myBoards = null!;
     private LinearLayout _sharedBoards = null!;
+    private MaterialButton _archivedBoards = null!;
     private MaterialButton _newBoard = null!;
+    private MaterialButton _dashboard = null!;
+    private MaterialButton _globalSearch = null!;
+    private MaterialButton _aiAssistant = null!;
+    private MaterialButton _dailyReports = null!;
+    private MaterialButton _weeklyReports = null!;
+    private MaterialButton _myTasks = null!;
+    private MaterialButton _notifications = null!;
+    private MaterialButton _profileSettings = null!;
+    private MaterialButton _operationLogs = null!;
     private MaterialButton _signOut = null!;
     private TextView _drawerServer = null!;
     private List<BoardSummaryDto> _boards = [];
     private BoardDto? _board;
+    private string _boardQuery = string.Empty;
+    private readonly HashSet<string> _boardPriorities = [];
+    private readonly HashSet<string> _boardAssigneeIds = [];
     private bool _loaded;
 
     private AppSession Session => ((KanbanApplication)Application!).Session;
@@ -73,7 +86,7 @@ public sealed class MainActivity : AppCompatActivity
         base.OnResume();
         if (_loaded && Session.IsAuthenticated)
         {
-            _ = LoadBoardAsync(Session.SelectedBoardId, showProgress: false);
+            _ = LoadBoardsAsync(Session.SelectedBoardId, showProgress: false);
         }
     }
 
@@ -91,7 +104,17 @@ public sealed class MainActivity : AppCompatActivity
         _newCard = FindViewById<ExtendedFloatingActionButton>(Resource.Id.new_card_fab)!;
         _myBoards = FindViewById<LinearLayout>(Resource.Id.my_boards_list)!;
         _sharedBoards = FindViewById<LinearLayout>(Resource.Id.shared_boards_list)!;
+        _archivedBoards = FindViewById<MaterialButton>(Resource.Id.archived_boards_button)!;
         _newBoard = FindViewById<MaterialButton>(Resource.Id.new_board_button)!;
+        _dashboard = FindViewById<MaterialButton>(Resource.Id.dashboard_button)!;
+        _globalSearch = FindViewById<MaterialButton>(Resource.Id.global_search_button)!;
+        _aiAssistant = FindViewById<MaterialButton>(Resource.Id.ai_assistant_button)!;
+        _dailyReports = FindViewById<MaterialButton>(Resource.Id.daily_reports_button)!;
+        _weeklyReports = FindViewById<MaterialButton>(Resource.Id.weekly_reports_button)!;
+        _myTasks = FindViewById<MaterialButton>(Resource.Id.my_tasks_button)!;
+        _notifications = FindViewById<MaterialButton>(Resource.Id.notifications_button)!;
+        _profileSettings = FindViewById<MaterialButton>(Resource.Id.profile_settings_button)!;
+        _operationLogs = FindViewById<MaterialButton>(Resource.Id.operation_logs_button)!;
         _signOut = FindViewById<MaterialButton>(Resource.Id.sign_out_button)!;
         _drawerServer = FindViewById<TextView>(Resource.Id.drawer_server)!;
     }
@@ -114,6 +137,36 @@ public sealed class MainActivity : AppCompatActivity
                 _ = LoadBoardsAsync(Session.SelectedBoardId, showProgress: false);
                 args.Handled = true;
             }
+            else if (args.Item?.ItemId == Resource.Id.action_archive_board)
+            {
+                ShowArchiveBoardDialog();
+                args.Handled = true;
+            }
+            else if (args.Item?.ItemId == Resource.Id.action_add_column)
+            {
+                ShowNewColumnDialog();
+                args.Handled = true;
+            }
+            else if (args.Item?.ItemId == Resource.Id.action_board_settings)
+            {
+                OpenBoardSettings();
+                args.Handled = true;
+            }
+            else if (args.Item?.ItemId == Resource.Id.action_share_board)
+            {
+                OpenBoardSharing();
+                args.Handled = true;
+            }
+            else if (args.Item?.ItemId == Resource.Id.action_gantt)
+            {
+                OpenGantt();
+                args.Handled = true;
+            }
+            else if (args.Item?.ItemId == Resource.Id.action_filter_board)
+            {
+                ShowBoardFilterSheet();
+                args.Handled = true;
+            }
         };
     }
 
@@ -121,11 +174,102 @@ public sealed class MainActivity : AppCompatActivity
     {
         _newBoard.Click += (_, _) => ShowNewBoardDialog();
         _newCard.Click += (_, _) => ShowNewCardSheet();
+        _archivedBoards.Click += (_, _) => OpenArchivedBoards();
+        _dashboard.Click += (_, _) => OpenDashboard();
+        _globalSearch.Click += (_, _) => OpenGlobalSearch();
+        _aiAssistant.Click += (_, _) => OpenAiAssistant();
+        _dailyReports.Click += (_, _) => OpenReports(weekly: false);
+        _weeklyReports.Click += (_, _) => OpenReports(weekly: true);
+        _myTasks.Click += (_, _) => OpenMyTasks();
+        _notifications.Click += (_, _) => OpenNotifications();
+        _profileSettings.Click += (_, _) => OpenProfileSettings();
+        _operationLogs.Click += (_, _) => OpenOperationLogs();
         _signOut.Click += (_, _) =>
         {
             Session.SignOut();
             ReturnToLogin();
         };
+    }
+
+    private void OpenReports(bool weekly)
+    {
+        _drawer.CloseDrawer(GravityCompat.Start);
+        StartActivity(ReportsActivity.CreateIntent(this, weekly));
+    }
+
+    private void OpenAiAssistant()
+    {
+        _drawer.CloseDrawer(GravityCompat.Start);
+        StartActivity(AgentActivity.CreateIntent(this, Session.SelectedBoardId));
+    }
+
+    private void OpenMyTasks()
+    {
+        _drawer.CloseDrawer(GravityCompat.Start);
+        StartActivity(new Intent(this, typeof(MyTasksActivity)));
+    }
+
+    private void OpenGlobalSearch()
+    {
+        _drawer.CloseDrawer(GravityCompat.Start);
+        StartActivity(new Intent(this, typeof(SearchActivity)));
+    }
+
+    private void OpenDashboard()
+    {
+        _drawer.CloseDrawer(GravityCompat.Start);
+        StartActivity(new Intent(this, typeof(DashboardActivity)));
+    }
+
+    private void OpenNotifications()
+    {
+        _drawer.CloseDrawer(GravityCompat.Start);
+        StartActivity(new Intent(this, typeof(NotificationsActivity)));
+    }
+
+    private void OpenProfileSettings()
+    {
+        _drawer.CloseDrawer(GravityCompat.Start);
+        StartActivity(new Intent(this, typeof(AccountSettingsActivity)));
+    }
+
+    private void OpenOperationLogs()
+    {
+        _drawer.CloseDrawer(GravityCompat.Start);
+        StartActivity(new Intent(this, typeof(OperationLogsActivity)));
+    }
+
+    private void OpenArchivedBoards()
+    {
+        _drawer.CloseDrawer(GravityCompat.Start);
+        StartActivity(new Intent(this, typeof(ArchivedBoardsActivity)));
+    }
+
+    private void OpenBoardSettings()
+    {
+        if (_board?.CanEdit != true)
+        {
+            return;
+        }
+        StartActivity(BoardSettingsActivity.CreateIntent(this, _board.Id));
+    }
+
+    private void OpenBoardSharing()
+    {
+        if (_board?.IsOwner != true)
+        {
+            return;
+        }
+        StartActivity(BoardSharingActivity.CreateIntent(this, _board.Id));
+    }
+
+    private void OpenGantt()
+    {
+        if (_board == null)
+        {
+            return;
+        }
+        StartActivity(GanttActivity.CreateIntent(this, _board.Id));
     }
 
     private async Task LoadBoardsAsync(int preferredBoardId = 0, bool showProgress = true)
@@ -137,6 +281,16 @@ public sealed class MainActivity : AppCompatActivity
             _boards = response.Boards;
             RenderDrawer();
             _loaded = true;
+
+            if (preferredBoardId > 0 && _boards.All(board => board.Id != preferredBoardId))
+            {
+                _board = null;
+                await LoadBoardAsync(preferredBoardId, showProgress: false);
+                if (_board?.Id == preferredBoardId)
+                {
+                    return;
+                }
+            }
 
             if (_boards.Count == 0)
             {
@@ -172,6 +326,10 @@ public sealed class MainActivity : AppCompatActivity
         {
             SetLoading(showProgress);
             var response = await Api.GetBoardAsync(boardId);
+            if (_board?.Id != response.Board.Id)
+            {
+                ClearBoardFilters();
+            }
             _board = response.Board;
             Session.SelectedBoardId = boardId;
             RenderBoard(response.Board);
@@ -256,6 +414,19 @@ public sealed class MainActivity : AppCompatActivity
         _toolbar.Subtitle = board.IsOwner
             ? (board.CanEdit ? "Your board · drag cards to move" : "Your board · view only")
             : (board.CanEdit ? "Shared with you · can edit" : "Shared with you · view only");
+        var archiveItem = _toolbar.Menu?.FindItem(Resource.Id.action_archive_board);
+        if (archiveItem != null)
+        {
+            archiveItem.SetVisible(board.IsOwner);
+            archiveItem.SetTitle(board.IsArchived ? "Unarchive board" : "Archive board");
+        }
+        _toolbar.Menu?.FindItem(Resource.Id.action_add_column)?.SetVisible(board.CanEdit);
+        _toolbar.Menu?.FindItem(Resource.Id.action_board_settings)?.SetVisible(board.CanEdit);
+        _toolbar.Menu?.FindItem(Resource.Id.action_share_board)?.SetVisible(board.IsOwner);
+        _toolbar.Menu?.FindItem(Resource.Id.action_gantt)?.SetVisible(true);
+        var filterItem = _toolbar.Menu?.FindItem(Resource.Id.action_filter_board);
+        filterItem?.SetVisible(true);
+        filterItem?.SetTitle(HasActiveBoardFilter() ? "Filter cards · active" : "Filter cards");
         _newCard.Visibility = board.CanEdit && board.Columns.Count > 0 ? ViewStates.Visible : ViewStates.Gone;
         _emptyState.Visibility = ViewStates.Gone;
         _boardScroll.Visibility = ViewStates.Visible;
@@ -263,8 +434,14 @@ public sealed class MainActivity : AppCompatActivity
         if (board.Columns.Count == 0)
         {
             ShowEmpty("This board has no columns", board.CanEdit
-                ? "Add columns on the web app, then refresh."
+                ? "Use Add column in the toolbar to build your workflow."
                 : "The owner has not added any columns yet.");
+            _toolbar.Menu?.FindItem(Resource.Id.action_add_column)?.SetVisible(board.CanEdit);
+            _toolbar.Menu?.FindItem(Resource.Id.action_board_settings)?.SetVisible(board.CanEdit);
+            _toolbar.Menu?.FindItem(Resource.Id.action_share_board)?.SetVisible(board.IsOwner);
+            _toolbar.Menu?.FindItem(Resource.Id.action_archive_board)?.SetVisible(board.IsOwner);
+            _toolbar.Menu?.FindItem(Resource.Id.action_gantt)?.SetVisible(true);
+            _toolbar.Menu?.FindItem(Resource.Id.action_filter_board)?.SetVisible(true);
             return;
         }
 
@@ -296,10 +473,15 @@ public sealed class MainActivity : AppCompatActivity
         header.SetGravity(GravityFlags.CenterVertical);
         var title = Text(column.Name, 17, Resource.Color.text_primary, true);
         header.AddView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WrapContent, 1));
-        var count = Text(column.Cards.Count.ToString(), 12, Resource.Color.on_brand_container, true);
+        var visibleCards = FilterCards(column.Cards);
+        var countLabel = HasActiveBoardFilter()
+            ? $"{visibleCards.Count}/{column.Cards.Count}"
+            : column.Cards.Count.ToString();
+        var count = Text(countLabel, 12, Resource.Color.on_brand_container, true);
         count.Gravity = GravityFlags.Center;
         count.Background = Rounded(ColorOf(Resource.Color.brand_container), 14);
-        header.AddView(count, new LinearLayout.LayoutParams(Dp(30), Dp(30)));
+        header.AddView(count, new LinearLayout.LayoutParams(
+            HasActiveBoardFilter() ? Dp(50) : Dp(30), Dp(30)));
         content.AddView(header);
 
         if (board.CanEdit)
@@ -323,13 +505,17 @@ public sealed class MainActivity : AppCompatActivity
             Orientation = global::Android.Widget.Orientation.Vertical
         };
         cards.SetGravity(GravityFlags.Top);
-        foreach (var card in column.Cards.OrderBy(card => card.Order))
+        foreach (var card in visibleCards)
         {
             cards.AddView(CreateCard(board, card), CardLayout());
         }
-        if (column.Cards.Count == 0)
+        if (visibleCards.Count == 0)
         {
-            var hint = Text(board.CanEdit ? "Drop a card here" : "No cards", 13, Resource.Color.text_secondary);
+            var hint = Text(HasActiveBoardFilter()
+                    ? "No matching cards"
+                    : board.CanEdit ? "Drop a card here" : "No cards",
+                13,
+                Resource.Color.text_secondary);
             hint.Gravity = GravityFlags.Center;
             hint.SetPadding(Dp(8), Dp(32), Dp(8), Dp(32));
             cards.AddView(hint, new LinearLayout.LayoutParams(
@@ -365,12 +551,16 @@ public sealed class MainActivity : AppCompatActivity
         shell.StrokeColor = GetColor(Resource.Color.outline);
         shell.StrokeWidth = Dp(1);
 
+        var content = new LinearLayout(this)
+        {
+            Orientation = global::Android.Widget.Orientation.Vertical
+        };
+        content.SetPadding(Dp(14), Dp(12), Dp(10), Dp(12));
         var row = new LinearLayout(this)
         {
             Orientation = global::Android.Widget.Orientation.Horizontal
         };
         row.SetGravity(GravityFlags.CenterVertical);
-        row.SetPadding(Dp(14), Dp(14), Dp(10), Dp(14));
         var label = Text(card.Title, 15, Resource.Color.text_primary, true);
         label.SetMaxLines(4);
         row.AddView(label, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WrapContent, 1));
@@ -397,10 +587,60 @@ public sealed class MainActivity : AppCompatActivity
                 args.Handled = true;
             };
         }
-        shell.AddView(row);
+        content.AddView(row);
+        if (!string.IsNullOrWhiteSpace(card.Description))
+        {
+            var description = Text(card.Description, 13, Resource.Color.text_secondary);
+            description.SetMaxLines(2);
+            description.Ellipsize = global::Android.Text.TextUtils.TruncateAt.End;
+            var descriptionLayout = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.WrapContent);
+            descriptionLayout.SetMargins(0, Dp(5), Dp(6), 0);
+            content.AddView(description, descriptionLayout);
+        }
+        if (card.Labels.Count > 0)
+        {
+            var labels = Text(
+                string.Join("  ", card.Labels.Select(item => $"# {item.Name}")),
+                12,
+                Resource.Color.brand_primary,
+                true);
+            labels.SetMaxLines(2);
+            var labelsLayout = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.WrapContent);
+            labelsLayout.SetMargins(0, Dp(7), Dp(6), 0);
+            content.AddView(labels, labelsLayout);
+        }
+        var metadataParts = new[]
+        {
+            card.Priority == "None" ? null : card.Priority + " priority",
+            card.RecurrenceInterval.HasValue && card.RecurrenceUnit != "None"
+                ? $"Every {card.RecurrenceInterval} {card.RecurrenceUnit.ToLowerInvariant()}"
+                : null,
+            card.DueDate.HasValue ? "Due " + card.DueDate.Value.ToLocalTime().ToString("MMM d") : null,
+            card.AssignedUser == null ? null : "Assigned to " + card.AssignedUser.DisplayName,
+            card.CommentCount == 0 ? null : $"{card.CommentCount} comment{(card.CommentCount == 1 ? string.Empty : "s")}"
+        }.OfType<string>().ToList();
+        if (metadataParts.Count > 0)
+        {
+            var meta = Text(string.Join(" · ", metadataParts), 12,
+                card.DueDate.HasValue && card.DueDate.Value < DateTime.UtcNow
+                    ? Resource.Color.on_danger_container
+                    : Resource.Color.text_secondary,
+                true);
+            var metaLayout = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.WrapContent);
+            metaLayout.SetMargins(0, Dp(7), Dp(6), 0);
+            content.AddView(meta, metaLayout);
+        }
+        shell.AddView(content);
+        shell.Click += (_, _) => StartActivity(CardDetailActivity.CreateIntent(this, card.Id));
         shell.ContentDescription = board.CanEdit
-            ? $"{card.Title}. Hold and drag to move."
-            : card.Title;
+            ? $"{card.Title}. Tap for details. Hold and drag to move."
+            : $"{card.Title}. Tap for details.";
         return shell;
     }
 
@@ -538,11 +778,11 @@ public sealed class MainActivity : AppCompatActivity
         wrapper.AddView(box);
         var builder = new MaterialAlertDialogBuilder(this);
         builder.SetTitle("New board");
-        builder.SetMessage("Create a private board. You can share it from the web app.");
+        builder.SetMessage("Create a private board. You can manage visibility and sharing from board settings.");
         builder.SetView(wrapper);
         builder.SetNegativeButton("Cancel", (_, _) => { });
         builder.SetPositiveButton("Create", (_, _) => { });
-        var dialog = builder.Create();
+        var dialog = builder.Create() ?? throw new InvalidOperationException("Could not create the board dialog.");
         dialog.Show();
         dialog.GetButton((int)DialogButtonType.Positive)!.Click += async (_, _) =>
         {
@@ -566,11 +806,249 @@ public sealed class MainActivity : AppCompatActivity
         };
     }
 
+    private void ShowBoardFilterSheet()
+    {
+        var board = _board;
+        if (board == null)
+        {
+            return;
+        }
+        var dialog = new BottomSheetDialog(this);
+        var content = new LinearLayout(this)
+        {
+            Orientation = global::Android.Widget.Orientation.Vertical
+        };
+        content.SetPadding(Dp(24), Dp(18), Dp(24), Dp(24));
+        content.AddView(Text("Filter cards", 24, Resource.Color.text_primary, true));
+        content.AddView(Text("Search this board and narrow it by priority.", 14, Resource.Color.text_secondary));
+        var searchBox = new TextInputLayout(this) { Hint = "Title or description" };
+        searchBox.BoxBackgroundMode = TextInputLayout.BoxBackgroundOutline;
+        var search = new TextInputEditText(this) { Text = _boardQuery };
+        search.SetSingleLine(true);
+        searchBox.AddView(search);
+        var searchLayout = new LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MatchParent,
+            ViewGroup.LayoutParams.WrapContent);
+        searchLayout.SetMargins(0, Dp(16), 0, Dp(10));
+        content.AddView(searchBox, searchLayout);
+        content.AddView(Text("PRIORITY", 12, Resource.Color.text_secondary, true));
+        var checks = new Dictionary<string, CheckBox>();
+        foreach (var priority in new[] { "Urgent", "High", "Medium", "Low", "None" })
+        {
+            var check = new CheckBox(this)
+            {
+                Text = priority,
+                Checked = _boardPriorities.Contains(priority)
+            };
+            check.SetTextColor(ColorOf(Resource.Color.text_primary));
+            content.AddView(check, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                Dp(44)));
+            checks[priority] = check;
+        }
+        var assigneeChecks = new Dictionary<string, CheckBox>();
+        var assignees = board.Columns
+            .SelectMany(column => column.Cards)
+            .Select(card => card.AssignedUser)
+            .OfType<CardUserDto>()
+            .GroupBy(user => user.Id)
+            .Select(group => group.First())
+            .OrderBy(user => user.DisplayName)
+            .ToList();
+        if (assignees.Count > 0)
+        {
+            var assigneeHeader = Text("ASSIGNEE", 12, Resource.Color.text_secondary, true);
+            var assigneeHeaderLayout = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.WrapContent);
+            assigneeHeaderLayout.SetMargins(0, Dp(10), 0, 0);
+            content.AddView(assigneeHeader, assigneeHeaderLayout);
+            foreach (var assignee in assignees)
+            {
+                var check = new CheckBox(this)
+                {
+                    Text = assignee.DisplayName,
+                    Checked = _boardAssigneeIds.Contains(assignee.Id)
+                };
+                check.SetTextColor(ColorOf(Resource.Color.text_primary));
+                content.AddView(check, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MatchParent,
+                    Dp(44)));
+                assigneeChecks[assignee.Id] = check;
+            }
+        }
+        var actions = new LinearLayout(this)
+        {
+            Orientation = global::Android.Widget.Orientation.Horizontal
+        };
+        var clear = new MaterialButton(this, null, global::Android.Resource.Attribute.BorderlessButtonStyle)
+        {
+            Text = "Clear",
+            CornerRadius = Dp(14)
+        };
+        clear.SetAllCaps(false);
+        var apply = new MaterialButton(this) { Text = "Apply", CornerRadius = Dp(14) };
+        apply.SetAllCaps(false);
+        actions.AddView(clear, new LinearLayout.LayoutParams(0, Dp(52), 1));
+        var applyLayout = new LinearLayout.LayoutParams(0, Dp(52), 1);
+        applyLayout.SetMargins(Dp(10), 0, 0, 0);
+        actions.AddView(apply, applyLayout);
+        var actionsLayout = new LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MatchParent,
+            ViewGroup.LayoutParams.WrapContent);
+        actionsLayout.SetMargins(0, Dp(12), 0, 0);
+        content.AddView(actions, actionsLayout);
+        clear.Click += (_, _) =>
+        {
+            _boardQuery = string.Empty;
+            _boardPriorities.Clear();
+            _boardAssigneeIds.Clear();
+            dialog.Dismiss();
+            RenderBoard(board);
+        };
+        apply.Click += (_, _) =>
+        {
+            _boardQuery = search.Text?.Trim() ?? string.Empty;
+            _boardPriorities.Clear();
+            foreach (var item in checks.Where(item => item.Value.Checked))
+            {
+                _boardPriorities.Add(item.Key);
+            }
+            _boardAssigneeIds.Clear();
+            foreach (var item in assigneeChecks.Where(item => item.Value.Checked))
+            {
+                _boardAssigneeIds.Add(item.Key);
+            }
+            dialog.Dismiss();
+            RenderBoard(board);
+        };
+        dialog.SetContentView(content);
+        dialog.Show();
+    }
+
+    private List<CardDto> FilterCards(IEnumerable<CardDto> cards) => cards
+        .Where(card => string.IsNullOrWhiteSpace(_boardQuery) ||
+            card.Title.Contains(_boardQuery, StringComparison.OrdinalIgnoreCase) ||
+            (card.Description?.Contains(_boardQuery, StringComparison.OrdinalIgnoreCase) ?? false))
+        .Where(card => _boardPriorities.Count == 0 || _boardPriorities.Contains(card.Priority))
+        .Where(card => _boardAssigneeIds.Count == 0 ||
+            card.AssignedUser != null && _boardAssigneeIds.Contains(card.AssignedUser.Id))
+        .OrderBy(card => card.Order)
+        .ToList();
+
+    private bool HasActiveBoardFilter() =>
+        !string.IsNullOrWhiteSpace(_boardQuery) ||
+        _boardPriorities.Count > 0 ||
+        _boardAssigneeIds.Count > 0;
+
+    private void ClearBoardFilters()
+    {
+        _boardQuery = string.Empty;
+        _boardPriorities.Clear();
+        _boardAssigneeIds.Clear();
+    }
+
+    private void ShowNewColumnDialog()
+    {
+        var board = _board;
+        if (board == null || !board.CanEdit)
+        {
+            return;
+        }
+        var box = new TextInputLayout(this) { Hint = "Column name" };
+        box.BoxBackgroundMode = TextInputLayout.BoxBackgroundOutline;
+        var input = new TextInputEditText(this);
+        input.SetSingleLine(true);
+        box.AddView(input);
+        var wrapper = new FrameLayout(this);
+        wrapper.SetPadding(Dp(24), Dp(4), Dp(24), 0);
+        wrapper.AddView(box);
+        var builder = new MaterialAlertDialogBuilder(this);
+        builder.SetTitle("Add column");
+        builder.SetView(wrapper);
+        builder.SetNegativeButton("Cancel", (_, _) => { });
+        builder.SetPositiveButton("Add", (_, _) => { });
+        var dialog = builder.Create() ?? throw new InvalidOperationException("Could not create the column dialog.");
+        dialog.Show();
+        dialog.GetButton((int)DialogButtonType.Positive)!.Click += async (_, _) =>
+        {
+            var value = input.Text?.Trim() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                box.Error = "Enter a column name";
+                return;
+            }
+            try
+            {
+                dialog.GetButton((int)DialogButtonType.Positive)!.Enabled = false;
+                var response = await Api.CreateColumnAsync(board.Id, new CreateColumnRequest { Name = value });
+                dialog.Dismiss();
+                _board = response.Board;
+                RenderBoard(response.Board);
+                Snackbar.Make(_workspace, "Column added", Snackbar.LengthShort).Show();
+            }
+            catch (Exception exception)
+            {
+                dialog.GetButton((int)DialogButtonType.Positive)!.Enabled = true;
+                box.Error = FriendlyMessage(exception);
+            }
+        };
+    }
+
+    private void ShowArchiveBoardDialog()
+    {
+        var board = _board;
+        if (board == null || !board.IsOwner)
+        {
+            return;
+        }
+        var archive = !board.IsArchived;
+        var builder = new MaterialAlertDialogBuilder(this);
+        builder.SetTitle(archive ? "Archive board?" : "Unarchive board?");
+        builder.SetMessage(archive
+            ? "The board becomes read-only and moves to Archived."
+            : "The board returns to your active workspace.");
+        builder.SetNegativeButton("Cancel", (_, _) => { });
+        builder.SetPositiveButton(archive ? "Archive" : "Unarchive", (dialog, args) =>
+        {
+            _ = SetBoardArchivedAsync(board, archive);
+        });
+        builder.Show();
+    }
+
+    private async Task SetBoardArchivedAsync(BoardDto board, bool archive)
+    {
+        try
+        {
+            SetLoading(true);
+            var result = await Api.SetBoardArchivedAsync(board.Id, archive);
+            Session.SelectedBoardId = archive ? 0 : board.Id;
+            await LoadBoardsAsync(Session.SelectedBoardId, showProgress: false);
+            Snackbar.Make(_workspace,
+                result.Message ?? (archive ? "Board archived" : "Board restored"),
+                Snackbar.LengthLong).Show();
+        }
+        catch (Exception exception)
+        {
+            ShowError(exception, retryBoards: false);
+        }
+        finally
+        {
+            SetLoading(false);
+        }
+    }
+
     private void ShowEmpty(string title, string message)
     {
         _boardCanvas.RemoveAllViews();
         _boardScroll.Visibility = ViewStates.Gone;
         _newCard.Visibility = ViewStates.Gone;
+        _toolbar.Menu?.FindItem(Resource.Id.action_archive_board)?.SetVisible(false);
+        _toolbar.Menu?.FindItem(Resource.Id.action_add_column)?.SetVisible(false);
+        _toolbar.Menu?.FindItem(Resource.Id.action_board_settings)?.SetVisible(false);
+        _toolbar.Menu?.FindItem(Resource.Id.action_share_board)?.SetVisible(false);
+        _toolbar.Menu?.FindItem(Resource.Id.action_gantt)?.SetVisible(false);
+        _toolbar.Menu?.FindItem(Resource.Id.action_filter_board)?.SetVisible(false);
         _emptyTitle.Text = title;
         _emptyMessage.Text = message;
         _emptyState.Visibility = ViewStates.Visible;

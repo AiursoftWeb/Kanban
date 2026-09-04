@@ -16,4 +16,6 @@
   <color name="on_success_container">#BBF7D0</color>
   <color name="warning_container">#78350F</color>
   <color name="on_warning_container">#FDE68A</color>
+  <color name="danger_container">#7F1D1D</color>
+  <color name="on_danger_container">#FECACA</color>
 </resources>

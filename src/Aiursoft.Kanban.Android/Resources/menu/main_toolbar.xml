@@ -6,4 +6,36 @@
       android:icon="@drawable/ic_refresh"
       android:title="Refresh"
       app:showAsAction="always" />
+  <item
+      android:id="@+id/action_add_column"
+      android:icon="@drawable/ic_add"
+      android:title="Add column"
+      android:visible="false"
+      app:showAsAction="ifRoom" />
+  <item
+      android:id="@+id/action_board_settings"
+      android:title="Board settings"
+      android:visible="false"
+      app:showAsAction="never" />
+  <item
+      android:id="@+id/action_share_board"
+      android:title="Visibility and sharing"
+      android:visible="false"
+      app:showAsAction="never" />
+  <item
+      android:id="@+id/action_gantt"
+      android:title="Gantt chart"
+      android:visible="false"
+      app:showAsAction="never" />
+  <item
+      android:id="@+id/action_filter_board"
+      android:title="Filter cards"
+      android:visible="false"
+      app:showAsAction="never" />
+  <item
+      android:id="@+id/action_archive_board"
+      android:icon="@drawable/ic_archive"
+      android:title="Archive board"
+      android:visible="false"
+      app:showAsAction="never" />
 </menu>
