@@ -13,7 +13,10 @@ OIDC access and refresh tokens are encrypted with AES-256-GCM before persistence
 non-exportable encryption key remains in Android Keystore, while app-private preferences
 contain only the authenticated ciphertext and its random initialization vector. This lets
 the app restore and refresh the session after a process or device restart without storing
-tokens in plaintext. Signing out or changing servers removes the persisted session.
+tokens in plaintext. Cold start restores the local session and API client before selecting
+an Activity, so returning users open their last board directly instead of passing through
+the server screen. An expired access token is refreshed silently using the encrypted refresh
+token. Signing out or changing servers removes the persisted session.
 
 - Open the left navigation drawer to switch between **My boards** and
   **Shared with me**. Each board shows whether the current account can edit it or

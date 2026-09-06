@@ -28,6 +28,14 @@ public sealed class AppSession : IDisposable
         _tokens = new AndroidAccessTokenProvider(new AndroidKeystoreTokenStore(context));
         _pinnedCertificateHash = LoadPinnedCertificateHash(context);
         _oidcHttp = new HttpClient(CreateHttpHandler());
+        ConfigureApi(Endpoint);
+
+        var resumeClient = new OidcPkceClient(_oidcHttp, _preferences);
+        if (_tokens.TryRestorePersistedSession(resumeClient))
+        {
+            _oidc = resumeClient;
+            DisplayName = "Signed in";
+        }
     }
 
     public string Endpoint => _preferences.GetString(ServerKey, DefaultServer) ?? DefaultServer;
@@ -51,16 +59,8 @@ public sealed class AppSession : IDisposable
             SignOut();
         }
         _preferences.Edit()!.PutString(ServerKey, endpoint)!.Apply();
-        _services?.Dispose();
-
-        var services = new ServiceCollection();
-        services.AddLogging();
-        services.AddSingleton<IKanbanAccessTokenProvider>(_tokens);
-        services.AddKanbanSdk(endpoint);
-        services.AddHttpClient(string.Empty).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
-        _services = services.BuildServiceProvider();
-        Api = _services.GetRequiredService<KanbanApiClient>();
-        Configuration = await Api.GetConfigurationAsync();
+        ConfigureApi(endpoint);
+        Configuration = await RequireApi().GetConfigurationAsync();
 
         if (string.Equals(Configuration.AuthenticationMode, "OIDC", StringComparison.OrdinalIgnoreCase))
         {
@@ -161,6 +161,19 @@ public sealed class AppSession : IDisposable
             RemoteCertificateValidationCallback = ValidateServerCertificate
         }
     };
+
+    private void ConfigureApi(string endpoint)
+    {
+        _services?.Dispose();
+
+        var services = new ServiceCollection();
+        services.AddLogging();
+        services.AddSingleton<IKanbanAccessTokenProvider>(_tokens);
+        services.AddKanbanSdk(endpoint);
+        services.AddHttpClient(string.Empty).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+        _services = services.BuildServiceProvider();
+        Api = _services.GetRequiredService<KanbanApiClient>();
+    }
 
     private bool ValidateServerCertificate(
         object _,

@@ -55,6 +55,23 @@ public sealed class AndroidAccessTokenProvider : IKanbanAccessTokenProvider
         return true;
     }
 
+    public bool TryRestorePersistedSession(OidcPkceClient oidc)
+    {
+        _localToken = null;
+        _localTokenExpiresAt = default;
+        var tokens = _store.Load();
+        if (tokens == null)
+        {
+            _oidc = null;
+            _tokens = null;
+            return false;
+        }
+
+        _oidc = oidc;
+        _tokens = tokens;
+        return true;
+    }
+
     public void ClearOidcSession()
     {
         _oidc = null;
