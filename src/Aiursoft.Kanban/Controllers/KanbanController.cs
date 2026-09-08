@@ -22,6 +22,7 @@ public class KanbanController(
     UserManager<User> userManager,
     StorageService storage,
     IAuthorizationService authorizationService,
+    CardCopyService cardCopyService,
     IMediator mediator,
     ILogger<KanbanController> logger) : Controller
 {
@@ -400,6 +401,23 @@ public class KanbanController(
             AssignedUserName = GetUserDisplayName(creator),
             AssignedUserInitial = GetUserInitial(creator),
             AssignedUserAvatarUrl = GetUserAvatarUrl(creator)
+        });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CopyCard(int cardId)
+    {
+        var userId = userManager.GetUserId(User)!;
+        var result = await cardCopyService.CopyAsync(cardId, userId);
+        if (result.Status == CardCopyStatus.NotFound) return NotFound();
+        if (result.Status == CardCopyStatus.Forbidden) return Forbid();
+
+        return Ok(new
+        {
+            Id = result.CardId,
+            result.ColumnId,
+            result.BoardId
         });
     }
 

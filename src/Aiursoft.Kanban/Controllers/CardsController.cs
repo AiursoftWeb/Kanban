@@ -217,6 +217,7 @@ public class CardsController(
 
     private async Task<bool> HasEditAccess(KanbanBoard board, string userId)
     {
+        if (board.IsArchived) return false;
         if (board.UserId == userId) return true;
 
         var userRoleIds = await db.UserRoles

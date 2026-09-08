@@ -45,6 +45,12 @@ interface TransferCardResult {
   Id: number;
 }
 
+interface CopyCardResult {
+  Id: number;
+  ColumnId: number;
+  BoardId: number;
+}
+
 interface LabelSearchResult {
   Id: number;
   Name: string;
@@ -188,6 +194,9 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     transferTargetBoard: document.getElementById('transferTargetBoard') as HTMLSelectElement | null,
     transferTargetColumn: document.getElementById('transferTargetColumn') as HTMLSelectElement | null,
     transferCardButton: document.getElementById('btnTransferCard') as HTMLButtonElement | null,
+    copyCardButton: document.getElementById('btnCopyCard'),
+    confirmCopyCardButton: document.getElementById('btnConfirmCopyCard') as HTMLButtonElement | null,
+    copyCardModal: document.getElementById('copyCardModal'),
     deleteCardButton: document.getElementById('btnDeleteCard'),
     confirmDeleteCardButton: document.getElementById('btnConfirmDeleteCard') as HTMLButtonElement | null,
     deleteCardModal: document.getElementById('deleteCardModal'),
@@ -499,6 +508,17 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     refs.transferCardButton?.addEventListener('click', () => {
       transferCard().catch(problem => {
         showFriendlyDialog(getErrorMessage(problem, t('failed-transfer', 'Failed to transfer card.')));
+      });
+    });
+
+    refs.copyCardButton?.addEventListener('click', () => {
+      showModal(refs.copyCardModal);
+    });
+
+    refs.confirmCopyCardButton?.addEventListener('click', () => {
+      copyCard().catch(problem => {
+        hideModal(refs.copyCardModal);
+        showFriendlyDialog(getErrorMessage(problem, t('failed-copy-card', 'Failed to copy card.')));
       });
     });
 
@@ -941,6 +961,23 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       if (refs.confirmDeleteCardButton) {
         refs.confirmDeleteCardButton.disabled = false;
       }
+    }
+  }
+
+  async function copyCard(): Promise<void> {
+    if (!refs.confirmCopyCardButton) return;
+
+    refs.confirmCopyCardButton.disabled = true;
+    try {
+      const response = await postForm('/Kanban/CopyCard', { cardId: options.cardId }, options.csrfToken);
+      const copiedCard = await readJsonOrThrow<CopyCardResult>(response);
+      if (!Number.isInteger(copiedCard.Id) || copiedCard.Id <= 0) {
+        throw new Error(t('server-error', 'Server error'));
+      }
+
+      window.location.href = `/Cards/${copiedCard.Id}?returnBoardId=${options.boardId}`;
+    } finally {
+      refs.confirmCopyCardButton.disabled = false;
     }
   }
 

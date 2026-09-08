@@ -286,6 +286,10 @@
             <div class="detail-hero-actions">
                 @if (Model.CanEdit)
                 {
+                    <button type="button" class="btn btn-outline-primary" id="btnCopyCard">
+                        <i class="align-middle" style="width:16px;height:16px" data-lucide="copy"></i>
+                        @Localizer["Copy card"]
+                    </button>
                     <button class="btn btn-outline-danger" id="btnDeleteCard">
                         <i class="align-middle" style="width:16px;height:16px" data-lucide="trash-2"></i>
                         @Localizer["Delete"]
@@ -700,6 +704,26 @@
     </div>
 </div>
 
+<div class="modal fade" id="copyCardModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg" style="border-radius:20px">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-bold">
+                    <i class="align-middle me-2" data-lucide="copy"></i>@Localizer["Copy card"]
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-4">
+                <p class="mb-0">@Localizer["Are you sure you want to copy this card?"]</p>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:12px">@Localizer["Cancel"]</button>
+                <button type="button" class="btn btn-primary" id="btnConfirmCopyCard" style="border-radius:12px">@Localizer["Copy"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="deleteCardModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content border-0 shadow-lg" style="border-radius:20px">
@@ -781,6 +805,7 @@
     <span data-key="drag-or-paste-images">@Localizer["You can drag images here or paste from clipboard."]</span>
     <span data-key="drop-images-here">@Localizer["Release to add images"]</span>
     <span data-key="delete-comment">@Localizer["Delete comment"]</span>
+    <span data-key="failed-copy-card">@Localizer["Failed to copy card."]</span>
     <span data-key="failed-delete-card">@Localizer["Failed to delete card."]</span>
     <span data-key="failed-move">@Localizer["Failed to move card."]</span>
     <span data-key="failed-transfer">@Localizer["Failed to transfer card."]</span>

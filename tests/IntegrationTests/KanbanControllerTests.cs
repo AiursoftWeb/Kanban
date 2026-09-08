@@ -133,6 +133,161 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
     }
 
+    // ── CopyCard ─────────────────────────────────────────
+
+    [TestMethod]
+    public async Task CopyCard_CopiesBusinessPropertiesAtColumnEndWithoutHistory()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+        var sourceCardResult = await CreateCardAndGetIdAsync(columnId, "Original card");
+        var (otherUserEmail, _) = await RegisterAndLoginAsync();
+
+        string adminUserId;
+        string otherUserId;
+        var plannedStart = new DateTime(2026, 9, 10, 0, 0, 0, DateTimeKind.Utc);
+        var dueDate = new DateTime(2026, 9, 24, 0, 0, 0, DateTimeKind.Utc);
+        var expectedActualStart = new DateTime(2026, 9, 11, 9, 30, 0, DateTimeKind.Utc);
+        var expectedActualEnd = new DateTime(2026, 9, 12, 17, 45, 0, DateTimeKind.Utc);
+        int labelId;
+        DateTime sourceCreationTime;
+        using (var setupScope = Server!.Services.CreateScope())
+        {
+            var setupDb = setupScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            adminUserId = await setupDb.Users
+                .Where(user => user.Email == "admin@default.com")
+                .Select(user => user.Id)
+                .SingleAsync();
+            otherUserId = await setupDb.Users
+                .Where(user => user.Email == otherUserEmail)
+                .Select(user => user.Id)
+                .SingleAsync();
+            var sourceCard = await setupDb.KanbanCards.FindAsync(sourceCardResult.Id);
+            sourceCard!.Description = "Detailed description";
+            sourceCard.Order = 4;
+            sourceCard.Priority = Priority.High;
+            sourceCard.AssignedUserId = otherUserId;
+            sourceCard.CreatorUserId = otherUserId;
+            sourceCard.PlannedStartTime = plannedStart;
+            sourceCard.DueDate = dueDate;
+            sourceCard.ActualStartTime = expectedActualStart;
+            sourceCard.ActualEndTime = expectedActualEnd;
+            sourceCard.RecurrenceInterval = 2;
+            sourceCard.RecurrenceUnit = RecurrenceUnit.Week;
+            sourceCard.LastUpdatedAt = new DateTime(2026, 9, 1, 0, 0, 0, DateTimeKind.Utc);
+            sourceCard.Embedding = [1, 2, 3];
+            sourceCard.LastEmbeddedAt = new DateTime(2026, 9, 2, 0, 0, 0, DateTimeKind.Utc);
+            sourceCreationTime = sourceCard.CreationTime;
+
+            var label = new KanbanLabel { Name = "Copied label", Color = "#3B82F6" };
+            setupDb.KanbanLabels.Add(label);
+            setupDb.KanbanCardLabels.Add(new KanbanCardLabel { Card = sourceCard, Label = label });
+            setupDb.KanbanCardComments.Add(new KanbanCardComment
+            {
+                Card = sourceCard,
+                AuthorId = otherUserId,
+                Content = "Do not copy this comment"
+            });
+            setupDb.KanbanCardSubscriptions.Add(new KanbanCardSubscription
+            {
+                Card = sourceCard,
+                UserId = otherUserId
+            });
+            setupDb.KanbanCards.Add(new KanbanCard
+            {
+                Title = "Last card",
+                ColumnId = columnId,
+                Order = 12
+            });
+            await setupDb.SaveChangesAsync();
+            labelId = label.Id;
+        }
+
+        await LoginAsAdmin();
+        var response = await PostAsync(
+            $"/Kanban/CopyCard?cardId={sourceCardResult.Id}",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        using var payload = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+        var copiedCardId = payload.RootElement.GetProperty("Id").GetInt32();
+        Assert.AreNotEqual(sourceCardResult.Id, copiedCardId);
+        Assert.AreEqual(columnId, payload.RootElement.GetProperty("ColumnId").GetInt32());
+        Assert.AreEqual(boardId, payload.RootElement.GetProperty("BoardId").GetInt32());
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var sourceCardAfterCopy = await verificationDb.KanbanCards
+            .Include(card => card.CardLabels)
+            .Include(card => card.Subscriptions)
+            .SingleAsync(card => card.Id == sourceCardResult.Id);
+        var copiedCard = await verificationDb.KanbanCards
+            .Include(card => card.CardLabels)
+            .Include(card => card.Subscriptions)
+            .SingleAsync(card => card.Id == copiedCardId);
+
+        Assert.AreEqual("Original card", sourceCardAfterCopy.Title);
+        Assert.AreEqual(4, sourceCardAfterCopy.Order);
+        Assert.HasCount(2, sourceCardAfterCopy.Subscriptions);
+        Assert.IsTrue(await verificationDb.KanbanCardComments.AnyAsync(comment => comment.CardId == sourceCardResult.Id));
+
+        Assert.AreEqual("Original card Copied", copiedCard.Title);
+        Assert.AreEqual("Detailed description", copiedCard.Description);
+        Assert.AreEqual(13, copiedCard.Order);
+        Assert.AreEqual(columnId, copiedCard.ColumnId);
+        Assert.AreEqual(Priority.High, copiedCard.Priority);
+        Assert.AreEqual(otherUserId, copiedCard.AssignedUserId);
+        Assert.AreEqual(adminUserId, copiedCard.CreatorUserId);
+        Assert.AreEqual(plannedStart, copiedCard.PlannedStartTime);
+        Assert.AreEqual(dueDate, copiedCard.DueDate);
+        Assert.AreEqual(expectedActualStart, copiedCard.ActualStartTime);
+        Assert.AreEqual(expectedActualEnd, copiedCard.ActualEndTime);
+        Assert.AreEqual(2, copiedCard.RecurrenceInterval);
+        Assert.AreEqual(RecurrenceUnit.Week, copiedCard.RecurrenceUnit);
+        Assert.IsTrue(copiedCard.CreationTime > sourceCreationTime);
+        Assert.IsTrue(copiedCard.LastUpdatedAt > sourceCardAfterCopy.LastUpdatedAt);
+        Assert.IsNull(copiedCard.Embedding);
+        Assert.AreEqual(DateTime.MinValue, copiedCard.LastEmbeddedAt);
+        Assert.HasCount(1, copiedCard.CardLabels);
+        Assert.AreEqual(labelId, copiedCard.CardLabels.Single().LabelId);
+        Assert.HasCount(1, copiedCard.Subscriptions);
+        Assert.AreEqual(adminUserId, copiedCard.Subscriptions.Single().UserId);
+        Assert.IsFalse(await verificationDb.KanbanCardComments.AnyAsync(comment => comment.CardId == copiedCardId));
+    }
+
+    [TestMethod]
+    public async Task CopyCard_MaximumLengthTitle_TruncatesForCopiedSuffix()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var sourceTitle = new string('x', 200);
+        var sourceCard = await CreateCardAndGetIdAsync(columnId, sourceTitle);
+
+        var response = await PostAsync(
+            $"/Kanban/CopyCard?cardId={sourceCard.Id}",
+            new Dictionary<string, string>());
+        response.EnsureSuccessStatusCode();
+
+        using var payload = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+        var copiedCardId = payload.RootElement.GetProperty("Id").GetInt32();
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var copiedTitle = (await verificationDb.KanbanCards.FindAsync(copiedCardId))!.Title;
+        Assert.AreEqual(200, copiedTitle.Length);
+        Assert.AreEqual(new string('x', 193) + " Copied", copiedTitle);
+        Assert.AreEqual(sourceTitle, (await verificationDb.KanbanCards.FindAsync(sourceCard.Id))!.Title);
+    }
+
+    [TestMethod]
+    public async Task CopyCard_NonExistentCard_ReturnsNotFound()
+    {
+        await LoginAsAdmin();
+        var response = await PostAsync(
+            "/Kanban/CopyCard?cardId=9999",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
     // ── DeleteCard ─────────────────────────────────────────
 
     [TestMethod]

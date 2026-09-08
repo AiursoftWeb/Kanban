@@ -23,6 +23,7 @@ public sealed class CardApiController(
     TemplateDbContext db,
     UserManager<User> userManager,
     KanbanApiAccessService access,
+    CardCopyService cardCopyService,
     IMediator mediator,
     ILogger<CardApiController> logger) : ControllerBase
 {
@@ -182,6 +183,29 @@ public sealed class CardApiController(
         {
             Code = Code.JobDone,
             Message = "Card deleted."
+        });
+    }
+
+    [HttpPost("{cardId:int}/copy")]
+    public async Task<IActionResult> Copy(int cardId)
+    {
+        var result = await cardCopyService.CopyAsync(cardId, CurrentUserId());
+        if (result.Status == CardCopyStatus.NotFound)
+        {
+            return this.Protocol(Code.NotFound, "Card not found.");
+        }
+        if (result.Status == CardCopyStatus.Forbidden)
+        {
+            return this.Protocol(Code.Unauthorized, "The board is read-only.");
+        }
+
+        return this.Protocol(new CardCopyResponse
+        {
+            Code = Code.JobDone,
+            Message = "Card copied.",
+            CardId = result.CardId,
+            BoardId = result.BoardId,
+            ColumnId = result.ColumnId
         });
     }
 

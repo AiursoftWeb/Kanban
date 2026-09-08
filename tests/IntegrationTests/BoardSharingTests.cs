@@ -84,6 +84,10 @@ public class BoardSharingTests : TestBase
         var viewerId = await RegisterUserAndGetIdAsync();
         await CreateShare(boardId, viewerId, null, SharePermission.ReadOnly);
 
+        var detailResponse = await Http.GetAsync($"/Cards/{cardId}?returnBoardId={boardId}");
+        detailResponse.EnsureSuccessStatusCode();
+        Assert.DoesNotContain("id=\"btnCopyCard\"", await detailResponse.Content.ReadAsStringAsync());
+
         var response = await PostForm(
             $"/Kanban/DeleteCard?cardId={cardId}",
             new Dictionary<string, string>());
@@ -107,6 +111,10 @@ public class BoardSharingTests : TestBase
         var editorId = await RegisterUserAndGetIdAsync();
         await CreateShare(boardId, editorId, null, SharePermission.Editable);
 
+        var detailResponse = await Http.GetAsync($"/Cards/{cardId}?returnBoardId={boardId}");
+        detailResponse.EnsureSuccessStatusCode();
+        Assert.Contains("id=\"btnCopyCard\"", await detailResponse.Content.ReadAsStringAsync());
+
         var response = await PostForm(
             $"/Kanban/DeleteCard?cardId={cardId}",
             new Dictionary<string, string>());
@@ -116,6 +124,84 @@ public class BoardSharingTests : TestBase
         using var verificationScope = Server!.Services.CreateScope();
         var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.IsNull(await verificationDb.KanbanCards.FindAsync(cardId));
+    }
+
+    [TestMethod]
+    public async Task User_WithReadOnlyShare_CannotCopyCard()
+    {
+        var ownerId = await RegisterUserAndGetIdAsync();
+        var boardId = await CreateBoardWithOwner(ownerId, "Read-only copy board");
+        var cardId = await CreateCard(boardId, "Keep one card");
+        await LogoutAsync();
+
+        var viewerId = await RegisterUserAndGetIdAsync();
+        await CreateShare(boardId, viewerId, null, SharePermission.ReadOnly);
+
+        var response = await PostForm(
+            $"/Kanban/CopyCard?cardId={cardId}",
+            new Dictionary<string, string>());
+
+        Assert.IsTrue(response.StatusCode == HttpStatusCode.Forbidden ||
+                      response.StatusCode == HttpStatusCode.Found);
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(1, await verificationDb.KanbanCards.CountAsync(card => card.Column.BoardId == boardId));
+    }
+
+    [TestMethod]
+    public async Task User_WithEditableShare_CanCopyCard()
+    {
+        var ownerId = await RegisterUserAndGetIdAsync();
+        var boardId = await CreateBoardWithOwner(ownerId, "Editable copy board");
+        var cardId = await CreateCard(boardId, "Shared card");
+        await LogoutAsync();
+
+        var editorId = await RegisterUserAndGetIdAsync();
+        await CreateShare(boardId, editorId, null, SharePermission.Editable);
+
+        var response = await PostForm(
+            $"/Kanban/CopyCard?cardId={cardId}",
+            new Dictionary<string, string>());
+
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var copiedCard = await verificationDb.KanbanCards
+            .SingleAsync(card => card.Column.BoardId == boardId && card.Id != cardId);
+        Assert.AreEqual("Shared card Copied", copiedCard.Title);
+        Assert.AreEqual(editorId, copiedCard.CreatorUserId);
+        Assert.IsTrue(await verificationDb.KanbanCardSubscriptions.AnyAsync(subscription =>
+            subscription.CardId == copiedCard.Id && subscription.UserId == editorId));
+    }
+
+    [TestMethod]
+    public async Task Owner_CannotCopyCard_OnArchivedBoard()
+    {
+        var ownerId = await RegisterUserAndGetIdAsync();
+        var boardId = await CreateBoardWithOwner(ownerId, "Archived copy board");
+        var cardId = await CreateCard(boardId, "Archived card");
+        using (var setupScope = Server!.Services.CreateScope())
+        {
+            var setupDb = setupScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var board = await setupDb.KanbanBoards.FindAsync(boardId);
+            board!.IsArchived = true;
+            board.ArchivedTime = DateTime.UtcNow;
+            await setupDb.SaveChangesAsync();
+        }
+
+        var detailResponse = await Http.GetAsync($"/Cards/{cardId}?returnBoardId={boardId}");
+        detailResponse.EnsureSuccessStatusCode();
+        Assert.DoesNotContain("id=\"btnCopyCard\"", await detailResponse.Content.ReadAsStringAsync());
+
+        var response = await PostForm(
+            $"/Kanban/CopyCard?cardId={cardId}",
+            new Dictionary<string, string>());
+
+        Assert.IsTrue(response.StatusCode == HttpStatusCode.Forbidden ||
+                      response.StatusCode == HttpStatusCode.Found);
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(1, await verificationDb.KanbanCards.CountAsync(card => card.Column.BoardId == boardId));
     }
 
     [TestMethod]

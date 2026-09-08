@@ -117,6 +117,13 @@ public sealed class CardTransferResponse : AiurResponse
     public int ColumnId { get; set; }
 }
 
+public sealed class CardCopyResponse : AiurResponse
+{
+    public int CardId { get; set; }
+    public int BoardId { get; set; }
+    public int ColumnId { get; set; }
+}
+
 public sealed class CardSubscriptionResponse : AiurResponse
 {
     public bool IsSubscribed { get; set; }
