@@ -119,6 +119,11 @@ public sealed class KanbanApiClient(
     public async Task<CardDetailsResponse> GetCardDetailsAsync(int cardId) =>
         await http.Get<CardDetailsResponse>(Endpoint($"/api/v1/cards/{cardId}"), headers: await AuthorizationHeadersAsync());
 
+    public async Task<CardCopyResponse> CopyCardAsync(int cardId) =>
+        await http.Post<CardCopyResponse>(Endpoint($"/api/v1/cards/{cardId}/copy"),
+            new AiurApiPayload(new { }), BodyFormat.HttpJsonBody,
+            headers: await AuthorizationHeadersAsync());
+
     public async Task<CardDetailsResponse> UpdateCardAsync(int cardId, UpdateCardRequest request) =>
         await http.Put<CardDetailsResponse>(Endpoint($"/api/v1/cards/{cardId}"), new AiurApiPayload(request), BodyFormat.HttpJsonBody,
             headers: await AuthorizationHeadersAsync());

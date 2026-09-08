@@ -820,6 +820,12 @@ public sealed class KanbanApiTests : TestBase
         createBoard.EnsureSuccessStatusCode();
         var ownedBoard = JsonConvert.DeserializeObject<BoardResponse>(
             await createBoard.Content.ReadAsStringAsync())!.Board;
+        using var createOwnedCard = await Http.PostAsync(
+            $"/api/v1/columns/{ownedBoard.Columns.First().Id}/cards",
+            Json(new CreateCardRequest { Title = "Archived copy source" }));
+        createOwnedCard.EnsureSuccessStatusCode();
+        var ownedCard = JsonConvert.DeserializeObject<CardResponse>(
+            await createOwnedCard.Content.ReadAsStringAsync())!.Card;
 
         Assert.IsNotNull(Server);
         int sharedBoardId;
@@ -884,6 +890,14 @@ public sealed class KanbanApiTests : TestBase
         Assert.IsNotNull(archiveResult);
         Assert.IsTrue(archiveResult.IsArchived);
         Assert.IsNotNull(archiveResult.ArchivedTime);
+
+        using var archivedCopyResponse = await Http.PostAsync(
+            $"/api/v1/cards/{ownedCard.Id}/copy",
+            Json(new { }));
+        var archivedCopyError = JsonConvert.DeserializeObject<AiurResponse>(
+            await archivedCopyResponse.Content.ReadAsStringAsync());
+        Assert.IsNotNull(archivedCopyError);
+        Assert.AreEqual(Code.Unauthorized, archivedCopyError.Code);
 
         using var archivedListResponse = await Http.GetAsync("/api/v1/boards/archived");
         archivedListResponse.EnsureSuccessStatusCode();
@@ -1101,6 +1115,109 @@ public sealed class KanbanApiTests : TestBase
     }
 
     [TestMethod]
+    public async Task CardApiCopiesBusinessFieldsAndLabelsWithoutRepliesOrAttachments()
+    {
+        await AuthenticateLocalAsync();
+
+        using var createBoard = await Http.PostAsync(
+            "/api/v1/boards",
+            Json(new CreateBoardRequest { Name = $"Android copy {Guid.NewGuid():N}" }));
+        createBoard.EnsureSuccessStatusCode();
+        var board = JsonConvert.DeserializeObject<BoardResponse>(
+            await createBoard.Content.ReadAsStringAsync())!.Board;
+        var columnId = board.Columns.First().Id;
+
+        using var createCard = await Http.PostAsync(
+            $"/api/v1/columns/{columnId}/cards",
+            Json(new CreateCardRequest { Title = "Mobile original", Description = "Keep this description" }));
+        createCard.EnsureSuccessStatusCode();
+        var source = JsonConvert.DeserializeObject<CardResponse>(
+            await createCard.Content.ReadAsStringAsync())!.Card;
+
+        string currentUserId;
+        int labelId;
+        var plannedStart = new DateTime(2026, 9, 9, 0, 0, 0, DateTimeKind.Utc);
+        var dueDate = new DateTime(2026, 9, 16, 0, 0, 0, DateTimeKind.Utc);
+        var expectedActualStart = new DateTime(2026, 9, 10, 8, 0, 0, DateTimeKind.Utc);
+        var expectedActualEnd = new DateTime(2026, 9, 10, 17, 0, 0, DateTimeKind.Utc);
+        Assert.IsNotNull(Server);
+        await using (var setupScope = Server.Services.CreateAsyncScope())
+        {
+            var db = setupScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            currentUserId = await db.Users
+                .Where(user => user.Email == "admin@default.com")
+                .Select(user => user.Id)
+                .SingleAsync();
+            var sourceEntity = await db.KanbanCards.FindAsync(source.Id);
+            Assert.IsNotNull(sourceEntity);
+            sourceEntity.Order = 4;
+            sourceEntity.Priority = Priority.High;
+            sourceEntity.PlannedStartTime = plannedStart;
+            sourceEntity.DueDate = dueDate;
+            sourceEntity.ActualStartTime = expectedActualStart;
+            sourceEntity.ActualEndTime = expectedActualEnd;
+            sourceEntity.RecurrenceInterval = 2;
+            sourceEntity.RecurrenceUnit = RecurrenceUnit.Week;
+            sourceEntity.Embedding = [1, 2, 3];
+            sourceEntity.LastEmbeddedAt = DateTime.UtcNow.AddDays(-1);
+            var label = new KanbanLabel { Name = "Android copied label", Color = "#3B82F6" };
+            db.KanbanLabels.Add(label);
+            db.KanbanCardLabels.Add(new KanbanCardLabel { Card = sourceEntity, Label = label });
+            db.KanbanCardComments.Add(new KanbanCardComment
+            {
+                Card = sourceEntity,
+                AuthorId = currentUserId,
+                Content = "Do not copy this reply",
+                Images = "https://kanban.example/download/kanban-images/source.png"
+            });
+            db.KanbanCards.Add(new KanbanCard
+            {
+                Title = "Column tail",
+                ColumnId = columnId,
+                Order = 12
+            });
+            await db.SaveChangesAsync();
+            labelId = label.Id;
+        }
+
+        using var copyResponse = await Http.PostAsync(
+            $"/api/v1/cards/{source.Id}/copy",
+            Json(new { }));
+        copyResponse.EnsureSuccessStatusCode();
+        var result = JsonConvert.DeserializeObject<CardCopyResponse>(
+            await copyResponse.Content.ReadAsStringAsync());
+        Assert.IsNotNull(result);
+        Assert.AreNotEqual(source.Id, result.CardId);
+        Assert.AreEqual(board.Id, result.BoardId);
+        Assert.AreEqual(columnId, result.ColumnId);
+
+        await using var verificationScope = Server.Services.CreateAsyncScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var copied = await verificationDb.KanbanCards
+            .Include(card => card.CardLabels)
+            .Include(card => card.Subscriptions)
+            .SingleAsync(card => card.Id == result.CardId);
+        Assert.AreEqual("Mobile original Copied", copied.Title);
+        Assert.AreEqual("Keep this description", copied.Description);
+        Assert.AreEqual(13, copied.Order);
+        Assert.AreEqual(Priority.High, copied.Priority);
+        Assert.AreEqual(currentUserId, copied.AssignedUserId);
+        Assert.AreEqual(currentUserId, copied.CreatorUserId);
+        Assert.AreEqual(plannedStart, copied.PlannedStartTime);
+        Assert.AreEqual(dueDate, copied.DueDate);
+        Assert.AreEqual<DateTime?>(expectedActualStart, copied.ActualStartTime);
+        Assert.AreEqual<DateTime?>(expectedActualEnd, copied.ActualEndTime);
+        Assert.AreEqual(2, copied.RecurrenceInterval);
+        Assert.AreEqual(RecurrenceUnit.Week, copied.RecurrenceUnit);
+        Assert.IsNull(copied.Embedding);
+        Assert.AreEqual(DateTime.MinValue, copied.LastEmbeddedAt);
+        Assert.AreEqual(labelId, copied.CardLabels.Single().LabelId);
+        Assert.AreEqual(currentUserId, copied.Subscriptions.Single().UserId);
+        Assert.IsFalse(await verificationDb.KanbanCardComments
+            .AnyAsync(comment => comment.CardId == copied.Id));
+    }
+
+    [TestMethod]
     public async Task CardApiTransfersToEditableBoardAndReturnsTheReplacementCard()
     {
         await AuthenticateLocalAsync();
@@ -1227,6 +1344,14 @@ public sealed class KanbanApiTests : TestBase
         Assert.IsFalse(details.CanDelete);
         Assert.IsEmpty(details.AvailableAssignees);
         Assert.IsEmpty(details.AvailableColumns);
+
+        using var copyResponse = await Http.PostAsync(
+            $"/api/v1/cards/{card.Id}/copy",
+            Json(new { }));
+        var copyError = JsonConvert.DeserializeObject<AiurResponse>(
+            await copyResponse.Content.ReadAsStringAsync());
+        Assert.IsNotNull(copyError);
+        Assert.AreEqual(Code.Unauthorized, copyError.Code);
 
         using var updateResponse = await Http.PutAsync(
             $"/api/v1/cards/{card.Id}",

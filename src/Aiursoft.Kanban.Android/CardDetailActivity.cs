@@ -597,6 +597,13 @@ public sealed class CardDetailActivity : AppCompatActivity
             };
         }
 
+        var copy = SecondaryButton("Copy card");
+        var copyLayout = new LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MatchParent, Dp(50));
+        copyLayout.SetMargins(0, Dp(10), 0, 0);
+        content.AddView(copy, copyLayout);
+        copy.Click += (_, _) => ConfirmCopyCard();
+
         var transfer = SecondaryButton("Transfer to another board");
         var transferLayout = new LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MatchParent, Dp(50));
@@ -1500,6 +1507,35 @@ public sealed class CardDetailActivity : AppCompatActivity
         builder.SetNegativeButton("Cancel", (_, _) => { });
         builder.SetPositiveButton("Delete", (_, _) => _ = DeleteCardAsync());
         builder.Show();
+    }
+
+    private void ConfirmCopyCard()
+    {
+        var builder = new MaterialAlertDialogBuilder(this);
+        builder.SetTitle("Copy card?");
+        builder.SetMessage(
+            "A copy will be added to the end of this column. Replies, attachments, and activity history will not be copied.");
+        builder.SetNegativeButton("Cancel", (_, _) => { });
+        builder.SetPositiveButton("Copy", (_, _) => _ = CopyCardAsync());
+        builder.Show();
+    }
+
+    private async Task CopyCardAsync()
+    {
+        try
+        {
+            SetBusy(true);
+            var result = await Api.CopyCardAsync(_cardId);
+            Session.SelectedBoardId = result.BoardId;
+            SetResult(Result.Ok);
+            StartActivity(CreateIntent(this, result.CardId));
+            Finish();
+        }
+        catch (Exception exception)
+        {
+            SetBusy(false);
+            ShowError(exception, retry: false);
+        }
     }
 
     private async Task DeleteCardAsync()

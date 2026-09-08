@@ -142,6 +142,33 @@ public sealed class KanbanApiClientTests
     }
 
     [TestMethod]
+    public async Task CopyCardPostsToScopedRouteAndDeserializesDestination()
+    {
+        var handler = new RecordingHandler("""
+            {
+              "code":2,
+              "message":"Card copied.",
+              "protocolVersion":"10.0.30",
+              "cardId":81,
+              "boardId":2,
+              "columnId":3
+            }
+            """);
+        await using var provider = BuildProvider(handler, "access-token");
+
+        var result = await provider.GetRequiredService<KanbanApiClient>().CopyCardAsync(17);
+
+        Assert.AreEqual(81, result.CardId);
+        Assert.AreEqual(2, result.BoardId);
+        Assert.AreEqual(3, result.ColumnId);
+        Assert.AreEqual(HttpMethod.Post, handler.Method);
+        Assert.AreEqual("application/json", handler.ContentType);
+        Assert.AreEqual("https://kanban.example/api/v1/cards/17/copy", handler.RequestUri?.ToString());
+        Assert.AreEqual("Bearer", handler.AuthorizationScheme);
+        Assert.AreEqual("access-token", handler.AuthorizationParameter);
+    }
+
+    [TestMethod]
     public async Task UpdateCardUsesPutAndSerializesEditableFields()
     {
         var handler = new RecordingHandler("""
