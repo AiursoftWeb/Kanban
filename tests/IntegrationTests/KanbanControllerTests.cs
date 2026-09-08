@@ -240,8 +240,8 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(adminUserId, copiedCard.CreatorUserId);
         Assert.AreEqual(plannedStart, copiedCard.PlannedStartTime);
         Assert.AreEqual(dueDate, copiedCard.DueDate);
-        Assert.AreEqual<DateTime?>(expectedActualStart, copiedCard.ActualStartTime);
-        Assert.AreEqual<DateTime?>(expectedActualEnd, copiedCard.ActualEndTime);
+        Assert.AreEqual(expectedActualStart, copiedCard.ActualStartTime);
+        Assert.AreEqual(expectedActualEnd, copiedCard.ActualEndTime);
         Assert.AreEqual(2, copiedCard.RecurrenceInterval);
         Assert.AreEqual(RecurrenceUnit.Week, copiedCard.RecurrenceUnit);
         Assert.IsTrue(copiedCard.CreationTime > sourceCreationTime);

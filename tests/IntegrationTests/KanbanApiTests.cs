@@ -1205,8 +1205,8 @@ public sealed class KanbanApiTests : TestBase
         Assert.AreEqual(currentUserId, copied.CreatorUserId);
         Assert.AreEqual(plannedStart, copied.PlannedStartTime);
         Assert.AreEqual(dueDate, copied.DueDate);
-        Assert.AreEqual<DateTime?>(expectedActualStart, copied.ActualStartTime);
-        Assert.AreEqual<DateTime?>(expectedActualEnd, copied.ActualEndTime);
+        Assert.AreEqual(expectedActualStart, copied.ActualStartTime);
+        Assert.AreEqual(expectedActualEnd, copied.ActualEndTime);
         Assert.AreEqual(2, copied.RecurrenceInterval);
         Assert.AreEqual(RecurrenceUnit.Week, copied.RecurrenceUnit);
         Assert.IsNull(copied.Embedding);
