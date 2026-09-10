@@ -23,6 +23,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<DailyReport> DailyReports => Set<DailyReport>();
     public DbSet<WeeklyReport> WeeklyReports => Set<WeeklyReport>();
     public DbSet<SearchEmbedding> SearchEmbeddings => Set<SearchEmbedding>();
+    public DbSet<AgentSession> AgentSessions => Set<AgentSession>();
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
@@ -132,6 +133,20 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .WithMany()
             .HasForeignKey(r => r.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<AgentSession>()
+            .HasOne(session => session.User)
+            .WithMany()
+            .HasForeignKey(session => session.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<AgentSession>()
+            .HasOne(session => session.Board)
+            .WithMany()
+            .HasForeignKey(session => session.BoardId)
+            .OnDelete(DeleteBehavior.SetNull)
+            .IsRequired(false);
+        builder.Entity<AgentSession>()
+            .HasIndex(session => new { session.UserId, session.LastActivity });
         builder.Entity<WeeklyReport>()
             .HasIndex(r => new { r.UserId, r.WeekStart })
             .IsUnique();

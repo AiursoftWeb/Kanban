@@ -53,6 +53,9 @@
     <span data-key="proposed-action">@Localizer["Proposed Action:"]</span>
     <span data-key="approve">@Localizer["Approve"]</span>
     <span data-key="reject">@Localizer["Reject"]</span>
+    <span data-key="welcome">@Localizer["Hi! I'm your Kanban assistant. I can help you manage cards, columns, and boards."]</span>
+    <span data-key="loading-sessions">@Localizer["Loading conversations..."]</span>
+    <span data-key="unable-load-sessions">@Localizer["Unable to load conversations"]</span>
 </div>
 
 <link rel="stylesheet" href="~/css/agent-chat.css" />
@@ -60,8 +63,6 @@
 <script>
     (function() {
         var boardId = @(Model.CurrentBoard?.Id ?? 0);
-        var savedConvId = sessionStorage.getItem('kanban-agent-conversation');
-        sessionStorage.removeItem('kanban-agent-conversation');
-        AgentChat.init('@token', boardId, savedConvId || null);
+        AgentChat.init('@token', boardId);
     })();
 </script>

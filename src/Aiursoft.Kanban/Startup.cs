@@ -71,6 +71,7 @@ public class Startup : IWebStartup
         services.AddSingleton(TimeProvider.System);
         services.AddSingleton<IAgentModelClient>(sp => sp.GetRequiredService<ClaudeClient>());
         services.AddSingleton<ProductionAgentExecutor>();
+        services.AddScoped<AgentSessionHistoryService>();
         services.AddSingleton<IAgentService, AgentService>();
         services.AddSingleton<ISubagent>(sp => sp.GetRequiredService<TaskPlanningSubagent>());
 

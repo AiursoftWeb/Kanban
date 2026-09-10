@@ -37,7 +37,7 @@ public sealed class AgentApiController(
         var userId = CurrentUserId();
         if (request.ConversationId.HasValue)
         {
-            var continued = agentService.ContinueRun(
+            var continued = await agentService.ContinueRunAsync(
                 request.ConversationId.Value,
                 userId,
                 request.Message,

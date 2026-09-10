@@ -48,6 +48,8 @@
         if (newChatBtn) {
             newChatBtn.addEventListener('click', function() { resetConversation(); });
         }
+        setupHistory();
+        loadSessions();
 
         var attachBtn = document.getElementById('agent-attach-btn');
         var excelInput = document.getElementById('agent-excel-input');
@@ -107,12 +109,74 @@
                 return;
             }
             conversationId = data.ConversationId;
+            loadSessions();
             startPolling();
         })
         .catch(function(err) {
             hideThinking();
             appendMessage('assistant', loc('network-error', 'Network error:') + ' ' + err.message);
         });
+    }
+
+    function setupHistory() {
+        var workspace = document.querySelector('.agent-workspace');
+        var newSession = document.getElementById('agent-new-session-btn');
+        var toggle = document.getElementById('agent-history-toggle');
+        var expand = document.getElementById('agent-history-expand');
+        if (newSession) newSession.addEventListener('click', resetConversation);
+        if (toggle && workspace) toggle.addEventListener('click', function() {
+            workspace.classList.add('history-collapsed');
+            if (expand) expand.hidden = false;
+        });
+        if (expand && workspace) expand.addEventListener('click', function() {
+            workspace.classList.remove('history-collapsed');
+            expand.hidden = true;
+        });
+    }
+
+    function loadSessions() {
+        var list = document.getElementById('agent-session-list');
+        var empty = document.getElementById('agent-session-empty');
+        if (!list) return;
+        if (empty) empty.textContent = loc('loading-sessions', 'Loading conversations...');
+        fetch('/Agent/Sessions')
+            .then(function(r) { if (!r.ok) throw new Error(); return r.json(); })
+            .then(function(sessions) {
+                list.innerHTML = '';
+                if (empty) empty.hidden = sessions.length > 0;
+                sessions.forEach(function(session) {
+                    var button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'agent-session-item' + (session.Id === conversationId ? ' active' : '');
+                    button.textContent = session.Title;
+                    button.title = session.Title;
+                    button.addEventListener('click', function() { selectSession(session.Id); });
+                    list.appendChild(button);
+                });
+            })
+            .catch(function() {
+                if (empty) { empty.hidden = false; empty.textContent = loc('unable-load-sessions', 'Unable to load conversations'); }
+            });
+    }
+
+    function selectSession(id) {
+        stopPolling();
+        conversationId = id;
+        lastMessageCount = 0;
+        renderedAdviceIds = [];
+        clearExcelFile();
+        var container = document.getElementById('agent-messages');
+        if (container) container.innerHTML = '';
+        fetch('/Agent/Status?conversationId=' + id)
+            .then(function(r) { if (!r.ok) throw new Error(); return r.json(); })
+            .then(function(data) {
+                renderMessages(data);
+                renderAdvice(data);
+                updateState(data.State);
+                loadSessions();
+                if (data.State === 'Thinking' || data.State === 'AwaitingApproval') startPolling();
+            })
+            .catch(function() { resetConversation(); });
     }
 
     function startPolling() {
@@ -168,6 +232,7 @@
                     }
                 } else if (data.State === 'Completed') {
                     stopPolling();
+                    loadSessions();
                 } else {
                     currentInterval = BASE_INTERVALS[data.State] || BASE_INTERVALS['default'];
                     scheduleNext();
