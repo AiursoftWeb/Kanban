@@ -535,4 +535,16 @@
     <value>Aici puteți trage imagini sau le puteți lipi din clipboard.</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Sfârșit</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Real</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planificat</value>
+  </data>
 </root>

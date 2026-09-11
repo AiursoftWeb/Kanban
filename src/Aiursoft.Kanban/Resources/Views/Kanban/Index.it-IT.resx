@@ -535,4 +535,16 @@
     <value>Puoi trascinare le immagini qui oppure incollare dagli appunti.</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Fine</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Reale</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Pianificato</value>
+  </data>
 </root>

@@ -535,4 +535,16 @@
     <value>Możesz przeciągnąć tutaj obrazy lub wkleić je ze schowka.</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Koniec</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Rzeczywisty</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planowany</value>
+  </data>
 </root>

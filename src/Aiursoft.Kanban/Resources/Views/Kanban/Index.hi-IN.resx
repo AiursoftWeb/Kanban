@@ -535,4 +535,16 @@
     <value>आप यहाँ चित्र खींचकर ला सकते हैं या क्लिपबोर्ड से पेस्ट कर सकते हैं।</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>समाप्ति</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>वास्तविक</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>योजनाबद्ध</value>
+  </data>
 </root>

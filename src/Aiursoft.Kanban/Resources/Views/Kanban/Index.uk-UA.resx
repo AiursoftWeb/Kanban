@@ -535,4 +535,16 @@
     <value>Ви можете перетягнути сюди зображення або вставити їх із буфера обміну.</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Завершення</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Фактичний</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Заплановано</value>
+  </data>
 </root>

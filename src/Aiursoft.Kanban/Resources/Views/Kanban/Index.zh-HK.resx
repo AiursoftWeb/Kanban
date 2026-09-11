@@ -535,4 +535,16 @@
     <value>你可以將圖片拖曳至此，或從剪貼簿貼上。</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>結束</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>實際</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>計劃</value>
+  </data>
 </root>

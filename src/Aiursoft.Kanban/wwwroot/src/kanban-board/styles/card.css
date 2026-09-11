@@ -411,3 +411,15 @@
     0%   { box-shadow: 0 0 0 3px var(--bs-primary); }
     100% { box-shadow: 0 0 0 0 transparent; }
 }
+
+.card-date-range {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.6rem;
+    font-size: 0.72rem;
+    color: var(--bs-secondary-color);
+}
+
+.card-date-range.overdue { color: var(--bs-danger); }
+.card-date-source { font-size: 0.65rem; opacity: 0.8; }

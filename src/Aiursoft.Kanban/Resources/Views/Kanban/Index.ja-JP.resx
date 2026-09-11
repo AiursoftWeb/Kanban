@@ -535,4 +535,16 @@
     <value>画像をここにドラッグするか、クリップボードから貼り付けることができます。</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>終了</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>実績</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>計画中</value>
+  </data>
 </root>

@@ -535,4 +535,16 @@
     <value>Bạn có thể kéo ảnh vào đây hoặc dán từ clipboard.</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Kết thúc</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Thực tế</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Đã lập kế hoạch</value>
+  </data>
 </root>

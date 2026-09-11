@@ -535,4 +535,16 @@
     <value>Anda dapat seret gambar ke sini atau tempel dari clipboard.</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Selesai</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Aktual</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Terencana</value>
+  </data>
 </root>

@@ -2,6 +2,8 @@
 // types.ts — Types and date resolution logic for the Gantt module
 // ============================================================
 
+import { resolveDefaultCardDates } from '../kanban-board/card-dates';
+
 import type { CardSummary, ColumnStatus, Priority, UserSummary } from '../kanban-board/types';
 
 export type { CardSummary, ColumnStatus, Priority, UserSummary };
@@ -41,7 +43,11 @@ export interface UnresolvableCard {
  */
 export function parseDate(value: string | undefined | null): Date | null {
   if (!value) return null;
-  const d = new Date(value);
+  const dateOnly = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  const normalized = /(?:Z|[+-]\d{2}:?\d{2})$/i.test(value) ? value : `${value}Z`;
+  const d = dateOnly
+    ? new Date(Number(dateOnly[1]), Number(dateOnly[2]) - 1, Number(dateOnly[3]))
+    : new Date(normalized);
   return Number.isNaN(d.getTime()) ? null : d;
 }
 
@@ -68,14 +74,10 @@ export function resolveItemDates(
       return [s, e < s ? s : e];
     }
     default: {
-      // Smart fallback: prefer actual (both must exist), then planned
-      const as = parseDate(card.actualStartDate);
-      const ae = parseDate(card.actualEndDate);
-      if (as && ae) return [as, ae < as ? as : ae];
-
-      const ps = parseDate(card.plannedStartDate);
-      const pe = parseDate(card.dueDate);
-      if (ps && pe) return [ps, pe < ps ? ps : pe];
+      const dates = resolveDefaultCardDates(card);
+      const start = parseDate(dates.start);
+      const end = parseDate(dates.end);
+      if (start && end) return [start, end < start ? start : end];
 
       return null;
     }

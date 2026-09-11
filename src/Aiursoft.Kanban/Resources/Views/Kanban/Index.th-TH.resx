@@ -535,4 +535,16 @@
     <value>คุณสามารถลากภาพ сюда หรือวางจากคลิปบอร์ดได้</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>สิ้นสุด</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>จริง</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>ที่วางแผนไว้</value>
+  </data>
 </root>

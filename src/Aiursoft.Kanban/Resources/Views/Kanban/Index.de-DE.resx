@@ -535,4 +535,16 @@
     <value>Sie können Bilder hierher ziehen oder aus der Zwischenablage einfügen.</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Ende</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Ist-Wert</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Geplant</value>
+  </data>
 </root>

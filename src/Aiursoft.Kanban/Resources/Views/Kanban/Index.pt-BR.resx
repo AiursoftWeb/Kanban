@@ -535,4 +535,16 @@
     <value>Você pode arrastar imagens aqui ou colar da área de transferência.</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Fim</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Real</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planejado</value>
+  </data>
 </root>

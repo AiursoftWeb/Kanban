@@ -14,6 +14,7 @@ import type {
 } from './types';
 import { PRIORITY_VALUES, RECURRENCE_UNIT_VALUES } from './types';
 import { t } from './i18n';
+import { resolveDefaultCardDates } from './card-dates';
 
 /**
  * Parse an ISO 8601 date or datetime string as UTC.
@@ -186,7 +187,7 @@ function readCardSummaryFromElement(cardEl: HTMLElement): CardSummary {
           avatarUrl: creatorUserAvatarUrl || undefined,
         }
       : undefined,
-    creationTime: cardEl.getAttribute('data-creation-time') ?? undefined,
+    creationTime: cardEl.getAttribute('data-creation-time') ?? '',
     labels,
     commentCount: Number.isNaN(commentCount) ? 0 : commentCount,
     isRecurring: !Number.isNaN(recurrenceInterval) && recurrenceInterval > 0 && !Number.isNaN(recurrenceUnit) && recurrenceUnit > 0,
@@ -260,19 +261,25 @@ function renderLabels(labels: CardLabel[]): HTMLElement | null {
 }
 
 function renderBottomRow(card: CardSummary): HTMLElement | null {
-  const hasDueDate = !!card.dueDate;
   const hasComments = card.commentCount > 0;
-  if (!hasDueDate && !hasComments) return null;
-
   const row = document.createElement('div');
   row.className = 'card-footer-row';
 
-  if (hasDueDate) {
-    const due = document.createElement('div');
-    due.className = `card-due-date${card.isOverdue ? ' overdue' : ''}`;
-    due.textContent = formatDate(card.dueDate);
-    row.appendChild(due);
+  const dates = resolveDefaultCardDates(card);
+  const range = document.createElement('div');
+  range.className = `card-date-range${card.isOverdue ? ' overdue' : ''}`;
+  range.title = card.isOverdue ? t('overdue', 'Overdue') : '';
+  const source = document.createElement('span');
+  source.className = 'card-date-source';
+  source.textContent = dates.source === 'actual' ? t('actual', 'Actual') : t('planned', 'Planned');
+  range.appendChild(source);
+  for (const [label, value] of [[t('start', 'Start'), dates.start], [t('end', 'End'), dates.end]]) {
+    const date = document.createElement('span');
+    date.textContent = `${label}: ${value ? formatDate(value) : '—'}`;
+    date.title = value ?? '';
+    range.appendChild(date);
   }
+  row.appendChild(range);
 
   if (hasComments) {
     const comments = document.createElement('span');

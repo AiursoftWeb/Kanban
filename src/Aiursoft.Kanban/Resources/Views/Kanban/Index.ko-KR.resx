@@ -535,4 +535,16 @@
     <value>여기에 이미지를 드래그하거나 클립보드에서 붙여넣을 수 있습니다.</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>종료</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>실제</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>계획됨</value>
+  </data>
 </root>

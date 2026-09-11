@@ -535,4 +535,16 @@
     <value>Resimleri buraya sürükleyebilir veya panodan yapıştırabilirsiniz.</value>
   </data>
 
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Bitiş</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Gerçek</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planlanan</value>
+  </data>
 </root>
