@@ -112,4 +112,37 @@
     <value>Waktu:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Cari judul atau deskripsi...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritas</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Mendesak</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Tinggi</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Sedang</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Rendah</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Tidak ada</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Penugasan</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Hapus semua filter</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Bersihkan</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Tidak ada kartu yang sesuai dengan filter saat ini.</value>
+  </data>
 </root>

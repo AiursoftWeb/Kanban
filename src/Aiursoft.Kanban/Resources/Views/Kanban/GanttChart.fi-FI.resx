@@ -112,4 +112,37 @@
     <value>Aika:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Etsi otsikosta tai kuvauksesta...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioriteetti</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Kiireellinen</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Korkea</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Keski</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Matala</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Vastuutaho</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Tyhjennä kaikki suodattimet</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Tyhjennä</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nykyiset suodattimet vastaavat yhtään korttia.</value>
+  </data>
 </root>

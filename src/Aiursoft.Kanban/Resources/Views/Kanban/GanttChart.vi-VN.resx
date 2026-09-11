@@ -112,4 +112,37 @@
     <value>Thời gian:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Tìm kiếm tiêu đề hoặc mô tả...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Ưu tiên</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Khẩn cấp</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Cao</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Trung bình</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Thấp</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Không có</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Người phụ trách</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Xóa tất cả bộ lọc</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Không có thẻ nào khớp với bộ lọc hiện tại.</value>
+  </data>
 </root>

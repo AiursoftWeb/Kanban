@@ -112,4 +112,37 @@
     <value>الوقت:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>البحث في العنوان أو الوصف...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>الأولوية</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>عاجل</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>عالية</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>متوسط</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>منخفضة</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>بدون</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>المسؤول</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>مسح جميع الفلاتر</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>مسح</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>لا تتطابق أي بطاقات مع عوامل التصفية الحالية.</value>
+  </data>
 </root>

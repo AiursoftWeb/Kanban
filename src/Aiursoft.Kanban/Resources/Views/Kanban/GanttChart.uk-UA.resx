@@ -112,4 +112,37 @@
     <value>Час:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Шукати за назвою або описом...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Пріоритет</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Терміново</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Високий</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Середній</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Низький</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Немає</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Виконавець</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Очистити всі фільтри</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Очистити</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Жодна картка не відповідає поточним фільтрам.</value>
+  </data>
 </root>

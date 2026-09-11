@@ -4,6 +4,7 @@
 
 import type { BoardData, FilterState, Priority } from './types';
 import { PRIORITY_VALUES } from './types';
+import { filterBoardData, matchesCardFilters } from './filter-state';
 
 export interface FilterInstance {
   /** Get current filter state */
@@ -22,10 +23,11 @@ export interface FilterInstance {
  * Filter state is kept in closure, never on DOM.
  */
 export function initFilters(
-  container: HTMLElement,
+  container: HTMLElement | null,
   data: BoardData,
-  onFilterChange?: () => void,
+  onFilterChange?: (state: FilterState) => void,
 ): FilterInstance {
+  const listeners = new AbortController();
   const state: FilterState = {
     searchText: '',
     priorities: [],
@@ -43,7 +45,7 @@ export function initFilters(
     const selected = new Set(state.assigneeIds);
     const assigneeMap = new Map<string, { id: string; name: string }>();
 
-    container.querySelectorAll<HTMLElement>('.kanban-card').forEach(card => {
+    container?.querySelectorAll<HTMLElement>('.kanban-card').forEach(card => {
       const id = card.getAttribute('data-assigned-user-id') ?? '';
       const name = card.getAttribute('data-assigned-user-name') ?? '';
       const initial = card.getAttribute('data-assigned-user-initial') ?? '';
@@ -55,9 +57,20 @@ export function initFilters(
       });
     });
 
+    if (!container) {
+      for (const column of data.columns) {
+        for (const card of column.cards) {
+          if (card.assignee) assigneeMap.set(card.assignee.userId, {
+            id: card.assignee.userId, name: card.assignee.displayName,
+          });
+        }
+      }
+    }
+
     assigneeGroup.querySelectorAll('.filter-chip[data-filter-type="assignee"]').forEach(chip => chip.remove());
     assigneeMap.forEach(user => {
-      const chip = document.createElement('span');
+      const chip = document.createElement('button');
+      chip.type = 'button';
       chip.className = 'filter-chip';
       chip.setAttribute('data-filter-type', 'assignee');
       chip.setAttribute('data-filter-value', user.id);
@@ -78,26 +91,27 @@ export function initFilters(
     const priority: Priority = PRIORITY_VALUES[parseInt(priorityStr, 10)] ?? 'None';
     const assigneeId = cardEl.getAttribute('data-assigned-user-id') ?? '';
 
-    // Search text
-    if (state.searchText) {
-      const q = state.searchText.toLowerCase();
-      if (!title.includes(q) && !description.includes(q)) return false;
-    }
-
-    // Priority filter
-    if (state.priorities.length > 0 && !state.priorities.includes(priority)) {
-      return false;
-    }
-
-    // Assignee filter
-    if (state.assigneeIds.length > 0 && !state.assigneeIds.includes(assigneeId)) {
-      return false;
-    }
-
-    return true;
+    return matchesCardFilters({
+      title, description, priority,
+      assignee: assigneeId ? { userId: assigneeId, displayName: '' } : undefined,
+    }, state);
   }
 
   function apply(): void {
+    const hasFilters = !!(state.searchText || state.priorities.length || state.assigneeIds.length);
+    document.getElementById('filterClearAll')?.classList.toggle('hidden', !hasFilters);
+    filterBar?.querySelectorAll<HTMLElement>('[data-filter-type]').forEach(chip => {
+      const value = chip.dataset.filterValue ?? '';
+      const active = chip.dataset.filterType === 'priority'
+        ? state.priorities.includes(PRIORITY_VALUES[Number(value)])
+        : state.assigneeIds.includes(value);
+      chip.classList.toggle('active', active);
+      chip.setAttribute('aria-pressed', String(active));
+    });
+    if (!container) {
+      onFilterChange?.(state);
+      return;
+    }
     const allCards = container.querySelectorAll<HTMLElement>('.kanban-card');
     let visibleCount = 0;
 
@@ -121,7 +135,6 @@ export function initFilters(
       const cardsContainer = col.querySelector<HTMLElement>('.column-cards');
       if (!cardsContainer) return;
 
-      const visibleCards = cardsContainer.querySelectorAll<HTMLElement>('.kanban-card[style=""]').length;
       // Also count cards with no inline display:none
       const allColCards = cardsContainer.querySelectorAll<HTMLElement>('.kanban-card');
       let actualVisible = 0;
@@ -140,7 +153,7 @@ export function initFilters(
       }
     });
 
-    onFilterChange?.();
+    onFilterChange?.(state);
   }
 
   // ---- Event bindings ----
@@ -148,7 +161,7 @@ export function initFilters(
     searchInput.addEventListener('input', () => {
       state.searchText = searchInput.value.trim();
       apply();
-    });
+    }, { signal: listeners.signal });
   }
 
   // Filter chips via delegation
@@ -195,15 +208,8 @@ export function initFilters(
         }
       }
 
-      // Show/hide clear all button
-      const clearBtn = document.getElementById('filterClearAll');
-      if (clearBtn) {
-        const hasFilters = state.priorities.length > 0 || state.assigneeIds.length > 0 || state.searchText.length > 0;
-        clearBtn.classList.toggle('hidden', !hasFilters);
-      }
-
       apply();
-    });
+    }, { signal: listeners.signal });
   }
 
   const handleExternalApply = () => {
@@ -213,7 +219,7 @@ export function initFilters(
   document.addEventListener('kanban:filters-apply', handleExternalApply as EventListener);
 
   return {
-    getState: () => ({ ...state }),
+    getState: () => ({ ...state, priorities: [...state.priorities], assigneeIds: [...state.assigneeIds] }),
     setState(newState: Partial<FilterState>) {
       if (newState.searchText !== undefined) {
         state.searchText = newState.searchText;
@@ -225,6 +231,7 @@ export function initFilters(
     },
     apply,
     destroy() {
+      listeners.abort();
       document.removeEventListener('kanban:filters-apply', handleExternalApply as EventListener);
     },
   };
@@ -233,4 +240,9 @@ export function initFilters(
 function getFilterEmptyText(): string {
   const el = document.querySelector('#loc-data span[data-key="no-cards-match"]');
   return el?.textContent?.trim() ?? 'No cards match the current filters.';
+}
+
+/** The same controls and matching rules, applied before rendering a data-driven view. */
+export function initDataFilters(data: BoardData, render: (filtered: BoardData) => void): FilterInstance {
+  return initFilters(null, data, state => render(filterBoardData(data, state)));
 }

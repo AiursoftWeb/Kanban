@@ -112,4 +112,37 @@
     <value>Ora:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Cerca titolo o descrizione...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priorità</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Urgente</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Bassa</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nessuna</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Assegnatario</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Cancella tutti i filtri</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Cancella</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nessuna scheda corrisponde ai filtri attuali.</value>
+  </data>
 </root>

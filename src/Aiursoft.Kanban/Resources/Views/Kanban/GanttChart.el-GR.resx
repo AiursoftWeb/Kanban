@@ -112,4 +112,37 @@
     <value>Χρόνος:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Αναζήτηση τίτλου ή περιγραφής...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Προτεραιότητα</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Επείγον</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Υψηλή</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Μέτρια</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Χαμηλή</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Καμία</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Δικαιούχος</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Εκκαθάριση όλων των φίλτρων</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Εκκαθάριση</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Κανένα κάρτα δεν ταιριάζει με τα τρέχοντα φίλτρα.</value>
+  </data>
 </root>

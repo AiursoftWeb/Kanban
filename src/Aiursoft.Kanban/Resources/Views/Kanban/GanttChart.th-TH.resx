@@ -112,4 +112,37 @@
     <value>เวลา:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>ค้นหาชื่อหรือคำอธิบาย...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>ลำดับความสำคัญ</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>เร่งด่วน</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>สูง</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>ปานกลาง</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>ต่ำ</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>ไม่มี</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>ผู้รับมอบหมาย</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>ล้างตัวกรองทั้งหมด</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>ล้าง</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>ไม่พบการ์ดที่ตรงกับตัวกรองปัจจุบัน</value>
+  </data>
 </root>

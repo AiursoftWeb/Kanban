@@ -253,18 +253,18 @@
                 <input type="text" class="kanban-filter-search" id="kanbanFilterSearch" placeholder="@Localizer["Search title or description..."]" autocomplete="off">
                 <div class="kanban-filter-group" id="priorityFilterGroup">
                     <span class="kanban-filter-label">@Localizer["Priority"]</span>
-                    <span class="filter-chip" data-filter-type="priority" data-filter-value="0">@Localizer["Urgent"]</span>
-                    <span class="filter-chip" data-filter-type="priority" data-filter-value="1">@Localizer["High"]</span>
-                    <span class="filter-chip" data-filter-type="priority" data-filter-value="2">@Localizer["Medium"]</span>
-                    <span class="filter-chip" data-filter-type="priority" data-filter-value="3">@Localizer["Low"]</span>
-                    <span class="filter-chip" data-filter-type="priority" data-filter-value="4">@Localizer["None"]</span>
+                    <button type="button" class="filter-chip" data-filter-type="priority" data-filter-value="0">@Localizer["Urgent"]</button>
+                    <button type="button" class="filter-chip" data-filter-type="priority" data-filter-value="1">@Localizer["High"]</button>
+                    <button type="button" class="filter-chip" data-filter-type="priority" data-filter-value="2">@Localizer["Medium"]</button>
+                    <button type="button" class="filter-chip" data-filter-type="priority" data-filter-value="3">@Localizer["Low"]</button>
+                    <button type="button" class="filter-chip" data-filter-type="priority" data-filter-value="4">@Localizer["None"]</button>
                 </div>
                 <div class="kanban-filter-group" id="assigneeFilterGroup">
                     <span class="kanban-filter-label">@Localizer["Assignee"]</span>
                 </div>
-                <span class="filter-chip filter-chip-clear hidden" id="filterClearAll" title="@Localizer["Clear all filters"]">
+                <button type="button" class="filter-chip filter-chip-clear hidden" id="filterClearAll" title="@Localizer["Clear all filters"]">
                     <i data-lucide="x" style="width:13px;height:13px"></i> @Localizer["Clear"]
-                </span>
+                </button>
             </div>
         </div>
         <div class="kanban-filter-empty" id="kanbanFilterEmpty">

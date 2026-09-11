@@ -112,4 +112,37 @@
     <value>Tid:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Søg i titel eller beskrivelse...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Akut</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Høj</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Mellem</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Lav</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Ansvarlig</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Ryd alle filtre</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Ryd</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Ingen kort matcher de aktuelle filtre.</value>
+  </data>
 </root>

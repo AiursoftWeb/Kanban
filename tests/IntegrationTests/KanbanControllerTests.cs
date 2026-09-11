@@ -1000,6 +1000,16 @@ public class KanbanControllerTests : TestBase
         (await PostAsync("/Kanban/UpdateCardActualTimes", values)).EnsureSuccessStatusCode();
     }
 
+    [TestMethod]
+    public async Task GanttChart_ContainsMatchingFilterControls()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var page = await Http.GetStringAsync($"/Kanban/GanttChart?boardId={boardId}");
+        foreach (var id in new[] { "kanbanFilterSearch", "priorityFilterGroup", "assigneeFilterGroup", "filterClearAll" })
+            Assert.Contains($"id=\"{id}\"", page);
+    }
+
     // ── Helpers ────────────────────────────────────────────
 
     private async Task<HttpResponseMessage> CreateBoardAsync(string name)

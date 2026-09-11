@@ -112,4 +112,37 @@
     <value>Zaman:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Başlık veya açıklamayı ara...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Öncelik</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Acil</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Yüksek</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Orta</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Düşük</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Yok</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Atanan</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Tüm filtreleri temizle</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Temizle</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Mevcut filtrelerle eşleşen kart yok.</value>
+  </data>
 </root>

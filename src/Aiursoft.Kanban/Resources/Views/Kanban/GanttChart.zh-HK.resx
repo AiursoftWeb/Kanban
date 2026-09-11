@@ -112,4 +112,37 @@
     <value>時間：</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>搜尋標題或描述...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>優先級</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>緊急</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>負責人</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>清除所有篩選條件</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>沒有卡片符合目前的篩選條件。</value>
+  </data>
 </root>

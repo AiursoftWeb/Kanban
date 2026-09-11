@@ -112,4 +112,37 @@
     <value>Timp:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Caută titlul sau descrierea...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritate</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Urgent</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Înaltă</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Mediu</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Scăzută</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Niciunul</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Atribuit</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Șterge toate filtrele</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Ștergeți</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nicio card nu corespunde filtrelor actuale.</value>
+  </data>
 </root>

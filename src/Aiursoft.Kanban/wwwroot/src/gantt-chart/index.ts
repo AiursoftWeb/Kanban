@@ -5,6 +5,7 @@
 import type { BoardData } from '../kanban-board/types';
 import type { GanttMode, GanttStrings } from './types';
 import { renderGantt } from './renderer';
+import { initDataFilters } from '../kanban-board/filters';
 import { exportGanttAsPng } from './export';
 import './styles/gantt.css';
 
@@ -65,6 +66,7 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
 
   const strings = loadStrings();
   let currentMode: GanttMode = 'default';
+  let filteredData = options.boardData;
   let isExporting = false;
 
   const exportBtn = document.getElementById('gantt-export-btn') as HTMLButtonElement | null;
@@ -81,7 +83,13 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
   }
 
   function render(): void {
-    renderGantt(container, options.boardData, currentMode, strings);
+    // Keep the exported DOM stable; apply any new filters after capture finishes.
+    if (isExporting) return;
+    renderGantt(container, filteredData, currentMode, {
+      ...strings,
+      noBoardCards: options.boardData.columns.some(column => column.cards.length > 0)
+        ? t('gantt-no-matches', 'No cards match the current filters.') : strings.noBoardCards,
+    });
     refreshIcons();
     updateExportButton();
   }
@@ -123,15 +131,18 @@ export function initGanttChartPage(options: GanttChartPageOptions): void {
         showGanttDialog(msg, strings.dialogOk);
       } finally {
         isExporting = false;
-        updateExportButton();
+        render();
         exportBtn.innerHTML = exportBtnIdleLabel;
         refreshIcons(exportBtn);
       }
     });
   }
 
-  // Initial render
-  render();
+  const filters = initDataFilters(options.boardData, data => {
+    filteredData = data;
+    render();
+  });
+  filters.apply();
 }
 
 function refreshIcons(node?: ParentNode): void {

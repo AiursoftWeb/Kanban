@@ -112,4 +112,37 @@
     <value>समय:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>शीर्षक या विवरण खोजें...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>प्राथमिकता</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>अत्यावश्यक</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>उच्च</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>मध्यम</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>कम</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>कोई नहीं</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>कार्यवाहक</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>सभी फ़िल्टर साफ़ करें</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>साफ़ करें</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>कोई कार्ड वर्तमान फ़िल्टर्स से मेल नहीं खाता है।</value>
+  </data>
 </root>

@@ -112,4 +112,37 @@
     <value>Tijd:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Zoek op titel of beschrijving...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioriteit</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Dringend</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Hoog</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Gemiddeld</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Laag</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Toegewezen aan</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Alle filters wissen</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Wissen</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Geen kaarten voldoen aan de huidige filters.</value>
+  </data>
 </root>

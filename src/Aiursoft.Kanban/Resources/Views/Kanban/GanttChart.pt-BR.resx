@@ -112,4 +112,37 @@
     <value>Tempo:</value>
   </data>
 
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Pesquisar título ou descrição...</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioridade</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Urgente</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Médio</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Baixa</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Responsável</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Limpar todos os filtros</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Limpar</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nenhum cartão corresponde aos filtros atuais.</value>
+  </data>
 </root>
