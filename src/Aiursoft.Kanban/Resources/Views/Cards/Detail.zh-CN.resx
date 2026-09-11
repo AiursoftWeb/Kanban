@@ -301,4 +301,19 @@
     <value>您可以在此拖放图片或从剪贴板粘贴。</value>
   </data>
 
+  <data name="Save actual times" xml:space="preserve">
+    <value>保存实际时间</value>
+  </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>实际结束时间不能早于实际开始时间。</value>
+  </data>
+  <data name="Invalid actual date or time." xml:space="preserve">
+    <value>实际日期或时间无效。</value>
+  </data>
+  <data name="Planned start" xml:space="preserve">
+    <value>计划开始</value>
+  </data>
+  <data name="Planned end" xml:space="preserve">
+    <value>计划结束</value>
+  </data>
 </root>

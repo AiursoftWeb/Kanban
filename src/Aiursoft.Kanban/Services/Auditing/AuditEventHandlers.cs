@@ -216,7 +216,15 @@ public class AuditEventHandlers(
             "Kanban.UpdateCardDetails",
             "Kanban",
             $"Updated card \"{card.Title}\": {string.Join(", ", e.ChangedFields)}",
-            new { CardId = card.Id, Board = card.Column.Board.Name, e.ChangedFields },
+            new
+            {
+                CardId = card.Id,
+                Board = card.Column.Board.Name,
+                e.ChangedFields,
+                ActualTimeChange = e.ActualTimeChange is { } change
+                    ? new { change.OldStartTime, change.OldEndTime, change.NewStartTime, change.NewEndTime }
+                    : null
+            },
             userId: e.ActorUserId,
             cancellationToken: ct);
     }

@@ -173,6 +173,9 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     priorityGroup: document.getElementById('priorityGroup'),
     dueDateInput: document.getElementById('inputDueDate') as HTMLInputElement | null,
     plannedStartInput: document.getElementById('inputPlannedStart') as HTMLInputElement | null,
+    actualStartInput: document.getElementById('inputActualStart') as HTMLInputElement | null,
+    actualEndInput: document.getElementById('inputActualEnd') as HTMLInputElement | null,
+    saveActualTimes: document.getElementById('saveActualTimes') as HTMLButtonElement | null,
     recurringSwitch: document.getElementById('inputRecurring') as HTMLInputElement | null,
     recurrenceFields: document.getElementById('recurrenceFields'),
     recurrenceIntervalInput: document.getElementById('inputRecurrenceInterval') as HTMLInputElement | null,
@@ -252,8 +255,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       theme: options.markdownEditorTheme,
       mermaidTheme: options.mermaidTheme,
       viewModeControls: [
-        { element: refs.editorTabButton!, mode: 'editor' },
-        { element: refs.previewTabButton!, mode: 'preview' },
+        { element: refs.editorTabButton!, mode: 'editor' as const },
+        { element: refs.previewTabButton!, mode: 'preview' as const },
       ].filter(control => control.element),
       onSave: () => saveDescription(false),
       onPreviewRendered: () => {
@@ -369,6 +372,15 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       });
     });
 
+    for (const input of [refs.actualStartInput, refs.actualEndInput]) {
+      if (input) setActualTimeInput(input, input.dataset.utcValue);
+    }
+    refs.saveActualTimes?.addEventListener('click', () => {
+      saveActualTimes().catch(problem => {
+        showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
+      });
+    });
+
     refs.dueDateInput?.addEventListener('change', () => {
       if (!options.canEdit) return;
       saveCardDetails().then(() => showSavedToast()).catch(problem => {
@@ -388,8 +400,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       if (!options.canEdit) return;
       const wasOn = refs.recurringSwitch?.checked;
       if (wasOn) {
-        if (!refs.recurrenceIntervalInput?.value) refs.recurrenceIntervalInput.value = '1';
-        if (!refs.recurrenceUnitInput?.value || refs.recurrenceUnitInput.value === '0') refs.recurrenceUnitInput.value = '1';
+        if (refs.recurrenceIntervalInput && !refs.recurrenceIntervalInput.value) refs.recurrenceIntervalInput.value = '1';
+        if (refs.recurrenceUnitInput && (!refs.recurrenceUnitInput.value || refs.recurrenceUnitInput.value === '0')) refs.recurrenceUnitInput.value = '1';
       }
       saveCardDetails().then(() => showSavedToast()).catch(problem => {
         showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
@@ -651,6 +663,46 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     refs.titleMeta?.classList.remove('d-none');
   }
 
+  function setActualTimeInput(input: HTMLInputElement | null, value?: string): void {
+    if (!input) return;
+    if (!value) { input.value = ''; return; }
+    const normalized = /(?:Z|[+-]\d{2}:?\d{2})$/i.test(value) ? value : `${value}Z`;
+    const date = new Date(normalized);
+    if (Number.isNaN(date.getTime())) { input.value = ''; return; }
+    const pad = (n: number) => String(n).padStart(2, '0');
+    input.value = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+  }
+
+  async function saveActualTimes(): Promise<void> {
+    if (!options.canEdit || !refs.saveActualTimes || refs.saveActualTimes.disabled) return;
+    const inputs = [refs.actualStartInput, refs.actualEndInput];
+    if (inputs.some(input => input && !input.reportValidity())) return;
+    const start = refs.actualStartInput?.value ? new Date(refs.actualStartInput.value) : null;
+    const end = refs.actualEndInput?.value ? new Date(refs.actualEndInput.value) : null;
+    if ((start && Number.isNaN(start.getTime())) || (end && Number.isNaN(end.getTime()))) {
+      throw new Error(t('invalid-actual-time', 'Invalid actual date or time.'));
+    }
+    if (start && end && end < start) {
+      throw new Error(t('actual-time-order', 'Actual end time cannot be earlier than actual start time.'));
+    }
+    refs.saveActualTimes.disabled = true;
+    inputs.forEach(input => { if (input) input.disabled = true; });
+    try {
+      const response = await postForm('/Kanban/UpdateCardActualTimes', {
+        cardId: options.cardId,
+        actualStartTime: start?.toISOString() ?? '',
+        actualEndTime: end?.toISOString() ?? '',
+      }, options.csrfToken);
+      const result = await readJsonOrThrow<Record<string, unknown>>(response);
+      setActualTimeInput(refs.actualStartInput, readOptionalString(result.ActualStartTime));
+      setActualTimeInput(refs.actualEndInput, readOptionalString(result.ActualEndTime));
+      showSavedToast();
+    } finally {
+      refs.saveActualTimes.disabled = false;
+      inputs.forEach(input => { if (input) input.disabled = false; });
+    }
+  }
+
   async function saveCardDetails(): Promise<void> {
     const title = refs.titleInput && !refs.titleInput.classList.contains('d-none')
       ? refs.titleInput.value.trim()
@@ -872,6 +924,8 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       newOrder: 0,
     }, options.csrfToken);
     const result = await readJsonOrThrow<Record<string, unknown>>(response);
+    setActualTimeInput(refs.actualStartInput, readOptionalString(result.ActualStartTime));
+    setActualTimeInput(refs.actualEndInput, readOptionalString(result.ActualEndTime));
     const targetName = refs.moveTargetColumn?.selectedOptions[0]?.textContent?.trim() ?? '';
     document.querySelectorAll<HTMLElement>('[data-current-column-name]').forEach(node => {
       node.textContent = targetName;

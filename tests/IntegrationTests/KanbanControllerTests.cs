@@ -871,6 +871,135 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(originalDescription, unchangedCard.Description);
     }
 
+    [TestMethod]
+    public async Task ActualTimes_HistoricalOffsetDates_SaveClearAndRejectInvalidInput()
+    {
+        await LoginAsAdmin();
+        var (_, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Historical task");
+        async Task<HttpResponseMessage> Save(string start, string end) => await PostAsync(
+            "/Kanban/UpdateCardActualTimes", new()
+            {
+                ["cardId"] = card.Id.ToString(), ["actualStartTime"] = start, ["actualEndTime"] = end
+            });
+
+        (await Save("2020-01-01T09:00:00+08:00", "2020-01-03T18:00:00+08:00")).EnsureSuccessStatusCode();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var saved = await db.KanbanCards.FindAsync(card.Id);
+            Assert.AreEqual(new DateTime(2020, 1, 1, 1, 0, 0, DateTimeKind.Utc), saved!.ActualStartTime);
+            Assert.AreEqual(new DateTime(2020, 1, 3, 10, 0, 0, DateTimeKind.Utc), saved.ActualEndTime);
+            Assert.IsTrue(saved.CreationTime > saved.ActualEndTime);
+            Assert.AreEqual(columnId, saved.ColumnId);
+        }
+        foreach (var (start, end) in new[]
+        {
+            ("not-a-date", ""), ("2020-02-02T00:00:00Z", "2020-02-01T00:00:00Z")
+        })
+            Assert.AreEqual(HttpStatusCode.BadRequest, (await Save(start, end)).StatusCode);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var saved = await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().KanbanCards.FindAsync(card.Id);
+            Assert.AreEqual(new DateTime(2020, 1, 1, 1, 0, 0, DateTimeKind.Utc), saved!.ActualStartTime);
+            Assert.AreEqual(new DateTime(2020, 1, 3, 10, 0, 0, DateTimeKind.Utc), saved.ActualEndTime);
+        }
+        (await Save("2020-01-01T01:00:00Z", "")).EnsureSuccessStatusCode();
+        (await Save("", "")).EnsureSuccessStatusCode();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var saved = await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().KanbanCards.FindAsync(card.Id);
+            Assert.IsNull(saved!.ActualStartTime);
+            Assert.IsNull(saved.ActualEndTime);
+        }
+        var noToken = await Http.PostAsync("/Kanban/UpdateCardActualTimes", new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["cardId"] = card.Id.ToString(), ["actualStartTime"] = "", ["actualEndTime"] = ""
+        }));
+        Assert.AreEqual(HttpStatusCode.BadRequest, noToken.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task ActualTimes_CorrectedCompletionSurvivesSortingAndSameStatusMoves()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Corrected completion");
+        var board = await GetBoardAsync(boardId);
+        var done = board.Columns.Single(c => c.ColumnStatus == ColumnStatus.Completed).Id;
+        var progress = board.Columns.Single(c => c.ColumnStatus == ColumnStatus.InProgress).Id;
+        async Task Move(int target) => (await PostAsync("/Kanban/MoveCard", new()
+        {
+            ["cardId"] = card.Id.ToString(), ["targetColumnId"] = target.ToString(), ["newOrder"] = "0"
+        })).EnsureSuccessStatusCode();
+        await Move(done);
+        (await PostAsync("/Kanban/UpdateCardActualTimes", new()
+        {
+            ["cardId"] = card.Id.ToString(), ["actualStartTime"] = "2020-01-01T00:00:00Z", ["actualEndTime"] = "2020-01-02T00:00:00Z"
+        })).EnsureSuccessStatusCode();
+        await Move(done);
+        int otherDone;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var column = new KanbanColumn { BoardId = boardId, Name = "Archived", ColumnStatus = ColumnStatus.Completed, Order = 3 };
+            db.KanbanColumns.Add(column);
+            await db.SaveChangesAsync();
+            otherDone = column.Id;
+        }
+        await Move(otherDone);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var saved = await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().KanbanCards.FindAsync(card.Id);
+            Assert.AreEqual(new DateTime(2020, 1, 2, 0, 0, 0, DateTimeKind.Utc), saved!.ActualEndTime);
+        }
+        await Move(progress);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var saved = await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().KanbanCards.FindAsync(card.Id);
+            Assert.IsNull(saved!.ActualEndTime);
+            Assert.AreEqual(new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc), saved.ActualStartTime);
+        }
+        var beforeCompletion = DateTime.UtcNow;
+        await Move(done);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var saved = await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().KanbanCards.FindAsync(card.Id);
+            Assert.IsTrue(saved!.ActualEndTime >= beforeCompletion);
+        }
+    }
+
+    [TestMethod]
+    public async Task ActualTimes_OnlyOwnerAndEditorsCanUpdate()
+    {
+        await LoginAsAdmin();
+        var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
+        var card = await CreateCardAndGetIdAsync(columnId, "Permissions");
+        await LogoutAsync();
+        var (email, _) = await RegisterAndLoginAsync();
+        var userId = await GetUserIdByEmailAsync(email);
+        await AddBoardShareAsync(boardId, userId, SharePermission.ReadOnly);
+        var page = await Http.GetStringAsync($"/Cards/{card.Id}");
+        Assert.DoesNotContain("id=\"saveActualTimes\"", page);
+        var values = new Dictionary<string, string>
+        {
+            ["cardId"] = card.Id.ToString(), ["actualStartTime"] = "2020-01-01T00:00:00Z", ["actualEndTime"] = ""
+        };
+        var denied = await PostAsync("/Kanban/UpdateCardActualTimes", values);
+        Assert.IsTrue(denied.StatusCode == HttpStatusCode.Forbidden ||
+            (denied.StatusCode == HttpStatusCode.Found && denied.Headers.Location!.OriginalString.Contains("403")));
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.IsNull((await db.KanbanCards.FindAsync(card.Id))!.ActualStartTime);
+            var share = await db.BoardShares.SingleAsync(s => s.BoardId == boardId && s.SharedWithUserId == userId);
+            share.Permission = SharePermission.Editable;
+            await db.SaveChangesAsync();
+        }
+        Assert.Contains("id=\"saveActualTimes\"", await Http.GetStringAsync($"/Cards/{card.Id}"));
+        (await PostAsync("/Kanban/UpdateCardActualTimes", values)).EnsureSuccessStatusCode();
+    }
+
     // ── Helpers ────────────────────────────────────────────
 
     private async Task<HttpResponseMessage> CreateBoardAsync(string name)

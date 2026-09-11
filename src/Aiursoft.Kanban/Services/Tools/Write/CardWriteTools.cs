@@ -89,17 +89,7 @@ public class CardWriteTools(
             return "Error: validation_error: Target column must belong to the same board as the card.";
 
         var now = timeProvider.GetUtcNow().UtcDateTime;
-        switch (column.ColumnStatus)
-        {
-            case ColumnStatus.InProgress:
-                card.ActualStartTime ??= now;
-                card.ActualEndTime = null;
-                break;
-            case ColumnStatus.Completed:
-                card.ActualStartTime ??= now;
-                card.ActualEndTime = now;
-                break;
-        }
+        CardTimeTracking.ApplyStatusChange(card, card.Column.ColumnStatus, column.ColumnStatus, now);
 
         var cardsInColumn = await db.KanbanCards
             .Where(c => c.ColumnId == targetColumnId && c.Id != cardId)

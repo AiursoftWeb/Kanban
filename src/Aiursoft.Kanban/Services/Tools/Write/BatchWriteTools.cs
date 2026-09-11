@@ -155,17 +155,10 @@ public class BatchWriteTools(
 
         foreach (var card in cards)
         {
+            CardTimeTracking.ApplyStatusChange(card, card.Column.ColumnStatus, column.ColumnStatus, now);
             card.ColumnId = targetColumnId;
             maxOrder++;
             card.Order = maxOrder;
-
-            if (column.ColumnStatus == ColumnStatus.InProgress)
-                card.ActualStartTime ??= now;
-            else if (column.ColumnStatus == ColumnStatus.Completed)
-            {
-                card.ActualStartTime ??= now;
-                card.ActualEndTime = now;
-            }
         }
 
         await db.SaveChangesAsync();

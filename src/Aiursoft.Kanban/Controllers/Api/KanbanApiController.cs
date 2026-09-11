@@ -341,17 +341,7 @@ public sealed class KanbanApiController(
         var fromColumnName = card.Column.Name;
         var now = DateTime.UtcNow;
         var wasCompleted = card.Column.ColumnStatus == ColumnStatus.Completed;
-        switch (target.ColumnStatus)
-        {
-            case ColumnStatus.InProgress:
-                card.ActualStartTime ??= now;
-                card.ActualEndTime = null;
-                break;
-            case ColumnStatus.Completed:
-                card.ActualStartTime ??= now;
-                card.ActualEndTime = now;
-                break;
-        }
+        CardTimeTracking.ApplyStatusChange(card, card.Column.ColumnStatus, target.ColumnStatus, now);
 
         var shouldRecur = target.ColumnStatus == ColumnStatus.Completed &&
             !wasCompleted &&

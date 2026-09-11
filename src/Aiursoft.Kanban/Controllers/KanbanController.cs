@@ -586,17 +586,7 @@ public class KanbanController(
 
         var now = DateTime.UtcNow;
         var wasCompleted = card.Column.ColumnStatus == ColumnStatus.Completed;
-        switch (column.ColumnStatus)
-        {
-            case ColumnStatus.InProgress:
-                card.ActualStartTime ??= now;
-                card.ActualEndTime = null;
-                break;
-            case ColumnStatus.Completed:
-                card.ActualStartTime ??= now;
-                card.ActualEndTime = now;
-                break;
-        }
+        CardTimeTracking.ApplyStatusChange(card, card.Column.ColumnStatus, column.ColumnStatus, now);
 
         var shouldRecur =
             column.ColumnStatus == ColumnStatus.Completed
@@ -897,6 +887,43 @@ public class KanbanController(
         column.ColumnStatus = (ColumnStatus)status;
         await db.SaveChangesAsync();
         return Ok();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateCardActualTimes(
+        int cardId, DateTimeOffset? actualStartTime, DateTimeOffset? actualEndTime)
+    {
+        if (!ModelState.IsValid) return BadRequest("Invalid actual date or time.");
+        var card = await db.KanbanCards
+            .Include(c => c.Column).ThenInclude(c => c.Board)
+            .FirstOrDefaultAsync(c => c.Id == cardId);
+        if (card == null) return NotFound();
+        var userId = userManager.GetUserId(User)!;
+        if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
+
+        var start = actualStartTime?.UtcDateTime;
+        var end = actualEndTime?.UtcDateTime;
+        if (start.HasValue && end.HasValue && end.Value < start.Value)
+            return BadRequest("Actual end time cannot be earlier than actual start time.");
+
+        var change = new CardActualTimeChange(card.ActualStartTime, card.ActualEndTime, start, end);
+        var changedFields = new List<string>();
+        if (card.ActualStartTime != start) changedFields.Add("actual start time");
+        if (card.ActualEndTime != end) changedFields.Add("actual end time");
+        if (changedFields.Count > 0)
+        {
+            card.ActualStartTime = start;
+            card.ActualEndTime = end;
+            await db.SaveChangesAsync();
+            await PublishNotificationEventAsync(new CardUpdatedEvent(cardId, userId, changedFields, change));
+        }
+        return Ok(new
+        {
+            card.Id,
+            ActualStartTime = start?.ToString("O"),
+            ActualEndTime = end?.ToString("O")
+        });
     }
 
     [HttpPost]

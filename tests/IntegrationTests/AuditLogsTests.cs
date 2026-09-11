@@ -1,4 +1,10 @@
 using System.Net;
+using System.Text.Json;
+using Aiursoft.ClickhouseSdk.Abstractions;
+using Aiursoft.Kanban.Events;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Auditing;
 
@@ -63,6 +69,46 @@ public class AuditLogsTests : TestBase
         var response = await Http.GetAsync("/AuditLogs/All");
 
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task ActualTimeChangesIncludeActorAndBeforeAndAfterValuesInAuditLog()
+    {
+        await LoginAsAdmin();
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var user = await db.Users.FirstAsync(u => u.Email == "admin@default.com");
+        var card = new KanbanCard { Title = "Historical dates" };
+        var board = new KanbanBoard
+        {
+            Name = "Audit dates", UserId = user.Id,
+            Columns = [new KanbanColumn { Name = "Done", Cards = [card] }]
+        };
+        db.KanbanBoards.Add(board);
+        await db.SaveChangesAsync();
+        var buffer = new AuditLogBuffer(NullLogger<AuditLogBuffer>.Instance);
+        var service = new AuditLogService(buffer, new AuditLogContext(), new HttpContextAccessor(), new EnabledAuditOptions());
+        var handler = new AuditEventHandlers(db, service);
+        var oldStart = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        var newStart = oldStart.AddYears(-1);
+        await handler.Handle(new CardUpdatedEvent(card.Id, user.Id, ["actual start time"],
+            new CardActualTimeChange(oldStart, null, newStart, null)), CancellationToken.None);
+        var logs = new List<AuditLog>();
+        buffer.Drain(logs);
+        var log = logs.Single();
+        Assert.AreEqual(user.Id, log.UserId);
+        using var details = JsonDocument.Parse(log.Details);
+        var change = details.RootElement.GetProperty("ActualTimeChange");
+        Assert.AreEqual(oldStart, change.GetProperty("OldStartTime").GetDateTime());
+        Assert.AreEqual(newStart, change.GetProperty("NewStartTime").GetDateTime());
+        Assert.AreEqual(JsonValueKind.Null, change.GetProperty("NewEndTime").ValueKind);
+    }
+
+    private sealed class EnabledAuditOptions : IOptionsMonitor<ClickhouseOptions>
+    {
+        public ClickhouseOptions CurrentValue { get; } = new() { Enabled = true };
+        public ClickhouseOptions Get(string? name) => CurrentValue;
+        public IDisposable? OnChange(Action<ClickhouseOptions, string?> listener) => null;
     }
 
 }

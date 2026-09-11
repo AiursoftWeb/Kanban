@@ -84,6 +84,14 @@
             margin-bottom: 0.85rem;
         }
 
+        .detail-time-row {
+            grid-template-columns: 4.5rem minmax(0, 1fr);
+        }
+
+        .detail-time-row .detail-kv-label {
+            margin-bottom: 0;
+        }
+
         .detail-kv:last-child {
             margin-bottom: 0;
         }
@@ -98,28 +106,6 @@
 
         .detail-kv-value {
             min-width: 0;
-        }
-
-        .detail-stat-box {
-            border-radius: 16px;
-            background: linear-gradient(180deg, rgba(248,250,252,0.94), rgba(241,245,249,0.94));
-            border: 1px solid rgba(148, 163, 184, 0.14);
-            padding: 0.9rem 1rem;
-        }
-
-        .detail-stat-title {
-            font-size: 0.76rem;
-            font-weight: 700;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
-
-        .detail-stat-value {
-            margin-top: 0.25rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #0f172a;
         }
 
         .detail-sticky-stack {
@@ -578,37 +564,35 @@
                             </div>
                         </div>
 
-                        <div class="detail-kv">
-                            <div class="detail-kv-label">@Localizer["Start"]</div>
+                        <div class="detail-kv detail-time-row">
+                            <label class="detail-kv-label" for="inputPlannedStart">@Localizer["Planned start"]</label>
                             <div class="detail-kv-value">
-                                <input type="date" id="inputPlannedStart" class="form-control detail-input" value="@Model.PlannedStartDate" @(Model.CanEdit ? "" : "disabled") />
+                                <input type="date" id="inputPlannedStart" class="form-control detail-input" value="@Model.PlannedStartDate" @(Model.CanEdit ? null : "disabled") />
                             </div>
                         </div>
-                        <div class="detail-kv">
-                            <div class="detail-kv-label">@Localizer["Due"]</div>
+                        <div class="detail-kv detail-time-row">
+                            <label class="detail-kv-label" for="inputDueDate">@Localizer["Planned end"]</label>
                             <div class="detail-kv-value">
-                                <input type="date" id="inputDueDate" class="form-control detail-input" value="@Model.DueDate" @(Model.CanEdit ? "" : "disabled") />
+                                <input type="date" id="inputDueDate" class="form-control detail-input" value="@Model.DueDate" @(Model.CanEdit ? null : "disabled") />
+                            </div>
+                        </div>
+                        <div class="detail-kv detail-time-row">
+                            <label class="detail-kv-label" for="inputActualStart">@Localizer["Actual start"]</label>
+                            <div class="detail-kv-value">
+                                <input type="datetime-local" id="inputActualStart" class="form-control detail-input" step="1" data-utc-value="@Model.ActualStartDate?.ToString("O")" @(Model.CanEdit ? null : "disabled") />
+                            </div>
+                        </div>
+                        <div class="detail-kv detail-time-row">
+                            <label class="detail-kv-label" for="inputActualEnd">@Localizer["Actual end"]</label>
+                            <div class="detail-kv-value">
+                                <input type="datetime-local" id="inputActualEnd" class="form-control detail-input" step="1" data-utc-value="@Model.ActualEndDate?.ToString("O")" @(Model.CanEdit ? null : "disabled") />
                             </div>
                         </div>
 
-                        <div class="row g-2 mb-3 mt-1">
-                            <div class="col-6">
-                                <div class="detail-stat-box">
-                                    <div class="detail-stat-title">@Localizer["Actual start"]</div>
-                                    <div class="detail-stat-value">
-                                        @if (Model.ActualStartDate.HasValue) { <label data-utc-time="@Model.ActualStartDate.Value.ToHtmlDateTime()"></label> } else { <span>—</span> }
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="detail-stat-box">
-                                    <div class="detail-stat-title">@Localizer["Actual end"]</div>
-                                    <div class="detail-stat-value">
-                                        @if (Model.ActualEndDate.HasValue) { <label data-utc-time="@Model.ActualEndDate.Value.ToHtmlDateTime()"></label> } else { <span>—</span> }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @if (Model.CanEdit)
+                        {
+                            <button type="button" id="saveActualTimes" class="btn btn-outline-primary btn-sm mb-3">@Localizer["Save actual times"]</button>
+                        }
 
                         <div class="form-check form-switch mb-2">
                             <input class="form-check-input" type="checkbox" id="inputRecurring" @(Model.IsRecurring ? "checked" : null) @(Model.CanEdit ? null : "disabled")>
@@ -790,6 +774,8 @@
 </div>
 
 <div id="loc-data" hidden>
+    <span data-key="actual-time-order">@Localizer["Actual end time cannot be earlier than actual start time."]</span>
+    <span data-key="invalid-actual-time">@Localizer["Invalid actual date or time."]</span>
     <span data-key="notice">@Localizer["Notice"]</span>
     <span data-key="send">@Localizer["Send"]</span>
     <span data-key="sending">@Localizer["Sending..."]</span>
