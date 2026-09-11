@@ -14,6 +14,7 @@ using Aiursoft.Kanban.SDK.Models;
 using Google.Android.Material.AppBar;
 using Google.Android.Material.Button;
 using Google.Android.Material.Card;
+using Google.Android.Material.Dialog;
 using Google.Android.Material.ProgressIndicator;
 using Google.Android.Material.Snackbar;
 using Google.Android.Material.TextField;
@@ -40,6 +41,7 @@ public sealed class AgentActivity : AppCompatActivity
     private View _content = null!;
     private MaterialToolbar _toolbar = null!;
     private Spinner _boardSpinner = null!;
+    private MaterialButton _history = null!;
     private MaterialButton _newChat = null!;
     private ScrollView _messageScroll = null!;
     private LinearLayout _messages = null!;
@@ -143,6 +145,7 @@ public sealed class AgentActivity : AppCompatActivity
         _content = FindViewById<View>(Resource.Id.agent_content)!;
         _toolbar = FindViewById<MaterialToolbar>(Resource.Id.agent_toolbar)!;
         _boardSpinner = FindViewById<Spinner>(Resource.Id.agent_board_spinner)!;
+        _history = FindViewById<MaterialButton>(Resource.Id.agent_history_button)!;
         _newChat = FindViewById<MaterialButton>(Resource.Id.agent_new_chat_button)!;
         _messageScroll = FindViewById<ScrollView>(Resource.Id.agent_message_scroll)!;
         _messages = FindViewById<LinearLayout>(Resource.Id.agent_messages)!;
@@ -168,6 +171,7 @@ public sealed class AgentActivity : AppCompatActivity
 
     private void WireEvents()
     {
+        _history.Click += async (_, _) => await ShowHistoryAsync();
         _newChat.Click += async (_, _) => await StartNewChatAsync();
         _attach.Click += (_, _) => ChooseExcel();
         _removeFile.Click += (_, _) => ClearExcel();
@@ -627,6 +631,65 @@ public sealed class AgentActivity : AppCompatActivity
         }
     }
 
+    private async Task ShowHistoryAsync()
+    {
+        try
+        {
+            SetBusy(true);
+            var response = await Api.GetAgentSessionsAsync();
+            if (response.Sessions.Count == 0)
+            {
+                Snackbar.Make(_root, "No previous conversations yet.", Snackbar.LengthShort).Show();
+                return;
+            }
+
+            var sessions = response.Sessions;
+            var labels = sessions.Select(session =>
+                $"{session.Title}\n{session.State} · {session.LastActivity.ToLocalTime():yyyy-MM-dd HH:mm}")
+                .ToArray();
+            var builder = new MaterialAlertDialogBuilder(this);
+            builder.SetTitle("Conversation history");
+            builder.SetItems(labels, (_, args) => _ = OpenHistoryAsync(sessions[args.Which]));
+            builder.SetNegativeButton("Close", (_, _) => { });
+            builder.Show();
+        }
+        catch (Exception exception)
+        {
+            ShowError(exception);
+        }
+        finally
+        {
+            SetBusy(false);
+        }
+    }
+
+    private async Task OpenHistoryAsync(AgentSessionDto session)
+    {
+        try
+        {
+            SetBusy(true);
+            StopPolling();
+            _conversationId = session.Id;
+            _renderSignature = string.Empty;
+            var status = await Api.GetAgentStatusAsync(session.Id);
+            RenderStatus(status);
+            if (status.State is "Thinking" or "AwaitingApproval")
+            {
+                StartPolling();
+            }
+        }
+        catch (Exception exception)
+        {
+            _conversationId = null;
+            RenderWelcome();
+            ShowError(exception);
+        }
+        finally
+        {
+            SetBusy(false);
+        }
+    }
+
     private void ChooseExcel()
     {
         var picker = new Intent(Intent.ActionOpenDocument);
@@ -748,6 +811,7 @@ public sealed class AgentActivity : AppCompatActivity
         _send.Enabled = _input.Enabled;
         _attach.Enabled = _input.Enabled;
         _removeFile.Enabled = !_busy && !_sending;
+        _history.Enabled = _loaded && !_busy && !_sending;
         _newChat.Enabled = !_busy && !_sending;
     }
 

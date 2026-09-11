@@ -73,16 +73,13 @@ public sealed class AgentApiController(
     }
 
     [HttpGet("conversations/{conversationId:guid}")]
-    public IActionResult Status(Guid conversationId)
+    public async Task<IActionResult> Status(Guid conversationId)
     {
-        var conversation = agentService.GetConversation(conversationId);
+        var userId = CurrentUserId();
+        var conversation = await agentService.GetConversationAsync(conversationId, userId);
         if (conversation == null)
         {
             return this.Protocol(Code.NotFound, "Conversation not found.");
-        }
-        if (conversation.UserId != CurrentUserId())
-        {
-            return this.Protocol(Code.Unauthorized, "This conversation belongs to another user.");
         }
 
         var pendingAdvice = adviceService.GetPendingForConversation(conversationId);
@@ -122,6 +119,25 @@ public sealed class AgentApiController(
                 ResolvedName = advice.ResolvedName
             }).ToList(),
             ErrorMessage = conversation.ErrorMessage
+        });
+    }
+
+    [HttpGet("sessions")]
+    public async Task<IActionResult> Sessions()
+    {
+        var sessions = await agentService.ListSessionsAsync(CurrentUserId());
+        return this.Protocol(new AgentSessionListResponse
+        {
+            Code = Code.ResultShown,
+            Message = "Conversation history.",
+            Sessions = sessions.Select(session => new AgentSessionDto
+            {
+                Id = session.Id,
+                Title = session.Title,
+                State = session.State,
+                LastActivity = session.LastActivity,
+                BoardId = session.BoardId
+            }).ToList()
         });
     }
 

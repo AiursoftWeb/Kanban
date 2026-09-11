@@ -239,6 +239,20 @@ public sealed class AgentConversationResponse : AiurResponse
     public Guid ConversationId { get; set; }
 }
 
+public sealed class AgentSessionListResponse : AiurResponse
+{
+    public List<AgentSessionDto> Sessions { get; set; } = [];
+}
+
+public sealed class AgentSessionDto
+{
+    public Guid Id { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string State { get; set; } = string.Empty;
+    public DateTime LastActivity { get; set; }
+    public int? BoardId { get; set; }
+}
+
 public sealed class AgentStatusResponse : AiurResponse
 {
     public Guid ConversationId { get; set; }

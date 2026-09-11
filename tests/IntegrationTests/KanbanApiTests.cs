@@ -184,6 +184,14 @@ public sealed class KanbanApiTests : TestBase
         Assert.IsTrue(status.Messages.Any(message =>
             message.Role == "user" && message.Content == "List my urgent work"));
 
+        using var sessionsResponse = await Http.GetAsync("/api/v1/agent/sessions");
+        sessionsResponse.EnsureSuccessStatusCode();
+        var sessions = JsonConvert.DeserializeObject<AgentSessionListResponse>(
+            await sessionsResponse.Content.ReadAsStringAsync());
+        Assert.IsNotNull(sessions);
+        var savedSession = sessions.Sessions.Single(session => session.Id == started.ConversationId);
+        Assert.AreEqual("List my urgent work", savedSession.Title);
+
         using var cancelResponse = await Http.PostAsync(
             $"/api/v1/agent/conversations/{started.ConversationId}/cancel",
             Json(new { }));

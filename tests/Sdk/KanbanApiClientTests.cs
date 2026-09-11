@@ -776,6 +776,35 @@ public sealed class KanbanApiClientTests
     }
 
     [TestMethod]
+    public async Task AgentSessionsDeserializeConversationHistory()
+    {
+        var conversationId = Guid.NewGuid();
+        var handler = new RecordingHandler(
+            $$"""
+            {
+              "code":0,
+              "message":"history",
+              "protocolVersion":"10.0.30",
+              "sessions":[{
+                "id":"{{conversationId}}",
+                "title":"Plan the Android release",
+                "state":"Completed",
+                "lastActivity":"2026-09-11T09:45:00Z",
+                "boardId":7
+              }]
+            }
+            """);
+        await using var provider = BuildProvider(handler, "access-token");
+
+        var result = await provider.GetRequiredService<KanbanApiClient>().GetAgentSessionsAsync();
+
+        Assert.AreEqual(conversationId, result.Sessions.Single().Id);
+        Assert.AreEqual("Plan the Android release", result.Sessions.Single().Title);
+        Assert.AreEqual("https://kanban.example/api/v1/agent/sessions", handler.RequestUri?.ToString());
+        Assert.AreEqual(HttpMethod.Get, handler.Method);
+    }
+
+    [TestMethod]
     public async Task AgentExcelConversionPostsMultipartWithBearerToken()
     {
         var handler = new RecordingHandler("""

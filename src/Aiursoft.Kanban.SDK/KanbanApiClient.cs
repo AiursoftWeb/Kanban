@@ -375,6 +375,10 @@ public sealed class KanbanApiClient(
         await http.Get<AgentStatusResponse>(Endpoint($"/api/v1/agent/conversations/{conversationId}"),
             headers: await AuthorizationHeadersAsync());
 
+    public async Task<AgentSessionListResponse> GetAgentSessionsAsync() =>
+        await http.Get<AgentSessionListResponse>(Endpoint("/api/v1/agent/sessions"),
+            headers: await AuthorizationHeadersAsync());
+
     public async Task<AiurResponse> ApproveAgentAdviceAsync(Guid conversationId, Guid adviceId) =>
         await http.Post<AiurResponse>(
             Endpoint($"/api/v1/agent/conversations/{conversationId}/advice/{adviceId}/approve"),
