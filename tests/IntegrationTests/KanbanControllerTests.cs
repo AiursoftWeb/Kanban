@@ -110,6 +110,10 @@ public class KanbanControllerTests : TestBase
         using var doc = JsonDocument.Parse(json);
         Assert.AreEqual("Setup CI", doc.RootElement.GetProperty("Title").GetString());
         Assert.AreEqual("Add GitHub Actions", doc.RootElement.GetProperty("Description").GetString());
+        var dueDate = doc.RootElement.GetProperty("DueDate").GetDateTime();
+        var plannedStartTime = doc.RootElement.GetProperty("PlannedStartTime").GetDateTime();
+        Assert.AreEqual(14, (dueDate.Date - DateTime.UtcNow.Date).Days);
+        Assert.AreEqual(4, (dueDate - plannedStartTime).Days);
     }
 
     [TestMethod]

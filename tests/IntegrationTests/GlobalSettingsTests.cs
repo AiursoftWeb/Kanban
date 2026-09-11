@@ -14,6 +14,19 @@ namespace Aiursoft.Kanban.Tests.IntegrationTests;
 public class GlobalSettingsTests : TestBase
 {
     [TestMethod]
+    public void CardSchedulingDefaultsAreEnabled()
+    {
+        var autoDueDate = SettingsMap.Definitions.Single(setting => setting.Key == SettingsMap.AutoSetDueDate);
+        var dueDateDays = SettingsMap.Definitions.Single(setting => setting.Key == SettingsMap.DueDateAdvanceDays);
+        var autoPlannedStart = SettingsMap.Definitions.Single(
+            setting => setting.Key == SettingsMap.AutoSetPlannedStartTime);
+
+        Assert.AreEqual("True", autoDueDate.DefaultValue);
+        Assert.AreEqual("14", dueDateDays.DefaultValue);
+        Assert.AreEqual("True", autoPlannedStart.DefaultValue);
+    }
+
+    [TestMethod]
     public async Task TestAllowUserAdjustNicknameSetting()
     {
         // 1. Login as admin
@@ -64,6 +77,8 @@ public class GlobalSettingsTests : TestBase
         var settingsHtml = await settingsResponse.Content.ReadAsStringAsync();
         Assert.Contains("Global Settings", settingsHtml);
         Assert.Contains(SettingsMap.AllowUserAdjustNickname, settingsHtml);
+        Assert.Contains(SettingsMap.AutoSetDueDate, settingsHtml);
+        Assert.Contains(SettingsMap.DueDateAdvanceDays, settingsHtml);
 
         // 3. Change setting via UI
         var editResponse = await PostForm("/GlobalSettings/Edit", new Dictionary<string, string>

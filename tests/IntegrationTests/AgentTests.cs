@@ -1492,6 +1492,9 @@ public class AgentTests : TestBase
         Assert.IsTrue(cards.Any(c => c.Title == "Card A"), "Card A should exist");
         Assert.IsTrue(cards.Any(c => c.Title == "Card B"), "Card B should exist");
         Assert.IsTrue(cards.Any(c => c.Title == "Card C"), "Card C should exist");
+        Assert.IsTrue(cards.All(c => c.DueDate != null), "Every card should receive the default due date");
+        Assert.IsTrue(cards.All(c => c.PlannedStartTime != null),
+            "Every card should receive the default planned start");
         CollectionAssert.AreEqual(
             new[] { 0, 1, 2 },
             cards.OrderBy(c => c.Order).Select(c => c.Order).ToArray(),
@@ -2172,6 +2175,10 @@ public class AgentTests : TestBase
         Assert.AreEqual(adminUser.Id, card.CreatorUserId);
         Assert.AreEqual(adminUser.Id, card.AssignedUserId,
             "Assignee should default to current user when not specified");
+        Assert.IsNotNull(card.DueDate, "AI-created cards should receive the default due date");
+        Assert.IsNotNull(card.PlannedStartTime, "AI-created cards should receive the default planned start");
+        Assert.AreEqual(14, (card.DueDate.Value.Date - DateTime.UtcNow.Date).Days);
+        Assert.AreEqual(4, (card.DueDate.Value - card.PlannedStartTime.Value).Days);
     }
 
     [TestMethod]
@@ -2901,12 +2908,13 @@ public class AgentTests : TestBase
 
         var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).OrderBy(c => c.Order).ToList();
         Assert.AreEqual(2, cards.Count);
-        Assert.IsNotNull(cards[0].DueDate, "Card with date should have DueDate set");
-        Assert.IsNull(cards[1].DueDate, "Card without date should have null DueDate");
+        Assert.AreEqual(new DateTime(2026, 12, 31, 0, 0, 0, DateTimeKind.Local).ToUniversalTime(),
+            cards[0].DueDate, "An explicit due date should be preserved");
+        Assert.IsNotNull(cards[1].DueDate, "Card without a date should receive the default DueDate");
     }
 
     [TestMethod]
-    public async Task BatchCreateCards_InvalidDateFormatIgnoresField()
+    public async Task BatchCreateCards_InvalidDateFormatFallsBackToDefault()
     {
         await LoginAsAdmin();
         var (_, columnId) = await CreateBoardAndFirstColumnAsync();
@@ -2924,7 +2932,7 @@ public class AgentTests : TestBase
 
         var card = db.KanbanCards.First(c => c.ColumnId == columnId);
         Assert.AreEqual("Bad date", card.Title);
-        Assert.IsNull(card.DueDate, "Invalid date string should leave DueDate as null");
+        Assert.IsNotNull(card.DueDate, "An invalid date string should fall back to the default DueDate");
     }
 
     // ── BatchAssignCards ──────────────────────────────────

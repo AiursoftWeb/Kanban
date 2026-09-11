@@ -23,6 +23,7 @@ public class KanbanController(
     StorageService storage,
     IAuthorizationService authorizationService,
     CardCopyService cardCopyService,
+    CardCreationDefaultsService cardCreationDefaults,
     IMediator mediator,
     ILogger<KanbanController> logger) : Controller
 {
@@ -379,6 +380,7 @@ public class KanbanController(
             CreatorUserId = userId,
             AssignedUserId = userId
         };
+        await cardCreationDefaults.ApplyAsync(card);
         db.KanbanCards.Add(card);
         card.Subscriptions.Add(new KanbanCardSubscription { Card = card, UserId = userId });
         await db.SaveChangesAsync();
@@ -392,6 +394,8 @@ public class KanbanController(
             card.Description,
             card.Order,
             card.ColumnId,
+            card.PlannedStartTime,
+            card.DueDate,
             CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mmK"),
             CreatorUserId = creator?.Id,
             CreatorUserName = GetUserDisplayName(creator),

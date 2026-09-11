@@ -698,6 +698,7 @@ public sealed class KanbanApiTests : TestBase
             db,
             userManager,
             services.GetRequiredService<KanbanApiAccessService>(),
+            services.GetRequiredService<CardCreationDefaultsService>(),
             services.GetRequiredService<IOptions<AppSettings>>(),
             services.GetRequiredService<IMediator>(),
             services.GetRequiredService<ILogger<KanbanApiController>>())
@@ -726,6 +727,10 @@ public sealed class KanbanApiTests : TestBase
         });
         var card = AssertProtocol<CardResponse>(createdCardResult).Card;
         Assert.AreEqual(todo.Id, card.ColumnId);
+        Assert.IsNotNull(card.DueDate);
+        Assert.IsNotNull(card.PlannedStartTime);
+        Assert.AreEqual(14, (card.DueDate.Value.Date - DateTime.UtcNow.Date).Days);
+        Assert.AreEqual(4, (card.DueDate.Value - card.PlannedStartTime.Value).Days);
 
         var movedCardResult = await controller.MoveCard(card.Id, new MoveCardRequest
         {
@@ -779,6 +784,7 @@ public sealed class KanbanApiTests : TestBase
             db,
             userManager,
             services.GetRequiredService<KanbanApiAccessService>(),
+            services.GetRequiredService<CardCreationDefaultsService>(),
             services.GetRequiredService<IOptions<AppSettings>>(),
             services.GetRequiredService<IMediator>(),
             services.GetRequiredService<ILogger<KanbanApiController>>())

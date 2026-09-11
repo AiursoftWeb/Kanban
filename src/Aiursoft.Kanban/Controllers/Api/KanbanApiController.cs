@@ -23,6 +23,7 @@ public sealed class KanbanApiController(
     TemplateDbContext db,
     UserManager<User> userManager,
     KanbanApiAccessService access,
+    CardCreationDefaultsService cardCreationDefaults,
     IOptions<AppSettings> appSettings,
     IMediator mediator,
     ILogger<KanbanApiController> logger) : ControllerBase
@@ -298,6 +299,7 @@ public sealed class KanbanApiController(
             CreatorUserId = userId,
             AssignedUserId = userId
         };
+        await cardCreationDefaults.ApplyAsync(card);
         card.Subscriptions.Add(new KanbanCardSubscription { Card = card, UserId = userId });
         db.KanbanCards.Add(card);
         await db.SaveChangesAsync();

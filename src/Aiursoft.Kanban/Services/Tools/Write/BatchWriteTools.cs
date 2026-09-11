@@ -14,6 +14,7 @@ public class BatchWriteTools(
     TemplateDbContext db,
     KanbanAccessService access,
     CurrentUserService currentUser,
+    CardCreationDefaultsService cardCreationDefaults,
     TimeProvider timeProvider) : IScopedDependency
 {
     [McpServerTool, Description("Create multiple cards at once in a column")]
@@ -90,6 +91,7 @@ public class BatchWriteTools(
             if (DateTime.TryParse(input.DueDate, out var dd))
                 card.DueDate = dd.ToUniversalTime();
 
+            await cardCreationDefaults.ApplyAsync(card);
             db.KanbanCards.Add(card);
             card.Subscriptions.AddRange(new[] { userId, resolvedAssignee }.Where(id => id != null).Distinct()
                 .Select(id => new KanbanCardSubscription { Card = card, UserId = id! }));

@@ -305,9 +305,11 @@ function mapCreatedCard(result: Record<string, unknown>): CardSummary {
     title: readString(result.Title),
     description: readOptionalString(result.Description),
     priority: 'None',
-    dueDate: undefined,
-    isOverdue: false,
-    plannedStartDate: undefined,
+    dueDate: readOptionalString(result.DueDate),
+    isOverdue: readOptionalString(result.DueDate)
+      ? isCardOverdue(readOptionalString(result.DueDate)!)
+      : false,
+    plannedStartDate: readOptionalString(result.PlannedStartTime),
     actualStartDate: undefined,
     actualEndDate: undefined,
     assignee: buildUserSummary({

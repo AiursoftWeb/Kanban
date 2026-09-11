@@ -16,6 +16,7 @@ public class CardWriteTools(
     UserManager<User> userManager,
     KanbanAccessService access,
     CurrentUserService currentUser,
+    CardCreationDefaultsService cardCreationDefaults,
     TimeProvider timeProvider) : IScopedDependency
 {
     [McpServerTool, Description("Create a new card in a column")]
@@ -57,6 +58,7 @@ public class CardWriteTools(
             CreatorUserId = userId,
             AssignedUserId = resolvedAssignee
         };
+        await cardCreationDefaults.ApplyAsync(card);
         db.KanbanCards.Add(card);
         card.Subscriptions.AddRange(new[] { userId, resolvedAssignee }.Where(id => id != null).Distinct()
             .Select(id => new KanbanCardSubscription { Card = card, UserId = id! }));

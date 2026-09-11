@@ -16,6 +16,8 @@ public class SettingsMap
     public const string AnthropicModel = "AnthropicModel";
     public const string AnthropicApiToken = "AnthropicApiToken";
     public const string AgentSystemPrompt = "AgentSystemPrompt";
+    public const string AutoSetDueDate = "AutoSetDueDate";
+    public const string DueDateAdvanceDays = "DueDateAdvanceDays";
     public const string AutoSetPlannedStartTime = "AutoSetPlannedStartTime";
     public const string PlannedStartTimeAdvanceDays = "PlannedStartTimeAdvanceDays";
     public const string EmbeddingOllamaInstance = "EmbeddingOllamaInstance";
@@ -156,11 +158,27 @@ For operations that modify data, the system will ask the user to approve before 
         },
         new GlobalSettingDefinition
         {
+            Key = AutoSetDueDate,
+            Name = Localizer["Auto Set Due Date"],
+            Description = Localizer["When enabled, new cards without a due date will automatically be due after the configured number of days."],
+            Type = SettingType.Bool,
+            DefaultValue = "True"
+        },
+        new GlobalSettingDefinition
+        {
+            Key = DueDateAdvanceDays,
+            Name = Localizer["Due Date Advance Days"],
+            Description = Localizer["When auto-setting a due date, the number of days after card creation when the card will be due."],
+            Type = SettingType.Number,
+            DefaultValue = "14"
+        },
+        new GlobalSettingDefinition
+        {
             Key = AutoSetPlannedStartTime,
             Name = Localizer["Auto Set Planned Start Time"],
             Description = Localizer["When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting."],
             Type = SettingType.Bool,
-            DefaultValue = "False"
+            DefaultValue = "True"
         },
         new GlobalSettingDefinition
         {
