@@ -2,8 +2,9 @@
 
 The Android client is a native **.NET for Android** application. It uses the shared
 `Aiursoft.Kanban.SDK`, and every Kanban request is sent through `AiurProtocolClient`.
-It supports listing boards, opening a board, creating boards and cards, and moving
-cards between columns with Android drag and drop.
+It supports the complete board and card workflow, including sharing, archiving,
+card details, copying, transferring, labels, replies, subscriptions, scheduling,
+actual-time corrections, filtering, reports, and the AI assistant.
 
 ## Use the mobile workspace
 
@@ -25,6 +26,14 @@ token. Signing out or changing servers removes the persisted session.
   specific column to preselect that destination.
 - On an editable board, hold a card or its drag handle, then drop it on another
   column. The target column highlights while it can accept the card.
+- Board cards display the same effective date range as the web client: a complete
+  actual range takes precedence, otherwise the planned range is shown.
+- Card details support editing planned and actual start/end times. Explicitly
+  corrected actual times are preserved when a card is reordered without changing status.
+- The Gantt chart supports the same title/description, priority, and assignee
+  filters as the board, and exports the filtered chart as a PNG.
+- The AI assistant can reopen persisted conversation history after an app or
+  server restart.
 - Read-only shares hide all creation and drag controls. The API independently
   enforces the same effective board permission for every write.
 - Server information and sign-out live in the drawer rather than occupying the
