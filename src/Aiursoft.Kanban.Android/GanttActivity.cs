@@ -11,10 +11,12 @@ using Aiursoft.Kanban.Android.Oidc;
 using Aiursoft.Kanban.SDK;
 using Aiursoft.Kanban.SDK.Models;
 using Google.Android.Material.AppBar;
+using Google.Android.Material.BottomSheet;
 using Google.Android.Material.Button;
 using Google.Android.Material.Card;
 using Google.Android.Material.ProgressIndicator;
 using Google.Android.Material.Snackbar;
+using Google.Android.Material.TextField;
 using Color = Android.Graphics.Color;
 
 namespace Aiursoft.Kanban.Android;
@@ -29,6 +31,7 @@ public sealed class GanttActivity : AppCompatActivity
     private MaterialButton _defaultMode = null!;
     private MaterialButton _plannedMode = null!;
     private MaterialButton _actualMode = null!;
+    private MaterialButton _filter = null!;
     private MaterialButton _export = null!;
     private TextView _summary = null!;
     private HorizontalScrollView _horizontal = null!;
@@ -40,6 +43,9 @@ public sealed class GanttActivity : AppCompatActivity
     private NativeGanttView? _chart;
     private int _boardId;
     private GanttMode _mode = GanttMode.Default;
+    private string _query = string.Empty;
+    private readonly HashSet<string> _priorities = [];
+    private readonly HashSet<string> _assigneeIds = [];
     private bool _loaded;
     private bool _busy;
 
@@ -88,6 +94,7 @@ public sealed class GanttActivity : AppCompatActivity
         _defaultMode = FindViewById<MaterialButton>(Resource.Id.gantt_default_button)!;
         _plannedMode = FindViewById<MaterialButton>(Resource.Id.gantt_planned_button)!;
         _actualMode = FindViewById<MaterialButton>(Resource.Id.gantt_actual_button)!;
+        _filter = FindViewById<MaterialButton>(Resource.Id.gantt_filter_button)!;
         _export = FindViewById<MaterialButton>(Resource.Id.gantt_export_button)!;
         _summary = FindViewById<TextView>(Resource.Id.gantt_summary)!;
         _horizontal = FindViewById<HorizontalScrollView>(Resource.Id.gantt_horizontal_scroll)!;
@@ -111,6 +118,7 @@ public sealed class GanttActivity : AppCompatActivity
         _defaultMode.Click += (_, _) => SetMode(GanttMode.Default);
         _plannedMode.Click += (_, _) => SetMode(GanttMode.Planned);
         _actualMode.Click += (_, _) => SetMode(GanttMode.Actual);
+        _filter.Click += (_, _) => ShowFilterSheet();
         _export.Click += async (_, _) => await ExportAsync();
     }
 
@@ -159,9 +167,10 @@ public sealed class GanttActivity : AppCompatActivity
         StyleModeButton(_plannedMode, _mode == GanttMode.Planned);
         StyleModeButton(_actualMode, _mode == GanttMode.Actual);
 
+        var filteredCards = FilterCards(model.Cards);
         var bars = new List<GanttBar>();
         var missing = new List<(TaskCardDto Card, string Reason)>();
-        foreach (var card in model.Cards)
+        foreach (var card in filteredCards)
         {
             var dates = ResolveDates(card, _mode);
             if (dates.HasValue)
@@ -181,8 +190,10 @@ public sealed class GanttActivity : AppCompatActivity
         {
             _horizontal.Visibility = ViewStates.Gone;
             _export.Enabled = false;
-            _summary.Text = model.Cards.Count == 0
-                ? "This board has no cards."
+            _summary.Text = filteredCards.Count == 0
+                ? HasActiveFilters()
+                    ? "No cards match the current filters."
+                    : "This board has no cards."
                 : "No cards have complete dates in this mode.";
         }
         else
@@ -196,6 +207,9 @@ public sealed class GanttActivity : AppCompatActivity
             _chartHost.AddView(chart, new FrameLayout.LayoutParams(chart.ChartWidth, chart.ChartHeight));
             _horizontal.Post(() => ScrollChartToToday(chart));
         }
+        _filter.Text = HasActiveFilters()
+            ? $"Filter ({_priorities.Count + _assigneeIds.Count + (string.IsNullOrWhiteSpace(_query) ? 0 : 1)})"
+            : "Filter";
 
         _missing.RemoveAllViews();
         _missingHeading.Visibility = missing.Count == 0 ? ViewStates.Gone : ViewStates.Visible;
@@ -233,6 +247,136 @@ public sealed class GanttActivity : AppCompatActivity
         shell.Click += (_, _) => OpenCard(card.Id);
         return shell;
     }
+
+    private void ShowFilterSheet()
+    {
+        var model = _model;
+        if (model == null)
+        {
+            return;
+        }
+
+        var dialog = new BottomSheetDialog(this);
+        var content = new LinearLayout(this)
+        {
+            Orientation = global::Android.Widget.Orientation.Vertical
+        };
+        content.SetPadding(Dp(24), Dp(18), Dp(24), Dp(24));
+        content.AddView(Text("Filter Gantt cards", 24, Resource.Color.text_primary, true));
+        content.AddView(Text(
+            "Use the same title, description, priority, and assignee filters as the board.",
+            14,
+            Resource.Color.text_secondary));
+
+        var searchBox = new TextInputLayout(this)
+        {
+            Hint = "Title or description",
+            BoxBackgroundMode = TextInputLayout.BoxBackgroundOutline
+        };
+        var search = new TextInputEditText(this) { Text = _query };
+        search.SetSingleLine(true);
+        searchBox.AddView(search);
+        var searchLayout = new LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MatchParent,
+            ViewGroup.LayoutParams.WrapContent);
+        searchLayout.SetMargins(0, Dp(16), 0, Dp(10));
+        content.AddView(searchBox, searchLayout);
+
+        content.AddView(Text("PRIORITY", 12, Resource.Color.text_secondary, true));
+        var priorityChecks = new Dictionary<string, CheckBox>();
+        foreach (var priority in new[] { "Urgent", "High", "Medium", "Low", "None" })
+        {
+            var check = new CheckBox(this)
+            {
+                Text = priority,
+                Checked = _priorities.Contains(priority)
+            };
+            check.SetTextColor(ColorOf(Resource.Color.text_primary));
+            content.AddView(check, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                Dp(44)));
+            priorityChecks[priority] = check;
+        }
+
+        var assigneeChecks = new Dictionary<string, CheckBox>();
+        var assignees = model.Cards
+            .Select(card => card.AssignedUser)
+            .OfType<CardUserDto>()
+            .GroupBy(user => user.Id)
+            .Select(group => group.First())
+            .OrderBy(user => user.DisplayName)
+            .ToList();
+        if (assignees.Count > 0)
+        {
+            content.AddView(Text("ASSIGNEE", 12, Resource.Color.text_secondary, true));
+            foreach (var assignee in assignees)
+            {
+                var check = new CheckBox(this)
+                {
+                    Text = assignee.DisplayName,
+                    Checked = _assigneeIds.Contains(assignee.Id)
+                };
+                check.SetTextColor(ColorOf(Resource.Color.text_primary));
+                content.AddView(check, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MatchParent,
+                    Dp(44)));
+                assigneeChecks[assignee.Id] = check;
+            }
+        }
+
+        var actions = new LinearLayout(this)
+        {
+            Orientation = global::Android.Widget.Orientation.Horizontal
+        };
+        var clear = new MaterialButton(this, null, global::Android.Resource.Attribute.BorderlessButtonStyle)
+        {
+            Text = "Clear",
+            CornerRadius = Dp(14)
+        };
+        clear.SetAllCaps(false);
+        var apply = new MaterialButton(this) { Text = "Apply", CornerRadius = Dp(14) };
+        apply.SetAllCaps(false);
+        actions.AddView(clear, new LinearLayout.LayoutParams(0, Dp(52), 1));
+        var applyLayout = new LinearLayout.LayoutParams(0, Dp(52), 1);
+        applyLayout.SetMargins(Dp(10), 0, 0, 0);
+        actions.AddView(apply, applyLayout);
+        content.AddView(actions);
+
+        clear.Click += (_, _) =>
+        {
+            _query = string.Empty;
+            _priorities.Clear();
+            _assigneeIds.Clear();
+            dialog.Dismiss();
+            Render();
+        };
+        apply.Click += (_, _) =>
+        {
+            _query = search.Text?.Trim() ?? string.Empty;
+            _priorities.Clear();
+            _priorities.UnionWith(priorityChecks.Where(item => item.Value.Checked).Select(item => item.Key));
+            _assigneeIds.Clear();
+            _assigneeIds.UnionWith(assigneeChecks.Where(item => item.Value.Checked).Select(item => item.Key));
+            dialog.Dismiss();
+            Render();
+        };
+        var scroll = new ScrollView(this);
+        scroll.AddView(content);
+        dialog.SetContentView(scroll);
+        dialog.Show();
+    }
+
+    private List<TaskCardDto> FilterCards(IEnumerable<TaskCardDto> cards) => cards
+        .Where(card => string.IsNullOrWhiteSpace(_query) ||
+            card.Title.Contains(_query, StringComparison.OrdinalIgnoreCase) ||
+            (card.Description?.Contains(_query, StringComparison.OrdinalIgnoreCase) ?? false))
+        .Where(card => _priorities.Count == 0 || _priorities.Contains(card.Priority))
+        .Where(card => _assigneeIds.Count == 0 ||
+            card.AssignedUser != null && _assigneeIds.Contains(card.AssignedUser.Id))
+        .ToList();
+
+    private bool HasActiveFilters() =>
+        !string.IsNullOrWhiteSpace(_query) || _priorities.Count > 0 || _assigneeIds.Count > 0;
 
     private void StyleModeButton(MaterialButton button, bool selected)
     {
@@ -413,6 +557,7 @@ public sealed class GanttActivity : AppCompatActivity
         _defaultMode.Enabled = !busy;
         _plannedMode.Enabled = !busy;
         _actualMode.Enabled = !busy;
+        _filter.Enabled = !busy && _model != null;
         _export.Enabled = !busy && _chart != null;
     }
 
