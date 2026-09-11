@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Фактичний</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Виконавець</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Виконавець:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Картки без дат</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Очистити</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Очистити всі фільтри</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Колонка:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Режим відображення Гантта</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>Високий</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>Виконується</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Низький</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Середній</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Відсутня фактична кінцева дата</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>У цьому режимі немає карток із повними датами для експорту.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Жодна картка не відповідає поточним фільтрам.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Немає</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Не розпочато</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Заплановано</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Пріоритет</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Пріоритет:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Тільки читання</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Шукати за назвою або описом...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Статус:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Час:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Шукати за назвою або описом...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Пріоритет</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Терміново</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>Високий</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Середній</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Низький</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Немає</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Виконавець</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Очистити всі фільтри</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Очистити</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>Жодна картка не відповідає поточним фільтрам.</value>
-  </data>
+
 </root>

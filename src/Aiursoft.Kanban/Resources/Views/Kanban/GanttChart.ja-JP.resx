@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>実績</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>担当者</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>担当者：</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>日付のないカード</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>クリア</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>すべてのフィルターをクリア</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>列:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>ガント表示モード</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>高</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>進行中</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>中</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>実際の終了日が見つかりません</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>このモードでは、エクスポート可能な日付が完全に設定されているカードがありません。</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>現在のフィルタに一致するカードがありません。</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>なし</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>未着手</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>計画中</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>優先度</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>優先度：</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>読み取り専用</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>タイトルまたは説明を検索...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>ステータス：</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>時間:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>タイトルまたは説明を検索...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>優先度</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>緊急</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>高</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>中</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>低</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>なし</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>担当者</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>すべてのフィルターをクリア</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>クリア</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>現在のフィルタに一致するカードがありません。</value>
-  </data>
+
 </root>

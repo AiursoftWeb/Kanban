@@ -24,6 +24,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Ενέργειες</value>
   </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Πραγματικές</value>
+  </data>
   <data name="Actual End" xml:space="preserve">
     <value>Πραγματικό Τέλος</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Επεξεργασία Πίνακα</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Λήξη</value>
   </data>
   <data name="Every" xml:space="preserve">
     <value>Κάθε</value>
@@ -387,6 +393,9 @@
   <data name="Overdue" xml:space="preserve">
     <value>Εκτός προθεσμίας</value>
   </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Προγραμματισμένο</value>
+  </data>
   <data name="Planned Start" xml:space="preserve">
     <value>Προγραμματισμένη Έναρξη</value>
   </data>
@@ -465,6 +474,9 @@
   <data name="Share" xml:space="preserve">
     <value>Κοινοποίηση</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Πίνακας προορισμού</value>
   </data>
@@ -535,16 +547,4 @@
     <value>Μπορείτε να σύρετε εικόνες εδώ ή να τις επικολλήσετε από το πρόχειρο.</value>
   </data>
 
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="End" xml:space="preserve">
-    <value>Λήξη</value>
-  </data>
-  <data name="Actual" xml:space="preserve">
-    <value>Πραγματικές</value>
-  </data>
-  <data name="Planned" xml:space="preserve">
-    <value>Προγραμματισμένο</value>
-  </data>
 </root>

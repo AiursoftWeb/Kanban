@@ -24,6 +24,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Åtgärder</value>
   </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Aktuell</value>
+  </data>
   <data name="Actual End" xml:space="preserve">
     <value>Faktiskt slut</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Redigera board</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Slut</value>
   </data>
   <data name="Every" xml:space="preserve">
     <value>Varje</value>
@@ -387,6 +393,9 @@
   <data name="Overdue" xml:space="preserve">
     <value>Överfördrad</value>
   </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planerad</value>
+  </data>
   <data name="Planned Start" xml:space="preserve">
     <value>Planerad start</value>
   </data>
@@ -465,6 +474,9 @@
   <data name="Share" xml:space="preserve">
     <value>Dela</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Måltavla</value>
   </data>
@@ -535,16 +547,4 @@
     <value>Du kan dra bilder hit eller klistra in från urklipp.</value>
   </data>
 
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="End" xml:space="preserve">
-    <value>Slut</value>
-  </data>
-  <data name="Actual" xml:space="preserve">
-    <value>Aktuell</value>
-  </data>
-  <data name="Planned" xml:space="preserve">
-    <value>Planerad</value>
-  </data>
 </root>

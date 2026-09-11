@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Gerçek</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Atanan</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Atanan Kişi:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Tarih bilgisi olmayan kartlar</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Temizle</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Tüm filtreleri temizle</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Sütun:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Gantt görünüm modu</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>Yüksek</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>Devam Ediyor</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Düşük</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Orta</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Gerçek bitiş tarihi eksik</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>Bu modda dışa aktarmak için tam tarihlerine sahip kart yok.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Mevcut filtrelerle eşleşen kart yok.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Yok</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Başlamadı</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Planlanan</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Öncelik</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Öncelik:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Salt okunur</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Başlık veya açıklamayı ara...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Durum:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Zaman:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Başlık veya açıklamayı ara...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Öncelik</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Acil</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>Yüksek</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Orta</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Düşük</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Yok</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Atanan</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Tüm filtreleri temizle</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Temizle</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>Mevcut filtrelerle eşleşen kart yok.</value>
-  </data>
+
 </root>

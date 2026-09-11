@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Thực tế</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Người phụ trách</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Người được chỉ định:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Thẻ không có ngày</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Xóa tất cả bộ lọc</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Cột:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Chế độ hiển thị Gantt</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>Cao</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>Đang tiến hành</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Thấp</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Trung bình</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Thiếu ngày kết thúc thực tế</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>Không có thẻ nào có đầy đủ ngày để xuất trong chế độ này.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Không có thẻ nào khớp với bộ lọc hiện tại.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Không có</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Chưa bắt đầu</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Đã lập kế hoạch</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Ưu tiên</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Độ ưu tiên:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Chỉ đọc</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Tìm kiếm tiêu đề hoặc mô tả...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Trạng thái:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Thời gian:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Tìm kiếm tiêu đề hoặc mô tả...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Ưu tiên</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Khẩn cấp</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>Cao</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Trung bình</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Thấp</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Không có</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Người phụ trách</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Xóa tất cả bộ lọc</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Xóa</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>Không có thẻ nào khớp với bộ lọc hiện tại.</value>
-  </data>
+
 </root>

@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Aktuell</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Uppdragsansvarig</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Ansvarig:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Kort utan datum</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Rensa</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Rensa alla filter</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Kolumn:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Ganttvisningsläge</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>Hög</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>Pågår</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Låg</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medium</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Saknar faktiskt slutdatum</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>Inget kort har kompletta datum att exportera i det här läget.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Inga kort matchar de aktuella filtren.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Ej påbörjad</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Planerad</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Prioritet:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Endast-läsning</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Sök titel eller beskrivning...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Status:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Tid:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Sök titel eller beskrivning...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Prioritet</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Brådskande</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>Hög</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Medium</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Låg</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Ingen</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Uppdragsansvarig</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Rensa alla filter</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Rensa</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>Inga kort matchar de aktuella filtren.</value>
-  </data>
+
 </root>

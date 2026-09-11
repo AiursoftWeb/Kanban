@@ -24,6 +24,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Acțiuni</value>
   </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Real</value>
+  </data>
   <data name="Actual End" xml:space="preserve">
     <value>Sfârșit efectiv</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Modificare tablou</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Sfârșit</value>
   </data>
   <data name="Every" xml:space="preserve">
     <value>Fiecare</value>
@@ -387,6 +393,9 @@
   <data name="Overdue" xml:space="preserve">
     <value>În întârziere</value>
   </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planificat</value>
+  </data>
   <data name="Planned Start" xml:space="preserve">
     <value>Data început planificată</value>
   </data>
@@ -465,6 +474,9 @@
   <data name="Share" xml:space="preserve">
     <value>Distribuire</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Panou țintă</value>
   </data>
@@ -535,16 +547,4 @@
     <value>Aici puteți trage imagini sau le puteți lipi din clipboard.</value>
   </data>
 
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="End" xml:space="preserve">
-    <value>Sfârșit</value>
-  </data>
-  <data name="Actual" xml:space="preserve">
-    <value>Real</value>
-  </data>
-  <data name="Planned" xml:space="preserve">
-    <value>Planificat</value>
-  </data>
 </root>

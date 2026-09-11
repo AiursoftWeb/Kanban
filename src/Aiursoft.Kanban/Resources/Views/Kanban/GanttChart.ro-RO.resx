@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Real</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Atribuit</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Atribuitor:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Card fără date</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Ștergeți</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Șterge toate filtrele</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Coloană:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Mod de afișare Gantt</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>Înaltă</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>În desfășurare</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Scăzută</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Mediu</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Lipsa datei de sfârșit efectivă</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>Niciun card nu are date complete pentru export în acest mod.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nicio card nu corespunde filtrelor actuale.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Niciunul</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Necompletat</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Planificat</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritate</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Prioritate:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Numai citire</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Caută titlul sau descrierea...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Stare:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Timp:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Caută titlul sau descrierea...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Prioritate</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Urgent</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>Înaltă</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Mediu</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Scăzută</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Niciunul</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Atribuit</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Șterge toate filtrele</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Ștergeți</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>Nicio card nu corespunde filtrelor actuale.</value>
-  </data>
+
 </root>

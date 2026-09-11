@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Πραγματικές</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Δικαιούχος</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Υπεύθυνος:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Κάρτες χωρίς ημερομηνίες</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Εκκαθάριση</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Εκκαθάριση όλων των φίλτρων</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Στήλη:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Τρόπος εμφάνισης Gantt</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>Υψηλή</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>Εκτελείται</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Χαμηλή</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Μέτρια</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Λείπει η πραγματική ημερομηνία λήξης</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>Δεν υπάρχουν κάρτες με πλήρη ημερομηνίες για εξαγωγή σε αυτή τη λειτουργία.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Κανένα κάρτα δεν ταιριάζει με τα τρέχοντα φίλτρα.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Καμία</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Αρχικά</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Προγραμματισμένο</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Προτεραιότητα</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Προτεραιότητα:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Μόνο για ανάγνωση</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Αναζήτηση τίτλου ή περιγραφής...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Κατάσταση:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Χρόνος:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Αναζήτηση τίτλου ή περιγραφής...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Προτεραιότητα</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Επείγον</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>Υψηλή</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Μέτρια</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Χαμηλή</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Καμία</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Δικαιούχος</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Εκκαθάριση όλων των φίλτρων</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Εκκαθάριση</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>Κανένα κάρτα δεν ταιριάζει με τα τρέχοντα φίλτρα.</value>
-  </data>
+
 </root>

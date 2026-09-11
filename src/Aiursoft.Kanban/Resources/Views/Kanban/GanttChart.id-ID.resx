@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Aktual</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Penugasan</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Penanggung Jawab:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Kartu tanpa tanggal</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Bersihkan</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Hapus semua filter</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Kolom:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Mode tampilan Gantt</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>Tinggi</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>Sedang Berjalan</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Rendah</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Sedang</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Tanggal akhir aktual hilang</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>Tidak ada kartu dengan tanggal lengkap untuk diekspor dalam mode ini.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Tidak ada kartu yang sesuai dengan filter saat ini.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Tidak ada</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Belum Dimulai</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Terencana</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritas</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Prioritas:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Hanya baca</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Cari judul atau deskripsi...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Status:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Waktu:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Cari judul atau deskripsi...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Prioritas</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Mendesak</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>Tinggi</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Sedang</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Rendah</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Tidak ada</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Penugasan</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Hapus semua filter</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Bersihkan</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>Tidak ada kartu yang sesuai dengan filter saat ini.</value>
-  </data>
+
 </root>

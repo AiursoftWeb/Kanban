@@ -24,6 +24,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Handlinger</value>
   </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Faktisk</value>
+  </data>
   <data name="Actual End" xml:space="preserve">
     <value>Faktisk slut</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Rediger tavle</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Slut</value>
   </data>
   <data name="Every" xml:space="preserve">
     <value>Hver</value>
@@ -387,6 +393,9 @@
   <data name="Overdue" xml:space="preserve">
     <value>Forfaldet</value>
   </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planlagt</value>
+  </data>
   <data name="Planned Start" xml:space="preserve">
     <value>Planeret start</value>
   </data>
@@ -465,6 +474,9 @@
   <data name="Share" xml:space="preserve">
     <value>Del</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Målbræt</value>
   </data>
@@ -535,16 +547,4 @@
     <value>Du kan trække billeder her eller indsætte fra udklipsholderen.</value>
   </data>
 
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="End" xml:space="preserve">
-    <value>Slut</value>
-  </data>
-  <data name="Actual" xml:space="preserve">
-    <value>Faktisk</value>
-  </data>
-  <data name="Planned" xml:space="preserve">
-    <value>Planlagt</value>
-  </data>
 </root>

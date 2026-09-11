@@ -24,6 +24,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Tindakan</value>
   </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Aktual</value>
+  </data>
   <data name="Actual End" xml:space="preserve">
     <value>Tanggal Selesai Aktual</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Sunting Papan</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Selesai</value>
   </data>
   <data name="Every" xml:space="preserve">
     <value>Setiap</value>
@@ -387,6 +393,9 @@
   <data name="Overdue" xml:space="preserve">
     <value>Terlambat</value>
   </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Terencana</value>
+  </data>
   <data name="Planned Start" xml:space="preserve">
     <value>Tanggal Mulai Rencana</value>
   </data>
@@ -465,6 +474,9 @@
   <data name="Share" xml:space="preserve">
     <value>Bagikan</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Papan Sasaran</value>
   </data>
@@ -535,16 +547,4 @@
     <value>Anda dapat seret gambar ke sini atau tempel dari clipboard.</value>
   </data>
 
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="End" xml:space="preserve">
-    <value>Selesai</value>
-  </data>
-  <data name="Actual" xml:space="preserve">
-    <value>Aktual</value>
-  </data>
-  <data name="Planned" xml:space="preserve">
-    <value>Terencana</value>
-  </data>
 </root>

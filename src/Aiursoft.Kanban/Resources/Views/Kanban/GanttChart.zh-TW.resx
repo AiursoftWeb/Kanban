@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>實際</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>指派對象</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>指派給：</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>無日期卡片</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>清除所有篩選條件</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>欄位：</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>甘特圖顯示模式</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>高</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>進行中</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>中</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>缺少實際結束日期</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>在此模式下，沒有卡片具備完整的日期可供匯出。</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>沒有卡牌符合目前的篩選條件。</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>無</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>未開始</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>預計</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>優先級</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>優先級：</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>唯讀</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>搜尋標題或說明...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>狀態：</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>時間：</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>搜尋標題或說明...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>優先級</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>緊急</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>高</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>中</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>低</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>無</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>指派對象</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>清除所有篩選條件</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>清除</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>沒有卡牌符合目前的篩選條件。</value>
-  </data>
+
 </root>
