@@ -10,6 +10,7 @@ using Aiursoft.Kanban.Services.Agent.Subagent;
 using Aiursoft.Kanban.Services.Tools.Read;
 using Aiursoft.Kanban.Services.Tools.Write;
 using Aiursoft.WebTools.Abstractions;
+using Microsoft.EntityFrameworkCore;
 using ModelContextProtocol.Server;
 using static Aiursoft.WebTools.Extends;
 
@@ -817,6 +818,128 @@ public class AgentTests : TestBase
         var adminUser = await userManager.FindByEmailAsync(adminEmail);
         Assert.AreEqual(adminUser!.Id, conversation.UserId,
             "Conversation should belong to the admin user");
+    }
+
+    // ── Durable session history ─────────────────────────────
+
+    [TestMethod]
+    public async Task AgentSessionHistoryService_PersistsTitleTranscriptAndUpdates()
+    {
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var adminId = await GetUserIdAsync("admin@default.com");
+        var conversation = new AgentConversation
+        {
+            UserId = adminId,
+            BoardId = boardId,
+            State = AgentState.Completed,
+            LastActivity = new DateTime(2026, 9, 10, 8, 0, 0, DateTimeKind.Utc),
+            Messages =
+            [
+                new ToolMessagesItem { Role = "system", Content = "hidden" },
+                new ToolMessagesItem { Role = "user", Content = "  Show   my\n current cards  " },
+                new ToolMessagesItem { Role = "assistant", Content = "Here they are." }
+            ]
+        };
+
+        await SaveSessionAsync(conversation);
+        var loaded = await LoadSessionAsync(conversation.Id, adminId);
+        Assert.IsNotNull(loaded);
+        Assert.AreEqual(boardId, loaded.BoardId);
+        Assert.AreEqual(AgentState.Completed, loaded.State);
+        Assert.AreEqual(3, loaded.Messages.Count);
+
+        using var verifyScope = Server!.Services.CreateScope();
+        var stored = await verifyScope.ServiceProvider.GetRequiredService<TemplateDbContext>()
+            .AgentSessions.SingleAsync(session => session.Id == conversation.Id);
+        Assert.AreEqual("Show my current cards", stored.Title);
+        var creationTime = stored.CreationTime;
+
+        conversation.State = AgentState.Error;
+        conversation.ErrorMessage = "Model unavailable";
+        conversation.LastActivity = conversation.LastActivity.AddMinutes(1);
+        conversation.Messages.Add(new ToolMessagesItem { Role = "assistant", Content = "Please retry." });
+        await SaveSessionAsync(conversation);
+
+        using var updatedScope = Server.Services.CreateScope();
+        var updated = await updatedScope.ServiceProvider.GetRequiredService<TemplateDbContext>()
+            .AgentSessions.SingleAsync(session => session.Id == conversation.Id);
+        Assert.AreEqual("Show my current cards", updated.Title);
+        Assert.AreEqual(creationTime, updated.CreationTime);
+        Assert.AreEqual("Error", updated.State);
+        Assert.AreEqual("Model unavailable", updated.ErrorMessage);
+    }
+
+    [TestMethod]
+    public async Task AgentSessionHistoryService_ListsOwnersSessionsAndHidesOthers()
+    {
+        await LoginAsAdmin();
+        var adminId = await GetUserIdAsync("admin@default.com");
+        var (otherEmail, _) = await RegisterAndLoginAsync();
+        var otherId = await GetUserIdAsync(otherEmail);
+        await LogoutAsync();
+        await LoginAsAdmin();
+
+        var older = CreateCompletedConversation(adminId, "Older", DateTime.UtcNow.AddMinutes(-2));
+        var newer = CreateCompletedConversation(adminId, "Newer", DateTime.UtcNow.AddMinutes(-1));
+        var privateSession = CreateCompletedConversation(otherId, "Private", DateTime.UtcNow);
+        await SaveSessionAsync(older);
+        await SaveSessionAsync(newer);
+        await SaveSessionAsync(privateSession);
+
+        using var scope = Server!.Services.CreateScope();
+        var history = scope.ServiceProvider.GetRequiredService<AgentSessionHistoryService>();
+        var sessions = await history.ListAsync(adminId);
+        var seededSessions = sessions.Where(item => item.Id == newer.Id || item.Id == older.Id).ToList();
+        CollectionAssert.AreEqual(new[] { newer.Id, older.Id }, seededSessions.Select(item => item.Id).ToArray());
+        Assert.IsNull(await history.LoadAsync(privateSession.Id, adminId));
+    }
+
+    [TestMethod]
+    public async Task AgentSessionHistoryService_InterruptedSessionLoadsAsError()
+    {
+        await LoginAsAdmin();
+        var adminId = await GetUserIdAsync("admin@default.com");
+        var conversation = new AgentConversation
+        {
+            UserId = adminId,
+            State = AgentState.AwaitingApproval,
+            Messages = [new ToolMessagesItem { Role = "user", Content = "Create a card" }]
+        };
+        await SaveSessionAsync(conversation);
+
+        var loaded = await LoadSessionAsync(conversation.Id, adminId);
+        Assert.IsNotNull(loaded);
+        Assert.AreEqual(AgentState.Error, loaded.State);
+        Assert.AreEqual("Conversation was interrupted by a server restart.", loaded.ErrorMessage);
+        Assert.AreEqual("Create a card", loaded.Messages.Single().Content);
+    }
+
+    [TestMethod]
+    public async Task AgentController_SessionsAndStatusLoadPersistedConversation()
+    {
+        await LoginAsAdmin();
+        var adminId = await GetUserIdAsync("admin@default.com");
+        var conversation = CreateCompletedConversation(adminId, "Persisted browser session", DateTime.UtcNow);
+        conversation.Messages.Add(new ToolMessagesItem { Role = "assistant", Content = "Persisted answer" });
+        await SaveSessionAsync(conversation);
+
+        var sessions = await Http.GetAsync("/Agent/Sessions");
+        var sessionBody = await sessions.Content.ReadAsStringAsync();
+        Assert.AreEqual(HttpStatusCode.OK, sessions.StatusCode);
+        StringAssert.Contains(sessionBody, "Persisted browser session");
+
+        var status = await Http.GetAsync($"/Agent/Status?conversationId={conversation.Id}");
+        var statusBody = await status.Content.ReadAsStringAsync();
+        Assert.AreEqual(HttpStatusCode.OK, status.StatusCode);
+        StringAssert.Contains(statusBody, "Persisted answer");
+    }
+
+    [TestMethod]
+    public async Task AgentController_Sessions_RequiresAuth()
+    {
+        var response = await Http.GetAsync("/Agent/Sessions");
+        Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
     }
 
     // ── KanbanAccessService ─────────────────────────────────
@@ -2943,6 +3066,36 @@ public class AgentTests : TestBase
     }
 
     // ── Helpers ─────────────────────────────────────────────
+
+    private async Task SaveSessionAsync(AgentConversation conversation)
+    {
+        using var scope = Server!.Services.CreateScope();
+        await scope.ServiceProvider.GetRequiredService<AgentSessionHistoryService>().SaveAsync(conversation);
+    }
+
+    private async Task<AgentConversation?> LoadSessionAsync(Guid conversationId, string userId)
+    {
+        using var scope = Server!.Services.CreateScope();
+        return await scope.ServiceProvider.GetRequiredService<AgentSessionHistoryService>()
+            .LoadAsync(conversationId, userId);
+    }
+
+    private async Task<string> GetUserIdAsync(string email)
+    {
+        using var scope = Server!.Services.CreateScope();
+        return await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Users
+            .Where(user => user.Email == email)
+            .Select(user => user.Id)
+            .SingleAsync();
+    }
+
+    private static AgentConversation CreateCompletedConversation(string userId, string question, DateTime lastActivity) => new()
+    {
+        UserId = userId,
+        State = AgentState.Completed,
+        LastActivity = lastActivity,
+        Messages = [new ToolMessagesItem { Role = "user", Content = question }]
+    };
 
     private async Task<(int boardId, int firstColumnId)> CreateBoardAndFirstColumnAsync()
     {

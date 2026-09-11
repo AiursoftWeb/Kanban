@@ -31,7 +31,6 @@
         var sendBtn = document.getElementById('agent-send-btn');
         var input = document.getElementById('agent-input');
         var header = widget.querySelector('.agent-chat-header');
-        var newChatBtn = document.getElementById('agent-new-chat-btn');
 
         header.addEventListener('click', function() {
             widget.classList.toggle('collapsed');
@@ -45,9 +44,6 @@
             }
         });
 
-        if (newChatBtn) {
-            newChatBtn.addEventListener('click', function() { resetConversation(); });
-        }
         setupHistory();
         loadSessions();
 
