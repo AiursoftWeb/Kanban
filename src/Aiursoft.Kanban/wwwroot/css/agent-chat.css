@@ -22,6 +22,76 @@
     min-height: 0;
 }
 
+.agent-workspace {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 16px;
+}
+
+.agent-history {
+    width: 260px;
+    flex: 0 0 260px;
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--bs-body-bg, #fff);
+}
+
+.agent-history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+.agent-new-session {
+    text-align: left;
+}
+
+.agent-session-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+}
+
+.agent-session-item {
+    border: 0;
+    border-radius: 8px;
+    padding: 9px 10px;
+    text-align: left;
+    background: transparent;
+    color: var(--bs-body-color, #212529);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.agent-session-item:hover,
+.agent-session-item.active {
+    background: var(--bs-primary-bg-subtle, #e7f5ff);
+}
+
+.agent-history-expand {
+    align-self: flex-start;
+}
+
+.agent-workspace > .agent-chat-widget {
+    flex: 1;
+}
+
+.agent-workspace.history-collapsed .agent-history {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .agent-workspace { gap: 8px; }
+    .agent-history { width: min(260px, 75vw); flex-basis: min(260px, 75vw); }
+}
+
 /* Override floating-widget styles for the standalone page */
 .agent-chat-page .agent-chat-widget {
     position: relative;

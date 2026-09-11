@@ -10,7 +10,10 @@ public interface IAgentService
         AgentExecutionOptions options,
         CancellationToken cancellationToken = default);
     Guid? ContinueRun(Guid conversationId, string userId, string userMessage, string? excelMarkdown = null);
+    Task<Guid?> ContinueRunAsync(Guid conversationId, string userId, string userMessage, string? excelMarkdown = null);
     AgentConversation? GetConversation(Guid conversationId);
+    Task<AgentConversation?> GetConversationAsync(Guid conversationId, string userId);
+    Task<List<AgentSessionSummary>> ListSessionsAsync(string userId);
     void ApproveAdvice(Guid conversationId, Guid adviceId);
     void RejectAdvice(Guid conversationId, Guid adviceId);
     void ApproveAll(Guid conversationId);

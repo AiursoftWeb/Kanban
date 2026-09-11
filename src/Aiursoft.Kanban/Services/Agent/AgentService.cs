@@ -71,6 +71,7 @@ public class AgentService : IAgentService
 
         var conversation = await CreateConversation(userId, boardId, userMessage, excelMarkdown);
         _conversations[conversation.Id] = conversation;
+        await PersistAsync(conversation);
 
         _taskQueue.QueueWithDependency<IServiceProvider>(
             queueName: "KanbanAgent",
@@ -216,6 +217,23 @@ public class AgentService : IAgentService
     {
         if (!_conversations.TryGetValue(conversationId, out var conversation))
             return null;
+        return ContinueRunCore(conversation, userId, userMessage, excelMarkdown);
+    }
+
+    public async Task<Guid?> ContinueRunAsync(Guid conversationId, string userId, string userMessage, string? excelMarkdown = null)
+    {
+        if (!_conversations.TryGetValue(conversationId, out var conversation))
+        {
+            conversation = await LoadConversationAsync(conversationId, userId);
+            if (conversation == null || conversation.State is AgentState.Thinking or AgentState.AwaitingApproval)
+                return null;
+            _conversations[conversationId] = conversation;
+        }
+        return ContinueRunCore(conversation, userId, userMessage, excelMarkdown);
+    }
+
+    private Guid? ContinueRunCore(AgentConversation conversation, string userId, string userMessage, string? excelMarkdown)
+    {
 
         if (conversation.UserId != userId)
             return null;
@@ -294,6 +312,7 @@ public class AgentService : IAgentService
         conversation.State = AgentState.Thinking;
         conversation.LastActivity = _timeProvider.GetUtcNow().UtcDateTime;
         conversation.LoopCount = 0; // Reset loop counter for the new turn
+        _ = PersistAsync(conversation);
 
         _taskQueue.QueueWithDependency<IServiceProvider>(
             queueName: "KanbanAgent",
@@ -307,6 +326,32 @@ public class AgentService : IAgentService
     {
         _conversations.TryGetValue(conversationId, out var conversation);
         return conversation;
+    }
+
+    public async Task<AgentConversation?> GetConversationAsync(Guid conversationId, string userId)
+    {
+        if (_conversations.TryGetValue(conversationId, out var conversation))
+            return conversation.UserId == userId ? conversation : null;
+
+        return await LoadConversationAsync(conversationId, userId);
+    }
+
+    public async Task<List<AgentSessionSummary>> ListSessionsAsync(string userId)
+    {
+        using var scope = _scopeFactory.CreateScope();
+        return await scope.ServiceProvider.GetRequiredService<AgentSessionHistoryService>().ListAsync(userId);
+    }
+
+    private async Task<AgentConversation?> LoadConversationAsync(Guid conversationId, string userId)
+    {
+        using var scope = _scopeFactory.CreateScope();
+        return await scope.ServiceProvider.GetRequiredService<AgentSessionHistoryService>().LoadAsync(conversationId, userId);
+    }
+
+    private async Task PersistAsync(AgentConversation conversation)
+    {
+        using var scope = _scopeFactory.CreateScope();
+        await scope.ServiceProvider.GetRequiredService<AgentSessionHistoryService>().SaveAsync(conversation);
     }
 
     public void ApproveAdvice(Guid conversationId, Guid adviceId)
@@ -377,27 +422,28 @@ public class AgentService : IAgentService
 
     public void CancelRun(Guid conversationId)
     {
-        if (_conversations.TryRemove(conversationId, out _))
+        if (_conversations.TryRemove(conversationId, out var conversation))
         {
+            conversation.State = AgentState.Error;
+            conversation.ErrorMessage = "Conversation cancelled.";
+            conversation.LastActivity = _timeProvider.GetUtcNow().UtcDateTime;
             _adviceService.RemoveConversationAdvice(conversationId);
+            _ = PersistAsync(conversation);
         }
     }
 
-    private Task ExecuteReActLoop(IServiceProvider sp, Guid conversationId)
+    private async Task ExecuteReActLoop(IServiceProvider sp, Guid conversationId)
     {
-        return _conversations.TryGetValue(conversationId, out var conversation)
-            ? _productionAgentExecutor.ExecuteReActLoop(
-                sp,
-                conversation,
-                new AgentExecutionOptions())
-            : Task.CompletedTask;
+        if (!_conversations.TryGetValue(conversationId, out var conversation)) return;
+        await _productionAgentExecutor.ExecuteReActLoop(sp, conversation, new AgentExecutionOptions());
+        await PersistAsync(conversation);
     }
 
-    private Task ExecuteAdviceAndResume(IServiceProvider sp, Guid conversationId, Guid adviceId)
+    private async Task ExecuteAdviceAndResume(IServiceProvider sp, Guid conversationId, Guid adviceId)
     {
-        return _conversations.TryGetValue(conversationId, out var conversation)
-            ? _productionAgentExecutor.ExecuteAdviceAndResume(sp, conversation, adviceId)
-            : Task.CompletedTask;
+        if (!_conversations.TryGetValue(conversationId, out var conversation)) return;
+        await _productionAgentExecutor.ExecuteAdviceAndResume(sp, conversation, adviceId);
+        await PersistAsync(conversation);
     }
 
     /// <summary>

@@ -99,7 +99,7 @@ public class AgentController(
         // Continue existing conversation
         if (request.ConversationId.HasValue)
         {
-            var conversationId = agentService.ContinueRun(
+            var conversationId = await agentService.ContinueRunAsync(
                 request.ConversationId.Value, userId, request.Message, request.ExcelMarkdown);
             if (conversationId == null)
                 return BadRequest(new { Error = "Conversation not found, not yours, or still processing." });
@@ -123,15 +123,12 @@ public class AgentController(
 
     [HttpGet]
     [LimitPerMin(120)]
-    public IActionResult Status(Guid conversationId)
+    public async Task<IActionResult> Status(Guid conversationId)
     {
-        var conversation = agentService.GetConversation(conversationId);
+        var userId = userManager.GetUserId(User)!;
+        var conversation = await agentService.GetConversationAsync(conversationId, userId);
         if (conversation == null)
             return NotFound(new { Error = "Conversation not found." });
-
-        var userId = userManager.GetUserId(User)!;
-        if (conversation.UserId != userId)
-            return Forbid();
 
         var messages = conversation.Messages
             .Where(m => m.Role != "system" && !m.IsMeta)
@@ -190,15 +187,27 @@ public class AgentController(
         });
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Sessions()
+    {
+        var userId = userManager.GetUserId(User)!;
+        var sessions = await agentService.ListSessionsAsync(userId);
+        return Ok(sessions.Select(session => new
+        {
+            session.Id,
+            session.Title,
+            session.State,
+            session.LastActivity,
+            session.BoardId
+        }));
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult ApproveAdvice(Guid conversationId, Guid adviceId)
+    public async Task<IActionResult> ApproveAdvice(Guid conversationId, Guid adviceId)
     {
-        var conversation = agentService.GetConversation(conversationId);
-        if (conversation == null) return NotFound();
-
         var userId = userManager.GetUserId(User)!;
-        if (conversation.UserId != userId) return Forbid();
+        if (await agentService.GetConversationAsync(conversationId, userId) == null) return NotFound();
 
         agentService.ApproveAdvice(conversationId, adviceId);
         return Ok(new { success = true });
@@ -206,13 +215,10 @@ public class AgentController(
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult RejectAdvice(Guid conversationId, Guid adviceId)
+    public async Task<IActionResult> RejectAdvice(Guid conversationId, Guid adviceId)
     {
-        var conversation = agentService.GetConversation(conversationId);
-        if (conversation == null) return NotFound();
-
         var userId = userManager.GetUserId(User)!;
-        if (conversation.UserId != userId) return Forbid();
+        if (await agentService.GetConversationAsync(conversationId, userId) == null) return NotFound();
 
         agentService.RejectAdvice(conversationId, adviceId);
         return Ok(new { success = true });
@@ -220,13 +226,10 @@ public class AgentController(
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult ApproveAll(Guid conversationId)
+    public async Task<IActionResult> ApproveAll(Guid conversationId)
     {
-        var conversation = agentService.GetConversation(conversationId);
-        if (conversation == null) return NotFound();
-
         var userId = userManager.GetUserId(User)!;
-        if (conversation.UserId != userId) return Forbid();
+        if (await agentService.GetConversationAsync(conversationId, userId) == null) return NotFound();
 
         agentService.ApproveAll(conversationId);
         return Ok(new { success = true });
@@ -234,13 +237,10 @@ public class AgentController(
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Cancel(Guid conversationId)
+    public async Task<IActionResult> Cancel(Guid conversationId)
     {
-        var conversation = agentService.GetConversation(conversationId);
-        if (conversation == null) return NotFound();
-
         var userId = userManager.GetUserId(User)!;
-        if (conversation.UserId != userId) return Forbid();
+        if (await agentService.GetConversationAsync(conversationId, userId) == null) return NotFound();
 
         agentService.CancelRun(conversationId);
         return Ok(new { success = true });

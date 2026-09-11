@@ -10,7 +10,23 @@
         </div>
     </div>
 
-    <div class="agent-chat-container">
+    <div class="agent-chat-container agent-workspace">
+        <aside class="agent-history" id="agent-history" aria-label="@Localizer["Conversation history"]">
+            <div class="agent-history-header">
+                <span>@Localizer["Conversation history"]</span>
+                <button class="btn btn-outline-secondary btn-sm" id="agent-history-toggle" type="button" aria-label="@Localizer["Collapse sidebar"]">
+                    <i class="align-middle" data-lucide="panel-left-close"></i>
+                </button>
+            </div>
+            <button class="btn btn-primary agent-new-session" id="agent-new-session-btn" type="button">
+                <i class="align-middle" data-lucide="square-pen"></i> @Localizer["New session"]
+            </button>
+            <nav class="agent-session-list" id="agent-session-list" aria-label="@Localizer["Conversation history"]"></nav>
+            <p class="text-muted small" id="agent-session-empty">@Localizer["No conversations yet"]</p>
+        </aside>
+        <button class="btn btn-outline-secondary agent-history-expand" id="agent-history-expand" type="button" aria-label="@Localizer["Expand sidebar"]" hidden>
+            <i class="align-middle" data-lucide="panel-left-open"></i>
+        </button>
         <partial name="~/Views/Agent/Chat.cshtml" model="Model" />
     </div>
 </div>
