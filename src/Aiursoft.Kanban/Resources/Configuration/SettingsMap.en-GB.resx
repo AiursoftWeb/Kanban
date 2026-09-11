@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Anthropic API Token</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Auto Set Due Date</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Auto‑set Planned Start Time</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Brand Name</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Due Date Advance Days</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Dummy Choice</value>
@@ -126,6 +132,9 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>When automatically setting a due date, the number of days after card creation when the card will be due.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>)&quot;.
 
@@ -133,6 +142,9 @@ Thus answer should be:</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>When enabled, new cards without a due date will automatically be due after the configured number of days.</value>
   </data>
 
 </root>

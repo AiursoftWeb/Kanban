@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Clé API Anthropic</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Définir automatiquement la date d&apos;échéance</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Définir automatiquement l&apos;heure de début planifiée</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Nom de marque</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Jours d&apos;avance de l&apos;échéance</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Choix fictif</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>Le jeton x-api-key utilisé pour l&apos;authentification auprès du point de terminaison de l&apos;API Anthropic. Laissez ce champ vide si le point de terminaison ne nécessite pas d&apos;authentification.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>Lors de la configuration automatique d&apos;une date d&apos;échéance, le nombre de jours après la création de la carte à la date de laquelle la carte sera échue.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>When auto-setting planned start time, the number of days to advance before the due date.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>Lorsqu&apos;elle est activée, les cartes avec une date d&apos;échéance mais sans heure de début planifiée se voient attribuer automatiquement une heure de début planifiée en fonction du paramètre de jours d&apos;avance.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>Lorsqu&apos;elle est activée, les nouvelles cartes sans date d&apos;échéance seront automatiquement échues après le nombre de jours configuré.</value>
   </data>
 
 </root>

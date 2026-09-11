@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>โทเค็น API ของ Anthropic</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>กำหนดวันครบกำหนดอัตโนมัติ</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>ตั้งค่าเวลาเริ่มต้นที่วางแผนไว้อัตโนมัติ</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>ชื่อแบรนด์</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>จำนวนวันล่วงหน้าของกำหนดส่ง</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>ตัวเลือกจำลอง</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>โทเค็น x-api-key สำหรับยืนยันตัวตนกับปลายทาง API ของ Anthropic ปล่อยว่างหากปลายทางไม่จำเป็นต้องยืนยันตัวตน</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>เมื่อตั้งค่าวันครบกำหนดอัตโนมัติ จำนวนวันที่จะครบกำหนดหลังจากสร้างการ์ด</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>เมื่อทำการตั้งค่าเวลาเริ่มต้นแผนอัตโนมัติ จำนวนวันที่ต้องก้าวไปก่อนวันครบกำหนด</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>เมื่อเปิดใช้งาน การ์ดที่มีวันที่กำหนดไว้แต่ไม่มีเวลาเริ่มต้นที่วางแผนไว้ จะถูกตั้งค่าเวลาเริ่มต้นที่วางแผนไว้โดยอัตโนมัติตามการตั้งค่าจำนวนวันล่วงหน้า</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>เมื่อเปิดใช้งาน การ์ดใหม่ที่ไม่มีการกำหนดวันครบกำหนดจะถูกกำหนดวันครบกำหนดโดยอัตโนมัติหลังจากผ่านไปจำนวนวันที่กำหนดไว้</value>
   </data>
 
 </root>

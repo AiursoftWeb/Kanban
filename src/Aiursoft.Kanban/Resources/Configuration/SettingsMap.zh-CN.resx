@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Anthropic API Token</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>自动设置截止日期</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>自动设置计划开始时间</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>品牌名称</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>截止日期提前天数</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>示例选项</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>用于通过 Anthropic API Endpoint 进行身份验证的 x-api-key 令牌。如果该端点不需要身份验证，请留空。</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>自动设置截止日期时，卡片创建后多少天到期。</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>在自动设置计划开始时间时，在到期日之前提前的天数。</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>启用后，有截止日期但没有计划开始时间的卡片将自动根据提前天数设置来设定其计划开始时间。</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>启用后，没有截止日期的新卡片将在配置的指定天数后自动到期。</value>
   </data>
 
 </root>

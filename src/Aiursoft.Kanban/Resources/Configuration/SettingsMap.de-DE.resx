@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Anthropic-API-Token</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Fälligkeitsdatum automatisch festlegen</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Automatisch geplante Startzeit festlegen</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Markenname</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Fälligkeitsvorauslaufende Tage</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Dummy-Auswahl</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>Das x-api-key-Token zur Authentifizierung am Anthropic-API-Endpunkt. Lassen Sie dieses Feld leer, wenn der Endpunkt keine Authentifizierung erfordert.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>Bei der automatischen Festlegung eines Fälligkeitsdatums: Die Anzahl der Tage nach der Kartenerstellung, bis die Karte fällig wird.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Bei automatischer Einstellung der geplanten Startzeit: Anzahl der Tage, die vor dem Fälligkeitsdatum vorgezogen werden.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>Wenn aktiviert, werden Karten mit einem Fälligkeitsdatum, aber ohne geplante Startzeit automatisch mit einer geplanten Startzeit versehen, die auf dem Einstellungswert für Vorlaufzeit basiert.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>Wenn aktiviert, werden neue Karten ohne Fälligkeitsdatum automatisch nach der konfigurierten Anzahl von Tagen fällig.</value>
   </data>
 
 </root>
