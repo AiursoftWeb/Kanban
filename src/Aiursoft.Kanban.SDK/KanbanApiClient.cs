@@ -128,6 +128,13 @@ public sealed class KanbanApiClient(
         await http.Put<CardDetailsResponse>(Endpoint($"/api/v1/cards/{cardId}"), new AiurApiPayload(request), BodyFormat.HttpJsonBody,
             headers: await AuthorizationHeadersAsync());
 
+    public async Task<CardDetailsResponse> UpdateCardActualTimesAsync(
+        int cardId,
+        UpdateCardActualTimesRequest request) =>
+        await http.Put<CardDetailsResponse>(Endpoint($"/api/v1/cards/{cardId}/actual-times"),
+            new AiurApiPayload(request), BodyFormat.HttpJsonBody,
+            headers: await AuthorizationHeadersAsync());
+
     public async Task<AiurResponse> DeleteCardAsync(int cardId) =>
         await http.Http<AiurResponse>(Endpoint($"/api/v1/cards/{cardId}"), new AiurApiPayload(new { }), HttpMethod.Delete,
             BodyFormat.HttpJsonBody, headers: await AuthorizationHeadersAsync());

@@ -310,6 +310,16 @@ public sealed class CardDetailActivity : AppCompatActivity
             {
                 return;
             }
+            if (schedule.ActualStartTime.HasValue &&
+                schedule.ActualEndTime.HasValue &&
+                schedule.ActualEndTime.Value < schedule.ActualStartTime.Value)
+            {
+                Snackbar.Make(
+                    _root,
+                    "Actual end time cannot be earlier than actual start time.",
+                    Snackbar.LengthLong).Show();
+                return;
+            }
             await SaveAsync(save, new UpdateCardRequest
             {
                 Title = title,
@@ -320,6 +330,10 @@ public sealed class CardDetailActivity : AppCompatActivity
                 DueDate = schedule.DueDate,
                 RecurrenceInterval = recurrenceInterval,
                 RecurrenceUnit = recurrenceUnit
+            }, new UpdateCardActualTimesRequest
+            {
+                ActualStartTime = schedule.ActualStartTime,
+                ActualEndTime = schedule.ActualEndTime
             });
         };
 
@@ -378,6 +392,8 @@ public sealed class CardDetailActivity : AppCompatActivity
         {
             PlannedStartTime = card.PlannedStartTime?.Date,
             DueDate = card.DueDate?.Date,
+            ActualStartTime = card.ActualStartTime?.ToLocalTime(),
+            ActualEndTime = card.ActualEndTime?.ToLocalTime(),
             Recurring = new CheckBox(this)
             {
                 Text = "Recurring task",
@@ -406,14 +422,8 @@ public sealed class CardDetailActivity : AppCompatActivity
         content.AddView(SectionTitle("TIMELINE"));
         content.AddView(DateEditorRow("Planned start", state, dueDate: false, card.CanEdit));
         content.AddView(DateEditorRow("Due", state, dueDate: true, card.CanEdit));
-        if (card.ActualStartTime.HasValue)
-        {
-            content.AddView(Metadata("Started", FormatDateTime(card.ActualStartTime.Value)));
-        }
-        if (card.ActualEndTime.HasValue)
-        {
-            content.AddView(Metadata("Completed", FormatDateTime(card.ActualEndTime.Value)));
-        }
+        content.AddView(DateTimeEditorRow("Actual start", state, endTime: false, card.CanEdit));
+        content.AddView(DateTimeEditorRow("Actual end", state, endTime: true, card.CanEdit));
         state.Recurring.SetTextColor(ColorOf(Resource.Color.text_primary));
         content.AddView(state.Recurring);
 
@@ -487,6 +497,54 @@ public sealed class CardDetailActivity : AppCompatActivity
         {
             Update(null);
             choose.Text = FormatDate(null);
+            clear.Visibility = ViewStates.Gone;
+        };
+        row.AddView(choose, new LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WrapContent, Dp(44)));
+        row.AddView(clear, new LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WrapContent, Dp(44)));
+        return row;
+    }
+
+    private View DateTimeEditorRow(string label, ScheduleEditorState state, bool endTime, bool enabled)
+    {
+        var row = new LinearLayout(this)
+        {
+            Orientation = global::Android.Widget.Orientation.Horizontal
+        };
+        row.SetGravity(GravityFlags.CenterVertical);
+        row.SetPadding(0, Dp(6), 0, Dp(6));
+        row.AddView(Text(label, 13, Resource.Color.text_secondary),
+            new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WrapContent, 1));
+
+        DateTime? Current() => endTime ? state.ActualEndTime : state.ActualStartTime;
+        void Update(DateTime? value)
+        {
+            if (endTime)
+            {
+                state.ActualEndTime = value;
+            }
+            else
+            {
+                state.ActualStartTime = value;
+            }
+        }
+
+        var clear = SecondaryButton("Clear");
+        clear.Enabled = enabled;
+        clear.Visibility = Current().HasValue ? ViewStates.Visible : ViewStates.Gone;
+        var choose = SecondaryButton(FormatEditableDateTime(Current()));
+        choose.Enabled = enabled;
+        choose.Click += (_, _) => ShowDateTimePicker(Current(), value =>
+        {
+            Update(value);
+            choose.Text = FormatEditableDateTime(value);
+            clear.Visibility = ViewStates.Visible;
+        });
+        clear.Click += (_, _) =>
+        {
+            Update(null);
+            choose.Text = FormatEditableDateTime(null);
             clear.Visibility = ViewStates.Gone;
         };
         row.AddView(choose, new LinearLayout.LayoutParams(
@@ -693,6 +751,34 @@ public sealed class CardDetailActivity : AppCompatActivity
             initial.Month - 1,
             initial.Day);
         picker.Show();
+    }
+
+    private void ShowDateTimePicker(DateTime? current, Action<DateTime> onSelected)
+    {
+        var initial = current ?? DateTime.Now;
+        var datePicker = new DatePickerDialog(
+            this,
+            (_, dateArgs) =>
+            {
+                var timePicker = new TimePickerDialog(
+                    this,
+                    (_, timeArgs) => onSelected(new DateTime(
+                        dateArgs.Date.Year,
+                        dateArgs.Date.Month,
+                        dateArgs.Date.Day,
+                        timeArgs.HourOfDay,
+                        timeArgs.Minute,
+                        0,
+                        DateTimeKind.Local)),
+                    initial.Hour,
+                    initial.Minute,
+                    true);
+                timePicker.Show();
+            },
+            initial.Year,
+            initial.Month - 1,
+            initial.Day);
+        datePicker.Show();
     }
 
     private async Task AddLabelAsync(
@@ -1350,13 +1436,17 @@ public sealed class CardDetailActivity : AppCompatActivity
         }
     }
 
-    private async Task SaveAsync(MaterialButton button, UpdateCardRequest request)
+    private async Task SaveAsync(
+        MaterialButton button,
+        UpdateCardRequest request,
+        UpdateCardActualTimesRequest actualTimesRequest)
     {
         try
         {
             button.Enabled = false;
-            var response = await Api.UpdateCardAsync(_cardId, request);
-            _card = response.Card;
+            await Api.UpdateCardAsync(_cardId, request);
+            var actualTimesResponse = await Api.UpdateCardActualTimesAsync(_cardId, actualTimesRequest);
+            _card = actualTimesResponse.Card;
             Render();
             Snackbar.Make(_root, "Card updated", Snackbar.LengthShort).Show();
         }
@@ -1610,22 +1700,6 @@ public sealed class CardDetailActivity : AppCompatActivity
         return (box, input);
     }
 
-    private View Metadata(string label, string value)
-    {
-        var row = new LinearLayout(this)
-        {
-            Orientation = global::Android.Widget.Orientation.Horizontal
-        };
-        row.SetPadding(0, Dp(8), 0, 0);
-        row.AddView(Text(label, 13, Resource.Color.text_secondary),
-            new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WrapContent, 1));
-        var valueView = Text(value, 13, Resource.Color.text_primary, true);
-        valueView.Gravity = GravityFlags.End;
-        row.AddView(valueView, new LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent));
-        return row;
-    }
-
     private TextView Badge(string value, int background, int foreground)
     {
         var badge = Text(value, 11, foreground, true);
@@ -1746,6 +1820,9 @@ public sealed class CardDetailActivity : AppCompatActivity
     private static string FormatDateTime(DateTime value) =>
         value.ToLocalTime().ToString("yyyy-MM-dd HH:mm");
 
+    private static string FormatEditableDateTime(DateTime? value) =>
+        value.HasValue ? value.Value.ToString("yyyy-MM-dd HH:mm") : "Not set";
+
     private static string FriendlyMessage(Exception exception)
     {
         var message = exception.Message;
@@ -1781,6 +1858,8 @@ public sealed class CardDetailActivity : AppCompatActivity
         public View Container { get; set; } = null!;
         public DateTime? PlannedStartTime { get; set; }
         public DateTime? DueDate { get; set; }
+        public DateTime? ActualStartTime { get; set; }
+        public DateTime? ActualEndTime { get; set; }
         public CheckBox Recurring { get; init; } = null!;
         public EditText IntervalInput { get; init; } = null!;
         public Spinner UnitSpinner { get; init; } = null!;

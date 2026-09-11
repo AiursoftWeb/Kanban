@@ -153,6 +153,55 @@ public sealed class CardApiController(
         });
     }
 
+    [HttpPut("{cardId:int}/actual-times")]
+    public async Task<IActionResult> UpdateActualTimes(
+        int cardId,
+        [FromBody] UpdateCardActualTimesRequest request)
+    {
+        var userId = CurrentUserId();
+        var card = await LoadCardAsync(cardId);
+        if (card == null)
+        {
+            return this.Protocol(Code.NotFound, "Card not found.");
+        }
+        if (!await access.CanEditAsync(card.Column.Board, userId))
+        {
+            return this.Protocol(Code.Unauthorized, "The board is read-only.");
+        }
+
+        var actualStartTime = NormalizeDateTime(request.ActualStartTime);
+        var actualEndTime = NormalizeDateTime(request.ActualEndTime);
+        if (actualStartTime.HasValue &&
+            actualEndTime.HasValue &&
+            actualEndTime.Value < actualStartTime.Value)
+        {
+            return this.Protocol(Code.InvalidInput, "Actual end time cannot be earlier than actual start time.");
+        }
+
+        var change = new CardActualTimeChange(
+            card.ActualStartTime,
+            card.ActualEndTime,
+            actualStartTime,
+            actualEndTime);
+        var changedFields = new List<string>();
+        AddChangedField(changedFields, "actual start time", card.ActualStartTime != actualStartTime);
+        AddChangedField(changedFields, "actual end time", card.ActualEndTime != actualEndTime);
+        if (changedFields.Count > 0)
+        {
+            card.ActualStartTime = actualStartTime;
+            card.ActualEndTime = actualEndTime;
+            await db.SaveChangesAsync();
+            await PublishSafelyAsync(new CardUpdatedEvent(card.Id, userId, changedFields, change));
+        }
+
+        return this.Protocol(new CardDetailsResponse
+        {
+            Code = changedFields.Count > 0 ? Code.JobDone : Code.NoActionTaken,
+            Message = "Actual times updated.",
+            Card = await ToDetailsDtoAsync(card, userId)
+        });
+    }
+
     [HttpDelete("{cardId:int}")]
     public async Task<IActionResult> Delete(int cardId)
     {

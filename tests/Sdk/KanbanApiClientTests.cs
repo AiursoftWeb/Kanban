@@ -193,6 +193,42 @@ public sealed class KanbanApiClientTests
     }
 
     [TestMethod]
+    public async Task UpdateActualTimesUsesDedicatedPutRoute()
+    {
+        var handler = new RecordingHandler("""
+            {
+              "code":2,
+              "message":"updated",
+              "protocolVersion":"10.0.30",
+              "card":{
+                "id":17,
+                "title":"Ready",
+                "actualStartTime":"2026-09-11T08:30:00Z",
+                "actualEndTime":"2026-09-11T09:45:00Z"
+              }
+            }
+            """);
+        await using var provider = BuildProvider(handler, "access-token");
+
+        var result = await provider.GetRequiredService<KanbanApiClient>().UpdateCardActualTimesAsync(
+            17,
+            new UpdateCardActualTimesRequest
+            {
+                ActualStartTime = new DateTime(2026, 9, 11, 8, 30, 0, DateTimeKind.Utc),
+                ActualEndTime = new DateTime(2026, 9, 11, 9, 45, 0, DateTimeKind.Utc)
+            });
+
+        Assert.AreEqual(new DateTime(2026, 9, 11, 8, 30, 0, DateTimeKind.Utc),
+            result.Card.ActualStartTime);
+        Assert.AreEqual(HttpMethod.Put, handler.Method);
+        Assert.AreEqual(
+            "https://kanban.example/api/v1/cards/17/actual-times",
+            handler.RequestUri?.ToString());
+        StringAssert.Contains(handler.Body ?? string.Empty, "actualStartTime");
+        StringAssert.Contains(handler.Body ?? string.Empty, "actualEndTime");
+    }
+
+    [TestMethod]
     public async Task DeleteCommentUsesScopedDeleteRoute()
     {
         var handler = new RecordingHandler("""

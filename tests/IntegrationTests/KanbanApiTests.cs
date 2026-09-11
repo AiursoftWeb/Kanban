@@ -1036,6 +1036,30 @@ public sealed class KanbanApiTests : TestBase
         Assert.AreEqual(2, updated.RecurrenceInterval);
         Assert.AreEqual(nameof(RecurrenceUnit.Week), updated.RecurrenceUnit);
 
+        var expectedActualStart = new DateTime(2026, 9, 11, 8, 30, 0, DateTimeKind.Utc);
+        var expectedActualEnd = new DateTime(2026, 9, 11, 9, 45, 0, DateTimeKind.Utc);
+        using var actualTimesResponse = await Http.PutAsync(
+            $"/api/v1/cards/{createdCard.Id}/actual-times",
+            Json(new UpdateCardActualTimesRequest
+            {
+                ActualStartTime = expectedActualStart,
+                ActualEndTime = expectedActualEnd
+            }));
+        actualTimesResponse.EnsureSuccessStatusCode();
+        var actualTimes = JsonConvert.DeserializeObject<CardDetailsResponse>(
+            await actualTimesResponse.Content.ReadAsStringAsync())!.Card;
+        Assert.AreEqual(expectedActualStart, actualTimes.ActualStartTime);
+        Assert.AreEqual(expectedActualEnd, actualTimes.ActualEndTime);
+
+        using var invalidActualTimesResponse = await Http.PutAsync(
+            $"/api/v1/cards/{createdCard.Id}/actual-times",
+            Json(new UpdateCardActualTimesRequest
+            {
+                ActualStartTime = expectedActualEnd,
+                ActualEndTime = expectedActualStart
+            }));
+        Assert.AreEqual(HttpStatusCode.BadRequest, invalidActualTimesResponse.StatusCode);
+
         var completedColumn = board.Columns.Single(item => item.Status == nameof(ColumnStatus.Completed));
         using var moveResponse = await Http.PutAsync(
             $"/api/v1/cards/{createdCard.Id}/position",
@@ -1370,6 +1394,17 @@ public sealed class KanbanApiTests : TestBase
             await updateResponse.Content.ReadAsStringAsync());
         Assert.IsNotNull(updateError);
         Assert.AreEqual(Code.Unauthorized, updateError.Code);
+
+        using var actualTimesResponse = await Http.PutAsync(
+            $"/api/v1/cards/{card.Id}/actual-times",
+            Json(new UpdateCardActualTimesRequest
+            {
+                ActualStartTime = DateTime.UtcNow
+            }));
+        var actualTimesError = JsonConvert.DeserializeObject<AiurResponse>(
+            await actualTimesResponse.Content.ReadAsStringAsync());
+        Assert.IsNotNull(actualTimesError);
+        Assert.AreEqual(Code.Unauthorized, actualTimesError.Code);
 
         using var commentResponse = await Http.PostAsync(
             $"/api/v1/cards/{card.Id}/comments",

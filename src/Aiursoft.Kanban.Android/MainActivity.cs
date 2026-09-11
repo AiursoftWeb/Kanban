@@ -613,13 +613,17 @@ public sealed class MainActivity : AppCompatActivity
             labelsLayout.SetMargins(0, Dp(7), Dp(6), 0);
             content.AddView(labels, labelsLayout);
         }
+        var displayDates = ResolveDefaultCardDates(card);
         var metadataParts = new[]
         {
             card.Priority == "None" ? null : card.Priority + " priority",
             card.RecurrenceInterval.HasValue && card.RecurrenceUnit != "None"
                 ? $"Every {card.RecurrenceInterval} {card.RecurrenceUnit.ToLowerInvariant()}"
                 : null,
-            card.DueDate.HasValue ? "Due " + card.DueDate.Value.ToLocalTime().ToString("MMM d") : null,
+            displayDates.Start.HasValue || displayDates.End.HasValue
+                ? $"{displayDates.Source}: " +
+                  $"{FormatBoardDate(displayDates.Start)} – {FormatBoardDate(displayDates.End)}"
+                : null,
             card.AssignedUser == null ? null : "Assigned to " + card.AssignedUser.DisplayName,
             card.CommentCount == 0 ? null : $"{card.CommentCount} comment{(card.CommentCount == 1 ? string.Empty : "s")}"
         }.OfType<string>().ToList();
@@ -643,6 +647,24 @@ public sealed class MainActivity : AppCompatActivity
             : $"{card.Title}. Tap for details.";
         return shell;
     }
+
+    private static (string Source, DateTime? Start, DateTime? End) ResolveDefaultCardDates(CardDto card)
+    {
+        if (card.ActualStartTime.HasValue && card.ActualEndTime.HasValue)
+        {
+            return ("Actual", card.ActualStartTime, card.ActualEndTime);
+        }
+        if (card.PlannedStartTime.HasValue && card.DueDate.HasValue)
+        {
+            return ("Planned", card.PlannedStartTime, card.DueDate);
+        }
+        return card.ActualStartTime.HasValue || card.ActualEndTime.HasValue
+            ? ("Actual", card.ActualStartTime, card.ActualEndTime)
+            : ("Planned", card.PlannedStartTime, card.DueDate);
+    }
+
+    private static string FormatBoardDate(DateTime? value) =>
+        value.HasValue ? value.Value.ToLocalTime().ToString("MMM d") : "—";
 
     private void StartCardDrag(View cardView, CardDto card)
     {

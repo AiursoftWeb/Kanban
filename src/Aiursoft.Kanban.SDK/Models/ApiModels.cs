@@ -659,6 +659,13 @@ public sealed class UpdateCardRequest
     public string RecurrenceUnit { get; set; } = "None";
 }
 
+public sealed class UpdateCardActualTimesRequest
+{
+    public DateTime? ActualStartTime { get; set; }
+
+    public DateTime? ActualEndTime { get; set; }
+}
+
 public sealed class AddCardCommentRequest
 {
     [Required, StringLength(2000, MinimumLength = 1)]
