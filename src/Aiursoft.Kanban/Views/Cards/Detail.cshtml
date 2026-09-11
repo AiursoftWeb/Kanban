@@ -541,7 +541,7 @@
                     <div class="detail-surface-header">
                         <div>
                             <div class="fw-semibold">@Localizer["Schedule & status"]</div>
-                            <div class="detail-section-note">@Localizer["This is the planning and execution timeline for the card."]</div>
+                            <div class="detail-section-note">@Localizer["Changes save automatically."]</div>
                         </div>
                     </div>
                     <div class="detail-surface-body">
@@ -588,11 +588,6 @@
                                 <input type="datetime-local" id="inputActualEnd" class="form-control detail-input" step="1" data-utc-value="@Model.ActualEndDate?.ToString("O")" @(Model.CanEdit ? null : "disabled") />
                             </div>
                         </div>
-
-                        @if (Model.CanEdit)
-                        {
-                            <button type="button" id="saveActualTimes" class="btn btn-outline-primary btn-sm mb-3">@Localizer["Save actual times"]</button>
-                        }
 
                         <div class="form-check form-switch mb-2">
                             <input class="form-check-input" type="checkbox" id="inputRecurring" @(Model.IsRecurring ? "checked" : null) @(Model.CanEdit ? null : "disabled")>

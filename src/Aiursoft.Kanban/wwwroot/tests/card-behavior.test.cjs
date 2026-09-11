@@ -1,7 +1,7 @@
 const { test, after } = require('node:test');
 const assert = require('node:assert/strict');
 const { execFileSync } = require('node:child_process');
-const { mkdtempSync, rmSync } = require('node:fs');
+const { mkdtempSync, readFileSync, rmSync } = require('node:fs');
 const { tmpdir } = require('node:os');
 const path = require('node:path');
 
@@ -16,8 +16,20 @@ execFileSync(process.execPath, [require.resolve('typescript/bin/tsc'),
 const { resolveDefaultCardDates } = require(path.join(output, 'kanban-board/card-dates.js'));
 const { matchesCardFilters, filterBoardData } = require(path.join(output, 'kanban-board/filter-state.js'));
 const { resolveItemDates, parseDate } = require(path.join(output, 'gantt-chart/types.js'));
+const cardDetailSource = readFileSync(path.resolve(__dirname, '../src/card-detail-page/index.ts'), 'utf8');
+const cardDetailView = readFileSync(path.resolve(__dirname, '../../Views/Cards/Detail.cshtml'), 'utf8');
 const planned = { plannedStartDate: '2026-08-01', dueDate: '2026-08-10' };
 const actual = { actualStartDate: '2026-08-03T09:00:00Z', actualEndDate: '2026-08-09T12:00:00Z' };
+
+test('all schedule fields auto-save without an actual-times save button', () => {
+  assert.doesNotMatch(cardDetailView, /id="saveActualTimes"/);
+  assert.match(cardDetailView, /Changes save automatically\./);
+  assert.match(cardDetailSource, /input\.addEventListener\('change'/);
+  assert.match(cardDetailSource, /saveActualTimes\(\)\.catch/);
+  assert.ok(cardDetailSource.includes(
+    'updatePriority(parseInt(badge.dataset.priority, 10)).then(() => showSavedToast())'));
+  assert.match(cardDetailSource, /plannedStartInput\?\.addEventListener\('change',[\s\S]{0,200}saveCardDetails\(\)\.then\(\(\) => showSavedToast\(\)\)/);
+});
 
 for (const [name, card, source, start, end] of [
   ['complete actual dates take priority', { ...planned, ...actual }, 'actual', actual.actualStartDate, actual.actualEndDate],

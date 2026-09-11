@@ -175,7 +175,6 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     plannedStartInput: document.getElementById('inputPlannedStart') as HTMLInputElement | null,
     actualStartInput: document.getElementById('inputActualStart') as HTMLInputElement | null,
     actualEndInput: document.getElementById('inputActualEnd') as HTMLInputElement | null,
-    saveActualTimes: document.getElementById('saveActualTimes') as HTMLButtonElement | null,
     recurringSwitch: document.getElementById('inputRecurring') as HTMLInputElement | null,
     recurrenceFields: document.getElementById('recurrenceFields'),
     recurrenceIntervalInput: document.getElementById('inputRecurrenceInterval') as HTMLInputElement | null,
@@ -232,6 +231,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
   let monacoEditor: MonacoEditorLike | null = null;
   let markdownEditorController: Awaited<ReturnType<AiursoftMarkdownUiLike['createMarkdownEditor']>> | null = null;
+  let savingActualTimes = false;
 
   /** @mention autocomplete for the comment textarea */
   const mentionAutocomplete = refs.commentInput
@@ -367,19 +367,21 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       const badge = (event.target as HTMLElement).closest<HTMLElement>('.priority-badge.priority-selectable');
       if (!badge?.dataset.priority) return;
 
-      updatePriority(parseInt(badge.dataset.priority, 10)).catch(problem => {
+      updatePriority(parseInt(badge.dataset.priority, 10)).then(() => showSavedToast()).catch(problem => {
         showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
       });
     });
 
     for (const input of [refs.actualStartInput, refs.actualEndInput]) {
-      if (input) setActualTimeInput(input, input.dataset.utcValue);
-    }
-    refs.saveActualTimes?.addEventListener('click', () => {
-      saveActualTimes().catch(problem => {
-        showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
+      if (!input) continue;
+      setActualTimeInput(input, input.dataset.utcValue);
+      input.addEventListener('change', () => {
+        if (!options.canEdit) return;
+        saveActualTimes().catch(problem => {
+          showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
+        });
       });
-    });
+    }
 
     refs.dueDateInput?.addEventListener('change', () => {
       if (!options.canEdit) return;
@@ -390,7 +392,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
 
     refs.plannedStartInput?.addEventListener('change', () => {
       if (!options.canEdit) return;
-      saveCardDetails().catch(problem => {
+      saveCardDetails().then(() => showSavedToast()).catch(problem => {
         showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
       });
     });
@@ -674,7 +676,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   }
 
   async function saveActualTimes(): Promise<void> {
-    if (!options.canEdit || !refs.saveActualTimes || refs.saveActualTimes.disabled) return;
+    if (!options.canEdit || savingActualTimes) return;
     const inputs = [refs.actualStartInput, refs.actualEndInput];
     if (inputs.some(input => input && !input.reportValidity())) return;
     const start = refs.actualStartInput?.value ? new Date(refs.actualStartInput.value) : null;
@@ -685,7 +687,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     if (start && end && end < start) {
       throw new Error(t('actual-time-order', 'Actual end time cannot be earlier than actual start time.'));
     }
-    refs.saveActualTimes.disabled = true;
+    savingActualTimes = true;
     inputs.forEach(input => { if (input) input.disabled = true; });
     try {
       const response = await postForm('/Kanban/UpdateCardActualTimes', {
@@ -698,7 +700,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       setActualTimeInput(refs.actualEndInput, readOptionalString(result.ActualEndTime));
       showSavedToast();
     } finally {
-      refs.saveActualTimes.disabled = false;
+      savingActualTimes = false;
       inputs.forEach(input => { if (input) input.disabled = false; });
     }
   }

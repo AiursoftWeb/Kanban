@@ -996,7 +996,11 @@ public class KanbanControllerTests : TestBase
             share.Permission = SharePermission.Editable;
             await db.SaveChangesAsync();
         }
-        Assert.Contains("id=\"saveActualTimes\"", await Http.GetStringAsync($"/Cards/{card.Id}"));
+        var editablePage = await Http.GetStringAsync($"/Cards/{card.Id}");
+        Assert.DoesNotContain("id=\"saveActualTimes\"", editablePage);
+        Assert.Contains("Changes save automatically.", editablePage);
+        Assert.Contains("id=\"inputActualStart\"", editablePage);
+        Assert.Contains("id=\"inputActualEnd\"", editablePage);
         (await PostAsync("/Kanban/UpdateCardActualTimes", values)).EnsureSuccessStatusCode();
     }
 
