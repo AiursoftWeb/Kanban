@@ -27,6 +27,9 @@
   <data name="Actual end" xml:space="preserve">
     <value>Actual end</value>
   </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>Die tatsächliche Endzeit kann nicht früher als die tatsächliche Startzeit sein.</value>
+  </data>
   <data name="Actual start" xml:space="preserve">
     <value>Actual start</value>
   </data>
@@ -150,6 +153,9 @@
   <data name="h ago" xml:space="preserve">
     <value>h ago</value>
   </data>
+  <data name="Invalid actual date or time." xml:space="preserve">
+    <value>Ungültiges tatsächliches Datum oder Uhrzeit.</value>
+  </data>
   <data name="just now" xml:space="preserve">
     <value>just now</value>
   </data>
@@ -201,6 +207,12 @@
   <data name="Overview" xml:space="preserve">
     <value>Overview</value>
   </data>
+  <data name="Planned end" xml:space="preserve">
+    <value>Geplantes Ende</value>
+  </data>
+  <data name="Planned start" xml:space="preserve">
+    <value>Geplanter Start</value>
+  </data>
   <data name="Preview" xml:space="preserve">
     <value>Preview</value>
   </data>
@@ -221,6 +233,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="Save actual times" xml:space="preserve">
+    <value>Tatsächliche Zeiten speichern</value>
   </data>
   <data name="Saved" xml:space="preserve">
     <value>Saved</value>

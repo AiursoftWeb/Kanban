@@ -24,6 +24,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Acties</value>
   </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Werkelijk</value>
+  </data>
   <data name="Actual End" xml:space="preserve">
     <value>Feitelijke einde</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Bewerk Board</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Einde</value>
   </data>
   <data name="Every" xml:space="preserve">
     <value>Elke</value>
@@ -387,6 +393,9 @@
   <data name="Overdue" xml:space="preserve">
     <value>Achterstallig</value>
   </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Gepland</value>
+  </data>
   <data name="Planned Start" xml:space="preserve">
     <value>Geplande start</value>
   </data>
@@ -465,6 +474,9 @@
   <data name="Share" xml:space="preserve">
     <value>Delen</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Doelbord</value>
   </data>
@@ -535,16 +547,4 @@
     <value>U kunt hier afbeeldingen slepen of plakken vanuit het klembord.</value>
   </data>
 
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="End" xml:space="preserve">
-    <value>Einde</value>
-  </data>
-  <data name="Actual" xml:space="preserve">
-    <value>Werkelijk</value>
-  </data>
-  <data name="Planned" xml:space="preserve">
-    <value>Gepland</value>
-  </data>
 </root>

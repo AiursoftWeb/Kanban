@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Aito</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Vastuutaho</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Vastuuhenkilö:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Kortit ilman päivämääriä</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Tyhjennä</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Tyhjennä kaikki suodattimet</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Sarakkeessa:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Gantt-tilan näyttö</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>Korkea</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>Käynnissä</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Matala</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Keski</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Puuttuva todellinen päättymispäivä</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>Tilassa ei ole viitteitä täydellisistä päivämääriltä viedäksesi tätä tilaa.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nykyiset suodattimet vastaavat yhtään korttia.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Ei aloitettu</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Suunniteltu</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioriteetti</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Prioriteetti:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Vain luku</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Etsi otsikosta tai kuvauksesta...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Tila:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Aika:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Etsi otsikosta tai kuvauksesta...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Prioriteetti</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Kiireellinen</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>Korkea</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Keski</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Matala</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Ei mitään</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Vastuutaho</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Tyhjennä kaikki suodattimet</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Tyhjennä</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>Nykyiset suodattimet vastaavat yhtään korttia.</value>
-  </data>
+
 </root>

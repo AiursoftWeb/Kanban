@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Real</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Responsável</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Responsável:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Cards sem datas</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Limpar</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Limpar todos os filtros</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Coluna:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Modo de exibição Gantt</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>Alta</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>Em andamento</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Baixa</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Médio</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Data de término real ausente</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>Nenhum cartão tem datas completas para exportar neste modo.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nenhum cartão corresponde aos filtros atuais.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Não iniciado</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Planejado</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioridade</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Prioridade:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Somente leitura</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Pesquisar título ou descrição...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Status:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Tempo:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Pesquisar título ou descrição...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Prioridade</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Urgente</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>Alta</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Médio</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Baixa</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Nenhum</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Responsável</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Limpar todos os filtros</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Limpar</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>Nenhum cartão corresponde aos filtros atuais.</value>
-  </data>
+
 </root>

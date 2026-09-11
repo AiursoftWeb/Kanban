@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Ist-Wert</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Zugewiesen an</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Zuständigkeitsbereich:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Karten ohne Datum</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Alle Filter löschen</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Spalte:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Gantt-Anzeigemodus</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>Hoch</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>In Bearbeitung</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Niedrig</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Mittel</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Fehlendes tatsächliches Enddatum</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>In diesem Modus haben keine Karten vollständige Daten zum Exportieren.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Keine Karten entsprechen den aktuellen Filtern.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Keine</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Nicht begonnen</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Geplant</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priorität</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Priorität:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Schreibgeschützt</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Titel oder Beschreibung suchen...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Status:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Zeit:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Titel oder Beschreibung suchen...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Priorität</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Dringend</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>Hoch</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Mittel</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Niedrig</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Keine</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Zugewiesen an</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Alle Filter löschen</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Löschen</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>Keine Karten entsprechen den aktuellen Filtern.</value>
-  </data>
+
 </root>

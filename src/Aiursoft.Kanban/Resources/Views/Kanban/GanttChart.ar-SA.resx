@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>الفعلي</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>المسؤول</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>المكلف بـ:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>البطاقات دون تواريخ</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>مسح</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>مسح جميع الفلاتر</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>العمود:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>وضع عرض غانت</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>عالية</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>قيد التنفيذ</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>منخفضة</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>متوسط</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>تاريخ النهاية الفعلي مفقود</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>لا توجد بطاقات بها تواريخ كاملة للتصدير في هذا الوضع.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>لا تتطابق أي بطاقات مع عوامل التصفية الحالية.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>بدون</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>لم يبدأ بعد</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>مخطط</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>الأولوية</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>الأولوية:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>للقراءة فقط</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>البحث في العنوان أو الوصف...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>الحالة:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>الوقت:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>البحث في العنوان أو الوصف...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>الأولوية</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>عاجل</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>عالية</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>متوسط</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>منخفضة</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>بدون</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>المسؤول</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>مسح جميع الفلاتر</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>مسح</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>لا تتطابق أي بطاقات مع عوامل التصفية الحالية.</value>
-  </data>
+
 </root>

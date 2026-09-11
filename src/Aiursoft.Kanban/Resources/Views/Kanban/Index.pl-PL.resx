@@ -24,6 +24,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Akcje</value>
   </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Rzeczywisty</value>
+  </data>
   <data name="Actual End" xml:space="preserve">
     <value>Rzeczywisty koniec</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Edytuj planszę</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Koniec</value>
   </data>
   <data name="Every" xml:space="preserve">
     <value>Co</value>
@@ -387,6 +393,9 @@
   <data name="Overdue" xml:space="preserve">
     <value>Opóźnione</value>
   </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planowany</value>
+  </data>
   <data name="Planned Start" xml:space="preserve">
     <value>Planowana data rozpoczęcia</value>
   </data>
@@ -465,6 +474,9 @@
   <data name="Share" xml:space="preserve">
     <value>Udostępnij</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Tablica docelowa</value>
   </data>
@@ -535,16 +547,4 @@
     <value>Możesz przeciągnąć tutaj obrazy lub wkleić je ze schowka.</value>
   </data>
 
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="End" xml:space="preserve">
-    <value>Koniec</value>
-  </data>
-  <data name="Actual" xml:space="preserve">
-    <value>Rzeczywisty</value>
-  </data>
-  <data name="Planned" xml:space="preserve">
-    <value>Planowany</value>
-  </data>
 </root>

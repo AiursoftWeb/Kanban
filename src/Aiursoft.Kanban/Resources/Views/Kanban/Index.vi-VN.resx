@@ -24,6 +24,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Hành động</value>
   </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Thực tế</value>
+  </data>
   <data name="Actual End" xml:space="preserve">
     <value>Thời gian kết thúc thực tế</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Chỉnh sửa Bảng</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Kết thúc</value>
   </data>
   <data name="Every" xml:space="preserve">
     <value>Mỗi</value>
@@ -387,6 +393,9 @@
   <data name="Overdue" xml:space="preserve">
     <value>Quá hạn</value>
   </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Đã lập kế hoạch</value>
+  </data>
   <data name="Planned Start" xml:space="preserve">
     <value>Ngày Bắt Đầu Dự Kiến</value>
   </data>
@@ -465,6 +474,9 @@
   <data name="Share" xml:space="preserve">
     <value>Chia sẻ</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Bảng đích</value>
   </data>
@@ -535,16 +547,4 @@
     <value>Bạn có thể kéo ảnh vào đây hoặc dán từ clipboard.</value>
   </data>
 
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="End" xml:space="preserve">
-    <value>Kết thúc</value>
-  </data>
-  <data name="Actual" xml:space="preserve">
-    <value>Thực tế</value>
-  </data>
-  <data name="Planned" xml:space="preserve">
-    <value>Đã lập kế hoạch</value>
-  </data>
 </root>

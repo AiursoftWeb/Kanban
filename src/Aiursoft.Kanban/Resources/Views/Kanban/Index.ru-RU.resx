@@ -24,6 +24,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Действия</value>
   </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Фактический</value>
+  </data>
   <data name="Actual End" xml:space="preserve">
     <value>Фактическая дата окончания</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Редактировать доску</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Окончание</value>
   </data>
   <data name="Every" xml:space="preserve">
     <value>Каждые</value>
@@ -387,6 +393,9 @@
   <data name="Overdue" xml:space="preserve">
     <value>Просрочено</value>
   </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Запланировано</value>
+  </data>
   <data name="Planned Start" xml:space="preserve">
     <value>Планируемая дата начала</value>
   </data>
@@ -465,6 +474,9 @@
   <data name="Share" xml:space="preserve">
     <value>Поделиться</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Целевая доска</value>
   </data>
@@ -535,16 +547,4 @@
     <value>Вы можете перетащить изображения сюда или вставить их из буфера обмена.</value>
   </data>
 
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="End" xml:space="preserve">
-    <value>Окончание</value>
-  </data>
-  <data name="Actual" xml:space="preserve">
-    <value>Фактический</value>
-  </data>
-  <data name="Planned" xml:space="preserve">
-    <value>Запланировано</value>
-  </data>
 </root>

@@ -27,6 +27,9 @@
   <data name="Actual end" xml:space="preserve">
     <value>实际结束</value>
   </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>实际结束时间不能早于实际开始时间。</value>
+  </data>
   <data name="Actual start" xml:space="preserve">
     <value>实际开始</value>
   </data>
@@ -150,6 +153,9 @@
   <data name="h ago" xml:space="preserve">
     <value>小时前</value>
   </data>
+  <data name="Invalid actual date or time." xml:space="preserve">
+    <value>实际日期或时间无效。</value>
+  </data>
   <data name="just now" xml:space="preserve">
     <value>刚刚</value>
   </data>
@@ -201,6 +207,12 @@
   <data name="Overview" xml:space="preserve">
     <value>概览</value>
   </data>
+  <data name="Planned end" xml:space="preserve">
+    <value>计划结束</value>
+  </data>
+  <data name="Planned start" xml:space="preserve">
+    <value>计划开始</value>
+  </data>
   <data name="Preview" xml:space="preserve">
     <value>预览</value>
   </data>
@@ -221,6 +233,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
+  </data>
+  <data name="Save actual times" xml:space="preserve">
+    <value>保存实际时间</value>
   </data>
   <data name="Saved" xml:space="preserve">
     <value>已保存</value>
@@ -301,19 +316,4 @@
     <value>您可以在此拖放图片或从剪贴板粘贴。</value>
   </data>
 
-  <data name="Save actual times" xml:space="preserve">
-    <value>保存实际时间</value>
-  </data>
-  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
-    <value>实际结束时间不能早于实际开始时间。</value>
-  </data>
-  <data name="Invalid actual date or time." xml:space="preserve">
-    <value>实际日期或时间无效。</value>
-  </data>
-  <data name="Planned start" xml:space="preserve">
-    <value>计划开始</value>
-  </data>
-  <data name="Planned end" xml:space="preserve">
-    <value>计划结束</value>
-  </data>
 </root>

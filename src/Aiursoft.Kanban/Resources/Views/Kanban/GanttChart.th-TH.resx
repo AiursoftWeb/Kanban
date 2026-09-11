@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>จริง</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>ผู้รับมอบหมาย</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>ผู้รับผิดชอบ:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>การ์ดที่ไม่มีวันที่</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>ล้าง</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>ล้างตัวกรองทั้งหมด</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>คอลัมน์:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>โหมดแสดงแกนต์</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>สูง</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>กำลังดำเนินการ</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>ต่ำ</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>ปานกลาง</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>ไม่มีวันสิ้นสุดที่แท้จริง</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>ไม่มีการ์ดที่มีวันที่ครบถ้วนสำหรับการส่งออกในโหมดนี้</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>ไม่พบการ์ดที่ตรงกับตัวกรองปัจจุบัน</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>ไม่มี</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>ยังไม่เริ่ม</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>ที่วางแผนไว้</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>ลำดับความสำคัญ</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>ลำดับความสำคัญ:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>แบบอ่านอย่างเดียว</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>ค้นหาชื่อหรือคำอธิบาย...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>สถานะ:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>เวลา:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>ค้นหาชื่อหรือคำอธิบาย...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>ลำดับความสำคัญ</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>เร่งด่วน</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>สูง</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>ปานกลาง</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>ต่ำ</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>ไม่มี</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>ผู้รับมอบหมาย</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>ล้างตัวกรองทั้งหมด</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>ล้าง</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>ไม่พบการ์ดที่ตรงกับตัวกรองปัจจุบัน</value>
-  </data>
+
 </root>

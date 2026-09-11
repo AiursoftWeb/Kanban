@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>वास्तविक</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>कार्यवाहक</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>असाइन किए गए व्यक्ति:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>तिथि रहित कार्ड</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>साफ़ करें</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>सभी फ़िल्टर साफ़ करें</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>कॉलम:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>गन्ट प्रदर्शन मोड</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>उच्च</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>प्रगति पर</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>कम</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>मध्यम</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>वास्तविक समाप्ति तिथि अनुपस्थित है</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>इस मोड में निर्यात करने के लिए पूर्ण तिथियों वाली कोई कार्ड नहीं है।</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>कोई कार्ड वर्तमान फ़िल्टर्स से मेल नहीं खाता है।</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>कोई नहीं</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>आरंभ नहीं हुआ</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>योजनाबद्ध</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>प्राथमिकता</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>प्राथमिकता:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>केवल-पढ़ें</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>शीर्षक या विवरण खोजें...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>स्थिति:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>समय:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>शीर्षक या विवरण खोजें...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>प्राथमिकता</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>अत्यावश्यक</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>उच्च</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>मध्यम</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>कम</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>कोई नहीं</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>कार्यवाहक</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>सभी फ़िल्टर साफ़ करें</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>साफ़ करें</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>कोई कार्ड वर्तमान फ़िल्टर्स से मेल नहीं खाता है।</value>
-  </data>
+
 </root>

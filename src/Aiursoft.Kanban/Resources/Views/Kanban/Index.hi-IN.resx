@@ -24,6 +24,9 @@
   <data name="Actions" xml:space="preserve">
     <value>कार्रवाई</value>
   </data>
+  <data name="Actual" xml:space="preserve">
+    <value>वास्तविक</value>
+  </data>
   <data name="Actual End" xml:space="preserve">
     <value>वास्तविक समाप्ति</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>बोर्ड संपादित करें</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>समाप्ति</value>
   </data>
   <data name="Every" xml:space="preserve">
     <value>प्रत्येक</value>
@@ -387,6 +393,9 @@
   <data name="Overdue" xml:space="preserve">
     <value>अतिशील</value>
   </data>
+  <data name="Planned" xml:space="preserve">
+    <value>योजनाबद्ध</value>
+  </data>
   <data name="Planned Start" xml:space="preserve">
     <value>योजित आरंभ</value>
   </data>
@@ -465,6 +474,9 @@
   <data name="Share" xml:space="preserve">
     <value>साझा करें</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>लक्ष्य बोर्ड</value>
   </data>
@@ -535,16 +547,4 @@
     <value>आप यहाँ चित्र खींचकर ला सकते हैं या क्लिपबोर्ड से पेस्ट कर सकते हैं।</value>
   </data>
 
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="End" xml:space="preserve">
-    <value>समाप्ति</value>
-  </data>
-  <data name="Actual" xml:space="preserve">
-    <value>वास्तविक</value>
-  </data>
-  <data name="Planned" xml:space="preserve">
-    <value>योजनाबद्ध</value>
-  </data>
 </root>

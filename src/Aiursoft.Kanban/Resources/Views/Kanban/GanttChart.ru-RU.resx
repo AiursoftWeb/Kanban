@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Фактический</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Исполнитель</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Назначенный:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Карточки без дат</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Очистить все фильтры</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Колонка:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Режим отображения диаграммы Ганта</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>В работе</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Средний</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Отсутствует фактическая дата окончания</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>Нет карточек с полными датами для экспорта в этом режиме.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Нет карточек, соответствующих текущим фильтрам.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Не начато</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Запланировано</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Приоритет:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Только для чтения</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Поиск по названию или описанию...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Статус:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Время:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Поиск по названию или описанию...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Приоритет</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Срочный</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>Высокий</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Средний</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Низкий</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Нет</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Исполнитель</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Очистить все фильтры</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Очистить</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>Нет карточек, соответствующих текущим фильтрам.</value>
-  </data>
+
 </root>

@@ -21,6 +21,9 @@
       <data name="Actual" xml:space="preserve">
     <value>Actual</value>
   </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Assignee</value>
+  </data>
   <data name="Assignee:" xml:space="preserve">
     <value>Assigned to:</value>
   </data>
@@ -32,6 +35,12 @@
   </data>
   <data name="Cards without dates" xml:space="preserve">
     <value>Cards without dates</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Clear all filters</value>
   </data>
   <data name="Column:" xml:space="preserve">
     <value>Column:</value>
@@ -54,8 +63,17 @@
   <data name="Gantt display mode" xml:space="preserve">
     <value>Gantt display mode</value>
   </data>
+  <data name="High" xml:space="preserve">
+    <value>High</value>
+  </data>
   <data name="In Progress" xml:space="preserve">
     <value>In Progress</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medium</value>
   </data>
   <data name="Missing actual end date" xml:space="preserve">
     <value>Missing actual end date</value>
@@ -84,6 +102,12 @@
   <data name="No cards have complete dates to export in this mode." xml:space="preserve">
     <value>No cards have complete dates to export in this mode.</value>
   </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>No cards match the current filters.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
   <data name="Not Started" xml:space="preserve">
     <value>Not Started</value>
   </data>
@@ -93,11 +117,17 @@
   <data name="Planned" xml:space="preserve">
     <value>Planned</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
   <data name="Priority:" xml:space="preserve">
     <value>Priority:</value>
   </data>
   <data name="Read-only" xml:space="preserve">
     <value>Read-only</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Search title or description...</value>
   </data>
   <data name="Status:" xml:space="preserve">
     <value>Status:</value>
@@ -111,38 +141,8 @@
   <data name="Time:" xml:space="preserve">
     <value>Time:</value>
   </data>
-
-  <data name="Search title or description..." xml:space="preserve">
-    <value>Search title or description...</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Priority</value>
-  </data>
   <data name="Urgent" xml:space="preserve">
     <value>Urgent</value>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>High</value>
-  </data>
-  <data name="Medium" xml:space="preserve">
-    <value>Medium</value>
-  </data>
-  <data name="Low" xml:space="preserve">
-    <value>Low</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="Assignee" xml:space="preserve">
-    <value>Assignee</value>
-  </data>
-  <data name="Clear all filters" xml:space="preserve">
-    <value>Clear all filters</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Clear</value>
-  </data>
-  <data name="No cards match the current filters." xml:space="preserve">
-    <value>No cards match the current filters.</value>
-  </data>
+
 </root>
