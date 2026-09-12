@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Token da API Anthropic</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Definir Data de Vencimento Automaticamente</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Definir automaticamente a data/hora planejada de início</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Nome da Marca</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Dias Antecedentes do Prazo</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Escolha de Teste</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>O token x-api-key para autenticação com o endpoint da API Anthropic. Deixe vazio se o endpoint não exigir autenticação.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>Ao definir automaticamente uma data de vencimento, o número de dias após a criação do cartão em que ele estará vencido.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Ao definir automaticamente a data de início planejada, o número de dias para adiantar antes da data final.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>Quando ativado, os cartões com data de vencimento, mas sem horário previsto de início, terão automaticamente seu horário previsto de início definido com base na configuração de dias avançados.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>Quando ativado, novos cartões sem data de vencimento terão o vencimento definido automaticamente após o número de dias configurado.</value>
   </data>
 
 </root>
