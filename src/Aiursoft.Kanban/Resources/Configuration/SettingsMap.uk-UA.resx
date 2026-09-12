@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Токен Anthropic API</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Авто встановлення дедлайну</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Автоматичне встановлення запланованого часу початку</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Назва бренду</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Днів заздалегідь до дедлайну</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Спростована вибірка</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>Токен x-api-key для автентифікації в кінцевій точці Anthropic API. Залиште порожнім, якщо кінцева точка не вимагає автентифікації.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>Під час автоматичного встановлення дати завершення, кількість днів після створення картки, за які вона має бути виконана.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Під час автоматичного встановлення планованої дати початку — кількість днів для зміщення щодо дедлайну.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>Якщо увімкнуто, картки зі строком виконання, але без запланованого часу початку, автоматично отримуватимуть запланований час початку на основі налаштування «Дні випередження».</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>Якщо увімкнено, нові картки без дати виконання автоматично отримують термін виконання через налаштовану кількість днів.</value>
   </data>
 
 </root>

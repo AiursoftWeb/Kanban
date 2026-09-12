@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Token API Anthropic</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Atur Tanggal Jatuh Tempo Otomatis</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Atur Otomatis Waktu Mulai Rencana</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Nama Merek</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Hari Jangka Waktu Jatuh Tempo</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Pilihan Contoh</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>Token x-api-key untuk mengautentikasi dengan Endpoint API Anthropic. Kosongkan jika endpoint tidak memerlukan autentikasi.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>Saat mengatur tanggal jatuh tempo secara otomatis, jumlah hari setelah pembuatan kartu ketika kartu tersebut akan jatuh tempo.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Saat mengatur waktu mulai yang direncanakan secara otomatis, jumlah hari untuk dipercepat sebelum tanggal jatuh tempo.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>Saat diaktifkan, kartu yang memiliki tanggal jatuh tempo tetapi tidak ada waktu mulai terencana akan secara otomatis mengatur waktu mulai terancananya berdasarkan pengaturan hari maju.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>Ketika diaktifkan, kartu baru tanpa tanggal jatuh tempo akan secara otomatis memiliki tanggal jatuh tempo setelah jumlah hari yang dikonfigurasi.</value>
   </data>
 
 </root>

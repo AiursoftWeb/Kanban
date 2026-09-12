@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Anthropic API-nyckel</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Automatisk förfallodatum</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Automatisk inställning av planerad starttid</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Varumärke</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Fristens föraningsdagar</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Dummyval</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>x-api-token för autentisering med Anthropic API-slutpunkt. Lämna tomt om slutpunkten inte kräver autentisering.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>När en förfallodatum ställs in automatiskt, antalet dagar efter kortets skapande då kortet blir förfallet.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Vid automatisk inställning av planerad starttid, antalet dagar att flytta fram innan förfallodatum.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>När aktiverat kommer kort med ett förfallodatum men utan planerad starttid automatiskt att få sin planerade starttid inställd baserat på inställningen för avancemangs-dagar.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>När aktiverat kommer nya kort utan ett förfallodatum automatiskt att ha förfallodatum efter det konfigurerade antalet dagar.</value>
   </data>
 
 </root>

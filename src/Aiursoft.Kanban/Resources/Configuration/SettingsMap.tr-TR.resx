@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Anthropic API Anahtarı</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Son Tarihi Otomatik Ayarla</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Planlanan Başlangıç Zamanını Otomatik Ayarla</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Marka Adı</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Son Tarih Önceden Belirlenen Gün Sayısı</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Yanlış Seçim</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>Anthropic API Uç noktasıyla kimlik doğrulama için x-api-key belirteci. Uç nokta kimlik doğrulamayı gerektirmiyorsa boş bırakın.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>Son kullanma tarihini otomatik ayarladığınızda, kartın son kullanma tarihine kadar kart oluşturma işleminden sonraki gün sayısı.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Planlanan başlangıç saati otomatik olarak ayarlandığında, son tarihinden önceki ilerleme günü sayısını belirtir.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>Etkinleştirildiğinde, son tarihı olan ancak planlanan başlangıç saatine sahip olmayan kartların planlanan başlangıç saatleri, ileri günler ayarına göre otomatik olarak ayarlanır.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>Etkinleştirildiğinde, son kullanma tarihi olmayan yeni kartlar, yapılandırılan gün sayısı kadar süre sonra otomatik olarak son kullanma tarihine sahip olacaktır.</value>
   </data>
 
 </root>

@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>رمز واجهة برمجة تطبيقات Anthropic</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>ضبط تاريخ الاستحقاق تلقائيًا</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>تعيين وقت البدء المخطط تلقائيًا</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>اسم العلامة التجارية</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>أيام الاستحقاق المسبقة</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>اختيار تجريبي</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>رمز x-api-key المصادقة من خلاله مع نقطة نهاية واجهة برمجة تطبيقات Anthropic. اتركه فارغًا إذا كانت نقطة النهاية لا تتطلب مصادقة.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>عند ضبط تاريخ الاستحقاق تلقائيًا، عدد الأيام بعد إنشاء البطاقة التي تصبح فيها البطاقة مستحقة.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>عند تعيين وقت البدء المجدول تلقائيًا، عدد الأيام التي يجب تقديمها قبل تاريخ الاستحقاق.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>عند التفعيل، سيتم تعيين وقت البدء المخطط للبطاقات ذات تاريخ الاستحقاق ولكن دون وقت بدء مخطط تلقائياً بناءً على إعداد أيام التقدم.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>عند التفعيل، ستصبح البطاقات الجديدة التي لا تحتوي على تاريخ استحقاق مستحقة تلقائيًا بعد عدد الأيام المحدد.</value>
   </data>
 
 </root>

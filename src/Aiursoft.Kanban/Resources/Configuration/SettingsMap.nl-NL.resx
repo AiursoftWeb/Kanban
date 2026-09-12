@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Anthropic API-token</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Vaste vervaldatum instellen</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Automatisch geplande starttijd instellen</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Merkenaam</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Voorafgaande dagen voor vervaldatum</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Standaard Keuze</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>De x-api-key-token voor authenticatie bij het Anthropic API-eindpunt. Laat leeg als het eindpunt geen authenticatie vereist.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>Bij het automatisch instellen van een vervaldatum: het aantal dagen na het aanmaken van de kaart waarop de kaart vervalt.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Wanneer de geplande begindatum automatisch wordt ingesteld, het aantal dagen voorafgaand aan de einddatum.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>Indien ingeschakeld krijgen kaarten met een vervaldatum maar zonder gepland starttijdstip automatisch hun geplande starttijdstip ingesteld op basis van de instelling voor dagen vooraf.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>Wanneer ingeschakeld, krijgen nieuwe kaarten zonder vervaldatum automatisch een vervaldatum na het geconfigureerde aantal dagen.</value>
   </data>
 
 </root>

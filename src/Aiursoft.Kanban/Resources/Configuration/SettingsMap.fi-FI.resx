@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Anthropic API -avain</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Aseta eräpäivä automaattisesti</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Automaattinen suunnitellun alkamisaian asettaminen</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Brändin nimi</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Eräpäivän ennakkopäivät</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Väliaikainen valinta</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>x-api-key-tokeni Anthropicin API-päätteen todentamiseen. Jätä tyhjäksi, jos pääte ei vaadi todentamista.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>Kun eräajaa asetetaan automaattisesti, päiväjen määrä kortin luonnin jälkeen, jolloin kortin eräaika tulee vastaan.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Kun automaattinen suunnitellun aloitusajan asetus on käytössä, etupäivien määrä ennen eräpäivää.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>Kun tämä on käytössä, korteille, joissa on erääpäivä mutta ei suunniteltua aloitusajankohtaa, asetetaan suunniteltu aloitusajankohta automaattisesti edellispäivi-asetuksen mukaisesti.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>Kun käytössä, uusille korteille, joilla ei ole eräpäivää, asetetaan automaattisesti eräpäivä asetetun päivämäärän jälkeen.</value>
   </data>
 
 </root>
