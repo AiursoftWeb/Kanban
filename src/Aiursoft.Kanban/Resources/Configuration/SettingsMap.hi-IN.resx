@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>एन्थ्रोपिक एपीआई टोकन</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>स्वतः देय तारीख सेट करें</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>योजनाबद्ध प्रारंभ समय स्वतः निर्धारित करें</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>ब्रांड नाम</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>मददारी की अगली तिथि</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>डमी चयन</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>प्रमाणीकरण के लिए एक्स-एपीआई-की टोकन। यदि अंतर्बिंदु को प्रमाणीकरण की आवश्यकता नहीं है, तो खाली छोड़ें।</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>जब स्वतः गंतव्य तिथि सेट की जा रही है, तो कार्ड निर्माण के बाद कार्ड के गंतव्य तिथि बनने के लिए दिन की संख्या।</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>जब योजनाबद्ध प्रारंभ समय स्वतः सेट किया जाता है, नियत तारीख से पहले आगे बढ़ने के दिनों की संख्या।</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>सक्षम होने पर, शेष तिथि वाला लेकिन नियोजित प्रारंभ समय नहीं होने वाले कार्डों के लिए नियोजित प्रारंभ समय अग्रिम दिनों सेटिंग के आधार पर स्वचालित रूप से निर्धारित किया जाएगा।</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>सक्रिय होने पर, नई कार्ड जो due date के बिना हों, स्वतः ही कॉन्फ़िगर किए गए दिनों की संख्या के बाद due हो जाएंगी।</value>
   </data>
 
 </root>

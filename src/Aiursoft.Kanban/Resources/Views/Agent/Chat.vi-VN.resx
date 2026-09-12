@@ -36,11 +36,17 @@
   <data name="Error:" xml:space="preserve">
     <value>Lỗi:</value>
   </data>
+  <data name="Hi! I&apos;m your Kanban assistant. I can help you manage cards, columns, and boards." xml:space="preserve">
+    <value>Xin chào! Tôi là trợ lý Kanban của bạn. Tôi có thể giúp bạn quản lý thẻ, cột và bảng.</value>
+  </data>
   <data name="Hi! I&apos;m your Kanban assistant. I can help you manage cards, columns, and boards. Try saying &quot;Show me the board&quot; or &quot;Create a card for the login bug.&quot;" xml:space="preserve">
     <value>Chào bạn! Tôi là trợ lý Kanban của bạn. Tôi có thể giúp bạn quản lý thẻ, cột và bảng. Hãy thử nói &quot;Hiển thị bảng&quot; hoặc &quot;Tạo thẻ cho lỗi đăng nhập.&quot;</value>
   </data>
   <data name="Kanban AI Assistant" xml:space="preserve">
     <value>Trợ lý AI Kanban</value>
+  </data>
+  <data name="Loading conversations..." xml:space="preserve">
+    <value>Đang tải các cuộc trò chuyện...</value>
   </data>
   <data name="Network error:" xml:space="preserve">
     <value>Lỗi mạng:</value>
@@ -74,6 +80,9 @@
   </data>
   <data name="Type a message..." xml:space="preserve">
     <value>Nhập tin nhắn...</value>
+  </data>
+  <data name="Unable to load conversations" xml:space="preserve">
+    <value>Không thể tải các cuộc trò chuyện</value>
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Đang chờ phê duyệt</value>
