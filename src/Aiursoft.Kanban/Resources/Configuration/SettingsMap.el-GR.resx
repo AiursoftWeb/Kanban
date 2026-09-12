@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Πρόσβαση API Anthropic</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Αυτόματο ορισμός ημερομηνίας λήξης</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Αυτόματη Ρύθμιση Προγραμματισμένης Ώρας Έναρξης</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Όνομα Εταιρείας</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Ημέρες Επείγοντος Πρόωρα</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Προσχέδιο Επιλογής</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>Το token x-api-key για την αυθεντικοποίηση με το Anthropic API Endpoint. Αφήστε κενό εάν το endpoint δεν απαιτεί αυθεντικοποίηση.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>Όταν ορίζεται αυτόματα η ημερομηνία λήξης, ο αριθμός των ημερών μετά τη δημιουργία της κάρτας κατά την οποία η κάρτα θα έχει λήξει.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Όταν ρυθμίζεται αυτόματα η προγραμματισμένη ώρα έναρξης, ο αριθμός των ημερών που πρέπει να προβληθούν πριν από την ημερομηνία λήξης.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>Όταν είναι ενεργοποιημένο, οι κάρτες με ημερομηνία λήξης αλλά χωρίς προκαθορισμένο χρόνο έναρξης θα έχουν αυτόματα οριστεί ο χρόνος έναρξής τους βασισμένος στη ρύθμιση των προηγούμενων ημερών.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>Όταν είναι ενεργοποιημένο, τα νέα κάρτες χωρίς ημερομηνία λήξης θα έχουν αυτόματα λήξη μετά από τον ρυθμισμένο αριθμό ημερών.</value>
   </data>
 
 </root>

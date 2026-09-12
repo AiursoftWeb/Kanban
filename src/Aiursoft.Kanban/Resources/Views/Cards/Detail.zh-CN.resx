@@ -51,6 +51,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="Changes save automatically." xml:space="preserve">
+    <value>更改将自动保存。</value>
+  </data>
   <data name="Clear" xml:space="preserve">
     <value>清除</value>
   </data>
