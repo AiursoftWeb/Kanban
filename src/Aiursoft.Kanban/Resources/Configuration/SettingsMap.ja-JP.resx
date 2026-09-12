@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Anthropic API トークン</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>締切日の自動設定</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>自動設定計画開始時刻</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>ブランド名</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>期限日進捗日数</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>ダミー選択</value>
@@ -126,6 +132,9 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>Anthropic API エンドポイントとの認証に使用する x-api-key トークン。エンドポイントで認証が必要ない場合は空のままにしてください。</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>自動で期限を設定する場合、カード作成からカードの期限までの日数。</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>)&quot;.
 
@@ -133,6 +142,9 @@ Thus output something like:</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>有効にすると、期日があるのに計画開始時間が設定されていないカードについて、自動的に計画開始時間を前倒し日数設定に基づいて設定します。</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>有効にすると、期限日が設定されていない新しいカードは、設定された日数後に自動的に期限日が設定されます。</value>
   </data>
 
 </root>

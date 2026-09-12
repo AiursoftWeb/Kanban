@@ -45,6 +45,9 @@
   <data name="Anthropic API Token" xml:space="preserve">
     <value>Mã thông báo API Anthropic</value>
   </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Tự động đặt hạn chót</value>
+  </data>
   <data name="Auto Set Planned Start Time" xml:space="preserve">
     <value>Tự động đặt thời gian bắt đầu dự kiến</value>
   </data>
@@ -53,6 +56,9 @@
   </data>
   <data name="Brand Name" xml:space="preserve">
     <value>Tên thương hiệu</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Số ngày trước hạn chót</value>
   </data>
   <data name="Dummy Choice" xml:space="preserve">
     <value>Lựa chọn giả</value>
@@ -126,11 +132,17 @@
   <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
     <value>Mã thông báo x-api-key dùng để xác thực với Điểm cuối API của Anthropic. Để trống nếu Điểm cuối không yêu cầu xác thực.</value>
   </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>Khi tự động thiết lập hạn chót, số ngày sau khi tạo thẻ mà thẻ sẽ đến hạn.</value>
+  </data>
   <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
     <value>Khi tự động đặt thời gian bắt đầu dự kiến, số ngày cần đặt trước ngày đến hạn.</value>
   </data>
   <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
     <value>Khi được bật, các thẻ có ngày hết hạn nhưng không có thời gian bắt đầu theo kế hoạch sẽ tự động được đặt thời gian bắt đầu theo kế hoạch dựa trên cài đặt số ngày trước.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>Khi được bật, các thẻ mới không có hạn chót sẽ tự động hết hạn sau số ngày đã cấu hình.</value>
   </data>
 
 </root>
