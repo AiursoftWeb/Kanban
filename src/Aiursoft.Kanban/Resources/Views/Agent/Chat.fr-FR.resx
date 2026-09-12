@@ -36,11 +36,17 @@
   <data name="Error:" xml:space="preserve">
     <value>Erreur :</value>
   </data>
+  <data name="Hi! I&apos;m your Kanban assistant. I can help you manage cards, columns, and boards." xml:space="preserve">
+    <value>Bonjour ! Je suis votre assistant Kanban. Je peux vous aider à gérer les cartes, les colonnes et les tableaux.</value>
+  </data>
   <data name="Hi! I&apos;m your Kanban assistant. I can help you manage cards, columns, and boards. Try saying &quot;Show me the board&quot; or &quot;Create a card for the login bug.&quot;" xml:space="preserve">
     <value>Bonjour ! Je suis votre assistant Kanban. Je peux vous aider à gérer les cartes, les colonnes et les tableaux. Essayez de dire « Montrez-moi le tableau » ou « Créez une carte pour le bug de connexion ».</value>
   </data>
   <data name="Kanban AI Assistant" xml:space="preserve">
     <value>Assistant IA Kanban</value>
+  </data>
+  <data name="Loading conversations..." xml:space="preserve">
+    <value>Chargement des conversations...</value>
   </data>
   <data name="Network error:" xml:space="preserve">
     <value>Erreur réseau :</value>
@@ -74,6 +80,9 @@
   </data>
   <data name="Type a message..." xml:space="preserve">
     <value>Saisissez un message...</value>
+  </data>
+  <data name="Unable to load conversations" xml:space="preserve">
+    <value>Impossible de charger les conversations</value>
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>En attente d&apos;approbation</value>

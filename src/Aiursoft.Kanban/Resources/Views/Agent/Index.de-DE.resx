@@ -27,11 +27,26 @@
   <data name="Board:" xml:space="preserve">
     <value>Board:</value>
   </data>
+  <data name="Collapse sidebar" xml:space="preserve">
+    <value>Seitenleiste einklappen</value>
+  </data>
+  <data name="Conversation history" xml:space="preserve">
+    <value>Konversationsverlauf</value>
+  </data>
+  <data name="Expand sidebar" xml:space="preserve">
+    <value>Seitenleiste ausklappen</value>
+  </data>
   <data name="Go to Kanban" xml:space="preserve">
     <value>Zu Kanban</value>
   </data>
   <data name="Kanban AI Assistant" xml:space="preserve">
     <value>Kanban-KI-Assistent</value>
+  </data>
+  <data name="New session" xml:space="preserve">
+    <value>Neue Sitzung</value>
+  </data>
+  <data name="No conversations yet" xml:space="preserve">
+    <value>Noch keine Gespräche</value>
   </data>
   <data name="Open board in new tab" xml:space="preserve">
     <value>Board in neuem Tab öffnen</value>
