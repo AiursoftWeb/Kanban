@@ -27,11 +27,26 @@
   <data name="Board:" xml:space="preserve">
     <value>Papan:</value>
   </data>
+  <data name="Collapse sidebar" xml:space="preserve">
+    <value>Tutup bilah sisi</value>
+  </data>
+  <data name="Conversation history" xml:space="preserve">
+    <value>Riwayat percakapan</value>
+  </data>
+  <data name="Expand sidebar" xml:space="preserve">
+    <value>Perluas bilah sisi</value>
+  </data>
   <data name="Go to Kanban" xml:space="preserve">
     <value>Buka Kanban</value>
   </data>
   <data name="Kanban AI Assistant" xml:space="preserve">
     <value>Asisten AI Kanban</value>
+  </data>
+  <data name="New session" xml:space="preserve">
+    <value>Sesi baru</value>
+  </data>
+  <data name="No conversations yet" xml:space="preserve">
+    <value>Belum ada percakapan</value>
   </data>
   <data name="Open board in new tab" xml:space="preserve">
     <value>Buka papan di tab baru</value>

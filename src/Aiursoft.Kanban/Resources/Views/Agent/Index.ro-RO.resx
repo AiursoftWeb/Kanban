@@ -27,11 +27,26 @@
   <data name="Board:" xml:space="preserve">
     <value>Tablă:</value>
   </data>
+  <data name="Collapse sidebar" xml:space="preserve">
+    <value>Restrângeți bara laterală</value>
+  </data>
+  <data name="Conversation history" xml:space="preserve">
+    <value>Istoricul conversațiilor</value>
+  </data>
+  <data name="Expand sidebar" xml:space="preserve">
+    <value>Extinde bara laterală</value>
+  </data>
   <data name="Go to Kanban" xml:space="preserve">
     <value>Mergi la Kanban</value>
   </data>
   <data name="Kanban AI Assistant" xml:space="preserve">
     <value>Asistent AI Kanban</value>
+  </data>
+  <data name="New session" xml:space="preserve">
+    <value>Sesiune nouă</value>
+  </data>
+  <data name="No conversations yet" xml:space="preserve">
+    <value>Nicio conversație încă</value>
   </data>
   <data name="Open board in new tab" xml:space="preserve">
     <value>Deschide tabloul într-o filă nouă</value>

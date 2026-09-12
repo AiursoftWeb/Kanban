@@ -36,11 +36,17 @@
   <data name="Error:" xml:space="preserve">
     <value>Virhe:</value>
   </data>
+  <data name="Hi! I&apos;m your Kanban assistant. I can help you manage cards, columns, and boards." xml:space="preserve">
+    <value>Hei! Olen Kanban-avustajasi. Voin auttaa sinua hallitsemaan kortteja, sarakkeita ja lautaa.</value>
+  </data>
   <data name="Hi! I&apos;m your Kanban assistant. I can help you manage cards, columns, and boards. Try saying &quot;Show me the board&quot; or &quot;Create a card for the login bug.&quot;" xml:space="preserve">
     <value>Hei! Olen Kanban-assistentisi. Voin auttaa sinua hallinnoimaan kortteja, sarakkeita ja luita. Kokeile sanoa &quot;Näytä luikka&quot; tai &quot;Luo kortti kirjautumisvirheestä&quot;.</value>
   </data>
   <data name="Kanban AI Assistant" xml:space="preserve">
     <value>Kanban-tekoälyavustaja</value>
+  </data>
+  <data name="Loading conversations..." xml:space="preserve">
+    <value>Ladataan keskusteluja...</value>
   </data>
   <data name="Network error:" xml:space="preserve">
     <value>Verkkovirhe:</value>
@@ -74,6 +80,9 @@
   </data>
   <data name="Type a message..." xml:space="preserve">
     <value>Kirjoita viesti...</value>
+  </data>
+  <data name="Unable to load conversations" xml:space="preserve">
+    <value>Keskustelujen lataaminen epäonnistui</value>
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Odotetaan hyväksyntää</value>
