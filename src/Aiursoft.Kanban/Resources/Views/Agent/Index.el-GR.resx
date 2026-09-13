@@ -27,11 +27,26 @@
   <data name="Board:" xml:space="preserve">
     <value>Πίνακας:</value>
   </data>
+  <data name="Collapse sidebar" xml:space="preserve">
+    <value>Σύμπτυξη πλαϊνής ράβδου</value>
+  </data>
+  <data name="Conversation history" xml:space="preserve">
+    <value>Ιστορικό συνομιλίας</value>
+  </data>
+  <data name="Expand sidebar" xml:space="preserve">
+    <value>Επεκτάσεις πλαϊνής ράφου</value>
+  </data>
   <data name="Go to Kanban" xml:space="preserve">
     <value>Μετάβαση στο Kanban</value>
   </data>
   <data name="Kanban AI Assistant" xml:space="preserve">
     <value>Βοηθός Kanban AI</value>
+  </data>
+  <data name="New session" xml:space="preserve">
+    <value>Νέα συνεδρία</value>
+  </data>
+  <data name="No conversations yet" xml:space="preserve">
+    <value>Δεν υπάρχουν ακόμη συζητήσεις</value>
   </data>
   <data name="Open board in new tab" xml:space="preserve">
     <value>Άνοιγμα πίνακα σε νέα καρτέλα</value>
