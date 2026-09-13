@@ -36,11 +36,17 @@
   <data name="Error:" xml:space="preserve">
     <value>Fout:</value>
   </data>
+  <data name="Hi! I&apos;m your Kanban assistant. I can help you manage cards, columns, and boards." xml:space="preserve">
+    <value>Hoi! Ik ben je Kanban-assistent. Ik kan je helpen met het beheren van kaarten, kolommen en borden.</value>
+  </data>
   <data name="Hi! I&apos;m your Kanban assistant. I can help you manage cards, columns, and boards. Try saying &quot;Show me the board&quot; or &quot;Create a card for the login bug.&quot;" xml:space="preserve">
     <value>Hoi! Ik ben je Kanban-assistent. Ik kan je helpen kaarten, kolommen en borden te beheren. Probeer te zeggen &quot;Toon het bord&quot; of &quot;Maak een kaart voor de loginbug&quot;.</value>
   </data>
   <data name="Kanban AI Assistant" xml:space="preserve">
     <value>Kanban AI-assistent</value>
+  </data>
+  <data name="Loading conversations..." xml:space="preserve">
+    <value>Conversaties laden...</value>
   </data>
   <data name="Network error:" xml:space="preserve">
     <value>Netwerkfout:</value>
@@ -74,6 +80,9 @@
   </data>
   <data name="Type a message..." xml:space="preserve">
     <value>Typ een bericht...</value>
+  </data>
+  <data name="Unable to load conversations" xml:space="preserve">
+    <value>Gesprekken konden niet worden geladen</value>
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Wachten op goedkeuring</value>
