@@ -36,11 +36,17 @@
   <data name="Error:" xml:space="preserve">
     <value>Σφάλμα:</value>
   </data>
+  <data name="Hi! I&apos;m your Kanban assistant. I can help you manage cards, columns, and boards." xml:space="preserve">
+    <value>Γεια σου! Είμαι ο βοηθός Kanban σου. Μπορώ να σε βοηθήσω να διαχειριστείς κάρτες, στήλες και πίνακες.</value>
+  </data>
   <data name="Hi! I&apos;m your Kanban assistant. I can help you manage cards, columns, and boards. Try saying &quot;Show me the board&quot; or &quot;Create a card for the login bug.&quot;" xml:space="preserve">
     <value>Γεια σας! Είμαι ο βοηθός Kanban σας. Μπορώ να σας βοηθήσω να διαχειριστείτε κάρτες, στήλες και πίνακες. Δοκιμάστε να πείτε «Δείξε μου τον πίνακα» ή «Δημιούργησε κάρτα για το σφάλμα εισόδου».</value>
   </data>
   <data name="Kanban AI Assistant" xml:space="preserve">
     <value>Βοηθός AI Kanban</value>
+  </data>
+  <data name="Loading conversations..." xml:space="preserve">
+    <value>Φόρτωση συζητήσεων...</value>
   </data>
   <data name="Network error:" xml:space="preserve">
     <value>Σφάλμα δικτύου:</value>
@@ -74,6 +80,9 @@
   </data>
   <data name="Type a message..." xml:space="preserve">
     <value>Πληκτρολογήστε ένα μήνυμα...</value>
+  </data>
+  <data name="Unable to load conversations" xml:space="preserve">
+    <value>Αδυναμία φόρτωσης συνομιλιών</value>
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Αναμονή έγκρισης</value>
