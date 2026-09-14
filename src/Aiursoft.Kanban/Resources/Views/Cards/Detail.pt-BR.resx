@@ -69,8 +69,8 @@
   <data name="comments" xml:space="preserve">
     <value>comments</value>
   </data>
-  <data name="Comments will stay with the current card history, and assignee may be re-evaluated on the target board." xml:space="preserve">
-    <value>Comments will remain with the current card history, and the assignee may be reassigned on the target board.</value>
+  <data name="Comments and assignee are preserved only when both boards belong to the same user group; otherwise, they are removed." xml:space="preserve">
+    <value>Os comentários e o responsável são preservados apenas quando os dois quadros pertencem ao mesmo grupo de usuários; caso contrário, são removidos.</value>
   </data>
   <data name="Context around ownership, status and where this card currently lives." xml:space="preserve">
     <value>Context regarding ownership, status and where this card currently resides.</value>
