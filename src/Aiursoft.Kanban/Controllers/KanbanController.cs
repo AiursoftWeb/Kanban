@@ -510,6 +510,9 @@ public class KanbanController(
         if (!await HasEditAccess(card.Column.Board, userId)) return Forbid();
         if (!await HasEditAccess(targetColumn.Board, userId)) return Forbid();
 
+        var preserveCollaborativeData = await db.BelongToSameUserGroupAsync(
+            card.Column.BoardId,
+            targetBoardId);
         var maxOrder = await db.KanbanCards
             .Where(c => c.ColumnId == targetColumnId)
             .MaxAsync(c => (int?)c.Order) ?? -1;
@@ -527,7 +530,7 @@ public class KanbanController(
             ColumnId = targetColumnId,
             Priority = card.Priority,
             CreatorUserId = card.CreatorUserId ?? userId,
-            AssignedUserId = null,
+            AssignedUserId = preserveCollaborativeData ? card.AssignedUserId : null,
             PlannedStartTime = card.PlannedStartTime,
             DueDate = card.DueDate,
             RecurrenceInterval = card.RecurrenceInterval,
@@ -545,7 +548,17 @@ public class KanbanController(
             Card = transferredCard,
             LabelId = link.LabelId
         }));
-        db.KanbanCardComments.RemoveRange(comments);
+        if (preserveCollaborativeData)
+        {
+            foreach (var comment in comments)
+            {
+                comment.Card = transferredCard;
+            }
+        }
+        else
+        {
+            db.KanbanCardComments.RemoveRange(comments);
+        }
         db.KanbanCardSubscriptions.RemoveRange(sourceSubscriptions);
         db.KanbanCards.Remove(card);
         await db.SaveChangesAsync();

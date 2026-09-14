@@ -358,6 +358,78 @@ public class BoardSharingTests : TestBase
     }
 
     [TestMethod]
+    public async Task TransferCard_BetweenBoardsInSameUserGroup_PreservesCommentsAndAssignee()
+    {
+        var (sourceOwnerEmail, sourceOwnerPassword) = await RegisterAndLoginAsync();
+        var sourceOwnerId = await GetUserIdByEmailAsync(sourceOwnerEmail);
+        var sourceBoardId = await CreateBoardWithOwner(sourceOwnerId, "Group source board");
+        await LogoutAsync();
+
+        var targetOwnerId = await RegisterUserAndGetIdAsync();
+        var targetBoardId = await CreateBoardWithOwner(targetOwnerId, "Group target board");
+        var groupId = await CreateRoleWithUser("transfer-group-" + Guid.NewGuid(), sourceOwnerId);
+        await CreateShare(sourceBoardId, null, groupId, SharePermission.Editable);
+        await CreateShare(targetBoardId, null, groupId, SharePermission.Editable);
+        await LogoutAsync();
+        await LoginAsync(sourceOwnerEmail, sourceOwnerPassword);
+
+        int cardId;
+        int commentId;
+        int targetColumnId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var sourceColumnId = await db.KanbanColumns
+                .Where(column => column.BoardId == sourceBoardId)
+                .OrderBy(column => column.Order)
+                .Select(column => column.Id)
+                .FirstAsync();
+            targetColumnId = await db.KanbanColumns
+                .Where(column => column.BoardId == targetBoardId)
+                .OrderBy(column => column.Order)
+                .Select(column => column.Id)
+                .FirstAsync();
+            var card = new KanbanCard
+            {
+                Title = "Preserve group data",
+                ColumnId = sourceColumnId,
+                CreatorUserId = sourceOwnerId,
+                AssignedUserId = sourceOwnerId
+            };
+            db.KanbanCards.Add(card);
+            db.KanbanCardComments.Add(new KanbanCardComment
+            {
+                Card = card,
+                AuthorId = sourceOwnerId,
+                Content = "Keep group history"
+            });
+            await db.SaveChangesAsync();
+            cardId = card.Id;
+            commentId = await db.KanbanCardComments
+                .Where(comment => comment.CardId == cardId)
+                .Select(comment => comment.Id)
+                .SingleAsync();
+        }
+
+        var transferResponse = await PostForm(
+            $"/Kanban/TransferCard?cardId={cardId}&targetBoardId={targetBoardId}&targetColumnId={targetColumnId}",
+            new Dictionary<string, string>());
+        Assert.AreEqual(HttpStatusCode.OK, transferResponse.StatusCode);
+        var transferResult = await transferResponse.Content.ReadFromJsonAsync<TransferCardResult>();
+        Assert.IsNotNull(transferResult);
+
+        using var verificationScope = Server!.Services.CreateScope();
+        var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var transferredCard = await verificationDb.KanbanCards.FindAsync(transferResult.Id);
+        Assert.IsNotNull(transferredCard);
+        Assert.AreEqual(sourceOwnerId, transferredCard.AssignedUserId);
+        var transferredComment = await verificationDb.KanbanCardComments.FindAsync(commentId);
+        Assert.IsNotNull(transferredComment);
+        Assert.AreEqual(transferResult.Id, transferredComment.CardId);
+        Assert.AreEqual("Keep group history", transferredComment.Content);
+    }
+
+    [TestMethod]
     public async Task TransferCard_DoesNotNotifyOriginalAssigneeWithoutTargetBoardAccess()
     {
         var (sourceOwnerEmail, sourceOwnerPassword) = await RegisterAndLoginAsync();

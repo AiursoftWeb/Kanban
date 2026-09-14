@@ -1329,6 +1329,85 @@ public sealed class KanbanApiTests : TestBase
     }
 
     [TestMethod]
+    public async Task CardApiTransfersBetweenBoardsInSameUserGroupPreservingCommentsAndAssignee()
+    {
+        await AuthenticateLocalAsync();
+
+        using var createSourceBoard = await Http.PostAsync(
+            "/api/v1/boards",
+            Json(new CreateBoardRequest { Name = $"Group source {Guid.NewGuid():N}" }));
+        createSourceBoard.EnsureSuccessStatusCode();
+        var sourceBoard = JsonConvert.DeserializeObject<BoardResponse>(
+            await createSourceBoard.Content.ReadAsStringAsync())!.Board;
+
+        using var createTargetBoard = await Http.PostAsync(
+            "/api/v1/boards",
+            Json(new CreateBoardRequest { Name = $"Group target {Guid.NewGuid():N}" }));
+        createTargetBoard.EnsureSuccessStatusCode();
+        var targetBoard = JsonConvert.DeserializeObject<BoardResponse>(
+            await createTargetBoard.Content.ReadAsStringAsync())!.Board;
+
+        Assert.IsNotNull(Server);
+        await using (var scope = Server.Services.CreateAsyncScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var role = new IdentityRole("api-transfer-group-" + Guid.NewGuid())
+            {
+                NormalizedName = "API-TRANSFER-GROUP-" + Guid.NewGuid()
+            };
+            db.Roles.Add(role);
+            db.BoardShares.AddRange(
+                new BoardShare
+                {
+                    Id = Guid.NewGuid(),
+                    BoardId = sourceBoard.Id,
+                    SharedWithRoleId = role.Id,
+                    Permission = SharePermission.Editable
+                },
+                new BoardShare
+                {
+                    Id = Guid.NewGuid(),
+                    BoardId = targetBoard.Id,
+                    SharedWithRoleId = role.Id,
+                    Permission = SharePermission.Editable
+                });
+            await db.SaveChangesAsync();
+        }
+
+        using var createCard = await Http.PostAsync(
+            $"/api/v1/columns/{sourceBoard.Columns.First().Id}/cards",
+            Json(new CreateCardRequest { Title = "Preserve API group data" }));
+        createCard.EnsureSuccessStatusCode();
+        var sourceCard = JsonConvert.DeserializeObject<CardResponse>(
+            await createCard.Content.ReadAsStringAsync())!.Card;
+
+        using var addComment = await Http.PostAsync(
+            $"/api/v1/cards/{sourceCard.Id}/comments",
+            Json(new AddCardCommentRequest { Content = "Keep API group history" }));
+        addComment.EnsureSuccessStatusCode();
+
+        using var transferResponse = await Http.PostAsync(
+            $"/api/v1/cards/{sourceCard.Id}/transfer",
+            Json(new TransferCardRequest
+            {
+                TargetBoardId = targetBoard.Id,
+                TargetColumnId = targetBoard.Columns.First().Id
+            }));
+        transferResponse.EnsureSuccessStatusCode();
+        var transferred = JsonConvert.DeserializeObject<CardTransferResponse>(
+            await transferResponse.Content.ReadAsStringAsync());
+        Assert.IsNotNull(transferred);
+
+        using var detailsResponse = await Http.GetAsync($"/api/v1/cards/{transferred.CardId}");
+        detailsResponse.EnsureSuccessStatusCode();
+        var details = JsonConvert.DeserializeObject<CardDetailsResponse>(
+            await detailsResponse.Content.ReadAsStringAsync())!.Card;
+        Assert.IsNotNull(details.AssignedUser);
+        Assert.HasCount(1, details.Comments);
+        Assert.AreEqual("Keep API group history", details.Comments.Single().Content);
+    }
+
+    [TestMethod]
     public async Task ReadOnlyBoardExposesCardDetailsButRejectsChangesAndReplies()
     {
         await AuthenticateLocalAsync();

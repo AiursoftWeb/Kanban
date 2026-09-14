@@ -340,6 +340,9 @@ public sealed class CardApiController(
             return this.Protocol(Code.Unauthorized, "Both boards must be editable.");
         }
 
+        var preserveCollaborativeData = await db.BelongToSameUserGroupAsync(
+            card.Column.BoardId,
+            request.TargetBoardId);
         var maxOrder = await db.KanbanCards
             .Where(item => item.ColumnId == targetColumn.Id)
             .MaxAsync(item => (int?)item.Order) ?? -1;
@@ -357,7 +360,7 @@ public sealed class CardApiController(
             ColumnId = targetColumn.Id,
             Priority = card.Priority,
             CreatorUserId = card.CreatorUserId ?? userId,
-            AssignedUserId = null,
+            AssignedUserId = preserveCollaborativeData ? card.AssignedUserId : null,
             PlannedStartTime = card.PlannedStartTime,
             DueDate = card.DueDate,
             RecurrenceInterval = card.RecurrenceInterval,
@@ -374,7 +377,17 @@ public sealed class CardApiController(
             Card = transferredCard,
             LabelId = link.LabelId
         }));
-        db.KanbanCardComments.RemoveRange(comments);
+        if (preserveCollaborativeData)
+        {
+            foreach (var comment in comments)
+            {
+                comment.Card = transferredCard;
+            }
+        }
+        else
+        {
+            db.KanbanCardComments.RemoveRange(comments);
+        }
         db.KanbanCardSubscriptions.RemoveRange(sourceSubscriptions);
         db.KanbanCards.Remove(card);
         await db.SaveChangesAsync();
