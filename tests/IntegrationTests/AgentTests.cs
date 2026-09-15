@@ -3,6 +3,11 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using Aiursoft.DbTools;
+using AgentRunRequest = Aiursoft.AgentKit.AgentRunRequest;
+using AgentRunOptions = Aiursoft.AgentKit.AgentRunOptions;
+using ToolOutcome = Aiursoft.AgentKit.Messages.ToolOutcome;
+using OrderedAgentRunOutcome = Aiursoft.AgentKit.AgentRunner.OrderedAgentRunOutcome;
+using OrderedAgentRunner = Aiursoft.AgentKit.AgentRunner.OrderedAgentRunner;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
 using Aiursoft.Kanban.Services.Agent;
@@ -289,6 +294,45 @@ public class AgentTests : TestBase
                 ? Task.FromException<ClaudeResponse>(exception)
                 : Task.FromResult((ClaudeResponse)result);
         }
+    }
+
+    [TestMethod]
+    public async Task AgentKitOrderedRunner_ExecutesProductionReadToolThroughMcpFacade()
+    {
+        var modelClient = new ScriptedAgentModelClient(
+            ToolUseResponse("agentkit-read-1", "GetUserBoards", new()),
+            TextResponse("Read completed"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        await CreateBoardAndFirstColumnAsync();
+
+        var adapter = new KanbanAgentKitModelClient(modelClient);
+        var runner = new OrderedAgentRunner(adapter);
+        var registry = GetService<ToolRegistry>();
+        await using var session = await registry.Catalog.CreateSessionAsync(
+            (services, _) =>
+            {
+                services.GetRequiredService<CurrentUserService>().UserId = "admin";
+                return ValueTask.CompletedTask;
+            });
+
+        var result = await runner.RunAsync(new AgentRunRequest(
+            [Aiursoft.AgentKit.Messages.TranscriptMessage.System("You are a Kanban assistant."), Aiursoft.AgentKit.Messages.TranscriptMessage.User("List my boards")],
+            session.Tools,
+            new AgentRunOptions(MaxConcurrency: 1, MaxIterations: 4)));
+
+        Assert.AreEqual(OrderedAgentRunOutcome.Completed, result.Outcome);
+        Assert.AreEqual("Read completed", result.FinalText);
+        Assert.AreEqual(2, modelClient.Requests.Count);
+        Assert.AreEqual(1, result.Results.Count);
+        Assert.AreEqual("agentkit-read-1", result.Results.Single().CallId);
+        Assert.AreEqual("GetUserBoards", result.Results.Single().Name);
+        Assert.AreEqual(ToolOutcome.Succeeded, result.Results.Single().Outcome);
+        var toolResult = modelClient.Requests[1].Messages
+            .SelectMany(message => message.Content as List<ClaudeContentBlock> ?? [])
+            .Single(block => block.Type == "tool_result");
+        Assert.AreEqual("agentkit-read-1", toolResult.ToolUseId);
+        Assert.IsFalse(string.IsNullOrWhiteSpace(toolResult.Content?.ToString()));
     }
 
     // ── AdviceService ───────────────────────────────────────

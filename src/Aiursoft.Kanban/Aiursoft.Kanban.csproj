@@ -17,6 +17,9 @@
     <PackageReference Include="Aiursoft.Scanner" Version="10.0.12" />
     <PackageReference Include="Aiursoft.UiStack" Version="10.0.26" />
     <PackageReference Include="ModelContextProtocol.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Aiursoft.AgentKit" Version="0.1.0-local.9" />
+    <PackageReference Include="Aiursoft.AgentKit.AgentRunner" Version="0.1.0-local.9" />
+    <PackageReference Include="Aiursoft.AgentKit.Mcp" Version="0.1.0-local.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.12" />
     <PackageReference Include="Aiursoft.AiurProtocol.Server" Version="10.0.32" />
