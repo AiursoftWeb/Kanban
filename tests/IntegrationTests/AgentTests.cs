@@ -389,6 +389,45 @@ public class AgentTests : TestBase
         Assert.AreEqual(1, completed.Traces.Count, "Only the executed read tool should have a trace.");
     }
 
+    [TestMethod]
+    public async Task KanbanCheckpointAdviceMapper_CreatesAdviceOnlyForUnresolvedCalls()
+    {
+        await LoginAsAdmin();
+        var service = GetService<AdviceService>();
+        var mapper = new KanbanCheckpointAdviceMapper(service);
+        var readCall = new Aiursoft.AgentKit.Messages.ToolCall(
+            "read-1",
+            "GetUserBoards",
+            JsonSerializer.SerializeToElement(new { }));
+        var writeCall = new Aiursoft.AgentKit.Messages.ToolCall(
+            "write-1",
+            "CreateBoard",
+            JsonSerializer.SerializeToElement(new { name = "Mapped Board", count = 2 }));
+        var checkpoint = new Aiursoft.AgentKit.AgentRunner.OrderedAgentCheckpoint(
+            [Aiursoft.AgentKit.Messages.TranscriptMessage.Assistant([
+                new Aiursoft.AgentKit.Messages.ToolCallBlock(readCall),
+                new Aiursoft.AgentKit.Messages.ToolCallBlock(writeCall)
+            ])],
+            [
+                new Aiursoft.AgentKit.AgentRunner.OrderedToolResolution(readCall, new Aiursoft.AgentKit.Messages.ToolResult("read-1", "GetUserBoards", ToolOutcome.Succeeded, JsonSerializer.SerializeToElement("ok"))),
+                new Aiursoft.AgentKit.AgentRunner.OrderedToolResolution(writeCall, null)
+            ],
+            [new Aiursoft.AgentKit.Messages.ToolResult("read-1", "GetUserBoards", ToolOutcome.Succeeded, JsonSerializer.SerializeToElement("ok"))],
+            [],
+            1,
+            4);
+
+        var advice = mapper.CreatePendingAdvice(Guid.NewGuid(), checkpoint);
+
+        Assert.AreEqual(1, advice.Count);
+        Assert.AreEqual("write-1", advice.Single().ToolCallId);
+        Assert.AreEqual("CreateBoard", advice.Single().ToolName);
+        Assert.AreEqual("Mapped Board", advice.Single().Parameters["name"]);
+        Assert.AreEqual(2d, advice.Single().Parameters["count"]);
+        Assert.AreEqual(0, service.GetPendingForConversation(advice.Single().ConversationId)
+            .Count(item => item.ToolCallId == "read-1"));
+    }
+
     // ── AdviceService ───────────────────────────────────────
 
     [TestMethod]
