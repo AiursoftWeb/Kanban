@@ -7,6 +7,7 @@ using AgentRunRequest = Aiursoft.AgentKit.AgentRunRequest;
 using AgentRunOptions = Aiursoft.AgentKit.AgentRunOptions;
 using ToolOutcome = Aiursoft.AgentKit.Messages.ToolOutcome;
 using OrderedAgentRunOutcome = Aiursoft.AgentKit.AgentRunner.OrderedAgentRunOutcome;
+using ApprovalDecision = Aiursoft.AgentKit.ApprovalDecision;
 using OrderedAgentRunner = Aiursoft.AgentKit.AgentRunner.OrderedAgentRunner;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
@@ -333,6 +334,59 @@ public class AgentTests : TestBase
             .Single(block => block.Type == "tool_result");
         Assert.AreEqual("agentkit-read-1", toolResult.ToolUseId);
         Assert.IsFalse(string.IsNullOrWhiteSpace(toolResult.Content?.ToString()));
+    }
+
+    [TestMethod]
+    public async Task AgentKitOrderedRunner_DefersWriteWithoutReplayingReadAndResumesWithCompleteResults()
+    {
+        var modelClient = new ScriptedAgentModelClient(
+            new ClaudeResponse
+            {
+                Content =
+                [
+                    ClaudeContentBlock.ToolUse("agentkit-read-1", "GetUserBoards", new()),
+                    ClaudeContentBlock.ToolUse("agentkit-write-1", "CreateBoard", new() { ["name"] = "Deferred Board" })
+                ],
+                StopReason = "tool_use"
+            },
+            TextResponse("Rejection acknowledged"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        await CreateBoardAndFirstColumnAsync();
+
+        var runner = new OrderedAgentRunner(new KanbanAgentKitModelClient(modelClient));
+        var registry = GetService<ToolRegistry>();
+        await using var session = await registry.Catalog.CreateSessionAsync(
+            (services, _) =>
+            {
+                services.GetRequiredService<CurrentUserService>().UserId = "admin";
+                return ValueTask.CompletedTask;
+            });
+        var paused = await runner.RunAsync(new AgentRunRequest(
+            [Aiursoft.AgentKit.Messages.TranscriptMessage.System("You are a Kanban assistant."), Aiursoft.AgentKit.Messages.TranscriptMessage.User("List boards then create one")],
+            session.Tools,
+            new AgentRunOptions(MaxConcurrency: 1, MaxIterations: 4)));
+
+        Assert.AreEqual(OrderedAgentRunOutcome.AwaitingApproval, paused.Outcome);
+        Assert.AreEqual(1, modelClient.Requests.Count, "The model must not receive an incomplete result batch.");
+        Assert.IsNotNull(paused.Checkpoint);
+        Assert.AreEqual(ToolOutcome.Succeeded, paused.Checkpoint.Resolutions.Single(item => item.Call.Id == "agentkit-read-1").Result!.Outcome);
+        Assert.IsNull(paused.Checkpoint.Resolutions.Single(item => item.Call.Id == "agentkit-write-1").Result);
+        Assert.AreEqual(0, paused.Transcript.Count(message => message.Role == Aiursoft.AgentKit.Messages.TranscriptRole.Tool));
+
+        var completed = await runner.ResolveAsync(paused.Checkpoint, session.Tools, "agentkit-write-1", ApprovalDecision.Reject);
+
+        Assert.AreEqual(OrderedAgentRunOutcome.Completed, completed.Outcome);
+        Assert.AreEqual("Rejection acknowledged", completed.FinalText);
+        Assert.AreEqual(2, modelClient.Requests.Count);
+        CollectionAssert.AreEqual(new[] { "agentkit-read-1", "agentkit-write-1" }, completed.Results.Select(result => result.CallId).ToArray());
+        var results = modelClient.Requests[1].Messages
+            .SelectMany(message => message.Content as List<ClaudeContentBlock> ?? [])
+            .Where(block => block.Type == "tool_result")
+            .ToArray();
+        CollectionAssert.AreEqual(new[] { "agentkit-read-1", "agentkit-write-1" }, results.Select(result => result.ToolUseId).ToArray());
+        StringAssert.Contains(results.Single(result => result.ToolUseId == "agentkit-write-1").Content?.ToString() ?? string.Empty, "rejected");
+        Assert.AreEqual(1, completed.Traces.Count, "Only the executed read tool should have a trace.");
     }
 
     // ── AdviceService ───────────────────────────────────────
