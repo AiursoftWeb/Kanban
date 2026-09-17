@@ -5,4 +5,8 @@
   <string name="close_navigation">Close board navigation</string>
   <string name="new_card">New card</string>
   <string name="new_board">New board</string>
+  <string name="self_host_server">Self host my server</string>
+  <string name="view_source_code">View source code</string>
+  <string name="self_host_privacy">Your server. Your data.\nWhen you self-host, this app connects directly to your server without routing your workspace data through Aiursoft. Run your server on your own network to keep your workspace local.</string>
+  <string name="browser_unavailable">No browser is available to open this link.</string>
 </resources>

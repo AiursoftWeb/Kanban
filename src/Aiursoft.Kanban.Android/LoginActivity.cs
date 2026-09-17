@@ -100,6 +100,10 @@ public sealed class LoginActivity : AppCompatActivity
 
     private void WireEvents()
     {
+        FindViewById<MaterialButton>(Resource.Id.self_host_button)!.Click += (_, _) =>
+            OpenDocumentation("https://github.com/aiursoftweb/kanban");
+        FindViewById<MaterialButton>(Resource.Id.source_code_button)!.Click += (_, _) =>
+            OpenDocumentation("https://github.com/aiursoftweb/kanban");
         _connect.Click += async (_, _) =>
         {
             if (_connecting)
@@ -124,6 +128,18 @@ public sealed class LoginActivity : AppCompatActivity
                 await AuthenticateLocalAsync();
             }
         };
+    }
+
+    private void OpenDocumentation(string url)
+    {
+        try
+        {
+            StartActivity(new Intent(Intent.ActionView, global::Android.Net.Uri.Parse(url)));
+        }
+        catch (ActivityNotFoundException)
+        {
+            Toast.MakeText(this, Resource.String.browser_unavailable, ToastLength.Short)?.Show();
+        }
     }
 
     private async Task ConnectAsync()
