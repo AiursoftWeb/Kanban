@@ -22,8 +22,8 @@
     <PackageReference Include="Aiursoft.AiurProtocol.Server" Version="10.0.32" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.12" />
     <PackageReference Include="MediatR" Version="14.2.0" />
-    <PackageReference Include="SkiaSharp" Version="4.152.0" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="4.152.0" />
+    <PackageReference Include="SkiaSharp" Version="4.152.1" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="4.152.1" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aiursoft.Canon.ScheduledTasks" Version="10.0.14" />
