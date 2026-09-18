@@ -898,6 +898,8 @@ public class KanbanController(
     public async Task<IActionResult> UpdateCardActualTimes(
         int cardId, DateTimeOffset? actualStartTime, DateTimeOffset? actualEndTime)
     {
+        if (!(await authorizationService.AuthorizeAsync(User, AppPermissionNames.EditActualTime)).Succeeded)
+            return StatusCode(StatusCodes.Status403Forbidden, "Permission denied: EditActualTime is required.");
         if (!ModelState.IsValid) return BadRequest("Invalid actual date or time.");
         var card = await db.KanbanCards
             .Include(c => c.Column).ThenInclude(c => c.Board)

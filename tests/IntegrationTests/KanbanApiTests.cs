@@ -4,6 +4,7 @@ using System.Text;
 using System.Security.Claims;
 using Aiursoft.AiurProtocol.Models;
 using Aiursoft.Kanban.Configuration;
+using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Controllers.Api;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services;
@@ -1409,10 +1410,7 @@ public sealed class KanbanApiTests : TestBase
             {
                 ActualStartTime = DateTime.UtcNow
             }));
-        var actualTimesError = JsonConvert.DeserializeObject<AiurResponse>(
-            await actualTimesResponse.Content.ReadAsStringAsync());
-        Assert.IsNotNull(actualTimesError);
-        Assert.AreEqual(Code.Unauthorized, actualTimesError.Code);
+        Assert.AreEqual(HttpStatusCode.Forbidden, actualTimesResponse.StatusCode);
 
         using var commentResponse = await Http.PostAsync(
             $"/api/v1/cards/{card.Id}/comments",
@@ -1732,6 +1730,65 @@ public sealed class KanbanApiTests : TestBase
         var value = json.Value as T;
         Assert.IsNotNull(value);
         return value;
+    }
+
+    [TestMethod]
+    public async Task ActualTimes_ApiOwnerNeedsPermissionButCanStillPlanAndMoveCards()
+    {
+        const string email = "actual-time-owner@example.com";
+        const string password = "Test-Password-123";
+        string userId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var manager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            var user = new User { UserName = email, Email = email, DisplayName = "Time owner" };
+            Assert.IsTrue((await manager.CreateAsync(user, password)).Succeeded);
+            userId = user.Id;
+        }
+        await AuthenticateLocalAsync(email, password);
+        using var boardResponse = await Http.PostAsync("/api/v1/boards",
+            Json(new CreateBoardRequest { Name = "Time permission" }));
+        boardResponse.EnsureSuccessStatusCode();
+        var board = JsonConvert.DeserializeObject<BoardResponse>(await boardResponse.Content.ReadAsStringAsync())!.Board;
+        using var cardResponse = await Http.PostAsync($"/api/v1/columns/{board.Columns.First().Id}/cards",
+            Json(new CreateCardRequest { Title = "History" }));
+        cardResponse.EnsureSuccessStatusCode();
+        var card = JsonConvert.DeserializeObject<CardResponse>(await cardResponse.Content.ReadAsStringAsync())!.Card;
+        var endpoint = $"/api/v1/cards/{card.Id}";
+        var start = new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        using var denied = await Http.PutAsync(endpoint + "/actual-times",
+            Json(new UpdateCardActualTimesRequest { ActualStartTime = start }));
+        Assert.AreEqual(HttpStatusCode.Forbidden, denied.StatusCode);
+        using var update = await Http.PutAsync(endpoint,
+            Json(new UpdateCardRequest { Title = "History", Priority = nameof(Priority.None), PlannedStartTime = start }));
+        update.EnsureSuccessStatusCode();
+        var details = JsonConvert.DeserializeObject<CardDetailsResponse>(await update.Content.ReadAsStringAsync())!.Card;
+        Assert.IsTrue(details.CanEdit);
+        Assert.IsFalse(details.CanEditActualTime);
+        Assert.IsNull(details.ActualStartTime);
+        Assert.AreEqual(start, details.PlannedStartTime);
+        using var moved = await Http.PutAsync(endpoint + "/position", Json(new MoveCardRequest
+        {
+            TargetColumnId = board.Columns.Single(c => c.Status == nameof(ColumnStatus.Completed)).Id,
+            NewOrder = 0
+        }));
+        moved.EnsureSuccessStatusCode();
+        using (var scope = Server.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.IsNotNull((await db.KanbanCards.FindAsync(card.Id))!.ActualEndTime);
+            var manager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            await manager.AddClaimAsync((await manager.FindByIdAsync(userId))!,
+                new Claim(AppPermissions.Type, AppPermissionNames.EditActualTime));
+        }
+        await AuthenticateLocalAsync(email, password);
+        using var allowed = await Http.PutAsync(endpoint + "/actual-times",
+            Json(new UpdateCardActualTimesRequest { ActualStartTime = start, ActualEndTime = start.AddDays(1) }));
+        allowed.EnsureSuccessStatusCode();
+        var corrected = JsonConvert.DeserializeObject<CardDetailsResponse>(await allowed.Content.ReadAsStringAsync())!.Card;
+        Assert.IsTrue(corrected.CanEditActualTime);
+        Assert.AreEqual(start, corrected.ActualStartTime);
+        Assert.AreEqual(start.AddDays(1), corrected.ActualEndTime);
     }
 
     private async Task AuthenticateLocalAsync(

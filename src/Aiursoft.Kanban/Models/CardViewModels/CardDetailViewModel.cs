@@ -28,6 +28,7 @@ public class CardDetailViewModel : UiStackLayoutViewModel
 
     // Permissions
     public bool CanEdit { get; set; }
+    public bool CanEditActualTime { get; set; }
 
     public bool IsSubscribed { get; set; }
     public List<CardSubscriberViewModel> Subscribers { get; set; } = [];

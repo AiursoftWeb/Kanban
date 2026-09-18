@@ -25,6 +25,9 @@ public class AppPermissions
         var localizer = new FakeLocalizer();
         List<PermissionDescriptor> allPermission =
         [
+            new(AppPermissionNames.EditActualTime,
+                localizer["Edit Actual Time"],
+                localizer["Allows manually editing actual card start and end times on editable boards."]),
             new(AppPermissionNames.CanReadUsers,
                 localizer["Read Users"],
                 localizer["Allows viewing the list of all users."]),

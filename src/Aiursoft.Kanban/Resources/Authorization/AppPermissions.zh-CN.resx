@@ -133,4 +133,6 @@
     <value>查看系统上下文</value>
   </data>
 
+  <data name="Edit Actual Time" xml:space="preserve"><value>修改实际时间</value></data>
+  <data name="Allows manually editing actual card start and end times on editable boards." xml:space="preserve"><value>允许手动修改有编辑权限看板中卡片的实际开始和实际结束时间。</value></data>
 </root>

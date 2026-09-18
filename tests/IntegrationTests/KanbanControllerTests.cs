@@ -1,4 +1,7 @@
 using System.Net;
+using System.Security.Claims;
+using Aiursoft.Kanban.Authorization;
+using Microsoft.AspNetCore.Identity;
 using System.Text.Json;
 using Aiursoft.Kanban.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -974,7 +977,7 @@ public class KanbanControllerTests : TestBase
     }
 
     [TestMethod]
-    public async Task ActualTimes_OnlyOwnerAndEditorsCanUpdate()
+    public async Task ActualTimes_RequirePermissionAndBoardEditAccess()
     {
         await LoginAsAdmin();
         var (boardId, columnId) = await CreateBoardAndFirstColumnAsync();
@@ -1005,7 +1008,29 @@ public class KanbanControllerTests : TestBase
         Assert.Contains("Changes save automatically.", editablePage);
         Assert.Contains("id=\"inputActualStart\"", editablePage);
         Assert.Contains("id=\"inputActualEnd\"", editablePage);
+        Assert.Contains("Editing actual times requires the Edit Actual Time permission.", editablePage);
+        Assert.AreEqual(HttpStatusCode.Forbidden, (await PostAsync("/Kanban/UpdateCardActualTimes", values)).StatusCode);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var manager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            await manager.AddClaimAsync((await manager.FindByIdAsync(userId))!,
+                new Claim(AppPermissions.Type, AppPermissionNames.EditActualTime));
+        }
+        await LogoutAsync();
+        await LoginAsync(email, "Test-Password-123");
+        var permittedPage = await Http.GetStringAsync($"/Cards/{card.Id}");
+        Assert.DoesNotContain("Editing actual times requires the Edit Actual Time permission.", permittedPage);
         (await PostAsync("/Kanban/UpdateCardActualTimes", values)).EnsureSuccessStatusCode();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var share = await db.BoardShares.SingleAsync(s => s.BoardId == boardId && s.SharedWithUserId == userId);
+            share.Permission = SharePermission.ReadOnly;
+            await db.SaveChangesAsync();
+        }
+        var readOnlyDenied = await PostAsync("/Kanban/UpdateCardActualTimes", values);
+        Assert.IsTrue(readOnlyDenied.StatusCode == HttpStatusCode.Forbidden || readOnlyDenied.StatusCode == HttpStatusCode.Found);
+
     }
 
     [TestMethod]

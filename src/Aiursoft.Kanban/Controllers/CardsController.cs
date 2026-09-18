@@ -3,6 +3,7 @@
 // Field updates are handled via fetch to existing KanbanController endpoints
 // ============================================================
 
+using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.CardViewModels;
 using Aiursoft.Kanban.Notifications;
@@ -19,6 +20,7 @@ namespace Aiursoft.Kanban.Controllers;
 public class CardsController(
     TemplateDbContext db,
     UserManager<User> userManager,
+    IAuthorizationService authorizationService,
     StorageService storage) : Controller
 {
     /// <summary>
@@ -98,6 +100,7 @@ public class CardsController(
             BoardName = board.Name,
             ReturnBoardId = returnBoardId ?? board.Id,
             CanEdit = canEdit,
+            CanEditActualTime = canEdit && (await authorizationService.AuthorizeAsync(User, AppPermissionNames.EditActualTime)).Succeeded,
             IsSubscribed = await db.KanbanCardSubscriptions.AnyAsync(s => s.CardId == id && s.UserId == userId),
             Subscribers = subscriberUsers.Select(subscriber => new CardSubscriberViewModel
                 {

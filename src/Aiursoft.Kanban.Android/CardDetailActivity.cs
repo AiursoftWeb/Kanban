@@ -310,7 +310,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             {
                 return;
             }
-            if (schedule.ActualStartTime.HasValue &&
+            if (card.CanEditActualTime && schedule.ActualStartTime.HasValue &&
                 schedule.ActualEndTime.HasValue &&
                 schedule.ActualEndTime.Value < schedule.ActualStartTime.Value)
             {
@@ -422,8 +422,12 @@ public sealed class CardDetailActivity : AppCompatActivity
         content.AddView(SectionTitle("TIMELINE"));
         content.AddView(DateEditorRow("Planned start", state, dueDate: false, card.CanEdit));
         content.AddView(DateEditorRow("Due", state, dueDate: true, card.CanEdit));
-        content.AddView(DateTimeEditorRow("Actual start", state, endTime: false, card.CanEdit));
-        content.AddView(DateTimeEditorRow("Actual end", state, endTime: true, card.CanEdit));
+        content.AddView(DateTimeEditorRow("Actual start", state, endTime: false, card.CanEditActualTime));
+        content.AddView(DateTimeEditorRow("Actual end", state, endTime: true, card.CanEditActualTime));
+        if (!card.CanEditActualTime)
+        {
+            content.AddView(new TextView(this) { Text = "Editing actual times requires the Edit Actual Time permission." });
+        }
         state.Recurring.SetTextColor(ColorOf(Resource.Color.text_primary));
         content.AddView(state.Recurring);
 
@@ -1444,9 +1448,12 @@ public sealed class CardDetailActivity : AppCompatActivity
         try
         {
             button.Enabled = false;
-            await Api.UpdateCardAsync(_cardId, request);
-            var actualTimesResponse = await Api.UpdateCardActualTimesAsync(_cardId, actualTimesRequest);
-            _card = actualTimesResponse.Card;
+            var response = await Api.UpdateCardAsync(_cardId, request);
+            if (response.Card.CanEditActualTime)
+            {
+                response = await Api.UpdateCardActualTimesAsync(_cardId, actualTimesRequest);
+            }
+            _card = response.Card;
             Render();
             Snackbar.Make(_root, "Card updated", Snackbar.LengthShort).Show();
         }

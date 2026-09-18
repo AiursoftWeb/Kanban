@@ -579,16 +579,20 @@
                         <div class="detail-kv detail-time-row">
                             <label class="detail-kv-label" for="inputActualStart">@Localizer["Actual start"]</label>
                             <div class="detail-kv-value">
-                                <input type="datetime-local" id="inputActualStart" class="form-control detail-input" step="1" data-utc-value="@Model.ActualStartDate?.ToString("O")" @(Model.CanEdit ? null : "disabled") />
+                                <input type="datetime-local" id="inputActualStart" class="form-control detail-input" step="1" data-utc-value="@Model.ActualStartDate?.ToString("O")" @(Model.CanEditActualTime ? null : "disabled") />
                             </div>
                         </div>
                         <div class="detail-kv detail-time-row">
                             <label class="detail-kv-label" for="inputActualEnd">@Localizer["Actual end"]</label>
                             <div class="detail-kv-value">
-                                <input type="datetime-local" id="inputActualEnd" class="form-control detail-input" step="1" data-utc-value="@Model.ActualEndDate?.ToString("O")" @(Model.CanEdit ? null : "disabled") />
+                                <input type="datetime-local" id="inputActualEnd" class="form-control detail-input" step="1" data-utc-value="@Model.ActualEndDate?.ToString("O")" @(Model.CanEditActualTime ? null : "disabled") />
                             </div>
                         </div>
 
+                        @if (!Model.CanEditActualTime)
+                        {
+                            <p class="text-muted small">@Localizer["Editing actual times requires the Edit Actual Time permission."]</p>
+                        }
                         <div class="form-check form-switch mb-2">
                             <input class="form-check-input" type="checkbox" id="inputRecurring" @(Model.IsRecurring ? "checked" : null) @(Model.CanEdit ? null : "disabled")>
                             <label class="form-check-label fw-semibold" for="inputRecurring">@Localizer["Recurring task"]</label>
@@ -829,6 +833,7 @@
                 boardId: @Model.BoardId,
                 returnBoardId: @Model.ReturnBoardId,
                 canEdit: @Model.CanEdit.ToString().ToLowerInvariant(),
+                canEditActualTime: @Model.CanEditActualTime.ToString().ToLowerInvariant(),
                 imageUploadUrl: '@kanbanImageUploadUrl',
                 markdownEditorTheme: '@(isDarkMode ? "vs-dark" : "vs")',
                 mermaidTheme: '@(isDarkMode ? "dark" : "default")',

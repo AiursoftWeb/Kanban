@@ -319,4 +319,5 @@
     <value>您可以在此拖放图片或从剪贴板粘贴。</value>
   </data>
 
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve"><value>需要修改实际时间权限才能编辑实际开始和实际结束时间。</value></data>
 </root>

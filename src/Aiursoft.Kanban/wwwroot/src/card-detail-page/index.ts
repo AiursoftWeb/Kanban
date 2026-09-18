@@ -8,6 +8,7 @@ interface CardDetailPageOptions {
   boardId: number;
   returnBoardId: number;
   canEdit: boolean;
+  canEditActualTime: boolean;
   imageUploadUrl: string;
   markdownEditorTheme: 'vs' | 'vs-dark';
   mermaidTheme: 'default' | 'dark';
@@ -376,7 +377,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       if (!input) continue;
       setActualTimeInput(input, input.dataset.utcValue);
       input.addEventListener('change', () => {
-        if (!options.canEdit) return;
+        if (!options.canEditActualTime) return;
         saveActualTimes().catch(problem => {
           showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
         });
@@ -676,7 +677,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
   }
 
   async function saveActualTimes(): Promise<void> {
-    if (!options.canEdit || savingActualTimes) return;
+    if (!options.canEditActualTime || savingActualTimes) return;
     const inputs = [refs.actualStartInput, refs.actualEndInput];
     if (inputs.some(input => input && !input.reportValidity())) return;
     const start = refs.actualStartInput?.value ? new Date(refs.actualStartInput.value) : null;

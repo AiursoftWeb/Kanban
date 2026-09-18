@@ -352,6 +352,7 @@ public sealed class CardDto
 
 public sealed class CardDetailsDto
 {
+    public bool CanEditActualTime { get; set; }
     public int Id { get; set; }
     public int BoardId { get; set; }
     public string BoardName { get; set; } = string.Empty;

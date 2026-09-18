@@ -1,6 +1,7 @@
 using Aiursoft.AiurProtocol.Models;
 using Aiursoft.AiurProtocol.Server;
 using Aiursoft.AiurProtocol.Server.Attributes;
+using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Events;
 using Aiursoft.Kanban.Notifications;
@@ -22,6 +23,7 @@ namespace Aiursoft.Kanban.Controllers.Api;
 public sealed class CardApiController(
     TemplateDbContext db,
     UserManager<User> userManager,
+    IAuthorizationService authorizationService,
     KanbanApiAccessService access,
     CardCopyService cardCopyService,
     IMediator mediator,
@@ -154,6 +156,7 @@ public sealed class CardApiController(
     }
 
     [HttpPut("{cardId:int}/actual-times")]
+    [Authorize(Policy = AppPermissionNames.EditActualTime)]
     public async Task<IActionResult> UpdateActualTimes(
         int cardId,
         [FromBody] UpdateCardActualTimesRequest request)
@@ -702,6 +705,7 @@ public sealed class CardApiController(
             RecurrenceUnit = card.RecurrenceUnit.ToString(),
             CreationTime = card.CreationTime,
             CanEdit = canEdit,
+            CanEditActualTime = canEdit && (await authorizationService.AuthorizeAsync(User, AppPermissionNames.EditActualTime)).Succeeded,
             CanDelete = canEdit,
             IsSubscribed = await db.KanbanCardSubscriptions
                 .AnyAsync(subscription => subscription.CardId == card.Id && subscription.UserId == userId),
