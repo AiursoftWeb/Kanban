@@ -117,6 +117,9 @@
   <data name="Edit assignee" xml:space="preserve">
     <value>担当者を変更</value>
   </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>実績時間を編集するには、「実績時間の編集」権限が必要です。</value>
+  </data>
   <data name="Every" xml:space="preserve">
     <value>Every</value>
   </data>

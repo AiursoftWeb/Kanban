@@ -30,6 +30,9 @@
   <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
     <value>Позволяет управлять настройками общего доступа и видимости для любой доски.</value>
   </data>
+  <data name="Allows manually editing actual card start and end times on editable boards." xml:space="preserve">
+    <value>Позволяет вручную редактировать фактические время начала и окончания карточек на редактируемых досках.</value>
+  </data>
   <data name="Allows modification of role names and their assigned permissions." xml:space="preserve">
     <value>Разрешает изменение названий ролей и их назначенных разрешений.</value>
   </data>
@@ -80,6 +83,9 @@
   </data>
   <data name="Delete Users" xml:space="preserve">
     <value>Удаление пользователей</value>
+  </data>
+  <data name="Edit Actual Time" xml:space="preserve">
+    <value>Редактирование фактического времени</value>
   </data>
   <data name="Edit Role Information" xml:space="preserve">
     <value>Редактирование информации о роли</value>

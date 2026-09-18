@@ -30,6 +30,9 @@
   <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
     <value>允許管理任何板塊的分享和可見性設定。</value>
   </data>
+  <data name="Allows manually editing actual card start and end times on editable boards." xml:space="preserve">
+    <value>允許在可編輯的看板上手動編輯卡片的實際開始及結束時間。</value>
+  </data>
   <data name="Allows modification of role names and their assigned permissions." xml:space="preserve">
     <value>允許修改角色名稱及其分配的權限。</value>
   </data>
@@ -80,6 +83,9 @@
   </data>
   <data name="Delete Users" xml:space="preserve">
     <value>刪除用戶</value>
+  </data>
+  <data name="Edit Actual Time" xml:space="preserve">
+    <value>編輯實際時間</value>
   </data>
   <data name="Edit Role Information" xml:space="preserve">
     <value>編輯角色資訊</value>

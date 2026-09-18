@@ -117,6 +117,9 @@
   <data name="Edit assignee" xml:space="preserve">
     <value>असाइन किए गए को संपादित करें</value>
   </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>वास्तविक समयों को संपादित करने के लिए &quot;वास्तविक समय संपादन&quot; अनुमतियां आवश्यक हैं।</value>
+  </data>
   <data name="Every" xml:space="preserve">
     <value>Every</value>
   </data>

@@ -117,6 +117,9 @@
   <data name="Edit assignee" xml:space="preserve">
     <value>Toewijzer bewerken</value>
   </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Voor het bewerken van werkelijke tijden is de machtiging &apos;Werkelijke tijd bewerken&apos; vereist.</value>
+  </data>
   <data name="Every" xml:space="preserve">
     <value>Every</value>
   </data>

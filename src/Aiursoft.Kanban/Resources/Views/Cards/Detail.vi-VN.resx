@@ -117,6 +117,9 @@
   <data name="Edit assignee" xml:space="preserve">
     <value>Chỉnh sửa người phụ trách</value>
   </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Việc chỉnh sửa thời gian thực tế yêu cầu quyền Chỉnh sửa thời gian thực tế.</value>
+  </data>
   <data name="Every" xml:space="preserve">
     <value>Every</value>
   </data>

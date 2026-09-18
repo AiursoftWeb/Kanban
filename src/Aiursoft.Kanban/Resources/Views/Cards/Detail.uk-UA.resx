@@ -117,6 +117,9 @@
   <data name="Edit assignee" xml:space="preserve">
     <value>Змінити виконавця</value>
   </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Для редагування фактичного часу потрібен дозвіл «Редагування фактичного часу».</value>
+  </data>
   <data name="Every" xml:space="preserve">
     <value>Every</value>
   </data>

@@ -30,6 +30,9 @@
   <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
     <value>Mahdollistaa minkä tahansa taulun jakamis- ja näkyvyysasetusten hallinnan.</value>
   </data>
+  <data name="Allows manually editing actual card start and end times on editable boards." xml:space="preserve">
+    <value>Sallii korttien toteutuneiden aloitus- ja lopetusaikojen manuaalisen muokkaamisen muokattavilla tauluilla.</value>
+  </data>
   <data name="Allows modification of role names and their assigned permissions." xml:space="preserve">
     <value>Sallii roolien nimien ja niihin liitettyjen käyttöoikeuksien muokkaamisen.</value>
   </data>
@@ -80,6 +83,9 @@
   </data>
   <data name="Delete Users" xml:space="preserve">
     <value>Poista käyttäjiä</value>
+  </data>
+  <data name="Edit Actual Time" xml:space="preserve">
+    <value>Muokkaa todellista aikaa</value>
   </data>
   <data name="Edit Role Information" xml:space="preserve">
     <value>Muokkaa roolitietoja</value>
