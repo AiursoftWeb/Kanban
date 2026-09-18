@@ -30,6 +30,9 @@
   <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
     <value>すべてのボードの共有および表示設定を管理できます。</value>
   </data>
+  <data name="Allows manually editing actual card start and end times on editable boards." xml:space="preserve">
+    <value>編集可能なボード上で、カードの実際の開始時刻と終了時刻を手動で編集できるようにします。</value>
+  </data>
   <data name="Allows modification of role names and their assigned permissions." xml:space="preserve">
     <value>ロール名とその割り当てられた権限の変更を許可します。</value>
   </data>
@@ -80,6 +83,9 @@
   </data>
   <data name="Delete Users" xml:space="preserve">
     <value>ユーザーの削除</value>
+  </data>
+  <data name="Edit Actual Time" xml:space="preserve">
+    <value>実績時間を編集</value>
   </data>
   <data name="Edit Role Information" xml:space="preserve">
     <value>ロール情報の編集</value>

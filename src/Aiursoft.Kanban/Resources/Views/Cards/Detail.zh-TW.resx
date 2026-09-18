@@ -117,6 +117,9 @@
   <data name="Edit assignee" xml:space="preserve">
     <value>編輯指派人</value>
   </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>編輯實際時間需要「編輯實際時間」權限。</value>
+  </data>
   <data name="Every" xml:space="preserve">
     <value>每</value>
   </data>

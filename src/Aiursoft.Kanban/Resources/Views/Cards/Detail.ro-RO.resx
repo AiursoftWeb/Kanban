@@ -117,6 +117,9 @@
   <data name="Edit assignee" xml:space="preserve">
     <value>Editează persoana însărcinată</value>
   </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Editarea timpurilor reale necesită permisiunea de Editare a Timpului Real.</value>
+  </data>
   <data name="Every" xml:space="preserve">
     <value>Every</value>
   </data>

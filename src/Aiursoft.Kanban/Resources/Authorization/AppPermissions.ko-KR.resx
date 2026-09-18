@@ -30,6 +30,9 @@
   <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
     <value>모든 보드에 대한 공유 및 가시성 설정을 관리할 수 있습니다.</value>
   </data>
+  <data name="Allows manually editing actual card start and end times on editable boards." xml:space="preserve">
+    <value>수정 가능한 보드에서 카드의 실제 시작 및 종료 시간을 수동으로 편집할 수 있습니다.</value>
+  </data>
   <data name="Allows modification of role names and their assigned permissions." xml:space="preserve">
     <value>역할 이름과 할당된 권한을 수정할 수 있습니다.</value>
   </data>
@@ -80,6 +83,9 @@
   </data>
   <data name="Delete Users" xml:space="preserve">
     <value>사용자 삭제</value>
+  </data>
+  <data name="Edit Actual Time" xml:space="preserve">
+    <value>실제 시간 편집</value>
   </data>
   <data name="Edit Role Information" xml:space="preserve">
     <value>역할 정보 편집</value>

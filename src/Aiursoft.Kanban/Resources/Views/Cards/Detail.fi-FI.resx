@@ -117,6 +117,9 @@
   <data name="Edit assignee" xml:space="preserve">
     <value>Muuta sijoittajaa</value>
   </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Todellisten aikojen muokkaaminen vaatii Edit Actual Time -oikeuden.</value>
+  </data>
   <data name="Every" xml:space="preserve">
     <value>Every</value>
   </data>

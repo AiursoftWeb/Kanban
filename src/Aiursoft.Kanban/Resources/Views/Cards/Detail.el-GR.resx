@@ -117,6 +117,9 @@
   <data name="Edit assignee" xml:space="preserve">
     <value>Επεξεργασία εκτελεστή</value>
   </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Η επεξεργασία των πραγματικών ωρών απαιτεί την άδεια Επεξεργασίας Πραγματικού Χρόνου.</value>
+  </data>
   <data name="Every" xml:space="preserve">
     <value>Every</value>
   </data>
