@@ -114,7 +114,9 @@
   flex: 1;
   min-height: 0;
   overflow: auto;
-  padding: 16px 20px 24px;
+  /* Keep the gutter outside the scrollport so scrolled bars cannot peek out
+     above the sticky header or to the left of the sticky sidebar. */
+  margin: 16px 20px 24px;
 }
 
 .gantt-empty-state {
@@ -142,6 +144,8 @@
 /* ---------- Gantt Table ---------- */
 .gantt-table {
   display: flex;
+  /* Keep the sticky sidebar's containing block as wide as the whole timeline. */
+  width: max-content;
   min-width: 900px;
   border-radius: 12px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
@@ -158,10 +162,14 @@
   background: var(--bs-body-bg, #fff);
   position: sticky;
   left: 0;
-  z-index: 3;
+  z-index: 20;
+  isolation: isolate;
 }
 
 .gantt-sidebar-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   height: 52px;
   display: flex;
   align-items: center;
@@ -172,7 +180,7 @@
   letter-spacing: 0.06em;
   color: #9ca3af;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  background: rgba(0, 0, 0, 0.02);
+  background: var(--bs-body-bg, #fff);
   flex-shrink: 0;
 }
 
@@ -265,11 +273,10 @@
 
 /* ---------- Gantt Timeline ---------- */
 .gantt-timeline {
-  flex: 1;
+  flex: none;
   display: flex;
   flex-direction: column;
-  overflow-x: auto;
-  overflow-y: hidden;
+  /* Both sticky headers must use .gantt-wrapper as their scroll container. */
   position: relative;
 }
 
@@ -279,7 +286,6 @@
   top: 0;
   z-index: 10;
   background: var(--bs-body-bg, #fff);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .gantt-month-row {
