@@ -159,6 +159,31 @@
         font-size: 1.05rem;
         font-weight: 700;
         color: var(--bs-body-color);
+        overflow-wrap: anywhere;
+    }
+
+    .task-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+        gap: 1rem;
+    }
+    .task-summary { min-width: 0; }
+    .task-context { min-width: 0; text-align: right; overflow-wrap: anywhere; }
+
+    @@media (max-width: 767.98px) {
+        .task-header { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .task-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        line-height: 1.5;
+        max-height: 4.5em;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+        white-space: pre-line;
     }
 
     .task-subtle {
@@ -302,8 +327,8 @@ else
         {
             <div class="col-12">
                 <a class="task-card" href="/Kanban/Index?boardId=@card.Column.BoardId&highlightCard=@card.Id">
-                    <div class="d-flex flex-wrap justify-content-between gap-3 mb-3">
-                        <div>
+                    <div class="task-header mb-3">
+                        <div class="task-summary">
                             <div class="task-meta-row mb-2">
                                 @if (card.Priority != Priority.None)
                                 {
@@ -314,10 +339,10 @@ else
                             <div class="task-title">@card.Title</div>
                             @if (!string.IsNullOrWhiteSpace(card.Description))
                             {
-                                <div class="task-subtle mt-2">@Html.Raw(System.Net.WebUtility.HtmlEncode(card.Description).Replace("\n", "<br>"))</div>
+                                <div class="task-subtle task-description mt-2">@card.Description</div>
                             }
                         </div>
-                        <div class="text-md-end task-subtle">
+                        <div class="task-subtle task-context">
                             <div><strong>@Localizer["Board:"]</strong> @card.Column.Board.Name</div>
                             <div><strong>@Localizer["Column:"]</strong> @card.Column.Name</div>
                             <div>
