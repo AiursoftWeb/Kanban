@@ -10,6 +10,7 @@ export type ColumnStatus = 'NotStarted' | 'InProgress' | 'Completed';
 
 /** Recurrence unit matching the C# RecurrenceUnit enum */
 export type RecurrenceUnit = 'Days' | 'Weeks' | 'Months' | 'Years';
+export type DateDisplayMode = import('./card-dates').DateDisplayMode;
 
 /** Maps C# RecurrenceUnit enum integer values to their string labels. 0 = None (not included). */
 export const RECURRENCE_UNIT_VALUES: Record<number, RecurrenceUnit> = {
@@ -126,6 +127,9 @@ export interface KanbanBoardOptions {
 export interface KanbanBoardInstance {
   /** Refresh the board with new data (keeps Sortable instances) */
   refresh(data: BoardData): void;
+
+  /** Change which card dates are displayed without modifying card data. */
+  setDateDisplayMode(mode: DateDisplayMode): void;
 
   /** Destroy the board, removing all event listeners */
   destroy(): void;

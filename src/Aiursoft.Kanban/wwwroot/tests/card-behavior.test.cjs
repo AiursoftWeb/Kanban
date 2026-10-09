@@ -13,7 +13,7 @@ execFileSync(process.execPath, [require.resolve('typescript/bin/tsc'),
   '--outDir', output, '--rootDir', 'src', '--module', 'commonjs', '--moduleResolution', 'node',
   '--target', 'ES2020', '--strict', '--skipLibCheck',
 ], { cwd: path.resolve(__dirname, '..'), stdio: 'pipe' });
-const { resolveDefaultCardDates } = require(path.join(output, 'kanban-board/card-dates.js'));
+const { resolveDefaultCardDates, resolveCardDateRows } = require(path.join(output, 'kanban-board/card-dates.js'));
 const { matchesCardFilters, filterBoardData } = require(path.join(output, 'kanban-board/filter-state.js'));
 const { resolveItemDates, parseDate } = require(path.join(output, 'gantt-chart/types.js'));
 const cardDetailSource = readFileSync(path.resolve(__dirname, '../src/card-detail-page/index.ts'), 'utf8');
@@ -47,6 +47,17 @@ test('incomplete pairs never combine actual start with planned end', () => {
   assert.deepEqual(resolveDefaultCardDates(card), { source: 'actual', start: actual.actualStartDate, end: undefined });
   assert.equal(resolveItemDates(card, 'default'), null);
   assert.deepEqual(resolveDefaultCardDates({ dueDate: planned.dueDate }), { source: 'planned', start: undefined, end: planned.dueDate });
+});
+
+test('card date modes show default, planned, actual, and two-row all values', () => {
+  const card = { ...planned, ...actual };
+  assert.deepEqual(resolveCardDateRows(card, 'default'), [{ source: 'actual', start: actual.actualStartDate, end: actual.actualEndDate }]);
+  assert.deepEqual(resolveCardDateRows(card, 'planned'), [{ source: 'planned', start: planned.plannedStartDate, end: planned.dueDate }]);
+  assert.deepEqual(resolveCardDateRows(card, 'actual'), [{ source: 'actual', start: actual.actualStartDate, end: actual.actualEndDate }]);
+  assert.deepEqual(resolveCardDateRows(card, 'all'), [
+    { source: 'planned', start: planned.plannedStartDate, end: planned.dueDate },
+    { source: 'actual', start: actual.actualStartDate, end: actual.actualEndDate },
+  ]);
 });
 
 test('missing or invalid dates remain missing and do not produce fake ranges', () => {

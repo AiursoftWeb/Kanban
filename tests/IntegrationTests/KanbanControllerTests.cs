@@ -27,11 +27,13 @@ public class KanbanControllerTests : TestBase
     public async Task Index_AfterCreatingBoard_ShowsBoardName()
     {
         await LoginAsAdmin();
-        await CreateBoardAsync("Test Board");
+        var creation = await CreateBoardAsync("Test Board");
 
-        var response = await Http.GetAsync("/Kanban/Index");
+        var response = await Http.GetAsync(creation.Headers.Location!);
         var html = await response.Content.ReadAsStringAsync();
         Assert.Contains("Test Board", html);
+        foreach (var mode in new[] { "default", "planned", "actual", "all" })
+            Assert.Contains($"data-date-display-mode=\"{mode}\"", html);
     }
 
     [TestMethod]

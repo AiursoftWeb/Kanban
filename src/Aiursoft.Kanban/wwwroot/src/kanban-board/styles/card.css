@@ -421,5 +421,25 @@
     color: var(--bs-secondary-color);
 }
 
+.card-date-ranges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+}
+
+.card-date-ranges.date-mode-all .card-date-range {
+    flex-wrap: nowrap;
+    gap: 0.35rem;
+    font-size: 0.66rem;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.card-date-ranges.date-mode-all .card-date-source {
+    min-width: 1.8rem;
+    font-size: 0.62rem;
+}
+
 .card-date-range.overdue { color: var(--bs-danger); }
 .card-date-source { font-size: 0.65rem; opacity: 0.8; }

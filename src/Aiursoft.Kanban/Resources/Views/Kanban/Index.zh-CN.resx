@@ -547,4 +547,13 @@
     <value>您可以将图片拖拽到此处，或从剪贴板粘贴。</value>
   </data>
 
+  <data name="Time" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>全部</value>
+  </data>
 </root>

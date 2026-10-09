@@ -251,6 +251,13 @@
         <div class="kanban-filter-bar" id="kanbanFilterBar">
             <div class="kanban-filter-bar-inner">
                 <input type="text" class="kanban-filter-search" id="kanbanFilterSearch" placeholder="@Localizer["Search title or description..."]" autocomplete="off">
+                <div class="kanban-filter-group kanban-date-mode" role="group" aria-label="@Localizer["Time"]">
+                    <span class="kanban-filter-label">@Localizer["Time"]</span>
+                    <button type="button" class="date-mode-chip" data-date-display-mode="default">@Localizer["Default"]</button>
+                    <button type="button" class="date-mode-chip" data-date-display-mode="planned">@Localizer["Planned"]</button>
+                    <button type="button" class="date-mode-chip" data-date-display-mode="actual">@Localizer["Actual"]</button>
+                    <button type="button" class="date-mode-chip" data-date-display-mode="all">@Localizer["All"]</button>
+                </div>
                 <div class="kanban-filter-group" id="priorityFilterGroup">
                     <span class="kanban-filter-label">@Localizer["Priority"]</span>
                     <button type="button" class="filter-chip" data-filter-type="priority" data-filter-value="0">@Localizer["Urgent"]</button>

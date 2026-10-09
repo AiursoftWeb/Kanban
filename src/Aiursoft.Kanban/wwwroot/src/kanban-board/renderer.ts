@@ -11,10 +11,11 @@ import type {
   ColumnData,
   Priority,
   UserSummary,
+  DateDisplayMode,
 } from './types';
 import { PRIORITY_VALUES, RECURRENCE_UNIT_VALUES } from './types';
 import { t } from './i18n';
-import { resolveDefaultCardDates } from './card-dates';
+import { resolveCardDateRows } from './card-dates';
 
 /**
  * Parse an ISO 8601 date or datetime string as UTC.
@@ -260,26 +261,30 @@ function renderLabels(labels: CardLabel[]): HTMLElement | null {
   return row;
 }
 
-function renderBottomRow(card: CardSummary): HTMLElement | null {
+function renderBottomRow(card: CardSummary, mode: DateDisplayMode): HTMLElement | null {
   const hasComments = card.commentCount > 0;
   const row = document.createElement('div');
   row.className = 'card-footer-row';
 
-  const dates = resolveDefaultCardDates(card);
-  const range = document.createElement('div');
-  range.className = `card-date-range${card.isOverdue ? ' overdue' : ''}`;
-  range.title = card.isOverdue ? t('overdue', 'Overdue') : '';
-  const source = document.createElement('span');
-  source.className = 'card-date-source';
-  source.textContent = dates.source === 'actual' ? t('actual', 'Actual') : t('planned', 'Planned');
-  range.appendChild(source);
-  for (const [label, value] of [[t('start', 'Start'), dates.start], [t('end', 'End'), dates.end]]) {
-    const date = document.createElement('span');
-    date.textContent = `${label}: ${value ? formatDate(value) : '—'}`;
-    date.title = value ?? '';
-    range.appendChild(date);
+  const ranges = document.createElement('div');
+  ranges.className = `card-date-ranges${mode === 'all' ? ' date-mode-all' : ''}`;
+  for (const dates of resolveCardDateRows(card, mode)) {
+    const range = document.createElement('div');
+    range.className = `card-date-range${card.isOverdue && dates.source === 'planned' ? ' overdue' : ''}`;
+    range.title = card.isOverdue && dates.source === 'planned' ? t('overdue', 'Overdue') : '';
+    const source = document.createElement('span');
+    source.className = 'card-date-source';
+    source.textContent = dates.source === 'actual' ? t('actual', 'Actual') : t('planned', 'Planned');
+    range.appendChild(source);
+    for (const [label, value] of [[t('start', 'Start'), dates.start], [t('end', 'End'), dates.end]]) {
+      const date = document.createElement('span');
+      date.textContent = `${label}: ${value ? formatDate(value) : '—'}`;
+      date.title = value ?? '';
+      range.appendChild(date);
+    }
+    ranges.appendChild(range);
   }
-  row.appendChild(range);
+  row.appendChild(ranges);
 
   if (hasComments) {
     const comments = document.createElement('span');
@@ -316,7 +321,7 @@ export function syncCardElementData(cardEl: HTMLElement, card: CardSummary, canD
   setUserDataAttributes(cardEl, 'creator-user', card.creator);
 }
 
-export function rerenderCardElement(cardEl: HTMLElement): void {
+export function rerenderCardElement(cardEl: HTMLElement, mode?: DateDisplayMode): void {
   const card = readCardSummaryFromElement(cardEl);
   const fragment = document.createDocumentFragment();
 
@@ -368,7 +373,8 @@ export function rerenderCardElement(cardEl: HTMLElement): void {
     fragment.appendChild(labels);
   }
 
-  const bottomRow = renderBottomRow(card);
+  const displayMode = mode ?? readDateDisplayMode(cardEl.closest<HTMLElement>('[data-date-display-mode]'));
+  const bottomRow = renderBottomRow(card, displayMode);
   if (bottomRow) {
     fragment.appendChild(bottomRow);
   }
@@ -381,10 +387,10 @@ export function rerenderCardElement(cardEl: HTMLElement): void {
 /**
  * Render a single card element from CardSummary data.
  */
-export function renderCard(card: CardSummary, canDrag: boolean): HTMLElement {
+export function renderCard(card: CardSummary, canDrag: boolean, mode: DateDisplayMode = 'default'): HTMLElement {
   const cardEl = document.createElement('div');
   syncCardElementData(cardEl, card, canDrag);
-  rerenderCardElement(cardEl);
+  rerenderCardElement(cardEl, mode);
   return cardEl;
 }
 
@@ -393,7 +399,7 @@ export function renderCard(card: CardSummary, canDrag: boolean): HTMLElement {
 /**
  * Render a single column element from ColumnData.
  */
-export function renderColumn(column: ColumnData, canEdit: boolean): HTMLElement {
+export function renderColumn(column: ColumnData, canEdit: boolean, mode: DateDisplayMode = 'default'): HTMLElement {
   const colEl = document.createElement('div');
   colEl.className = 'kanban-column';
   colEl.setAttribute('data-column-id', String(column.id));
@@ -478,7 +484,7 @@ export function renderColumn(column: ColumnData, canEdit: boolean): HTMLElement 
     cardsContainer.appendChild(empty);
   } else {
     column.cards.forEach(card => {
-      cardsContainer.appendChild(renderCard(card, canEdit));
+      cardsContainer.appendChild(renderCard(card, canEdit, mode));
     });
   }
 
@@ -500,8 +506,9 @@ export function renderColumn(column: ColumnData, canEdit: boolean): HTMLElement 
 /**
  * Render the full board (all columns) into a container.
  */
-export function renderBoard(container: HTMLElement, data: BoardData): void {
+export function renderBoard(container: HTMLElement, data: BoardData, mode: DateDisplayMode = 'default'): void {
   container.innerHTML = '';
+  container.dataset.dateDisplayMode = mode;
 
   const dotColors = ['dot-blue', 'dot-orange', 'dot-green', 'dot-purple', 'dot-pink', 'dot-teal', 'dot-amber', 'dot-indigo'];
 
@@ -510,7 +517,7 @@ export function renderBoard(container: HTMLElement, data: BoardData): void {
       ...column,
       dotClass: column.dotClass || dotColors[index % dotColors.length],
     };
-    container.appendChild(renderColumn(columnWithDot, data.canEdit));
+    container.appendChild(renderColumn(columnWithDot, data.canEdit, mode));
   });
 }
 
@@ -524,7 +531,7 @@ export function renderCardIntoColumn(columnEl: HTMLElement, card: CardSummary, c
   const placeholder = cardsContainer.querySelector('.column-empty-placeholder');
   if (placeholder) placeholder.remove();
 
-  const cardEl = renderCard(card, canDrag);
+  const cardEl = renderCard(card, canDrag, readDateDisplayMode(columnEl.closest<HTMLElement>('[data-date-display-mode]')));
   cardsContainer.appendChild(cardEl);
 
   const countEl = columnEl.querySelector<HTMLElement>('.column-count');
@@ -533,4 +540,9 @@ export function renderCardIntoColumn(columnEl: HTMLElement, card: CardSummary, c
   }
 
   return cardEl;
+}
+
+function readDateDisplayMode(element: HTMLElement | null): DateDisplayMode {
+  const mode = element?.dataset.dateDisplayMode;
+  return mode === 'planned' || mode === 'actual' || mode === 'all' ? mode : 'default';
 }

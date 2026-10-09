@@ -51,6 +51,34 @@
     user-select: none;
 }
 
+.date-mode-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.22rem 0.65rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 999px;
+    background: var(--bs-body-bg);
+    color: var(--bs-secondary-color);
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.date-mode-chip:hover {
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+}
+
+.date-mode-chip.active {
+    border-color: var(--bs-primary);
+    background: var(--bs-primary);
+    color: #fff;
+    font-weight: 600;
+}
+
 .filter-chip:hover {
     border-color: var(--bs-primary);
     color: var(--bs-primary);
