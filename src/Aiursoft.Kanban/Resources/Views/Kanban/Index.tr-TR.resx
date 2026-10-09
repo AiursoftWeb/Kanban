@@ -48,6 +48,9 @@
   <data name="Add more details..." xml:space="preserve">
     <value>Daha fazla ayrıntı ekleyin...</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Tüm</value>
+  </data>
   <data name="All Boards" xml:space="preserve">
     <value>Tüm Panolar</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Days" xml:space="preserve">
     <value>Günler</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Varsayılan</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Sil</value>
@@ -494,6 +500,9 @@
   </data>
   <data name="This column contains cards that will be deleted together." xml:space="preserve">
     <value>Bu sütun birlikte silinecek kartları içerir.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Zaman</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Başlık</value>

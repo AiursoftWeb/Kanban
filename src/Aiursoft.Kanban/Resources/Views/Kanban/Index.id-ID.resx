@@ -48,6 +48,9 @@
   <data name="Add more details..." xml:space="preserve">
     <value>Tambahkan detail lainnya...</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Semua</value>
+  </data>
   <data name="All Boards" xml:space="preserve">
     <value>Semua Papan</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Days" xml:space="preserve">
     <value>Hari</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Bawaan</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Hapus</value>
@@ -494,6 +500,9 @@
   </data>
   <data name="This column contains cards that will be deleted together." xml:space="preserve">
     <value>Kolom ini berisi kartu yang akan dihapus bersama-sama.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Waktu</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Judul</value>
