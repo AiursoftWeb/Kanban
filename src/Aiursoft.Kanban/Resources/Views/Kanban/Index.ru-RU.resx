@@ -48,6 +48,9 @@
   <data name="Add more details..." xml:space="preserve">
     <value>Добавьте больше подробностей...</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
   <data name="All Boards" xml:space="preserve">
     <value>Все доски</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Days" xml:space="preserve">
     <value>Дни</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>По умолчанию</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
@@ -494,6 +500,9 @@
   </data>
   <data name="This column contains cards that will be deleted together." xml:space="preserve">
     <value>В этом столбце содержатся карточки, которые будут удалены вместе.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Время</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Заголовок</value>

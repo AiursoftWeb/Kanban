@@ -48,6 +48,9 @@
   <data name="Add more details..." xml:space="preserve">
     <value>자세한 내용을 추가하세요...</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>전체</value>
+  </data>
   <data name="All Boards" xml:space="preserve">
     <value>전체 보드</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Days" xml:space="preserve">
     <value>일</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>기본값</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>삭제</value>
@@ -494,6 +500,9 @@
   </data>
   <data name="This column contains cards that will be deleted together." xml:space="preserve">
     <value>이 열에는 함께 삭제될 카드가 포함되어 있습니다.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>시간</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>제목</value>

@@ -48,6 +48,9 @@
   <data name="Add more details..." xml:space="preserve">
     <value>Lisää tarkempi tieto...</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
   <data name="All Boards" xml:space="preserve">
     <value>Kaikki taulut</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Days" xml:space="preserve">
     <value>Päiviä</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Oletus</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Poista</value>
@@ -494,6 +500,9 @@
   </data>
   <data name="This column contains cards that will be deleted together." xml:space="preserve">
     <value>Tämä sarake sisältää kortteja, jotka poistetaan yhdessä.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Aika</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Otsikko</value>
