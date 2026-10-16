@@ -63,20 +63,6 @@ public static class ProgramExtends
         var settingsService = services.GetRequiredService<GlobalSettingsService>();
         await settingsService.SeedSettingsAsync();
 
-        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-        var role = await roleManager.FindByNameAsync("Administrators");
-        if (role != null)
-        {
-            var claims = await roleManager.GetClaimsAsync(role);
-            if (claims.All(claim =>
-                    claim.Type != AppPermissions.Type || claim.Value != AppPermissionNames.CanReadAuditLogs))
-            {
-                await roleManager.AddClaimAsync(
-                    role,
-                    new Claim(AppPermissions.Type, AppPermissionNames.CanReadAuditLogs));
-            }
-        }
-
         var shouldSeed = await ShouldSeedAsync(db);
         if (!shouldSeed)
         {
@@ -86,8 +72,9 @@ public static class ProgramExtends
 
         logger.LogInformation("Seeding the database with initial data...");
         var userManager = services.GetRequiredService<UserManager<User>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-        role = await roleManager.FindByNameAsync("Administrators");
+        var role = await roleManager.FindByNameAsync("Administrators");
         if (role == null)
         {
             role = new IdentityRole("Administrators");

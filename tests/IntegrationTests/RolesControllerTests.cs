@@ -1,3 +1,8 @@
+using Aiursoft.Kanban.Authorization;
+using Aiursoft.Kanban.Entities;
+using Aiursoft.DbTools;
+using Microsoft.AspNetCore.Identity;
+using static Aiursoft.WebTools.Extends;
 using System.Net;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
@@ -5,6 +10,90 @@ namespace Aiursoft.Kanban.Tests.IntegrationTests;
 [TestClass]
 public class RolesControllerTests : TestBase
 {
+    [TestInitialize]
+    public override async Task CreateServer()
+    {
+        Server = await AppAsync<Startup>([], port: Port);
+        using (var scope = Server.Services.CreateScope())
+        {
+            await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Database.EnsureDeletedAsync();
+        }
+        await Server.UpdateDbAsync<TemplateDbContext>();
+        await Server.SeedAsync();
+        await Server.StartAsync();
+    }
+
+    [TestCleanup]
+    public override async Task CleanServer()
+    {
+        if (Server == null) return;
+        await Server.StopAsync();
+        using (var scope = Server.Services.CreateScope())
+        {
+            await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Database.EnsureDeletedAsync();
+        }
+        Server.Dispose();
+    }
+
+    [TestMethod]
+    [DataRow("claims")]
+    [DataRow("membership")]
+    [DataRow("role")]
+    [DataRow("user")]
+    public async Task ExistingDatabaseSeedingPreservesAdministratorRevocations(string revoked)
+    {
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var users = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            var roles = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var user = (await users.FindByNameAsync("admin"))!;
+            var role = (await roles.FindByNameAsync("Administrators"))!;
+            switch (revoked)
+            {
+                case "claims":
+                    foreach (var claim in await roles.GetClaimsAsync(role))
+                        Assert.IsTrue((await roles.RemoveClaimAsync(role, claim)).Succeeded);
+                    break;
+                case "membership":
+                    Assert.IsTrue((await users.RemoveFromRoleAsync(user, "Administrators")).Succeeded);
+                    break;
+                case "role":
+                    Assert.IsTrue((await roles.DeleteAsync(role)).Succeeded);
+                    break;
+                default:
+                    Assert.IsTrue((await users.DeleteAsync(user)).Succeeded);
+                    break;
+            }
+        }
+        await Server.SeedAsync();
+        using var verification = Server.Services.CreateScope();
+        var savedUsers = verification.ServiceProvider.GetRequiredService<UserManager<User>>();
+        var savedRoles = verification.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        var savedUser = await savedUsers.FindByNameAsync("admin");
+        var savedRole = await savedRoles.FindByNameAsync("Administrators");
+        if (revoked == "user") Assert.IsNull(savedUser);
+        else Assert.IsNotNull(savedUser);
+        if (revoked == "role") Assert.IsNull(savedRole);
+        else Assert.IsNotNull(savedRole);
+        if (revoked == "claims") Assert.AreEqual(0, (await savedRoles.GetClaimsAsync(savedRole!)).Count);
+        if (revoked == "membership") Assert.IsFalse(await savedUsers.IsInRoleAsync(savedUser!, "Administrators"));
+    }
+
+    [TestMethod]
+    public async Task FreshDatabaseSeedsAllAdministratorPermissionsOnce()
+    {
+        await Server!.SeedAsync();
+        using var scope = Server!.Services.CreateScope();
+        var users = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+        var roles = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        var user = (await users.FindByNameAsync("admin"))!;
+        var role = (await roles.FindByNameAsync("Administrators"))!;
+        Assert.IsTrue(await users.IsInRoleAsync(user, "Administrators"));
+        var claims = (await roles.GetClaimsAsync(role)).Where(claim => claim.Type == AppPermissions.Type)
+            .Select(claim => claim.Value).ToArray();
+        CollectionAssert.AreEquivalent(AppPermissions.GetAllPermissions().Select(permission => permission.Key).ToArray(), claims);
+    }
+
     [TestMethod]
     public async Task TestRolesWorkflow()
     {
