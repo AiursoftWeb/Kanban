@@ -4,11 +4,11 @@
 
 @if (!Model.Enabled)
 {
-    <div class="alert alert-info">@Localizer["Operation logging is not enabled."]</div>
+    <div class="alert alert-info" role="alert"><div class="alert-message">@Localizer["Operation logging is not enabled."]</div></div>
 }
 else if (Model.Logs.Count == 0)
 {
-    <div class="alert alert-info">@Localizer["No operation logs were found."]</div>
+    <div class="alert alert-info" role="alert"><div class="alert-message">@Localizer["No operation logs were found."]</div></div>
 }
 else
 {
