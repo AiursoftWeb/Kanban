@@ -1,3 +1,4 @@
+using Aiursoft.Kanban.Tests.IntegrationTests;
 using Aiursoft.AgentExam.Core.Models;
 using Aiursoft.DbTools;
 using Aiursoft.Kanban.Entities;
@@ -191,14 +192,24 @@ public class KanbanExamAdapterTests
         IReadOnlySet<string> enabledTools,
         DateTimeOffset? utcNow = null)
     {
-        var port = CSTools.Tools.Network.GetAvailablePort();
+        using var reservation = new TestPortReservation();
+        var port = reservation.Port;
         var host = await AppAsync<Startup>(
             [],
             port,
             plugins: [new ExamPlugin(modelClient, enabledTools, new FixedTimeProvider(utcNow ?? DateTimeOffset.Parse("2026-08-24T00:00:00Z")))]);
-        await host.UpdateDbAsync<TemplateDbContext>();
-        await host.StartAsync();
-        return host;
+        try
+        {
+            reservation.ConfigureServer(host);
+            await host.UpdateDbAsync<TemplateDbContext>();
+            await host.StartAsync();
+            return host;
+        }
+        catch
+        {
+            await host.DisposeAsync();
+            throw;
+        }
     }
 
     private static ExamScenario CreateScenario(string stepUser = "user.owner") => new()

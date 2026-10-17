@@ -13,14 +13,26 @@ public class RolesControllerTests : TestBase
     [TestInitialize]
     public override async Task CreateServer()
     {
-        Server = await AppAsync<Startup>([], port: Port);
-        using (var scope = Server.Services.CreateScope())
+        using var reservation = new TestPortReservation();
+        Http.BaseAddress = new Uri($"http://localhost:{reservation.Port}");
+        Server = await AppAsync<Startup>([], port: reservation.Port);
+        try
         {
-            await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Database.EnsureDeletedAsync();
+            reservation.ConfigureServer(Server);
+            using (var scope = Server.Services.CreateScope())
+            {
+                await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Database.EnsureDeletedAsync();
+            }
+            await Server.UpdateDbAsync<TemplateDbContext>();
+            await Server.SeedAsync();
+            await Server.StartAsync();
         }
-        await Server.UpdateDbAsync<TemplateDbContext>();
-        await Server.SeedAsync();
-        await Server.StartAsync();
+        catch
+        {
+            Server.Dispose();
+            Server = null;
+            throw;
+        }
     }
 
     [TestCleanup]

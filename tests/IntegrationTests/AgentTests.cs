@@ -201,13 +201,25 @@ public class AgentTests : TestBase
             Server.Dispose();
         }
 
+        using var reservation = new TestPortReservation();
+        Http.BaseAddress = new Uri($"http://localhost:{reservation.Port}");
         Server = await AppAsync<Startup>(
             [],
-            port: Port,
+            port: reservation.Port,
             plugins: [new ServiceOverridePlugin(modelClient, timeProvider)]);
-        await Server.UpdateDbAsync<TemplateDbContext>();
-        await Server.SeedAsync();
-        await Server.StartAsync();
+        try
+        {
+            reservation.ConfigureServer(Server);
+            await Server.UpdateDbAsync<TemplateDbContext>();
+            await Server.SeedAsync();
+            await Server.StartAsync();
+        }
+        catch
+        {
+            Server.Dispose();
+            Server = null;
+            throw;
+        }
     }
 
     private static async Task<AgentConversation> WaitForConversation(

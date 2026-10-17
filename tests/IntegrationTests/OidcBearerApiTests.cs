@@ -2,7 +2,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using Aiursoft.CSTools.Tools;
 using Aiursoft.DbTools;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.SDK.Models;
@@ -21,7 +20,8 @@ public sealed class OidcBearerApiTests
     [TestMethod]
     public async Task HostedMobileOidcConfigurationWorksWithoutDeploymentOverrides()
     {
-        var apiPort = Network.GetAvailablePort();
+        using var apiReservation = new TestPortReservation();
+        var apiPort = apiReservation.Port;
         var api = await AppAsync<Startup>(
         [
             "--AppSettings:AuthProvider=OIDC",
@@ -31,6 +31,7 @@ public sealed class OidcBearerApiTests
         ], port: apiPort);
         try
         {
+            apiReservation.ConfigureServer(api);
             await api.UpdateDbAsync<TemplateDbContext>();
             await api.StartAsync();
 
@@ -57,12 +58,14 @@ public sealed class OidcBearerApiTests
     [TestMethod]
     public async Task ValidOidcAccessTokenAuthenticatesAndLinksLocalUser()
     {
-        var identityPort = Network.GetAvailablePort();
-        var apiPort = Network.GetAvailablePort();
+        using var identityReservation = new TestPortReservation();
+        var identityPort = identityReservation.Port;
+        using var apiReservation = new TestPortReservation();
+        var apiPort = apiReservation.Port;
         var authority = $"http://127.0.0.1:{identityPort}";
         using var rsa = RSA.Create(2048);
         var signingKey = new RsaSecurityKey(rsa) { KeyId = Guid.NewGuid().ToString("N") };
-        var identityProvider = BuildIdentityProvider(identityPort, authority, signingKey, rsa);
+        var identityProvider = BuildIdentityProvider(identityReservation, authority, signingKey, rsa);
         IHost? api = null;
         try
         {
@@ -79,6 +82,7 @@ public sealed class OidcBearerApiTests
                 "--AppSettings:OIDC:ApiAudience=test-android",
                 "--AppSettings:OIDC:ApiScope="
             ], port: apiPort);
+            apiReservation.ConfigureServer(api);
             await api.UpdateDbAsync<TemplateDbContext>();
             await api.StartAsync();
 
@@ -131,14 +135,15 @@ public sealed class OidcBearerApiTests
     }
 
     private static WebApplication BuildIdentityProvider(
-        int port,
+        TestPortReservation reservation,
         string authority,
         RsaSecurityKey signingKey,
         RSA rsa)
     {
         var builder = WebApplication.CreateBuilder();
-        builder.WebHost.UseUrls($"http://127.0.0.1:{port}");
+        builder.WebHost.UseUrls($"http://0.0.0.0:{reservation.Port}");
         var app = builder.Build();
+        reservation.ConfigureServer(app);
         app.MapGet("/.well-known/openid-configuration", () => new
         {
             issuer = authority,
