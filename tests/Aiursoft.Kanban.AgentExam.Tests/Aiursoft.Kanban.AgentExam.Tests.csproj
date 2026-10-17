@@ -14,6 +14,7 @@
     <PackageReference Include="MSTest.TestAdapter" Version="4.5.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="../IntegrationTests/TestPortReservation.cs" Link="TestPortReservation.cs" />
     <ProjectReference Include="../../src/Aiursoft.Kanban.AgentExam/Aiursoft.Kanban.AgentExam.csproj" />
   </ItemGroup>
 </Project>
