@@ -33,5 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\Aiursoft.Kanban\Aiursoft.Kanban.csproj" />
+    <ProjectReference Include="../src/Aiursoft.Kanban.Client/Aiursoft.Kanban.Client.csproj" />
   </ItemGroup>
 </Project>

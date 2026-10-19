@@ -1,5 +1,8 @@
 # Kanban
 
+A .NET command-line client is available as `Aiursoft.Kanban.Client`: use `kanban --help`
+to manage boards, columns and cards with your personal API key. See [CLI usage](docs/cli.md).
+
 An optional native .NET Android client is available. See [Android app and OIDC deployment](docs/android.md)
 for identity-provider registration, server settings, APK building, and sideloading.
 
