@@ -1,0 +1,50 @@
+@using Aiursoft.WebTools
+@model Aiursoft.Kanban.Models.ApiKeysViewModels.IndexViewModel
+
+<div class="container-fluid p-0">
+    <div class="row mb-3">
+        <div class="col-auto"><h1 class="h3 mb-3">@Localizer["API Keys"]</h1></div>
+        <div class="col-auto ms-auto"><a asp-action="Create" class="btn btn-primary">@Localizer["Create New API Key"]</a></div>
+    </div>
+    @if (!string.IsNullOrEmpty(Model.NewKey))
+    {
+        <div class="alert alert-success" role="alert">
+            <div class="alert-message">
+                <p>@Localizer["Copy this key now. It will not be shown again."]</p>
+                <code class="text-break">@Model.NewKey</code>
+            </div>
+        </div>
+    }
+    <div class="alert alert-info" role="alert">
+        <div class="alert-message">@Localizer["An API key has the same permissions as its owner. Send it using Authorization: Bearer."]</div>
+    </div>
+    <div class="card">
+        <div class="card-body table-responsive">
+            <table class="table table-hover mb-0">
+                <thead><tr>
+                    <th>@Localizer["Name"]</th><th>@Localizer["Key"]</th>
+                    <th>@Localizer["Created"]</th><th>@Localizer["Expiration"]</th>
+                    <th>@Localizer["Status"]</th><th>@Localizer["Actions"]</th>
+                </tr></thead>
+                <tbody>
+                @foreach (var key in Model.ApiKeys)
+                {
+                    <tr>
+                        <td>@key.Name</td><td><code>@(key.Prefix)...</code></td>
+                        <td><label data-utc-time="@key.CreatedAt.ToHtmlDateTime()" class="mb-0"></label></td>
+                        <td><label data-utc-time="@key.ExpirationTime.ToHtmlDateTime()" class="mb-0"></label></td>
+                        <td>@(key.ExpirationTime <= DateTime.UtcNow ? @Localizer["Expired"] : @Localizer["Active"])</td>
+                        <td><form asp-action="Revoke" asp-route-id="@key.Id" method="post">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">@Localizer["Revoke"]</button>
+                        </form></td>
+                    </tr>
+                }
+                @if (Model.ApiKeys.Count == 0)
+                {
+                    <tr><td colspan="6" class="text-center text-muted">@Localizer["No API keys yet."]</td></tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

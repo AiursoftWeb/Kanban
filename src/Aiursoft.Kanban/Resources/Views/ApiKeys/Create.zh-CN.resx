@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A name to help you identify where this key is used." xml:space="preserve">
+    <value>用于帮助您识别此密钥用途的名称。</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Create New API Key" xml:space="preserve">
+    <value>创建新 API 密钥</value>
+  </data>
+  <data name="Friendly Name" xml:space="preserve">
+    <value>友好名称</value>
+  </data>
+  <data name="Generate Key" xml:space="preserve">
+    <value>生成密钥</value>
+  </data>
+  <data name="New Key Details" xml:space="preserve">
+    <value>新密钥详情</value>
+  </data>
+  <data name="Validity (days)" xml:space="preserve">
+    <value>有效期（天）</value>
+  </data>
+  <data name="Validity cannot exceed 15 years." xml:space="preserve">
+    <value>有效期不得超过 15 年。</value>
+  </data>
+
+</root>
