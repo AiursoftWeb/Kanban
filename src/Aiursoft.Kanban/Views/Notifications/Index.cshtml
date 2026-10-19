@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @using Aiursoft.Kanban.Models.NotificationsViewModels
 @model IndexViewModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
@@ -174,9 +175,7 @@ else
                                 @notification.Message
                             </span>
                         </div>
-                        <span class="notification-time" title="@notification.CreationTime.ToString("yyyy-MM-dd HH:mm")">
-                            @FormatRelativeTime(notification.CreationTime)
-                        </span>
+                        <span class="notification-time" data-utc-time="@notification.CreationTime.ToHtmlDateTime()"></span>
                     </div>
                     @if (isCommentType && !string.IsNullOrEmpty(notification.CommentContent))
                     {
@@ -199,18 +198,6 @@ else
     </div>
 }
 
-@functions {
-    string FormatRelativeTime(DateTime utcTime)
-    {
-        var now = DateTime.UtcNow;
-        var diff = now - utcTime;
-        if (diff.TotalMinutes < 1) return Localizer["just now"].Value;
-        if (diff.TotalMinutes < 60) return Localizer["{0}m ago", (int)diff.TotalMinutes].Value;
-        if (diff.TotalHours < 24) return Localizer["{0}h ago", (int)diff.TotalHours].Value;
-        if (diff.TotalDays < 7) return Localizer["{0}d ago", (int)diff.TotalDays].Value;
-        return utcTime.ToString("MMM dd");
-    }
-}
 
 <div id="loc-notifications" hidden>
     <span id="loc-notification-single">@Localizer["You have <strong>{0}</strong> unread notification.", "{0}"]</span>

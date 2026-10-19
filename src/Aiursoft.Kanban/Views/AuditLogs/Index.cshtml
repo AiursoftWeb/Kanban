@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.Kanban.Models.AuditLogsViewModels.IndexViewModel
 
 <h1 class="h3 mb-3">@(Model.ShowingAllUsers ? Localizer["Operation Logs"] : Localizer["My Operation Logs"])</h1>
@@ -31,7 +32,7 @@ else
                 @foreach (var log in Model.Logs)
                 {
                     <tr>
-                        <td class="text-nowrap">@log.EventTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td class="text-nowrap"><span data-utc-time="@log.EventTime.ToHtmlDateTime()"></span></td>
                         @if (Model.ShowingAllUsers)
                         {
                             <td>@(string.IsNullOrWhiteSpace(log.UserName) ? log.UserId : log.UserName)</td>
