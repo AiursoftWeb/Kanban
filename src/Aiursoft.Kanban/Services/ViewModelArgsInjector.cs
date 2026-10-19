@@ -126,6 +126,8 @@ public class ViewModelArgsInjector(
         _ = localizer["Global Search"];
         _ = localizer["Search"];
     
+        _ = localizer["API Keys"];
+        _ = localizer["Create API Key"];
         _ = localizer["AI Report Settings"];
         _ = localizer["Weekly Report"];
         _ = localizer["Weekly Report Details"];

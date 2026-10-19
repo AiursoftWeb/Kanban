@@ -18,6 +18,53 @@ public sealed class OidcBearerApiTests
     private static readonly HttpClient Http = new();
 
     [TestMethod]
+    public async Task PersonalKeyAuthenticatesInOidcModeWithoutChangingMobileLogin()
+    {
+        using var reservation = new TestPortReservation();
+        var api = await AppAsync<Startup>(
+        [
+            "--AppSettings:AuthProvider=OIDC",
+            "--AppSettings:OIDC:Authority=https://unavailable.invalid",
+            "--AppSettings:OIDC:MobileAuthority=https://unavailable.invalid",
+            "--AppSettings:OIDC:ClientId=test-web",
+            "--AppSettings:OIDC:ClientSecret=test-secret"
+        ], port: reservation.Port);
+        try
+        {
+            reservation.ConfigureServer(api);
+            await api.UpdateDbAsync<TemplateDbContext>();
+            await api.StartAsync();
+            const string rawKey = "kanban_0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF";
+            await using (var scope = api.Services.CreateAsyncScope())
+            {
+                var manager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                var user = new User { UserName = "key-user", Email = "key@example.com", DisplayName = "Key User" };
+                Assert.IsTrue((await manager.CreateAsync(user)).Succeeded);
+                var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+                db.PersonalApiKeys.Add(new PersonalApiKey
+                {
+                    Name = "Automation", UserId = user.Id, Prefix = rawKey[..15],
+                    KeyHash = Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(rawKey))),
+                    ExpirationTime = DateTime.UtcNow.AddDays(1)
+                });
+                await db.SaveChangesAsync();
+            }
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"http://127.0.0.1:{reservation.Port}/api/v1/boards");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", rawKey);
+            using var response = await Http.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            using var localLogin = await Http.PostAsJsonAsync($"http://127.0.0.1:{reservation.Port}/api/v1/auth/local/login",
+                new LocalLoginRequest { EmailOrUserName = "key-user", Password = "not-a-local-password" });
+            Assert.AreEqual(System.Net.HttpStatusCode.Unauthorized, localLogin.StatusCode);
+        }
+        finally
+        {
+            await api.StopAsync();
+            await api.DisposeAsync();
+        }
+    }
+
+    [TestMethod]
     public async Task HostedMobileOidcConfigurationWorksWithoutDeploymentOverrides()
     {
         using var apiReservation = new TestPortReservation();

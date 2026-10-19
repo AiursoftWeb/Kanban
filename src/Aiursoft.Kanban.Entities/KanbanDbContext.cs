@@ -10,6 +10,7 @@ namespace Aiursoft.Kanban.Entities;
 
 public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbContext<User>(options), ICanMigrate
 {
+    public DbSet<PersonalApiKey> PersonalApiKeys => Set<PersonalApiKey>();
     public DbSet<GlobalSetting> GlobalSettings => Set<GlobalSetting>();
     public DbSet<KanbanBoard> KanbanBoards => Set<KanbanBoard>();
     public DbSet<KanbanColumn> KanbanColumns => Set<KanbanColumn>();
@@ -47,6 +48,10 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .WithMany()
             .HasForeignKey(b => b.UserId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<PersonalApiKey>().HasIndex(key => key.KeyHash).IsUnique();
+        builder.Entity<PersonalApiKey>().HasOne(key => key.User).WithMany()
+            .HasForeignKey(key => key.UserId).OnDelete(DeleteBehavior.Cascade);
 
         ConfigureKanbanCardLabel(builder.Entity<KanbanCardLabel>());
         builder.Entity<KanbanCard>()

@@ -119,12 +119,23 @@ public static class AuthenticationExtensions
             };
             options.Events = new JwtBearerEvents
             {
+                OnMessageReceived = context =>
+                {
+                    if (ApiKeyAuthenticationHandler.ReadToken(context.Request) != null)
+                    {
+                        context.NoResult();
+                    }
+                    return Task.CompletedTask;
+                },
                 OnTokenValidated = SyncBearerContext
             };
         });
         authBuilder.AddScheme<AuthenticationSchemeOptions, LocalApiAuthenticationHandler>(
             LocalApiAuthenticationDefaults.AuthenticationScheme,
             _ => { });
+
+        authBuilder.AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>(
+            LocalApiAuthenticationDefaults.ApiKeyScheme, _ => { });
 
         services.AddAuthorization(options =>
         {
