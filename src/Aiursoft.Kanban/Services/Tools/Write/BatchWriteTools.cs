@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Globalization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services.Access;
@@ -86,10 +87,12 @@ public class BatchWriteTools(
                 AssignedUserId = resolvedAssignee
             };
 
-            if (DateTime.TryParse(input.PlannedStartTime, out var pst))
-                card.PlannedStartTime = pst.ToUniversalTime();
-            if (DateTime.TryParse(input.DueDate, out var dd))
-                card.DueDate = dd.ToUniversalTime();
+            if (DateTime.TryParse(input.PlannedStartTime, CultureInfo.InvariantCulture,
+                DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out var pst))
+                card.PlannedStartTime = pst;
+            if (DateTime.TryParse(input.DueDate, CultureInfo.InvariantCulture,
+                DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out var dd))
+                card.DueDate = dd;
 
             await cardCreationDefaults.ApplyAsync(card);
             db.KanbanCards.Add(card);

@@ -2893,12 +2893,20 @@ public class AgentTests : TestBase
         var card = db.KanbanCards.First(c => c.ColumnId == columnId);
         Assert.AreEqual("Task with dates", card.Title);
         Assert.IsNotNull(card.PlannedStartTime, "PlannedStartTime should be set");
-        // DateTime.TryParse treats input as local time; ToUniversalTime() shifts by timezone offset
-        Assert.AreEqual(new DateTime(2026, 7, 1, 0, 0, 0, DateTimeKind.Local).ToUniversalTime(),
+        // Date-only tool input follows the web form contract, independent of the server time zone.
+        Assert.AreEqual(new DateTime(2026, 7, 1, 0, 0, 0, DateTimeKind.Utc),
             card.PlannedStartTime!.Value);
         Assert.IsNotNull(card.DueDate, "DueDate should be set");
-        Assert.AreEqual(new DateTime(2026, 7, 15, 0, 0, 0, DateTimeKind.Local).ToUniversalTime(),
+        Assert.AreEqual(new DateTime(2026, 7, 15, 0, 0, 0, DateTimeKind.Utc),
             card.DueDate!.Value);
+
+        var cardTools = scope.ServiceProvider.GetRequiredService<CardWriteTools>();
+        var updated = await cardTools.UpdateCardDetails(card.Id, card.Title, null,
+            "2026-07-02", "2026-07-16T08:00:00+08:00", (int)card.Priority, card.AssignedUserId);
+        StringAssert.Contains(updated, "updated successfully");
+        await db.Entry(card).ReloadAsync();
+        Assert.AreEqual(new DateTime(2026, 7, 2, 0, 0, 0, DateTimeKind.Utc), card.PlannedStartTime);
+        Assert.AreEqual(new DateTime(2026, 7, 16, 0, 0, 0, DateTimeKind.Utc), card.DueDate);
     }
 
     [TestMethod]
@@ -2920,7 +2928,7 @@ public class AgentTests : TestBase
 
         var cards = db.KanbanCards.Where(c => c.ColumnId == columnId).OrderBy(c => c.Order).ToList();
         Assert.AreEqual(2, cards.Count);
-        Assert.AreEqual(new DateTime(2026, 12, 31, 0, 0, 0, DateTimeKind.Local).ToUniversalTime(),
+        Assert.AreEqual(new DateTime(2026, 12, 31, 0, 0, 0, DateTimeKind.Utc),
             cards[0].DueDate, "An explicit due date should be preserved");
         Assert.IsNotNull(cards[1].DueDate, "Card without a date should receive the default DueDate");
     }
