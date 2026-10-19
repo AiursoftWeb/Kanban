@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiursoft.Kanban.ExamRunner"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiursoft.Kanban.ExamRunner.Tests", "tests\Aiursoft.Kanban.ExamRunner.Tests\Aiursoft.Kanban.ExamRunner.Tests.csproj", "{66A7FB32-448C-41AA-B97A-80E41CCA7BD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiursoft.Kanban.Client", "src\Aiursoft.Kanban.Client\Aiursoft.Kanban.Client.csproj", "{4C910637-D754-425B-97A8-FEAEC0F12866}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{66A7FB32-448C-41AA-B97A-80E41CCA7BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66A7FB32-448C-41AA-B97A-80E41CCA7BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66A7FB32-448C-41AA-B97A-80E41CCA7BD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C910637-D754-425B-97A8-FEAEC0F12866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C910637-D754-425B-97A8-FEAEC0F12866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C910637-D754-425B-97A8-FEAEC0F12866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C910637-D754-425B-97A8-FEAEC0F12866}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{182AD4D7-3D76-461B-80C0-DDDC8F301753} = {8AC42921-6DC7-43E5-BC18-FB4479CF14D1}
 		{1E4DCA6F-4CC9-46F1-8A67-284130A90129} = {D06A8D96-DB83-4EDE-9017-F7F4F7287246}
 		{66A7FB32-448C-41AA-B97A-80E41CCA7BD7} = {8AC42921-6DC7-43E5-BC18-FB4479CF14D1}
+		{4C910637-D754-425B-97A8-FEAEC0F12866} = {D06A8D96-DB83-4EDE-9017-F7F4F7287246}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99B1D64C-C9EB-4F4A-BD58-E028DB8E68A3}
