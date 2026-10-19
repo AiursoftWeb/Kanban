@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Globalization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Notifications;
 using Aiursoft.Kanban.Services.Access;
@@ -153,10 +154,12 @@ public class CardWriteTools(
         card.AssignedUserId = normalizedAssignedUserId;
         await CardSubscriptionService.SubscribeAsync(db, cardId, new[] { normalizedAssignedUserId });
 
-        if (DateTime.TryParse(plannedStartTime, out var pst))
-            card.PlannedStartTime = pst.ToUniversalTime();
-        if (DateTime.TryParse(dueDate, out var dd))
-            card.DueDate = dd.ToUniversalTime();
+        if (DateTime.TryParse(plannedStartTime, CultureInfo.InvariantCulture,
+                DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out var pst))
+            card.PlannedStartTime = pst;
+        if (DateTime.TryParse(dueDate, CultureInfo.InvariantCulture,
+                DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out var dd))
+            card.DueDate = dd;
 
         await db.SaveChangesAsync();
 
