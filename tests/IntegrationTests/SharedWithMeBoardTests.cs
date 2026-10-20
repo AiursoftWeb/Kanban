@@ -1,6 +1,10 @@
 using System.Net;
 using Aiursoft.Kanban.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Aiursoft.Kanban.Models.HomeViewModels;
+using Aiursoft.Kanban.Services;
+using Aiursoft.UiStack.Views.Shared.Components.SideMenu;
 
 namespace Aiursoft.Kanban.Tests.IntegrationTests;
 
@@ -24,6 +28,76 @@ public class SharedWithMeBoardTests : TestBase
 
         var html = await response.Content.ReadAsStringAsync();
         Assert.Contains($"/PublicKanban/View/{boardId}", html);
+    }
+
+    [TestMethod]
+    [DataRow(false, false)]
+    [DataRow(true, false)]
+    [DataRow(false, true)]
+    [DataRow(true, true)]
+    public async Task Sidebar_SeparatesOwnedAndSharedBoards(bool hasOwned, bool hasShared)
+    {
+        var (ownerEmail, _) = await RegisterAndLoginAsync();
+        var ownerId = await GetUserIdByEmailAsync(ownerEmail);
+        var sharedId = await CreateBoardWithOwner(ownerId, "A shared board");
+        var archivedId = await CreateBoardWithOwner(ownerId, "Archived board");
+        await LogoutAsync();
+        var (viewerEmail, _) = await RegisterAndLoginAsync();
+        var viewerId = await GetUserIdByEmailAsync(viewerEmail);
+        var ownedId = hasOwned ? await CreateBoardWithOwner(viewerId, "Z owned board") : 0;
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        (await db.KanbanBoards.SingleAsync(b => b.Id == archivedId)).IsArchived = true;
+        var role = new IdentityRole($"Board viewers {Guid.NewGuid()}");
+        role.NormalizedName = role.Name!.ToUpperInvariant();
+        db.Roles.Add(role);
+        db.UserRoles.Add(new IdentityUserRole<string> { RoleId = role.Id, UserId = viewerId });
+        if (hasShared)
+        {
+            await CreateShare(sharedId, viewerId, SharePermission.ReadOnly);
+            db.BoardShares.Add(new BoardShare
+            {
+                Id = Guid.NewGuid(), BoardId = sharedId,
+                SharedWithRoleId = role.Id, Permission = SharePermission.ReadOnly
+            });
+        }
+        await CreateShare(archivedId, viewerId, SharePermission.ReadOnly);
+        if (hasOwned) await CreateShare(ownedId, viewerId, SharePermission.ReadOnly);
+        await db.SaveChangesAsync();
+
+        var user = await db.Users.SingleAsync(u => u.Id == viewerId);
+        var context = new DefaultHttpContext
+        {
+            RequestServices = scope.ServiceProvider,
+            User = await scope.ServiceProvider.GetRequiredService<SignInManager<User>>()
+                .CreateUserPrincipalAsync(user)
+        };
+        context.Request.RouteValues["controller"] = "Kanban";
+        context.Request.QueryString = new QueryString($"?boardId={sharedId}");
+        var model = new IndexViewModel();
+        scope.ServiceProvider.GetRequiredService<ViewModelArgsInjector>().Inject(context, model);
+        var groups = model.Sidebar!.SideMenu!.Groups
+            .Where(g => g.Name == "My Boards" || g.Name == "Shared with Me").ToList();
+        CollectionAssert.AreEqual(
+            (hasOwned ? new[] { "My Boards" } : Array.Empty<string>())
+            .Concat(hasShared ? new[] { "Shared with Me" } : Array.Empty<string>()).ToArray(),
+            groups.Select(g => g.Name.ToString()).ToArray());
+        Assert.IsFalse(model.Sidebar.SideMenu.Groups.Any(g => g.Name == "All Boards"));
+        if (hasOwned)
+        {
+            var item = (LinkSideBarItem)groups.Single(g => g.Name == "My Boards").Items.Single();
+            Assert.AreEqual($"/Kanban/Index?boardId={ownedId}", item.Href);
+            Assert.IsFalse(item.IsActive);
+        }
+        if (hasShared)
+        {
+            var sharedItems = groups.Single(g => g.Name == "Shared with Me").Items;
+            Assert.HasCount(1, sharedItems, string.Join(", ", sharedItems.Select(i => i.Text)));
+            var item = (LinkSideBarItem)sharedItems.Single();
+            Assert.AreEqual($"/Kanban/Index?boardId={sharedId}", item.Href);
+            Assert.IsTrue(item.IsActive);
+        }
     }
 
     private async Task<string> GetUserIdByEmailAsync(string email)

@@ -267,11 +267,15 @@ public class ViewModelArgsInjector(
                 .OrderBy(b => b.Name)
                 .ToList();
 
-            var allBoards = ownedBoards.Concat(sharedBoards).OrderBy(b => b.Name).ToList();
-
-            if (allBoards.Any())
+            foreach (var (name, boards) in new[]
+                     {
+                         (localizer["My Boards"], ownedBoards),
+                         (localizer["Shared with Me"], sharedBoards)
+                     })
             {
-                var boardItems = allBoards.Select(board => new LinkSideBarItem
+                if (boards.Count == 0) continue;
+
+                var boardItems = boards.Select(board => new LinkSideBarItem
                 {
                     Text = board.Name,
                     Href = $"/Kanban/Index?boardId={board.Id}",
@@ -282,7 +286,7 @@ public class ViewModelArgsInjector(
 
                 navGroupsForView.Add(new NavGroup
                 {
-                    Name = localizer["All Boards"],
+                    Name = name,
                     Items = boardItems
                 });
             }
