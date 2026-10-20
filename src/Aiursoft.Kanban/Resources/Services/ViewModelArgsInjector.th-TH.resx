@@ -45,6 +45,9 @@
   <data name="Anonymous" xml:space="preserve">
     <value>ไม่ระบุชื่อ</value>
   </data>
+  <data name="API Keys" xml:space="preserve">
+    <value>คีย์ API</value>
+  </data>
   <data name="Archived" xml:space="preserve">
     <value>เก็บถาวร</value>
   </data>
@@ -71,6 +74,9 @@
   </data>
   <data name="Click to login" xml:space="preserve">
     <value>คลิกเพื่อเข้าสู่ระบบ</value>
+  </data>
+  <data name="Create API Key" xml:space="preserve">
+    <value>สร้าง API Key</value>
   </data>
   <data name="Create Role" xml:space="preserve">
     <value>สร้างบทบาท</value>

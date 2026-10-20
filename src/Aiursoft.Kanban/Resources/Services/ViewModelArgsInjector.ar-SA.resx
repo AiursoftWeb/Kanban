@@ -42,6 +42,9 @@
   <data name="Anonymous" xml:space="preserve">
     <value>مجهول</value>
   </data>
+  <data name="API Keys" xml:space="preserve">
+    <value>مفاتيح واجهة برمجة التطبيقات</value>
+  </data>
   <data name="Archived" xml:space="preserve">
     <value>مؤرشفة</value>
   </data>
@@ -68,6 +71,9 @@
   </data>
   <data name="Click to login" xml:space="preserve">
     <value>انقر لتسجيل الدخول</value>
+  </data>
+  <data name="Create API Key" xml:space="preserve">
+    <value>إنشاء مفتاح API</value>
   </data>
   <data name="Create Role" xml:space="preserve">
     <value>إنشاء دور</value>
