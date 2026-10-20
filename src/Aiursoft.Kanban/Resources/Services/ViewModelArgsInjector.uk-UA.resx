@@ -42,6 +42,9 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Анонімний</value>
   </data>
+  <data name="API Keys" xml:space="preserve">
+    <value>Ключі API</value>
+  </data>
   <data name="Archived" xml:space="preserve">
     <value>Архівовано</value>
   </data>
@@ -68,6 +71,9 @@
   </data>
   <data name="Click to login" xml:space="preserve">
     <value>Натисніть, щоб увійти</value>
+  </data>
+  <data name="Create API Key" xml:space="preserve">
+    <value>Створити ключ API</value>
   </data>
   <data name="Create Role" xml:space="preserve">
     <value>Створити роль</value>

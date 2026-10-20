@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Azioni</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Attiva</value>
+  </data>
+  <data name="An API key has the same permissions as its owner. Send it using Authorization: Bearer." xml:space="preserve">
+    <value>Una chiave API ha gli stessi permessi del suo proprietario. Inviala utilizzando Authorization: Bearer.</value>
+  </data>
+  <data name="API Keys" xml:space="preserve">
+    <value>Chiavi API</value>
+  </data>
+  <data name="Copy this key now. It will not be shown again." xml:space="preserve">
+    <value>Copia questa chiave ora. Non verrà più mostrata.</value>
+  </data>
+  <data name="Create New API Key" xml:space="preserve">
+    <value>Crea nuova chiave API</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Creato</value>
+  </data>
+  <data name="Expiration" xml:space="preserve">
+    <value>Scadenza</value>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>Scaduto</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>Chiave</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="No API keys yet." xml:space="preserve">
+    <value>Nessuna chiave API presente.</value>
+  </data>
+  <data name="Revoke" xml:space="preserve">
+    <value>Revoca</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+
+</root>

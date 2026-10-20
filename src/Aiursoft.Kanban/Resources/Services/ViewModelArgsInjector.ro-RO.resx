@@ -42,6 +42,9 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Anonim</value>
   </data>
+  <data name="API Keys" xml:space="preserve">
+    <value>Chei API</value>
+  </data>
   <data name="Archived" xml:space="preserve">
     <value>Arhivat</value>
   </data>
@@ -68,6 +71,9 @@
   </data>
   <data name="Click to login" xml:space="preserve">
     <value>Apasă pentru a te autentifica</value>
+  </data>
+  <data name="Create API Key" xml:space="preserve">
+    <value>Creează o cheie API</value>
   </data>
   <data name="Create Role" xml:space="preserve">
     <value>Creează Rol</value>

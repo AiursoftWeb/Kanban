@@ -45,6 +45,9 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Anonyme</value>
   </data>
+  <data name="API Keys" xml:space="preserve">
+    <value>Clés API</value>
+  </data>
   <data name="Archived" xml:space="preserve">
     <value>Archivé</value>
   </data>
@@ -71,6 +74,9 @@
   </data>
   <data name="Click to login" xml:space="preserve">
     <value>Cliquez pour vous connecter</value>
+  </data>
+  <data name="Create API Key" xml:space="preserve">
+    <value>Créer une clé API</value>
   </data>
   <data name="Create Role" xml:space="preserve">
     <value>Créer un rôle</value>
