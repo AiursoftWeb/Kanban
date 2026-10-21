@@ -1,8 +1,5 @@
 # Kanban
 
-A .NET command-line client is available as `Aiursoft.Kanban.Client`: use `kanban --help`
-to manage boards, columns and cards with your personal API key. See [CLI usage](docs/cli.md).
-
 An optional native .NET Android client is available. See [Android app and OIDC deployment](docs/android.md)
 for identity-provider registration, server settings, APK building, and sideloading.
 
@@ -15,6 +12,18 @@ for identity-provider registration, server settings, APK building, and sideloadi
 [![Docker](https://img.shields.io/docker/pulls/aiursoft/kanban.svg)](https://hub.docker.com/r/aiursoft/kanban)
 
 Aiursoft Kanban is a self-hosted project management and workflow planning system built on ASP.NET Core (.NET 10). It helps teams organize boards, columns, cards, labels, priorities, assignees, due dates, comments, and shared access in one lightweight web application.
+
+## CLI & SDK
+
+Install the CLI with the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0):
+
+```bash
+dotnet tool install --global Aiursoft.Kanban.Client --add-source https://nuget.aiursoft.com/v3/index.json
+```
+
+Run `kanban --help` to explore commands. See [CLI usage](docs/cli.md) for authentication and examples.
+
+The [SDK source](src/Aiursoft.Kanban.SDK) is included in this repository; it is not published as a separate NuGet package.
 
 ![screenshot](./screenshot.png)
 
