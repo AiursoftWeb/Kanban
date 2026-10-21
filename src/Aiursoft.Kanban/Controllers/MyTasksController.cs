@@ -175,13 +175,13 @@ public class MyTasksController(
                 .ThenBy(card => card.Title)
                 .ToList(),
             "priority-asc" => cards
-                .OrderBy(card => card.Priority)
+                .OrderByDescending(card => card.Priority)
                 .ThenBy(card => card.DueDate == null ? 1 : 0)
                 .ThenBy(card => card.DueDate)
                 .ThenBy(card => card.Title)
                 .ToList(),
             "priority-desc" => cards
-                .OrderByDescending(card => card.Priority)
+                .OrderBy(card => card.Priority)
                 .ThenBy(card => card.DueDate == null ? 1 : 0)
                 .ThenBy(card => card.DueDate)
                 .ThenBy(card => card.Title)
