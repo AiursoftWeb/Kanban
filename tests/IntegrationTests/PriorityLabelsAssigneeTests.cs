@@ -154,6 +154,39 @@ public class PriorityLabelsAssigneeTests : TestBase
     }
 
     [TestMethod]
+    [DataRow("priority-asc")]
+    [DataRow("priority-desc")]
+    public async Task MyTasks_PrioritySort_OrdersByUrgency(string sort)
+    {
+        var (email, _) = await RegisterAndLoginAsync();
+        var userId = await GetUserIdByEmailAsync(email);
+        var (_, columnId, _, _) = await CreateBoardWithStatusesAsync(userId, "Priority Sort Board");
+        foreach (var priority in new[] { Priority.Medium, Priority.Urgent, Priority.None, Priority.High, Priority.Low })
+        {
+            await CreateCardAsync(columnId, $"Priority task {priority}", userId, priority);
+        }
+
+        var response = await Http.GetAsync($"/MyTasks/Index?sort={sort}");
+        response.EnsureSuccessStatusCode();
+        var html = await response.Content.ReadAsStringAsync();
+        var expectedPriorities = new[] { Priority.None, Priority.Low, Priority.Medium, Priority.High, Priority.Urgent };
+        if (sort == "priority-desc")
+        {
+            Array.Reverse(expectedPriorities);
+        }
+
+        var previousIndex = -1;
+        foreach (var priority in expectedPriorities)
+        {
+            var title = $"<div class=\"task-title\">Priority task {priority}</div>";
+            Assert.Contains(title, html);
+            var index = html.IndexOf(title, StringComparison.Ordinal);
+            Assert.IsTrue(index > previousIndex, $"Task {priority} is out of order for {sort}.");
+            previousIndex = index;
+        }
+    }
+
+    [TestMethod]
     public async Task MyTasks_FilteringSupportsStatusAndLabelModes()
     {
         var (ownerEmail, _) = await RegisterAndLoginAsync();

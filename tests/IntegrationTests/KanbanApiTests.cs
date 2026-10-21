@@ -410,6 +410,48 @@ public sealed class KanbanApiTests : TestBase
     }
 
     [TestMethod]
+    [DataRow("priority-asc")]
+    [DataRow("priority-desc")]
+    public async Task MyTasksApiPrioritySortOrdersByUrgency(string sort)
+    {
+        var (email, password) = await RegisterAndLoginAsync();
+        await AuthenticateLocalAsync(email, password);
+        Assert.IsNotNull(Server);
+        await using (var scope = Server.Services.CreateAsyncScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var user = await db.Users.SingleAsync(user => user.Email == email);
+            var board = new KanbanBoard { Name = "API Priority Sort Board", UserId = user.Id };
+            var column = new KanbanColumn { Name = "To Do", Board = board, ColumnStatus = ColumnStatus.NotStarted };
+            foreach (var priority in new[] { Priority.Medium, Priority.Urgent, Priority.None, Priority.High, Priority.Low })
+            {
+                db.KanbanCards.Add(new KanbanCard
+                {
+                    Title = $"Priority task {priority}",
+                    Column = column,
+                    AssignedUserId = user.Id,
+                    Priority = priority
+                });
+            }
+            await db.SaveChangesAsync();
+        }
+
+        using var response = await Http.GetAsync($"/api/v1/tasks/mine?sort={sort}");
+        response.EnsureSuccessStatusCode();
+        var tasks = JsonConvert.DeserializeObject<MyTasksResponse>(await response.Content.ReadAsStringAsync());
+        Assert.IsNotNull(tasks);
+        var expectedPriorities = new[] { Priority.None, Priority.Low, Priority.Medium, Priority.High, Priority.Urgent };
+        if (sort == "priority-desc")
+        {
+            Array.Reverse(expectedPriorities);
+        }
+
+        CollectionAssert.AreEqual(
+            expectedPriorities.Select(priority => priority.ToString()).ToArray(),
+            tasks.Cards.Select(card => card.Priority).ToArray());
+    }
+
+    [TestMethod]
     public async Task SearchApiFindsCardsOnlyOnReadableBoardsAndReturnsCardContext()
     {
         var searchEmail = $"search-{Guid.NewGuid():N}@example.com";
