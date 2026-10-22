@@ -521,9 +521,13 @@ public sealed class MainActivity : AppCompatActivity
             cards.AddView(hint, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent));
         }
-        content.AddView(cards, new LinearLayout.LayoutParams(
+        var scroll = new ScrollView(this) { FillViewport = true };
+        scroll.AddView(cards, new ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent));
+        content.AddView(scroll, new LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MatchParent, 0, 1));
-        shell.AddView(content);
+        shell.AddView(content, new FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
 
         if (board.CanEdit)
         {
