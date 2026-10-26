@@ -7,6 +7,7 @@
     const addForm = document.getElementById('add-share-form');
     const roleSelect = document.getElementById('roleSelect');
     const userId = document.getElementById('selectedUserId');
+    const recipientPrompt = () => (userId.disabled ? roleSelect : userId).options[0].textContent;
     const visibilityForm = document.getElementById('visibility-form');
     const linkAccess = document.getElementById('link-access');
 
@@ -38,7 +39,7 @@
         if (form.dataset.busy === 'true') return;
         if (form === addForm && ((!roleSelect.disabled && !roleSelect.value) ||
             (!userId.disabled && !userId.value))) {
-            showError(form, text('invalid', 'Select a user from the search results or choose a role.'));
+            showError(form, recipientPrompt());
             (userId.disabled ? roleSelect : userId).focus();
             return;
         }
@@ -59,7 +60,7 @@
             if (error) {
                 showError(form, error === 'duplicate'
                     ? text('duplicate', 'This user or role already has access.')
-                    : text('invalid', 'Select a user from the search results or choose a role.'));
+                    : recipientPrompt());
                 return;
             }
             location.assign(destination.href);
@@ -89,5 +90,5 @@
     const error = new URLSearchParams(location.search).get('error');
     if (error) showError(addForm, error === 'duplicate'
         ? text('duplicate', 'This user or role already has access.')
-        : text('invalid', 'Select a user from the search results or choose a role.'));
+        : recipientPrompt());
 })();
