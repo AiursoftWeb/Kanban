@@ -24,8 +24,41 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(Немає — використовуйте користувача вище)</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} і ще {1} користувач</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} та ще {1} користувачів</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} може редагувати.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} можуть переглядати.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>Роль: {0}</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} ролей</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>Користувачів: {0}</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>{0} користувачів</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="About access" xml:space="preserve">
+    <value>Про доступ</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Дії</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Надати доступ</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Додати новий доступ</value>
@@ -36,14 +69,47 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Дозволити перегляд анонімно (Публічно)</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>Анонімний перегляд не змінює вказані вище дозволи для користувачів або ролей.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Будь-хто — лише перегляд</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Кожен, хто має посилання, може переглядати цю дошку.</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>Перегляд доступний усім, хто має посилання, без входу в обліковий запис.</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Назад до дошки</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>Дошка:</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Може редагувати</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>Може переглядати</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>Дозвіл на перегляд дає змогу читати дошку. Дозвіл на редагування також дає змогу змінювати вміст дошки.</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>Змінити доступ за посиланням</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>Скопіювати посилання</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>Не вдалося підтвердити зміну. Введені дані збережено. Спробуйте ще раз або перезавантажте сторінку, щоб перевірити збережений стан.</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>Не вдалося скопіювати. Виберіть посилання вище та скопіюйте його.</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Поточний доступ</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Поточні надані права</value>
@@ -54,11 +120,32 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>Заборонити перегляд анонімами (Приватно / Спільний доступ)</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>Доступ за посиланням</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>Посилання скопійовано.</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>Керування спільним доступом</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>Немає конкретних доступів. Використовуйте форму вище, щоб надати доступ користувачам або ролям.</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>Користувачів не знайдено. Спробуйте ввести інше ім’я або адресу електронної пошти.</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>Користувачів або ролей не додано.</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>Не збережено. Посилання вище й далі використовує поточні налаштування доступу.</value>
+  </data>
+  <data name="Only authorized people can access." xml:space="preserve">
+    <value>Доступ мають лише особи з відповідними правами.</value>
+  </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>Доступ має лише власник.</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>Цей дошка може переглядати лише ви та конкретні користувачі/ролі, перелічені нижче.</value>
@@ -66,29 +153,80 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>Або поділитися за роллю</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>Люди з доступом</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>Дозвіл</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>Тільки для читання</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>Видалити цей спільний доступ?</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>Скасувати цей спільний доступ? Інші способи доступу можуть залишитися.</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Роль</value>
   </data>
+  <data name="Role {0}" xml:space="preserve">
+    <value>Роль {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>Роль {0} та ще {1} роль</value>
+  </data>
+  <data name="Role {0} and {1} other roles" xml:space="preserve">
+    <value>Роль {0} та ще {1} ролей</value>
+  </data>
+  <data name="Save access" xml:space="preserve">
+    <value>Зберегти доступ</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>Пошук не вдався. Змініть текст пошуку, щоб повторити спробу.</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>Пошук...</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>Виберіть роль...</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>Виберіть користувача...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>Посилання для поширення</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>Поділитися з</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>Поділитися з користувачем</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Спільний доступ</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Поділено з</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>Щоб увійти, потрібен обліковий запис із наявним доступом. Копіювання посилання не надає доступу.</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>З</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>Власник і уповноважені адміністратори спільного доступу можуть керувати доступом. Доступ, наданий ролі, поширюється на її учасників; дозволи, надані через інші ролі або безпосередньо, залишаються чинними навіть після скасування одного з них.</value>
+  </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>Цю дошку заархівовано; редагування вимкнено.</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>Цей користувач або роль уже має доступ.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Тип</value>
@@ -98,6 +236,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Видимість</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>Хто може скористатися посиланням?</value>
   </data>
 
 </root>

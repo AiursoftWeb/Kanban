@@ -24,8 +24,41 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(ไม่เลือก - ใช้ผู้ใช้ด้านบน)</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} และผู้ใช้อื่นอีก {1} คน</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} และผู้ใช้อื่นอีก {1} คน</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} แก้ไขได้</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} ดูได้</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>บทบาท {0}</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} บทบาท</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>ผู้ใช้ {0} คน</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>ผู้ใช้ {0} คน</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="About access" xml:space="preserve">
+    <value>เกี่ยวกับการเข้าถึง</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>การดำเนินการ</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>เพิ่มสิทธิ์การเข้าถึง</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>เพิ่มการแชร์ใหม่</value>
@@ -36,14 +69,47 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>อนุญาตให้ผู้อื่นดูได้โดยไม่ต้องเข้าสู่ระบบ (สาธารณะ)</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>การเข้าชมแบบไม่ระบุตัวตนจะไม่เปลี่ยนสิทธิ์ของผู้ใช้หรือบทบาทที่ระบุไว้ข้างต้น</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>ทุกคน — ดูได้เท่านั้น</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>ทุกคนที่มีลิงก์สามารถดูกระดานนี้ได้</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>ทุกคนที่มีลิงก์สามารถดูได้โดยไม่ต้องลงชื่อเข้าใช้</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>กลับสู่บอร์ด</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>กระดาน:</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>แก้ไขได้</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>ดูได้</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>สิทธิ์ดูช่วยให้สามารถอ่านกระดานได้ ส่วนสิทธิ์แก้ไขยังอนุญาตให้เปลี่ยนแปลงเนื้อหาบนกระดานได้ด้วย</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>เปลี่ยนสิทธิ์การเข้าถึงลิงก์</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>คัดลอกลิงก์</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>ไม่สามารถยืนยันการเปลี่ยนแปลงได้ ระบบเก็บข้อมูลที่คุณป้อนไว้แล้ว ลองอีกครั้งหรือโหลดหน้าใหม่เพื่อตรวจสอบสถานะที่บันทึกไว้</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>คัดลอกไม่สำเร็จ โปรดเลือกและคัดลอกลิงก์ด้านบน</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>การเข้าถึงปัจจุบัน</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>การแชร์ปัจจุบัน</value>
@@ -54,11 +120,32 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>ห้ามการดูแบบไม่ระบุตัวตน (ส่วนตัว / แชร์)</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>การเข้าถึงผ่านลิงก์</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>คัดลอกลิงก์แล้ว</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>จัดการการแชร์</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>ไม่มีการแชร์เฉพาะเจาะจง ใช้แบบฟอร์มด้านบนเพื่อแชร์กับผู้ใช้หรือบทบาท</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>ไม่พบผู้ใช้ ลองใช้ชื่อหรืออีเมลอื่น</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>ยังไม่มีการเพิ่มผู้ใช้หรือบทบาท</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>ยังไม่ได้บันทึก ลิงก์ด้านบนยังคงใช้การตั้งค่าการเข้าถึงปัจจุบัน</value>
+  </data>
+  <data name="Only authorized people can access." xml:space="preserve">
+    <value>เฉพาะผู้ที่ได้รับอนุญาตเท่านั้นที่สามารถเข้าถึงได้</value>
+  </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>มีเพียงเจ้าของเท่านั้นที่เข้าถึงได้</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>มีเพียงคุณและผู้ใช้/บทบาทเฉพาะที่ระบุด้านล่างเท่านั้นที่สามารถดูกระดานนี้ได้นะ</value>
@@ -66,29 +153,80 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>หรือแชร์กับบทบาท</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>ผู้ใช้ที่มีสิทธิ์เข้าถึง</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>สิทธิ์</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>อ่านอย่างเดียว</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>นำออก</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>ลบการแชร์นี้?</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>ลบการแชร์นี้หรือไม่? สิทธิ์การเข้าถึงอื่น ๆ อาจยังคงมีผลอยู่</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>บทบาท</value>
   </data>
+  <data name="Role {0}" xml:space="preserve">
+    <value>บทบาท {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>บทบาท {0} และบทบาทอื่นอีก {1} รายการ</value>
+  </data>
+  <data name="Role {0} and {1} other roles" xml:space="preserve">
+    <value>บทบาท {0} และบทบาทอื่นอีก {1} บทบาท</value>
+  </data>
+  <data name="Save access" xml:space="preserve">
+    <value>บันทึกสิทธิ์การเข้าถึง</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>การค้นหาล้มเหลว เปลี่ยนข้อความค้นหาแล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>กำลังค้นหา...</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>เลือกบทบาท...</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>เลือกผู้ใช้...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>แชร์ลิงก์</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>แชร์กับ</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>แชร์กับผู้ใช้</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>การเข้าถึงที่แชร์</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>แชร์กับ</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>ต้องลงชื่อเข้าใช้และมีสิทธิ์เข้าถึงอยู่แล้ว การคัดลอกลิงก์ไม่ได้ให้สิทธิ์เข้าถึง</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>ตั้งแต่</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>เจ้าของและผู้ดูแลการแชร์ที่ได้รับอนุญาตสามารถจัดการสิทธิ์การเข้าถึงได้ สิทธิ์การเข้าถึงที่กำหนดให้กับบทบาทจะมีผลกับสมาชิกของบทบาทนั้น การนำการแชร์รายการหนึ่งออกจะไม่กระทบสิทธิ์ที่ได้รับจากบทบาทอื่นหรือการแชร์โดยตรง</value>
+  </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>บอร์ดนี้ถูกเก็บถาวรแล้ว จึงไม่สามารถแก้ไขได้</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>ผู้ใช้หรือบทบาทนี้มีสิทธิ์เข้าถึงอยู่แล้ว</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>ประเภท</value>
@@ -98,6 +236,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>การมองเห็น</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>ใครสามารถใช้ลิงก์นี้ได้บ้าง?</value>
   </data>
 
 </root>

@@ -24,8 +24,41 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(Ingen - brug brugeren ovenfor)</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} og {1} anden bruger</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} og {1} andre brugere</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} kan redigere.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} kan se.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>{0} rolle</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} roller</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} bruger</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>{0} brugere</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="About access" xml:space="preserve">
+    <value>Om adgang</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Handlinger</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Tilføj adgang</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Tilføj ny deling</value>
@@ -36,14 +69,47 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Tillad anonym visning (Offentlig)</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>Anonym visning ændrer ikke brugerens eller rollerettighederne ovenfor.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Alle – kun visning</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Enhver med linket kan se dette board.</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>Alle med linket kan se indholdet uden at logge ind.</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Tilbage til tavle</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>Bræt:</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Kan redigere</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>Kan se</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>Kan se giver mulighed for at læse tavlen. Kan redigere giver også mulighed for at ændre tavlens indhold.</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>Skift linkadgang</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>Kopiér link</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>Ændringen kunne ikke bekræftes. Din indtastning er bevaret. Prøv igen, eller genindlæs siden for at kontrollere den gemte tilstand.</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>Kunne ikke kopiere. Vælg og kopier linket ovenfor.</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Aktuel adgang</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Nuværende aktier</value>
@@ -54,11 +120,32 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>Forbud anonym visning (Privat / Delingen)</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>Linkadgang</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>Linket er kopieret.</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>Administrer delinger</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>Ingen specifikke delinger. Brug formularen ovenfor til at dele med brugere eller roller.</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>Ingen brugere fundet. Prøv et andet navn eller en anden e-mailadresse.</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>Ingen brugere eller roller er tilføjet.</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>Ikke gemt. Linket ovenfor bruger stadig den aktuelle adgangsindstilling.</value>
+  </data>
+  <data name="Only authorized people can access." xml:space="preserve">
+    <value>Kun godkendte personer har adgang.</value>
+  </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>Kun ejeren har adgang.</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>Kun du og de specifikke brugere/roller, der er angivet nedenfor, kan se dette bræt.</value>
@@ -66,29 +153,80 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>Eller del med rolle</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>Personer med adgang</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>Tilladelse</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>Skrivebeskyttet</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>Fjern denne deling?</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>Fjern denne deling? Anden adgang kan stadig gælde.</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Rolle</value>
   </data>
+  <data name="Role {0}" xml:space="preserve">
+    <value>Rolle {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>Rolle {0} og {1} anden rolle</value>
+  </data>
+  <data name="Role {0} and {1} other roles" xml:space="preserve">
+    <value>Rollen {0} og {1} andre roller</value>
+  </data>
+  <data name="Save access" xml:space="preserve">
+    <value>Gem adgang</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>Søgningen mislykkedes. Ret søgeteksten, og prøv igen.</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>Søger...</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>Vælg en rolle...</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>Vælg en bruger...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>Del link</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>Del med</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>Del med bruger</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Delt adgang</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Delt med</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>Du skal være logget ind og allerede have adgang. Kopiering af et link giver ikke adgang.</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>Siden</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>Ejeren og de administratorer, der har tilladelse til at dele, kan administrere adgangen. Rolleadgang gælder for rollens medlemmer; tilladelser fra andre roller eller direkte delinger gælder stadig, når en deling fjernes.</value>
+  </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>Dette board er arkiveret; redigering er deaktiveret.</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>Denne bruger eller rolle har allerede adgang.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
@@ -98,6 +236,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Synlighed</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>Hvem kan bruge linket?</value>
   </data>
 
 </root>

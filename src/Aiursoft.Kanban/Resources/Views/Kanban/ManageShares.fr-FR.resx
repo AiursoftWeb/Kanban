@@ -24,8 +24,41 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(Aucun - utiliser l&apos;utilisateur ci-dessus)</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} et {1} autre utilisateur</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} et {1} autres utilisateurs</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} peut modifier.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} peut consulter.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>Rôle {0}</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} rôles</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} utilisateur</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>{0} utilisateurs</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="About access" xml:space="preserve">
+    <value>À propos de l’accès</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Ajouter des accès</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Ajouter un nouveau partage</value>
@@ -36,14 +69,47 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Autoriser la visualisation anonyme (Public)</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>La consultation anonyme ne modifie pas les autorisations attribuées ci-dessus aux utilisateurs ou aux rôles.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Tout le monde — consultation uniquement</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Toute personne disposant du lien peut consulter ce tableau.</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>Toute personne disposant du lien peut consulter le contenu sans se connecter.</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Retour au tableau</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>Tableau :</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Peut modifier</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>Peut consulter</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>L’autorisation de consultation permet de lire le tableau. L’autorisation de modification permet également d’en modifier le contenu.</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>Modifier l’accès au lien</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>Copier le lien</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>Impossible de confirmer la modification. Votre saisie est conservée. Réessayez ou rechargez la page pour vérifier l’état enregistré.</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>Impossible de copier. Sélectionnez le lien ci-dessus et copiez-le.</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Accès actuel</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Parts actuelles</value>
@@ -54,11 +120,32 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>Interdire la consultation anonyme (Privé / Partagé)</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>Accès par lien</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>Lien copié.</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>Gérer les partages</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>Aucun partage spécifique. Utilisez le formulaire ci-dessus pour partager avec des utilisateurs ou des rôles.</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>Aucun utilisateur trouvé. Essayez avec un autre nom ou une autre adresse e-mail.</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>Aucun utilisateur ni rôle ajouté.</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>Non enregistré. Le lien ci-dessus utilise toujours le paramètre d’accès actuel.</value>
+  </data>
+  <data name="Only authorized people can access." xml:space="preserve">
+    <value>Seules les personnes autorisées peuvent y accéder.</value>
+  </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>Seul le propriétaire a accès.</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>Seulement vous et les utilisateurs/roles spécifiques listés ci-dessous peuvent voir ce tableau.</value>
@@ -66,29 +153,80 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>Ou partager avec un rôle</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>Personnes ayant accès</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>Autorisation</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>Lecture seule</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>Supprimer ce partage ?</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>Supprimer ce partage ? D’autres accès peuvent toujours s’appliquer.</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Rôle</value>
   </data>
+  <data name="Role {0}" xml:space="preserve">
+    <value>Rôle {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>Rôle {0} et {1} autre rôle</value>
+  </data>
+  <data name="Role {0} and {1} other roles" xml:space="preserve">
+    <value>Rôle {0} et {1} autres rôles</value>
+  </data>
+  <data name="Save access" xml:space="preserve">
+    <value>Enregistrer l’accès</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>La recherche a échoué. Modifiez le texte recherché pour réessayer.</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>Recherche en cours...</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>Sélectionnez un rôle…</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>Sélectionnez un utilisateur...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>Partager le lien</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>Partager avec</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>Partager avec un utilisateur</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Accès partagé</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Partagé avec</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>Vous devez vous connecter et disposer des droits d’accès nécessaires. Copier un lien ne donne pas accès.</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>Depuis</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>Le propriétaire et les administrateurs de partage autorisés peuvent gérer l&apos;accès. L&apos;accès par rôle s&apos;applique à ses membres ; les autorisations provenant d&apos;autres rôles ou de partages directs restent en vigueur après la suppression d&apos;un partage.</value>
+  </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>Ce tableau est archivé ; sa modification est désactivée.</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>Cet utilisateur ou ce rôle a déjà accès.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
@@ -98,6 +236,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Visibilité</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>Qui peut utiliser le lien ?</value>
   </data>
 
 </root>

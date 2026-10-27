@@ -24,8 +24,41 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(Ei käytössä - käytä yllä olevaa käyttäjää)</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} ja {1} muu käyttäjä</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} ja {1} muuta käyttäjää</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} voi muokata.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} voi tarkastella.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>{0} rooli</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} roolia</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} käyttäjä</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>{0} käyttäjää</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="About access" xml:space="preserve">
+    <value>Tietoja käyttöoikeuksista</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Toiminnat</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Lisää käyttöoikeus</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Lisää uusi jakaminen</value>
@@ -36,14 +69,47 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Salli anonyymi katselu (Julkinen)</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>Nimettömänä katselu ei muuta yllä määritettyjä käyttäjä- tai roolioikeuksia.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Kuka tahansa — vain katselu</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Ketä tahansa, jolla on linkki, voi katsoa tätä taulua.</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>Kuka tahansa linkin saanut voi tarkastella sisältöä kirjautumatta sisään.</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Takaisin lautaan</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>Lautta:</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Voi muokata</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>Voi tarkastella</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>Katseluoikeus mahdollistaa taulun lukemisen. Muokkausoikeus mahdollistaa myös taulun sisällön muuttamisen.</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>Muuta linkin käyttöoikeuksia</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>Kopioi linkki</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>Muutosta ei voitu vahvistaa. Syöttämäsi tiedot säilyvät. Yritä uudelleen tai lataa sivu uudelleen tarkistaaksesi tallennetun tilan.</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>Kopiointi ei onnistunut. Valitse yllä oleva linkki ja kopioi se.</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Nykyinen käyttöoikeus</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Nykyiset jakamiset</value>
@@ -54,11 +120,32 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>Estä anonyymi katselu (Yksityinen / Jaettu)</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>Linkin käyttöoikeus</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>Linkki kopioitu.</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>Hallinnoi jakamista</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>Ei tiettyjä jakoja. Käytä yllä olevaa lomaketta jakaaaksesi käyttäjille tai rooleille.</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>Käyttäjiä ei löytynyt. Kokeile toista nimeä tai sähköpostiosoitetta.</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>Käyttäjiä tai rooleja ei ole lisätty.</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>Ei tallennettu. Yllä oleva linkki käyttää edelleen nykyistä käyttöoikeusasetusta.</value>
+  </data>
+  <data name="Only authorized people can access." xml:space="preserve">
+    <value>Vain valtuutetut henkilöt voivat käyttää sitä.</value>
+  </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>Vain omistajalla on käyttöoikeus.</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>Vain sinä ja alla luetellut yksittäiset käyttäjät/roolit voivat nähdä tämän taulun.</value>
@@ -66,29 +153,80 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>Tai jaa roolin kanssa</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>Käyttöoikeuden saaneet henkilöt</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>Lupa</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>Vain luku</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Poista</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>Haluatko poistaa tämän jaon?</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>Poistetaanko tämä jako? Muut käyttöoikeudet saattavat silti olla voimassa.</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Rooli</value>
   </data>
+  <data name="Role {0}" xml:space="preserve">
+    <value>Rooli {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>Rooli {0} ja {1} muu rooli</value>
+  </data>
+  <data name="Role {0} and {1} other roles" xml:space="preserve">
+    <value>Rooli {0} ja {1} muuta roolia</value>
+  </data>
+  <data name="Save access" xml:space="preserve">
+    <value>Tallenna käyttöoikeus</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>Haku epäonnistui. Muuta hakutekstiä ja yritä uudelleen.</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>Etsitään...</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>Valitse rooli...</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>Valitse käyttäjä...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>Jakamisen linkki</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>Jaa seuraavien kanssa</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>Jaa käyttäjän kanssa</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Jaettu käyttöoikeus</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Jaettu seuraavalle</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>Kirjautuminen ja aiemmin myönnetty käyttöoikeus vaaditaan. Linkin kopioiminen ei anna käyttöoikeutta.</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>Alkaen</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>Omistaja ja valtuutetut jakamisen ylläpitäjät voivat hallita käyttöoikeuksia. Roolin käyttöoikeudet koskevat sen jäseniä; muiden roolien tai suorien jakojen käyttöoikeudet säilyvät voimassa, vaikka yksi jako poistetaan.</value>
+  </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>Tämä taulu on arkistoitu; sen muokkaaminen ei ole käytössä.</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>Tällä käyttäjällä tai roolilla on jo käyttöoikeus.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Tyyppi</value>
@@ -98,6 +236,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Näkyvyys</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>Kuka voi käyttää linkkiä?</value>
   </data>
 
 </root>
