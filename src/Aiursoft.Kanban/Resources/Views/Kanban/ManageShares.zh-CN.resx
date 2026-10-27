@@ -24,8 +24,14 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>（无 - 使用上方用户）</value>
   </data>
+  <data name="About access" xml:space="preserve">
+    <value>关于访问权限</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>操作</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>添加访问权限</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>添加新共享</value>
@@ -36,14 +42,44 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>允许匿名查看（公开）</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>匿名查看不会更改上述用户或角色权限。</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>任何人 — 仅可查看</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>任何拥有链接的人均可查看此看板。</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>任何人都可以通过此链接查看，无需登录。</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>返回看板</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>看板：</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>可编辑</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>可查看</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>“可查看”权限允许阅读白板内容。“可编辑”权限还允许修改白板内容。</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>更改链接访问权限</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>复制链接</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>无法确认更改。已保留您的输入。请重试，或重新加载以查看保存状态。</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>无法复制。请选中并复制上方的链接。</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>当前共享</value>
@@ -54,11 +90,26 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>禁止匿名查看（私有 / 共享）</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>链接访问权限</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>链接已复制。</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>管理共享</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>暂无特定共享。请使用上方表单与用户或角色共享。</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>未找到用户。请尝试其他姓名或电子邮件地址。</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>尚未添加用户或角色。</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>未保存。上方链接仍使用当前访问权限设置。</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>仅您和下方列出的特定用户/角色可以查看此看板。</value>
@@ -66,29 +117,77 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>或按角色共享</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>有访问权限的人员</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>权限</value>
+  </data>
+  <data name="Public viewing" xml:space="preserve">
+    <value>公开浏览</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>只读</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>删除</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>移除此共享？</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>要移除此共享吗？其他访问权限可能仍然有效。</value>
+  </data>
+  <data name="Restricted access" xml:space="preserve">
+    <value>受限访问</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>角色</value>
   </data>
+  <data name="Save access" xml:space="preserve">
+    <value>保存访问权限</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>搜索失败。请更改搜索内容后重试。</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>正在搜索……</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>选择一个角色...</value>
+  </data>
+  <data name="Select a user from the search results or choose a role." xml:space="preserve">
+    <value>请从搜索结果中选择一个用户，或选择一个角色。</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>选择用户...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>分享链接</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>分享给</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>与用户共享</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>共享访问</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>共享给</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>需要登录并且已有访问权限。复制链接不会授予访问权限。</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>起</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>所有者和获准的共享管理员可以管理访问权限。角色访问权限适用于该角色的成员；移除某项共享后，其他角色或直接共享授予的权限仍然有效。</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>此用户或角色已拥有访问权限。</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>类型</value>
@@ -98,6 +197,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>可见性</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>谁可以使用此链接？</value>
   </data>
 
 </root>
