@@ -235,4 +235,16 @@
     <value>谁可以使用此链接？</value>
   </data>
 
+  <data name="{0} role" xml:space="preserve">
+    <value>{0} 个角色</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>角色 {0} 及其他 {1} 个角色</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} 个用户</value>
+  </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0}及另外{1}位用户</value>
+  </data>
 </root>
