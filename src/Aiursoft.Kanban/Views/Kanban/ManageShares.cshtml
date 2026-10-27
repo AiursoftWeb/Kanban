@@ -38,7 +38,7 @@
             .Select(share => share.SharedWithUser?.DisplayName ?? share.SharedWithUserId!), false);
         var recipients = string.IsNullOrEmpty(roles) ? users : string.IsNullOrEmpty(users) ? roles : string.Format(@Localizer["{0}, {1}"].Value, roles, users);
         if (string.IsNullOrEmpty(recipients)) continue;
-        if (permission == SharePermission.ReadOnly)
+        if (permission == SharePermission.ReadOnly || Model.IsArchived)
         {
             if (Model.IsPublic) continue;
             accessDescriptions.Add(string.Format(@Localizer["{0} can view."].Value, recipients));
@@ -70,11 +70,15 @@
             }
             else if (!Model.ExistingShares.Any())
             {
-                <span>@Localizer["Only the owner and authorized administrators have access."]</span>
+                <span>@Localizer["Only the owner has access."]</span>
             }
             else
             {
                 <span>@Localizer["Only authorized people can access."]</span>
+            }
+            @if (Model.IsArchived)
+            {
+                <span>@Localizer["This board is archived; editing is disabled."]</span>
             }
             @foreach (var description in accessDescriptions)
             {

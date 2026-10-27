@@ -1312,6 +1312,7 @@ public class KanbanController(
             BoardId = board.Id,
             BoardName = board.Name,
             IsPublic = board.IsPublic,
+            IsArchived = board.IsArchived,
             PublicLink = publicLink,
             ExistingShares = board.BoardShares.OrderByDescending(s => s.CreationTime).ToList(),
             AvailableRoles = allRoles,

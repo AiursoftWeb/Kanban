@@ -24,6 +24,9 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>（无 - 使用上方用户）</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0}及另外{1}位用户</value>
+  </data>
   <data name="{0} and {1} other users" xml:space="preserve">
     <value>{0}和另外{1}位用户</value>
   </data>
@@ -33,8 +36,14 @@
   <data name="{0} can view." xml:space="preserve">
     <value>{0}可以查看。</value>
   </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>{0} 个角色</value>
+  </data>
   <data name="{0} roles" xml:space="preserve">
     <value>{0} 个角色</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} 个用户</value>
   </data>
   <data name="{0} users" xml:space="preserve">
     <value>{0} 位用户</value>
@@ -138,6 +147,9 @@
   <data name="Only the owner and authorized administrators have access." xml:space="preserve">
     <value>只有所有者和获授权的管理员才能访问。</value>
   </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>只有所有者可以访问。</value>
+  </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>仅您和下方列出的特定用户/角色可以查看此看板。</value>
   </data>
@@ -173,6 +185,9 @@
   </data>
   <data name="Role {0}" xml:space="preserve">
     <value>角色 {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>角色 {0} 及其他 {1} 个角色</value>
   </data>
   <data name="Role {0} and {1} other roles" xml:space="preserve">
     <value>角色 {0} 及其他 {1} 个角色</value>
@@ -219,6 +234,9 @@
   <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
     <value>所有者和获准的共享管理员可以管理访问权限。角色访问权限适用于该角色的成员；移除某项共享后，其他角色或直接共享授予的权限仍然有效。</value>
   </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>此看板已归档，编辑功能已禁用。</value>
+  </data>
   <data name="This user or role already has access." xml:space="preserve">
     <value>此用户或角色已拥有访问权限。</value>
   </data>
@@ -235,16 +253,4 @@
     <value>谁可以使用此链接？</value>
   </data>
 
-  <data name="{0} role" xml:space="preserve">
-    <value>{0} 个角色</value>
-  </data>
-  <data name="Role {0} and {1} other role" xml:space="preserve">
-    <value>角色 {0} 及其他 {1} 个角色</value>
-  </data>
-  <data name="{0} user" xml:space="preserve">
-    <value>{0} 个用户</value>
-  </data>
-  <data name="{0} and {1} other user" xml:space="preserve">
-    <value>{0}及另外{1}位用户</value>
-  </data>
 </root>
