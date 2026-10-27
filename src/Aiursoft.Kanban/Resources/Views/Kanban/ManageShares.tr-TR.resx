@@ -24,8 +24,41 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(Yok - yukarıdaki kullanıcıyı kullan)</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} ve {1} diğer kullanıcı</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} ve diğer {1} kullanıcı</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} düzenleyebilir.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} görüntüleyebilir.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>{0} rol</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} rol</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} kullanıcı</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>{0} kullanıcı</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="About access" xml:space="preserve">
+    <value>Erişim hakkında</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>İşlemler</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Erişim ekle</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Yeni Paylaşım Ekle</value>
@@ -36,14 +69,47 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Anonim görüntülemeyi izin ver (Herkese Açık)</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>Anonim görüntüleme, yukarıdaki kullanıcı veya rol izinlerini değiştirmez.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Herkes — yalnızca görüntüleme</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Bağlantısı olan herkes bu panoyu görüntüleyebilir.</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>Bağlantıya sahip olan herkes oturum açmadan görüntüleyebilir.</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Pano&apos;ya Geri Dön</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>Panoda:</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Düzenleyebilir</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>Görüntüleyebilir</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>Görüntüleme izni, panonun okunmasını sağlar. Düzenleme izni ise pano içeriğinin değiştirilmesine de olanak tanır.</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>Bağlantı erişimini değiştir</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>Bağlantıyı kopyala</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>Değişiklik onaylanamadı. Girdiğiniz bilgiler korunuyor. Tekrar deneyin veya kaydedilen durumu kontrol etmek için sayfayı yeniden yükleyin.</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>Kopyalanamadı. Yukarıdaki bağlantıyı seçip kopyalayın.</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Mevcut erişim</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Geçerli Paylaşımlar</value>
@@ -54,11 +120,32 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>Anonim görüntülemeyi yasakla (Özel / Paylaşılan)</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>Bağlantı erişimi</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>Bağlantı kopyalandı.</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>Paylaşımı Yönet</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>Belirli bir paylaşım yok. Kullanıcılar veya rollerle paylaşım yapmak için yukarıdaki formu kullanın.</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>Kullanıcı bulunamadı. Başka bir ad veya e-posta deneyin.</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>Henüz kullanıcı veya rol eklenmedi.</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>Kaydedilmedi. Yukarıdaki bağlantı mevcut erişim ayarını kullanmaya devam ediyor.</value>
+  </data>
+  <data name="Only authorized people can access." xml:space="preserve">
+    <value>Yalnızca yetkili kişiler erişebilir.</value>
+  </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>Yalnızca sahibi erişebilir.</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>Bu panoyu yalnızca siz ve aşağıda listelenen belirli kullanıcılar/roller görüntüleyebilir.</value>
@@ -66,29 +153,80 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>Veya Rol ile Paylaş</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>Erişimi olan kişiler</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>İzin</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>Salt Okunabilir</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>Bu paylaşım kaldırılacak?</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>Bu paylaşımı kaldırılsın mı? Diğer erişimler geçerli olmaya devam edebilir.</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Rol</value>
   </data>
+  <data name="Role {0}" xml:space="preserve">
+    <value>Rol {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>Rol {0} ve {1} diğer rol</value>
+  </data>
+  <data name="Role {0} and {1} other roles" xml:space="preserve">
+    <value>{0} rol ve {1} diğer rol</value>
+  </data>
+  <data name="Save access" xml:space="preserve">
+    <value>Erişimi kaydet</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>Arama başarısız oldu. Tekrar denemek için arama metnini değiştirin.</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>Aranıyor...</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>Bir rol seçin...</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>Bir kullanıcı seçin...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>Paylaşım Bağlantısı</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>Şununla paylaş</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>Kullanıcıyla Paylaş</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Paylaşılan erişim</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Paylaşılan Kişi</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>Giriş yapma ve mevcut erişim gereklidir. Bağlantının kopyalanması erişim yetkisi vermez.</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>Tarihinden beri</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>Erişim, sahip ve yetkili paylaşım yöneticileri tarafından yönetilebilir. Rol erişimi, rol üyeleri için geçerlidir; bir paylaşım kaldırıldıktan sonra diğer rollerden veya doğrudan paylaşımlardan gelen izinler geçerliliğini korur.</value>
+  </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>Bu pano arşivlendi; düzenleme devre dışı.</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>Bu kullanıcı veya rol zaten erişime sahip.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Tür</value>
@@ -98,6 +236,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Görünürlük</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>Bağlantıyı kimler kullanabilir?</value>
   </data>
 
 </root>

@@ -24,8 +24,41 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(None - use user above)</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} and {1} other user</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} and {1} other users</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} can edit.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} can view.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>{0} role</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} roles</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} user</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>{0} users</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="About access" xml:space="preserve">
+    <value>About access</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Add access</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Add New Share</value>
@@ -36,14 +69,47 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Allow anonymous viewing (Public)</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>Anonymous viewing does not change the user or role permissions above.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Anyone — view only</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Anyone with the link can view this board.</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>Anyone with the link can view without signing in.</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Back to Board</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>Board:</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Can edit</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>Can view</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>Can view access allows you to read the board. Can edit access also allows you to change its content.</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>Change link access</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>Copy link</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>Could not confirm the change. Your input is kept. Try again, or reload to check the saved state.</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>Could not copy. Select and copy the link above.</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Current access</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Current Shares</value>
@@ -54,11 +120,32 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>Forbid anonymous viewing (Private / Shared)</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>Link access</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>Link copied.</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>Manage Shares</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>No specific shares. Use the form above to share with users or roles.</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>No users found. Try another name or email.</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>No users or roles added.</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>Not saved. The link above still uses the current access setting.</value>
+  </data>
+  <data name="Only authorized people can access." xml:space="preserve">
+    <value>Only authorised people can access.</value>
+  </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>Only the owner has access.</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>Only you and specific users/roles listed below can view this board.</value>
@@ -66,29 +153,80 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>Or Share with Role</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>People with access</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>Permission</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>Read Only</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>Remove this share?</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>Remove this share? Other access may still apply.</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
   </data>
+  <data name="Role {0}" xml:space="preserve">
+    <value>Role {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>Role {0} and {1} other role</value>
+  </data>
+  <data name="Role {0} and {1} other roles" xml:space="preserve">
+    <value>Role {0} and {1} other roles</value>
+  </data>
+  <data name="Save access" xml:space="preserve">
+    <value>Save access</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>Search failed. Change the search text to try again.</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>Searching...</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>Select a role...</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>Select a user...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>Share Link</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>Share with</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>Share with User</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Shared access</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Shared with</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>Sign-in and existing access are required. Copying a link does not grant access.</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>Since</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>The owner and authorised sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share.</value>
+  </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>This board has been archived; editing is disabled.</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>This user or role already has access.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
@@ -98,6 +236,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Visibility</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>Who can use the link?</value>
   </data>
 
 </root>

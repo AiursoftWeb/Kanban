@@ -24,8 +24,41 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(Niciunul - folosiți utilizatorul de mai sus)</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} și încă {1} utilizator</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} și încă {1} utilizatori</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} poate edita.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} poate vizualiza.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>rolul {0}</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} roluri</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} utilizator</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>{0} de utilizatori</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="About access" xml:space="preserve">
+    <value>Despre acces</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Acțiuni</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Adăugați acces</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Adăugați o nouă partajare</value>
@@ -36,14 +69,47 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Permiteți vizualizarea anonimă (Public)</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>Vizualizarea anonimă nu modifică permisiunile de utilizator sau de rol de mai sus.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Oricine — doar vizualizare</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Oricine are legătura poate vizualiza acest tablou.</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>Oricine are linkul poate vizualiza fără să se conecteze.</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Înapoi la tablă</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>Tablă:</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Poate edita</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>Poate vizualiza</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>Permisiunea de vizualizare permite citirea panoului. Permisiunea de editare permite și modificarea conținutului panoului.</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>Modifică accesul prin link</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>Copiază linkul</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>Nu s-a putut confirma modificarea. Textul introdus este păstrat. Încercați din nou sau reîncărcați pagina pentru a verifica starea salvată.</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>Nu s-a putut copia. Selectați și copiați linkul de mai sus.</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Acces curent</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Drepturi de acces actuale</value>
@@ -54,11 +120,32 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>Interziceți vizualizarea anonimă (Privat / Partajat)</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>Acces prin link</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>Link copiat.</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>Gestionează partajările</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>Nicio partajare specifică. Folosiți formularul de mai sus pentru a partaja cu utilizatori sau roluri.</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>Nu au fost găsiți utilizatori. Încercați alt nume sau altă adresă de e-mail.</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>Nu au fost adăugați utilizatori sau roluri.</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>Nu s-a salvat. Linkul de mai sus folosește în continuare setarea actuală de acces.</value>
+  </data>
+  <data name="Only authorized people can access." xml:space="preserve">
+    <value>Doar persoanele autorizate pot accesa.</value>
+  </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>Doar proprietarul are acces.</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>Doar dumneavoastră și utilizatorii/rolurile specifice listate mai jos pot vizualiza acest panou.</value>
@@ -66,29 +153,80 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>Sau partajați cu rolul</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>Persoane cu acces</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>Permisiune</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>Doar citire</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Elimină</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>Eliminați această partajare?</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>Eliminați această partajare? Este posibil să se aplice în continuare și alte permisiuni de acces.</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Rol</value>
   </data>
+  <data name="Role {0}" xml:space="preserve">
+    <value>Rolul {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>Rolul {0} și încă {1} rol</value>
+  </data>
+  <data name="Role {0} and {1} other roles" xml:space="preserve">
+    <value>Rolul {0} și încă {1} roluri</value>
+  </data>
+  <data name="Save access" xml:space="preserve">
+    <value>Salvează accesul</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>Căutarea a eșuat. Modificați textul căutării și încercați din nou.</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>Se caută...</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>Selectați un rol...</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>Selectează un utilizator...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>Link de partajare</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>Partajați cu</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>Distribuiți utilizatorului</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Acces partajat</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Partajat cu</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>Este necesar să vă autentificați și să aveți deja acces. Copierea unui link nu acordă acces.</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>Din</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>Proprietarul și administratorii autorizați pentru partajare pot gestiona accesul. Accesul acordat unui rol se aplică membrilor acestuia; permisiunile acordate prin alte roluri sau prin partajări directe rămân valabile și după eliminarea unei partajări.</value>
+  </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>Această tablă este arhivată; editarea este dezactivată.</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>Acest utilizator sau rol are deja acces.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Tip</value>
@@ -98,6 +236,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Vizibilitate</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>Cine poate folosi linkul?</value>
   </data>
 
 </root>

@@ -24,8 +24,41 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(Нет — используйте пользователя выше)</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} и ещё {1} пользователь</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} и ещё {1} других пользователей</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} может редактировать.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} могут просматривать.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>Роль: {0}</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} ролей</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} пользователь</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>Пользователей: {0}</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="About access" xml:space="preserve">
+    <value>О доступе</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Действия</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Добавить доступ</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Добавить новый доступ</value>
@@ -36,14 +69,47 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Разрешить анонимный просмотр (Публичный)</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>Анонимный просмотр не изменяет указанные выше разрешения для пользователей или ролей.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Любой — только просмотр</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Любой пользователь, имеющий ссылку, может просматривать эту доску.</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>Все, у кого есть ссылка, могут просматривать содержимое без входа в систему.</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Вернуться к доске</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>Доска:</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Можно редактировать</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>Доступен просмотр</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>Разрешение на просмотр позволяет читать доску. Разрешение на редактирование также позволяет изменять её содержимое.</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>Изменить доступ по ссылке</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>Скопировать ссылку</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>Не удалось подтвердить изменение. Введённые данные сохранены. Попробуйте ещё раз или обновите страницу, чтобы проверить сохранённое состояние.</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>Не удалось скопировать. Выделите ссылку выше и скопируйте её.</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Текущий доступ</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Текущие права доступа</value>
@@ -54,11 +120,32 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>Запретить просмотр для анонимных пользователей (Частная / Общая)</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>Доступ по ссылке</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>Ссылка скопирована.</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>Управление доступом</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>Отсутствие конкретных общих ресурсов. Используйте форму выше, чтобы предоставить доступ пользователям или ролям.</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>Пользователи не найдены. Попробуйте ввести другое имя или адрес электронной почты.</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>Пользователи или роли не добавлены.</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>Не сохранено. Для ссылки выше по-прежнему используются текущие настройки доступа.</value>
+  </data>
+  <data name="Only authorized people can access." xml:space="preserve">
+    <value>Только пользователи с разрешением могут получить доступ.</value>
+  </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>Доступ есть только у владельца.</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>Эту доску могут просматривать только вы и указанные ниже пользователи/роли.</value>
@@ -66,29 +153,80 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>Или предоставить доступ по роли</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>Пользователи с доступом</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>Разрешения</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>Только для чтения</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>Удалить этот общий доступ?</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>Удалить этот доступ? Другие способы доступа могут сохраниться.</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Роль</value>
   </data>
+  <data name="Role {0}" xml:space="preserve">
+    <value>Роль {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>Роль {0} и ещё {1} роль</value>
+  </data>
+  <data name="Role {0} and {1} other roles" xml:space="preserve">
+    <value>Роль {0} и ещё {1} роль</value>
+  </data>
+  <data name="Save access" xml:space="preserve">
+    <value>Сохранить доступ</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>Не удалось выполнить поиск. Измените поисковый запрос и попробуйте снова.</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>Поиск...</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>Выберите роль...</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>Выберите пользователя...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>Ссылка для обмена</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>Предоставить доступ для</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>Поделиться с пользователем</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Общий доступ</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Доступ предоставлен</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>Для входа необходимо иметь ранее предоставленный доступ. Копирование ссылки не предоставляет доступ.</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>С момента</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>Владелец и уполномоченные администраторы общего доступа могут управлять доступом. Доступ, предоставленный роли, распространяется на её участников; разрешения, предоставленные другими ролями или напрямую, сохраняются и после удаления одной из настроек общего доступа.</value>
+  </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>Эта доска архивирована; редактирование отключено.</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>У этого пользователя или этой роли уже есть доступ.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Тип</value>
@@ -98,6 +236,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Видимость</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>Кто может пользоваться ссылкой?</value>
   </data>
 
 </root>

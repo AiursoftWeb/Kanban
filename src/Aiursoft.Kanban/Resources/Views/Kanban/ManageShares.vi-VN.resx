@@ -24,8 +24,41 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(Không - sử dụng người dùng ở trên)</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} và {1} người dùng khác</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} và {1} người dùng khác</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} có thể chỉnh sửa.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} có thể xem.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>{0} vai trò</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} vai trò</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} người dùng</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>{0} người dùng</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="About access" xml:space="preserve">
+    <value>Thông tin về quyền truy cập</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Thao tác</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Thêm quyền truy cập</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Thêm chia sẻ mới</value>
@@ -36,14 +69,47 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Cho phép xem ẩn danh (Công khai)</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>Việc xem ẩn danh không làm thay đổi các quyền của người dùng hoặc vai trò ở trên.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Bất kỳ ai — chỉ xem</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Bất kỳ ai có đường dẫn này đều có thể xem bảng này.</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>Bất kỳ ai có đường liên kết đều có thể xem mà không cần đăng nhập.</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Quay lại Board</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>Bảng:</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Có thể chỉnh sửa</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>Có thể xem</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>Quyền xem cho phép đọc bảng. Quyền chỉnh sửa cũng cho phép thay đổi nội dung bảng.</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>Thay đổi quyền truy cập qua liên kết</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>Sao chép liên kết</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>Không thể xác nhận thay đổi. Nội dung bạn đã nhập vẫn được giữ lại. Hãy thử lại hoặc tải lại trang để kiểm tra trạng thái đã lưu.</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>Không thể sao chép. Hãy chọn và sao chép liên kết ở trên.</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Quyền truy cập hiện tại</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Chia sẻ hiện tại</value>
@@ -54,11 +120,32 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>Cấm xem ẩn danh (Riêng tư / Chia sẻ)</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>Quyền truy cập bằng liên kết</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>Đã sao chép liên kết.</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>Quản lý chia sẻ</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>Chưa có chia sẻ cụ thể nào. Sử dụng biểu mẫu phía trên để chia sẻ với người dùng hoặc vai trò.</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>Không tìm thấy người dùng nào. Hãy thử tên hoặc email khác.</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>Chưa có người dùng hoặc vai trò nào được thêm.</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>Chưa được lưu. Liên kết ở trên vẫn sử dụng cài đặt quyền truy cập hiện tại.</value>
+  </data>
+  <data name="Only authorized people can access." xml:space="preserve">
+    <value>Chỉ những người được cấp quyền mới có thể truy cập.</value>
+  </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>Chỉ chủ sở hữu mới có quyền truy cập.</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>Chỉ bạn và những người dùng/vai trò cụ thể được liệt kê bên dưới mới có thể xem bảng này.</value>
@@ -66,29 +153,80 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>Hoặc chia sẻ với vai trò</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>Những người có quyền truy cập</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>Quyền hạn</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>Chỉ đọc</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Gỡ bỏ</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>Xóa bản chia sẻ này?</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>Xóa quyền chia sẻ này? Các quyền truy cập khác vẫn có thể áp dụng.</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Vai trò</value>
   </data>
+  <data name="Role {0}" xml:space="preserve">
+    <value>Vai trò {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>Vai trò {0} và {1} vai trò khác</value>
+  </data>
+  <data name="Role {0} and {1} other roles" xml:space="preserve">
+    <value>Vai trò {0} và {1} vai trò khác</value>
+  </data>
+  <data name="Save access" xml:space="preserve">
+    <value>Lưu quyền truy cập</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>Tìm kiếm không thành công. Hãy thay đổi nội dung tìm kiếm rồi thử lại.</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>Đang tìm kiếm...</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>Chọn một vai trò...</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>Chọn người dùng...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>Chia sẻ liên kết</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>Chia sẻ với</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>Chia sẻ với người dùng</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Quyền truy cập được chia sẻ</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Chia sẻ với</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>Cần đăng nhập và đã có quyền truy cập. Sao chép liên kết không cấp quyền truy cập.</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>Từ</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>Chủ sở hữu và quản trị viên được ủy quyền chia sẻ có thể quản lý quyền truy cập. Quyền truy cập theo vai trò áp dụng cho các thành viên của vai trò đó; quyền từ các vai trò khác hoặc từ các lượt chia sẻ trực tiếp vẫn có hiệu lực sau khi xóa một lượt chia sẻ.</value>
+  </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>Bảng này đã được lưu trữ; không thể chỉnh sửa.</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>Người dùng hoặc vai trò này đã có quyền truy cập.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Loại</value>
@@ -98,6 +236,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Hiển thị</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>Ai có thể sử dụng liên kết?</value>
   </data>
 
 </root>

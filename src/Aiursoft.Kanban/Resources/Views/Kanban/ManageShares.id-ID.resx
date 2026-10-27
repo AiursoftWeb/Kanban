@@ -24,8 +24,41 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(Tidak ada - gunakan pengguna di atas)</value>
   </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} dan {1} pengguna lainnya</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} dan {1} pengguna lainnya</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} dapat mengedit.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} dapat melihat.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>Peran {0}</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} peran</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} pengguna</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>{0} pengguna</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
+  <data name="About access" xml:space="preserve">
+    <value>Tentang akses</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Aksi</value>
+  </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Tambahkan akses</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Tambahkan Berbagi Baru</value>
@@ -36,14 +69,47 @@
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Izinkan peninjauan anonim (Publik)</value>
   </data>
+  <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
+    <value>Melihat secara anonim tidak mengubah izin pengguna atau peran di atas.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Siapa saja — hanya dapat melihat</value>
+  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Siapa pun yang memiliki tautan dapat melihat papan ini.</value>
+  </data>
+  <data name="Anyone with the link can view without signing in." xml:space="preserve">
+    <value>Siapa pun yang memiliki tautannya dapat melihat tanpa perlu masuk.</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Kembali ke Papan</value>
   </data>
   <data name="Board:" xml:space="preserve">
     <value>Papan:</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Dapat mengedit</value>
+  </data>
+  <data name="Can view" xml:space="preserve">
+    <value>Dapat melihat</value>
+  </data>
+  <data name="Can view allows reading the board. Can edit also allows changing board content." xml:space="preserve">
+    <value>Izin melihat memungkinkan Anda membaca papan. Izin mengedit juga memungkinkan Anda mengubah konten papan.</value>
+  </data>
+  <data name="Change link access" xml:space="preserve">
+    <value>Ubah akses tautan</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>Salin tautan</value>
+  </data>
+  <data name="Could not confirm the change. Your input is kept. Try again, or reload to check the saved state." xml:space="preserve">
+    <value>Perubahan tidak dapat dikonfirmasi. Masukan Anda tetap tersimpan. Coba lagi atau muat ulang untuk memeriksa status penyimpanan.</value>
+  </data>
+  <data name="Could not copy. Select and copy the link above." xml:space="preserve">
+    <value>Tidak dapat menyalin. Pilih dan salin tautan di atas.</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Akses saat ini</value>
   </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Bagian Saat Ini</value>
@@ -54,11 +120,32 @@
   <data name="Forbid anonymous viewing (Private / Shared)" xml:space="preserve">
     <value>Cegah tampilan anonim (Pribadi / Berbagi)</value>
   </data>
+  <data name="Link access" xml:space="preserve">
+    <value>Akses tautan</value>
+  </data>
+  <data name="Link copied." xml:space="preserve">
+    <value>Tautan berhasil disalin.</value>
+  </data>
   <data name="Manage Shares" xml:space="preserve">
     <value>Kelola Berbagi</value>
   </data>
   <data name="No specific shares. Use the form above to share with users or roles." xml:space="preserve">
     <value>Tidak ada bagikan spesifik. Gunakan formulir di atas untuk membagikan kepada pengguna atau peran.</value>
+  </data>
+  <data name="No users found. Try another name or email." xml:space="preserve">
+    <value>Pengguna tidak ditemukan. Coba nama atau email lain.</value>
+  </data>
+  <data name="No users or roles added." xml:space="preserve">
+    <value>Belum ada pengguna atau peran yang ditambahkan.</value>
+  </data>
+  <data name="Not saved. The link above still uses the current access setting." xml:space="preserve">
+    <value>Belum disimpan. Tautan di atas masih menggunakan pengaturan akses saat ini.</value>
+  </data>
+  <data name="Only authorized people can access." xml:space="preserve">
+    <value>Hanya orang yang berwenang yang dapat mengakses.</value>
+  </data>
+  <data name="Only the owner has access." xml:space="preserve">
+    <value>Hanya pemilik yang memiliki akses.</value>
   </data>
   <data name="Only you and specific users/roles listed below can view this board." xml:space="preserve">
     <value>Hanya Anda dan pengguna/peran tertentu yang tercantum di bawah ini dapat melihat papan ini.</value>
@@ -66,29 +153,80 @@
   <data name="Or Share with Role" xml:space="preserve">
     <value>Atau Bagikan dengan Peran</value>
   </data>
+  <data name="People with access" xml:space="preserve">
+    <value>Orang yang memiliki akses</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>Izin</value>
   </data>
   <data name="Read Only" xml:space="preserve">
     <value>Hanya Baca</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
   <data name="Remove this share?" xml:space="preserve">
     <value>Hapus bagikan ini?</value>
+  </data>
+  <data name="Remove this share? Other access may still apply." xml:space="preserve">
+    <value>Hapus berbagi ini? Akses lain mungkin masih berlaku.</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Peran</value>
   </data>
+  <data name="Role {0}" xml:space="preserve">
+    <value>Peran {0}</value>
+  </data>
+  <data name="Role {0} and {1} other role" xml:space="preserve">
+    <value>Peran {0} dan {1} peran lainnya</value>
+  </data>
+  <data name="Role {0} and {1} other roles" xml:space="preserve">
+    <value>Peran {0} dan {1} peran lainnya</value>
+  </data>
+  <data name="Save access" xml:space="preserve">
+    <value>Simpan akses</value>
+  </data>
+  <data name="Search failed. Change the search text to try again." xml:space="preserve">
+    <value>Pencarian gagal. Ubah teks pencarian untuk mencoba lagi.</value>
+  </data>
+  <data name="Searching..." xml:space="preserve">
+    <value>Sedang mencari...</value>
+  </data>
+  <data name="Select a role..." xml:space="preserve">
+    <value>Pilih peran...</value>
+  </data>
+  <data name="Select a user..." xml:space="preserve">
+    <value>Pilih pengguna...</value>
+  </data>
   <data name="Share Link" xml:space="preserve">
     <value>Bagikan Tautan</value>
+  </data>
+  <data name="Share with" xml:space="preserve">
+    <value>Bagikan dengan</value>
   </data>
   <data name="Share with User" xml:space="preserve">
     <value>Bagikan dengan Pengguna</value>
   </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Akses bersama</value>
+  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Dibagikan Dengan</value>
   </data>
+  <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
+    <value>Anda harus masuk dan sudah memiliki akses. Menyalin tautan tidak memberikan akses.</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>Sejak</value>
+  </data>
+  <data name="The owner and authorized sharing administrators can manage access. Role access applies to its members; permissions from other roles or direct shares still apply after removing one share." xml:space="preserve">
+    <value>Pemilik dan administrator berbagi yang berwenang dapat mengelola akses. Akses berbasis peran berlaku bagi anggota peran tersebut; izin dari peran lain atau akses langsung tetap berlaku setelah satu akses dihapus.</value>
+  </data>
+  <data name="This board is archived; editing is disabled." xml:space="preserve">
+    <value>Papan ini telah diarsipkan; pengeditan dinonaktifkan.</value>
+  </data>
+  <data name="This user or role already has access." xml:space="preserve">
+    <value>Pengguna atau peran ini sudah memiliki akses.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Tipe</value>
@@ -98,6 +236,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Visibilitas</value>
+  </data>
+  <data name="Who can use the link?" xml:space="preserve">
+    <value>Siapa yang dapat menggunakan tautan ini?</value>
   </data>
 
 </root>
