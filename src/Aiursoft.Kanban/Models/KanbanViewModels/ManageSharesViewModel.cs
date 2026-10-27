@@ -14,6 +14,7 @@ public class ManageSharesViewModel : UiStackLayoutViewModel
     public required int BoardId { get; init; }
     public required string BoardName { get; init; }
     public required bool IsPublic { get; init; }
+    public bool IsArchived { get; init; }
     public string? PublicLink { get; init; }
     public required List<BoardShare> ExistingShares { get; init; }
     public required List<IdentityRole> AvailableRoles { get; init; }
