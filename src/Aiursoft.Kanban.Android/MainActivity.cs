@@ -684,7 +684,7 @@ public sealed partial class MainActivity : AppCompatActivity
             columns.Select(column => column.Name).ToArray());
         var initialIndex = initialColumnId.HasValue
             ? Math.Max(0, columns.FindIndex(column => column.Id == initialColumnId.Value))
-            : 0;
+            : Math.Clamp((int)Math.Round((double)_boardScroll.ScrollX / (ColumnWidth() + Dp(12))), 0, columns.Count - 1);
         spinner.SetSelection(initialIndex);
         content.AddView(spinner, new LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MatchParent, Dp(52)));
@@ -711,11 +711,11 @@ public sealed partial class MainActivity : AppCompatActivity
             create.Enabled = false;
             try
             {
-                await Api.CreateCardAsync(columns[spinner.SelectedItemPosition].Id,
+                var created = await Api.CreateCardAsync(columns[spinner.SelectedItemPosition].Id,
                     new CreateCardRequest { Title = value });
                 dialog.Dismiss();
                 await LoadBoardAsync(board.Id, showProgress: false);
-                Snackbar.Make(_workspace, UiText.Get("Card created"), Snackbar.LengthShort).Show();
+                StartActivity(CardDetailActivity.CreateIntent(this, created.Card.Id));
             }
             catch (Exception exception)
             {
