@@ -199,7 +199,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
         };
         nameBox.BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled;
         nameBox.SetBoxCornerRadii(Dp(12), Dp(12), Dp(12), Dp(12));
-        var name = new TextInputEditText(this)
+        var name = new TextInputEditText(nameBox.Context!)
         {
             Text = column.Name,
             Enabled = board.CanEdit
@@ -364,7 +364,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
         }
         var box = new TextInputLayout(this) { Hint = UiText.Get("Column name") };
         box.BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled;
-        var input = new TextInputEditText(this);
+        var input = new TextInputEditText(box.Context!);
         input.SetSingleLine(true);
         box.AddView(input);
         var wrapper = new FrameLayout(this);

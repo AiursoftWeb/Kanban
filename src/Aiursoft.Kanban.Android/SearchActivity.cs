@@ -83,7 +83,7 @@ public sealed class SearchActivity : AppCompatActivity
             BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled
         };
         inputBox.SetBoxCornerRadii(Dp(16), Dp(16), Dp(16), Dp(16));
-        var input = new TextInputEditText(this)
+        var input = new TextInputEditText(inputBox.Context!)
         {
             Text = query,
             InputType = InputTypes.ClassText | InputTypes.TextFlagCapSentences,

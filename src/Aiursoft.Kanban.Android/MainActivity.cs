@@ -667,7 +667,7 @@ public sealed partial class MainActivity : AppCompatActivity
         var titleBox = new TextInputLayout(this) { Hint = UiText.Get("Card title") };
         titleBox.BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled;
         titleBox.SetBoxCornerRadii(Dp(14), Dp(14), Dp(14), Dp(14));
-        var title = new TextInputEditText(this);
+        var title = new TextInputEditText(titleBox.Context!);
         title.SetSingleLine(true);
         title.ImeOptions = ImeAction.Done;
         titleBox.AddView(title);
@@ -739,7 +739,7 @@ public sealed partial class MainActivity : AppCompatActivity
     {
         var box = new TextInputLayout(this) { Hint = UiText.Get("Board name") };
         box.BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled;
-        var input = new TextInputEditText(this);
+        var input = new TextInputEditText(box.Context!);
         input.SetSingleLine(true);
         box.AddView(input);
         var wrapper = new FrameLayout(this);
@@ -792,7 +792,7 @@ public sealed partial class MainActivity : AppCompatActivity
         content.AddView(Text(UiText.Get("Search this board and narrow it by priority."), 14, Resource.Color.text_secondary));
         var searchBox = new TextInputLayout(this) { Hint = UiText.Get("Title or description") };
         searchBox.BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled;
-        var search = new TextInputEditText(this) { Text = _boardQuery };
+        var search = new TextInputEditText(searchBox.Context!) { Text = _boardQuery };
         search.SetSingleLine(true);
         searchBox.AddView(search);
         var searchLayout = new LinearLayout.LayoutParams(
@@ -926,7 +926,7 @@ public sealed partial class MainActivity : AppCompatActivity
         }
         var box = new TextInputLayout(this) { Hint = UiText.Get("Column name") };
         box.BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled;
-        var input = new TextInputEditText(this);
+        var input = new TextInputEditText(box.Context!);
         input.SetSingleLine(true);
         box.AddView(input);
         var wrapper = new FrameLayout(this);

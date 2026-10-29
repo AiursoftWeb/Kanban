@@ -1778,7 +1778,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled
         };
         box.SetBoxCornerRadii(Dp(14), Dp(14), Dp(14), Dp(14));
-        var input = new TextInputEditText(this)
+        var input = new TextInputEditText(box.Context!)
         {
             Text = value,
             Gravity = multiline ? GravityFlags.Top | GravityFlags.Start : GravityFlags.CenterVertical

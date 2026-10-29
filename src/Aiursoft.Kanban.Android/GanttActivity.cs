@@ -273,7 +273,7 @@ public sealed class GanttActivity : AppCompatActivity
             Hint = UiText.Get("Title or description"),
             BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled
         };
-        var search = new TextInputEditText(this) { Text = _query };
+        var search = new TextInputEditText(searchBox.Context!) { Text = _query };
         search.SetSingleLine(true);
         searchBox.AddView(search);
         var searchLayout = new LinearLayout.LayoutParams(

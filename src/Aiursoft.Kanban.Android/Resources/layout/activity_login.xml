@@ -52,7 +52,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/server_container"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            style="@style/KanbanTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -134,7 +134,7 @@
               android:visibility="gone">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                style="@style/KanbanTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/ui_email_or_username">
@@ -150,7 +150,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_container"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                style="@style/KanbanTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

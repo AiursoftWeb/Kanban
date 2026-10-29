@@ -60,7 +60,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/board_name_box"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            style="@style/KanbanTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -81,7 +81,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/board_order_box"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            style="@style/KanbanTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
