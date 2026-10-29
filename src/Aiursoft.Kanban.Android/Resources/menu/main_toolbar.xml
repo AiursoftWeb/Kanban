@@ -4,38 +4,38 @@
   <item
       android:id="@+id/action_refresh"
       android:icon="@drawable/ic_refresh"
-      android:title="Refresh"
+      android:title="@string/ui_refresh"
       app:showAsAction="always" />
   <item
       android:id="@+id/action_add_column"
       android:icon="@drawable/ic_add"
-      android:title="Add column"
+      android:title="@string/ui_add_column_2"
       android:visible="false"
       app:showAsAction="ifRoom" />
   <item
       android:id="@+id/action_board_settings"
-      android:title="Board settings"
+      android:title="@string/ui_board_settings"
       android:visible="false"
       app:showAsAction="never" />
   <item
       android:id="@+id/action_share_board"
-      android:title="Visibility and sharing"
+      android:title="@string/ui_visibility_and_sharing"
       android:visible="false"
       app:showAsAction="never" />
   <item
       android:id="@+id/action_gantt"
-      android:title="Gantt chart"
+      android:title="@string/ui_gantt_chart"
       android:visible="false"
       app:showAsAction="never" />
   <item
       android:id="@+id/action_filter_board"
-      android:title="Filter cards"
+      android:title="@string/ui_filter_cards"
       android:visible="false"
       app:showAsAction="never" />
   <item
       android:id="@+id/action_archive_board"
       android:icon="@drawable/ic_archive"
-      android:title="Archive board"
+      android:title="@string/ui_archive_board"
       android:visible="false"
       app:showAsAction="never" />
 </menu>

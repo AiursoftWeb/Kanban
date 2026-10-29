@@ -95,8 +95,8 @@ public sealed class ArchivedBoardsActivity : AppCompatActivity
             return;
         }
         _content.RemoveAllViews();
-        Add(Text("Archived Boards", 26, Resource.Color.text_primary, bold: true), 0, 4);
-        Add(Text("Archived boards are read-only until their owner restores them.",
+        Add(Text(UiText.Get("Archived Boards"), 26, Resource.Color.text_primary, bold: true), 0, 4);
+        Add(Text(UiText.Get("Archived boards are read-only until their owner restores them."),
             14, Resource.Color.text_secondary), 0, 20);
 
         if (model.OwnedBoards.Count == 0 && model.SharedBoards.Count == 0)
@@ -105,20 +105,20 @@ public sealed class ArchivedBoardsActivity : AppCompatActivity
             return;
         }
 
-        Add(Section("MY ARCHIVED BOARDS"), 0, 8);
+        Add(Section(UiText.Get("MY ARCHIVED BOARDS")), 0, 8);
         if (model.OwnedBoards.Count == 0)
         {
-            Add(Text("You have no archived boards.", 13, Resource.Color.text_secondary), 2, 12);
+            Add(Text(UiText.Get("You have no archived boards."), 13, Resource.Color.text_secondary), 2, 12);
         }
         foreach (var board in model.OwnedBoards)
         {
             Add(BoardCard(board), 0, 10);
         }
 
-        Add(Section("SHARED ARCHIVED BOARDS"), 14, 8);
+        Add(Section(UiText.Get("SHARED ARCHIVED BOARDS")), 14, 8);
         if (model.SharedBoards.Count == 0)
         {
-            Add(Text("No archived boards are shared with you.",
+            Add(Text(UiText.Get("No archived boards are shared with you."),
                 13, Resource.Color.text_secondary), 2, 0);
         }
         foreach (var board in model.SharedBoards)
@@ -148,23 +148,23 @@ public sealed class ArchivedBoardsActivity : AppCompatActivity
         };
         title.AddView(Text(board.Name, 17, Resource.Color.text_primary, bold: true));
         title.AddView(Text(board.IsOwner
-                ? "Archived · Owner"
-                : $"Archived · {board.Permission} · {board.SharedVia}",
+                ? UiText.Get("Archived · Owner")
+                : UiText.Format("Archived · {0} · {1}", board.Permission, board.SharedVia),
             12, Resource.Color.text_secondary));
         heading.AddView(title, new LinearLayout.LayoutParams(
             0, ViewGroup.LayoutParams.WrapContent, 1));
-        heading.AddView(Badge("ARCHIVED"));
+        heading.AddView(Badge(UiText.Get("ARCHIVED")));
         body.AddView(heading);
 
-        AddTo(body, Text($"{board.ColumnCount} columns · {board.CardCount} cards",
+        AddTo(body, Text(UiText.Format("{0} columns · {1} cards", board.ColumnCount, board.CardCount),
             13, Resource.Color.text_secondary), 12, 0);
         AddTo(body, Text(
-            $"{board.IncompleteCount} open · {board.InProgressCount} in progress · {board.CompletedCount} done",
+            UiText.Format("{0} open · {1} in progress · {2} done", board.IncompleteCount, board.InProgressCount, board.CompletedCount),
             13, Resource.Color.text_primary), 4, 0);
         if (board.OverdueCount > 0 || board.UnassignedCount > 0)
         {
             AddTo(body, Text(
-                $"{board.OverdueCount} overdue · {board.UnassignedCount} unassigned",
+                UiText.Format("{0} overdue · {1} unassigned", board.OverdueCount, board.UnassignedCount),
                 12,
                 board.OverdueCount > 0
                     ? Resource.Color.on_danger_container
@@ -172,8 +172,8 @@ public sealed class ArchivedBoardsActivity : AppCompatActivity
         }
         AddTo(body, Text(
             board.ArchivedTime.HasValue
-                ? $"Archived {board.ArchivedTime.Value.ToLocalTime():yyyy-MM-dd HH:mm}"
-                : "Archive time unavailable",
+                ? UiText.Format("Archived {0:yyyy-MM-dd HH:mm}", board.ArchivedTime.Value.ToLocalTime())
+                : UiText.Get("Archive time unavailable"),
             12, Resource.Color.text_secondary), 6, 0);
 
         var actions = new LinearLayout(this)
@@ -202,10 +202,10 @@ public sealed class ArchivedBoardsActivity : AppCompatActivity
     private void ConfirmRestore(ArchivedBoardDto board)
     {
         var builder = new MaterialAlertDialogBuilder(this);
-        builder.SetTitle("Unarchive board?");
-        builder.SetMessage($"{board.Name} will return to your active workspace.");
-        builder.SetNegativeButton("Cancel", (_, _) => { });
-        builder.SetPositiveButton("Unarchive", (dialog, args) =>
+        builder.SetTitle(UiText.Get("Unarchive board?"));
+        builder.SetMessage(UiText.Format("{0} will return to your active workspace.", board.Name));
+        builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+        builder.SetPositiveButton(UiText.Get("Unarchive"), (dialog, args) =>
         {
             _ = RestoreAsync(board);
         });
@@ -220,7 +220,7 @@ public sealed class ArchivedBoardsActivity : AppCompatActivity
             await Api.SetBoardArchivedAsync(board.Id, archive: false);
             _model?.OwnedBoards.RemoveAll(item => item.Id == board.Id);
             Render();
-            Snackbar.Make(_root, "Board restored", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("Board restored"), Snackbar.LengthLong).Show();
         }
         catch (Exception exception)
         {
@@ -236,6 +236,7 @@ public sealed class ArchivedBoardsActivity : AppCompatActivity
     {
         Session.SelectedBoardId = boardId;
         var intent = new Intent(this, typeof(MainActivity));
+        intent.PutExtra("open-board", Session.SelectedBoardId);
         intent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
         StartActivity(intent);
         Finish();
@@ -250,8 +251,8 @@ public sealed class ArchivedBoardsActivity : AppCompatActivity
         };
         body.SetGravity(GravityFlags.Center);
         body.SetPadding(Dp(20), Dp(38), Dp(20), Dp(38));
-        body.AddView(Text("No archived boards", 20, Resource.Color.text_primary, bold: true));
-        body.AddView(Text("Boards you archive will appear here.",
+        body.AddView(Text(UiText.Get("No archived boards"), 20, Resource.Color.text_primary, bold: true));
+        body.AddView(Text(UiText.Get("Boards you archive will appear here."),
             14, Resource.Color.text_secondary));
         card.AddView(body);
         return card;
@@ -285,7 +286,7 @@ public sealed class ArchivedBoardsActivity : AppCompatActivity
     {
         var card = new MaterialCardView(this)
         {
-            Radius = Dp(16),
+            Radius = Dp(20),
             CardElevation = 0
         };
         card.SetCardBackgroundColor(GetColor(Resource.Color.surface));
@@ -307,7 +308,7 @@ public sealed class ArchivedBoardsActivity : AppCompatActivity
         {
             Text = value,
             TextSize = size,
-            Typeface = bold ? Typeface.DefaultBold : Typeface.Default
+            Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal)
         };
         text.SetTextColor(new global::Android.Graphics.Color(GetColor(color)));
         return text;
@@ -338,7 +339,7 @@ public sealed class ArchivedBoardsActivity : AppCompatActivity
             return;
         }
         var bar = Snackbar.Make(_root, exception.Message, Snackbar.LengthLong);
-        bar.SetAction("Retry", view => { _ = LoadAsync(); });
+        bar.SetAction(UiText.Get("Retry"), view => { _ = LoadAsync(); });
         bar.Show();
     }
 

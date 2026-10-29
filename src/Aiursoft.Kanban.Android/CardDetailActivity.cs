@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Android.App;
 using Android.Content;
 using Android.Content.Res;
@@ -50,6 +51,8 @@ public sealed class CardDetailActivity : AppCompatActivity
     private string _commentDraft = string.Empty;
     private int _cardId;
     private bool _busy;
+    private EditorDraft? _editorDraft;
+    private Action? _captureEditorDraft;
 
     private AppSession Session => ((KanbanApplication)Application!).Session;
     private KanbanApiClient Api => Session.RequireApi();
@@ -73,6 +76,8 @@ public sealed class CardDetailActivity : AppCompatActivity
             return;
         }
         RestoreCommentComposer(savedInstanceState);
+        var draft = savedInstanceState?.GetString("editor-draft");
+        if (draft != null) _editorDraft = JsonSerializer.Deserialize<EditorDraft>(draft);
 
         SetContentView(Resource.Layout.activity_card_detail);
         _root = FindViewById<View>(Resource.Id.card_detail_root)!;
@@ -84,13 +89,15 @@ public sealed class CardDetailActivity : AppCompatActivity
         _toolbar.SetOnApplyWindowInsetsListener(new ToolbarInsetListener(Dp(64)));
         _content.SetOnApplyWindowInsetsListener(
             new SystemBarInsetListener(Dp(16), Dp(18), Dp(16), Dp(32), false, true));
-        _toolbar.NavigationContentDescription = "Back to board";
+        _toolbar.NavigationContentDescription = UiText.Get("Back to board");
         _toolbar.NavigationClick += (_, _) => Finish();
         _ = LoadAsync();
     }
 
     protected override void OnSaveInstanceState(Bundle outState)
     {
+        _captureEditorDraft?.Invoke();
+        if (_editorDraft != null) outState.PutString("editor-draft", JsonSerializer.Serialize(_editorDraft));
         outState.PutString(CommentDraftState, _commentDraft);
         outState.PutStringArray(
             PendingImageUrisState,
@@ -176,7 +183,7 @@ public sealed class CardDetailActivity : AppCompatActivity
         {
             Snackbar.Make(
                 _root,
-                $"{rejected} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB.",
+                UiText.Format("{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB.", rejected),
                 Snackbar.LengthLong).Show();
         }
     }
@@ -227,21 +234,46 @@ public sealed class CardDetailActivity : AppCompatActivity
             return;
         }
 
+        _captureEditorDraft?.Invoke();
         var previousScroll = _scroll.ScrollY;
         _content.RemoveAllViews();
-        _toolbar.Title = card.Title;
+        _toolbar.Title = UiText.Get("Card details");
         _toolbar.Subtitle = $"{card.BoardName}  ·  {card.ColumnName}";
+
+        var summary = new LinearLayout(this) { Orientation = global::Android.Widget.Orientation.Vertical };
+        summary.SetPadding(Dp(8), Dp(8), Dp(8), Dp(16));
+        var heading = Text(card.Title, 30, Resource.Color.text_primary, true);
+        heading.SetLineSpacing(Dp(3), 1);
+        summary.AddView(heading);
+        var status = Text(card.ColumnName, 14, Resource.Color.brand_primary, true);
+        status.SetPadding(0, Dp(12), 0, Dp(16));
+        summary.AddView(status);
+        var people = Text(card.AssignedUser?.DisplayName ?? UiText.Get("Unassigned"), 15, Resource.Color.text_primary, true);
+        summary.AddView(people);
+        var dates = Text(UiText.Format("{0} priority  ·  Due {1}", UiText.Get(card.Priority), (card.DueDate.HasValue ? FormatDateTime(card.DueDate.Value) : UiText.Get("Not set"))), 13, Resource.Color.text_secondary);
+        dates.SetPadding(0, Dp(6), 0, Dp(12));
+        summary.AddView(dates);
+        if (card.Labels.Count > 0) summary.AddView(LabelStrip(card.Labels, false));
+        Add(summary, 0, 12);
+        var description = Text(string.IsNullOrWhiteSpace(card.Description) ? UiText.Get("No description yet.") : card.Description, 16, Resource.Color.text_primary);
+        description.SetLineSpacing(Dp(4), 1);
+        description.SetTextIsSelectable(true);
+        description.AutoLinkMask = global::Android.Text.Util.MatchOptions.WebUrls;
+        description.SetPadding(Dp(20), Dp(20), Dp(20), Dp(20));
+        var descriptionSurface = SurfaceCard();
+        descriptionSurface.AddView(description);
+        Add(descriptionSurface, 0, 16);
 
         var contextRow = new LinearLayout(this)
         {
             Orientation = global::Android.Widget.Orientation.Horizontal
         };
         contextRow.SetGravity(GravityFlags.CenterVertical);
-        var access = Badge(card.CanEdit ? "CAN EDIT" : "VIEW ONLY",
+        var access = Badge(card.CanEdit ? UiText.Get("Can edit") : UiText.Get("View only"),
             card.CanEdit ? Resource.Color.success_container : Resource.Color.warning_container,
             card.CanEdit ? Resource.Color.on_success_container : Resource.Color.on_warning_container);
         contextRow.AddView(access);
-        var subscribe = SecondaryButton(card.IsSubscribed ? "Subscribed" : "Subscribe");
+        var subscribe = SecondaryButton(card.IsSubscribed ? UiText.Get("Subscribed") : UiText.Get("Subscribe"));
         var subscribeLayout = new LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.WrapContent, Dp(44));
         subscribeLayout.SetMargins(Dp(10), 0, 0, 0);
@@ -249,13 +281,17 @@ public sealed class CardDetailActivity : AppCompatActivity
         Add(contextRow, 0, 18);
         subscribe.Click += async (_, _) => await ToggleSubscriptionAsync(subscribe);
 
-        var (titleBox, titleInput) = Input("Title", card.Title, multiline: false);
+        var editToggle = SecondaryButton(UiText.Get("Edit card"));
+        editToggle.Visibility = card.CanEdit ? ViewStates.Visible : ViewStates.Gone;
+        Add(editToggle, 0, 12, Dp(50));
+        var editorStart = _content.ChildCount;
+        var (titleBox, titleInput) = Input(UiText.Get("Title"), _editorDraft?.Title ?? card.Title, multiline: false);
         titleInput.Enabled = card.CanEdit;
         titleBox.Enabled = card.CanEdit;
         Add(titleBox, 0, 12);
 
         var (descriptionBox, descriptionInput) = Input(
-            "Description", card.Description ?? string.Empty, multiline: true);
+            UiText.Get("Description"), _editorDraft?.Description ?? card.Description ?? string.Empty, multiline: true);
         descriptionInput.Enabled = card.CanEdit;
         descriptionBox.Enabled = card.CanEdit;
         Add(descriptionBox, 0, 16);
@@ -264,7 +300,7 @@ public sealed class CardDetailActivity : AppCompatActivity
         {
             Orientation = global::Android.Widget.Orientation.Horizontal
         };
-        var priorityGroup = LabeledSpinner("PRIORITY", Priorities, card.Priority, card.CanEdit);
+        var priorityGroup = LabeledSpinner(UiText.Get("PRIORITY"), Priorities.Select(UiText.Get).ToArray(), UiText.Get(card.Priority), card.CanEdit);
         choices.AddView(priorityGroup.Container,
             new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WrapContent, 1));
 
@@ -273,23 +309,28 @@ public sealed class CardDetailActivity : AppCompatActivity
         {
             assignees.Add(card.AssignedUser);
         }
-        var assigneeNames = new[] { "Unassigned" }
+        var assigneeNames = new[] { UiText.Get("Unassigned") }
             .Concat(assignees.Select(user => user.DisplayName))
             .ToArray();
         var selectedAssignee = card.AssignedUser == null
-            ? "Unassigned"
+            ? UiText.Get("Unassigned")
             : card.AssignedUser.DisplayName;
-        var assigneeGroup = LabeledSpinner("ASSIGNEE", assigneeNames, selectedAssignee, card.CanEdit);
+        var assigneeGroup = LabeledSpinner(UiText.Get("ASSIGNEE"), assigneeNames, selectedAssignee, card.CanEdit);
         var assigneeLayout = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WrapContent, 1);
         assigneeLayout.SetMargins(Dp(12), 0, 0, 0);
         choices.AddView(assigneeGroup.Container, assigneeLayout);
         Add(choices, 0, 16);
 
+        if (_editorDraft != null)
+        {
+            priorityGroup.Spinner.SetSelection(_editorDraft.Priority);
+            assigneeGroup.Spinner.SetSelection(assignees.FindIndex(user => user.Id == _editorDraft.AssigneeId) + 1);
+        }
         var schedule = ScheduleEditor(card);
         Add(schedule.Container, 0, 16);
         Add(LabelsCard(card), 0, 18);
 
-        var save = PrimaryButton("Save changes");
+        var save = PrimaryButton(UiText.Get("Save changes"));
         save.Visibility = card.CanEdit ? ViewStates.Visible : ViewStates.Gone;
         Add(save, 0, 24, Dp(56));
         save.Click += async (_, _) =>
@@ -297,7 +338,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             var title = titleInput.Text?.Trim() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(title))
             {
-                titleBox.Error = "Enter a card title";
+                titleBox.Error = UiText.Get("Enter a card title");
                 titleInput.RequestFocus();
                 return;
             }
@@ -316,7 +357,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             {
                 Snackbar.Make(
                     _root,
-                    "Actual end time cannot be earlier than actual start time.",
+                    UiText.Get("Actual end time cannot be earlier than actual start time."),
                     Snackbar.LengthLong).Show();
                 return;
             }
@@ -337,19 +378,57 @@ public sealed class CardDetailActivity : AppCompatActivity
             });
         };
 
+        var editor = new LinearLayout(this) { Orientation = global::Android.Widget.Orientation.Vertical, Visibility = ViewStates.Gone };
+        while (_content.ChildCount > editorStart)
+        {
+            var child = _content.GetChildAt(editorStart)!;
+            _content.RemoveView(child);
+            editor.AddView(child);
+        }
+        Add(editor, 0, 12);
+        if (_editorDraft?.Expanded == true && card.CanEdit)
+        {
+            editor.Visibility = ViewStates.Visible;
+            descriptionSurface.Visibility = ViewStates.Gone;
+            editToggle.Text = UiText.Get("Hide editor");
+        }
+        _captureEditorDraft = () =>
+        {
+            if (!card.CanEdit) return;
+            var assigneeIndex = assigneeGroup.Spinner.SelectedItemPosition;
+            _editorDraft = new EditorDraft(
+                titleInput.Text ?? string.Empty, descriptionInput.Text ?? string.Empty,
+                priorityGroup.Spinner.SelectedItemPosition,
+                assigneeIndex > 0 ? assignees[assigneeIndex - 1].Id : null,
+                schedule.PlannedStartTime, schedule.DueDate, schedule.ActualStartTime, schedule.ActualEndTime,
+                schedule.Recurring.Checked, schedule.IntervalInput.Text ?? string.Empty,
+                schedule.UnitSpinner.SelectedItemPosition, editor.Visibility == ViewStates.Visible);
+        };
+        editToggle.Click += (_, _) =>
+        {
+            var editing = editor.Visibility != ViewStates.Visible;
+            editor.Visibility = editing ? ViewStates.Visible : ViewStates.Gone;
+            descriptionSurface.Visibility = editing ? ViewStates.Gone : ViewStates.Visible;
+            editToggle.Text = editing ? UiText.Get("Hide editor") : UiText.Get("Edit card");
+        };
         if (card.CanEdit)
         {
-            Add(CardActions(card), 0, 24);
+            var actions = CardActions(card);
+            actions.Visibility = ViewStates.Gone;
+            var actionsToggle = SecondaryButton(UiText.Get("Move, copy or transfer"));
+            Add(actionsToggle, 0, 8, Dp(50));
+            Add(actions, 0, 20);
+            actionsToggle.Click += (_, _) => actions.Visibility = actions.Visibility == ViewStates.Visible ? ViewStates.Gone : ViewStates.Visible;
         }
 
         var creatorName = card.CreatorUser?.DisplayName ?? "Unknown";
-        Add(Text($"Created by {creatorName} · {FormatDateTime(card.CreationTime)}",
+        Add(Text(UiText.Format("Created by {0} · {1}", creatorName, FormatDateTime(card.CreationTime)),
             13, Resource.Color.text_secondary), 0, 24);
 
-        _content.AddView(SectionTitle($"COMMENTS  {card.Comments.Count}"));
+        _content.AddView(SectionTitle(UiText.Format("COMMENTS  {0}", card.Comments.Count)));
         if (card.Comments.Count == 0)
         {
-            Add(Text("No replies yet.", 14, Resource.Color.text_secondary), 10, 14);
+            Add(Text(UiText.Get("No replies yet."), 14, Resource.Color.text_secondary), 10, 14);
         }
         else
         {
@@ -361,24 +440,24 @@ public sealed class CardDetailActivity : AppCompatActivity
 
         if (card.CanEdit)
         {
-            var (commentBox, commentInput) = Input("Write a reply", _commentDraft, multiline: true, minLines: 2);
+            var (commentBox, commentInput) = Input(UiText.Get("Write a reply"), _commentDraft, multiline: true, minLines: 2);
             commentInput.TextChanged += (_, _) => _commentDraft = commentInput.Text ?? string.Empty;
             Add(commentBox, 16, 10);
             Add(CommentAttachmentComposer(), 0, 10);
-            var addComment = PrimaryButton("Reply");
+            var addComment = PrimaryButton(UiText.Get("Reply"));
             Add(addComment, 0, 24, Dp(50));
             addComment.Click += async (_, _) =>
                 await AddCommentAsync(commentBox, commentInput, addComment);
         }
         else
         {
-            Add(Text("This board is view-only, so replies and edits are disabled.",
+            Add(Text(UiText.Get("This board is view-only, so replies and edits are disabled."),
                 13, Resource.Color.text_secondary), 12, 24);
         }
 
         if (card.CanDelete)
         {
-            var delete = DangerButton("Delete card");
+            var delete = DangerButton(UiText.Get("Delete card"));
             Add(delete, 0, 8, Dp(52));
             delete.Click += (_, _) => ConfirmDeleteCard();
         }
@@ -390,20 +469,20 @@ public sealed class CardDetailActivity : AppCompatActivity
     {
         var state = new ScheduleEditorState
         {
-            PlannedStartTime = card.PlannedStartTime?.Date,
-            DueDate = card.DueDate?.Date,
-            ActualStartTime = card.ActualStartTime?.ToLocalTime(),
-            ActualEndTime = card.ActualEndTime?.ToLocalTime(),
+            PlannedStartTime = _editorDraft != null ? _editorDraft.PlannedStartTime : card.PlannedStartTime,
+            DueDate = _editorDraft != null ? _editorDraft.DueDate : card.DueDate,
+            ActualStartTime = _editorDraft != null ? _editorDraft.ActualStartTime : card.ActualStartTime?.ToLocalTime(),
+            ActualEndTime = _editorDraft != null ? _editorDraft.ActualEndTime : card.ActualEndTime?.ToLocalTime(),
             Recurring = new CheckBox(this)
             {
-                Text = "Recurring task",
-                Checked = card.RecurrenceInterval.HasValue,
+                Text = UiText.Get("Recurring task"),
+                Checked = _editorDraft?.Recurring ?? card.RecurrenceInterval.HasValue,
                 Enabled = card.CanEdit
             },
             IntervalInput = new EditText(this)
             {
-                Hint = "Interval (1–365)",
-                Text = card.RecurrenceInterval?.ToString() ?? "1",
+                Hint = UiText.Get("Interval (1–365)"),
+                Text = _editorDraft?.Interval ?? card.RecurrenceInterval?.ToString() ?? "1",
                 TextSize = 14,
                 Enabled = card.CanEdit,
                 InputType = InputTypes.ClassNumber
@@ -419,14 +498,14 @@ public sealed class CardDetailActivity : AppCompatActivity
             Orientation = global::Android.Widget.Orientation.Vertical
         };
         content.SetPadding(Dp(16), Dp(14), Dp(16), Dp(14));
-        content.AddView(SectionTitle("TIMELINE"));
-        content.AddView(DateEditorRow("Planned start", state, dueDate: false, card.CanEdit));
-        content.AddView(DateEditorRow("Due", state, dueDate: true, card.CanEdit));
-        content.AddView(DateTimeEditorRow("Actual start", state, endTime: false, card.CanEditActualTime));
-        content.AddView(DateTimeEditorRow("Actual end", state, endTime: true, card.CanEditActualTime));
+        content.AddView(SectionTitle(UiText.Get("TIMELINE")));
+        content.AddView(DateEditorRow(UiText.Get("Planned start"), state, dueDate: false, card.CanEdit));
+        content.AddView(DateEditorRow(UiText.Get("Due"), state, dueDate: true, card.CanEdit));
+        content.AddView(DateTimeEditorRow(UiText.Get("Actual start"), state, endTime: false, card.CanEditActualTime));
+        content.AddView(DateTimeEditorRow(UiText.Get("Actual end"), state, endTime: true, card.CanEditActualTime));
         if (!card.CanEditActualTime)
         {
-            content.AddView(new TextView(this) { Text = "Editing actual times requires the Edit Actual Time permission." });
+            content.AddView(new TextView(this) { Text = UiText.Get("Editing actual times requires the Edit Actual Time permission.") });
         }
         state.Recurring.SetTextColor(ColorOf(Resource.Color.text_primary));
         content.AddView(state.Recurring);
@@ -438,18 +517,18 @@ public sealed class CardDetailActivity : AppCompatActivity
         recurrenceFields.AddView(state.IntervalInput,
             new LinearLayout.LayoutParams(0, Dp(52), 1));
         var unitAdapter = new ArrayAdapter<string>(this,
-            global::Android.Resource.Layout.SimpleSpinnerItem, RecurrenceUnits);
+            global::Android.Resource.Layout.SimpleSpinnerItem, RecurrenceUnits.Select(UiText.Get).ToArray());
         unitAdapter.SetDropDownViewResource(global::Android.Resource.Layout.SimpleSpinnerDropDownItem);
         state.UnitSpinner.Adapter = unitAdapter;
         var unitIndex = Array.FindIndex(RecurrenceUnits,
             unit => string.Equals(unit, card.RecurrenceUnit, StringComparison.OrdinalIgnoreCase));
-        state.UnitSpinner.SetSelection(Math.Max(0, unitIndex));
+        state.UnitSpinner.SetSelection(_editorDraft?.Unit ?? Math.Max(0, unitIndex));
         var unitLayout = new LinearLayout.LayoutParams(0, Dp(52), 1);
         unitLayout.SetMargins(Dp(10), 0, 0, 0);
         recurrenceFields.AddView(state.UnitSpinner, unitLayout);
         recurrenceFields.Visibility = state.Recurring.Checked ? ViewStates.Visible : ViewStates.Gone;
         content.AddView(recurrenceFields);
-        var recurrenceHint = Text("Recurring cards require a due date.", 12, Resource.Color.text_secondary);
+        var recurrenceHint = Text(UiText.Get("Recurring cards require a due date."), 12, Resource.Color.text_secondary);
         recurrenceHint.Visibility = recurrenceFields.Visibility;
         content.AddView(recurrenceHint);
         state.Recurring.CheckedChange += (_, args) =>
@@ -486,7 +565,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             }
         }
 
-        var clear = SecondaryButton("Clear");
+        var clear = SecondaryButton(UiText.Get("Clear"));
         clear.Enabled = enabled;
         clear.Visibility = Current().HasValue ? ViewStates.Visible : ViewStates.Gone;
         var choose = SecondaryButton(FormatDate(Current()));
@@ -534,7 +613,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             }
         }
 
-        var clear = SecondaryButton("Clear");
+        var clear = SecondaryButton(UiText.Get("Clear"));
         clear.Enabled = enabled;
         clear.Visibility = Current().HasValue ? ViewStates.Visible : ViewStates.Gone;
         var choose = SecondaryButton(FormatEditableDateTime(Current()));
@@ -566,10 +645,10 @@ public sealed class CardDetailActivity : AppCompatActivity
             Orientation = global::Android.Widget.Orientation.Vertical
         };
         content.SetPadding(Dp(16), Dp(14), Dp(16), Dp(14));
-        content.AddView(SectionTitle("LABELS"));
+        content.AddView(SectionTitle(UiText.Get("LABELS")));
         if (card.Labels.Count == 0)
         {
-            content.AddView(Text("No labels", 13, Resource.Color.text_secondary));
+            content.AddView(Text(UiText.Get("No labels"), 13, Resource.Color.text_secondary));
         }
         else
         {
@@ -584,8 +663,8 @@ public sealed class CardDetailActivity : AppCompatActivity
             };
             var box = new TextInputLayout(this)
             {
-                Hint = "Search or create a label",
-                BoxBackgroundMode = TextInputLayout.BoxBackgroundOutline
+                Hint = UiText.Get("Search or create a label"),
+                BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled
             };
             box.SetBoxCornerRadii(Dp(14), Dp(14), Dp(14), Dp(14));
             var input = new AutoCompleteTextView(this)
@@ -611,7 +690,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             };
             box.AddView(input);
             row.AddView(box, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WrapContent, 1));
-            var add = PrimaryButton("Add");
+            var add = PrimaryButton(UiText.Get("Add"));
             var addLayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, Dp(56));
             addLayout.SetMargins(Dp(10), 0, 0, 0);
             row.AddView(add, addLayout);
@@ -633,8 +712,8 @@ public sealed class CardDetailActivity : AppCompatActivity
             Orientation = global::Android.Widget.Orientation.Vertical
         };
         content.SetPadding(Dp(16), Dp(14), Dp(16), Dp(16));
-        content.AddView(SectionTitle("ACTIONS"));
-        content.AddView(Text("Save pending edits before moving this card.",
+        content.AddView(SectionTitle(UiText.Get("ACTIONS")));
+        content.AddView(Text(UiText.Get("Save pending edits before moving this card."),
             12, Resource.Color.text_secondary));
 
         var columns = card.AvailableColumns;
@@ -643,13 +722,13 @@ public sealed class CardDetailActivity : AppCompatActivity
             var columnNames = columns.Select(column => column.Name).ToArray();
             var selectedColumn = columns.FirstOrDefault(column => column.Id == card.ColumnId)?.Name
                 ?? columnNames[0];
-            var selector = LabeledSpinner("MOVE TO COLUMN", columnNames, selectedColumn, enabled: true);
+            var selector = LabeledSpinner(UiText.Get("MOVE TO COLUMN"), columnNames, selectedColumn, enabled: true);
             var selectorLayout = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent);
             selectorLayout.SetMargins(0, Dp(12), 0, Dp(6));
             content.AddView(selector.Container, selectorLayout);
 
-            var move = PrimaryButton("Move card");
+            var move = PrimaryButton(UiText.Get("Move card"));
             content.AddView(move, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MatchParent, Dp(52)));
             move.Click += async (_, _) =>
@@ -659,14 +738,14 @@ public sealed class CardDetailActivity : AppCompatActivity
             };
         }
 
-        var copy = SecondaryButton("Copy card");
+        var copy = SecondaryButton(UiText.Get("Copy card"));
         var copyLayout = new LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MatchParent, Dp(50));
         copyLayout.SetMargins(0, Dp(10), 0, 0);
         content.AddView(copy, copyLayout);
         copy.Click += (_, _) => ConfirmCopyCard();
 
-        var transfer = SecondaryButton("Transfer to another board");
+        var transfer = SecondaryButton(UiText.Get("Transfer to another board"));
         var transferLayout = new LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MatchParent, Dp(50));
         transferLayout.SetMargins(0, Dp(10), 0, 0);
@@ -700,7 +779,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             {
                 var remove = Text("×", 20, Resource.Color.text_primary, true);
                 remove.Gravity = GravityFlags.Center;
-                remove.ContentDescription = $"Remove {label.Name}";
+                remove.ContentDescription = UiText.Format("Remove {0}", label.Name);
                 remove.SetPadding(Dp(9), 0, Dp(5), 0);
                 remove.Clickable = true;
                 remove.Click += async (_, _) => await RemoveLabelAsync(label, remove);
@@ -729,12 +808,12 @@ public sealed class CardDetailActivity : AppCompatActivity
         }
         if (!schedule.DueDate.HasValue)
         {
-            Snackbar.Make(_root, "Set a due date before enabling recurrence.", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("Set a due date before enabling recurrence."), Snackbar.LengthLong).Show();
             return false;
         }
         if (!int.TryParse(schedule.IntervalInput.Text, out var parsed) || parsed is < 1 or > 365)
         {
-            schedule.IntervalInput.Error = "Enter a value from 1 to 365";
+            schedule.IntervalInput.Error = UiText.Get("Enter a value from 1 to 365");
             schedule.IntervalInput.RequestFocus();
             return false;
         }
@@ -794,13 +873,13 @@ public sealed class CardDetailActivity : AppCompatActivity
         var name = input.Text?.Trim() ?? string.Empty;
         if (string.IsNullOrWhiteSpace(name))
         {
-            box.Error = "Enter a label name";
+            box.Error = UiText.Get("Enter a label name");
             input.RequestFocus();
             return;
         }
         if (name.Length > 100)
         {
-            box.Error = "Labels cannot exceed 100 characters";
+            box.Error = UiText.Get("Labels cannot exceed 100 characters");
             input.RequestFocus();
             return;
         }
@@ -820,7 +899,7 @@ public sealed class CardDetailActivity : AppCompatActivity
                 card.AvailableLabels.Add(response.Label);
             }
             Render();
-            Snackbar.Make(_root, "Label added", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Label added"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -837,7 +916,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             await Api.RemoveCardLabelAsync(_cardId, label.Id);
             _card?.Labels.RemoveAll(item => item.Id == label.Id);
             Render();
-            Snackbar.Make(_root, "Label removed", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Label removed"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -853,7 +932,7 @@ public sealed class CardDetailActivity : AppCompatActivity
     {
         if (target.Id == card.ColumnId)
         {
-            Snackbar.Make(_root, "The card is already in this column.", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("The card is already in this column."), Snackbar.LengthShort).Show();
             return;
         }
 
@@ -867,7 +946,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             });
             _card = (await Api.GetCardDetailsAsync(_cardId)).Card;
             Render();
-            Snackbar.Make(_root, result.Message ?? "Card moved", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, result.Message ?? UiText.Get("Card moved"), Snackbar.LengthLong).Show();
         }
         catch (Exception exception)
         {
@@ -889,7 +968,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             if (destinations.Count == 0)
             {
                 Snackbar.Make(_root,
-                    "No other editable board with columns is available.",
+                    UiText.Get("No other editable board with columns is available."),
                     Snackbar.LengthLong).Show();
                 return;
             }
@@ -900,7 +979,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             };
             container.SetPadding(Dp(24), Dp(4), Dp(24), 0);
             container.AddView(Text(
-                "The assignee is cleared and replies stay with the source card history.",
+                UiText.Get("The assignee is cleared and replies stay with the source card history."),
                 13,
                 Resource.Color.text_secondary));
             var spinner = new Spinner(this, SpinnerMode.Dialog);
@@ -916,10 +995,10 @@ public sealed class CardDetailActivity : AppCompatActivity
             container.AddView(spinner, spinnerLayout);
 
             var builder = new MaterialAlertDialogBuilder(this);
-            builder.SetTitle("Transfer card");
+            builder.SetTitle(UiText.Get("Transfer card"));
             builder.SetView(container);
-            builder.SetNegativeButton("Cancel", (_, _) => { });
-            builder.SetPositiveButton("Transfer", (dialog, args) =>
+            builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+            builder.SetPositiveButton(UiText.Get("Transfer"), (dialog, args) =>
             {
                 var index = Math.Clamp(spinner.SelectedItemPosition, 0, destinations.Count - 1);
                 _ = TransferAsync(destinations[index]);
@@ -952,7 +1031,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             _card = (await Api.GetCardDetailsAsync(_cardId)).Card;
             SetResult(Result.Ok);
             Render();
-            Snackbar.Make(_root, "Card transferred", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("Card transferred"), Snackbar.LengthLong).Show();
         }
         catch (Exception exception)
         {
@@ -975,8 +1054,8 @@ public sealed class CardDetailActivity : AppCompatActivity
             Orientation = global::Android.Widget.Orientation.Horizontal
         };
         controls.SetGravity(GravityFlags.CenterVertical);
-        var choose = SecondaryButton("Add images");
-        choose.ContentDescription = "Choose images to attach to this reply";
+        var choose = SecondaryButton(UiText.Get("Add images"));
+        choose.ContentDescription = UiText.Get("Choose images to attach to this reply");
         choose.Click += (_, _) => PickCommentImages();
         controls.AddView(choose, new LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.WrapContent, Dp(44)));
@@ -1025,8 +1104,8 @@ public sealed class CardDetailActivity : AppCompatActivity
 
         _pendingImagePreviews.RemoveAllViews();
         _pendingImageSummary.Text = _pendingImages.Count == 0
-            ? "PNG, JPEG, GIF, WebP, or BMP · 10 MB each"
-            : $"{_pendingImages.Count} of {MaxPendingImages} selected";
+            ? UiText.Get("PNG, JPEG, GIF, WebP, or BMP · 10 MB each")
+            : UiText.Format("{0} of {1} selected", _pendingImages.Count, MaxPendingImages);
         previewScroll.Visibility = _pendingImages.Count == 0 ? ViewStates.Gone : ViewStates.Visible;
         if (choose != null)
         {
@@ -1055,9 +1134,9 @@ public sealed class CardDetailActivity : AppCompatActivity
             imageShell.AddView(image, new ViewGroup.LayoutParams(Dp(96), Dp(78)));
             item.AddView(imageShell, new LinearLayout.LayoutParams(Dp(96), Dp(78)));
 
-            var remove = Text("Remove", 12, Resource.Color.brand_primary, true);
+            var remove = Text(UiText.Get("Remove"), 12, Resource.Color.brand_primary, true);
             remove.Gravity = GravityFlags.Center;
-            remove.ContentDescription = $"Remove {attachment.DisplayName}";
+            remove.ContentDescription = UiText.Format("Remove {0}", attachment.DisplayName);
             remove.Clickable = true;
             remove.SetPadding(0, Dp(5), 0, Dp(5));
             remove.Click += (_, _) => RemovePendingImage(attachment);
@@ -1073,7 +1152,7 @@ public sealed class CardDetailActivity : AppCompatActivity
     {
         if (_pendingImages.Count >= MaxPendingImages)
         {
-            Snackbar.Make(_root, $"You can attach up to {MaxPendingImages} images.", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Format("You can attach up to {0} images.", MaxPendingImages), Snackbar.LengthLong).Show();
             return;
         }
 
@@ -1088,7 +1167,7 @@ public sealed class CardDetailActivity : AppCompatActivity
         }
         catch (ActivityNotFoundException)
         {
-            Snackbar.Make(_root, "No image picker is available on this device.", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("No image picker is available on this device."), Snackbar.LengthLong).Show();
         }
     }
 
@@ -1275,7 +1354,7 @@ public sealed class CardDetailActivity : AppCompatActivity
         header.AddView(byline, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WrapContent, 1));
         if (comment.CanDelete)
         {
-            var delete = SecondaryButton("Delete");
+            var delete = SecondaryButton(UiText.Get("Delete"));
             header.AddView(delete, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WrapContent, Dp(40)));
             delete.Click += (_, _) => ConfirmDeleteComment(comment);
@@ -1320,14 +1399,14 @@ public sealed class CardDetailActivity : AppCompatActivity
                 CardElevation = 0,
                 Clickable = true,
                 Focusable = true,
-                ContentDescription = "Open comment image"
+                ContentDescription = UiText.Get("Open comment image")
             };
             shell.SetCardBackgroundColor(GetColor(Resource.Color.surface_variant));
             shell.StrokeColor = GetColor(Resource.Color.outline);
             shell.StrokeWidth = Dp(1);
             var image = new ImageView(this)
             {
-                ContentDescription = "Comment image"
+                ContentDescription = UiText.Get("Comment image")
             };
             image.SetScaleType(ImageView.ScaleType.CenterCrop);
             shell.AddView(image, new ViewGroup.LayoutParams(Dp(116), Dp(82)));
@@ -1364,7 +1443,7 @@ public sealed class CardDetailActivity : AppCompatActivity
         }
         catch
         {
-            RunOnUiThread(() => target.ContentDescription = "Comment image unavailable");
+            RunOnUiThread(() => target.ContentDescription = UiText.Get("Comment image unavailable"));
         }
     }
 
@@ -1400,17 +1479,17 @@ public sealed class CardDetailActivity : AppCompatActivity
             }
             var preview = new ImageView(this)
             {
-                ContentDescription = "Comment image preview"
+                ContentDescription = UiText.Get("Comment image preview")
             };
             preview.SetAdjustViewBounds(true);
             preview.SetScaleType(ImageView.ScaleType.FitCenter);
             preview.SetPadding(Dp(12), Dp(8), Dp(12), Dp(8));
             preview.SetImageBitmap(bitmap);
             var builder = new MaterialAlertDialogBuilder(this);
-            builder.SetTitle("Comment image");
+            builder.SetTitle(UiText.Get("Comment image"));
             builder.SetView(preview);
-            builder.SetNegativeButton("Close", (_, _) => { });
-            builder.SetPositiveButton("Open original", (_, _) => OpenImageExternally(imageUrl));
+            builder.SetNegativeButton(UiText.Get("Close"), (_, _) => { });
+            builder.SetPositiveButton(UiText.Get("Open original"), (_, _) => OpenImageExternally(imageUrl));
             builder.Show();
         }
         catch (System.OperationCanceledException)
@@ -1453,9 +1532,11 @@ public sealed class CardDetailActivity : AppCompatActivity
             {
                 response = await Api.UpdateCardActualTimesAsync(_cardId, actualTimesRequest);
             }
+            _captureEditorDraft = null;
+            _editorDraft = null;
             _card = response.Card;
             Render();
-            Snackbar.Make(_root, "Card updated", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Card updated"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -1472,12 +1553,12 @@ public sealed class CardDetailActivity : AppCompatActivity
         var content = input.Text?.Trim() ?? string.Empty;
         if (string.IsNullOrWhiteSpace(content))
         {
-            box.Error = "Write a reply first";
+            box.Error = UiText.Get("Write a reply first");
             return;
         }
         if (content.Length > 2000)
         {
-            box.Error = "Replies cannot exceed 2,000 characters";
+            box.Error = UiText.Get("Replies cannot exceed 2,000 characters");
             return;
         }
 
@@ -1492,7 +1573,7 @@ public sealed class CardDetailActivity : AppCompatActivity
                 var attachments = _pendingImages.ToArray();
                 for (var index = 0; index < attachments.Length; index++)
                 {
-                    button.Text = $"Uploading image {index + 1} of {attachments.Length}…";
+                    button.Text = UiText.Format("Uploading image {0} of {1}…", index + 1, attachments.Length);
                     var attachment = attachments[index];
                     await using var imageStream = ContentResolver?.OpenInputStream(attachment.Uri)
                         ?? throw new IOException($"Could not open {attachment.DisplayName}.");
@@ -1511,7 +1592,7 @@ public sealed class CardDetailActivity : AppCompatActivity
                 throw new InvalidOperationException(
                     "The uploaded image links are too long for one reply. Attach fewer images.");
             }
-            button.Text = "Sending…";
+            button.Text = UiText.Get("Sending…");
             var response = await Api.AddCardCommentAsync(_cardId,
                 new AddCardCommentRequest
                 {
@@ -1527,12 +1608,12 @@ public sealed class CardDetailActivity : AppCompatActivity
                 Render();
                 _scroll.Post(() => _scroll.FullScroll((int)FocusSearchDirection.Down));
             }
-            Snackbar.Make(_root, "Reply added", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Reply added"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
             button.Enabled = true;
-            button.Text = "Reply";
+            button.Text = UiText.Get("Reply");
             ShowError(exception, retry: false);
         }
     }
@@ -1561,7 +1642,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             _card.IsSubscribed = response.IsSubscribed;
             Render();
             Snackbar.Make(_root,
-                response.IsSubscribed ? "Subscribed to updates" : "Unsubscribed from updates",
+                response.IsSubscribed ? UiText.Get("Subscribed to updates") : UiText.Get("Unsubscribed from updates"),
                 Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
@@ -1574,10 +1655,10 @@ public sealed class CardDetailActivity : AppCompatActivity
     private void ConfirmDeleteComment(CardCommentDto comment)
     {
         var builder = new MaterialAlertDialogBuilder(this);
-        builder.SetTitle("Delete reply?");
-        builder.SetMessage("This reply will be permanently removed.");
-        builder.SetNegativeButton("Cancel", (_, _) => { });
-        builder.SetPositiveButton("Delete", (_, _) => _ = DeleteCommentAsync(comment));
+        builder.SetTitle(UiText.Get("Delete reply?"));
+        builder.SetMessage(UiText.Get("This reply will be permanently removed."));
+        builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+        builder.SetPositiveButton(UiText.Get("Delete"), (_, _) => _ = DeleteCommentAsync(comment));
         builder.Show();
     }
 
@@ -1588,7 +1669,7 @@ public sealed class CardDetailActivity : AppCompatActivity
             await Api.DeleteCardCommentAsync(_cardId, comment.Id);
             _card?.Comments.RemoveAll(item => item.Id == comment.Id);
             Render();
-            Snackbar.Make(_root, "Reply deleted", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Reply deleted"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -1599,21 +1680,21 @@ public sealed class CardDetailActivity : AppCompatActivity
     private void ConfirmDeleteCard()
     {
         var builder = new MaterialAlertDialogBuilder(this);
-        builder.SetTitle("Delete card?");
-        builder.SetMessage("The card and all of its replies will be permanently removed.");
-        builder.SetNegativeButton("Cancel", (_, _) => { });
-        builder.SetPositiveButton("Delete", (_, _) => _ = DeleteCardAsync());
+        builder.SetTitle(UiText.Get("Delete card?"));
+        builder.SetMessage(UiText.Get("The card and all of its replies will be permanently removed."));
+        builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+        builder.SetPositiveButton(UiText.Get("Delete"), (_, _) => _ = DeleteCardAsync());
         builder.Show();
     }
 
     private void ConfirmCopyCard()
     {
         var builder = new MaterialAlertDialogBuilder(this);
-        builder.SetTitle("Copy card?");
+        builder.SetTitle(UiText.Get("Copy card?"));
         builder.SetMessage(
-            "A copy will be added to the end of this column. Replies, attachments, and activity history will not be copied.");
-        builder.SetNegativeButton("Cancel", (_, _) => { });
-        builder.SetPositiveButton("Copy", (_, _) => _ = CopyCardAsync());
+            UiText.Get("A copy will be added to the end of this column. Replies, attachments, and activity history will not be copied."));
+        builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+        builder.SetPositiveButton(UiText.Get("Copy"), (_, _) => _ = CopyCardAsync());
         builder.Show();
     }
 
@@ -1690,7 +1771,7 @@ public sealed class CardDetailActivity : AppCompatActivity
         var box = new TextInputLayout(this)
         {
             Hint = hint,
-            BoxBackgroundMode = TextInputLayout.BoxBackgroundOutline
+            BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled
         };
         box.SetBoxCornerRadii(Dp(14), Dp(14), Dp(14), Dp(14));
         var input = new TextInputEditText(this)
@@ -1727,7 +1808,7 @@ public sealed class CardDetailActivity : AppCompatActivity
     {
         var card = new MaterialCardView(this)
         {
-            Radius = Dp(16),
+            Radius = Dp(20),
             CardElevation = 0
         };
         card.SetCardBackgroundColor(GetColor(Resource.Color.surface));
@@ -1742,7 +1823,7 @@ public sealed class CardDetailActivity : AppCompatActivity
         {
             Text = text,
             TextSize = 15,
-            CornerRadius = Dp(14)
+            CornerRadius = Dp(20)
         };
         button.SetAllCaps(false);
         return button;
@@ -1754,7 +1835,7 @@ public sealed class CardDetailActivity : AppCompatActivity
         {
             Text = text,
             TextSize = 13,
-            CornerRadius = Dp(14)
+            CornerRadius = Dp(20)
         };
         button.SetAllCaps(false);
         button.SetTextColor(ColorStateList.ValueOf(ColorOf(Resource.Color.brand_primary)));
@@ -1775,7 +1856,7 @@ public sealed class CardDetailActivity : AppCompatActivity
         {
             Text = value,
             TextSize = size,
-            Typeface = bold ? Typeface.DefaultBold : Typeface.Default
+            Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal)
         };
         view.SetTextColor(ColorOf(colorResource));
         return view;
@@ -1808,7 +1889,7 @@ public sealed class CardDetailActivity : AppCompatActivity
         var bar = Snackbar.Make(_root, FriendlyMessage(exception), Snackbar.LengthLong);
         if (retry)
         {
-            bar.SetAction("Retry", ignoredView => _ = LoadAsync());
+            bar.SetAction(UiText.Get("Retry"), ignoredView => _ = LoadAsync());
         }
         bar.Show();
     }
@@ -1859,6 +1940,11 @@ public sealed class CardDetailActivity : AppCompatActivity
     }
 
     private int Dp(int value) => (int)Math.Round(value * Resources!.DisplayMetrics!.Density);
+
+    private sealed record EditorDraft(
+        string Title, string Description, int Priority, string? AssigneeId,
+        DateTime? PlannedStartTime, DateTime? DueDate, DateTime? ActualStartTime, DateTime? ActualEndTime,
+        bool Recurring, string Interval, int Unit, bool Expanded);
 
     private sealed class ScheduleEditorState
     {

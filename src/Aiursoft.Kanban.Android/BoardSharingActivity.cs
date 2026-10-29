@@ -101,7 +101,7 @@ public sealed class BoardSharingActivity : AppCompatActivity
         _toolbar.SetOnApplyWindowInsetsListener(new ToolbarInsetListener(Dp(64)));
         _scroll.SetOnApplyWindowInsetsListener(
             new SystemBarInsetListener(0, 0, 0, Dp(12), false, true));
-        _toolbar.NavigationContentDescription = "Back to board settings";
+        _toolbar.NavigationContentDescription = UiText.Get("Back to board settings");
         _toolbar.NavigationClick += (_, _) => Finish();
     }
 
@@ -181,8 +181,8 @@ public sealed class BoardSharingActivity : AppCompatActivity
         {
             var empty = Text(
                 model.IsPublic
-                    ? "This public board has no specific user or role shares."
-                    : "No one else has access yet.",
+                    ? UiText.Get("This public board has no specific user or role shares.")
+                    : UiText.Get("No one else has access yet."),
                 14,
                 Resource.Color.text_secondary);
             empty.SetPadding(Dp(4), Dp(14), Dp(4), Dp(14));
@@ -248,13 +248,13 @@ public sealed class BoardSharingActivity : AppCompatActivity
         };
         labels.AddView(Text(share.TargetName, 15, Resource.Color.text_primary, true));
         labels.AddView(Text(
-            $"{share.TargetType} · {PermissionLabel(share.Permission)} · since {share.CreationTime.ToLocalTime():yyyy-MM-dd}",
+            UiText.Format("{0} · {1} · since {2:yyyy-MM-dd}", share.TargetType, PermissionLabel(share.Permission), share.CreationTime.ToLocalTime()),
             12,
             Resource.Color.text_secondary));
         row.AddView(labels, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WrapContent, 1));
         var remove = new MaterialButton(this, null, global::Android.Resource.Attribute.BorderlessButtonStyle)
         {
-            Text = "Remove",
+            Text = UiText.Get("Remove"),
             TextSize = 12,
             CornerRadius = Dp(12)
         };
@@ -276,7 +276,7 @@ public sealed class BoardSharingActivity : AppCompatActivity
             _model = await Api.SetBoardVisibilityAsync(_boardId, isPublic);
             Render();
             Snackbar.Make(_root,
-                isPublic ? "Board is now public" : "Board is now private",
+                isPublic ? UiText.Get("Board is now public") : UiText.Get("Board is now private"),
                 Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
@@ -301,7 +301,7 @@ public sealed class BoardSharingActivity : AppCompatActivity
         var targets = users ? model.AvailableUsers : model.AvailableRoles;
         if (targets.Count == 0 || _target.SelectedItemPosition < 0 || _target.SelectedItemPosition >= targets.Count)
         {
-            Snackbar.Make(_root, "No user or role is available to share with.", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("No user or role is available to share with."), Snackbar.LengthLong).Show();
             return;
         }
         var target = targets[_target.SelectedItemPosition];
@@ -315,7 +315,7 @@ public sealed class BoardSharingActivity : AppCompatActivity
                 Permission = _permission.SelectedItemPosition == 0 ? "ReadOnly" : "Editable"
             });
             Render();
-            Snackbar.Make(_root, $"Shared with {target.Name}", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Format("Shared with {0}", target.Name), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -330,10 +330,10 @@ public sealed class BoardSharingActivity : AppCompatActivity
     private void ConfirmRemove(BoardShareDto share)
     {
         var builder = new MaterialAlertDialogBuilder(this);
-        builder.SetTitle("Remove access?");
-        builder.SetMessage($"Remove {share.TargetName} from this board?");
-        builder.SetNegativeButton("Cancel", (_, _) => { });
-        builder.SetPositiveButton("Remove", (_, _) => _ = RemoveShareAsync(share));
+        builder.SetTitle(UiText.Get("Remove access?"));
+        builder.SetMessage(UiText.Format("Remove {0} from this board?", share.TargetName));
+        builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+        builder.SetPositiveButton(UiText.Get("Remove"), (_, _) => _ = RemoveShareAsync(share));
         builder.Show();
     }
 
@@ -348,7 +348,7 @@ public sealed class BoardSharingActivity : AppCompatActivity
             SetBusy(true, showProgress: true);
             _model = await Api.RemoveBoardShareAsync(_boardId, share.Id);
             Render();
-            Snackbar.Make(_root, "Access removed", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Access removed"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -379,7 +379,7 @@ public sealed class BoardSharingActivity : AppCompatActivity
         {
             Text = value,
             TextSize = size,
-            Typeface = bold ? Typeface.DefaultBold : Typeface.Default
+            Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal)
         };
         view.SetTextColor(ColorOf(colorResource));
         return view;

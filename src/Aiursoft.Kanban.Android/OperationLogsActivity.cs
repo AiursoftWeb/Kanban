@@ -49,7 +49,7 @@ public sealed class OperationLogsActivity : AppCompatActivity
         _progress = FindViewById<CircularProgressIndicator>(Resource.Id.operation_logs_progress)!;
         var toolbar = FindViewById<MaterialToolbar>(Resource.Id.operation_logs_toolbar)!;
         toolbar.SetOnApplyWindowInsetsListener(new ToolbarInsetListener(Dp(64)));
-        toolbar.NavigationContentDescription = "Back to Kanban";
+        toolbar.NavigationContentDescription = UiText.Get("Back to Kanban");
         toolbar.NavigationClick += (_, _) => Finish();
         _content.SetOnApplyWindowInsetsListener(
             new SystemBarInsetListener(Dp(16), Dp(18), Dp(16), Dp(32), false, true));
@@ -82,11 +82,11 @@ public sealed class OperationLogsActivity : AppCompatActivity
     {
         _page = response.CurrentPage;
         _content.RemoveAllViews();
-        Add(Text("My Operation Logs", 26, Resource.Color.text_primary, true), 0, 5);
+        Add(Text(UiText.Get("My Operation Logs"), 26, Resource.Color.text_primary, true), 0, 5);
         Add(Text(
             response.Enabled
-                ? $"Your latest activity across Kanban · {response.TotalCount} total"
-                : "Operation logging is not enabled on this server.",
+                ? UiText.Format("Your latest activity across Kanban · {0} total", response.TotalCount)
+                : UiText.Get("Operation logging is not enabled on this server."),
             14,
             Resource.Color.text_secondary), 0, 18);
 
@@ -131,7 +131,7 @@ public sealed class OperationLogsActivity : AppCompatActivity
         };
         header.SetGravity(GravityFlags.CenterVertical);
         header.AddView(Badge(string.IsNullOrWhiteSpace(log.Category)
-            ? "OPERATION"
+            ? UiText.Get("OPERATION")
             : log.Category.ToUpperInvariant()));
         var time = Text(log.EventTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss"),
             12,
@@ -193,7 +193,7 @@ public sealed class OperationLogsActivity : AppCompatActivity
         row.SetGravity(GravityFlags.CenterVertical);
         var previous = PageButton("Previous", currentPage > 1);
         var next = PageButton("Next", currentPage < totalPages);
-        var status = Text($"Page {currentPage} of {totalPages}",
+        var status = Text(UiText.Format("Page {0} of {1}", currentPage, totalPages),
             13,
             Resource.Color.text_secondary,
             true);
@@ -234,7 +234,7 @@ public sealed class OperationLogsActivity : AppCompatActivity
     {
         var card = new MaterialCardView(this)
         {
-            Radius = Dp(16),
+            Radius = Dp(20),
             CardElevation = 0
         };
         card.SetCardBackgroundColor(GetColor(Resource.Color.surface));
@@ -258,7 +258,7 @@ public sealed class OperationLogsActivity : AppCompatActivity
         {
             Text = value,
             TextSize = size,
-            Typeface = bold ? Typeface.DefaultBold : Typeface.Default
+            Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal)
         };
         view.SetTextColor(ColorOf(colorResource));
         return view;
@@ -290,7 +290,7 @@ public sealed class OperationLogsActivity : AppCompatActivity
             return;
         }
         var bar = Snackbar.Make(_root, FriendlyMessage(exception), Snackbar.LengthLong);
-        bar.SetAction("Retry", ignoredView => _ = LoadAsync());
+        bar.SetAction(UiText.Get("Retry"), ignoredView => _ = LoadAsync());
         bar.Show();
     }
 

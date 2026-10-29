@@ -65,7 +65,7 @@ public sealed class ReportDetailActivity : AppCompatActivity
         _toolbar.SetOnApplyWindowInsetsListener(new ToolbarInsetListener(Dp(64)));
         _content.SetOnApplyWindowInsetsListener(
             new SystemBarInsetListener(Dp(16), Dp(18), Dp(16), Dp(32), false, true));
-        _toolbar.NavigationContentDescription = "Back to reports";
+        _toolbar.NavigationContentDescription = UiText.Get("Back to reports");
         _toolbar.NavigationClick += (_, _) => Finish();
         _ = LoadAsync();
     }
@@ -125,7 +125,7 @@ public sealed class ReportDetailActivity : AppCompatActivity
         };
         metaContent.SetPadding(Dp(16), Dp(14), Dp(16), Dp(14));
         metaContent.AddView(Text(
-            _weekly ? "WEEKLY REPORT" : isPlan ? "DAILY PLAN" : "DAILY SUMMARY",
+            _weekly ? UiText.Get("WEEKLY REPORT") : isPlan ? UiText.Get("DAILY PLAN") : UiText.Get("DAILY SUMMARY"),
             12,
             isPlan ? Resource.Color.brand_primary : Resource.Color.on_success_container,
             true));
@@ -135,7 +135,7 @@ public sealed class ReportDetailActivity : AppCompatActivity
         periodLayout.SetMargins(0, Dp(7), 0, Dp(5));
         metaContent.AddView(periodView, periodLayout);
         metaContent.AddView(Text(
-            $"Generated {generatedAt.ToLocalTime():yyyy-MM-dd HH:mm}",
+            UiText.Format("Generated {0:yyyy-MM-dd HH:mm}", generatedAt.ToLocalTime()),
             12,
             Resource.Color.text_secondary));
         meta.AddView(metaContent);
@@ -152,9 +152,9 @@ public sealed class ReportDetailActivity : AppCompatActivity
         {
             var discard = new MaterialButton(this)
             {
-                Text = "Discard report",
+                Text = UiText.Get("Discard report"),
                 TextSize = 14,
-                CornerRadius = Dp(14)
+                CornerRadius = Dp(20)
             };
             discard.SetAllCaps(false);
             discard.Click += (_, _) => ShowDiscardDialog();
@@ -165,10 +165,10 @@ public sealed class ReportDetailActivity : AppCompatActivity
     private void ShowDiscardDialog()
     {
         var builder = new MaterialAlertDialogBuilder(this);
-        builder.SetTitle("Discard weekly report?");
-        builder.SetMessage("The report will be removed. The scheduled job may generate it again later.");
-        builder.SetNegativeButton("Cancel", (_, _) => { });
-        builder.SetPositiveButton("Discard", (_, _) => _ = DiscardAsync());
+        builder.SetTitle(UiText.Get("Discard weekly report?"));
+        builder.SetMessage(UiText.Get("The report will be removed. The scheduled job may generate it again later."));
+        builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+        builder.SetPositiveButton(UiText.Get("Discard"), (_, _) => _ = DiscardAsync());
         builder.Show();
     }
 
@@ -178,7 +178,7 @@ public sealed class ReportDetailActivity : AppCompatActivity
         {
             SetBusy(true);
             await Api.DeleteWeeklyReportAsync(_reportId);
-            Toast.MakeText(this, "Weekly report discarded.", ToastLength.Long)?.Show();
+            Toast.MakeText(this, UiText.Get("Weekly report discarded."), ToastLength.Long)?.Show();
             Finish();
         }
         catch (Exception exception)
@@ -195,7 +195,7 @@ public sealed class ReportDetailActivity : AppCompatActivity
     {
         var card = new MaterialCardView(this)
         {
-            Radius = Dp(16),
+            Radius = Dp(20),
             CardElevation = 0
         };
         card.SetCardBackgroundColor(GetColor(Resource.Color.surface));
@@ -210,7 +210,7 @@ public sealed class ReportDetailActivity : AppCompatActivity
         {
             Text = value,
             TextSize = size,
-            Typeface = bold ? Typeface.DefaultBold : Typeface.Default
+            Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal)
         };
         view.SetTextColor(new global::Android.Graphics.Color(GetColor(colorResource)));
         return view;
@@ -241,7 +241,7 @@ public sealed class ReportDetailActivity : AppCompatActivity
         }
         var message = exception.Message.Length > 160 ? exception.Message[..160] : exception.Message;
         var bar = Snackbar.Make(_root, message, Snackbar.LengthLong);
-        bar.SetAction("Retry", ignoredView => _ = LoadAsync());
+        bar.SetAction(UiText.Get("Retry"), ignoredView => _ = LoadAsync());
         bar.Show();
     }
 

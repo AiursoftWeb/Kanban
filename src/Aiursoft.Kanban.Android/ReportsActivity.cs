@@ -61,7 +61,7 @@ public sealed class ReportsActivity : AppCompatActivity
         _toolbar.SetOnApplyWindowInsetsListener(new ToolbarInsetListener(Dp(64)));
         _content.SetOnApplyWindowInsetsListener(
             new SystemBarInsetListener(Dp(16), Dp(18), Dp(16), Dp(32), false, true));
-        _toolbar.NavigationContentDescription = "Back to Kanban";
+        _toolbar.NavigationContentDescription = UiText.Get("Back to Kanban");
         _toolbar.NavigationClick += (_, _) => Finish();
         _ = LoadAsync();
     }
@@ -148,7 +148,7 @@ public sealed class ReportsActivity : AppCompatActivity
     {
         _content.RemoveAllViews();
         _toolbar.Title = title;
-        _toolbar.Subtitle = totalCount == 1 ? "1 report" : $"{totalCount} reports";
+        _toolbar.Subtitle = totalCount == 1 ? UiText.Get("1 report") : UiText.Format("{0} reports", totalCount);
 
         var heading = Text(title, 26, Resource.Color.text_primary, true);
         Add(heading, 0, 5);
@@ -168,11 +168,11 @@ public sealed class ReportsActivity : AppCompatActivity
             };
             emptyContent.SetGravity(GravityFlags.Center);
             emptyContent.SetPadding(Dp(24), Dp(34), Dp(24), Dp(34));
-            emptyContent.AddView(Text("No reports yet", 19, Resource.Color.text_primary, true));
+            emptyContent.AddView(Text(UiText.Get("No reports yet"), 19, Resource.Color.text_primary, true));
             var message = Text(
                 _weekly
-                    ? "Your generated weekly reports will appear here."
-                    : "Your generated plans and summaries will appear here.",
+                    ? UiText.Get("Your generated weekly reports will appear here.")
+                    : UiText.Get("Your generated plans and summaries will appear here."),
                 14,
                 Resource.Color.text_secondary);
             message.Gravity = GravityFlags.Center;
@@ -302,7 +302,7 @@ public sealed class ReportsActivity : AppCompatActivity
             : new MaterialButton(this, null, global::Android.Resource.Attribute.BorderlessButtonStyle);
         button.Text = text;
         button.TextSize = 13;
-        button.CornerRadius = Dp(14);
+        button.CornerRadius = Dp(20);
         button.SetAllCaps(false);
         if (!primary)
         {
@@ -334,7 +334,7 @@ public sealed class ReportsActivity : AppCompatActivity
         {
             Text = text,
             TextSize = 13,
-            CornerRadius = Dp(14)
+            CornerRadius = Dp(20)
         };
         button.SetAllCaps(false);
         button.BackgroundTintList = ColorStateList.ValueOf(ColorOf(
@@ -349,7 +349,7 @@ public sealed class ReportsActivity : AppCompatActivity
         var card = SurfaceCard();
         card.Clickable = true;
         card.Focusable = true;
-        card.ContentDescription = $"{report.Badge}, {report.Period}. Open report.";
+        card.ContentDescription = UiText.Format("{0}, {1}. Open report.", report.Badge, report.Period);
 
         var content = new LinearLayout(this)
         {
@@ -396,7 +396,7 @@ public sealed class ReportsActivity : AppCompatActivity
         row.SetGravity(GravityFlags.CenterVertical);
         var previous = PageButton("Previous", currentPage > 1);
         var next = PageButton("Next", currentPage < totalPages);
-        var status = Text($"Page {currentPage} of {totalPages}", 13, Resource.Color.text_secondary, true);
+        var status = Text(UiText.Format("Page {0} of {1}", currentPage, totalPages), 13, Resource.Color.text_secondary, true);
         status.Gravity = GravityFlags.Center;
         row.AddView(previous, new LinearLayout.LayoutParams(0, Dp(48), 1));
         row.AddView(status, new LinearLayout.LayoutParams(0, Dp(48), 1));
@@ -449,10 +449,10 @@ public sealed class ReportsActivity : AppCompatActivity
     private void ShowDiscardDialog(Guid reportId)
     {
         var builder = new MaterialAlertDialogBuilder(this);
-        builder.SetTitle("Discard weekly report?");
-        builder.SetMessage("The report will be removed. The scheduled job may generate it again later.");
-        builder.SetNegativeButton("Cancel", (_, _) => { });
-        builder.SetPositiveButton("Discard", (_, _) => _ = DiscardWeeklyAsync(reportId));
+        builder.SetTitle(UiText.Get("Discard weekly report?"));
+        builder.SetMessage(UiText.Get("The report will be removed. The scheduled job may generate it again later."));
+        builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+        builder.SetPositiveButton(UiText.Get("Discard"), (_, _) => _ = DiscardWeeklyAsync(reportId));
         builder.Show();
     }
 
@@ -488,14 +488,14 @@ public sealed class ReportsActivity : AppCompatActivity
         }
         _page = 1;
         await LoadAsync();
-        Snackbar.Make(_root, response.Message ?? "Report updated.", Snackbar.LengthLong).Show();
+        Snackbar.Make(_root, response.Message ?? UiText.Get("Report updated."), Snackbar.LengthLong).Show();
     }
 
     private MaterialCardView SurfaceCard()
     {
         var card = new MaterialCardView(this)
         {
-            Radius = Dp(16),
+            Radius = Dp(20),
             CardElevation = 0
         };
         card.SetCardBackgroundColor(GetColor(Resource.Color.surface));
@@ -519,7 +519,7 @@ public sealed class ReportsActivity : AppCompatActivity
         {
             Text = value,
             TextSize = size,
-            Typeface = bold ? Typeface.DefaultBold : Typeface.Default
+            Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal)
         };
         view.SetTextColor(ColorOf(colorResource));
         return view;
@@ -554,7 +554,7 @@ public sealed class ReportsActivity : AppCompatActivity
             return;
         }
         var bar = Snackbar.Make(_root, FriendlyMessage(exception), Snackbar.LengthLong);
-        bar.SetAction("Retry", ignoredView => _ = LoadAsync());
+        bar.SetAction(UiText.Get("Retry"), ignoredView => _ = LoadAsync());
         bar.Show();
     }
 

@@ -54,7 +54,7 @@ public sealed class SearchActivity : AppCompatActivity
         _toolbar.SetOnApplyWindowInsetsListener(new ToolbarInsetListener(Dp(64)));
         _content.SetOnApplyWindowInsetsListener(
             new SystemBarInsetListener(Dp(16), Dp(18), Dp(16), Dp(32), false, true));
-        _toolbar.NavigationContentDescription = "Back to Kanban";
+        _toolbar.NavigationContentDescription = UiText.Get("Back to Kanban");
         _toolbar.NavigationClick += (_, _) => Finish();
         Render(string.Empty, null);
     }
@@ -62,14 +62,14 @@ public sealed class SearchActivity : AppCompatActivity
     private void Render(string query, CardSearchResponse? response)
     {
         _content.RemoveAllViews();
-        _toolbar.Title = "Global Search";
+        _toolbar.Title = UiText.Get("Global Search");
         _toolbar.Subtitle = response == null
-            ? "Cards across accessible boards"
-            : response.TotalCount == 1 ? "1 result" : $"{response.TotalCount} results";
+            ? UiText.Get("Cards across accessible boards")
+            : response.TotalCount == 1 ? UiText.Get("1 result") : UiText.Format("{0} results", response.TotalCount);
 
-        Add(Text("Search Cards", 26, Resource.Color.text_primary, true), 0, 5);
+        Add(Text(UiText.Get("Search Cards"), 26, Resource.Color.text_primary, true), 0, 5);
         Add(Text(
-            "Search titles and descriptions across every board you can read.",
+            UiText.Get("Search titles and descriptions across every board you can read."),
             14,
             Resource.Color.text_secondary), 0, 16);
 
@@ -79,8 +79,8 @@ public sealed class SearchActivity : AppCompatActivity
         };
         var inputBox = new TextInputLayout(this)
         {
-            Hint = "Search cards, tasks, or documents",
-            BoxBackgroundMode = TextInputLayout.BoxBackgroundOutline
+            Hint = UiText.Get("Search cards, tasks, or documents"),
+            BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled
         };
         inputBox.SetBoxCornerRadii(Dp(16), Dp(16), Dp(16), Dp(16));
         var input = new TextInputEditText(this)
@@ -95,9 +95,9 @@ public sealed class SearchActivity : AppCompatActivity
             0, ViewGroup.LayoutParams.WrapContent, 1));
         var searchButton = new MaterialButton(this)
         {
-            Text = "Search",
+            Text = UiText.Get("Search"),
             TextSize = 14,
-            CornerRadius = Dp(16)
+            CornerRadius = Dp(20)
         };
         searchButton.SetAllCaps(false);
         var buttonLayout = new LinearLayout.LayoutParams(
@@ -111,7 +111,7 @@ public sealed class SearchActivity : AppCompatActivity
             var value = input.Text?.Trim() ?? string.Empty;
             if (value.Length == 0)
             {
-                inputBox.Error = "Enter a search query";
+                inputBox.Error = UiText.Get("Enter a search query");
                 input.RequestFocus();
                 return;
             }
@@ -142,7 +142,7 @@ public sealed class SearchActivity : AppCompatActivity
         };
         header.SetGravity(GravityFlags.CenterVertical);
         header.AddView(Text(
-            $"Results for “{response.Query}”",
+            UiText.Format("Results for “{0}”", response.Query),
             18,
             Resource.Color.text_primary,
             true), new LinearLayout.LayoutParams(
@@ -150,7 +150,7 @@ public sealed class SearchActivity : AppCompatActivity
         if (response.UsedAi)
         {
             header.AddView(Badge(
-                "AI POWERED",
+                UiText.Get("AI POWERED"),
                 Resource.Color.success_container,
                 Resource.Color.on_success_container));
         }
@@ -224,7 +224,7 @@ public sealed class SearchActivity : AppCompatActivity
         titleLayout.SetMargins(0, Dp(13), 0, 0);
         content.AddView(title, titleLayout);
         var description = Text(
-            string.IsNullOrWhiteSpace(card.Description) ? "No description provided." : card.Description,
+            string.IsNullOrWhiteSpace(card.Description) ? UiText.Get("No description provided.") : card.Description,
             14,
             Resource.Color.text_secondary);
         description.SetMaxLines(3);
@@ -287,7 +287,7 @@ public sealed class SearchActivity : AppCompatActivity
     {
         var card = new MaterialCardView(this)
         {
-            Radius = Dp(16),
+            Radius = Dp(20),
             CardElevation = 0
         };
         card.SetCardBackgroundColor(GetColor(Resource.Color.surface));
@@ -311,7 +311,7 @@ public sealed class SearchActivity : AppCompatActivity
         {
             Text = value,
             TextSize = size,
-            Typeface = bold ? Typeface.DefaultBold : Typeface.Default
+            Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal)
         };
         view.SetTextColor(ColorOf(colorResource));
         return view;
@@ -344,7 +344,7 @@ public sealed class SearchActivity : AppCompatActivity
         }
         var message = exception.Message.Length > 160 ? exception.Message[..160] : exception.Message;
         var bar = Snackbar.Make(_root, message, Snackbar.LengthLong);
-        bar.SetAction("Retry", ignoredView => _ = LoadAsync(query));
+        bar.SetAction(UiText.Get("Retry"), ignoredView => _ = LoadAsync(query));
         bar.Show();
     }
 
