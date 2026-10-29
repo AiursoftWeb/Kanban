@@ -392,9 +392,10 @@ public sealed class CardDetailActivity : AppCompatActivity
             descriptionSurface.Visibility = ViewStates.Gone;
             editToggle.Text = UiText.Get("Hide editor");
         }
+        var editorWasOpened = _editorDraft != null;
         _captureEditorDraft = () =>
         {
-            if (!card.CanEdit) return;
+            if (!card.CanEdit || !editorWasOpened) return;
             var assigneeIndex = assigneeGroup.Spinner.SelectedItemPosition;
             _editorDraft = new EditorDraft(
                 titleInput.Text ?? string.Empty, descriptionInput.Text ?? string.Empty,
@@ -407,6 +408,7 @@ public sealed class CardDetailActivity : AppCompatActivity
         editToggle.Click += (_, _) =>
         {
             var editing = editor.Visibility != ViewStates.Visible;
+            editorWasOpened |= editing;
             editor.Visibility = editing ? ViewStates.Visible : ViewStates.Gone;
             descriptionSurface.Visibility = editing ? ViewStates.Gone : ViewStates.Visible;
             editToggle.Text = editing ? UiText.Get("Hide editor") : UiText.Get("Edit card");
@@ -1029,6 +1031,8 @@ public sealed class CardDetailActivity : AppCompatActivity
             Intent?.PutExtra(CardIdExtra, _cardId);
             Session.SelectedBoardId = result.BoardId;
             _card = (await Api.GetCardDetailsAsync(_cardId)).Card;
+            _captureEditorDraft = null;
+            _editorDraft = null;
             SetResult(Result.Ok);
             Render();
             Snackbar.Make(_root, UiText.Get("Card transferred"), Snackbar.LengthLong).Show();
