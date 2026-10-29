@@ -59,7 +59,9 @@ public sealed class MyTasksActivity : AppCompatActivity
     private string _labelMode = "any";
     private string _sort = "planned-end-desc";
     private readonly HashSet<int> _labelIds = [];
+    private int _scrollPosition;
     private bool _loaded;
+    private bool _filtersExpanded;
     private bool _busy;
 
     private AppSession Session => ((KanbanApplication)Application!).Session;
@@ -74,6 +76,13 @@ public sealed class MyTasksActivity : AppCompatActivity
             return;
         }
 
+        _targetUserId = savedInstanceState?.GetString("task-user");
+        _status = savedInstanceState?.GetString("task-status") ?? "incomplete";
+        _sort = savedInstanceState?.GetString("task-sort") ?? "planned-end-desc";
+        _labelMode = savedInstanceState?.GetString("task-label-mode") ?? "any";
+        _labelIds.UnionWith(savedInstanceState?.GetIntArray("task-labels") ?? []);
+        _filtersExpanded = savedInstanceState?.GetBoolean("task-filters") ?? false;
+        _scrollPosition = savedInstanceState?.GetInt("task-scroll") ?? 0;
         SetContentView(Resource.Layout.activity_my_tasks);
         _root = FindViewById<View>(Resource.Id.my_tasks_root)!;
         _toolbar = FindViewById<MaterialToolbar>(Resource.Id.my_tasks_toolbar)!;
@@ -84,9 +93,21 @@ public sealed class MyTasksActivity : AppCompatActivity
         _toolbar.SetOnApplyWindowInsetsListener(new ToolbarInsetListener(Dp(64)));
         _content.SetOnApplyWindowInsetsListener(
             new SystemBarInsetListener(Dp(16), Dp(18), Dp(16), Dp(32), false, true));
-        _toolbar.NavigationContentDescription = "Back to Kanban";
+        _toolbar.NavigationContentDescription = UiText.Get("Back to Kanban");
         _toolbar.NavigationClick += (_, _) => Finish();
         _ = LoadAsync();
+    }
+
+    protected override void OnSaveInstanceState(Bundle outState)
+    {
+        outState.PutString("task-user", _targetUserId);
+        outState.PutString("task-status", _status);
+        outState.PutString("task-sort", _sort);
+        outState.PutString("task-label-mode", _labelMode);
+        outState.PutIntArray("task-labels", _labelIds.ToArray());
+        outState.PutBoolean("task-filters", _filtersExpanded);
+        outState.PutInt("task-scroll", _scroll.ScrollY);
+        base.OnSaveInstanceState(outState);
     }
 
     protected override void OnResume()
@@ -135,23 +156,29 @@ public sealed class MyTasksActivity : AppCompatActivity
 
     private void Render(MyTasksResponse response)
     {
+        if (_content.ChildCount > 0) _scrollPosition = _scroll.ScrollY;
         _content.RemoveAllViews();
         _toolbar.Title = response.IsViewingOtherUser
-            ? $"{response.TargetUser.DisplayName}'s Tasks"
-            : "My Tasks";
-        _toolbar.Subtitle = response.Cards.Count == 1 ? "1 task" : $"{response.Cards.Count} tasks";
+            ? UiText.Format("{0}'s Tasks", response.TargetUser.DisplayName)
+            : UiText.Get("My tasks");
+        _toolbar.Subtitle = response.Cards.Count == 1 ? UiText.Get("1 task") : UiText.Format("{0} tasks", response.Cards.Count);
 
         Add(Text(
-            response.IsViewingOtherUser ? response.TargetUser.DisplayName : "My Tasks",
+            response.IsViewingOtherUser ? response.TargetUser.DisplayName : UiText.Get("My tasks"),
             26,
             Resource.Color.text_primary,
             true), 0, 4);
         Add(Text(
-            "Assigned cards across your Kanban boards.",
+            UiText.Get("Assigned cards across your Kanban boards."),
             14,
             Resource.Color.text_secondary), 0, 16);
 
+        Add(StatusFilter(), 0, 12);
+        var filterToggle = SmallButton(UiText.Get("Filters & sorting"));
+        AddTo(_content, filterToggle, 0, 8, Dp(48));
         var filters = SurfaceCard();
+        filters.Visibility = _filtersExpanded ? ViewStates.Visible : ViewStates.Gone;
+        filterToggle.Click += (_, _) => { _filtersExpanded = !_filtersExpanded; filters.Visibility = _filtersExpanded ? ViewStates.Visible : ViewStates.Gone; };
         var filterContent = new LinearLayout(this)
         {
             Orientation = global::Android.Widget.Orientation.Vertical
@@ -159,7 +186,7 @@ public sealed class MyTasksActivity : AppCompatActivity
         filterContent.SetPadding(Dp(14), Dp(14), Dp(14), Dp(16));
         if (response.CanViewAnyUserTasks && response.AvailableUsers.Count > 0)
         {
-            filterContent.AddView(SectionTitle("ASSIGNEE"));
+            filterContent.AddView(SectionTitle(UiText.Get("ASSIGNEE")));
             var users = response.AvailableUsers;
             var userSpinner = Spinner(users.Select(user => user.DisplayName).ToArray());
             var selectedUser = Math.Max(0, users.FindIndex(user => user.Id == response.TargetUser.Id));
@@ -178,10 +205,9 @@ public sealed class MyTasksActivity : AppCompatActivity
             AddTo(filterContent, userSpinner, 4, 12, Dp(52));
         }
 
-        filterContent.AddView(SectionTitle("STATUS"));
-        AddTo(filterContent, StatusFilter(), 7, 12);
-        filterContent.AddView(SectionTitle("SORT"));
-        var sortSpinner = Spinner(Sorts.Select(item => item.Label).ToArray());
+
+        filterContent.AddView(SectionTitle(UiText.Get("SORT")));
+        var sortSpinner = Spinner(Sorts.Select(item => UiText.Get(item.Label)).ToArray());
         var selectedSort = Math.Max(0, Array.FindIndex(Sorts, item => item.Value == _sort));
         sortSpinner.SetSelection(selectedSort);
         sortSpinner.ItemSelected += (_, args) =>
@@ -203,11 +229,11 @@ public sealed class MyTasksActivity : AppCompatActivity
                 Orientation = global::Android.Widget.Orientation.Horizontal
             };
             labelHeader.SetGravity(GravityFlags.CenterVertical);
-            labelHeader.AddView(SectionTitle("LABELS"), new LinearLayout.LayoutParams(
+            labelHeader.AddView(SectionTitle(UiText.Get("LABELS")), new LinearLayout.LayoutParams(
                 0, ViewGroup.LayoutParams.WrapContent, 1));
             if (_labelIds.Count > 1)
             {
-                var mode = SmallButton(_labelMode == "all" ? "Match all" : "Match any");
+                var mode = SmallButton(_labelMode == "all" ? UiText.Get("Match all") : UiText.Get("Match any"));
                 labelHeader.AddView(mode, new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WrapContent, Dp(40)));
                 mode.Click += (_, _) =>
@@ -233,6 +259,7 @@ public sealed class MyTasksActivity : AppCompatActivity
                 Add(TaskCard(card), 0, 12);
             }
         }
+        _scroll.Post(() => _scroll.ScrollTo(0, _scrollPosition));
     }
 
     private View StatusFilter()
@@ -247,7 +274,7 @@ public sealed class MyTasksActivity : AppCompatActivity
         };
         foreach (var status in Statuses)
         {
-            var button = FilterButton(status.Label, status.Value == _status);
+            var button = FilterButton(UiText.Get(status.Label), status.Value == _status);
             var layout = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WrapContent, Dp(44));
             layout.SetMargins(0, 0, Dp(8), 0);
@@ -280,7 +307,7 @@ public sealed class MyTasksActivity : AppCompatActivity
         {
             var selected = _labelIds.Contains(label.Id);
             var button = FilterButton($"●  {label.Name}  {label.UsageCount}", selected);
-            button.ContentDescription = $"{label.Name}, used by {label.UsageCount} tasks";
+            button.ContentDescription = UiText.Format("{0}, used by {1} tasks", label.Name, label.UsageCount);
             var layout = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WrapContent, Dp(44));
             layout.SetMargins(0, 0, Dp(8), 0);
@@ -307,7 +334,7 @@ public sealed class MyTasksActivity : AppCompatActivity
         var shell = SurfaceCard();
         shell.Clickable = true;
         shell.Focusable = true;
-        shell.ContentDescription = $"{card.Title}, {StatusLabel(card.Status)}, {card.Priority} priority";
+        shell.ContentDescription = UiText.Format("{0}, {1}, {2} priority", card.Title, StatusLabel(card.Status), UiText.Get(card.Priority));
         var content = new LinearLayout(this)
         {
             Orientation = global::Android.Widget.Orientation.Vertical
@@ -319,17 +346,20 @@ public sealed class MyTasksActivity : AppCompatActivity
             Orientation = global::Android.Widget.Orientation.Horizontal
         };
         badges.AddView(Badge(
-            StatusLabel(card.Status).ToUpperInvariant(),
+            StatusLabel(card.Status),
             card.Status == "Completed" ? Resource.Color.success_container : Resource.Color.surface_variant,
             card.Status == "Completed" ? Resource.Color.on_success_container : Resource.Color.text_secondary));
-        var priority = Badge(
-            card.Priority.ToUpperInvariant(),
-            PriorityBackground(card.Priority),
-            PriorityForeground(card.Priority));
-        var priorityLayout = new LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
-        priorityLayout.SetMargins(Dp(8), 0, 0, 0);
-        badges.AddView(priority, priorityLayout);
+        if (card.Priority != "None")
+        {
+            var priority = Badge(
+                UiText.Get(card.Priority),
+                PriorityBackground(card.Priority),
+                PriorityForeground(card.Priority));
+            var priorityLayout = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
+            priorityLayout.SetMargins(Dp(8), 0, 0, 0);
+            badges.AddView(priority, priorityLayout);
+        }
         content.AddView(badges);
 
         var title = Text(card.Title, 18, Resource.Color.text_primary, true);
@@ -382,13 +412,13 @@ public sealed class MyTasksActivity : AppCompatActivity
             Orientation = global::Android.Widget.Orientation.Horizontal
         };
         timeline.AddView(Text(
-            $"Start  {FormatDate(card.PlannedStartTime)}",
+            UiText.Format("Start  {0}", FormatDate(card.PlannedStartTime)),
             12,
             Resource.Color.text_secondary), new LinearLayout.LayoutParams(
             0, ViewGroup.LayoutParams.WrapContent, 1));
         var overdue = card.DueDate.HasValue && card.DueDate.Value < DateTime.UtcNow && card.Status != "Completed";
         var due = Text(
-            $"Due  {FormatDate(card.DueDate)}",
+            UiText.Format("Due  {0}", FormatDate(card.DueDate)),
             12,
             overdue ? Resource.Color.on_danger_container : Resource.Color.text_secondary,
             overdue);
@@ -411,8 +441,8 @@ public sealed class MyTasksActivity : AppCompatActivity
         };
         content.SetGravity(GravityFlags.Center);
         content.SetPadding(Dp(24), Dp(34), Dp(24), Dp(34));
-        content.AddView(Text("No matching tasks", 19, Resource.Color.text_primary, true));
-        var message = Text("Try another status, label, or assignee filter.", 14, Resource.Color.text_secondary);
+        content.AddView(Text(UiText.Get("No matching tasks"), 19, Resource.Color.text_primary, true));
+        var message = Text(UiText.Get("Try another status, label, or assignee filter."), 14, Resource.Color.text_secondary);
         message.Gravity = GravityFlags.Center;
         AddTo(content, message, 8, 0);
         shell.AddView(content);
@@ -437,7 +467,7 @@ public sealed class MyTasksActivity : AppCompatActivity
         {
             Text = text,
             TextSize = 12,
-            CornerRadius = Dp(14)
+            CornerRadius = Dp(20)
         };
         button.SetAllCaps(false);
         button.BackgroundTintList = ColorStateList.ValueOf(ColorOf(
@@ -463,7 +493,7 @@ public sealed class MyTasksActivity : AppCompatActivity
     {
         var card = new MaterialCardView(this)
         {
-            Radius = Dp(16),
+            Radius = Dp(20),
             CardElevation = 0
         };
         card.SetCardBackgroundColor(GetColor(Resource.Color.surface));
@@ -494,7 +524,7 @@ public sealed class MyTasksActivity : AppCompatActivity
         {
             Text = value,
             TextSize = size,
-            Typeface = bold ? Typeface.DefaultBold : Typeface.Default
+            Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal)
         };
         view.SetTextColor(ColorOf(colorResource));
         return view;
@@ -531,7 +561,7 @@ public sealed class MyTasksActivity : AppCompatActivity
         }
         var message = exception.Message.Length > 160 ? exception.Message[..160] : exception.Message;
         var bar = Snackbar.Make(_root, message, Snackbar.LengthLong);
-        bar.SetAction("Retry", ignoredView => _ = LoadAsync());
+        bar.SetAction(UiText.Get("Retry"), ignoredView => _ = LoadAsync());
         bar.Show();
     }
 
@@ -545,9 +575,9 @@ public sealed class MyTasksActivity : AppCompatActivity
 
     private static string StatusLabel(string status) => status switch
     {
-        "NotStarted" => "Not started",
-        "InProgress" => "In progress",
-        "Completed" => "Completed",
+        "NotStarted" => UiText.Get("Not started"),
+        "InProgress" => UiText.Get("In progress"),
+        "Completed" => UiText.Get("Completed"),
         _ => status
     };
 

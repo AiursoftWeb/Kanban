@@ -21,8 +21,8 @@
         android:minHeight="64dp"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:navigationIconTint="@color/on_app_bar"
-        app:subtitleTextColor="#FF94A3B8"
-        app:title="Gantt chart"
+        app:subtitleTextColor="@color/text_secondary"
+        app:title="@string/ui_gantt_chart"
         app:titleTextColor="@color/on_app_bar" />
   </com.google.android.material.appbar.AppBarLayout>
 
@@ -47,7 +47,7 @@
           android:layout_height="wrap_content"
           android:paddingStart="16dp"
           android:paddingEnd="16dp"
-          android:text="Choose which dates define each bar. Tap a row to open the card."
+          android:text="@string/ui_choose_which_dates_define_each_bar_tap_a_row_to_open_the_car"
           android:textColor="@color/text_secondary"
           android:textSize="14sp" />
 
@@ -65,7 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Default"
+            android:text="@string/ui_default"
             android:textAllCaps="false" />
 
         <com.google.android.material.button.MaterialButton
@@ -74,7 +74,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Planned"
+            android:text="@string/ui_planned"
             android:textAllCaps="false" />
 
         <com.google.android.material.button.MaterialButton
@@ -83,7 +83,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Actual"
+            android:text="@string/ui_actual"
             android:textAllCaps="false" />
       </LinearLayout>
 
@@ -101,7 +101,7 @@
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:text="Filter"
+            android:text="@string/ui_filter"
             android:textAllCaps="false" />
 
         <com.google.android.material.button.MaterialButton
@@ -110,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
-            android:text="Export PNG"
+            android:text="@string/ui_export_png"
             android:textAllCaps="false" />
       </LinearLayout>
 
@@ -148,7 +148,7 @@
           android:layout_marginTop="22dp"
           android:paddingStart="16dp"
           android:paddingEnd="16dp"
-          android:text="CARDS WITHOUT COMPLETE DATES"
+          android:text="@string/ui_cards_without_complete_dates"
           android:textColor="@color/text_secondary"
           android:textSize="12sp"
           android:textStyle="bold" />

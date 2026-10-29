@@ -21,9 +21,9 @@
         android:minHeight="64dp"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:navigationIconTint="@color/on_app_bar"
-        app:subtitle="Ready"
-        app:subtitleTextColor="#FF94A3B8"
-        app:title="AI Assistant"
+        app:subtitle="@string/ui_ready"
+        app:subtitleTextColor="@color/text_secondary"
+        app:title="@string/ui_ai_assistant"
         app:titleTextColor="@color/on_app_bar" />
   </com.google.android.material.appbar.AppBarLayout>
 
@@ -66,7 +66,7 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
-              android:text="BOARD CONTEXT"
+              android:text="@string/ui_board_context"
               android:textColor="@color/text_secondary"
               android:textSize="12sp"
               android:textStyle="bold" />
@@ -76,7 +76,7 @@
               style="@style/Widget.Material3.Button.TextButton"
               android:layout_width="wrap_content"
               android:layout_height="42dp"
-              android:text="History"
+              android:text="@string/ui_history"
               android:textAllCaps="false"
               android:textColor="@color/brand_primary" />
 
@@ -85,7 +85,7 @@
               style="@style/Widget.Material3.Button.TextButton"
               android:layout_width="wrap_content"
               android:layout_height="42dp"
-              android:text="New chat"
+              android:text="@string/ui_new_chat"
               android:textAllCaps="false"
               android:textColor="@color/brand_primary" />
         </LinearLayout>
@@ -94,7 +94,7 @@
             android:id="@+id/agent_board_spinner"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:contentDescription="Board context" />
+            android:contentDescription="@string/ui_board_context_2" />
       </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -158,7 +158,7 @@
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
-            android:text="Remove"
+            android:text="@string/ui_remove"
             android:textAllCaps="false"
             android:textColor="@color/on_brand_container" />
       </LinearLayout>
@@ -176,7 +176,7 @@
           style="@style/Widget.Material3.Button.OutlinedButton"
           android:layout_width="52dp"
           android:layout_height="56dp"
-          android:contentDescription="Attach Excel workbook"
+          android:contentDescription="@string/ui_attach_excel_workbook"
           android:padding="0dp"
           android:text=""
           app:cornerRadius="14dp"
@@ -187,12 +187,12 @@
 
       <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/agent_input_box"
-          style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+          style="@style/KanbanTextInput"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="8dp"
           android:layout_weight="1"
-          android:hint="Type a message..."
+          android:hint="@string/ui_type_a_message"
           app:boxCornerRadiusBottomEnd="14dp"
           app:boxCornerRadiusBottomStart="14dp"
           app:boxCornerRadiusTopEnd="14dp"
@@ -212,7 +212,7 @@
           android:layout_width="wrap_content"
           android:layout_height="56dp"
           android:layout_marginStart="8dp"
-          android:text="Send"
+          android:text="@string/ui_send"
           android:textAllCaps="false"
           app:cornerRadius="14dp" />
     </LinearLayout>

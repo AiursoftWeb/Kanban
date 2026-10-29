@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="brand_primary">#2563EB</color>
+  <color name="brand_primary">#673DB6</color>
   <color name="on_brand_primary">#FFFFFF</color>
-  <color name="brand_primary_dark">#1D4ED8</color>
-  <color name="brand_container">#DBEAFE</color>
-  <color name="on_brand_container">#1E3A8A</color>
-  <color name="app_bar">#0F172A</color>
-  <color name="on_app_bar">#F8FAFC</color>
+  <color name="brand_primary_dark">#4F298D</color>
+  <color name="brand_container">#EDE5FA</color>
+  <color name="on_brand_container">#50318A</color>
+  <color name="app_bar">#F8F6FC</color>
+  <color name="on_app_bar">#30243E</color>
   <color name="surface">#FFFFFF</color>
-  <color name="surface_variant">#F1F5F9</color>
-  <color name="surface_canvas">#F8FAFC</color>
-  <color name="outline">#CBD5E1</color>
-  <color name="text_primary">#0F172A</color>
-  <color name="text_secondary">#64748B</color>
-  <color name="success_container">#DCFCE7</color>
-  <color name="on_success_container">#166534</color>
-  <color name="warning_container">#FEF3C7</color>
-  <color name="on_warning_container">#92400E</color>
-  <color name="danger_container">#FEE2E2</color>
-  <color name="on_danger_container">#991B1B</color>
+  <color name="surface_variant">#F0EBF7</color>
+  <color name="surface_canvas">#F8F6FC</color>
+  <color name="outline">#E8E1EF</color>
+  <color name="text_primary">#30243E</color>
+  <color name="text_secondary">#70647C</color>
+  <color name="success_container">#DDF7ED</color>
+  <color name="on_success_container">#167254</color>
+  <color name="warning_container">#FFF1CD</color>
+  <color name="on_warning_container">#825D13</color>
+  <color name="danger_container">#FCE5E9</color>
+  <color name="on_danger_container">#AC334D</color>
+  <color name="hero">#59309C</color>
+  <color name="hero_secondary">#754BC1</color>
+  <color name="on_hero">#FFFFFF</color>
+  <color name="hero_muted">#E1D4F7</color>
+  <color name="accent">#39D8A0</color>
+  <color name="on_accent">#123F33</color>
 </resources>

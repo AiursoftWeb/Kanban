@@ -7,10 +7,28 @@
     <item name="colorSurface">@color/surface</item>
     <item name="colorSurfaceVariant">@color/surface_variant</item>
     <item name="colorOutline">@color/outline</item>
-    <item name="android:fontFamily">sans</item>
-    <item name="android:windowLightStatusBar">false</item>
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="colorOnPrimary">@color/on_brand_primary</item>
+    <item name="colorOnSurface">@color/text_primary</item>
+    <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+    <item name="textInputStyle">@style/KanbanTextInput</item>
+    <item name="materialButtonStyle">@style/KanbanButton</item>
+    <item name="android:windowLightStatusBar">@bool/light_system_bars</item>
+    <item name="android:windowLightNavigationBar">@bool/light_system_bars</item>
     <item name="android:statusBarColor">@color/app_bar</item>
     <item name="android:navigationBarColor">@color/surface_canvas</item>
     <item name="android:windowBackground">@color/surface_canvas</item>
+  </style>
+  <style name="KanbanButton" parent="Widget.Material3.Button">
+    <item name="android:textAllCaps">false</item>
+    <item name="cornerRadius">18dp</item>
+    <item name="android:minHeight">48dp</item>
+  </style>
+  <style name="KanbanTextInput" parent="Widget.Material3.TextInputLayout.FilledBox">
+    <item name="boxBackgroundColor">@color/surface_variant</item>
+    <item name="boxCornerRadiusTopStart">14dp</item>
+    <item name="boxCornerRadiusTopEnd">14dp</item>
+    <item name="boxCornerRadiusBottomStart">14dp</item>
+    <item name="boxCornerRadiusBottomEnd">14dp</item>
   </style>
 </resources>

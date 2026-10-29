@@ -107,7 +107,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
         _toolbar.SetOnApplyWindowInsetsListener(new ToolbarInsetListener(Dp(64)));
         _scroll.SetOnApplyWindowInsetsListener(
             new SystemBarInsetListener(0, 0, 0, Dp(12), false, true));
-        _toolbar.NavigationContentDescription = "Back to board";
+        _toolbar.NavigationContentDescription = UiText.Get("Back to board");
         _toolbar.NavigationClick += (_, _) => Finish();
     }
 
@@ -155,7 +155,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
         if (board.Columns.Count == 0)
         {
             var empty = Text(
-                board.CanEdit ? "No columns yet. Add the first one here." : "This board has no columns.",
+                board.CanEdit ? UiText.Get("No columns yet. Add the first one here.") : UiText.Get("This board has no columns."),
                 14,
                 Resource.Color.text_secondary);
             empty.SetPadding(Dp(4), Dp(18), Dp(4), Dp(18));
@@ -188,18 +188,18 @@ public sealed class BoardSettingsActivity : AppCompatActivity
             Orientation = global::Android.Widget.Orientation.Horizontal
         };
         heading.SetGravity(GravityFlags.CenterVertical);
-        heading.AddView(Text($"Column {index + 1}", 12, Resource.Color.text_secondary, true),
+        heading.AddView(Text(UiText.Format("Column {0}", index + 1), 12, Resource.Color.text_secondary, true),
             new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WrapContent, 1));
-        heading.AddView(Text($"{column.Cards.Count} cards", 12, Resource.Color.text_secondary));
+        heading.AddView(Text(UiText.Format("{0} cards", column.Cards.Count), 12, Resource.Color.text_secondary));
         body.AddView(heading);
 
         var nameBox = new TextInputLayout(this)
         {
-            Hint = "Column name"
+            Hint = UiText.Get("Column name")
         };
-        nameBox.BoxBackgroundMode = TextInputLayout.BoxBackgroundOutline;
+        nameBox.BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled;
         nameBox.SetBoxCornerRadii(Dp(12), Dp(12), Dp(12), Dp(12));
-        var name = new TextInputEditText(this)
+        var name = new TextInputEditText(nameBox.Context!)
         {
             Text = column.Name,
             Enabled = board.CanEdit
@@ -228,13 +228,13 @@ public sealed class BoardSettingsActivity : AppCompatActivity
                 Orientation = global::Android.Widget.Orientation.Horizontal
             };
             var up = ActionButton("↑");
-            up.ContentDescription = $"Move {column.Name} left";
+            up.ContentDescription = UiText.Format("Move {0} left", column.Name);
             up.Enabled = index > 0;
             var down = ActionButton("↓");
-            down.ContentDescription = $"Move {column.Name} right";
+            down.ContentDescription = UiText.Format("Move {0} right", column.Name);
             down.Enabled = index < count - 1;
-            var save = PrimaryButton("Save");
-            var delete = DangerButton("Delete");
+            var save = PrimaryButton(UiText.Get("Save"));
+            var delete = DangerButton(UiText.Get("Delete"));
             actions.AddView(up, new LinearLayout.LayoutParams(0, Dp(46), 0.55f));
             actions.AddView(down, new LinearLayout.LayoutParams(0, Dp(46), 0.55f));
             actions.AddView(save, new LinearLayout.LayoutParams(0, Dp(46), 1.15f));
@@ -264,12 +264,12 @@ public sealed class BoardSettingsActivity : AppCompatActivity
         var name = _name.Text?.Trim() ?? string.Empty;
         if (string.IsNullOrWhiteSpace(name))
         {
-            _nameBox.Error = "Enter a board name";
+            _nameBox.Error = UiText.Get("Enter a board name");
             return;
         }
         if (!int.TryParse(_order.Text, out var order))
         {
-            _orderBox.Error = "Enter a whole number";
+            _orderBox.Error = UiText.Get("Enter a whole number");
             return;
         }
 
@@ -284,7 +284,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
                 Order = order
             });
             Render(response.Board);
-            Snackbar.Make(_root, "Board settings saved", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Board settings saved"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -309,7 +309,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
         name = name.Trim();
         if (string.IsNullOrWhiteSpace(name))
         {
-            nameBox.Error = "Enter a column name";
+            nameBox.Error = UiText.Get("Enter a column name");
             return;
         }
         try
@@ -322,7 +322,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
                 Status = status
             });
             Render(response.Board);
-            Snackbar.Make(_root, "Column updated", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Column updated"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -362,19 +362,19 @@ public sealed class BoardSettingsActivity : AppCompatActivity
         {
             return;
         }
-        var box = new TextInputLayout(this) { Hint = "Column name" };
-        box.BoxBackgroundMode = TextInputLayout.BoxBackgroundOutline;
-        var input = new TextInputEditText(this);
+        var box = new TextInputLayout(this) { Hint = UiText.Get("Column name") };
+        box.BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled;
+        var input = new TextInputEditText(box.Context!);
         input.SetSingleLine(true);
         box.AddView(input);
         var wrapper = new FrameLayout(this);
         wrapper.SetPadding(Dp(24), Dp(4), Dp(24), 0);
         wrapper.AddView(box);
         var builder = new MaterialAlertDialogBuilder(this);
-        builder.SetTitle("Add column");
+        builder.SetTitle(UiText.Get("Add column"));
         builder.SetView(wrapper);
-        builder.SetNegativeButton("Cancel", (_, _) => { });
-        builder.SetPositiveButton("Add", (_, _) => { });
+        builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+        builder.SetPositiveButton(UiText.Get("Add"), (_, _) => { });
         var dialog = builder.Create() ?? throw new InvalidOperationException("Could not create dialog.");
         dialog.Show();
         dialog.GetButton((int)DialogButtonType.Positive)!.Click += async (_, _) =>
@@ -382,7 +382,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
             var value = input.Text?.Trim() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(value))
             {
-                box.Error = "Enter a column name";
+                box.Error = UiText.Get("Enter a column name");
                 return;
             }
             try
@@ -391,7 +391,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
                 var response = await Api.CreateColumnAsync(_boardId, new CreateColumnRequest { Name = value });
                 dialog.Dismiss();
                 Render(response.Board);
-                Snackbar.Make(_root, "Column added", Snackbar.LengthShort).Show();
+                Snackbar.Make(_root, UiText.Get("Column added"), Snackbar.LengthShort).Show();
             }
             catch (Exception exception)
             {
@@ -404,12 +404,12 @@ public sealed class BoardSettingsActivity : AppCompatActivity
     private void ConfirmDeleteColumn(ColumnDto column)
     {
         var builder = new MaterialAlertDialogBuilder(this);
-        builder.SetTitle("Delete column?");
+        builder.SetTitle(UiText.Get("Delete column?"));
         builder.SetMessage(column.Cards.Count == 0
-            ? $"Delete {column.Name}? This cannot be undone."
-            : $"Delete {column.Name} and its {column.Cards.Count} card(s)? This cannot be undone.");
-        builder.SetNegativeButton("Cancel", (_, _) => { });
-        builder.SetPositiveButton("Delete", (_, _) => _ = DeleteColumnAsync(column));
+            ? UiText.Format("Delete {0}? This cannot be undone.", column.Name)
+            : UiText.Format("Delete {0} and its {1} card(s)? This cannot be undone.", column.Name, column.Cards.Count));
+        builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+        builder.SetPositiveButton(UiText.Get("Delete"), (_, _) => _ = DeleteColumnAsync(column));
         builder.Show();
     }
 
@@ -424,7 +424,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
             SetBusy(true, showProgress: true);
             var response = await Api.DeleteColumnAsync(column.Id);
             Render(response.Board);
-            Snackbar.Make(_root, "Column deleted", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Column deleted"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -444,11 +444,11 @@ public sealed class BoardSettingsActivity : AppCompatActivity
             return;
         }
         var builder = new MaterialAlertDialogBuilder(this);
-        builder.SetTitle("Delete board permanently?");
+        builder.SetTitle(UiText.Get("Delete board permanently?"));
         builder.SetMessage(
-            $"Delete {board.Name}, all {board.ColumnCount} columns, and all {board.CardCount} cards? This cannot be undone.");
-        builder.SetNegativeButton("Cancel", (_, _) => { });
-        builder.SetPositiveButton("Delete", (_, _) => _ = DeleteBoardAsync());
+            UiText.Format("Delete {0}, all {1} columns, and all {2} cards? This cannot be undone.", board.Name, board.ColumnCount, board.CardCount));
+        builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+        builder.SetPositiveButton(UiText.Get("Delete"), (_, _) => _ = DeleteBoardAsync());
         builder.Show();
     }
 
@@ -463,7 +463,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
             SetBusy(true, showProgress: true);
             await Api.DeleteBoardAsync(_boardId);
             Session.SelectedBoardId = 0;
-            Toast.MakeText(this, "Board deleted", ToastLength.Short)?.Show();
+            Toast.MakeText(this, UiText.Get("Board deleted"), ToastLength.Short)?.Show();
             Finish();
         }
         catch (Exception exception)
@@ -477,7 +477,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
     {
         var card = new MaterialCardView(this)
         {
-            Radius = Dp(16),
+            Radius = Dp(20),
             CardElevation = 0
         };
         card.SetCardBackgroundColor(GetColor(Resource.Color.surface));
@@ -519,7 +519,7 @@ public sealed class BoardSettingsActivity : AppCompatActivity
         {
             Text = value,
             TextSize = size,
-            Typeface = bold ? Typeface.DefaultBold : Typeface.Default
+            Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal)
         };
         view.SetTextColor(ColorOf(colorResource));
         return view;

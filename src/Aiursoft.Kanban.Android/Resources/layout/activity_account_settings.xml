@@ -21,8 +21,8 @@
         android:minHeight="64dp"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:navigationIconTint="@color/on_app_bar"
-        app:subtitleTextColor="#FF94A3B8"
-        app:title="Profile settings"
+        app:subtitleTextColor="@color/text_secondary"
+        app:title="@string/ui_profile_settings"
         app:titleTextColor="@color/on_app_bar" />
   </com.google.android.material.appbar.AppBarLayout>
 
@@ -50,7 +50,7 @@
           android:layout_height="112dp"
           android:layout_gravity="center_horizontal"
           android:background="@color/brand_container"
-          android:contentDescription="Current avatar"
+          android:contentDescription="@string/ui_current_avatar"
           android:padding="4dp"
           android:scaleType="centerCrop"
           android:src="@drawable/ic_account"
@@ -63,7 +63,7 @@
           android:layout_height="48dp"
           android:layout_gravity="center_horizontal"
           android:layout_marginTop="6dp"
-          android:text="Change photo"
+          android:text="@string/ui_change_photo"
           android:textAllCaps="false" />
 
       <TextView
@@ -84,18 +84,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PROFILE"
+            android:text="@string/ui_profile"
             android:textColor="@color/text_secondary"
             android:textSize="12sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/display_name_box"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/KanbanTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Display name">
+            android:hint="@string/ui_display_name">
 
           <com.google.android.material.textfield.TextInputEditText
               android:id="@+id/display_name_input"
@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_marginTop="10dp"
-            android:text="Save profile"
+            android:text="@string/ui_save_profile"
             android:textAllCaps="false"
             app:cornerRadius="14dp" />
       </LinearLayout>
@@ -120,7 +120,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="28dp"
-          android:text="AI REPORTS"
+          android:text="@string/ui_ai_reports"
           android:textColor="@color/text_secondary"
           android:textSize="12sp"
           android:textStyle="bold" />
@@ -131,7 +131,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:minHeight="52dp"
-          android:text="Automatic daily plan and summary"
+          android:text="@string/ui_automatic_daily_plan_and_summary"
           android:textColor="@color/text_primary" />
 
       <com.google.android.material.materialswitch.MaterialSwitch
@@ -139,7 +139,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:minHeight="52dp"
-          android:text="Automatic weekly report"
+          android:text="@string/ui_automatic_weekly_report"
           android:textColor="@color/text_primary" />
 
       <Spinner
@@ -155,7 +155,7 @@
           android:layout_width="match_parent"
           android:layout_height="54dp"
           android:layout_marginTop="8dp"
-          android:text="Save AI report settings"
+          android:text="@string/ui_save_ai_report_settings"
           android:textAllCaps="false"
           app:cornerRadius="14dp" />
 
@@ -169,18 +169,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PASSWORD"
+            android:text="@string/ui_password_2"
             android:textColor="@color/text_secondary"
             android:textSize="12sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/current_password_box"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/KanbanTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Current password"
+            android:hint="@string/ui_current_password"
             app:endIconMode="password_toggle">
 
           <com.google.android.material.textfield.TextInputEditText
@@ -192,11 +192,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/new_password_box"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/KanbanTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="New password"
+            android:hint="@string/ui_new_password"
             app:endIconMode="password_toggle">
 
           <com.google.android.material.textfield.TextInputEditText
@@ -208,11 +208,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/confirm_password_box"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/KanbanTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Confirm new password"
+            android:hint="@string/ui_confirm_new_password"
             app:endIconMode="password_toggle">
 
           <com.google.android.material.textfield.TextInputEditText
@@ -228,7 +228,7 @@
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_marginTop="10dp"
-            android:text="Change password"
+            android:text="@string/ui_change_password"
             android:textAllCaps="false"
             app:cornerRadius="14dp" />
       </LinearLayout>
@@ -237,7 +237,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="30dp"
-          android:text="DANGER ZONE"
+          android:text="@string/ui_danger_zone"
           android:textColor="@color/on_danger_container"
           android:textSize="12sp"
           android:textStyle="bold" />
@@ -256,7 +256,7 @@
           android:layout_width="match_parent"
           android:layout_height="54dp"
           android:layout_marginTop="10dp"
-          android:text="Delete account permanently"
+          android:text="@string/ui_delete_account_permanently"
           android:textAllCaps="false"
           android:textColor="@color/on_danger_container"
           app:cornerRadius="14dp"

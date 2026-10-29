@@ -149,7 +149,7 @@ public sealed class LoginActivity : AppCompatActivity
         _connecting = true;
         try
         {
-            SetBusy(true, "Connecting securely…");
+            SetBusy(true, UiText.Get("Connecting securely…"));
             ShowCancelButton();
             _serverContainer.Error = null;
             var configuration = await Session.ConnectAsync(
@@ -161,8 +161,8 @@ public sealed class LoginActivity : AppCompatActivity
                 return;
             }
             _authMode.Text = configuration.AuthenticationMode.Equals("OIDC", StringComparison.OrdinalIgnoreCase)
-                ? "ORGANIZATION SIGN-IN"
-                : "LOCAL ACCOUNT";
+                ? UiText.Get("ORGANIZATION SIGN-IN")
+                : UiText.Get("LOCAL ACCOUNT");
             _authPanel.Visibility = ViewStates.Visible;
             _localPanel.Visibility = configuration.AuthenticationMode.Equals("Local", StringComparison.OrdinalIgnoreCase)
                 ? ViewStates.Visible
@@ -172,7 +172,7 @@ public sealed class LoginActivity : AppCompatActivity
                 : ViewStates.Gone;
             _register.Visibility = configuration.AllowRegistration ? ViewStates.Visible : ViewStates.Gone;
             ShowConnectedServer();
-            SetBusy(false, "Connected. Sign in to continue.");
+            SetBusy(false, UiText.Get("Connected. Sign in to continue."));
             if (_localPanel.Visibility == ViewStates.Visible)
             {
                 _identity.RequestFocus();
@@ -181,13 +181,14 @@ public sealed class LoginActivity : AppCompatActivity
         catch (global::System.OperationCanceledException)
         {
             ShowServerEntry();
-            SetBusy(false, "Connection cancelled.");
+            SetBusy(false, UiText.Get("Connection cancelled."));
         }
         catch (Exception exception)
         {
             _authPanel.Visibility = ViewStates.Gone;
+            ShowServerEntry();
             _serverContainer.Error = FriendlyMessage(exception);
-            SetBusy(false, "Check the server address and network connection.");
+            SetBusy(false, UiText.Get("Check the server address and network connection."));
         }
         finally
         {
@@ -200,7 +201,7 @@ public sealed class LoginActivity : AppCompatActivity
     private void ShowCancelButton()
     {
         _connect.Enabled = true;
-        _connect.Text = "Cancel";
+        _connect.Text = UiText.Get("Cancel");
         StyleConnectButtonAsSecondary();
     }
 
@@ -212,7 +213,7 @@ public sealed class LoginActivity : AppCompatActivity
         _connectedServer.Text = Session.Endpoint;
         _serverContainer.Visibility = ViewStates.Gone;
         _connectedServer.Visibility = ViewStates.Visible;
-        _connect.Text = "Switch server";
+        _connect.Text = UiText.Get("Switch server");
         StyleConnectButtonAsSecondary();
     }
 
@@ -233,7 +234,7 @@ public sealed class LoginActivity : AppCompatActivity
         _connectedServer.Visibility = ViewStates.Gone;
         _serverContainer.Visibility = ViewStates.Visible;
         _serverContainer.Error = null;
-        _connect.Text = "Connect";
+        _connect.Text = UiText.Get("Connect");
         _connect.StrokeWidth = 0;
         _connect.BackgroundTintList = AndroidX.Core.Content.ContextCompat.GetColorStateList(this, Resource.Color.brand_primary);
         _connect.SetTextColor(AndroidX.Core.Content.ContextCompat.GetColorStateList(
@@ -254,12 +255,12 @@ public sealed class LoginActivity : AppCompatActivity
         var password = _password.Text ?? string.Empty;
         if (string.IsNullOrWhiteSpace(identity))
         {
-            _identity.Error = _registerMode ? "Enter your email" : "Enter your email or username";
+            _identity.Error = _registerMode ? UiText.Get("Enter your email") : UiText.Get("Enter your email or username");
             return;
         }
         if (password.Length < 6)
         {
-            _passwordContainer.Error = "Password must contain at least 6 characters";
+            _passwordContainer.Error = UiText.Get("Password must contain at least 6 characters");
             return;
         }
 
@@ -268,7 +269,7 @@ public sealed class LoginActivity : AppCompatActivity
             HideKeyboard();
             _identity.Error = null;
             _passwordContainer.Error = null;
-            SetBusy(true, _registerMode ? "Creating your account…" : "Signing you in…");
+            SetBusy(true, _registerMode ? UiText.Get("Creating your account…") : UiText.Get("Signing you in…"));
             if (_registerMode)
             {
                 await Session.RegisterLocalAsync(identity, password);
@@ -282,16 +283,16 @@ public sealed class LoginActivity : AppCompatActivity
         catch (Exception exception)
         {
             _passwordContainer.Error = FriendlyMessage(exception);
-            SetBusy(false, _registerMode ? "Could not create the account." : "Sign-in failed.");
+            SetBusy(false, _registerMode ? UiText.Get("Could not create the account.") : UiText.Get("Sign-in failed."));
         }
     }
 
     private void ToggleRegistrationMode()
     {
         _registerMode = !_registerMode;
-        _identity.Hint = _registerMode ? "Email" : "Email or username";
-        _localSignIn.Text = _registerMode ? "Create account" : "Sign in";
-        _register.Text = _registerMode ? "Already have an account? Sign in" : "Create an account";
+        _identity.Hint = _registerMode ? UiText.Get("Email") : UiText.Get("Email or username");
+        _localSignIn.Text = _registerMode ? UiText.Get("Create account") : UiText.Get("Sign in");
+        _register.Text = _registerMode ? UiText.Get("Already have an account? Sign in") : UiText.Get("Create an account");
         _passwordContainer.Error = null;
     }
 
@@ -312,7 +313,7 @@ public sealed class LoginActivity : AppCompatActivity
     {
         try
         {
-            SetBusy(true, "Completing secure sign-in…");
+            SetBusy(true, UiText.Get("Completing secure sign-in…"));
             await Session.CompleteAuthorizationAsync(callback);
             OpenWorkspace();
         }

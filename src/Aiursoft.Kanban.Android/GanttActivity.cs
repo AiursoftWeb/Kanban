@@ -109,7 +109,7 @@ public sealed class GanttActivity : AppCompatActivity
         _toolbar.SetOnApplyWindowInsetsListener(new ToolbarInsetListener(Dp(64)));
         _scroll.SetOnApplyWindowInsetsListener(
             new SystemBarInsetListener(0, 0, 0, Dp(12), false, true));
-        _toolbar.NavigationContentDescription = "Back to board";
+        _toolbar.NavigationContentDescription = UiText.Get("Back to board");
         _toolbar.NavigationClick += (_, _) => Finish();
     }
 
@@ -192,14 +192,14 @@ public sealed class GanttActivity : AppCompatActivity
             _export.Enabled = false;
             _summary.Text = filteredCards.Count == 0
                 ? HasActiveFilters()
-                    ? "No cards match the current filters."
-                    : "This board has no cards."
-                : "No cards have complete dates in this mode.";
+                    ? UiText.Get("No cards match the current filters.")
+                    : UiText.Get("This board has no cards.")
+                : UiText.Get("No cards have complete dates in this mode.");
         }
         else
         {
             _horizontal.Visibility = ViewStates.Visible;
-            _summary.Text = $"{bars.Count} scheduled · {missing.Count} without complete dates";
+            _summary.Text = UiText.Format("{0} scheduled · {1} without complete dates", bars.Count, missing.Count);
             var chart = new NativeGanttView(this, OpenCard);
             chart.SetBars(bars);
             _chart = chart;
@@ -208,8 +208,8 @@ public sealed class GanttActivity : AppCompatActivity
             _horizontal.Post(() => ScrollChartToToday(chart));
         }
         _filter.Text = HasActiveFilters()
-            ? $"Filter ({_priorities.Count + _assigneeIds.Count + (string.IsNullOrWhiteSpace(_query) ? 0 : 1)})"
-            : "Filter";
+            ? UiText.Format("Filter ({0})", _priorities.Count + _assigneeIds.Count + (string.IsNullOrWhiteSpace(_query) ? 0 : 1))
+            : UiText.Get("Filter");
 
         _missing.RemoveAllViews();
         _missingHeading.Visibility = missing.Count == 0 ? ViewStates.Gone : ViewStates.Visible;
@@ -228,7 +228,7 @@ public sealed class GanttActivity : AppCompatActivity
     {
         var shell = new MaterialCardView(this)
         {
-            Radius = Dp(14),
+            Radius = Dp(20),
             CardElevation = 0,
             Clickable = true,
             Focusable = true
@@ -262,18 +262,18 @@ public sealed class GanttActivity : AppCompatActivity
             Orientation = global::Android.Widget.Orientation.Vertical
         };
         content.SetPadding(Dp(24), Dp(18), Dp(24), Dp(24));
-        content.AddView(Text("Filter Gantt cards", 24, Resource.Color.text_primary, true));
+        content.AddView(Text(UiText.Get("Filter Gantt cards"), 24, Resource.Color.text_primary, true));
         content.AddView(Text(
-            "Use the same title, description, priority, and assignee filters as the board.",
+            UiText.Get("Use the same title, description, priority, and assignee filters as the board."),
             14,
             Resource.Color.text_secondary));
 
         var searchBox = new TextInputLayout(this)
         {
-            Hint = "Title or description",
-            BoxBackgroundMode = TextInputLayout.BoxBackgroundOutline
+            Hint = UiText.Get("Title or description"),
+            BoxBackgroundMode = TextInputLayout.BoxBackgroundFilled
         };
-        var search = new TextInputEditText(this) { Text = _query };
+        var search = new TextInputEditText(searchBox.Context!) { Text = _query };
         search.SetSingleLine(true);
         searchBox.AddView(search);
         var searchLayout = new LinearLayout.LayoutParams(
@@ -282,7 +282,7 @@ public sealed class GanttActivity : AppCompatActivity
         searchLayout.SetMargins(0, Dp(16), 0, Dp(10));
         content.AddView(searchBox, searchLayout);
 
-        content.AddView(Text("PRIORITY", 12, Resource.Color.text_secondary, true));
+        content.AddView(Text(UiText.Get("PRIORITY"), 12, Resource.Color.text_secondary, true));
         var priorityChecks = new Dictionary<string, CheckBox>();
         foreach (var priority in new[] { "Urgent", "High", "Medium", "Low", "None" })
         {
@@ -308,7 +308,7 @@ public sealed class GanttActivity : AppCompatActivity
             .ToList();
         if (assignees.Count > 0)
         {
-            content.AddView(Text("ASSIGNEE", 12, Resource.Color.text_secondary, true));
+            content.AddView(Text(UiText.Get("ASSIGNEE"), 12, Resource.Color.text_secondary, true));
             foreach (var assignee in assignees)
             {
                 var check = new CheckBox(this)
@@ -330,11 +330,11 @@ public sealed class GanttActivity : AppCompatActivity
         };
         var clear = new MaterialButton(this, null, global::Android.Resource.Attribute.BorderlessButtonStyle)
         {
-            Text = "Clear",
-            CornerRadius = Dp(14)
+            Text = UiText.Get("Clear"),
+            CornerRadius = Dp(20)
         };
         clear.SetAllCaps(false);
-        var apply = new MaterialButton(this) { Text = "Apply", CornerRadius = Dp(14) };
+        var apply = new MaterialButton(this) { Text = UiText.Get("Apply"), CornerRadius = Dp(20) };
         apply.SetAllCaps(false);
         actions.AddView(clear, new LinearLayout.LayoutParams(0, Dp(52), 1));
         var applyLayout = new LinearLayout.LayoutParams(0, Dp(52), 1);
@@ -407,7 +407,7 @@ public sealed class GanttActivity : AppCompatActivity
         var model = _model;
         if (_busy || chart == null || model == null)
         {
-            Snackbar.Make(_root, "No exportable chart is available in this mode.", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("No exportable chart is available in this mode."), Snackbar.LengthLong).Show();
             return;
         }
         const long maxPixels = 12_000_000;
@@ -415,7 +415,7 @@ public sealed class GanttActivity : AppCompatActivity
             (long)chart.ChartWidth * chart.ChartHeight > maxPixels)
         {
             Snackbar.Make(_root,
-                "The chart is too large to export as one PNG image.",
+                UiText.Get("The chart is too large to export as one PNG image."),
                 Snackbar.LengthLong).Show();
             return;
         }
@@ -424,7 +424,7 @@ public sealed class GanttActivity : AppCompatActivity
         try
         {
             SetBusy(true, showProgress: true);
-            _export.Text = "Exporting…";
+            _export.Text = UiText.Get("Exporting…");
             bitmap = Bitmap.CreateBitmap(
                 chart.ChartWidth,
                 chart.ChartHeight,
@@ -471,7 +471,7 @@ public sealed class GanttActivity : AppCompatActivity
         {
             bitmap?.Recycle();
             bitmap?.Dispose();
-            _export.Text = "Export PNG";
+            _export.Text = UiText.Get("Export PNG");
             SetBusy(false, showProgress: true);
         }
     }
@@ -543,7 +543,7 @@ public sealed class GanttActivity : AppCompatActivity
         {
             Text = value,
             TextSize = size,
-            Typeface = bold ? Typeface.DefaultBold : Typeface.Default
+            Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal)
         };
         view.SetTextColor(ColorOf(colorResource));
         return view;
@@ -763,7 +763,7 @@ public sealed class GanttActivity : AppCompatActivity
             _paint.SetStyle(Paint.Style.Fill);
             _paint.Color = new Color(_context.GetColor(colorResource));
             _paint.TextSize = Sp(_context, sp);
-            _paint.SetTypeface(bold ? Typeface.DefaultBold : Typeface.Default);
+            _paint.SetTypeface(bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal));
             canvas.DrawText(value, x, y, _paint);
         }
 

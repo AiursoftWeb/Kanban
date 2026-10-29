@@ -1,0 +1,1144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · 自 {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} 个看板 · 一览无余</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} 张卡片</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} 张卡片 · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} 张卡片 · {1} 列</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} 列 · {1} 张卡片</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>已跳过 {0} 张图片。请使用不超过 10 MB 的 PNG、JPEG、GIF、WebP 或 BMP 图片。</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>已选择 {0}/{1} 个</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} 个待处理 · {1} 个进行中 · {2} 个已完成</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>{0} 项已逾期</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} 项已逾期 · {1} 项未分配</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>优先级：{0}  ·  截止日期 {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} 条回复</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} 份报告</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} 个结果</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>已安排 {0} 项 · {1} 项日期不完整</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} 个任务</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0} 将返回到你当前的工作区。</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}，{1}，{2} 优先级</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}，{1}。打开报告。</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}，被 {1} 个任务使用</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}。点击查看详情。</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}。点击查看详情。按住并拖动以移动。</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>{0}的任务</value>
+  </data>
+  <data name="+  Add card" xml:space="preserve">
+    <value>+  添加卡片</value>
+  </data>
+  <data name="1 report" xml:space="preserve">
+    <value>1 份报告</value>
+  </data>
+  <data name="1 result" xml:space="preserve">
+    <value>1 个结果</value>
+  </data>
+  <data name="1 task" xml:space="preserve">
+    <value>1 个任务</value>
+  </data>
+  <data name="A copy will be added to the end of this column. Replies, attachments, and activity history will not be copied." xml:space="preserve">
+    <value>副本将添加到此列的末尾。回复、附件和活动记录不会被复制。</value>
+  </data>
+  <data name="A little space for your next idea." xml:space="preserve">
+    <value>为你的下一个创意留出一点空间。</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>访问权限已移除</value>
+  </data>
+  <data name="ACTIONS" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>实际</value>
+  </data>
+  <data name="Actual end" xml:space="preserve">
+    <value>实际结束时间</value>
+  </data>
+  <data name="Actual end · earliest first" xml:space="preserve">
+    <value>实际结束时间 · 从最早到最晚</value>
+  </data>
+  <data name="Actual end · latest first" xml:space="preserve">
+    <value>实际结束时间 · 最新优先</value>
+  </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>实际结束时间不能早于实际开始时间。</value>
+  </data>
+  <data name="Actual start" xml:space="preserve">
+    <value>实际开始</value>
+  </data>
+  <data name="Actual start · earliest first" xml:space="preserve">
+    <value>实际开始时间 · 从早到晚</value>
+  </data>
+  <data name="Actual start · latest first" xml:space="preserve">
+    <value>实际开始时间 · 最晚优先</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Add column" xml:space="preserve">
+    <value>添加列</value>
+  </data>
+  <data name="Add images" xml:space="preserve">
+    <value>添加图片</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>AI 驱动</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>AI 报告设置已保存</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="All caught up!" xml:space="preserve">
+    <value>全部处理完毕！</value>
+  </data>
+  <data name="Already have an account? Sign in" xml:space="preserve">
+    <value>已有账户？登录</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>外观</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>批准</value>
+  </data>
+  <data name="Approve all {0} actions" xml:space="preserve">
+    <value>批准全部 {0} 项操作</value>
+  </data>
+  <data name="Approve all {0} proposed actions" xml:space="preserve">
+    <value>批准所有 {0} 项待处理操作</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>归档</value>
+  </data>
+  <data name="Archive board" xml:space="preserve">
+    <value>归档看板</value>
+  </data>
+  <data name="Archive board?" xml:space="preserve">
+    <value>归档看板？</value>
+  </data>
+  <data name="Archive time unavailable" xml:space="preserve">
+    <value>无法获取归档时间</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>已归档</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>已归档 · {0} · {1}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>已归档 · 所有者</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>已归档于 {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>已归档看板</value>
+  </data>
+  <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
+    <value>已归档的看板在其所有者恢复之前只能查看，无法编辑。</value>
+  </data>
+  <data name="Assigned cards across your Kanban boards." xml:space="preserve">
+    <value>分配给你的各看板的卡片。</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>已分配的任务</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>受指派人</value>
+  </data>
+  <data name="Back to board" xml:space="preserve">
+    <value>返回看板</value>
+  </data>
+  <data name="Back to board settings" xml:space="preserve">
+    <value>返回看板设置</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>返回看板</value>
+  </data>
+  <data name="Back to reports" xml:space="preserve">
+    <value>返回报告</value>
+  </data>
+  <data name="Board archived" xml:space="preserve">
+    <value>看板已归档</value>
+  </data>
+  <data name="Board deleted" xml:space="preserve">
+    <value>看板已删除</value>
+  </data>
+  <data name="Board is now private" xml:space="preserve">
+    <value>看板现已设为私密</value>
+  </data>
+  <data name="Board is now public" xml:space="preserve">
+    <value>看板现已公开</value>
+  </data>
+  <data name="Board name" xml:space="preserve">
+    <value>看板名称</value>
+  </data>
+  <data name="Board restored" xml:space="preserve">
+    <value>看板已恢复</value>
+  </data>
+  <data name="Board settings saved" xml:space="preserve">
+    <value>看板设置已保存</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>看板</value>
+  </data>
+  <data name="Boards shared with you will appear here." xml:space="preserve">
+    <value>与您共享的看板会显示在这里。</value>
+  </data>
+  <data name="Boards you archive will appear here." xml:space="preserve">
+    <value>你归档的看板会显示在这里。</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>可编辑</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Capture it now. Organize it by dragging later." xml:space="preserve">
+    <value>现在先记下来，之后再通过拖动整理。</value>
+  </data>
+  <data name="Card created" xml:space="preserve">
+    <value>卡片已创建</value>
+  </data>
+  <data name="Card details" xml:space="preserve">
+    <value>卡片详情</value>
+  </data>
+  <data name="Card moved" xml:space="preserve">
+    <value>卡片已移动</value>
+  </data>
+  <data name="Card title" xml:space="preserve">
+    <value>卡片标题</value>
+  </data>
+  <data name="Card transferred" xml:space="preserve">
+    <value>卡片已转移</value>
+  </data>
+  <data name="Card updated" xml:space="preserve">
+    <value>卡片已更新</value>
+  </data>
+  <data name="Cards across accessible boards" xml:space="preserve">
+    <value>可访问看板中的卡片</value>
+  </data>
+  <data name="Check the server address and network connection." xml:space="preserve">
+    <value>请检查服务器地址和网络连接。</value>
+  </data>
+  <data name="Choose a PNG, JPG, JPEG, or BMP image." xml:space="preserve">
+    <value>请选择 PNG、JPG、JPEG 或 BMP 格式的图片。</value>
+  </data>
+  <data name="Choose images to attach to this reply" xml:space="preserve">
+    <value>选择要附加到此回复的图片</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>列 {0}</value>
+  </data>
+  <data name="Column added" xml:space="preserve">
+    <value>已添加列</value>
+  </data>
+  <data name="Column deleted" xml:space="preserve">
+    <value>列已删除</value>
+  </data>
+  <data name="Column name" xml:space="preserve">
+    <value>列名称</value>
+  </data>
+  <data name="Column updated" xml:space="preserve">
+    <value>列已更新</value>
+  </data>
+  <data name="Comment image" xml:space="preserve">
+    <value>评论图片</value>
+  </data>
+  <data name="Comment image preview" xml:space="preserve">
+    <value>评论图片预览</value>
+  </data>
+  <data name="Comment image unavailable" xml:space="preserve">
+    <value>评论图片不可用</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>评论  {0}</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Completing secure sign-in…" xml:space="preserve">
+    <value>正在完成安全登录…</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="Connected. Sign in to continue." xml:space="preserve">
+    <value>已连接。请登录以继续。</value>
+  </data>
+  <data name="Connecting securely…" xml:space="preserve">
+    <value>正在安全连接…</value>
+  </data>
+  <data name="Connection cancelled." xml:space="preserve">
+    <value>连接已取消。</value>
+  </data>
+  <data name="Conversation history" xml:space="preserve">
+    <value>对话记录</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Copy card" xml:space="preserve">
+    <value>复制卡片</value>
+  </data>
+  <data name="Copy card?" xml:space="preserve">
+    <value>复制卡片？</value>
+  </data>
+  <data name="Could not create the account." xml:space="preserve">
+    <value>无法创建账户。</value>
+  </data>
+  <data name="Could not load boards" xml:space="preserve">
+    <value>无法加载看板</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="Create a board" xml:space="preserve">
+    <value>创建看板</value>
+  </data>
+  <data name="Create a board to start organizing your work." xml:space="preserve">
+    <value>创建一个看板，开始整理工作。</value>
+  </data>
+  <data name="Create a card" xml:space="preserve">
+    <value>创建卡片</value>
+  </data>
+  <data name="Create a private board. You can manage visibility and sharing from board settings." xml:space="preserve">
+    <value>创建一个私人看板。你可以在看板设置中管理可见性和共享。</value>
+  </data>
+  <data name="Create account" xml:space="preserve">
+    <value>创建账户</value>
+  </data>
+  <data name="Create an account" xml:space="preserve">
+    <value>创建账户</value>
+  </data>
+  <data name="Create card" xml:space="preserve">
+    <value>创建卡片</value>
+  </data>
+  <data name="Created by {0} · {1}" xml:space="preserve">
+    <value>由 {0} 创建 · {1}</value>
+  </data>
+  <data name="Creating your account…" xml:space="preserve">
+    <value>正在创建您的账户…</value>
+  </data>
+  <data name="DAILY PLAN" xml:space="preserve">
+    <value>每日计划</value>
+  </data>
+  <data name="DAILY SUMMARY" xml:space="preserve">
+    <value>每日摘要</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>删除 {0} 及其 {1} 张卡片？此操作无法撤销。</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>删除“{0}”及其全部 {1} 个列和 {2} 张卡片？此操作无法撤销。</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>要删除 {0} 吗？此操作无法撤销。</value>
+  </data>
+  <data name="Delete account" xml:space="preserve">
+    <value>删除账户</value>
+  </data>
+  <data name="Delete account permanently?" xml:space="preserve">
+    <value>永久删除账号？</value>
+  </data>
+  <data name="Delete board permanently?" xml:space="preserve">
+    <value>永久删除看板？</value>
+  </data>
+  <data name="Delete card" xml:space="preserve">
+    <value>删除卡片</value>
+  </data>
+  <data name="Delete card?" xml:space="preserve">
+    <value>删除卡片？</value>
+  </data>
+  <data name="Delete column?" xml:space="preserve">
+    <value>删除此列？</value>
+  </data>
+  <data name="Delete reply?" xml:space="preserve">
+    <value>删除回复？</value>
+  </data>
+  <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
+    <value>删除账户后将无法恢复。</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>丢弃</value>
+  </data>
+  <data name="Discard report" xml:space="preserve">
+    <value>放弃报告</value>
+  </data>
+  <data name="Discard weekly report?" xml:space="preserve">
+    <value>放弃每周报告？</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="Drop a card here" xml:space="preserve">
+    <value>将卡片拖放到此处</value>
+  </data>
+  <data name="Drop on another column to move" xml:space="preserve">
+    <value>拖放到其他列即可移动</value>
+  </data>
+  <data name="Due" xml:space="preserve">
+    <value>截止日期</value>
+  </data>
+  <data name="Due  {0}" xml:space="preserve">
+    <value>截止时间  {0}</value>
+  </data>
+  <data name="Due {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>截止时间 {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Edit card" xml:space="preserve">
+    <value>编辑卡片</value>
+  </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>编辑实际用时需要“编辑实际用时”权限。</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="Email or username" xml:space="preserve">
+    <value>电子邮箱或用户名</value>
+  </data>
+  <data name="Enter a board name" xml:space="preserve">
+    <value>请输入看板名称</value>
+  </data>
+  <data name="Enter a card title" xml:space="preserve">
+    <value>请输入卡片标题</value>
+  </data>
+  <data name="Enter a column name" xml:space="preserve">
+    <value>请输入列名称</value>
+  </data>
+  <data name="Enter a label name" xml:space="preserve">
+    <value>请输入标签名称</value>
+  </data>
+  <data name="Enter a search query" xml:space="preserve">
+    <value>请输入搜索内容</value>
+  </data>
+  <data name="Enter a value from 1 to 365" xml:space="preserve">
+    <value>请输入 1 到 365 之间的值</value>
+  </data>
+  <data name="Enter a whole number" xml:space="preserve">
+    <value>请输入一个整数</value>
+  </data>
+  <data name="Enter your current password" xml:space="preserve">
+    <value>请输入当前密码</value>
+  </data>
+  <data name="Enter your email" xml:space="preserve">
+    <value>请输入您的邮箱</value>
+  </data>
+  <data name="Enter your email or username" xml:space="preserve">
+    <value>请输入您的电子邮箱或用户名</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Every {0} {1}" xml:space="preserve">
+    <value>每{0} {1}</value>
+  </data>
+  <data name="Excel · {0}" xml:space="preserve">
+    <value>Excel · {0}</value>
+  </data>
+  <data name="Export PNG" xml:space="preserve">
+    <value>导出 PNG</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>正在导出…</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="Filter ({0})" xml:space="preserve">
+    <value>筛选（{0}）</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>筛选卡片</value>
+  </data>
+  <data name="Filter Gantt cards" xml:space="preserve">
+    <value>筛选甘特图卡片</value>
+  </data>
+  <data name="Filters &amp; sorting" xml:space="preserve">
+    <value>筛选与排序</value>
+  </data>
+  <data name="Find a board" xml:space="preserve">
+    <value>查找看板</value>
+  </data>
+  <data name="Generated {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>生成于 {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>全局搜索</value>
+  </data>
+  <data name="Hide editor" xml:space="preserve">
+    <value>隐藏编辑器</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="Hold to move {0}" xml:space="preserve">
+    <value>按住以移动{0}</value>
+  </data>
+  <data name="In progress" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>未完成</value>
+  </data>
+  <data name="Interval (1–365)" xml:space="preserve">
+    <value>间隔（1–365）</value>
+  </data>
+  <data name="K" xml:space="preserve">
+    <value>K</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>看板仪表盘</value>
+  </data>
+  <data name="Label added" xml:space="preserve">
+    <value>标签已添加</value>
+  </data>
+  <data name="Label removed" xml:space="preserve">
+    <value>标签已移除</value>
+  </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Labels cannot exceed 100 characters" xml:space="preserve">
+    <value>标签不能超过 100 个字符</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>本地账户</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="Make room for progress." xml:space="preserve">
+    <value>为进步腾出空间。</value>
+  </data>
+  <data name="Make room\nfor progress." xml:space="preserve">
+    <value>为进步腾出空间。</value>
+  </data>
+  <data name="Mark all read" xml:space="preserve">
+    <value>全部标记为已读</value>
+  </data>
+  <data name="Mark as read" xml:space="preserve">
+    <value>标记为已读</value>
+  </data>
+  <data name="Match all" xml:space="preserve">
+    <value>全部匹配</value>
+  </data>
+  <data name="Match any" xml:space="preserve">
+    <value>匹配任意项</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="Move {0} left" xml:space="preserve">
+    <value>将 {0} 左移</value>
+  </data>
+  <data name="Move {0} right" xml:space="preserve">
+    <value>将 {0} 右移</value>
+  </data>
+  <data name="Move card" xml:space="preserve">
+    <value>移动卡片</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>移至列</value>
+  </data>
+  <data name="Move, copy or transfer" xml:space="preserve">
+    <value>移动、复制或转移</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>我的待办任务  ·  {0} 项进行中</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>我已归档的看板</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>我的看板</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>我的看板</value>
+  </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>我的操作日志</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>我的任务</value>
+  </data>
+  <data name="Network issue · retrying" xml:space="preserve">
+    <value>网络出现问题 · 正在重试</value>
+  </data>
+  <data name="New board" xml:space="preserve">
+    <value>新建看板</value>
+  </data>
+  <data name="Newest first" xml:space="preserve">
+    <value>最新的排在前面</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>当前没有分配给您的活跃任务。</value>
+  </data>
+  <data name="No archived boards" xml:space="preserve">
+    <value>没有已归档的看板</value>
+  </data>
+  <data name="No archived boards are shared with you." xml:space="preserve">
+    <value>没有与您共享的已归档看板。</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>目前还没有与您共享的看板。</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>尚未创建看板。</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>暂无看板</value>
+  </data>
+  <data name="No cards" xml:space="preserve">
+    <value>没有卡片</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>此模式下没有日期信息完整的卡片。</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>没有符合当前筛选条件的卡片。</value>
+  </data>
+  <data name="No columns yet. Add the first one here." xml:space="preserve">
+    <value>还没有列。点击此处添加第一列。</value>
+  </data>
+  <data name="No description provided." xml:space="preserve">
+    <value>未提供描述。</value>
+  </data>
+  <data name="No description yet." xml:space="preserve">
+    <value>暂无描述。</value>
+  </data>
+  <data name="No document picker is available on this device." xml:space="preserve">
+    <value>此设备上没有可用的文档选择器。</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>无截止日期</value>
+  </data>
+  <data name="No exportable chart is available in this mode." xml:space="preserve">
+    <value>当前模式下没有可导出的图表。</value>
+  </data>
+  <data name="No image picker is available on this device." xml:space="preserve">
+    <value>此设备上没有可用的图片选择器。</value>
+  </data>
+  <data name="No image picker is available." xml:space="preserve">
+    <value>没有可用的图片选择器。</value>
+  </data>
+  <data name="No labels" xml:space="preserve">
+    <value>没有标签</value>
+  </data>
+  <data name="No matching boards. Try a different name." xml:space="preserve">
+    <value>没有找到匹配的看板。请尝试其他名称。</value>
+  </data>
+  <data name="No matching cards" xml:space="preserve">
+    <value>没有匹配的卡片</value>
+  </data>
+  <data name="No matching tasks" xml:space="preserve">
+    <value>没有匹配的任务</value>
+  </data>
+  <data name="No one else has access yet." xml:space="preserve">
+    <value>目前还没有其他人可以访问。</value>
+  </data>
+  <data name="No other editable board with columns is available." xml:space="preserve">
+    <value>没有其他可编辑且包含列的看板。</value>
+  </data>
+  <data name="No previous conversations yet." xml:space="preserve">
+    <value>暂无历史对话。</value>
+  </data>
+  <data name="No replies yet." xml:space="preserve">
+    <value>暂无回复。</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>暂无报告</value>
+  </data>
+  <data name="No unread notifications." xml:space="preserve">
+    <value>没有未读通知。</value>
+  </data>
+  <data name="No user or role is available to share with." xml:space="preserve">
+    <value>没有可供共享的用户或角色。</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Not started" xml:space="preserve">
+    <value>未开始</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>通知</value>
+  </data>
+  <data name="Oldest first" xml:space="preserve">
+    <value>从最早开始</value>
+  </data>
+  <data name="Only .xlsx workbooks are supported." xml:space="preserve">
+    <value>仅支持 .xlsx 工作簿。</value>
+  </data>
+  <data name="Open board" xml:space="preserve">
+    <value>打开看板</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>打开的看板</value>
+  </data>
+  <data name="Open card" xml:space="preserve">
+    <value>打开卡片</value>
+  </data>
+  <data name="Open comment image" xml:space="preserve">
+    <value>打开评论图片</value>
+  </data>
+  <data name="Open original" xml:space="preserve">
+    <value>打开原图</value>
+  </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Operation logging is not enabled on this server." xml:space="preserve">
+    <value>此服务器未启用操作日志记录。</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>组织账号登录</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>已逾期</value>
+  </data>
+  <data name="Page {0} of {1}" xml:space="preserve">
+    <value>第 {0} 页，共 {1} 页</value>
+  </data>
+  <data name="Password changed" xml:space="preserve">
+    <value>密码已更改</value>
+  </data>
+  <data name="Password must contain at least 6 characters" xml:space="preserve">
+    <value>密码长度至少为 6 个字符</value>
+  </data>
+  <data name="Passwords do not match" xml:space="preserve">
+    <value>两次输入的密码不一致</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>计划的</value>
+  </data>
+  <data name="Planned end · earliest first" xml:space="preserve">
+    <value>计划结束时间 · 最早优先</value>
+  </data>
+  <data name="Planned end · overdue first" xml:space="preserve">
+    <value>计划结束时间 · 逾期优先</value>
+  </data>
+  <data name="Planned start" xml:space="preserve">
+    <value>计划开始</value>
+  </data>
+  <data name="Planned start · earliest first" xml:space="preserve">
+    <value>计划开始时间 · 最早优先</value>
+  </data>
+  <data name="Planned start · latest first" xml:space="preserve">
+    <value>计划开始时间 · 从晚到早</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG、JPEG、GIF、WebP 或 BMP · 每个最大 10 MB</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>优先级</value>
+  </data>
+  <data name="Priority · low first" xml:space="preserve">
+    <value>优先级 · 低优先</value>
+  </data>
+  <data name="Priority · urgent first" xml:space="preserve">
+    <value>优先级 · 紧急优先</value>
+  </data>
+  <data name="Profile photo updated" xml:space="preserve">
+    <value>个人资料照片已更新</value>
+  </data>
+  <data name="Profile saved" xml:space="preserve">
+    <value>个人资料已保存</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>建议操作</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="Recurring cards require a due date." xml:space="preserve">
+    <value>周期性卡片需要设置截止日期。</value>
+  </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>重复任务</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>移除 {0}</value>
+  </data>
+  <data name="Remove {0} from this board?" xml:space="preserve">
+    <value>要将 {0} 从此看板中移除吗？</value>
+  </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>移除访问权限？</value>
+  </data>
+  <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
+    <value>回复内容不能超过 2,000 个字符</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>回复</value>
+  </data>
+  <data name="Reply added" xml:space="preserve">
+    <value>已添加回复</value>
+  </data>
+  <data name="Reply deleted" xml:space="preserve">
+    <value>回复已删除</value>
+  </data>
+  <data name="Report updated." xml:space="preserve">
+    <value>报告已更新。</value>
+  </data>
+  <data name="Resolve the current response before sending another message." xml:space="preserve">
+    <value>请先处理完当前回复，再发送其他消息。</value>
+  </data>
+  <data name="Results for “{0}”" xml:space="preserve">
+    <value>“{0}”的搜索结果</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>重试</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>保存更改</value>
+  </data>
+  <data name="Save pending edits before moving this card." xml:space="preserve">
+    <value>移动此卡片前，请保存待处理的编辑。</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Search Cards" xml:space="preserve">
+    <value>搜索卡片</value>
+  </data>
+  <data name="Search cards, tasks, or documents" xml:space="preserve">
+    <value>搜索卡片、任务或文档</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>搜索或创建标签</value>
+  </data>
+  <data name="Search this board and narrow it by priority." xml:space="preserve">
+    <value>搜索此看板，并按优先级筛选。</value>
+  </data>
+  <data name="Search titles and descriptions across every board you can read." xml:space="preserve">
+    <value>搜索你有权查看的所有看板中的标题和描述。</value>
+  </data>
+  <data name="Sending…" xml:space="preserve">
+    <value>正在发送…</value>
+  </data>
+  <data name="Set a due date before enabling recurrence." xml:space="preserve">
+    <value>启用重复任务前，请先设置截止日期。</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>已共享的归档看板</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>共享看板</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>共享看板</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>已与 {0} 共享</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>与我共享</value>
+  </data>
+  <data name="Sign in" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="Sign-in failed." xml:space="preserve">
+    <value>登录失败。</value>
+  </data>
+  <data name="Signing you in…" xml:space="preserve">
+    <value>正在为你登录…</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="Start  {0}" xml:space="preserve">
+    <value>开始  {0}</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>订阅</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>已订阅</value>
+  </data>
+  <data name="Subscribed to updates" xml:space="preserve">
+    <value>已订阅更新</value>
+  </data>
+  <data name="Switch server" xml:space="preserve">
+    <value>切换服务器</value>
+  </data>
+  <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
+    <value>清空被指派人，回复仍保留在源卡片的历史记录中。</value>
+  </data>
+  <data name="The board becomes read-only and moves to Archived." xml:space="preserve">
+    <value>看板将变为只读并移至已归档。</value>
+  </data>
+  <data name="The board returns to your active workspace." xml:space="preserve">
+    <value>该看板将返回到您的活动工作区。</value>
+  </data>
+  <data name="The card and all of its replies will be permanently removed." xml:space="preserve">
+    <value>卡片及其所有回复都将被永久删除。</value>
+  </data>
+  <data name="The card is already in this column." xml:space="preserve">
+    <value>这张卡片已在此列中。</value>
+  </data>
+  <data name="The chart is too large to export as one PNG image." xml:space="preserve">
+    <value>图表过大，无法导出为一张 PNG 图片。</value>
+  </data>
+  <data name="The profile photo cannot exceed 10 MB." xml:space="preserve">
+    <value>头像大小不能超过 10 MB。</value>
+  </data>
+  <data name="The report will be removed. The scheduled job may generate it again later." xml:space="preserve">
+    <value>报告将被移除。计划任务之后可能会再次生成该报告。</value>
+  </data>
+  <data name="The workbook cannot exceed 10 MB." xml:space="preserve">
+    <value>工作簿大小不能超过 10 MB。</value>
+  </data>
+  <data name="Thinking…" xml:space="preserve">
+    <value>正在思考…</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>此看板没有卡片。</value>
+  </data>
+  <data name="This board has no columns" xml:space="preserve">
+    <value>此看板没有任何列</value>
+  </data>
+  <data name="This board has no columns." xml:space="preserve">
+    <value>此看板没有列。</value>
+  </data>
+  <data name="This board is view-only, so replies and edits are disabled." xml:space="preserve">
+    <value>此看板为只读模式，因此无法回复或编辑。</value>
+  </data>
+  <data name="This public board has no specific user or role shares." xml:space="preserve">
+    <value>此公开看板未与特定用户或角色共享。</value>
+  </data>
+  <data name="This reply will be permanently removed." xml:space="preserve">
+    <value>此回复将被永久删除。</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>时间线</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="Title · A–Z" xml:space="preserve">
+    <value>标题 · A–Z</value>
+  </data>
+  <data name="Title · Z–A" xml:space="preserve">
+    <value>标题 · Z–A</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>标题或描述</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>今日报告</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>转移</value>
+  </data>
+  <data name="Transfer card" xml:space="preserve">
+    <value>转移卡片</value>
+  </data>
+  <data name="Transfer to another board" xml:space="preserve">
+    <value>转移到另一个看板</value>
+  </data>
+  <data name="Try another status, label, or assignee filter." xml:space="preserve">
+    <value>试试其他状态、标签或负责人筛选条件。</value>
+  </data>
+  <data name="Type a message first" xml:space="preserve">
+    <value>请先输入消息</value>
+  </data>
+  <data name="Unarchive" xml:space="preserve">
+    <value>取消归档</value>
+  </data>
+  <data name="Unarchive board" xml:space="preserve">
+    <value>恢复归档的看板</value>
+  </data>
+  <data name="Unarchive board?" xml:space="preserve">
+    <value>要取消归档此看板吗？</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未分配</value>
+  </data>
+  <data name="Unsubscribed from updates" xml:space="preserve">
+    <value>已取消订阅更新</value>
+  </data>
+  <data name="Uploading image {0} of {1}…" xml:space="preserve">
+    <value>正在上传第 {0} 张图片，共 {1} 张…</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>紧急</value>
+  </data>
+  <data name="Use 2 to 30 characters" xml:space="preserve">
+    <value>请输入 2 到 30 个字符</value>
+  </data>
+  <data name="Use at least 6 characters" xml:space="preserve">
+    <value>至少使用 6 个字符</value>
+  </data>
+  <data name="Use device setting" xml:space="preserve">
+    <value>使用设备设置</value>
+  </data>
+  <data name="Use the same title, description, priority, and assignee filters as the board." xml:space="preserve">
+    <value>使用与看板相同的标题、描述、优先级和负责人筛选条件。</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>仅可查看</value>
+  </data>
+  <data name="Waiting for approval" xml:space="preserve">
+    <value>等待审批</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>周</value>
+  </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>每周报告</value>
+  </data>
+  <data name="Weekly report discarded." xml:space="preserve">
+    <value>每周报告已丢弃。</value>
+  </data>
+  <data name="Workbook attached" xml:space="preserve">
+    <value>工作簿已附加</value>
+  </data>
+  <data name="Workspace" xml:space="preserve">
+    <value>工作空间</value>
+  </data>
+  <data name="Write a reply" xml:space="preserve">
+    <value>撰写回复</value>
+  </data>
+  <data name="Write a reply first" xml:space="preserve">
+    <value>请先撰写回复</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="You can attach up to {0} images." xml:space="preserve">
+    <value>最多可添加 {0} 张图片。</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>您有 {0} 条未读通知{1}。</value>
+  </data>
+  <data name="You have no archived boards." xml:space="preserve">
+    <value>你没有已归档的看板。</value>
+  </data>
+  <data name="You have no unread notifications." xml:space="preserve">
+    <value>您没有未读通知。</value>
+  </data>
+  <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
+    <value>您拥有 {0} 个看板。删除帐户前，请先删除这些看板。</value>
+  </data>
+  <data name="Your account data will be removed. This cannot be undone." xml:space="preserve">
+    <value>您的账户数据将被删除。此操作无法撤销。</value>
+  </data>
+  <data name="Your generated plans and summaries will appear here." xml:space="preserve">
+    <value>您生成的计划和摘要将显示在此处。</value>
+  </data>
+  <data name="Your generated weekly reports will appear here." xml:space="preserve">
+    <value>您生成的每周报告将在此处显示。</value>
+  </data>
+  <data name="Your latest activity across Kanban · {0} total" xml:space="preserve">
+    <value>您在 Kanban 中的最新动态 · 共 {0} 条</value>
+  </data>
+  <data name="Your workspace" xml:space="preserve">
+    <value>你的工作区</value>
+  </data>
+
+</root>

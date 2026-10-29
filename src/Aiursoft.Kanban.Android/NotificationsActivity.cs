@@ -60,12 +60,12 @@ public sealed class NotificationsActivity : AppCompatActivity
         var header = new LinearLayout(this) { Orientation = global::Android.Widget.Orientation.Horizontal };
         header.SetGravity(GravityFlags.CenterVertical);
         var title = new LinearLayout(this) { Orientation = global::Android.Widget.Orientation.Vertical };
-        title.AddView(Text("Notifications", 26, Resource.Color.text_primary, true));
-        title.AddView(Text(model.UnreadCount == 0 ? "No unread notifications." : $"You have {model.UnreadCount} unread notification{(model.UnreadCount == 1 ? "" : "s")}.", 14, Resource.Color.text_secondary));
+        title.AddView(Text(UiText.Get("Notifications"), 26, Resource.Color.text_primary, true));
+        title.AddView(Text(model.UnreadCount == 0 ? UiText.Get("No unread notifications.") : UiText.Format("You have {0} unread notification{1}.", model.UnreadCount, (model.UnreadCount == 1 ? "" : "s")), 14, Resource.Color.text_secondary));
         header.AddView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WrapContent, 1));
         if (model.UnreadCount > 0)
         {
-            var all = Button("Mark all read"); header.AddView(all, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, Dp(46)));
+            var all = Button(UiText.Get("Mark all read")); header.AddView(all, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, Dp(46)));
             all.Click += async (_, _) => await MarkAllReadAsync();
         }
         Add(header, 0, 20);
@@ -85,8 +85,8 @@ public sealed class NotificationsActivity : AppCompatActivity
         AddTo(body, Text(item.Message, 15, Resource.Color.text_primary), 12, 0);
         if (!string.IsNullOrWhiteSpace(item.CommentContent)) { var comment = Text(item.CommentContent, 14, Resource.Color.text_primary); comment.SetPadding(Dp(12), Dp(10), Dp(12), Dp(10)); comment.SetBackgroundColor(new global::Android.Graphics.Color(GetColor(Resource.Color.surface_variant))); AddTo(body, comment, 10, 0); }
         var actions = new LinearLayout(this) { Orientation = global::Android.Widget.Orientation.Horizontal };
-        var read = Button("Mark as read"); actions.AddView(read, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, Dp(44))); read.Click += async (_, _) => await MarkReadAsync(item.Id);
-        if (item.CardId.HasValue || item.BoardId.HasValue) { var open = Button(item.CardId.HasValue ? "Open card" : "Open board"); var p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, Dp(44)); p.SetMargins(Dp(8), 0, 0, 0); actions.AddView(open, p); open.Click += (_, _) => Open(item); }
+        var read = Button(UiText.Get("Mark as read")); actions.AddView(read, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, Dp(44))); read.Click += async (_, _) => await MarkReadAsync(item.Id);
+        if (item.CardId.HasValue || item.BoardId.HasValue) { var open = Button(item.CardId.HasValue ? UiText.Get("Open card") : UiText.Get("Open board")); var p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, Dp(44)); p.SetMargins(Dp(8), 0, 0, 0); actions.AddView(open, p); open.Click += (_, _) => Open(item); }
         AddTo(body, actions, 12, 0); card.AddView(body); return card;
     }
 
@@ -105,19 +105,20 @@ public sealed class NotificationsActivity : AppCompatActivity
     private void Open(NotificationDto item)
     {
         if (item.CardId.HasValue) { StartActivity(CardDetailActivity.CreateIntent(this, item.CardId.Value)); return; }
-        if (!item.BoardId.HasValue) return; Session.SelectedBoardId = item.BoardId.Value; var intent = new Intent(this, typeof(MainActivity)); intent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop); StartActivity(intent); Finish();
+        if (!item.BoardId.HasValue) return; Session.SelectedBoardId = item.BoardId.Value; var intent = new Intent(this, typeof(MainActivity)); intent.PutExtra("open-board", Session.SelectedBoardId);
+        intent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop); StartActivity(intent); Finish();
     }
 
-    private View Message() { var card = Surface(); var body = new LinearLayout(this) { Orientation = global::Android.Widget.Orientation.Vertical }; body.SetGravity(GravityFlags.Center); body.SetPadding(Dp(20), Dp(36), Dp(20), Dp(36)); body.AddView(Text("All caught up!", 20, Resource.Color.text_primary, true)); body.AddView(Text("You have no unread notifications.", 14, Resource.Color.text_secondary)); card.AddView(body); return card; }
+    private View Message() { var card = Surface(); var body = new LinearLayout(this) { Orientation = global::Android.Widget.Orientation.Vertical }; body.SetGravity(GravityFlags.Center); body.SetPadding(Dp(20), Dp(36), Dp(20), Dp(36)); body.AddView(Text(UiText.Get("All caught up!"), 20, Resource.Color.text_primary, true)); body.AddView(Text(UiText.Get("You have no unread notifications."), 14, Resource.Color.text_secondary)); card.AddView(body); return card; }
     private MaterialButton Button(string value) { var button = new MaterialButton(this, null, global::Android.Resource.Attribute.BorderlessButtonStyle) { Text = value, TextSize = 12 }; button.SetAllCaps(false); button.SetTextColor(ColorStateList.ValueOf(new global::Android.Graphics.Color(GetColor(Resource.Color.brand_primary)))); return button; }
-    private MaterialCardView Surface() { var card = new MaterialCardView(this) { Radius = Dp(16), CardElevation = 0 }; card.SetCardBackgroundColor(GetColor(Resource.Color.surface)); card.StrokeColor = GetColor(Resource.Color.outline); card.StrokeWidth = Dp(1); return card; }
-    private TextView Text(string value, float size, int color, bool bold = false) { var text = new TextView(this) { Text = value, TextSize = size, Typeface = bold ? Typeface.DefaultBold : Typeface.Default }; text.SetTextColor(new global::Android.Graphics.Color(GetColor(color))); return text; }
+    private MaterialCardView Surface() { var card = new MaterialCardView(this) { Radius = Dp(20), CardElevation = 0 }; card.SetCardBackgroundColor(GetColor(Resource.Color.surface)); card.StrokeColor = GetColor(Resource.Color.outline); card.StrokeWidth = Dp(1); return card; }
+    private TextView Text(string value, float size, int color, bool bold = false) { var text = new TextView(this) { Text = value, TextSize = size, Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal) }; text.SetTextColor(new global::Android.Graphics.Color(GetColor(color))); return text; }
     private void Add(View view, int top, int bottom) => AddTo(_content, view, top, bottom);
     private void AddTo(ViewGroup parent, View view, int top, int bottom) { var p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent); p.SetMargins(0, Dp(top), 0, Dp(bottom)); parent.AddView(view, p); }
     private static string Context(NotificationDto item) => string.Join(" / ", new[] { item.BoardName, item.ColumnName, item.CardTitle }.Where(v => !string.IsNullOrWhiteSpace(v))!);
     private static string RelativeTime(DateTime value) { var diff = DateTime.UtcNow - value; if (diff.TotalMinutes < 1) return "just now"; if (diff.TotalMinutes < 60) return $"{(int)diff.TotalMinutes}m ago"; if (diff.TotalHours < 24) return $"{(int)diff.TotalHours}h ago"; if (diff.TotalDays < 7) return $"{(int)diff.TotalDays}d ago"; return value.ToLocalTime().ToString("MMM dd"); }
     private void SetBusy(bool busy) { _busy = busy; _progress.Visibility = busy ? ViewStates.Visible : ViewStates.Gone; _scroll.Alpha = busy ? .55f : 1f; }
-    private void ShowError(Exception ex) { if (ex is KanbanAuthenticationRequiredException) { ReturnToLogin(); return; } var bar = Snackbar.Make(_root, ex.Message, Snackbar.LengthLong); bar.SetAction("Retry", view => { _ = LoadAsync(); }); bar.Show(); }
+    private void ShowError(Exception ex) { if (ex is KanbanAuthenticationRequiredException) { ReturnToLogin(); return; } var bar = Snackbar.Make(_root, ex.Message, Snackbar.LengthLong); bar.SetAction(UiText.Get("Retry"), view => { _ = LoadAsync(); }); bar.Show(); }
     private void ReturnToLogin() { var i = new Intent(this, typeof(LoginActivity)); i.AddFlags(ActivityFlags.ClearTop | ActivityFlags.NewTask | ActivityFlags.ClearTask); StartActivity(i); Finish(); }
     private int Dp(int value) => (int)Math.Round(value * Resources!.DisplayMetrics!.Density);
     private sealed class ToolbarInsetListener(int height) : Java.Lang.Object, View.IOnApplyWindowInsetsListener { public WindowInsets OnApplyWindowInsets(View view, WindowInsets insets) { var top = OperatingSystem.IsAndroidVersionAtLeast(30) ? insets.GetInsets(WindowInsets.Type.SystemBars()).Top : insets.SystemWindowInsetTop; var p = view.LayoutParameters!; p.Height = height + top; view.LayoutParameters = p; view.SetPadding(view.PaddingLeft, top, view.PaddingRight, view.PaddingBottom); return insets; } }

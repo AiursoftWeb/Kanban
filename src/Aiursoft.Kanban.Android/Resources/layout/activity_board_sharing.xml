@@ -21,8 +21,8 @@
         android:minHeight="64dp"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:navigationIconTint="@color/on_app_bar"
-        app:subtitleTextColor="#FF94A3B8"
-        app:title="Visibility and sharing"
+        app:subtitleTextColor="@color/text_secondary"
+        app:title="@string/ui_visibility_and_sharing"
         app:titleTextColor="@color/on_app_bar" />
   </com.google.android.material.appbar.AppBarLayout>
 
@@ -47,7 +47,7 @@
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="VISIBILITY"
+          android:text="@string/ui_visibility"
           android:textColor="@color/text_secondary"
           android:textSize="12sp"
           android:textStyle="bold" />
@@ -58,7 +58,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp"
           android:minHeight="56dp"
-          android:text="Allow anyone with the link to view"
+          android:text="@string/ui_allow_anyone_with_the_link_to_view"
           android:textColor="@color/text_primary"
           android:textSize="15sp" />
 
@@ -68,7 +68,7 @@
           android:layout_width="match_parent"
           android:layout_height="52dp"
           android:layout_marginTop="8dp"
-          android:text="Share public link"
+          android:text="@string/ui_share_public_link"
           android:textAllCaps="false"
           android:visibility="gone"
           app:cornerRadius="14dp" />
@@ -78,7 +78,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="28dp"
-          android:text="ADD ACCESS"
+          android:text="@string/ui_add_access"
           android:textColor="@color/text_secondary"
           android:textSize="12sp"
           android:textStyle="bold" />
@@ -109,7 +109,7 @@
           android:layout_width="match_parent"
           android:layout_height="54dp"
           android:layout_marginTop="10dp"
-          android:text="Add share"
+          android:text="@string/ui_add_share"
           android:textAllCaps="false"
           app:cornerRadius="14dp" />
 
@@ -117,7 +117,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="28dp"
-          android:text="CURRENT SHARES"
+          android:text="@string/ui_current_shares"
           android:textColor="@color/text_secondary"
           android:textSize="12sp"
           android:textStyle="bold" />

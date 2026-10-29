@@ -5,7 +5,7 @@ using Android.Runtime;
 
 namespace Aiursoft.Kanban.Android;
 
-[Application]
+[Application(Icon = "@drawable/ic_kanban")]
 public sealed class KanbanApplication(nint handle, JniHandleOwnership ownership)
     : Application(handle, ownership)
 {
@@ -14,6 +14,13 @@ public sealed class KanbanApplication(nint handle, JniHandleOwnership ownership)
     public override void OnCreate()
     {
         base.OnCreate();
+        var theme = GetSharedPreferences("appearance", global::Android.Content.FileCreationMode.Private)!.GetInt("theme", 0);
+        AndroidX.AppCompat.App.AppCompatDelegate.DefaultNightMode = theme switch
+        {
+            1 => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightNo,
+            2 => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightYes,
+            _ => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightFollowSystem
+        };
         Session = new AppSession(this);
     }
 }

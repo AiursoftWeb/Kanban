@@ -165,7 +165,7 @@ public sealed class AgentActivity : AppCompatActivity
         _toolbar.SetOnApplyWindowInsetsListener(new ToolbarInsetListener(Dp(64)));
         _content.SetOnApplyWindowInsetsListener(
             new SystemBarInsetListener(Dp(12), Dp(12), Dp(12), Dp(12), false, true));
-        _toolbar.NavigationContentDescription = "Back to Kanban";
+        _toolbar.NavigationContentDescription = UiText.Get("Back to Kanban");
         _toolbar.NavigationClick += (_, _) => Finish();
     }
 
@@ -229,13 +229,13 @@ public sealed class AgentActivity : AppCompatActivity
         var message = _input.Text?.Trim() ?? string.Empty;
         if (string.IsNullOrWhiteSpace(message))
         {
-            _inputBox.Error = "Type a message first";
+            _inputBox.Error = UiText.Get("Type a message first");
             _input.RequestFocus();
             return;
         }
         if (_agentState is "Thinking" or "AwaitingApproval")
         {
-            Snackbar.Make(_root, "Resolve the current response before sending another message.", Snackbar.LengthLong)
+            Snackbar.Make(_root, UiText.Get("Resolve the current response before sending another message."), Snackbar.LengthLong)
                 .Show();
             return;
         }
@@ -245,7 +245,7 @@ public sealed class AgentActivity : AppCompatActivity
             _inputBox.Error = null;
             _sending = true;
             _agentState = "Thinking";
-            _toolbar.Subtitle = "Thinking…";
+            _toolbar.Subtitle = UiText.Get("Thinking…");
             _thinking.Visibility = ViewStates.Visible;
             UpdateControls();
             var response = await Api.SendAgentMessageAsync(new AgentSendMessageRequest
@@ -264,7 +264,7 @@ public sealed class AgentActivity : AppCompatActivity
         catch (Exception exception)
         {
             _agentState = "Ready";
-            _toolbar.Subtitle = "Ready";
+            _toolbar.Subtitle = UiText.Get("Ready");
             _thinking.Visibility = ViewStates.Gone;
             _input.Text = message;
             ShowError(exception);
@@ -319,7 +319,7 @@ public sealed class AgentActivity : AppCompatActivity
             }
             catch (Exception exception)
             {
-                _toolbar.Subtitle = "Network issue · retrying";
+                _toolbar.Subtitle = UiText.Get("Network issue · retrying");
                 if (_messages.ChildCount == 0)
                 {
                     ShowError(exception);
@@ -372,10 +372,10 @@ public sealed class AgentActivity : AppCompatActivity
         }
         _toolbar.Subtitle = status.State switch
         {
-            "Thinking" => "Thinking…",
-            "AwaitingApproval" => "Waiting for approval",
-            "Error" => "Error",
-            _ => "Ready"
+            "Thinking" => UiText.Get("Thinking…"),
+            "AwaitingApproval" => UiText.Get("Waiting for approval"),
+            "Error" => UiText.Get("Error"),
+            _ => UiText.Get("Ready")
         };
         _thinking.Visibility = status.State == "Thinking" ? ViewStates.Visible : ViewStates.Gone;
         UpdateControls();
@@ -440,7 +440,7 @@ public sealed class AgentActivity : AppCompatActivity
         row.SetGravity(isUser ? GravityFlags.End : GravityFlags.Start);
         var bubble = new MaterialCardView(this)
         {
-            Radius = Dp(16),
+            Radius = Dp(20),
             CardElevation = 0
         };
         bubble.SetCardBackgroundColor(GetColor(
@@ -456,7 +456,7 @@ public sealed class AgentActivity : AppCompatActivity
             TextSize = 15
         };
         text.SetTextColor(new Color(GetColor(
-            isUser ? global::Android.Resource.Color.White : Resource.Color.text_primary)));
+            isUser ? Resource.Color.on_brand_primary : Resource.Color.text_primary)));
         text.SetTextIsSelectable(true);
         text.SetPadding(Dp(14), Dp(11), Dp(14), Dp(11));
         bubble.AddView(text);
@@ -479,8 +479,8 @@ public sealed class AgentActivity : AppCompatActivity
 
     private void AddApproveAll(int count)
     {
-        var button = SecondaryButton($"Approve all {count} actions");
-        button.ContentDescription = $"Approve all {count} proposed actions";
+        var button = SecondaryButton(UiText.Format("Approve all {0} actions", count));
+        button.ContentDescription = UiText.Format("Approve all {0} proposed actions", count);
         button.Click += async (_, _) => await ApproveAllAsync(button);
         var layout = new LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MatchParent, Dp(48));
@@ -497,7 +497,7 @@ public sealed class AgentActivity : AppCompatActivity
             Orientation = global::Android.Widget.Orientation.Vertical
         };
         content.SetPadding(Dp(16), Dp(14), Dp(16), Dp(14));
-        content.AddView(Text("PROPOSED ACTION", 11, Resource.Color.brand_primary, true));
+        content.AddView(Text(UiText.Get("PROPOSED ACTION"), 11, Resource.Color.brand_primary, true));
         AddTo(content, Text(advice.ToolDisplayName, 17, Resource.Color.text_primary, true), 5, 6);
         if (advice.Parameters.Count > 0)
         {
@@ -530,7 +530,7 @@ public sealed class AgentActivity : AppCompatActivity
             Orientation = global::Android.Widget.Orientation.Horizontal
         };
         var reject = DangerOutlineButton("Reject");
-        var approve = PrimaryButton("Approve");
+        var approve = PrimaryButton(UiText.Get("Approve"));
         actions.AddView(reject, new LinearLayout.LayoutParams(0, Dp(48), 1));
         var approveLayout = new LinearLayout.LayoutParams(0, Dp(48), 1);
         approveLayout.SetMargins(Dp(10), 0, 0, 0);
@@ -622,7 +622,7 @@ public sealed class AgentActivity : AppCompatActivity
             _conversationId = null;
             _agentState = "Ready";
             _renderSignature = string.Empty;
-            _toolbar.Subtitle = "Ready";
+            _toolbar.Subtitle = UiText.Get("Ready");
             _thinking.Visibility = ViewStates.Gone;
             _newChat.Enabled = true;
             ClearExcel();
@@ -639,7 +639,7 @@ public sealed class AgentActivity : AppCompatActivity
             var response = await Api.GetAgentSessionsAsync();
             if (response.Sessions.Count == 0)
             {
-                Snackbar.Make(_root, "No previous conversations yet.", Snackbar.LengthShort).Show();
+                Snackbar.Make(_root, UiText.Get("No previous conversations yet."), Snackbar.LengthShort).Show();
                 return;
             }
 
@@ -648,9 +648,9 @@ public sealed class AgentActivity : AppCompatActivity
                 $"{session.Title}\n{session.State} · {session.LastActivity.ToLocalTime():yyyy-MM-dd HH:mm}")
                 .ToArray();
             var builder = new MaterialAlertDialogBuilder(this);
-            builder.SetTitle("Conversation history");
+            builder.SetTitle(UiText.Get("Conversation history"));
             builder.SetItems(labels, (_, args) => _ = OpenHistoryAsync(sessions[args.Which]));
-            builder.SetNegativeButton("Close", (_, _) => { });
+            builder.SetNegativeButton(UiText.Get("Close"), (_, _) => { });
             builder.Show();
         }
         catch (Exception exception)
@@ -702,7 +702,7 @@ public sealed class AgentActivity : AppCompatActivity
         }
         catch (ActivityNotFoundException)
         {
-            Snackbar.Make(_root, "No document picker is available on this device.", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("No document picker is available on this device."), Snackbar.LengthLong).Show();
         }
     }
 
@@ -711,12 +711,12 @@ public sealed class AgentActivity : AppCompatActivity
         var (name, size) = ReadDocumentMetadata(uri);
         if (!string.Equals(System.IO.Path.GetExtension(name), ".xlsx", StringComparison.OrdinalIgnoreCase))
         {
-            Snackbar.Make(_root, "Only .xlsx workbooks are supported.", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("Only .xlsx workbooks are supported."), Snackbar.LengthLong).Show();
             return;
         }
         if (size > MaxExcelBytes)
         {
-            Snackbar.Make(_root, "The workbook cannot exceed 10 MB.", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("The workbook cannot exceed 10 MB."), Snackbar.LengthLong).Show();
             return;
         }
 
@@ -730,7 +730,7 @@ public sealed class AgentActivity : AppCompatActivity
             _excelMarkdown = response.Markdown;
             _excelFileName = response.FileName;
             ShowExcel();
-            Snackbar.Make(_root, "Workbook attached", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Workbook attached"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -790,7 +790,7 @@ public sealed class AgentActivity : AppCompatActivity
 
     private void ShowExcel()
     {
-        _fileName.Text = $"Excel · {_excelFileName}";
+        _fileName.Text = UiText.Format("Excel · {0}", _excelFileName);
         _fileChip.Visibility = ViewStates.Visible;
     }
 
@@ -828,7 +828,7 @@ public sealed class AgentActivity : AppCompatActivity
     {
         var card = new MaterialCardView(this)
         {
-            Radius = Dp(16),
+            Radius = Dp(20),
             CardElevation = 0
         };
         card.SetCardBackgroundColor(GetColor(Resource.Color.surface));
@@ -843,7 +843,7 @@ public sealed class AgentActivity : AppCompatActivity
         {
             Text = text,
             TextSize = 14,
-            CornerRadius = Dp(14)
+            CornerRadius = Dp(20)
         };
         button.SetAllCaps(false);
         return button;
@@ -855,7 +855,7 @@ public sealed class AgentActivity : AppCompatActivity
         {
             Text = text,
             TextSize = 13,
-            CornerRadius = Dp(14)
+            CornerRadius = Dp(20)
         };
         button.SetAllCaps(false);
         button.SetTextColor(ColorStateList.ValueOf(ColorOf(Resource.Color.brand_primary)));
@@ -875,7 +875,7 @@ public sealed class AgentActivity : AppCompatActivity
         {
             Text = value,
             TextSize = size,
-            Typeface = bold ? Typeface.DefaultBold : Typeface.Default
+            Typeface = bold ? Typeface.Create("sans-serif-medium", TypefaceStyle.Normal) : Typeface.Create("sans-serif", TypefaceStyle.Normal)
         };
         view.SetTextColor(ColorOf(colorResource));
         return view;

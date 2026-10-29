@@ -143,7 +143,7 @@ public sealed class AccountSettingsActivity : AppCompatActivity
         _toolbar.SetOnApplyWindowInsetsListener(new ToolbarInsetListener(Dp(64)));
         _scroll.SetOnApplyWindowInsetsListener(
             new SystemBarInsetListener(0, 0, 0, Dp(12), false, true));
-        _toolbar.NavigationContentDescription = "Back to Kanban";
+        _toolbar.NavigationContentDescription = UiText.Get("Back to Kanban");
         _toolbar.NavigationClick += (_, _) => Finish();
     }
 
@@ -198,8 +198,8 @@ public sealed class AccountSettingsActivity : AppCompatActivity
         _language.SetSelection(Math.Max(0, Array.IndexOf(LanguageCodes, model.DailyReportLanguage)));
         _passwordSection.Visibility = model.CanChangePassword ? ViewStates.Visible : ViewStates.Gone;
         _deleteHint.Text = model.OwnedBoardCount == 0
-            ? "Deleting your account is permanent and cannot be undone."
-            : $"You own {model.OwnedBoardCount} board(s). Delete them before deleting your account.";
+            ? UiText.Get("Deleting your account is permanent and cannot be undone.")
+            : UiText.Format("You own {0} board(s). Delete them before deleting your account.", model.OwnedBoardCount);
         _deleteAccount.Enabled = model.OwnedBoardCount == 0 && !_busy;
         if (!string.Equals(_loadedAvatarUrl, model.AvatarUrl, StringComparison.Ordinal))
         {
@@ -213,7 +213,7 @@ public sealed class AccountSettingsActivity : AppCompatActivity
         var value = _displayName.Text?.Trim() ?? string.Empty;
         if (value.Length is < 2 or > 30)
         {
-            _displayNameBox.Error = "Use 2 to 30 characters";
+            _displayNameBox.Error = UiText.Get("Use 2 to 30 characters");
             return;
         }
         try
@@ -223,7 +223,7 @@ public sealed class AccountSettingsActivity : AppCompatActivity
             _model = await Api.UpdateProfileAsync(new UpdateProfileRequest { DisplayName = value });
             Session.UpdateDisplayName(_model.DisplayName);
             Render();
-            Snackbar.Make(_root, "Profile saved", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Profile saved"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -247,7 +247,7 @@ public sealed class AccountSettingsActivity : AppCompatActivity
                 DailyReportLanguage = LanguageCodes[_language.SelectedItemPosition]
             });
             Render();
-            Snackbar.Make(_root, "AI report settings saved", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("AI report settings saved"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -264,9 +264,9 @@ public sealed class AccountSettingsActivity : AppCompatActivity
         var current = _currentPassword.Text ?? string.Empty;
         var value = _newPassword.Text ?? string.Empty;
         var confirmation = _confirmPassword.Text ?? string.Empty;
-        _currentPasswordBox.Error = string.IsNullOrWhiteSpace(current) ? "Enter your current password" : null;
-        _newPasswordBox.Error = value.Length < 6 ? "Use at least 6 characters" : null;
-        _confirmPasswordBox.Error = value != confirmation ? "Passwords do not match" : null;
+        _currentPasswordBox.Error = string.IsNullOrWhiteSpace(current) ? UiText.Get("Enter your current password") : null;
+        _newPasswordBox.Error = value.Length < 6 ? UiText.Get("Use at least 6 characters") : null;
+        _confirmPasswordBox.Error = value != confirmation ? UiText.Get("Passwords do not match") : null;
         if (_currentPasswordBox.Error != null || _newPasswordBox.Error != null || _confirmPasswordBox.Error != null) return;
         try
         {
@@ -278,7 +278,7 @@ public sealed class AccountSettingsActivity : AppCompatActivity
                 ConfirmPassword = confirmation
             });
             _currentPassword.Text = _newPassword.Text = _confirmPassword.Text = string.Empty;
-            Snackbar.Make(_root, "Password changed", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("Password changed"), Snackbar.LengthLong).Show();
         }
         catch (Exception exception)
         {
@@ -302,7 +302,7 @@ public sealed class AccountSettingsActivity : AppCompatActivity
         }
         catch (ActivityNotFoundException)
         {
-            Snackbar.Make(_root, "No image picker is available.", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("No image picker is available."), Snackbar.LengthLong).Show();
         }
     }
 
@@ -312,12 +312,12 @@ public sealed class AccountSettingsActivity : AppCompatActivity
         var extension = System.IO.Path.GetExtension(name).TrimStart('.').ToLowerInvariant();
         if (extension is not ("png" or "jpg" or "jpeg" or "bmp"))
         {
-            Snackbar.Make(_root, "Choose a PNG, JPG, JPEG, or BMP image.", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("Choose a PNG, JPG, JPEG, or BMP image."), Snackbar.LengthLong).Show();
             return;
         }
         if (size > MaxAvatarBytes)
         {
-            Snackbar.Make(_root, "The profile photo cannot exceed 10 MB.", Snackbar.LengthLong).Show();
+            Snackbar.Make(_root, UiText.Get("The profile photo cannot exceed 10 MB."), Snackbar.LengthLong).Show();
             return;
         }
         try
@@ -331,7 +331,7 @@ public sealed class AccountSettingsActivity : AppCompatActivity
             _model = await Api.UpdateAvatarAsync(uploaded.Path);
             _loadedAvatarUrl = null;
             Render();
-            Snackbar.Make(_root, "Profile photo updated", Snackbar.LengthShort).Show();
+            Snackbar.Make(_root, UiText.Get("Profile photo updated"), Snackbar.LengthShort).Show();
         }
         catch (Exception exception)
         {
@@ -405,10 +405,10 @@ public sealed class AccountSettingsActivity : AppCompatActivity
     {
         if (_model?.OwnedBoardCount != 0 || _busy) return;
         var builder = new MaterialAlertDialogBuilder(this);
-        builder.SetTitle("Delete account permanently?");
-        builder.SetMessage("Your account data will be removed. This cannot be undone.");
-        builder.SetNegativeButton("Cancel", (_, _) => { });
-        builder.SetPositiveButton("Delete account", (_, _) => _ = DeleteAccountAsync());
+        builder.SetTitle(UiText.Get("Delete account permanently?"));
+        builder.SetMessage(UiText.Get("Your account data will be removed. This cannot be undone."));
+        builder.SetNegativeButton(UiText.Get("Cancel"), (_, _) => { });
+        builder.SetPositiveButton(UiText.Get("Delete account"), (_, _) => _ = DeleteAccountAsync());
         builder.Show();
     }
 
