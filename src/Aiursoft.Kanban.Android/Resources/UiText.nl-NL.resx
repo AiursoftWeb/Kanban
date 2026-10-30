@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · sinds {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} borden · één helder overzicht</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} kaarten</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} kaarten · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} kaarten · {1} kolommen</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} kolommen · {1} kaarten</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>{0} afbeelding(en) overgeslagen. Gebruik PNG, JPEG, GIF, WebP of BMP tot 10 MB.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>{0} van {1} geselecteerd</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} open · {1} bezig · {2} afgerond</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>{0} te laat</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} te laat · {1} niet toegewezen</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>{0} prioriteit  ·  Vervaldatum {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} reacties</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} rapporten</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} resultaten</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} ingepland · {1} zonder volledige datums</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} taken</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0} keert terug naar je actieve werkruimte.</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2} prioriteit</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Rapport openen.</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, gebruikt door {1} taken</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Tik voor meer informatie.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Tik voor details. Houd ingedrukt en sleep om te verplaatsen.</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>Taken van {0}</value>
+  </data>
+  <data name="+  Add card" xml:space="preserve">
+    <value>+  Kaart toevoegen</value>
+  </data>
+  <data name="1 report" xml:space="preserve">
+    <value>1 rapport</value>
+  </data>
+  <data name="1 result" xml:space="preserve">
+    <value>1 resultaat</value>
+  </data>
+  <data name="1 task" xml:space="preserve">
+    <value>1 taak</value>
+  </data>
+  <data name="A copy will be added to the end of this column. Replies, attachments, and activity history will not be copied." xml:space="preserve">
+    <value>Er wordt een kopie toegevoegd aan het einde van deze kolom. Reacties, bijlagen en de activiteitengeschiedenis worden niet gekopieerd.</value>
+  </data>
+  <data name="A little space for your next idea." xml:space="preserve">
+    <value>Een beetje ruimte voor je volgende idee.</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Toegang verwijderd</value>
+  </data>
+  <data name="ACTIONS" xml:space="preserve">
+    <value>ACTIES</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Werkelijk</value>
+  </data>
+  <data name="Actual end" xml:space="preserve">
+    <value>Werkelijk einde</value>
+  </data>
+  <data name="Actual end · earliest first" xml:space="preserve">
+    <value>Werkelijk einde · vroegste eerst</value>
+  </data>
+  <data name="Actual end · latest first" xml:space="preserve">
+    <value>Werkelijk einde · nieuwste eerst</value>
+  </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>De werkelijke eindtijd kan niet eerder zijn dan de werkelijke starttijd.</value>
+  </data>
+  <data name="Actual start" xml:space="preserve">
+    <value>Werkelijke start</value>
+  </data>
+  <data name="Actual start · earliest first" xml:space="preserve">
+    <value>Werkelijke start · vroegste eerst</value>
+  </data>
+  <data name="Actual start · latest first" xml:space="preserve">
+    <value>Werkelijke start · nieuwste eerst</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="Add column" xml:space="preserve">
+    <value>Kolom toevoegen</value>
+  </data>
+  <data name="Add images" xml:space="preserve">
+    <value>Afbeeldingen toevoegen</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>AANGEDREVEN DOOR AI</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>Instellingen van het AI-rapport opgeslagen</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Alles</value>
+  </data>
+  <data name="All caught up!" xml:space="preserve">
+    <value>Helemaal bijgewerkt!</value>
+  </data>
+  <data name="Already have an account? Sign in" xml:space="preserve">
+    <value>Heeft u al een account? Log in</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Uiterlijk</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Toepassen</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Goedkeuren</value>
+  </data>
+  <data name="Approve all {0} actions" xml:space="preserve">
+    <value>Keur alle {0} acties goed</value>
+  </data>
+  <data name="Approve all {0} proposed actions" xml:space="preserve">
+    <value>Keur alle {0} voorgestelde acties goed</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Archiveren</value>
+  </data>
+  <data name="Archive board" xml:space="preserve">
+    <value>Bord archiveren</value>
+  </data>
+  <data name="Archive board?" xml:space="preserve">
+    <value>Bord archiveren?</value>
+  </data>
+  <data name="Archive time unavailable" xml:space="preserve">
+    <value>Archiveringstijd niet beschikbaar</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>GEARCHIVEERD</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Gearchiveerd · {0} · {1}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>Gearchiveerd · Eigenaar</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Gearchiveerd op {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Gearchiveerde borden</value>
+  </data>
+  <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
+    <value>Gearchiveerde borden zijn alleen-lezen totdat de eigenaar ze herstelt.</value>
+  </data>
+  <data name="Assigned cards across your Kanban boards." xml:space="preserve">
+    <value>Toegewezen kaarten op al je Kanban-borden.</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Toegewezen taken</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>TOEGEWEZEN AAN</value>
+  </data>
+  <data name="Back to board" xml:space="preserve">
+    <value>Terug naar het bord</value>
+  </data>
+  <data name="Back to board settings" xml:space="preserve">
+    <value>Terug naar bordinstellingen</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Terug naar Kanban</value>
+  </data>
+  <data name="Back to reports" xml:space="preserve">
+    <value>Terug naar rapporten</value>
+  </data>
+  <data name="Board archived" xml:space="preserve">
+    <value>Bord gearchiveerd</value>
+  </data>
+  <data name="Board deleted" xml:space="preserve">
+    <value>Bord verwijderd</value>
+  </data>
+  <data name="Board is now private" xml:space="preserve">
+    <value>Het bord is nu privé</value>
+  </data>
+  <data name="Board is now public" xml:space="preserve">
+    <value>Bord is nu openbaar</value>
+  </data>
+  <data name="Board name" xml:space="preserve">
+    <value>Naam van het bord</value>
+  </data>
+  <data name="Board restored" xml:space="preserve">
+    <value>Bord hersteld</value>
+  </data>
+  <data name="Board settings saved" xml:space="preserve">
+    <value>Boardinstellingen opgeslagen</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Borden</value>
+  </data>
+  <data name="Boards shared with you will appear here." xml:space="preserve">
+    <value>Borden die met je zijn gedeeld, verschijnen hier.</value>
+  </data>
+  <data name="Boards you archive will appear here." xml:space="preserve">
+    <value>Borden die je archiveert, verschijnen hier.</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Kan bewerken</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Capture it now. Organize it by dragging later." xml:space="preserve">
+    <value>Leg het nu vast. Organiseer het later door te slepen.</value>
+  </data>
+  <data name="Card created" xml:space="preserve">
+    <value>Kaart aangemaakt</value>
+  </data>
+  <data name="Card details" xml:space="preserve">
+    <value>Kaartgegevens</value>
+  </data>
+  <data name="Card moved" xml:space="preserve">
+    <value>Kaart verplaatst</value>
+  </data>
+  <data name="Card title" xml:space="preserve">
+    <value>Kaarttitel</value>
+  </data>
+  <data name="Card transferred" xml:space="preserve">
+    <value>Kaart verplaatst</value>
+  </data>
+  <data name="Card updated" xml:space="preserve">
+    <value>Kaart bijgewerkt</value>
+  </data>
+  <data name="Cards across accessible boards" xml:space="preserve">
+    <value>Kaarten op toegankelijke borden</value>
+  </data>
+  <data name="Check the server address and network connection." xml:space="preserve">
+    <value>Controleer het serveradres en de netwerkverbinding.</value>
+  </data>
+  <data name="Choose a PNG, JPG, JPEG, or BMP image." xml:space="preserve">
+    <value>Kies een PNG-, JPG-, JPEG- of BMP-afbeelding.</value>
+  </data>
+  <data name="Choose images to attach to this reply" xml:space="preserve">
+    <value>Kies afbeeldingen om aan dit antwoord toe te voegen</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Wissen</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>KOLOM</value>
+  </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Kolom {0}</value>
+  </data>
+  <data name="Column added" xml:space="preserve">
+    <value>Kolom toegevoegd</value>
+  </data>
+  <data name="Column deleted" xml:space="preserve">
+    <value>Kolom verwijderd</value>
+  </data>
+  <data name="Column name" xml:space="preserve">
+    <value>Kolomnaam</value>
+  </data>
+  <data name="Column updated" xml:space="preserve">
+    <value>Kolom bijgewerkt</value>
+  </data>
+  <data name="Comment image" xml:space="preserve">
+    <value>Afbeelding van reactie</value>
+  </data>
+  <data name="Comment image preview" xml:space="preserve">
+    <value>Voorbeeld van een reactieafbeelding</value>
+  </data>
+  <data name="Comment image unavailable" xml:space="preserve">
+    <value>Afbeelding bij opmerking niet beschikbaar</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>OPMERKINGEN  {0}</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Voltooid</value>
+  </data>
+  <data name="Completing secure sign-in…" xml:space="preserve">
+    <value>Beveiligde aanmelding afronden…</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="Connected. Sign in to continue." xml:space="preserve">
+    <value>Verbonden. Meld u aan om door te gaan.</value>
+  </data>
+  <data name="Connecting securely…" xml:space="preserve">
+    <value>Beveiligde verbinding maken…</value>
+  </data>
+  <data name="Connection cancelled." xml:space="preserve">
+    <value>Verbinding geannuleerd.</value>
+  </data>
+  <data name="Conversation history" xml:space="preserve">
+    <value>Gespreksgeschiedenis</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="Copy card" xml:space="preserve">
+    <value>Kaart kopiëren</value>
+  </data>
+  <data name="Copy card?" xml:space="preserve">
+    <value>Kaart kopiëren?</value>
+  </data>
+  <data name="Could not create the account." xml:space="preserve">
+    <value>Het account kan niet worden aangemaakt.</value>
+  </data>
+  <data name="Could not load boards" xml:space="preserve">
+    <value>Kan borden niet laden</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Aanmaken</value>
+  </data>
+  <data name="Create a board" xml:space="preserve">
+    <value>Een bord maken</value>
+  </data>
+  <data name="Create a board to start organizing your work." xml:space="preserve">
+    <value>Maak een bord aan om je werk te organiseren.</value>
+  </data>
+  <data name="Create a card" xml:space="preserve">
+    <value>Maak een kaart</value>
+  </data>
+  <data name="Create a private board. You can manage visibility and sharing from board settings." xml:space="preserve">
+    <value>Maak een privébord aan. Je kunt de zichtbaarheid en het delen beheren via de bordinstellingen.</value>
+  </data>
+  <data name="Create account" xml:space="preserve">
+    <value>Account aanmaken</value>
+  </data>
+  <data name="Create an account" xml:space="preserve">
+    <value>Een account aanmaken</value>
+  </data>
+  <data name="Create card" xml:space="preserve">
+    <value>Kaart aanmaken</value>
+  </data>
+  <data name="Created by {0} · {1}" xml:space="preserve">
+    <value>Gemaakt door {0} · {1}</value>
+  </data>
+  <data name="Creating your account…" xml:space="preserve">
+    <value>Je account wordt aangemaakt…</value>
+  </data>
+  <data name="DAILY PLAN" xml:space="preserve">
+    <value>Dagplanning</value>
+  </data>
+  <data name="DAILY SUMMARY" xml:space="preserve">
+    <value>DAGOVERZICHT</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Donker</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>{0} en de bijbehorende {1} kaart(en) verwijderen? Dit kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>{0} verwijderen, inclusief alle {1} kolommen en alle {2} kaarten? Dit kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>{0} verwijderen? Dit kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="Delete account" xml:space="preserve">
+    <value>Account verwijderen</value>
+  </data>
+  <data name="Delete account permanently?" xml:space="preserve">
+    <value>Account definitief verwijderen?</value>
+  </data>
+  <data name="Delete board permanently?" xml:space="preserve">
+    <value>Bord definitief verwijderen?</value>
+  </data>
+  <data name="Delete card" xml:space="preserve">
+    <value>Kaart verwijderen</value>
+  </data>
+  <data name="Delete card?" xml:space="preserve">
+    <value>Kaart verwijderen?</value>
+  </data>
+  <data name="Delete column?" xml:space="preserve">
+    <value>Kolom verwijderen?</value>
+  </data>
+  <data name="Delete reply?" xml:space="preserve">
+    <value>Reactie verwijderen?</value>
+  </data>
+  <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
+    <value>Het verwijderen van je account is definitief en kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>Verwerpen</value>
+  </data>
+  <data name="Discard report" xml:space="preserve">
+    <value>Rapport verwijderen</value>
+  </data>
+  <data name="Discard weekly report?" xml:space="preserve">
+    <value>Weekrapport weggooien?</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Klaar</value>
+  </data>
+  <data name="Drop a card here" xml:space="preserve">
+    <value>Sleep hier een kaart naartoe</value>
+  </data>
+  <data name="Drop on another column to move" xml:space="preserve">
+    <value>Zet neer in een andere kolom om te verplaatsen</value>
+  </data>
+  <data name="Due" xml:space="preserve">
+    <value>Vervaldatum</value>
+  </data>
+  <data name="Due  {0}" xml:space="preserve">
+    <value>Vervaldatum  {0}</value>
+  </data>
+  <data name="Due {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Vervalt {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Edit card" xml:space="preserve">
+    <value>Kaart bewerken</value>
+  </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Voor het bewerken van werkelijke tijden is de machtiging &apos;Werkelijke tijd bewerken&apos; vereist.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mailadres</value>
+  </data>
+  <data name="Email or username" xml:space="preserve">
+    <value>E-mailadres of gebruikersnaam</value>
+  </data>
+  <data name="Enter a board name" xml:space="preserve">
+    <value>Voer een bordnaam in</value>
+  </data>
+  <data name="Enter a card title" xml:space="preserve">
+    <value>Voer een kaarttitel in</value>
+  </data>
+  <data name="Enter a column name" xml:space="preserve">
+    <value>Voer een kolomnaam in</value>
+  </data>
+  <data name="Enter a label name" xml:space="preserve">
+    <value>Voer een labelnaam in</value>
+  </data>
+  <data name="Enter a search query" xml:space="preserve">
+    <value>Voer een zoekopdracht in</value>
+  </data>
+  <data name="Enter a value from 1 to 365" xml:space="preserve">
+    <value>Voer een waarde in van 1 tot en met 365</value>
+  </data>
+  <data name="Enter a whole number" xml:space="preserve">
+    <value>Voer een geheel getal in</value>
+  </data>
+  <data name="Enter your current password" xml:space="preserve">
+    <value>Voer je huidige wachtwoord in</value>
+  </data>
+  <data name="Enter your email" xml:space="preserve">
+    <value>Voer je e-mailadres in</value>
+  </data>
+  <data name="Enter your email or username" xml:space="preserve">
+    <value>Voer je e-mailadres of gebruikersnaam in</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="Every {0} {1}" xml:space="preserve">
+    <value>Elke {0} {1}</value>
+  </data>
+  <data name="Excel · {0}" xml:space="preserve">
+    <value>Excel · {0}</value>
+  </data>
+  <data name="Export PNG" xml:space="preserve">
+    <value>PNG exporteren</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Exporteren…</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Filter ({0})" xml:space="preserve">
+    <value>Filteren ({0})</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Kaarten filteren</value>
+  </data>
+  <data name="Filter Gantt cards" xml:space="preserve">
+    <value>Gantt-kaarten filteren</value>
+  </data>
+  <data name="Filters &amp; sorting" xml:space="preserve">
+    <value>Filters en sorteren</value>
+  </data>
+  <data name="Find a board" xml:space="preserve">
+    <value>Zoek een bord</value>
+  </data>
+  <data name="Generated {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Gegenereerd {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>Globaal zoeken</value>
+  </data>
+  <data name="Hide editor" xml:space="preserve">
+    <value>Editor verbergen</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Hoog</value>
+  </data>
+  <data name="Hold to move {0}" xml:space="preserve">
+    <value>Houd ingedrukt om {0} te verplaatsen</value>
+  </data>
+  <data name="In progress" xml:space="preserve">
+    <value>Bezig</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Onvolledig</value>
+  </data>
+  <data name="Interval (1–365)" xml:space="preserve">
+    <value>Interval (1–365)</value>
+  </data>
+  <data name="K" xml:space="preserve">
+    <value>K</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Kanban-dashboard</value>
+  </data>
+  <data name="Label added" xml:space="preserve">
+    <value>Label toegevoegd</value>
+  </data>
+  <data name="Label removed" xml:space="preserve">
+    <value>Label verwijderd</value>
+  </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>LABELS</value>
+  </data>
+  <data name="Labels cannot exceed 100 characters" xml:space="preserve">
+    <value>Labels mogen niet langer zijn dan 100 tekens</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Licht</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>LOKAAL ACCOUNT</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Laag</value>
+  </data>
+  <data name="Make room for progress." xml:space="preserve">
+    <value>Maak ruimte voor vooruitgang.</value>
+  </data>
+  <data name="Mark all read" xml:space="preserve">
+    <value>Alles als gelezen markeren</value>
+  </data>
+  <data name="Mark as read" xml:space="preserve">
+    <value>Markeren als gelezen</value>
+  </data>
+  <data name="Match all" xml:space="preserve">
+    <value>Alles overeen laten komen</value>
+  </data>
+  <data name="Match any" xml:space="preserve">
+    <value>Komt overeen met een willekeurige</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Gemiddeld</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Maand</value>
+  </data>
+  <data name="Move {0} left" xml:space="preserve">
+    <value>Verplaats {0} naar links</value>
+  </data>
+  <data name="Move {0} right" xml:space="preserve">
+    <value>Verplaats {0} naar rechts</value>
+  </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Kaart verplaatsen</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>VERPLAATS NAAR KOLOM</value>
+  </data>
+  <data name="Move, copy or transfer" xml:space="preserve">
+    <value>Verplaatsen, kopiëren of overdragen</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>MIJN ACTIEVE TAKEN  ·  {0} BEZIG</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>MIJN GEARCHIVEERDE BORDEN</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>MIJN BORD</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Mijn borden</value>
+  </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Mijn activiteitenlogboeken</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Mijn taken</value>
+  </data>
+  <data name="Network issue · retrying" xml:space="preserve">
+    <value>Netwerkprobleem · opnieuw proberen</value>
+  </data>
+  <data name="New board" xml:space="preserve">
+    <value>Nieuw bord</value>
+  </data>
+  <data name="Newest first" xml:space="preserve">
+    <value>Nieuwste eerst</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Er zijn momenteel geen actieve taken aan je toegewezen.</value>
+  </data>
+  <data name="No archived boards" xml:space="preserve">
+    <value>Geen gearchiveerde borden</value>
+  </data>
+  <data name="No archived boards are shared with you." xml:space="preserve">
+    <value>Er zijn geen gearchiveerde borden met je gedeeld.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Er zijn nog geen borden met je gedeeld.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Er zijn nog geen borden aangemaakt.</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>Nog geen borden</value>
+  </data>
+  <data name="No cards" xml:space="preserve">
+    <value>Geen kaarten</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>Er zijn geen kaarten met volledige datums in deze modus.</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Geen kaarten voldoen aan de huidige filters.</value>
+  </data>
+  <data name="No columns yet. Add the first one here." xml:space="preserve">
+    <value>Nog geen kolommen. Voeg hier de eerste toe.</value>
+  </data>
+  <data name="No description provided." xml:space="preserve">
+    <value>Geen beschrijving opgegeven.</value>
+  </data>
+  <data name="No description yet." xml:space="preserve">
+    <value>Nog geen beschrijving.</value>
+  </data>
+  <data name="No document picker is available on this device." xml:space="preserve">
+    <value>Op dit apparaat is geen documentkiezer beschikbaar.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Geen vervaldatum</value>
+  </data>
+  <data name="No exportable chart is available in this mode." xml:space="preserve">
+    <value>In deze modus is geen exporteerbare grafiek beschikbaar.</value>
+  </data>
+  <data name="No image picker is available on this device." xml:space="preserve">
+    <value>Er is geen afbeeldingskiezer beschikbaar op dit apparaat.</value>
+  </data>
+  <data name="No image picker is available." xml:space="preserve">
+    <value>Er is geen afbeeldingskiezer beschikbaar.</value>
+  </data>
+  <data name="No labels" xml:space="preserve">
+    <value>Geen labels</value>
+  </data>
+  <data name="No matching boards. Try a different name." xml:space="preserve">
+    <value>Geen borden gevonden. Probeer een andere naam.</value>
+  </data>
+  <data name="No matching cards" xml:space="preserve">
+    <value>Geen overeenkomende kaarten</value>
+  </data>
+  <data name="No matching tasks" xml:space="preserve">
+    <value>Geen overeenkomende taken</value>
+  </data>
+  <data name="No one else has access yet." xml:space="preserve">
+    <value>Niemand anders heeft nog toegang.</value>
+  </data>
+  <data name="No other editable board with columns is available." xml:space="preserve">
+    <value>Er is geen ander bewerkbaar bord met kolommen beschikbaar.</value>
+  </data>
+  <data name="No previous conversations yet." xml:space="preserve">
+    <value>Nog geen eerdere gesprekken.</value>
+  </data>
+  <data name="No replies yet." xml:space="preserve">
+    <value>Nog geen reacties.</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Nog geen rapporten</value>
+  </data>
+  <data name="No unread notifications." xml:space="preserve">
+    <value>Geen ongelezen meldingen.</value>
+  </data>
+  <data name="No user or role is available to share with." xml:space="preserve">
+    <value>Er is geen gebruiker of rol beschikbaar om mee te delen.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="Not started" xml:space="preserve">
+    <value>Niet gestart</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Meldingen</value>
+  </data>
+  <data name="Oldest first" xml:space="preserve">
+    <value>Oudste eerst</value>
+  </data>
+  <data name="Only .xlsx workbooks are supported." xml:space="preserve">
+    <value>Alleen .xlsx-werkmappen worden ondersteund.</value>
+  </data>
+  <data name="Open board" xml:space="preserve">
+    <value>Board openen</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Open borden</value>
+  </data>
+  <data name="Open card" xml:space="preserve">
+    <value>Kaart openen</value>
+  </data>
+  <data name="Open comment image" xml:space="preserve">
+    <value>Afbeelding van opmerking openen</value>
+  </data>
+  <data name="Open original" xml:space="preserve">
+    <value>Origineel openen</value>
+  </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>OPERATIE</value>
+  </data>
+  <data name="Operation logging is not enabled on this server." xml:space="preserve">
+    <value>Logboekregistratie van bewerkingen is niet ingeschakeld op deze server.</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>AANMELDEN BIJ ORGANISATIE</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Verlopen</value>
+  </data>
+  <data name="Page {0} of {1}" xml:space="preserve">
+    <value>Pagina {0} van {1}</value>
+  </data>
+  <data name="Password changed" xml:space="preserve">
+    <value>Wachtwoord gewijzigd</value>
+  </data>
+  <data name="Password must contain at least 6 characters" xml:space="preserve">
+    <value>Het wachtwoord moet minimaal 6 tekens bevatten</value>
+  </data>
+  <data name="Passwords do not match" xml:space="preserve">
+    <value>Wachtwoorden komen niet overeen</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Gepland</value>
+  </data>
+  <data name="Planned end · earliest first" xml:space="preserve">
+    <value>Geplande einddatum · vroegste eerst</value>
+  </data>
+  <data name="Planned end · overdue first" xml:space="preserve">
+    <value>Geplande einddatum · eerst achterstallige</value>
+  </data>
+  <data name="Planned start" xml:space="preserve">
+    <value>Geplande start</value>
+  </data>
+  <data name="Planned start · earliest first" xml:space="preserve">
+    <value>Geplande start · vroegste eerst</value>
+  </data>
+  <data name="Planned start · latest first" xml:space="preserve">
+    <value>Geplande start · nieuwste eerst</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP of BMP · 10 MB per stuk</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>PRIORITEIT</value>
+  </data>
+  <data name="Priority · low first" xml:space="preserve">
+    <value>Prioriteit · laag eerst</value>
+  </data>
+  <data name="Priority · urgent first" xml:space="preserve">
+    <value>Prioriteit · urgent eerst</value>
+  </data>
+  <data name="Profile photo updated" xml:space="preserve">
+    <value>Profielfoto bijgewerkt</value>
+  </data>
+  <data name="Profile saved" xml:space="preserve">
+    <value>Profiel opgeslagen</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>VOORGESTELDE ACTIE</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Gereed</value>
+  </data>
+  <data name="Recurring cards require a due date." xml:space="preserve">
+    <value>Terugkerende kaarten moeten een vervaldatum hebben.</value>
+  </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Terugkerende taak</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Verwijder {0}</value>
+  </data>
+  <data name="Remove {0} from this board?" xml:space="preserve">
+    <value>{0} van dit bord verwijderen?</value>
+  </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Toegang verwijderen?</value>
+  </data>
+  <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
+    <value>Reacties mogen niet langer zijn dan 2.000 tekens</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Reageer</value>
+  </data>
+  <data name="Reply added" xml:space="preserve">
+    <value>Reactie toegevoegd</value>
+  </data>
+  <data name="Reply deleted" xml:space="preserve">
+    <value>Reactie verwijderd</value>
+  </data>
+  <data name="Report updated." xml:space="preserve">
+    <value>Rapport bijgewerkt.</value>
+  </data>
+  <data name="Resolve the current response before sending another message." xml:space="preserve">
+    <value>Los eerst de huidige reactie op voordat je een volgend bericht verstuurt.</value>
+  </data>
+  <data name="Results for “{0}”" xml:space="preserve">
+    <value>Resultaten voor “{0}”</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>Opnieuw proberen</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Wijzigingen opslaan</value>
+  </data>
+  <data name="Save pending edits before moving this card." xml:space="preserve">
+    <value>Sla de niet-opgeslagen wijzigingen op voordat je deze kaart verplaatst.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="Search Cards" xml:space="preserve">
+    <value>Zoek kaarten</value>
+  </data>
+  <data name="Search cards, tasks, or documents" xml:space="preserve">
+    <value>Zoek naar kaarten, taken of documenten</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Een label zoeken of maken</value>
+  </data>
+  <data name="Search this board and narrow it by priority." xml:space="preserve">
+    <value>Zoek dit bord en verfijn het op prioriteit.</value>
+  </data>
+  <data name="Search titles and descriptions across every board you can read." xml:space="preserve">
+    <value>Zoek in de titels en beschrijvingen van alle borden die je kunt bekijken.</value>
+  </data>
+  <data name="Sending…" xml:space="preserve">
+    <value>Verzenden…</value>
+  </data>
+  <data name="Set a due date before enabling recurrence." xml:space="preserve">
+    <value>Stel een vervaldatum in voordat je herhaling inschakelt.</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>GEDEELDE GEARCHIVEERDE BORDEN</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>GEDEELD BORD</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Gedeelde borden</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>Gedeeld met {0}</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Met mij gedeeld</value>
+  </data>
+  <data name="Sign in" xml:space="preserve">
+    <value>Aanmelden</value>
+  </data>
+  <data name="Sign-in failed." xml:space="preserve">
+    <value>Inloggen mislukt.</value>
+  </data>
+  <data name="Signing you in…" xml:space="preserve">
+    <value>Je wordt aangemeld…</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>SORTEREN</value>
+  </data>
+  <data name="Start  {0}" xml:space="preserve">
+    <value>Start  {0}</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Abonneren</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>Geabonneerd</value>
+  </data>
+  <data name="Subscribed to updates" xml:space="preserve">
+    <value>Geabonneerd op updates</value>
+  </data>
+  <data name="Switch server" xml:space="preserve">
+    <value>Van server wisselen</value>
+  </data>
+  <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
+    <value>De toegewezene wordt gewist en reacties blijven in de geschiedenis van de oorspronkelijke kaart staan.</value>
+  </data>
+  <data name="The board becomes read-only and moves to Archived." xml:space="preserve">
+    <value>Het bord wordt alleen-lezen en wordt verplaatst naar Gearchiveerd.</value>
+  </data>
+  <data name="The board returns to your active workspace." xml:space="preserve">
+    <value>Het bord wordt teruggezet naar je actieve werkruimte.</value>
+  </data>
+  <data name="The card and all of its replies will be permanently removed." xml:space="preserve">
+    <value>De kaart en alle reacties erop worden definitief verwijderd.</value>
+  </data>
+  <data name="The card is already in this column." xml:space="preserve">
+    <value>De kaart staat al in deze kolom.</value>
+  </data>
+  <data name="The chart is too large to export as one PNG image." xml:space="preserve">
+    <value>De grafiek is te groot om als één PNG-afbeelding te exporteren.</value>
+  </data>
+  <data name="The profile photo cannot exceed 10 MB." xml:space="preserve">
+    <value>De profielfoto mag niet groter zijn dan 10 MB.</value>
+  </data>
+  <data name="The report will be removed. The scheduled job may generate it again later." xml:space="preserve">
+    <value>Het rapport wordt verwijderd. De geplande taak kan het later opnieuw genereren.</value>
+  </data>
+  <data name="The workbook cannot exceed 10 MB." xml:space="preserve">
+    <value>Het werkboek mag niet groter zijn dan 10 MB.</value>
+  </data>
+  <data name="Thinking…" xml:space="preserve">
+    <value>Denken…</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>Dit bord bevat geen kaarten.</value>
+  </data>
+  <data name="This board has no columns" xml:space="preserve">
+    <value>Dit bord heeft geen kolommen</value>
+  </data>
+  <data name="This board has no columns." xml:space="preserve">
+    <value>Dit bord heeft geen kolommen.</value>
+  </data>
+  <data name="This board is view-only, so replies and edits are disabled." xml:space="preserve">
+    <value>Dit bord is alleen-lezen, dus reageren en bewerken is uitgeschakeld.</value>
+  </data>
+  <data name="This public board has no specific user or role shares." xml:space="preserve">
+    <value>Dit openbare bord heeft geen specifieke shares met gebruikers of rollen.</value>
+  </data>
+  <data name="This reply will be permanently removed." xml:space="preserve">
+    <value>Dit antwoord wordt permanent verwijderd.</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>TIJDLIJN</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Title · A–Z" xml:space="preserve">
+    <value>Titel · A–Z</value>
+  </data>
+  <data name="Title · Z–A" xml:space="preserve">
+    <value>Titel · Z–A</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Titel of beschrijving</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>RAPPORTEN VAN VANDAAG</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Overdragen</value>
+  </data>
+  <data name="Transfer card" xml:space="preserve">
+    <value>Kaart overzetten</value>
+  </data>
+  <data name="Transfer to another board" xml:space="preserve">
+    <value>Overzetten naar een ander bord</value>
+  </data>
+  <data name="Try another status, label, or assignee filter." xml:space="preserve">
+    <value>Probeer een ander filter voor status, label of toegewezene.</value>
+  </data>
+  <data name="Type a message first" xml:space="preserve">
+    <value>Typ eerst een bericht</value>
+  </data>
+  <data name="Unarchive" xml:space="preserve">
+    <value>Uit archief halen</value>
+  </data>
+  <data name="Unarchive board" xml:space="preserve">
+    <value>Bord uit archief halen</value>
+  </data>
+  <data name="Unarchive board?" xml:space="preserve">
+    <value>Bord uit archief halen?</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Niet toegewezen</value>
+  </data>
+  <data name="Unsubscribed from updates" xml:space="preserve">
+    <value>Afmelden voor updates</value>
+  </data>
+  <data name="Uploading image {0} of {1}…" xml:space="preserve">
+    <value>Afbeelding {0} van {1} wordt geüpload…</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Urgent</value>
+  </data>
+  <data name="Use 2 to 30 characters" xml:space="preserve">
+    <value>Gebruik 2 tot 30 tekens</value>
+  </data>
+  <data name="Use at least 6 characters" xml:space="preserve">
+    <value>Gebruik minimaal 6 tekens</value>
+  </data>
+  <data name="Use device setting" xml:space="preserve">
+    <value>Gebruik apparaatinstelling</value>
+  </data>
+  <data name="Use the same title, description, priority, and assignee filters as the board." xml:space="preserve">
+    <value>Gebruik dezelfde filters voor titel, beschrijving, prioriteit en toegewezen persoon als op het bord.</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Alleen bekijken</value>
+  </data>
+  <data name="Waiting for approval" xml:space="preserve">
+    <value>Wacht op goedkeuring</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>WEKELIJKS RAPPORT</value>
+  </data>
+  <data name="Weekly report discarded." xml:space="preserve">
+    <value>Wekelijks verslag weggegooid.</value>
+  </data>
+  <data name="Workbook attached" xml:space="preserve">
+    <value>Werkmap bijgevoegd</value>
+  </data>
+  <data name="Workspace" xml:space="preserve">
+    <value>Werkruimte</value>
+  </data>
+  <data name="Write a reply" xml:space="preserve">
+    <value>Schrijf een antwoord</value>
+  </data>
+  <data name="Write a reply first" xml:space="preserve">
+    <value>Schrijf eerst een antwoord</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Jaar</value>
+  </data>
+  <data name="You can attach up to {0} images." xml:space="preserve">
+    <value>Je kunt maximaal {0} afbeeldingen bijvoegen.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>Je hebt {0} ongelezen melding{1}.</value>
+  </data>
+  <data name="You have no archived boards." xml:space="preserve">
+    <value>Je hebt geen gearchiveerde borden.</value>
+  </data>
+  <data name="You have no unread notifications." xml:space="preserve">
+    <value>Je hebt geen ongelezen meldingen.</value>
+  </data>
+  <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
+    <value>U bezit {0} bord(en). Verwijder deze voordat u uw account verwijdert.</value>
+  </data>
+  <data name="Your account data will be removed. This cannot be undone." xml:space="preserve">
+    <value>Je accountgegevens worden verwijderd. Dit kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="Your generated plans and summaries will appear here." xml:space="preserve">
+    <value>Je gegenereerde plannen en samenvattingen verschijnen hier.</value>
+  </data>
+  <data name="Your generated weekly reports will appear here." xml:space="preserve">
+    <value>Je gegenereerde weekrapporten verschijnen hier.</value>
+  </data>
+  <data name="Your latest activity across Kanban · {0} total" xml:space="preserve">
+    <value>Je meest recente activiteit in Kanban · {0} in totaal</value>
+  </data>
+  <data name="Your workspace" xml:space="preserve">
+    <value>Jouw werkruimte</value>
+  </data>
+
+</root>
