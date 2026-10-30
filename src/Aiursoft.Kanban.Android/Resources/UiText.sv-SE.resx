@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · sedan {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} anslagstavlor · en tydlig överblick</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} kort</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} kort · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} kort · {1} kolumner</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} kolumner · {1} kort</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>{0} bild(er) hoppades över. Använd PNG, JPEG, GIF, WebP eller BMP på upp till 10 MB.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>{0} av {1} valda</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} öppna · {1} pågår · {2} klara</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>{0} sena</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} försenade · {1} utan tilldelning</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>{0} prioritet  ·  Förfaller {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} svar</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} rapporter</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} resultat</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} schemalagda · {1} utan fullständiga datum</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} uppgifter</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0} kommer att återgå till din aktiva arbetsyta.</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2} prioritet</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Öppna rapporten.</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, används av {1} uppgifter</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Tryck för mer information.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Tryck för mer information. Håll ned och dra för att flytta.</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>Uppgifter för {0}</value>
+  </data>
+  <data name="+  Add card" xml:space="preserve">
+    <value>+  Lägg till kort</value>
+  </data>
+  <data name="1 report" xml:space="preserve">
+    <value>1 rapport</value>
+  </data>
+  <data name="1 result" xml:space="preserve">
+    <value>1 resultat</value>
+  </data>
+  <data name="1 task" xml:space="preserve">
+    <value>1 uppgift</value>
+  </data>
+  <data name="A copy will be added to the end of this column. Replies, attachments, and activity history will not be copied." xml:space="preserve">
+    <value>En kopia läggs till sist i den här kolumnen. Svar, bifogade filer och aktivitetshistorik kopieras inte.</value>
+  </data>
+  <data name="A little space for your next idea." xml:space="preserve">
+    <value>Lite utrymme för din nästa idé.</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Åtkomsten har tagits bort</value>
+  </data>
+  <data name="ACTIONS" xml:space="preserve">
+    <value>ÅTGÄRDER</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Faktisk</value>
+  </data>
+  <data name="Actual end" xml:space="preserve">
+    <value>Verkligt slut</value>
+  </data>
+  <data name="Actual end · earliest first" xml:space="preserve">
+    <value>Faktiskt slut · tidigast först</value>
+  </data>
+  <data name="Actual end · latest first" xml:space="preserve">
+    <value>Faktiskt slut · senaste först</value>
+  </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>Den faktiska sluttiden kan inte vara tidigare än den faktiska starttiden.</value>
+  </data>
+  <data name="Actual start" xml:space="preserve">
+    <value>Faktisk start</value>
+  </data>
+  <data name="Actual start · earliest first" xml:space="preserve">
+    <value>Faktisk start · tidigast först</value>
+  </data>
+  <data name="Actual start · latest first" xml:space="preserve">
+    <value>Faktisk start · senaste först</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Lägg till</value>
+  </data>
+  <data name="Add column" xml:space="preserve">
+    <value>Lägg till kolumn</value>
+  </data>
+  <data name="Add images" xml:space="preserve">
+    <value>Lägg till bilder</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>AI-drivet</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>AI-rapportinställningarna har sparats</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Alla</value>
+  </data>
+  <data name="All caught up!" xml:space="preserve">
+    <value>Du är helt ikapp!</value>
+  </data>
+  <data name="Already have an account? Sign in" xml:space="preserve">
+    <value>Har du redan ett konto? Logga in</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Utseende</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Tillämpa</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Godkänn</value>
+  </data>
+  <data name="Approve all {0} actions" xml:space="preserve">
+    <value>Godkänn alla {0} åtgärder</value>
+  </data>
+  <data name="Approve all {0} proposed actions" xml:space="preserve">
+    <value>Godkänn alla {0} föreslagna åtgärder</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Arkivera</value>
+  </data>
+  <data name="Archive board" xml:space="preserve">
+    <value>Arkivera tavla</value>
+  </data>
+  <data name="Archive board?" xml:space="preserve">
+    <value>Arkivera anslagstavlan?</value>
+  </data>
+  <data name="Archive time unavailable" xml:space="preserve">
+    <value>Arkiveringstid saknas</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>ARKIVERAD</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Arkiverad · {0} · {1}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>Arkiverad · Ägare</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Arkiverades {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Arkiverade tavlor</value>
+  </data>
+  <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
+    <value>Arkiverade tabeller är skrivskyddade ända tills ägaren återställer dem.</value>
+  </data>
+  <data name="Assigned cards across your Kanban boards." xml:space="preserve">
+    <value>Tilldelade kort på dina Kanban-tavlor.</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Tilldelade uppgifter</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>TILLDELAD</value>
+  </data>
+  <data name="Back to board" xml:space="preserve">
+    <value>Tillbaka till tavlan</value>
+  </data>
+  <data name="Back to board settings" xml:space="preserve">
+    <value>Tillbaka till tavlans inställningar</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Tillbaka till Kanban</value>
+  </data>
+  <data name="Back to reports" xml:space="preserve">
+    <value>Tillbaka till rapporter</value>
+  </data>
+  <data name="Board archived" xml:space="preserve">
+    <value>Tavlan har arkiverats</value>
+  </data>
+  <data name="Board deleted" xml:space="preserve">
+    <value>Tavlan har tagits bort</value>
+  </data>
+  <data name="Board is now private" xml:space="preserve">
+    <value>Tavlan är nu privat</value>
+  </data>
+  <data name="Board is now public" xml:space="preserve">
+    <value>Tavlan är nu offentlig</value>
+  </data>
+  <data name="Board name" xml:space="preserve">
+    <value>Boardnamn</value>
+  </data>
+  <data name="Board restored" xml:space="preserve">
+    <value>Tavlan har återställts</value>
+  </data>
+  <data name="Board settings saved" xml:space="preserve">
+    <value>Tavlinställningarna har sparats</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Tavlor</value>
+  </data>
+  <data name="Boards shared with you will appear here." xml:space="preserve">
+    <value>Tavlor som delats med dig visas här.</value>
+  </data>
+  <data name="Boards you archive will appear here." xml:space="preserve">
+    <value>Tavlor du arkiverar visas här.</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Kan redigera</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="Capture it now. Organize it by dragging later." xml:space="preserve">
+    <value>Fånga upp det nu. Organisera det genom att dra det senare.</value>
+  </data>
+  <data name="Card created" xml:space="preserve">
+    <value>Kort skapat</value>
+  </data>
+  <data name="Card details" xml:space="preserve">
+    <value>Kortinformation</value>
+  </data>
+  <data name="Card moved" xml:space="preserve">
+    <value>Kort flyttat</value>
+  </data>
+  <data name="Card title" xml:space="preserve">
+    <value>Korttitel</value>
+  </data>
+  <data name="Card transferred" xml:space="preserve">
+    <value>Kortet har överförts</value>
+  </data>
+  <data name="Card updated" xml:space="preserve">
+    <value>Kortet har uppdaterats</value>
+  </data>
+  <data name="Cards across accessible boards" xml:space="preserve">
+    <value>Kort på tillgängliga tavlor</value>
+  </data>
+  <data name="Check the server address and network connection." xml:space="preserve">
+    <value>Kontrollera serveradressen och nätverksanslutningen.</value>
+  </data>
+  <data name="Choose a PNG, JPG, JPEG, or BMP image." xml:space="preserve">
+    <value>Välj en PNG-, JPG-, JPEG- eller BMP-bild.</value>
+  </data>
+  <data name="Choose images to attach to this reply" xml:space="preserve">
+    <value>Välj bilder som ska bifogas till detta svar</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Rensa</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>KOLUMN</value>
+  </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Kolumn {0}</value>
+  </data>
+  <data name="Column added" xml:space="preserve">
+    <value>Kolumn tillagd</value>
+  </data>
+  <data name="Column deleted" xml:space="preserve">
+    <value>Kolumn borttagen</value>
+  </data>
+  <data name="Column name" xml:space="preserve">
+    <value>Kolumnnamn</value>
+  </data>
+  <data name="Column updated" xml:space="preserve">
+    <value>Kolumnen uppdaterades</value>
+  </data>
+  <data name="Comment image" xml:space="preserve">
+    <value>Kommentarsbild</value>
+  </data>
+  <data name="Comment image preview" xml:space="preserve">
+    <value>Förhandsvisning av kommentarsbild</value>
+  </data>
+  <data name="Comment image unavailable" xml:space="preserve">
+    <value>Kommentarsbilden är inte tillgänglig</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>KOMMENTARER  {0}</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Slutförd</value>
+  </data>
+  <data name="Completing secure sign-in…" xml:space="preserve">
+    <value>Slutför säker inloggning…</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Anslut</value>
+  </data>
+  <data name="Connected. Sign in to continue." xml:space="preserve">
+    <value>Ansluten. Logga in för att fortsätta.</value>
+  </data>
+  <data name="Connecting securely…" xml:space="preserve">
+    <value>Ansluter säkert…</value>
+  </data>
+  <data name="Connection cancelled." xml:space="preserve">
+    <value>Anslutningen avbröts.</value>
+  </data>
+  <data name="Conversation history" xml:space="preserve">
+    <value>Konversationshistorik</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiera</value>
+  </data>
+  <data name="Copy card" xml:space="preserve">
+    <value>Kopiera kort</value>
+  </data>
+  <data name="Copy card?" xml:space="preserve">
+    <value>Kopiera kort?</value>
+  </data>
+  <data name="Could not create the account." xml:space="preserve">
+    <value>Det gick inte att skapa kontot.</value>
+  </data>
+  <data name="Could not load boards" xml:space="preserve">
+    <value>Det gick inte att läsa in tavlor</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Skapa</value>
+  </data>
+  <data name="Create a board" xml:space="preserve">
+    <value>Skapa en tavla</value>
+  </data>
+  <data name="Create a board to start organizing your work." xml:space="preserve">
+    <value>Skapa en tavla för att komma igång med att organisera ditt arbete.</value>
+  </data>
+  <data name="Create a card" xml:space="preserve">
+    <value>Skapa ett kort</value>
+  </data>
+  <data name="Create a private board. You can manage visibility and sharing from board settings." xml:space="preserve">
+    <value>Skapa en privat tavla. Du kan hantera synlighet och delning i tavlans inställningar.</value>
+  </data>
+  <data name="Create account" xml:space="preserve">
+    <value>Skapa konto</value>
+  </data>
+  <data name="Create an account" xml:space="preserve">
+    <value>Skapa ett konto</value>
+  </data>
+  <data name="Create card" xml:space="preserve">
+    <value>Skapa kort</value>
+  </data>
+  <data name="Created by {0} · {1}" xml:space="preserve">
+    <value>Skapad av {0} · {1}</value>
+  </data>
+  <data name="Creating your account…" xml:space="preserve">
+    <value>Skapar ditt konto…</value>
+  </data>
+  <data name="DAILY PLAN" xml:space="preserve">
+    <value>DAGLIG PLAN</value>
+  </data>
+  <data name="DAILY SUMMARY" xml:space="preserve">
+    <value>DAGLIG SAMMANFATTNING</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Mörkt</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>Ta bort {0} och dess {1} kort? Det här går inte att ångra.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>Ta bort {0}, alla {1} kolumner och alla {2} kort? Det här går inte att ångra.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>Ta bort {0}? Det går inte att ångra.</value>
+  </data>
+  <data name="Delete account" xml:space="preserve">
+    <value>Ta bort konto</value>
+  </data>
+  <data name="Delete account permanently?" xml:space="preserve">
+    <value>Ta bort kontot permanent?</value>
+  </data>
+  <data name="Delete board permanently?" xml:space="preserve">
+    <value>Ta bort tavlan permanent?</value>
+  </data>
+  <data name="Delete card" xml:space="preserve">
+    <value>Ta bort kort</value>
+  </data>
+  <data name="Delete card?" xml:space="preserve">
+    <value>Ta bort kortet?</value>
+  </data>
+  <data name="Delete column?" xml:space="preserve">
+    <value>Ta bort kolumnen?</value>
+  </data>
+  <data name="Delete reply?" xml:space="preserve">
+    <value>Ta bort svaret?</value>
+  </data>
+  <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
+    <value>Det går inte att ångra att du tar bort ditt konto.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>Kasta</value>
+  </data>
+  <data name="Discard report" xml:space="preserve">
+    <value>Släng rapporten</value>
+  </data>
+  <data name="Discard weekly report?" xml:space="preserve">
+    <value>Släng veckorapporten?</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Klart</value>
+  </data>
+  <data name="Drop a card here" xml:space="preserve">
+    <value>Släpp ett kort här</value>
+  </data>
+  <data name="Drop on another column to move" xml:space="preserve">
+    <value>Släpp på en annan kolumn för att flytta</value>
+  </data>
+  <data name="Due" xml:space="preserve">
+    <value>Förfaller</value>
+  </data>
+  <data name="Due  {0}" xml:space="preserve">
+    <value>Förfaller  {0}</value>
+  </data>
+  <data name="Due {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Förfaller {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Edit card" xml:space="preserve">
+    <value>Redigera kort</value>
+  </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Redigering av faktiska tider kräver behörigheten Redigera faktisk tid.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="Email or username" xml:space="preserve">
+    <value>E-postadress eller användarnamn</value>
+  </data>
+  <data name="Enter a board name" xml:space="preserve">
+    <value>Ange ett namn på tavlan</value>
+  </data>
+  <data name="Enter a card title" xml:space="preserve">
+    <value>Ange en korttitel</value>
+  </data>
+  <data name="Enter a column name" xml:space="preserve">
+    <value>Ange ett kolumnnamn</value>
+  </data>
+  <data name="Enter a label name" xml:space="preserve">
+    <value>Ange ett etikettnamn</value>
+  </data>
+  <data name="Enter a search query" xml:space="preserve">
+    <value>Ange en sökfråga</value>
+  </data>
+  <data name="Enter a value from 1 to 365" xml:space="preserve">
+    <value>Ange ett värde från 1 till 365</value>
+  </data>
+  <data name="Enter a whole number" xml:space="preserve">
+    <value>Ange ett heltal</value>
+  </data>
+  <data name="Enter your current password" xml:space="preserve">
+    <value>Ange ditt nuvarande lösenord</value>
+  </data>
+  <data name="Enter your email" xml:space="preserve">
+    <value>Ange din e-postadress</value>
+  </data>
+  <data name="Enter your email or username" xml:space="preserve">
+    <value>Ange din e-postadress eller ditt användarnamn</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fel</value>
+  </data>
+  <data name="Every {0} {1}" xml:space="preserve">
+    <value>Varje {0} {1}</value>
+  </data>
+  <data name="Excel · {0}" xml:space="preserve">
+    <value>Excel · {0}</value>
+  </data>
+  <data name="Export PNG" xml:space="preserve">
+    <value>Exportera PNG</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Exporterar…</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtrera</value>
+  </data>
+  <data name="Filter ({0})" xml:space="preserve">
+    <value>Filtrera ({0})</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Filtrera kort</value>
+  </data>
+  <data name="Filter Gantt cards" xml:space="preserve">
+    <value>Filtrera Gantt-kort</value>
+  </data>
+  <data name="Filters &amp; sorting" xml:space="preserve">
+    <value>Filter och sortering</value>
+  </data>
+  <data name="Find a board" xml:space="preserve">
+    <value>Hitta en tavla</value>
+  </data>
+  <data name="Generated {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Genererad {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>Global sökning</value>
+  </data>
+  <data name="Hide editor" xml:space="preserve">
+    <value>Dölj redigeraren</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Hög</value>
+  </data>
+  <data name="Hold to move {0}" xml:space="preserve">
+    <value>Håll ned för att flytta {0}</value>
+  </data>
+  <data name="In progress" xml:space="preserve">
+    <value>Pågående</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Ofullständig</value>
+  </data>
+  <data name="Interval (1–365)" xml:space="preserve">
+    <value>Intervall (1–365)</value>
+  </data>
+  <data name="K" xml:space="preserve">
+    <value>K</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Kanbanpanel</value>
+  </data>
+  <data name="Label added" xml:space="preserve">
+    <value>Etikett tillagd</value>
+  </data>
+  <data name="Label removed" xml:space="preserve">
+    <value>Etiketten har tagits bort</value>
+  </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>ETIKETTER</value>
+  </data>
+  <data name="Labels cannot exceed 100 characters" xml:space="preserve">
+    <value>Etiketter får inte vara längre än 100 tecken</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Ljust</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>LOKALT KONTO</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Låg</value>
+  </data>
+  <data name="Make room for progress." xml:space="preserve">
+    <value>Gör plats för framsteg.</value>
+  </data>
+  <data name="Mark all read" xml:space="preserve">
+    <value>Markera alla som lästa</value>
+  </data>
+  <data name="Mark as read" xml:space="preserve">
+    <value>Markera som läst</value>
+  </data>
+  <data name="Match all" xml:space="preserve">
+    <value>Matcha alla</value>
+  </data>
+  <data name="Match any" xml:space="preserve">
+    <value>Matcha valfritt</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medel</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Månad</value>
+  </data>
+  <data name="Move {0} left" xml:space="preserve">
+    <value>Flytta {0} åt vänster</value>
+  </data>
+  <data name="Move {0} right" xml:space="preserve">
+    <value>Flytta {0} åt höger</value>
+  </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Flytta kort</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>FLYTTA TILL KOLUMN</value>
+  </data>
+  <data name="Move, copy or transfer" xml:space="preserve">
+    <value>Flytta, kopiera eller överföra</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>MINA AKTIVA UPPGIFTER  ·  {0} PÅGÅR</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>MINA ARKIVERADE TAVLOR</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>MIN TAVLA</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Mina anslagstavlor</value>
+  </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Mina aktivitetsloggar</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Mina uppgifter</value>
+  </data>
+  <data name="Network issue · retrying" xml:space="preserve">
+    <value>Nätverksproblem · försöker igen</value>
+  </data>
+  <data name="New board" xml:space="preserve">
+    <value>Ny tavla</value>
+  </data>
+  <data name="Newest first" xml:space="preserve">
+    <value>Nyaste först</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Inga aktiva uppgifter har tilldelats dig just nu.</value>
+  </data>
+  <data name="No archived boards" xml:space="preserve">
+    <value>Inga arkiverade tavlor</value>
+  </data>
+  <data name="No archived boards are shared with you." xml:space="preserve">
+    <value>Inga arkiverade tavlor delas med dig.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Inga tavlor har delats med dig än.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Inga tavlor har skapats ännu.</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>Inga tavlor ännu</value>
+  </data>
+  <data name="No cards" xml:space="preserve">
+    <value>Inga kort</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>Inga kort har fullständiga datum i det här läget.</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Inga kort matchar de aktuella filtren.</value>
+  </data>
+  <data name="No columns yet. Add the first one here." xml:space="preserve">
+    <value>Inga kolumner ännu. Lägg till den första här.</value>
+  </data>
+  <data name="No description provided." xml:space="preserve">
+    <value>Ingen beskrivning har angetts.</value>
+  </data>
+  <data name="No description yet." xml:space="preserve">
+    <value>Ingen beskrivning ännu.</value>
+  </data>
+  <data name="No document picker is available on this device." xml:space="preserve">
+    <value>Ingen dokumentväljare är tillgänglig på den här enheten.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Inget förfallodatum</value>
+  </data>
+  <data name="No exportable chart is available in this mode." xml:space="preserve">
+    <value>Inget diagram kan exporteras i det här läget.</value>
+  </data>
+  <data name="No image picker is available on this device." xml:space="preserve">
+    <value>Ingen bildväljare är tillgänglig på den här enheten.</value>
+  </data>
+  <data name="No image picker is available." xml:space="preserve">
+    <value>Ingen bildväljare är tillgänglig.</value>
+  </data>
+  <data name="No labels" xml:space="preserve">
+    <value>Inga etiketter</value>
+  </data>
+  <data name="No matching boards. Try a different name." xml:space="preserve">
+    <value>Inga matchande anslagstavlor. Prova ett annat namn.</value>
+  </data>
+  <data name="No matching cards" xml:space="preserve">
+    <value>Inga matchande kort</value>
+  </data>
+  <data name="No matching tasks" xml:space="preserve">
+    <value>Inga matchande uppgifter</value>
+  </data>
+  <data name="No one else has access yet." xml:space="preserve">
+    <value>Ingen annan har åtkomst än.</value>
+  </data>
+  <data name="No other editable board with columns is available." xml:space="preserve">
+    <value>Det finns ingen annan redigerbar tavla med kolumner tillgänglig.</value>
+  </data>
+  <data name="No previous conversations yet." xml:space="preserve">
+    <value>Inga tidigare konversationer ännu.</value>
+  </data>
+  <data name="No replies yet." xml:space="preserve">
+    <value>Inga svar ännu.</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Inga rapporter ännu</value>
+  </data>
+  <data name="No unread notifications." xml:space="preserve">
+    <value>Inga olästa aviseringar.</value>
+  </data>
+  <data name="No user or role is available to share with." xml:space="preserve">
+    <value>Ingen användare eller roll är tillgänglig att dela med.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="Not started" xml:space="preserve">
+    <value>Inte påbörjad</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Aviseringar</value>
+  </data>
+  <data name="Oldest first" xml:space="preserve">
+    <value>Äldst först</value>
+  </data>
+  <data name="Only .xlsx workbooks are supported." xml:space="preserve">
+    <value>Endast arbetsböcker i .xlsx-format stöds.</value>
+  </data>
+  <data name="Open board" xml:space="preserve">
+    <value>Öppna tavla</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Öppna tavlor</value>
+  </data>
+  <data name="Open card" xml:space="preserve">
+    <value>Öppna kort</value>
+  </data>
+  <data name="Open comment image" xml:space="preserve">
+    <value>Öppna kommentarsbilden</value>
+  </data>
+  <data name="Open original" xml:space="preserve">
+    <value>Öppna originalet</value>
+  </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>OPERATION</value>
+  </data>
+  <data name="Operation logging is not enabled on this server." xml:space="preserve">
+    <value>Operationsloggning är inte aktiverad på den här servern.</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>ORGANISATIONSINLOGGNING</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Försenad</value>
+  </data>
+  <data name="Page {0} of {1}" xml:space="preserve">
+    <value>Sida {0} av {1}</value>
+  </data>
+  <data name="Password changed" xml:space="preserve">
+    <value>Lösenordet har ändrats</value>
+  </data>
+  <data name="Password must contain at least 6 characters" xml:space="preserve">
+    <value>Lösenordet måste innehålla minst 6 tecken</value>
+  </data>
+  <data name="Passwords do not match" xml:space="preserve">
+    <value>Lösenorden matchar inte</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planerad</value>
+  </data>
+  <data name="Planned end · earliest first" xml:space="preserve">
+    <value>Planerat slut · tidigast först</value>
+  </data>
+  <data name="Planned end · overdue first" xml:space="preserve">
+    <value>Planerat slut · förfallna först</value>
+  </data>
+  <data name="Planned start" xml:space="preserve">
+    <value>Planerad start</value>
+  </data>
+  <data name="Planned start · earliest first" xml:space="preserve">
+    <value>Planerad start · tidigast först</value>
+  </data>
+  <data name="Planned start · latest first" xml:space="preserve">
+    <value>Planerad start · senaste först</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP eller BMP · 10 MB per bild</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>PRIORITET</value>
+  </data>
+  <data name="Priority · low first" xml:space="preserve">
+    <value>Prioritet · lägsta först</value>
+  </data>
+  <data name="Priority · urgent first" xml:space="preserve">
+    <value>Prioritet · brådskande först</value>
+  </data>
+  <data name="Profile photo updated" xml:space="preserve">
+    <value>Profilbilden har uppdaterats</value>
+  </data>
+  <data name="Profile saved" xml:space="preserve">
+    <value>Profil sparad</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>FÖRESLAGEN ÅTGÄRD</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="Recurring cards require a due date." xml:space="preserve">
+    <value>Återkommande kort måste ha ett förfallodatum.</value>
+  </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Återkommande uppgift</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Ta bort {0}</value>
+  </data>
+  <data name="Remove {0} from this board?" xml:space="preserve">
+    <value>Ta bort {0} från det här kortläget?</value>
+  </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Ta bort åtkomsten?</value>
+  </data>
+  <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
+    <value>Svar får inte innehålla fler än 2 000 tecken</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Svara</value>
+  </data>
+  <data name="Reply added" xml:space="preserve">
+    <value>Svar tillagt</value>
+  </data>
+  <data name="Reply deleted" xml:space="preserve">
+    <value>Svar raderat</value>
+  </data>
+  <data name="Report updated." xml:space="preserve">
+    <value>Rapport uppdaterad.</value>
+  </data>
+  <data name="Resolve the current response before sending another message." xml:space="preserve">
+    <value>Lös den aktuella begäran innan du skickar ett nytt meddelande.</value>
+  </data>
+  <data name="Results for “{0}”" xml:space="preserve">
+    <value>Resultat för ”{0}”</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>Försök igen</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Spara ändringar</value>
+  </data>
+  <data name="Save pending edits before moving this card." xml:space="preserve">
+    <value>Spara väntande ändringar innan du flyttar det här kortet.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Sök</value>
+  </data>
+  <data name="Search Cards" xml:space="preserve">
+    <value>Sök kort</value>
+  </data>
+  <data name="Search cards, tasks, or documents" xml:space="preserve">
+    <value>Sök efter kort, uppgifter eller dokument</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Sök eller skapa en etikett</value>
+  </data>
+  <data name="Search this board and narrow it by priority." xml:space="preserve">
+    <value>Sök i detta board och begräns det efter prioritet.</value>
+  </data>
+  <data name="Search titles and descriptions across every board you can read." xml:space="preserve">
+    <value>Sök i titlar och beskrivningar över alla tavlor du kan läsa.</value>
+  </data>
+  <data name="Sending…" xml:space="preserve">
+    <value>Skickar…</value>
+  </data>
+  <data name="Set a due date before enabling recurrence." xml:space="preserve">
+    <value>Ange ett förfallodatum innan du aktiverar upprepning.</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>DELADE ARKIVERADE TAVLOR</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>DELAD TAVLA</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Delade tavlor</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>Delas med {0}</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Delat med mig</value>
+  </data>
+  <data name="Sign in" xml:space="preserve">
+    <value>Logga in</value>
+  </data>
+  <data name="Sign-in failed." xml:space="preserve">
+    <value>Inloggningen misslyckades.</value>
+  </data>
+  <data name="Signing you in…" xml:space="preserve">
+    <value>Loggar in dig…</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>SORTERA</value>
+  </data>
+  <data name="Start  {0}" xml:space="preserve">
+    <value>Starta  {0}</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Prenumerera</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>Prenumererar</value>
+  </data>
+  <data name="Subscribed to updates" xml:space="preserve">
+    <value>Prenumererar på uppdateringar</value>
+  </data>
+  <data name="Switch server" xml:space="preserve">
+    <value>Byt server</value>
+  </data>
+  <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
+    <value>Tilldelad person tas bort och svaren finns kvar i källkortets historik.</value>
+  </data>
+  <data name="The board becomes read-only and moves to Archived." xml:space="preserve">
+    <value>Tavlan blir skrivskyddad och flyttas till Arkiverade.</value>
+  </data>
+  <data name="The board returns to your active workspace." xml:space="preserve">
+    <value>Tavlan återgår till din aktiva arbetsyta.</value>
+  </data>
+  <data name="The card and all of its replies will be permanently removed." xml:space="preserve">
+    <value>Kortet och alla dess svar kommer att tas bort permanent.</value>
+  </data>
+  <data name="The card is already in this column." xml:space="preserve">
+    <value>Kortet finns redan i den här kolumnen.</value>
+  </data>
+  <data name="The chart is too large to export as one PNG image." xml:space="preserve">
+    <value>Diagrammet är för stort för att exporteras som en enda PNG-bild.</value>
+  </data>
+  <data name="The profile photo cannot exceed 10 MB." xml:space="preserve">
+    <value>Profilbilden får inte vara större än 10 MB.</value>
+  </data>
+  <data name="The report will be removed. The scheduled job may generate it again later." xml:space="preserve">
+    <value>Rapporten kommer att tas bort. Det schemalagda jobbet kan skapa det igen senare.</value>
+  </data>
+  <data name="The workbook cannot exceed 10 MB." xml:space="preserve">
+    <value>Arbetsboken får inte vara större än 10 MB.</value>
+  </data>
+  <data name="Thinking…" xml:space="preserve">
+    <value>Tänker…</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>Den här tavlan har inga kort.</value>
+  </data>
+  <data name="This board has no columns" xml:space="preserve">
+    <value>Den här tavlan har inga kolumner</value>
+  </data>
+  <data name="This board has no columns." xml:space="preserve">
+    <value>Den här tavlan har inga kolumner.</value>
+  </data>
+  <data name="This board is view-only, so replies and edits are disabled." xml:space="preserve">
+    <value>Den här anslagstavlan är skrivskyddad, så det går inte att svara eller redigera.</value>
+  </data>
+  <data name="This public board has no specific user or role shares." xml:space="preserve">
+    <value>Den här offentliga tavlan har inga delningar med specifika användare eller roller.</value>
+  </data>
+  <data name="This reply will be permanently removed." xml:space="preserve">
+    <value>Det här svaret kommer att tas bort permanent.</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>TIDSLINJE</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Title · A–Z" xml:space="preserve">
+    <value>Titel · A–Ö</value>
+  </data>
+  <data name="Title · Z–A" xml:space="preserve">
+    <value>Titel · Z–A</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Titel eller beskrivning</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>DAGENS RAPPORTER</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Överför</value>
+  </data>
+  <data name="Transfer card" xml:space="preserve">
+    <value>Överför kort</value>
+  </data>
+  <data name="Transfer to another board" xml:space="preserve">
+    <value>Flytta till en annan tavla</value>
+  </data>
+  <data name="Try another status, label, or assignee filter." xml:space="preserve">
+    <value>Prova ett annat filter för status, etikett eller ansvarig.</value>
+  </data>
+  <data name="Type a message first" xml:space="preserve">
+    <value>Skriv ett meddelande först</value>
+  </data>
+  <data name="Unarchive" xml:space="preserve">
+    <value>Avarkivera</value>
+  </data>
+  <data name="Unarchive board" xml:space="preserve">
+    <value>Avarkivera tavla</value>
+  </data>
+  <data name="Unarchive board?" xml:space="preserve">
+    <value>Återställa arkiverad tavla?</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Inte tilldelad</value>
+  </data>
+  <data name="Unsubscribed from updates" xml:space="preserve">
+    <value>Avregistrerad från uppdateringar</value>
+  </data>
+  <data name="Uploading image {0} of {1}…" xml:space="preserve">
+    <value>Laddar upp bild {0} av {1}…</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Brådskande</value>
+  </data>
+  <data name="Use 2 to 30 characters" xml:space="preserve">
+    <value>Använd 2 till 30 tecken</value>
+  </data>
+  <data name="Use at least 6 characters" xml:space="preserve">
+    <value>Använd minst 6 tecken</value>
+  </data>
+  <data name="Use device setting" xml:space="preserve">
+    <value>Använd enhetsinställningen</value>
+  </data>
+  <data name="Use the same title, description, priority, and assignee filters as the board." xml:space="preserve">
+    <value>Använd samma filter för titel, beskrivning, prioritet och ansvarig som på tavlan.</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Endast visning</value>
+  </data>
+  <data name="Waiting for approval" xml:space="preserve">
+    <value>Väntar på godkännande</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Vecka</value>
+  </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>VECKORAPPORT</value>
+  </data>
+  <data name="Weekly report discarded." xml:space="preserve">
+    <value>Veckorapporten har tagits bort.</value>
+  </data>
+  <data name="Workbook attached" xml:space="preserve">
+    <value>Arbetsbok bifogad</value>
+  </data>
+  <data name="Workspace" xml:space="preserve">
+    <value>Arbetsyta</value>
+  </data>
+  <data name="Write a reply" xml:space="preserve">
+    <value>Skriv ett svar</value>
+  </data>
+  <data name="Write a reply first" xml:space="preserve">
+    <value>Skriv ett svar först</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>År</value>
+  </data>
+  <data name="You can attach up to {0} images." xml:space="preserve">
+    <value>Du kan bifoga upp till {0} bilder.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>Du har {0} oläst avisering{1}.</value>
+  </data>
+  <data name="You have no archived boards." xml:space="preserve">
+    <value>Du har inga arkiverade tavlor.</value>
+  </data>
+  <data name="You have no unread notifications." xml:space="preserve">
+    <value>Du har inga olästa aviseringar.</value>
+  </data>
+  <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
+    <value>Du äger {0} tavla/tavlor. Ta bort dem innan du tar bort ditt konto.</value>
+  </data>
+  <data name="Your account data will be removed. This cannot be undone." xml:space="preserve">
+    <value>Dina kontouppgifter kommer att tas bort. Detta går inte att ångra.</value>
+  </data>
+  <data name="Your generated plans and summaries will appear here." xml:space="preserve">
+    <value>Dina skapade planer och sammanfattningar visas här.</value>
+  </data>
+  <data name="Your generated weekly reports will appear here." xml:space="preserve">
+    <value>Dina genererade veckorapporter visas här.</value>
+  </data>
+  <data name="Your latest activity across Kanban · {0} total" xml:space="preserve">
+    <value>Din senaste aktivitet i Kanban · {0} totalt</value>
+  </data>
+  <data name="Your workspace" xml:space="preserve">
+    <value>Din arbetsyta</value>
+  </data>
+
+</root>
