@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · з {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} дошок · усе наочно</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} карток</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} карток · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} карток · {1} стовпців</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} стовпців · {1} карток</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>Пропущено зображень: {0}. Використовуйте PNG, JPEG, GIF, WebP або BMP розміром до 10 МБ.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>Вибрано: {0} із {1}</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} відкрито · {1} у процесі · {2} виконано</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>Прострочено: {0}</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} прострочено · {1} не призначено</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>Пріоритет: {0}  ·  До {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>Відповідей: {0}</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} звітів</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>Результатів: {0}</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} заплановано · {1} без повних дат</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} завдань</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0} повернеться до вашого активного робочого простору.</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2} пріоритет</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Відкрити звіт.</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, використовується {1} завданнями</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Торкніться, щоб дізнатися більше.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Торкніться, щоб переглянути подробиці. Натисніть і утримуйте, а потім перетягніть, щоб перемістити.</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>Завдання користувача {0}</value>
+  </data>
+  <data name="+  Add card" xml:space="preserve">
+    <value>+  Додати картку</value>
+  </data>
+  <data name="1 report" xml:space="preserve">
+    <value>1 звіт</value>
+  </data>
+  <data name="1 result" xml:space="preserve">
+    <value>1 результат</value>
+  </data>
+  <data name="1 task" xml:space="preserve">
+    <value>1 завдання</value>
+  </data>
+  <data name="A copy will be added to the end of this column. Replies, attachments, and activity history will not be copied." xml:space="preserve">
+    <value>Копію буде додано в кінець цього стовпця. Відповіді, вкладення та історію активності не буде скопійовано.</value>
+  </data>
+  <data name="A little space for your next idea." xml:space="preserve">
+    <value>Трохи простору для вашої наступної ідеї.</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Доступ скасовано</value>
+  </data>
+  <data name="ACTIONS" xml:space="preserve">
+    <value>ДІЇ</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Фактичні</value>
+  </data>
+  <data name="Actual end" xml:space="preserve">
+    <value>Фактичне завершення</value>
+  </data>
+  <data name="Actual end · earliest first" xml:space="preserve">
+    <value>Фактичне завершення · спочатку найраніші</value>
+  </data>
+  <data name="Actual end · latest first" xml:space="preserve">
+    <value>Фактичне завершення · спочатку найпізніші</value>
+  </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>Фактичний час завершення не може бути ранішим за фактичний час початку.</value>
+  </data>
+  <data name="Actual start" xml:space="preserve">
+    <value>Фактичний початок</value>
+  </data>
+  <data name="Actual start · earliest first" xml:space="preserve">
+    <value>Фактичний початок · спочатку найраніші</value>
+  </data>
+  <data name="Actual start · latest first" xml:space="preserve">
+    <value>Фактичний початок · спочатку найпізніші</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Додати</value>
+  </data>
+  <data name="Add column" xml:space="preserve">
+    <value>Додати стовпець</value>
+  </data>
+  <data name="Add images" xml:space="preserve">
+    <value>Додати зображення</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>НА БАЗІ ШІ</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>Налаштування звіту ШІ збережено</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Усі</value>
+  </data>
+  <data name="All caught up!" xml:space="preserve">
+    <value>Усе зроблено!</value>
+  </data>
+  <data name="Already have an account? Sign in" xml:space="preserve">
+    <value>Уже маєте обліковий запис? Увійти</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Зовнішній вигляд</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Застосувати</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Затвердити</value>
+  </data>
+  <data name="Approve all {0} actions" xml:space="preserve">
+    <value>Схвалити всі дії ({0})</value>
+  </data>
+  <data name="Approve all {0} proposed actions" xml:space="preserve">
+    <value>Схвалити всі запропоновані дії ({0})</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Архівувати</value>
+  </data>
+  <data name="Archive board" xml:space="preserve">
+    <value>Архівувати дошку</value>
+  </data>
+  <data name="Archive board?" xml:space="preserve">
+    <value>Архівувати дошку?</value>
+  </data>
+  <data name="Archive time unavailable" xml:space="preserve">
+    <value>Час архівування недоступний</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>АРХІВОВАНО</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Архівовано · {0} · {1}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>В архіві · Власник</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Заархівовано {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Архівовані дошки</value>
+  </data>
+  <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
+    <value>Архівні дошки доступні лише для читання, доки їхній власник не відновить їх.</value>
+  </data>
+  <data name="Assigned cards across your Kanban boards." xml:space="preserve">
+    <value>Призначені картки на ваших дошках Kanban.</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Призначені завдання</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>ВІДПОВІДАЛЬНИЙ</value>
+  </data>
+  <data name="Back to board" xml:space="preserve">
+    <value>Назад до дошки</value>
+  </data>
+  <data name="Back to board settings" xml:space="preserve">
+    <value>Назад до налаштувань дошки</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Назад до Kanban</value>
+  </data>
+  <data name="Back to reports" xml:space="preserve">
+    <value>Назад до звітів</value>
+  </data>
+  <data name="Board archived" xml:space="preserve">
+    <value>Дошку заархівовано</value>
+  </data>
+  <data name="Board deleted" xml:space="preserve">
+    <value>Дошку видалено</value>
+  </data>
+  <data name="Board is now private" xml:space="preserve">
+    <value>Тепер дошка приватна</value>
+  </data>
+  <data name="Board is now public" xml:space="preserve">
+    <value>Тепер дошка загальнодоступна</value>
+  </data>
+  <data name="Board name" xml:space="preserve">
+    <value>Назва дошки</value>
+  </data>
+  <data name="Board restored" xml:space="preserve">
+    <value>Дошку відновлено</value>
+  </data>
+  <data name="Board settings saved" xml:space="preserve">
+    <value>Налаштування дошки збережено</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Дошки</value>
+  </data>
+  <data name="Boards shared with you will appear here." xml:space="preserve">
+    <value>Дощки, з якими вас поділилися, з&apos;являться тут.</value>
+  </data>
+  <data name="Boards you archive will appear here." xml:space="preserve">
+    <value>Тут відображатимуться дошки, які ви архівуєте.</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Може редагувати</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Capture it now. Organize it by dragging later." xml:space="preserve">
+    <value>Зафіксуйте це зараз. Упорядкуєте пізніше, перетягнувши.</value>
+  </data>
+  <data name="Card created" xml:space="preserve">
+    <value>Картку створено</value>
+  </data>
+  <data name="Card details" xml:space="preserve">
+    <value>Деталі картки</value>
+  </data>
+  <data name="Card moved" xml:space="preserve">
+    <value>Картку переміщено</value>
+  </data>
+  <data name="Card title" xml:space="preserve">
+    <value>Назва картки</value>
+  </data>
+  <data name="Card transferred" xml:space="preserve">
+    <value>Картку перенесено</value>
+  </data>
+  <data name="Card updated" xml:space="preserve">
+    <value>Картку оновлено</value>
+  </data>
+  <data name="Cards across accessible boards" xml:space="preserve">
+    <value>Картки на доступних дошках</value>
+  </data>
+  <data name="Check the server address and network connection." xml:space="preserve">
+    <value>Перевірте адресу сервера та мережеве підключення.</value>
+  </data>
+  <data name="Choose a PNG, JPG, JPEG, or BMP image." xml:space="preserve">
+    <value>Виберіть зображення у форматі PNG, JPG, JPEG або BMP.</value>
+  </data>
+  <data name="Choose images to attach to this reply" xml:space="preserve">
+    <value>Виберіть зображення, щоб прикріпити їх до цієї відповіді</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Очистити</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>СТОВПЕЦЬ</value>
+  </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Колонка {0}</value>
+  </data>
+  <data name="Column added" xml:space="preserve">
+    <value>Стовпець додано</value>
+  </data>
+  <data name="Column deleted" xml:space="preserve">
+    <value>Стовпець видалено</value>
+  </data>
+  <data name="Column name" xml:space="preserve">
+    <value>Назва стовпця</value>
+  </data>
+  <data name="Column updated" xml:space="preserve">
+    <value>Стовпець оновлено</value>
+  </data>
+  <data name="Comment image" xml:space="preserve">
+    <value>Зображення коментаря</value>
+  </data>
+  <data name="Comment image preview" xml:space="preserve">
+    <value>Попередній перегляд зображення коментаря</value>
+  </data>
+  <data name="Comment image unavailable" xml:space="preserve">
+    <value>Зображення коментаря недоступне</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>КОМЕНТАРІ  {0}</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="Completing secure sign-in…" xml:space="preserve">
+    <value>Завершення безпечного входу…</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Підключитися</value>
+  </data>
+  <data name="Connected. Sign in to continue." xml:space="preserve">
+    <value>Підключено. Увійдіть, щоб продовжити.</value>
+  </data>
+  <data name="Connecting securely…" xml:space="preserve">
+    <value>Безпечне підключення…</value>
+  </data>
+  <data name="Connection cancelled." xml:space="preserve">
+    <value>З’єднання скасовано.</value>
+  </data>
+  <data name="Conversation history" xml:space="preserve">
+    <value>Історія розмови</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Копіювати</value>
+  </data>
+  <data name="Copy card" xml:space="preserve">
+    <value>Копіювати картку</value>
+  </data>
+  <data name="Copy card?" xml:space="preserve">
+    <value>Скопіювати картку?</value>
+  </data>
+  <data name="Could not create the account." xml:space="preserve">
+    <value>Не вдалося створити обліковий запис.</value>
+  </data>
+  <data name="Could not load boards" xml:space="preserve">
+    <value>Не вдалося завантажити дошки</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Створити</value>
+  </data>
+  <data name="Create a board" xml:space="preserve">
+    <value>Створити дошку</value>
+  </data>
+  <data name="Create a board to start organizing your work." xml:space="preserve">
+    <value>Створіть дошку, щоб почати впорядковувати свою роботу.</value>
+  </data>
+  <data name="Create a card" xml:space="preserve">
+    <value>Створити картку</value>
+  </data>
+  <data name="Create a private board. You can manage visibility and sharing from board settings." xml:space="preserve">
+    <value>Створіть приватну дошку. Керувати її видимістю та доступом до неї можна в налаштуваннях дошки.</value>
+  </data>
+  <data name="Create account" xml:space="preserve">
+    <value>Створити обліковий запис</value>
+  </data>
+  <data name="Create an account" xml:space="preserve">
+    <value>Створити обліковий запис</value>
+  </data>
+  <data name="Create card" xml:space="preserve">
+    <value>Створити картку</value>
+  </data>
+  <data name="Created by {0} · {1}" xml:space="preserve">
+    <value>Створено: {0} · {1}</value>
+  </data>
+  <data name="Creating your account…" xml:space="preserve">
+    <value>Створення облікового запису…</value>
+  </data>
+  <data name="DAILY PLAN" xml:space="preserve">
+    <value>ЩОДЕННИЙ ПЛАН</value>
+  </data>
+  <data name="DAILY SUMMARY" xml:space="preserve">
+    <value>ЩОДЕННИЙ ПІДСУМОК</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Темна</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>Видалити {0} та {1} пов’язаних із ним карток? Цю дію неможливо скасувати.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>Видалити {0}, усі стовпці ({1}) та всі картки ({2})? Цю дію неможливо скасувати.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>Видалити {0}? Цю дію неможливо скасувати.</value>
+  </data>
+  <data name="Delete account" xml:space="preserve">
+    <value>Видалити обліковий запис</value>
+  </data>
+  <data name="Delete account permanently?" xml:space="preserve">
+    <value>Видалити обліковий запис назавжди?</value>
+  </data>
+  <data name="Delete board permanently?" xml:space="preserve">
+    <value>Видалити дошку назавжди?</value>
+  </data>
+  <data name="Delete card" xml:space="preserve">
+    <value>Видалити картку</value>
+  </data>
+  <data name="Delete card?" xml:space="preserve">
+    <value>Видалити картку?</value>
+  </data>
+  <data name="Delete column?" xml:space="preserve">
+    <value>Видалити стовпець?</value>
+  </data>
+  <data name="Delete reply?" xml:space="preserve">
+    <value>Видалити відповідь?</value>
+  </data>
+  <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
+    <value>Видалення облікового запису є остаточним і його неможливо скасувати.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>Відхилити</value>
+  </data>
+  <data name="Discard report" xml:space="preserve">
+    <value>Відхилити звіт</value>
+  </data>
+  <data name="Discard weekly report?" xml:space="preserve">
+    <value>Відхилити тижневий звіт?</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Drop a card here" xml:space="preserve">
+    <value>Перетягніть картку сюди</value>
+  </data>
+  <data name="Drop on another column to move" xml:space="preserve">
+    <value>Перетягніть до іншої колонки, щоб перемістити</value>
+  </data>
+  <data name="Due" xml:space="preserve">
+    <value>Термін</value>
+  </data>
+  <data name="Due  {0}" xml:space="preserve">
+    <value>До  {0}</value>
+  </data>
+  <data name="Due {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>До {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Edit card" xml:space="preserve">
+    <value>Редагувати картку</value>
+  </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Для редагування фактичного часу потрібен дозвіл «Редагування фактичного часу».</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Електронна пошта</value>
+  </data>
+  <data name="Email or username" xml:space="preserve">
+    <value>Електронна пошта або ім’я користувача</value>
+  </data>
+  <data name="Enter a board name" xml:space="preserve">
+    <value>Введіть назву дошки</value>
+  </data>
+  <data name="Enter a card title" xml:space="preserve">
+    <value>Введіть назву картки</value>
+  </data>
+  <data name="Enter a column name" xml:space="preserve">
+    <value>Введіть назву стовпця</value>
+  </data>
+  <data name="Enter a label name" xml:space="preserve">
+    <value>Введіть назву мітки</value>
+  </data>
+  <data name="Enter a search query" xml:space="preserve">
+    <value>Введіть пошуковий запит</value>
+  </data>
+  <data name="Enter a value from 1 to 365" xml:space="preserve">
+    <value>Введіть значення від 1 до 365</value>
+  </data>
+  <data name="Enter a whole number" xml:space="preserve">
+    <value>Введіть ціле число</value>
+  </data>
+  <data name="Enter your current password" xml:space="preserve">
+    <value>Введіть свій поточний пароль</value>
+  </data>
+  <data name="Enter your email" xml:space="preserve">
+    <value>Введіть свою електронну пошту</value>
+  </data>
+  <data name="Enter your email or username" xml:space="preserve">
+    <value>Введіть свою електронну пошту або ім’я користувача</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="Every {0} {1}" xml:space="preserve">
+    <value>Кожні {0} {1}</value>
+  </data>
+  <data name="Excel · {0}" xml:space="preserve">
+    <value>Excel · {0}</value>
+  </data>
+  <data name="Export PNG" xml:space="preserve">
+    <value>Експортувати PNG</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Експорт триває…</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Фільтр</value>
+  </data>
+  <data name="Filter ({0})" xml:space="preserve">
+    <value>Фільтр ({0})</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Фільтрувати картки</value>
+  </data>
+  <data name="Filter Gantt cards" xml:space="preserve">
+    <value>Фільтрувати картки діаграми Ґанта</value>
+  </data>
+  <data name="Filters &amp; sorting" xml:space="preserve">
+    <value>Фільтри й сортування</value>
+  </data>
+  <data name="Find a board" xml:space="preserve">
+    <value>Знайти дошку</value>
+  </data>
+  <data name="Generated {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Згенеровано {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>Глобальний пошук</value>
+  </data>
+  <data name="Hide editor" xml:space="preserve">
+    <value>Приховати редактор</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Високий</value>
+  </data>
+  <data name="Hold to move {0}" xml:space="preserve">
+    <value>Утримуйте, щоб перемістити {0}</value>
+  </data>
+  <data name="In progress" xml:space="preserve">
+    <value>У процесі</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Незавершено</value>
+  </data>
+  <data name="Interval (1–365)" xml:space="preserve">
+    <value>Інтервал (1–365)</value>
+  </data>
+  <data name="K" xml:space="preserve">
+    <value>K</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Дошка Kanban</value>
+  </data>
+  <data name="Label added" xml:space="preserve">
+    <value>Мітку додано</value>
+  </data>
+  <data name="Label removed" xml:space="preserve">
+    <value>Мітку видалено</value>
+  </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>МІТКИ</value>
+  </data>
+  <data name="Labels cannot exceed 100 characters" xml:space="preserve">
+    <value>Назви міток не можуть перевищувати 100 символів</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Світла</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>ЛОКАЛЬНИЙ ОБЛІКОВИЙ ЗАПИС</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Низький</value>
+  </data>
+  <data name="Make room for progress." xml:space="preserve">
+    <value>Створіть простір для розвитку.</value>
+  </data>
+  <data name="Mark all read" xml:space="preserve">
+    <value>Позначити всі як прочитані</value>
+  </data>
+  <data name="Mark as read" xml:space="preserve">
+    <value>Позначити як прочитане</value>
+  </data>
+  <data name="Match all" xml:space="preserve">
+    <value>Збігатися з усіма</value>
+  </data>
+  <data name="Match any" xml:space="preserve">
+    <value>Збіг за будь-якою умовою</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Середній</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Місяць</value>
+  </data>
+  <data name="Move {0} left" xml:space="preserve">
+    <value>Перемістити {0} ліворуч</value>
+  </data>
+  <data name="Move {0} right" xml:space="preserve">
+    <value>Перемістити {0} праворуч</value>
+  </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Перемістити картку</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>ПЕРЕМІСТИТИ ДО СТОВПЦЯ</value>
+  </data>
+  <data name="Move, copy or transfer" xml:space="preserve">
+    <value>Перемістити, скопіювати або передати</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>МОЇ АКТИВНІ ЗАВДАННЯ  ·  {0} У РОБОТІ</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>МОЇ АРХІВОВАНІ ДОШКИ</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>МОЯ ДОШКА</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Мої дошки</value>
+  </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Мої журнали операцій</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Мої завдання</value>
+  </data>
+  <data name="Network issue · retrying" xml:space="preserve">
+    <value>Проблема з мережею · повторна спроба</value>
+  </data>
+  <data name="New board" xml:space="preserve">
+    <value>Нова дошка</value>
+  </data>
+  <data name="Newest first" xml:space="preserve">
+    <value>Спочатку найновіші</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Зараз вам не призначено жодних активних завдань.</value>
+  </data>
+  <data name="No archived boards" xml:space="preserve">
+    <value>Немає архівованих дощок</value>
+  </data>
+  <data name="No archived boards are shared with you." xml:space="preserve">
+    <value>З вами не поділилися жодною архівною дошкою.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>З вами ще не поділилися жодною дошкою.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Ще не створено жодної дошки.</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>Дошок поки немає</value>
+  </data>
+  <data name="No cards" xml:space="preserve">
+    <value>Немає карток</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>У цьому режимі немає карток із повністю заповненими датами.</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Жодна картка не відповідає поточним фільтрам.</value>
+  </data>
+  <data name="No columns yet. Add the first one here." xml:space="preserve">
+    <value>Стовпців ще немає. Додайте перший тут.</value>
+  </data>
+  <data name="No description provided." xml:space="preserve">
+    <value>Опис не надано.</value>
+  </data>
+  <data name="No description yet." xml:space="preserve">
+    <value>Опису поки що немає.</value>
+  </data>
+  <data name="No document picker is available on this device." xml:space="preserve">
+    <value>На цьому пристрої немає засобу вибору документів.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Без кінцевого терміну</value>
+  </data>
+  <data name="No exportable chart is available in this mode." xml:space="preserve">
+    <value>У цьому режимі немає діаграми, доступної для експорту.</value>
+  </data>
+  <data name="No image picker is available on this device." xml:space="preserve">
+    <value>На цьому пристрої недоступний засіб вибору зображень.</value>
+  </data>
+  <data name="No image picker is available." xml:space="preserve">
+    <value>Засіб вибору зображень недоступний.</value>
+  </data>
+  <data name="No labels" xml:space="preserve">
+    <value>Немає міток</value>
+  </data>
+  <data name="No matching boards. Try a different name." xml:space="preserve">
+    <value>Не знайдено відповідних дошок. Спробуйте ввести іншу назву.</value>
+  </data>
+  <data name="No matching cards" xml:space="preserve">
+    <value>Немає карток, що відповідають умовам</value>
+  </data>
+  <data name="No matching tasks" xml:space="preserve">
+    <value>Немає завдань, що відповідають умовам</value>
+  </data>
+  <data name="No one else has access yet." xml:space="preserve">
+    <value>Поки що більше ніхто не має доступу.</value>
+  </data>
+  <data name="No other editable board with columns is available." xml:space="preserve">
+    <value>Немає інших дошок зі стовпцями, які можна редагувати.</value>
+  </data>
+  <data name="No previous conversations yet." xml:space="preserve">
+    <value>Ще немає попередніх розмов.</value>
+  </data>
+  <data name="No replies yet." xml:space="preserve">
+    <value>Відповідей поки немає.</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Звітів поки немає</value>
+  </data>
+  <data name="No unread notifications." xml:space="preserve">
+    <value>Немає непрочитаних сповіщень.</value>
+  </data>
+  <data name="No user or role is available to share with." xml:space="preserve">
+    <value>Немає користувачів або ролей, яким можна надати доступ.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Немає</value>
+  </data>
+  <data name="Not started" xml:space="preserve">
+    <value>Не розпочато</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Сповіщення</value>
+  </data>
+  <data name="Oldest first" xml:space="preserve">
+    <value>Спочатку найдавніші</value>
+  </data>
+  <data name="Only .xlsx workbooks are supported." xml:space="preserve">
+    <value>Підтримуються лише книги Excel у форматі .xlsx.</value>
+  </data>
+  <data name="Open board" xml:space="preserve">
+    <value>Відкрити дошку</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Відкриті дошки</value>
+  </data>
+  <data name="Open card" xml:space="preserve">
+    <value>Відкрити картку</value>
+  </data>
+  <data name="Open comment image" xml:space="preserve">
+    <value>Відкрити зображення коментаря</value>
+  </data>
+  <data name="Open original" xml:space="preserve">
+    <value>Відкрити оригінал</value>
+  </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>ОПЕРАЦІЯ</value>
+  </data>
+  <data name="Operation logging is not enabled on this server." xml:space="preserve">
+    <value>На цьому сервері не ввімкнено журналювання операцій.</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>ВХІД ДО ОРГАНІЗАЦІЇ</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Прострочено</value>
+  </data>
+  <data name="Page {0} of {1}" xml:space="preserve">
+    <value>Сторінка {0} з {1}</value>
+  </data>
+  <data name="Password changed" xml:space="preserve">
+    <value>Пароль змінено</value>
+  </data>
+  <data name="Password must contain at least 6 characters" xml:space="preserve">
+    <value>Пароль має містити щонайменше 6 символів</value>
+  </data>
+  <data name="Passwords do not match" xml:space="preserve">
+    <value>Паролі не збігаються</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Заплановано</value>
+  </data>
+  <data name="Planned end · earliest first" xml:space="preserve">
+    <value>Заплановане завершення · спочатку найраніші</value>
+  </data>
+  <data name="Planned end · overdue first" xml:space="preserve">
+    <value>Заплановане завершення · спочатку прострочені</value>
+  </data>
+  <data name="Planned start" xml:space="preserve">
+    <value>Запланований початок</value>
+  </data>
+  <data name="Planned start · earliest first" xml:space="preserve">
+    <value>Запланований початок · спочатку найраніші</value>
+  </data>
+  <data name="Planned start · latest first" xml:space="preserve">
+    <value>Запланований початок · спочатку найпізніші</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP або BMP · по 10 МБ кожен</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>ПРІОРИТЕТ</value>
+  </data>
+  <data name="Priority · low first" xml:space="preserve">
+    <value>Пріоритет · спочатку низький</value>
+  </data>
+  <data name="Priority · urgent first" xml:space="preserve">
+    <value>Пріоритет · спочатку термінові</value>
+  </data>
+  <data name="Profile photo updated" xml:space="preserve">
+    <value>Фото профілю оновлено</value>
+  </data>
+  <data name="Profile saved" xml:space="preserve">
+    <value>Профіль збережено</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>ЗАПРОПОНОВАНА ДІЯ</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Recurring cards require a due date." xml:space="preserve">
+    <value>Для повторюваних карток потрібно вказати термін виконання.</value>
+  </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Повторюване завдання</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Вилучити {0}</value>
+  </data>
+  <data name="Remove {0} from this board?" xml:space="preserve">
+    <value>Вилучити {0} із цієї дошки?</value>
+  </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Скасувати доступ?</value>
+  </data>
+  <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
+    <value>Відповіді не можуть містити більше ніж 2 000 символів</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Відповісти</value>
+  </data>
+  <data name="Reply added" xml:space="preserve">
+    <value>Відповідь додано</value>
+  </data>
+  <data name="Reply deleted" xml:space="preserve">
+    <value>Відповідь видалено</value>
+  </data>
+  <data name="Report updated." xml:space="preserve">
+    <value>Звіт оновлено.</value>
+  </data>
+  <data name="Resolve the current response before sending another message." xml:space="preserve">
+    <value>Завершіть поточну відповідь, перш ніж надсилати інше повідомлення.</value>
+  </data>
+  <data name="Results for “{0}”" xml:space="preserve">
+    <value>Результати за «{0}»</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>Повторити</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Зберегти зміни</value>
+  </data>
+  <data name="Save pending edits before moving this card." xml:space="preserve">
+    <value>Збережіть незбережені зміни, перш ніж перемістити цю картку.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
+  <data name="Search Cards" xml:space="preserve">
+    <value>Пошук карток</value>
+  </data>
+  <data name="Search cards, tasks, or documents" xml:space="preserve">
+    <value>Пошук карток, задач або документів</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Знайти або створити мітку</value>
+  </data>
+  <data name="Search this board and narrow it by priority." xml:space="preserve">
+    <value>Знайдіть на цій дошці потрібне й звузьте результати за пріоритетом.</value>
+  </data>
+  <data name="Search titles and descriptions across every board you can read." xml:space="preserve">
+    <value>Шукайте назви й описи на всіх дошках, які вам доступні для перегляду.</value>
+  </data>
+  <data name="Sending…" xml:space="preserve">
+    <value>Надсилання…</value>
+  </data>
+  <data name="Set a due date before enabling recurrence." xml:space="preserve">
+    <value>Установіть термін виконання, перш ніж увімкнути повторення.</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>СПІЛЬНІ АРХІВНІ ДОШКИ</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>СПІЛЬНА ДОШКА</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Спільні дошки</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>Спільний доступ із {0}</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Надано доступ мені</value>
+  </data>
+  <data name="Sign in" xml:space="preserve">
+    <value>Увійти</value>
+  </data>
+  <data name="Sign-in failed." xml:space="preserve">
+    <value>Не вдалося увійти.</value>
+  </data>
+  <data name="Signing you in…" xml:space="preserve">
+    <value>Виконується вхід…</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>СОРТУВАННЯ</value>
+  </data>
+  <data name="Start  {0}" xml:space="preserve">
+    <value>Почати  {0}</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Підписатися</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>Підписано</value>
+  </data>
+  <data name="Subscribed to updates" xml:space="preserve">
+    <value>Ви підписалися на оновлення</value>
+  </data>
+  <data name="Switch server" xml:space="preserve">
+    <value>Змінити сервер</value>
+  </data>
+  <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
+    <value>Виконавця знімають із призначення, а відповіді залишаються в історії вихідної картки.</value>
+  </data>
+  <data name="The board becomes read-only and moves to Archived." xml:space="preserve">
+    <value>Дошка стає доступною лише для читання та переміщується до архіву.</value>
+  </data>
+  <data name="The board returns to your active workspace." xml:space="preserve">
+    <value>Дошка повертається до вашого активного робочого простору.</value>
+  </data>
+  <data name="The card and all of its replies will be permanently removed." xml:space="preserve">
+    <value>Картку та всі відповіді до неї буде видалено без можливості відновлення.</value>
+  </data>
+  <data name="The card is already in this column." xml:space="preserve">
+    <value>Картка вже в цій колонці.</value>
+  </data>
+  <data name="The chart is too large to export as one PNG image." xml:space="preserve">
+    <value>Діаграма завелика, щоб експортувати її як одне зображення PNG.</value>
+  </data>
+  <data name="The profile photo cannot exceed 10 MB." xml:space="preserve">
+    <value>Розмір фото профілю не може перевищувати 10 МБ.</value>
+  </data>
+  <data name="The report will be removed. The scheduled job may generate it again later." xml:space="preserve">
+    <value>Звіт буде видалено. Заплановане завдання може створити його знову пізніше.</value>
+  </data>
+  <data name="The workbook cannot exceed 10 MB." xml:space="preserve">
+    <value>Розмір книги не може перевищувати 10 МБ.</value>
+  </data>
+  <data name="Thinking…" xml:space="preserve">
+    <value>Думаю…</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>На цій дошці немає карток.</value>
+  </data>
+  <data name="This board has no columns" xml:space="preserve">
+    <value>На цій дошці немає стовпців</value>
+  </data>
+  <data name="This board has no columns." xml:space="preserve">
+    <value>На цій дошці немає стовпців.</value>
+  </data>
+  <data name="This board is view-only, so replies and edits are disabled." xml:space="preserve">
+    <value>Ця дошка доступна лише для перегляду, тому відповідати й редагувати неможливо.</value>
+  </data>
+  <data name="This public board has no specific user or role shares." xml:space="preserve">
+    <value>Для цієї публічної дошки не налаштовано спільний доступ для окремих користувачів або ролей.</value>
+  </data>
+  <data name="This reply will be permanently removed." xml:space="preserve">
+    <value>Цю відповідь буде видалено назавжди.</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>ХРОНОЛОГІЯ</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="Title · A–Z" xml:space="preserve">
+    <value>Назва · А–Я</value>
+  </data>
+  <data name="Title · Z–A" xml:space="preserve">
+    <value>Назва · Я–А</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Назва або опис</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>ЗВІТИ ЗА СЬОГОДНІ</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Перемістити</value>
+  </data>
+  <data name="Transfer card" xml:space="preserve">
+    <value>Перемістити картку</value>
+  </data>
+  <data name="Transfer to another board" xml:space="preserve">
+    <value>Перенести на іншу дошку</value>
+  </data>
+  <data name="Try another status, label, or assignee filter." xml:space="preserve">
+    <value>Спробуйте застосувати інший фільтр за статусом, міткою або виконавцем.</value>
+  </data>
+  <data name="Type a message first" xml:space="preserve">
+    <value>Спочатку введіть повідомлення</value>
+  </data>
+  <data name="Unarchive" xml:space="preserve">
+    <value>Відновити</value>
+  </data>
+  <data name="Unarchive board" xml:space="preserve">
+    <value>Розархівувати дошку</value>
+  </data>
+  <data name="Unarchive board?" xml:space="preserve">
+    <value>Розархівувати дошку?</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Не призначено</value>
+  </data>
+  <data name="Unsubscribed from updates" xml:space="preserve">
+    <value>Ви скасували підписку на оновлення</value>
+  </data>
+  <data name="Uploading image {0} of {1}…" xml:space="preserve">
+    <value>Завантаження зображення {0} із {1}…</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Терміново</value>
+  </data>
+  <data name="Use 2 to 30 characters" xml:space="preserve">
+    <value>Використовуйте від 2 до 30 символів</value>
+  </data>
+  <data name="Use at least 6 characters" xml:space="preserve">
+    <value>Використовуйте щонайменше 6 символів</value>
+  </data>
+  <data name="Use device setting" xml:space="preserve">
+    <value>Використовувати налаштування пристрою</value>
+  </data>
+  <data name="Use the same title, description, priority, and assignee filters as the board." xml:space="preserve">
+    <value>Використовуйте ті самі фільтри за назвою, описом, пріоритетом і виконавцем, що й на дошці.</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Лише перегляд</value>
+  </data>
+  <data name="Waiting for approval" xml:space="preserve">
+    <value>Очікує на схвалення</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Тиждень</value>
+  </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>ЩОТИЖНЕВИЙ ЗВІТ</value>
+  </data>
+  <data name="Weekly report discarded." xml:space="preserve">
+    <value>Щотижневий звіт відкинуто.</value>
+  </data>
+  <data name="Workbook attached" xml:space="preserve">
+    <value>Робочий зошит прикріплено</value>
+  </data>
+  <data name="Workspace" xml:space="preserve">
+    <value>Робочий простір</value>
+  </data>
+  <data name="Write a reply" xml:space="preserve">
+    <value>Напишіть відповідь</value>
+  </data>
+  <data name="Write a reply first" xml:space="preserve">
+    <value>Спочатку напишіть відповідь</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Рік</value>
+  </data>
+  <data name="You can attach up to {0} images." xml:space="preserve">
+    <value>Можна прикріпити до {0} зображень.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>У вас {0} непрочитан{1} сповіщень.</value>
+  </data>
+  <data name="You have no archived boards." xml:space="preserve">
+    <value>У вас немає архівованих дошок.</value>
+  </data>
+  <data name="You have no unread notifications." xml:space="preserve">
+    <value>У вас немає непрочитаних сповіщень.</value>
+  </data>
+  <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
+    <value>Ви володієте дошками в кількості {0}. Видаліть їх, перш ніж видалити обліковий запис.</value>
+  </data>
+  <data name="Your account data will be removed. This cannot be undone." xml:space="preserve">
+    <value>Дані вашого облікового запису буде видалено. Цю дію неможливо скасувати.</value>
+  </data>
+  <data name="Your generated plans and summaries will appear here." xml:space="preserve">
+    <value>Тут з’являтимуться створені вами плани та зведення.</value>
+  </data>
+  <data name="Your generated weekly reports will appear here." xml:space="preserve">
+    <value>Тут відображатимуться створені вами щотижневі звіти.</value>
+  </data>
+  <data name="Your latest activity across Kanban · {0} total" xml:space="preserve">
+    <value>Остання активність у Kanban · усього {0}</value>
+  </data>
+  <data name="Your workspace" xml:space="preserve">
+    <value>Ваш робочий простір</value>
+  </data>
+
+</root>

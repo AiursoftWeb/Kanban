@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · od {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} tablic · wszystko w jednym przejrzystym widoku</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} kart</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} kart · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} karty · {1} kolumny</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} kolumn · {1} kart</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>Pominięto obrazów: {0}. Użyj formatu PNG, JPEG, GIF, WebP lub BMP; maksymalny rozmiar pliku to 10 MB.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>Wybrano {0} z {1}</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} otwarte · {1} w trakcie · {2} ukończone</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>Zaległe: {0}</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} po terminie · {1} nieprzypisanych</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>Priorytet: {0}  ·  Termin: {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} odpowiedzi</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} raportów</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} wyników</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} zaplanowane · {1} bez kompletnych dat</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} zadań</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0} wróci do aktywnego obszaru roboczego.</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2} priorytet</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Otwórz raport.</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, używane przez {1} zadań</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Dotknij, aby wyświetlić szczegóły.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Dotknij, aby zobaczyć szczegóły. Przytrzymaj i przeciągnij, aby przesunąć.</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>Zadania użytkownika {0}</value>
+  </data>
+  <data name="+  Add card" xml:space="preserve">
+    <value>+  Dodaj kartę</value>
+  </data>
+  <data name="1 report" xml:space="preserve">
+    <value>1 raport</value>
+  </data>
+  <data name="1 result" xml:space="preserve">
+    <value>1 wynik</value>
+  </data>
+  <data name="1 task" xml:space="preserve">
+    <value>1 zadanie</value>
+  </data>
+  <data name="A copy will be added to the end of this column. Replies, attachments, and activity history will not be copied." xml:space="preserve">
+    <value>Kopia zostanie dodana na końcu tej kolumny. Odpowiedzi, załączniki i historia aktywności nie zostaną skopiowane.</value>
+  </data>
+  <data name="A little space for your next idea." xml:space="preserve">
+    <value>Trochę miejsca na Twój kolejny pomysł.</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Dostęp usunięto</value>
+  </data>
+  <data name="ACTIONS" xml:space="preserve">
+    <value>DZIAŁANIA</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Rzeczywisty</value>
+  </data>
+  <data name="Actual end" xml:space="preserve">
+    <value>Rzeczywiste zakończenie</value>
+  </data>
+  <data name="Actual end · earliest first" xml:space="preserve">
+    <value>Rzeczywisty koniec · najwcześniejsze najpierw</value>
+  </data>
+  <data name="Actual end · latest first" xml:space="preserve">
+    <value>Rzeczywisty koniec · od najpóźniejszego</value>
+  </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>Rzeczywisty czas zakończenia nie może być wcześniejszy niż rzeczywisty czas rozpoczęcia.</value>
+  </data>
+  <data name="Actual start" xml:space="preserve">
+    <value>Faktyczny początek</value>
+  </data>
+  <data name="Actual start · earliest first" xml:space="preserve">
+    <value>Rzeczywisty początek · najwcześniejsze najpierw</value>
+  </data>
+  <data name="Actual start · latest first" xml:space="preserve">
+    <value>Rzeczywisty początek · najpóźniejsze najpierw</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="Add column" xml:space="preserve">
+    <value>Dodaj kolumnę</value>
+  </data>
+  <data name="Add images" xml:space="preserve">
+    <value>Dodaj obrazy</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>WYKORZYSTUJE AI</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>Ustawienia raportu AI zapisane</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Wszystkie</value>
+  </data>
+  <data name="All caught up!" xml:space="preserve">
+    <value>Wszystko nadrobione!</value>
+  </data>
+  <data name="Already have an account? Sign in" xml:space="preserve">
+    <value>Masz już konto? Zaloguj się</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Wygląd</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Zastosuj</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
+  <data name="Approve all {0} actions" xml:space="preserve">
+    <value>Zatwierdź wszystkie działania ({0})</value>
+  </data>
+  <data name="Approve all {0} proposed actions" xml:space="preserve">
+    <value>Zatwierdź wszystkie {0} proponowane działania</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Archiwizuj</value>
+  </data>
+  <data name="Archive board" xml:space="preserve">
+    <value>Zarchiwizuj tablicę</value>
+  </data>
+  <data name="Archive board?" xml:space="preserve">
+    <value>Zarchiwizować tablicę?</value>
+  </data>
+  <data name="Archive time unavailable" xml:space="preserve">
+    <value>Czas archiwizacji niedostępny</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>ZARCHIWIZOWANO</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Zarchiwizowano · {0} · {1}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>Zarchiwizowano · Właściciel</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Zarchiwizowano {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Zarchiwizowane tablice</value>
+  </data>
+  <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
+    <value>Zarchiwizowane tablice są dostępne tylko do odczytu, dopóki ich właściciel ich nie przywróci.</value>
+  </data>
+  <data name="Assigned cards across your Kanban boards." xml:space="preserve">
+    <value>Przypisane karty na Twoich tablicach Kanban.</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Przypisane zadania</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>OSOBA PRZYPISANA</value>
+  </data>
+  <data name="Back to board" xml:space="preserve">
+    <value>Powrót do tablicy</value>
+  </data>
+  <data name="Back to board settings" xml:space="preserve">
+    <value>Powrót do ustawień tablicy</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Powrót do tablicy Kanban</value>
+  </data>
+  <data name="Back to reports" xml:space="preserve">
+    <value>Powrót do raportów</value>
+  </data>
+  <data name="Board archived" xml:space="preserve">
+    <value>Zarchiwizowano tablicę</value>
+  </data>
+  <data name="Board deleted" xml:space="preserve">
+    <value>Tablica została usunięta</value>
+  </data>
+  <data name="Board is now private" xml:space="preserve">
+    <value>Tablica jest teraz prywatna</value>
+  </data>
+  <data name="Board is now public" xml:space="preserve">
+    <value>Tablica jest teraz publiczna</value>
+  </data>
+  <data name="Board name" xml:space="preserve">
+    <value>Nazwa tablicy</value>
+  </data>
+  <data name="Board restored" xml:space="preserve">
+    <value>Przywrócono tablicę</value>
+  </data>
+  <data name="Board settings saved" xml:space="preserve">
+    <value>Zapisano ustawienia tablicy</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Tablice</value>
+  </data>
+  <data name="Boards shared with you will appear here." xml:space="preserve">
+    <value>Udostępnione Ci tablice pojawią się tutaj.</value>
+  </data>
+  <data name="Boards you archive will appear here." xml:space="preserve">
+    <value>Zarchiwizowane tablice będą się tutaj wyświetlać.</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Może edytować</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="Capture it now. Organize it by dragging later." xml:space="preserve">
+    <value>Zapisz to teraz. Później uporządkuj, przeciągając.</value>
+  </data>
+  <data name="Card created" xml:space="preserve">
+    <value>Utworzono kartę</value>
+  </data>
+  <data name="Card details" xml:space="preserve">
+    <value>Szczegóły karty</value>
+  </data>
+  <data name="Card moved" xml:space="preserve">
+    <value>Przeniesiono kartę</value>
+  </data>
+  <data name="Card title" xml:space="preserve">
+    <value>Tytuł karty</value>
+  </data>
+  <data name="Card transferred" xml:space="preserve">
+    <value>Karta przeniesiona</value>
+  </data>
+  <data name="Card updated" xml:space="preserve">
+    <value>Karta została zaktualizowana</value>
+  </data>
+  <data name="Cards across accessible boards" xml:space="preserve">
+    <value>Karty na dostępnych tablicach</value>
+  </data>
+  <data name="Check the server address and network connection." xml:space="preserve">
+    <value>Sprawdź adres serwera i połączenie sieciowe.</value>
+  </data>
+  <data name="Choose a PNG, JPG, JPEG, or BMP image." xml:space="preserve">
+    <value>Wybierz obraz w formacie PNG, JPG, JPEG lub BMP.</value>
+  </data>
+  <data name="Choose images to attach to this reply" xml:space="preserve">
+    <value>Wybierz obrazy do załączenia do tej odpowiedzi</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Wyczyść</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zamknij</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>KOLUMNA</value>
+  </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Kolumna {0}</value>
+  </data>
+  <data name="Column added" xml:space="preserve">
+    <value>Dodano kolumnę</value>
+  </data>
+  <data name="Column deleted" xml:space="preserve">
+    <value>Kolumna została usunięta</value>
+  </data>
+  <data name="Column name" xml:space="preserve">
+    <value>Nazwa kolumny</value>
+  </data>
+  <data name="Column updated" xml:space="preserve">
+    <value>Kolumna została zaktualizowana</value>
+  </data>
+  <data name="Comment image" xml:space="preserve">
+    <value>Obraz komentarza</value>
+  </data>
+  <data name="Comment image preview" xml:space="preserve">
+    <value>Podgląd obrazu komentarza</value>
+  </data>
+  <data name="Comment image unavailable" xml:space="preserve">
+    <value>Obraz komentarza niedostępny</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>KOMENTARZE  {0}</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Ukończono</value>
+  </data>
+  <data name="Completing secure sign-in…" xml:space="preserve">
+    <value>Kończenie bezpiecznego logowania…</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Połącz</value>
+  </data>
+  <data name="Connected. Sign in to continue." xml:space="preserve">
+    <value>Połączono. Zaloguj się, aby kontynuować.</value>
+  </data>
+  <data name="Connecting securely…" xml:space="preserve">
+    <value>Bezpieczne łączenie…</value>
+  </data>
+  <data name="Connection cancelled." xml:space="preserve">
+    <value>Połączenie zostało anulowane.</value>
+  </data>
+  <data name="Conversation history" xml:space="preserve">
+    <value>Historia konwersacji</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiuj</value>
+  </data>
+  <data name="Copy card" xml:space="preserve">
+    <value>Kopiuj kartę</value>
+  </data>
+  <data name="Copy card?" xml:space="preserve">
+    <value>Skopiować kartę?</value>
+  </data>
+  <data name="Could not create the account." xml:space="preserve">
+    <value>Nie udało się utworzyć konta.</value>
+  </data>
+  <data name="Could not load boards" xml:space="preserve">
+    <value>Nie udało się załadować tablic</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Utwórz</value>
+  </data>
+  <data name="Create a board" xml:space="preserve">
+    <value>Utwórz tablicę</value>
+  </data>
+  <data name="Create a board to start organizing your work." xml:space="preserve">
+    <value>Utwórz tablicę, aby zacząć organizować swoją pracę.</value>
+  </data>
+  <data name="Create a card" xml:space="preserve">
+    <value>Utwórz kartę</value>
+  </data>
+  <data name="Create a private board. You can manage visibility and sharing from board settings." xml:space="preserve">
+    <value>Utwórz prywatną tablicę. Widocznością i udostępnianiem możesz zarządzać w ustawieniach tablicy.</value>
+  </data>
+  <data name="Create account" xml:space="preserve">
+    <value>Utwórz konto</value>
+  </data>
+  <data name="Create an account" xml:space="preserve">
+    <value>Utwórz konto</value>
+  </data>
+  <data name="Create card" xml:space="preserve">
+    <value>Utwórz kartę</value>
+  </data>
+  <data name="Created by {0} · {1}" xml:space="preserve">
+    <value>Utworzone przez {0} · {1}</value>
+  </data>
+  <data name="Creating your account…" xml:space="preserve">
+    <value>Tworzenie konta…</value>
+  </data>
+  <data name="DAILY PLAN" xml:space="preserve">
+    <value>PLAN DNIA</value>
+  </data>
+  <data name="DAILY SUMMARY" xml:space="preserve">
+    <value>PODSUMOWANIE DNIA</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Ciemny</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Dzień</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>Usunąć {0} i jego karty ({1})? Tej operacji nie można cofnąć.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>Usunąć {0}, wszystkie kolumny ({1}) i wszystkie karty ({2})? Tej operacji nie można cofnąć.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>Usunąć {0}? Tej operacji nie można cofnąć.</value>
+  </data>
+  <data name="Delete account" xml:space="preserve">
+    <value>Usuń konto</value>
+  </data>
+  <data name="Delete account permanently?" xml:space="preserve">
+    <value>Czy trwale usunąć konto?</value>
+  </data>
+  <data name="Delete board permanently?" xml:space="preserve">
+    <value>Trwale usunąć tablicę?</value>
+  </data>
+  <data name="Delete card" xml:space="preserve">
+    <value>Usuń kartę</value>
+  </data>
+  <data name="Delete card?" xml:space="preserve">
+    <value>Usunąć kartę?</value>
+  </data>
+  <data name="Delete column?" xml:space="preserve">
+    <value>Usunąć kolumnę?</value>
+  </data>
+  <data name="Delete reply?" xml:space="preserve">
+    <value>Usunąć odpowiedź?</value>
+  </data>
+  <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
+    <value>Usunięcie konta jest nieodwracalne i nie można go cofnąć.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>Odrzuć</value>
+  </data>
+  <data name="Discard report" xml:space="preserve">
+    <value>Odrzuć raport</value>
+  </data>
+  <data name="Discard weekly report?" xml:space="preserve">
+    <value>Odrzucić raport tygodniowy?</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Gotowe</value>
+  </data>
+  <data name="Drop a card here" xml:space="preserve">
+    <value>Upuść tutaj kartę</value>
+  </data>
+  <data name="Drop on another column to move" xml:space="preserve">
+    <value>Upuść na innej kolumnie, aby przenieść</value>
+  </data>
+  <data name="Due" xml:space="preserve">
+    <value>Termin</value>
+  </data>
+  <data name="Due  {0}" xml:space="preserve">
+    <value>Termin upływa:  {0}</value>
+  </data>
+  <data name="Due {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Termin: {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Edit card" xml:space="preserve">
+    <value>Edytuj kartę</value>
+  </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Edytowanie rzeczywistego czasu wymaga uprawnienia „Edycja rzeczywistego czasu”.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Adres e-mail</value>
+  </data>
+  <data name="Email or username" xml:space="preserve">
+    <value>E-mail lub nazwa użytkownika</value>
+  </data>
+  <data name="Enter a board name" xml:space="preserve">
+    <value>Wpisz nazwę tablicy</value>
+  </data>
+  <data name="Enter a card title" xml:space="preserve">
+    <value>Wpisz tytuł karty</value>
+  </data>
+  <data name="Enter a column name" xml:space="preserve">
+    <value>Wprowadź nazwę kolumny</value>
+  </data>
+  <data name="Enter a label name" xml:space="preserve">
+    <value>Wpisz nazwę etykiety</value>
+  </data>
+  <data name="Enter a search query" xml:space="preserve">
+    <value>Wpisz wyszukiwaną frazę</value>
+  </data>
+  <data name="Enter a value from 1 to 365" xml:space="preserve">
+    <value>Wprowadź wartość od 1 do 365</value>
+  </data>
+  <data name="Enter a whole number" xml:space="preserve">
+    <value>Wpisz liczbę całkowitą</value>
+  </data>
+  <data name="Enter your current password" xml:space="preserve">
+    <value>Wprowadź obecne hasło</value>
+  </data>
+  <data name="Enter your email" xml:space="preserve">
+    <value>Wpisz swój adres e-mail</value>
+  </data>
+  <data name="Enter your email or username" xml:space="preserve">
+    <value>Wpisz swój adres e-mail lub nazwę użytkownika</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="Every {0} {1}" xml:space="preserve">
+    <value>Co {0} {1}</value>
+  </data>
+  <data name="Excel · {0}" xml:space="preserve">
+    <value>Excel · {0}</value>
+  </data>
+  <data name="Export PNG" xml:space="preserve">
+    <value>Eksportuj do PNG</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Eksportowanie…</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtruj</value>
+  </data>
+  <data name="Filter ({0})" xml:space="preserve">
+    <value>Filtr ({0})</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Filtruj karty</value>
+  </data>
+  <data name="Filter Gantt cards" xml:space="preserve">
+    <value>Filtruj karty wykresu Gantta</value>
+  </data>
+  <data name="Filters &amp; sorting" xml:space="preserve">
+    <value>Filtry i sortowanie</value>
+  </data>
+  <data name="Find a board" xml:space="preserve">
+    <value>Znajdź tablicę</value>
+  </data>
+  <data name="Generated {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Wygenerowano {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>Wyszukiwanie globalne</value>
+  </data>
+  <data name="Hide editor" xml:space="preserve">
+    <value>Ukryj edytor</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Wysoki</value>
+  </data>
+  <data name="Hold to move {0}" xml:space="preserve">
+    <value>Przytrzymaj, aby przesunąć {0}</value>
+  </data>
+  <data name="In progress" xml:space="preserve">
+    <value>W trakcie</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Nieukończone</value>
+  </data>
+  <data name="Interval (1–365)" xml:space="preserve">
+    <value>Interwał (1–365)</value>
+  </data>
+  <data name="K" xml:space="preserve">
+    <value>`K`</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Tablica Kanban</value>
+  </data>
+  <data name="Label added" xml:space="preserve">
+    <value>Etykieta dodana</value>
+  </data>
+  <data name="Label removed" xml:space="preserve">
+    <value>Etykieta usunięta</value>
+  </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>ETYKIETY</value>
+  </data>
+  <data name="Labels cannot exceed 100 characters" xml:space="preserve">
+    <value>Etykiety nie mogą przekraczać 100 znaków</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Jasny</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>KONTO LOKALNE</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Niski</value>
+  </data>
+  <data name="Make room for progress." xml:space="preserve">
+    <value>Zrób miejsce na postęp.</value>
+  </data>
+  <data name="Mark all read" xml:space="preserve">
+    <value>Oznacz wszystkie jako przeczytane</value>
+  </data>
+  <data name="Mark as read" xml:space="preserve">
+    <value>Oznacz jako przeczytane</value>
+  </data>
+  <data name="Match all" xml:space="preserve">
+    <value>Dopasuj wszystkie</value>
+  </data>
+  <data name="Match any" xml:space="preserve">
+    <value>Dowolne dopasowanie</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Średni</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Miesiąc</value>
+  </data>
+  <data name="Move {0} left" xml:space="preserve">
+    <value>Przenieś {0} w lewo</value>
+  </data>
+  <data name="Move {0} right" xml:space="preserve">
+    <value>Przesuń {0} w prawo</value>
+  </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Przenieś kartę</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>PRZENIEŚ DO KOLUMNY</value>
+  </data>
+  <data name="Move, copy or transfer" xml:space="preserve">
+    <value>Przenieś, skopiuj lub przekaż</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>MOJE AKTYWNE ZADANIA  ·  {0} W TOKU</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>MOJE ZARCHIWIZOWANE TABLICE</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>MOJA TABLICA</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Moje tablice</value>
+  </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Moje dzienniki operacji</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Moje zadania</value>
+  </data>
+  <data name="Network issue · retrying" xml:space="preserve">
+    <value>Problem z siecią · ponawianie próby</value>
+  </data>
+  <data name="New board" xml:space="preserve">
+    <value>Nowa tablica</value>
+  </data>
+  <data name="Newest first" xml:space="preserve">
+    <value>Najnowsze najpierw</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Nie masz teraz żadnych aktywnych zadań.</value>
+  </data>
+  <data name="No archived boards" xml:space="preserve">
+    <value>Brak zarchiwizowanych tablic</value>
+  </data>
+  <data name="No archived boards are shared with you." xml:space="preserve">
+    <value>Nie udostępniono Ci żadnych zarchiwizowanych tablic.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Nie udostępniono Ci jeszcze żadnych tablic.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Nie utworzono jeszcze żadnych tablic.</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>Brak tablic</value>
+  </data>
+  <data name="No cards" xml:space="preserve">
+    <value>Brak kart</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>W tym trybie nie ma kart z kompletnymi datami.</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Żadne karty nie pasują do bieżących filtrów.</value>
+  </data>
+  <data name="No columns yet. Add the first one here." xml:space="preserve">
+    <value>Brak kolumn. Dodaj pierwszą tutaj.</value>
+  </data>
+  <data name="No description provided." xml:space="preserve">
+    <value>Brak opisu.</value>
+  </data>
+  <data name="No description yet." xml:space="preserve">
+    <value>Brak opisu.</value>
+  </data>
+  <data name="No document picker is available on this device." xml:space="preserve">
+    <value>Na tym urządzeniu nie jest dostępny selektor dokumentów.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Brak terminu</value>
+  </data>
+  <data name="No exportable chart is available in this mode." xml:space="preserve">
+    <value>W tym trybie nie ma wykresu, który można wyeksportować.</value>
+  </data>
+  <data name="No image picker is available on this device." xml:space="preserve">
+    <value>Na tym urządzeniu nie jest dostępny selektor obrazów.</value>
+  </data>
+  <data name="No image picker is available." xml:space="preserve">
+    <value>Nie jest dostępny wybór obrazu.</value>
+  </data>
+  <data name="No labels" xml:space="preserve">
+    <value>Brak etykiet</value>
+  </data>
+  <data name="No matching boards. Try a different name." xml:space="preserve">
+    <value>Nie znaleziono pasujących tablic. Spróbuj użyć innej nazwy.</value>
+  </data>
+  <data name="No matching cards" xml:space="preserve">
+    <value>Brak pasujących kart</value>
+  </data>
+  <data name="No matching tasks" xml:space="preserve">
+    <value>Brak pasujących zadań</value>
+  </data>
+  <data name="No one else has access yet." xml:space="preserve">
+    <value>Nikt inny nie ma jeszcze dostępu.</value>
+  </data>
+  <data name="No other editable board with columns is available." xml:space="preserve">
+    <value>Nie ma dostępnej innej edytowalnej tablicy z kolumnami.</value>
+  </data>
+  <data name="No previous conversations yet." xml:space="preserve">
+    <value>Nie ma jeszcze wcześniejszych rozmów.</value>
+  </data>
+  <data name="No replies yet." xml:space="preserve">
+    <value>Brak odpowiedzi.</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Brak raportów</value>
+  </data>
+  <data name="No unread notifications." xml:space="preserve">
+    <value>Brak nieprzeczytanych powiadomień.</value>
+  </data>
+  <data name="No user or role is available to share with." xml:space="preserve">
+    <value>Nie ma użytkownika ani roli, którym można udostępnić.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Brak</value>
+  </data>
+  <data name="Not started" xml:space="preserve">
+    <value>Nie rozpoczęto</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Powiadomienia</value>
+  </data>
+  <data name="Oldest first" xml:space="preserve">
+    <value>Najstarsze najpierw</value>
+  </data>
+  <data name="Only .xlsx workbooks are supported." xml:space="preserve">
+    <value>Obsługiwane są tylko skoroszyty .xlsx.</value>
+  </data>
+  <data name="Open board" xml:space="preserve">
+    <value>Otwórz tablicę</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Otwarte tablice</value>
+  </data>
+  <data name="Open card" xml:space="preserve">
+    <value>Otwórz kartę</value>
+  </data>
+  <data name="Open comment image" xml:space="preserve">
+    <value>Otwórz obraz z komentarza</value>
+  </data>
+  <data name="Open original" xml:space="preserve">
+    <value>Otwórz oryginał</value>
+  </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>OPERACJA</value>
+  </data>
+  <data name="Operation logging is not enabled on this server." xml:space="preserve">
+    <value>Rejestrowanie operacji nie jest włączone na tym serwerze.</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>LOGOWANIE DO ORGANIZACJI</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Zaległe</value>
+  </data>
+  <data name="Page {0} of {1}" xml:space="preserve">
+    <value>Strona {0} z {1}</value>
+  </data>
+  <data name="Password changed" xml:space="preserve">
+    <value>Hasło zostało zmienione</value>
+  </data>
+  <data name="Password must contain at least 6 characters" xml:space="preserve">
+    <value>Hasło musi zawierać co najmniej 6 znaków</value>
+  </data>
+  <data name="Passwords do not match" xml:space="preserve">
+    <value>Hasła nie są zgodne</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planowane</value>
+  </data>
+  <data name="Planned end · earliest first" xml:space="preserve">
+    <value>Planowany koniec · najwcześniejsze najpierw</value>
+  </data>
+  <data name="Planned end · overdue first" xml:space="preserve">
+    <value>Planowany koniec · najpierw zaległe</value>
+  </data>
+  <data name="Planned start" xml:space="preserve">
+    <value>Planowany początek</value>
+  </data>
+  <data name="Planned start · earliest first" xml:space="preserve">
+    <value>Planowany początek · najwcześniejsze najpierw</value>
+  </data>
+  <data name="Planned start · latest first" xml:space="preserve">
+    <value>Planowany początek · najpóźniejsze najpierw</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP lub BMP · maks. 10 MB każdy</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>PRIORYTET</value>
+  </data>
+  <data name="Priority · low first" xml:space="preserve">
+    <value>Priorytet · najpierw niski</value>
+  </data>
+  <data name="Priority · urgent first" xml:space="preserve">
+    <value>Priorytet · najpierw pilne</value>
+  </data>
+  <data name="Profile photo updated" xml:space="preserve">
+    <value>Zdjęcie profilowe zostało zaktualizowane</value>
+  </data>
+  <data name="Profile saved" xml:space="preserve">
+    <value>Profil zapisano</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>PROPONOWANE DZIAŁANIE</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Gotowe</value>
+  </data>
+  <data name="Recurring cards require a due date." xml:space="preserve">
+    <value>Powtarzające się karty wymagają ustawienia terminu.</value>
+  </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Zadanie cykliczne</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Usuń {0}</value>
+  </data>
+  <data name="Remove {0} from this board?" xml:space="preserve">
+    <value>Usunąć {0} z tej tablicy?</value>
+  </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Usunąć dostęp?</value>
+  </data>
+  <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
+    <value>Odpowiedzi nie mogą przekraczać 2000 znaków</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Odpowiedz</value>
+  </data>
+  <data name="Reply added" xml:space="preserve">
+    <value>Dodano odpowiedź</value>
+  </data>
+  <data name="Reply deleted" xml:space="preserve">
+    <value>Odpowiedź została usunięta</value>
+  </data>
+  <data name="Report updated." xml:space="preserve">
+    <value>Raport zaktualizowano.</value>
+  </data>
+  <data name="Resolve the current response before sending another message." xml:space="preserve">
+    <value>Rozwiąż bieżącą odpowiedź, zanim wyślesz kolejną wiadomość.</value>
+  </data>
+  <data name="Results for “{0}”" xml:space="preserve">
+    <value>Wyniki dla „{0}”</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>Ponów</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Zapisz zmiany</value>
+  </data>
+  <data name="Save pending edits before moving this card." xml:space="preserve">
+    <value>Zapisz niezapisane zmiany przed przeniesieniem tej karty.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Szukaj</value>
+  </data>
+  <data name="Search Cards" xml:space="preserve">
+    <value>Szukaj kart</value>
+  </data>
+  <data name="Search cards, tasks, or documents" xml:space="preserve">
+    <value>Szukaj kart, zadań lub dokumentów</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Wyszukaj lub utwórz etykietę</value>
+  </data>
+  <data name="Search this board and narrow it by priority." xml:space="preserve">
+    <value>Przeszukaj tę tablicę i zawęź wyniki według priorytetu.</value>
+  </data>
+  <data name="Search titles and descriptions across every board you can read." xml:space="preserve">
+    <value>Szukaj tytułów i opisów na wszystkich tablicach, które możesz przeglądać.</value>
+  </data>
+  <data name="Sending…" xml:space="preserve">
+    <value>Wysyłanie…</value>
+  </data>
+  <data name="Set a due date before enabling recurrence." xml:space="preserve">
+    <value>Ustaw termin przed włączeniem cykliczności.</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>UDOSTĘPNIONE ZARCHIWIZOWANE TABLICE</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>UDOSTĘPNIONA TABLICA</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Udostępnione tablice</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>Udostępniono użytkownikowi {0}</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Udostępniono mi</value>
+  </data>
+  <data name="Sign in" xml:space="preserve">
+    <value>Zaloguj się</value>
+  </data>
+  <data name="Sign-in failed." xml:space="preserve">
+    <value>Logowanie nie powiodło się.</value>
+  </data>
+  <data name="Signing you in…" xml:space="preserve">
+    <value>Logowanie…</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>SORTUJ</value>
+  </data>
+  <data name="Start  {0}" xml:space="preserve">
+    <value>Rozpocznij  {0}</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Subskrybuj</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>Subskrybujesz</value>
+  </data>
+  <data name="Subscribed to updates" xml:space="preserve">
+    <value>Subskrybujesz aktualizacje</value>
+  </data>
+  <data name="Switch server" xml:space="preserve">
+    <value>Przełącz serwer</value>
+  </data>
+  <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
+    <value>Osoba przypisana zostaje usunięta, a odpowiedzi pozostają w historii karty źródłowej.</value>
+  </data>
+  <data name="The board becomes read-only and moves to Archived." xml:space="preserve">
+    <value>Tablica staje się dostępna tylko do odczytu i zostaje przeniesiona do archiwum.</value>
+  </data>
+  <data name="The board returns to your active workspace." xml:space="preserve">
+    <value>Tablica wraca do Twojego aktywnego obszaru roboczego.</value>
+  </data>
+  <data name="The card and all of its replies will be permanently removed." xml:space="preserve">
+    <value>Karta i wszystkie jej odpowiedzi zostaną trwale usunięte.</value>
+  </data>
+  <data name="The card is already in this column." xml:space="preserve">
+    <value>Karta znajduje się już w tej kolumnie.</value>
+  </data>
+  <data name="The chart is too large to export as one PNG image." xml:space="preserve">
+    <value>Wykres jest zbyt duży, aby wyeksportować go jako jeden obraz PNG.</value>
+  </data>
+  <data name="The profile photo cannot exceed 10 MB." xml:space="preserve">
+    <value>Zdjęcie profilowe nie może być większe niż 10 MB.</value>
+  </data>
+  <data name="The report will be removed. The scheduled job may generate it again later." xml:space="preserve">
+    <value>Raport zostanie usunięty. Zaplanowane zadanie może wygenerować go ponownie później.</value>
+  </data>
+  <data name="The workbook cannot exceed 10 MB." xml:space="preserve">
+    <value>Arkusz roboczy nie może przekraczać 10 MB.</value>
+  </data>
+  <data name="Thinking…" xml:space="preserve">
+    <value>Myślenie…</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>Ta tablica nie zawiera żadnych kart.</value>
+  </data>
+  <data name="This board has no columns" xml:space="preserve">
+    <value>Ta tablica nie ma kolumn</value>
+  </data>
+  <data name="This board has no columns." xml:space="preserve">
+    <value>Ta tablica nie ma kolumn.</value>
+  </data>
+  <data name="This board is view-only, so replies and edits are disabled." xml:space="preserve">
+    <value>Ta tablica jest dostępna tylko do odczytu, więc nie można na niej odpowiadać ani wprowadzać zmian.</value>
+  </data>
+  <data name="This public board has no specific user or role shares." xml:space="preserve">
+    <value>Ta publiczna tablica nie ma udostępnień dla konkretnych użytkowników ani ról.</value>
+  </data>
+  <data name="This reply will be permanently removed." xml:space="preserve">
+    <value>Ta odpowiedź zostanie trwale usunięta.</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>OŚ CZASU</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Tytuł</value>
+  </data>
+  <data name="Title · A–Z" xml:space="preserve">
+    <value>Tytuł · A–Z</value>
+  </data>
+  <data name="Title · Z–A" xml:space="preserve">
+    <value>Tytuł · Z–A</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Tytuł lub opis</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>RAPORTY Z DZISIAJ</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Przenieś</value>
+  </data>
+  <data name="Transfer card" xml:space="preserve">
+    <value>Przenieś kartę</value>
+  </data>
+  <data name="Transfer to another board" xml:space="preserve">
+    <value>Przenieś na inną tablicę</value>
+  </data>
+  <data name="Try another status, label, or assignee filter." xml:space="preserve">
+    <value>Wypróbuj inny filtr statusu, etykiety lub osoby przypisanej.</value>
+  </data>
+  <data name="Type a message first" xml:space="preserve">
+    <value>Najpierw wpisz wiadomość</value>
+  </data>
+  <data name="Unarchive" xml:space="preserve">
+    <value>Przywróć z archiwum</value>
+  </data>
+  <data name="Unarchive board" xml:space="preserve">
+    <value>Przywróć tablicę z archiwum</value>
+  </data>
+  <data name="Unarchive board?" xml:space="preserve">
+    <value>Przywrócić archiwalną tablicę?</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Nieprzypisane</value>
+  </data>
+  <data name="Unsubscribed from updates" xml:space="preserve">
+    <value>Anulowano subskrypcję aktualizacji</value>
+  </data>
+  <data name="Uploading image {0} of {1}…" xml:space="preserve">
+    <value>Przesyłanie obrazu {0} z {1}…</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Pilne</value>
+  </data>
+  <data name="Use 2 to 30 characters" xml:space="preserve">
+    <value>Użyj od 2 do 30 znaków</value>
+  </data>
+  <data name="Use at least 6 characters" xml:space="preserve">
+    <value>Użyj co najmniej 6 znaków</value>
+  </data>
+  <data name="Use device setting" xml:space="preserve">
+    <value>Użyj ustawień urządzenia</value>
+  </data>
+  <data name="Use the same title, description, priority, and assignee filters as the board." xml:space="preserve">
+    <value>Użyj takich samych filtrów tytułu, opisu, priorytetu i osoby przypisanej jak na tablicy.</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Tylko do odczytu</value>
+  </data>
+  <data name="Waiting for approval" xml:space="preserve">
+    <value>Oczekuje na zatwierdzenie</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Tydzień</value>
+  </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>RAPORT TYGODNIOWY</value>
+  </data>
+  <data name="Weekly report discarded." xml:space="preserve">
+    <value>Odrzucono raport tygodniowy.</value>
+  </data>
+  <data name="Workbook attached" xml:space="preserve">
+    <value>Załączono skoroszyt</value>
+  </data>
+  <data name="Workspace" xml:space="preserve">
+    <value>Obszar roboczy</value>
+  </data>
+  <data name="Write a reply" xml:space="preserve">
+    <value>Napisz odpowiedź</value>
+  </data>
+  <data name="Write a reply first" xml:space="preserve">
+    <value>Najpierw napisz odpowiedź</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Rok</value>
+  </data>
+  <data name="You can attach up to {0} images." xml:space="preserve">
+    <value>Możesz załączyć maksymalnie {0} obrazów.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>Masz {0} nieprzeczytan{1} powiadomień.</value>
+  </data>
+  <data name="You have no archived boards." xml:space="preserve">
+    <value>Nie masz żadnych zarchiwizowanych tablic.</value>
+  </data>
+  <data name="You have no unread notifications." xml:space="preserve">
+    <value>Nie masz żadnych nieprzeczytanych powiadomień.</value>
+  </data>
+  <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
+    <value>Posiadasz {0} tablic. Usuń je przed usunięciem konta.</value>
+  </data>
+  <data name="Your account data will be removed. This cannot be undone." xml:space="preserve">
+    <value>Dane Twojego konta zostaną usunięte. Tej operacji nie można cofnąć.</value>
+  </data>
+  <data name="Your generated plans and summaries will appear here." xml:space="preserve">
+    <value>Wygenerowane plany i podsumowania pojawią się tutaj.</value>
+  </data>
+  <data name="Your generated weekly reports will appear here." xml:space="preserve">
+    <value>Wygenerowane przez Ciebie raporty tygodniowe pojawią się tutaj.</value>
+  </data>
+  <data name="Your latest activity across Kanban · {0} total" xml:space="preserve">
+    <value>Twoja najnowsza aktywność w Kanban · łącznie: {0}</value>
+  </data>
+  <data name="Your workspace" xml:space="preserve">
+    <value>Twój obszar roboczy</value>
+  </data>
+
+</root>

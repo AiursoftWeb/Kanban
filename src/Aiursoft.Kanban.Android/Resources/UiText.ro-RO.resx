@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · din {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} panouri · totul într-o singură vizualizare</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} de carduri</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} de carduri · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} de carduri · {1} coloane</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} coloane · {1} carduri</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>Au fost omise {0} imagini. Folosiți PNG, JPEG, GIF, WebP sau BMP, de maximum 10 MB.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>{0} din {1} selectate</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} deschise · {1} în curs · {2} finalizate</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>{0} restante</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} restante · {1} neatribuite</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>Prioritate: {0}  ·  Scadent la {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} răspunsuri</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} rapoarte</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} rezultate</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} programate · {1} fără date complete</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} de activități</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0} va reveni în spațiul de lucru activ.</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2} prioritate</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Deschide raportul.</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, utilizat(ă) de {1} sarcini</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Atingeți pentru detalii.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Atingeți pentru detalii. Țineți apăsat și trageți pentru a muta.</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>Sarcinile lui {0}</value>
+  </data>
+  <data name="+  Add card" xml:space="preserve">
+    <value>+  Adaugă un card</value>
+  </data>
+  <data name="1 report" xml:space="preserve">
+    <value>1 raport</value>
+  </data>
+  <data name="1 result" xml:space="preserve">
+    <value>1 rezultat</value>
+  </data>
+  <data name="1 task" xml:space="preserve">
+    <value>1 sarcină</value>
+  </data>
+  <data name="A copy will be added to the end of this column. Replies, attachments, and activity history will not be copied." xml:space="preserve">
+    <value>O copie va fi adăugată la sfârșitul acestei coloane. Răspunsurile, atașamentele și istoricul activității nu vor fi copiate.</value>
+  </data>
+  <data name="A little space for your next idea." xml:space="preserve">
+    <value>Un mic spațiu pentru următoarea ta idee.</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Acces revocat</value>
+  </data>
+  <data name="ACTIONS" xml:space="preserve">
+    <value>ACȚIUNI</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Efectiv</value>
+  </data>
+  <data name="Actual end" xml:space="preserve">
+    <value>Sfârșit efectiv</value>
+  </data>
+  <data name="Actual end · earliest first" xml:space="preserve">
+    <value>Sfârșit efectiv · cele mai vechi mai întâi</value>
+  </data>
+  <data name="Actual end · latest first" xml:space="preserve">
+    <value>Sfârșitul efectiv · cele mai recente primele</value>
+  </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>Ora de încheiere efectivă nu poate fi anterioară orei de începere efective.</value>
+  </data>
+  <data name="Actual start" xml:space="preserve">
+    <value>Început efectiv</value>
+  </data>
+  <data name="Actual start · earliest first" xml:space="preserve">
+    <value>Început efectiv · cele mai timpurii mai întâi</value>
+  </data>
+  <data name="Actual start · latest first" xml:space="preserve">
+    <value>Început efectiv · cele mai recente primele</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Adaugă</value>
+  </data>
+  <data name="Add column" xml:space="preserve">
+    <value>Adăugare coloană</value>
+  </data>
+  <data name="Add images" xml:space="preserve">
+    <value>Adaugă imagini</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>CU AJUTORUL AI</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>Setările raportului AI au fost salvate</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Toate</value>
+  </data>
+  <data name="All caught up!" xml:space="preserve">
+    <value>Ești la zi!</value>
+  </data>
+  <data name="Already have an account? Sign in" xml:space="preserve">
+    <value>Aveți deja un cont? Conectați-vă</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Aspect</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Aplică</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Aprobă</value>
+  </data>
+  <data name="Approve all {0} actions" xml:space="preserve">
+    <value>Aprobă toate cele {0} acțiuni</value>
+  </data>
+  <data name="Approve all {0} proposed actions" xml:space="preserve">
+    <value>Aprobă toate cele {0} acțiuni propuse</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Arhivează</value>
+  </data>
+  <data name="Archive board" xml:space="preserve">
+    <value>Arhivează tabla</value>
+  </data>
+  <data name="Archive board?" xml:space="preserve">
+    <value>Arhivați panoul?</value>
+  </data>
+  <data name="Archive time unavailable" xml:space="preserve">
+    <value>Ora arhivării indisponibilă</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>ARHIVAT</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Arhivat · {0} · {1}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>Arhivat · Proprietar</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Arhivat {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Panouri arhivate</value>
+  </data>
+  <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
+    <value>Panourile arhivate sunt doar pentru citire până când proprietarul lor le restaurează.</value>
+  </data>
+  <data name="Assigned cards across your Kanban boards." xml:space="preserve">
+    <value>Carduri atribuite în toate panourile Kanban.</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Sarcini atribuite</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>ASIGNAT</value>
+  </data>
+  <data name="Back to board" xml:space="preserve">
+    <value>Înapoi la tablă</value>
+  </data>
+  <data name="Back to board settings" xml:space="preserve">
+    <value>Înapoi la setările tablei</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Înapoi la Kanban</value>
+  </data>
+  <data name="Back to reports" xml:space="preserve">
+    <value>Înapoi la rapoarte</value>
+  </data>
+  <data name="Board archived" xml:space="preserve">
+    <value>Panoul a fost arhivat</value>
+  </data>
+  <data name="Board deleted" xml:space="preserve">
+    <value>Tablou șters</value>
+  </data>
+  <data name="Board is now private" xml:space="preserve">
+    <value>Tabloul este acum privat</value>
+  </data>
+  <data name="Board is now public" xml:space="preserve">
+    <value>Panoul este acum public</value>
+  </data>
+  <data name="Board name" xml:space="preserve">
+    <value>Numele panoului</value>
+  </data>
+  <data name="Board restored" xml:space="preserve">
+    <value>Panou restaurat</value>
+  </data>
+  <data name="Board settings saved" xml:space="preserve">
+    <value>Setările panoului au fost salvate</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Panouri</value>
+  </data>
+  <data name="Boards shared with you will appear here." xml:space="preserve">
+    <value>Panourile partajate cu dvs. vor apărea aici.</value>
+  </data>
+  <data name="Boards you archive will appear here." xml:space="preserve">
+    <value>Panourile arhivate vor apărea aici.</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Poate edita</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anulează</value>
+  </data>
+  <data name="Capture it now. Organize it by dragging later." xml:space="preserve">
+    <value>Noteaz-o acum. Organizeaz-o prin tragere mai târziu.</value>
+  </data>
+  <data name="Card created" xml:space="preserve">
+    <value>Card creat</value>
+  </data>
+  <data name="Card details" xml:space="preserve">
+    <value>Detalii despre card</value>
+  </data>
+  <data name="Card moved" xml:space="preserve">
+    <value>Card mutat</value>
+  </data>
+  <data name="Card title" xml:space="preserve">
+    <value>Titlul cardului</value>
+  </data>
+  <data name="Card transferred" xml:space="preserve">
+    <value>Card transferat</value>
+  </data>
+  <data name="Card updated" xml:space="preserve">
+    <value>Card actualizat</value>
+  </data>
+  <data name="Cards across accessible boards" xml:space="preserve">
+    <value>Carduri de pe panourile accesibile</value>
+  </data>
+  <data name="Check the server address and network connection." xml:space="preserve">
+    <value>Verificați adresa serverului și conexiunea la rețea.</value>
+  </data>
+  <data name="Choose a PNG, JPG, JPEG, or BMP image." xml:space="preserve">
+    <value>Alegeți o imagine PNG, JPG, JPEG sau BMP.</value>
+  </data>
+  <data name="Choose images to attach to this reply" xml:space="preserve">
+    <value>Alegeți imagini pentru a le atașa la acest răspuns</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>COLOANĂ</value>
+  </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Coloana {0}</value>
+  </data>
+  <data name="Column added" xml:space="preserve">
+    <value>Coloană adăugată</value>
+  </data>
+  <data name="Column deleted" xml:space="preserve">
+    <value>Coloană ștearsă</value>
+  </data>
+  <data name="Column name" xml:space="preserve">
+    <value>Numele coloanei</value>
+  </data>
+  <data name="Column updated" xml:space="preserve">
+    <value>Coloană actualizată</value>
+  </data>
+  <data name="Comment image" xml:space="preserve">
+    <value>Imagine de comentariu</value>
+  </data>
+  <data name="Comment image preview" xml:space="preserve">
+    <value>Previzualizare imagine a comentariului</value>
+  </data>
+  <data name="Comment image unavailable" xml:space="preserve">
+    <value>Imaginea comentariului nu este disponibilă</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>COMENTARII  {0}</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Finalizate</value>
+  </data>
+  <data name="Completing secure sign-in…" xml:space="preserve">
+    <value>Se finalizează autentificarea securizată…</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Conectare</value>
+  </data>
+  <data name="Connected. Sign in to continue." xml:space="preserve">
+    <value>Conectat. Conectați-vă pentru a continua.</value>
+  </data>
+  <data name="Connecting securely…" xml:space="preserve">
+    <value>Se conectează în siguranță…</value>
+  </data>
+  <data name="Connection cancelled." xml:space="preserve">
+    <value>Conexiunea a fost anulată.</value>
+  </data>
+  <data name="Conversation history" xml:space="preserve">
+    <value>Istoricul conversației</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copiază</value>
+  </data>
+  <data name="Copy card" xml:space="preserve">
+    <value>Copiază cardul</value>
+  </data>
+  <data name="Copy card?" xml:space="preserve">
+    <value>Copiați cardul?</value>
+  </data>
+  <data name="Could not create the account." xml:space="preserve">
+    <value>Contul nu a putut fi creat.</value>
+  </data>
+  <data name="Could not load boards" xml:space="preserve">
+    <value>Nu s-au putut încărca panourile</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Creează</value>
+  </data>
+  <data name="Create a board" xml:space="preserve">
+    <value>Creează un panou</value>
+  </data>
+  <data name="Create a board to start organizing your work." xml:space="preserve">
+    <value>Creează un panou pentru a începe să-ți organizezi munca.</value>
+  </data>
+  <data name="Create a card" xml:space="preserve">
+    <value>Creează o card</value>
+  </data>
+  <data name="Create a private board. You can manage visibility and sharing from board settings." xml:space="preserve">
+    <value>Creați o tablă privată. Puteți gestiona vizibilitatea și partajarea din setările tablei.</value>
+  </data>
+  <data name="Create account" xml:space="preserve">
+    <value>Creează cont</value>
+  </data>
+  <data name="Create an account" xml:space="preserve">
+    <value>Creați un cont</value>
+  </data>
+  <data name="Create card" xml:space="preserve">
+    <value>Creează un card</value>
+  </data>
+  <data name="Created by {0} · {1}" xml:space="preserve">
+    <value>Creat de {0} · {1}</value>
+  </data>
+  <data name="Creating your account…" xml:space="preserve">
+    <value>Se creează contul…</value>
+  </data>
+  <data name="DAILY PLAN" xml:space="preserve">
+    <value>PLANUL ZILNIC</value>
+  </data>
+  <data name="DAILY SUMMARY" xml:space="preserve">
+    <value>REZUMAT ZILNIC</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Întunecat</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Zi</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>Ștergeți {0} și cele {1} carduri asociate? Această acțiune nu poate fi anulată.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>Ștergeți {0}, toate cele {1} coloane și toate cele {2} carduri? Această acțiune nu poate fi anulată.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>Ștergeți {0}? Această acțiune nu poate fi anulată.</value>
+  </data>
+  <data name="Delete account" xml:space="preserve">
+    <value>Șterge contul</value>
+  </data>
+  <data name="Delete account permanently?" xml:space="preserve">
+    <value>Ștergeți definitiv contul?</value>
+  </data>
+  <data name="Delete board permanently?" xml:space="preserve">
+    <value>Șterge definitiv tabla?</value>
+  </data>
+  <data name="Delete card" xml:space="preserve">
+    <value>Șterge cardul</value>
+  </data>
+  <data name="Delete card?" xml:space="preserve">
+    <value>Ștergeți cardul?</value>
+  </data>
+  <data name="Delete column?" xml:space="preserve">
+    <value>Șterge coloana?</value>
+  </data>
+  <data name="Delete reply?" xml:space="preserve">
+    <value>Șterge răspunsul?</value>
+  </data>
+  <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
+    <value>Ștergerea contului este definitivă și nu poate fi anulată.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descriere</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="Discard report" xml:space="preserve">
+    <value>Renunță la raport</value>
+  </data>
+  <data name="Discard weekly report?" xml:space="preserve">
+    <value>Renunțați la raportul săptămânal?</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Gata</value>
+  </data>
+  <data name="Drop a card here" xml:space="preserve">
+    <value>Plasați un card aici</value>
+  </data>
+  <data name="Drop on another column to move" xml:space="preserve">
+    <value>Eliberați pe o altă coloană pentru a muta</value>
+  </data>
+  <data name="Due" xml:space="preserve">
+    <value>Scadență</value>
+  </data>
+  <data name="Due  {0}" xml:space="preserve">
+    <value>Termen limită  {0}</value>
+  </data>
+  <data name="Due {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Scadent la {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Edit card" xml:space="preserve">
+    <value>Editează cardul</value>
+  </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Editarea duratelor efective necesită permisiunea „Editare durată efectivă”.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Email or username" xml:space="preserve">
+    <value>E-mail sau nume de utilizator</value>
+  </data>
+  <data name="Enter a board name" xml:space="preserve">
+    <value>Introduceți numele unei table</value>
+  </data>
+  <data name="Enter a card title" xml:space="preserve">
+    <value>Introduceți titlul cardului</value>
+  </data>
+  <data name="Enter a column name" xml:space="preserve">
+    <value>Introduceți numele unei coloane</value>
+  </data>
+  <data name="Enter a label name" xml:space="preserve">
+    <value>Introduceți un nume pentru etichetă</value>
+  </data>
+  <data name="Enter a search query" xml:space="preserve">
+    <value>Introduceți o interogare de căutare</value>
+  </data>
+  <data name="Enter a value from 1 to 365" xml:space="preserve">
+    <value>Introduceți o valoare între 1 și 365</value>
+  </data>
+  <data name="Enter a whole number" xml:space="preserve">
+    <value>Introduceți un număr întreg</value>
+  </data>
+  <data name="Enter your current password" xml:space="preserve">
+    <value>Introduceți parola actuală</value>
+  </data>
+  <data name="Enter your email" xml:space="preserve">
+    <value>Introduceți adresa dvs. de e-mail</value>
+  </data>
+  <data name="Enter your email or username" xml:space="preserve">
+    <value>Introduceți adresa de e-mail sau numele de utilizator</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Eroare</value>
+  </data>
+  <data name="Every {0} {1}" xml:space="preserve">
+    <value>La fiecare {0} {1}</value>
+  </data>
+  <data name="Excel · {0}" xml:space="preserve">
+    <value>Excel · {0}</value>
+  </data>
+  <data name="Export PNG" xml:space="preserve">
+    <value>Exportă ca PNG</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Se exportează…</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtru</value>
+  </data>
+  <data name="Filter ({0})" xml:space="preserve">
+    <value>Filtrează ({0})</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Filtrează cardurile</value>
+  </data>
+  <data name="Filter Gantt cards" xml:space="preserve">
+    <value>Filtrează cardurile Gantt</value>
+  </data>
+  <data name="Filters &amp; sorting" xml:space="preserve">
+    <value>Filtre și sortare</value>
+  </data>
+  <data name="Find a board" xml:space="preserve">
+    <value>Găsește o tablă</value>
+  </data>
+  <data name="Generated {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Generat la {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>Căutare globală</value>
+  </data>
+  <data name="Hide editor" xml:space="preserve">
+    <value>Ascunde editorul</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Ridicat</value>
+  </data>
+  <data name="Hold to move {0}" xml:space="preserve">
+    <value>Ține apăsat pentru a muta {0}</value>
+  </data>
+  <data name="In progress" xml:space="preserve">
+    <value>În curs</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Incomplet</value>
+  </data>
+  <data name="Interval (1–365)" xml:space="preserve">
+    <value>Interval (1–365)</value>
+  </data>
+  <data name="K" xml:space="preserve">
+    <value>K</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Tablou de bord Kanban</value>
+  </data>
+  <data name="Label added" xml:space="preserve">
+    <value>Etichetă adăugată</value>
+  </data>
+  <data name="Label removed" xml:space="preserve">
+    <value>Eticheta a fost eliminată</value>
+  </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>ETICHETE</value>
+  </data>
+  <data name="Labels cannot exceed 100 characters" xml:space="preserve">
+    <value>Etichetele nu pot depăși 100 de caractere</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Luminos</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>CONT LOCAL</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Scăzut</value>
+  </data>
+  <data name="Make room for progress." xml:space="preserve">
+    <value>Fă loc progresului.</value>
+  </data>
+  <data name="Mark all read" xml:space="preserve">
+    <value>Marchează-le pe toate ca citite</value>
+  </data>
+  <data name="Mark as read" xml:space="preserve">
+    <value>Marchează ca citit</value>
+  </data>
+  <data name="Match all" xml:space="preserve">
+    <value>Potrivește toate</value>
+  </data>
+  <data name="Match any" xml:space="preserve">
+    <value>Potrivește oricare</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Mediu</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Lună</value>
+  </data>
+  <data name="Move {0} left" xml:space="preserve">
+    <value>Mută {0} la stânga</value>
+  </data>
+  <data name="Move {0} right" xml:space="preserve">
+    <value>Mutați {0} la dreapta</value>
+  </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Mută cardul</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>MUTĂ ÎN COLOANĂ</value>
+  </data>
+  <data name="Move, copy or transfer" xml:space="preserve">
+    <value>Mută, copiază sau transferă</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>SARCINILE MELE ACTIVE  ·  {0} ÎN DESFĂȘURARE</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>PANOURILE MELE ARHIVATE</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>TABLA MEA</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Tabelele mele</value>
+  </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Jurnalele mele de operațiuni</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Sarcinile mele</value>
+  </data>
+  <data name="Network issue · retrying" xml:space="preserve">
+    <value>Problemă de rețea · se reîncearcă</value>
+  </data>
+  <data name="New board" xml:space="preserve">
+    <value>Tablă nouă</value>
+  </data>
+  <data name="Newest first" xml:space="preserve">
+    <value>Cele mai noi primele</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Nu aveți nicio sarcină activă atribuită în acest moment.</value>
+  </data>
+  <data name="No archived boards" xml:space="preserve">
+    <value>Nu există panouri arhivate</value>
+  </data>
+  <data name="No archived boards are shared with you." xml:space="preserve">
+    <value>Niciun panou arhivat nu este partajat cu tine.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Încă nu ai niciun panou partajat cu tine.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Nu au fost create încă panouri.</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>Nicio tablă încă</value>
+  </data>
+  <data name="No cards" xml:space="preserve">
+    <value>Niciun card</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>Nicio fișă nu are date complete în acest mod.</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nu există carduri care să corespundă filtrelor curente.</value>
+  </data>
+  <data name="No columns yet. Add the first one here." xml:space="preserve">
+    <value>Încă nu există coloane. Adăugați-o aici pe prima.</value>
+  </data>
+  <data name="No description provided." xml:space="preserve">
+    <value>Nu a fost furnisată nicio descriere.</value>
+  </data>
+  <data name="No description yet." xml:space="preserve">
+    <value>Nicio descriere încă.</value>
+  </data>
+  <data name="No document picker is available on this device." xml:space="preserve">
+    <value>Nu este disponibil niciun selector de documente pe acest dispozitiv.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Fără dată scadentă</value>
+  </data>
+  <data name="No exportable chart is available in this mode." xml:space="preserve">
+    <value>Nu este disponibilă nicio diagramă care să poată fi exportată în acest mod.</value>
+  </data>
+  <data name="No image picker is available on this device." xml:space="preserve">
+    <value>Nu este disponibil niciun selector de imagini pe acest dispozitiv.</value>
+  </data>
+  <data name="No image picker is available." xml:space="preserve">
+    <value>Selectorul de imagini nu este disponibil.</value>
+  </data>
+  <data name="No labels" xml:space="preserve">
+    <value>Nicio etichetă</value>
+  </data>
+  <data name="No matching boards. Try a different name." xml:space="preserve">
+    <value>Nu s-au găsit panouri potrivite. Încercați un alt nume.</value>
+  </data>
+  <data name="No matching cards" xml:space="preserve">
+    <value>Nu există carduri corespunzătoare</value>
+  </data>
+  <data name="No matching tasks" xml:space="preserve">
+    <value>Nu există sarcini care să corespundă</value>
+  </data>
+  <data name="No one else has access yet." xml:space="preserve">
+    <value>Deocamdată, nimeni altcineva nu are acces.</value>
+  </data>
+  <data name="No other editable board with columns is available." xml:space="preserve">
+    <value>Nu este disponibilă nicio altă tablă editabilă cu coloane.</value>
+  </data>
+  <data name="No previous conversations yet." xml:space="preserve">
+    <value>Nu există încă conversații anterioare.</value>
+  </data>
+  <data name="No replies yet." xml:space="preserve">
+    <value>Încă nu există răspunsuri.</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Încă nu există rapoarte</value>
+  </data>
+  <data name="No unread notifications." xml:space="preserve">
+    <value>Nu există notificări necitite.</value>
+  </data>
+  <data name="No user or role is available to share with." xml:space="preserve">
+    <value>Nu există niciun utilizator sau rol cu care să partajați.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Niciunul</value>
+  </data>
+  <data name="Not started" xml:space="preserve">
+    <value>Neînceput</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notificări</value>
+  </data>
+  <data name="Oldest first" xml:space="preserve">
+    <value>Cele mai vechi primele</value>
+  </data>
+  <data name="Only .xlsx workbooks are supported." xml:space="preserve">
+    <value>Sunt acceptate doar registrele de lucru .xlsx.</value>
+  </data>
+  <data name="Open board" xml:space="preserve">
+    <value>Deschide tabla</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Panouri deschise</value>
+  </data>
+  <data name="Open card" xml:space="preserve">
+    <value>Deschide cardul</value>
+  </data>
+  <data name="Open comment image" xml:space="preserve">
+    <value>Deschide imaginea comentariului</value>
+  </data>
+  <data name="Open original" xml:space="preserve">
+    <value>Deschide originalul</value>
+  </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>OPERAȚIUNE</value>
+  </data>
+  <data name="Operation logging is not enabled on this server." xml:space="preserve">
+    <value>Înregistrarea operațiunilor nu este activată pe acest server.</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>CONECTARE LA ORGANIZAȚIE</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Întârziat</value>
+  </data>
+  <data name="Page {0} of {1}" xml:space="preserve">
+    <value>Pagina {0} din {1}</value>
+  </data>
+  <data name="Password changed" xml:space="preserve">
+    <value>Parola a fost schimbată</value>
+  </data>
+  <data name="Password must contain at least 6 characters" xml:space="preserve">
+    <value>Parola trebuie să conțină cel puțin 6 caractere</value>
+  </data>
+  <data name="Passwords do not match" xml:space="preserve">
+    <value>Parolele nu se potrivesc</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planificat</value>
+  </data>
+  <data name="Planned end · earliest first" xml:space="preserve">
+    <value>Finalizare planificată · cea mai devreme prima</value>
+  </data>
+  <data name="Planned end · overdue first" xml:space="preserve">
+    <value>Sfârșit planificat · mai întâi cele restante</value>
+  </data>
+  <data name="Planned start" xml:space="preserve">
+    <value>Început planificat</value>
+  </data>
+  <data name="Planned start · earliest first" xml:space="preserve">
+    <value>Început planificat · cele mai apropiate mai întâi</value>
+  </data>
+  <data name="Planned start · latest first" xml:space="preserve">
+    <value>Început planificat · cele mai recente mai întâi</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP sau BMP · 10 MB fiecare</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>PRIORITATE</value>
+  </data>
+  <data name="Priority · low first" xml:space="preserve">
+    <value>Prioritate · de la mică la mare</value>
+  </data>
+  <data name="Priority · urgent first" xml:space="preserve">
+    <value>Prioritate · cele urgente mai întâi</value>
+  </data>
+  <data name="Profile photo updated" xml:space="preserve">
+    <value>Fotografia de profil a fost actualizată</value>
+  </data>
+  <data name="Profile saved" xml:space="preserve">
+    <value>Profil salvat</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>ACȚIUNE PROPUSĂ</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Gata</value>
+  </data>
+  <data name="Recurring cards require a due date." xml:space="preserve">
+    <value>Cardurile recurente necesită o dată scadentă.</value>
+  </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Sarcină recurentă</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Elimină</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Elimină {0}</value>
+  </data>
+  <data name="Remove {0} from this board?" xml:space="preserve">
+    <value>Eliminați {0} de pe această tablă?</value>
+  </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Revocați accesul?</value>
+  </data>
+  <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
+    <value>Răspunsurile nu pot depăși 2.000 de caractere</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Răspunde</value>
+  </data>
+  <data name="Reply added" xml:space="preserve">
+    <value>Răspuns adăugat</value>
+  </data>
+  <data name="Reply deleted" xml:space="preserve">
+    <value>Răspuns șters</value>
+  </data>
+  <data name="Report updated." xml:space="preserve">
+    <value>Raport actualizat.</value>
+  </data>
+  <data name="Resolve the current response before sending another message." xml:space="preserve">
+    <value>Rezolvați răspunsul curent înainte de a trimite un alt mesaj.</value>
+  </data>
+  <data name="Results for “{0}”" xml:space="preserve">
+    <value>Rezultate pentru „{0}”</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>Reîncearcă</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Salvează modificările</value>
+  </data>
+  <data name="Save pending edits before moving this card." xml:space="preserve">
+    <value>Salvați modificările în așteptare înainte de a muta acest card.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Căutare</value>
+  </data>
+  <data name="Search Cards" xml:space="preserve">
+    <value>Caută carduri</value>
+  </data>
+  <data name="Search cards, tasks, or documents" xml:space="preserve">
+    <value>Căutați carduri, sarcini sau documente</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Caută sau creează o etichetă</value>
+  </data>
+  <data name="Search this board and narrow it by priority." xml:space="preserve">
+    <value>Căutați pe acest panou și restrângeți rezultatele în funcție de prioritate.</value>
+  </data>
+  <data name="Search titles and descriptions across every board you can read." xml:space="preserve">
+    <value>Caută titluri și descrieri în toate panourile pe care le poți citi.</value>
+  </data>
+  <data name="Sending…" xml:space="preserve">
+    <value>Se trimite…</value>
+  </data>
+  <data name="Set a due date before enabling recurrence." xml:space="preserve">
+    <value>Setați o dată limită înainte de a activa recurența.</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>PANOURI ARHIVATE PARTAJATE</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>TABLĂ PARTAJATĂ</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Panouri partajate</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>Partajat cu {0}</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Partajate cu mine</value>
+  </data>
+  <data name="Sign in" xml:space="preserve">
+    <value>Conectare</value>
+  </data>
+  <data name="Sign-in failed." xml:space="preserve">
+    <value>Autentificarea a eșuat.</value>
+  </data>
+  <data name="Signing you in…" xml:space="preserve">
+    <value>Vă conectăm…</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>SORTARE</value>
+  </data>
+  <data name="Start  {0}" xml:space="preserve">
+    <value>Începeți  {0}</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Abonează-te</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>Abonat</value>
+  </data>
+  <data name="Subscribed to updates" xml:space="preserve">
+    <value>Abonat la actualizări</value>
+  </data>
+  <data name="Switch server" xml:space="preserve">
+    <value>Schimbă serverul</value>
+  </data>
+  <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
+    <value>Responsabilul este eliminat, iar răspunsurile rămân în istoricul cardului sursă.</value>
+  </data>
+  <data name="The board becomes read-only and moves to Archived." xml:space="preserve">
+    <value>Tabloul devine disponibil doar pentru citire și este mutat în Arhivate.</value>
+  </data>
+  <data name="The board returns to your active workspace." xml:space="preserve">
+    <value>Panoul revine în spațiul de lucru activ.</value>
+  </data>
+  <data name="The card and all of its replies will be permanently removed." xml:space="preserve">
+    <value>Cardul și toate răspunsurile la acesta vor fi șterse definitiv.</value>
+  </data>
+  <data name="The card is already in this column." xml:space="preserve">
+    <value>Cardul se află deja în această coloană.</value>
+  </data>
+  <data name="The chart is too large to export as one PNG image." xml:space="preserve">
+    <value>Diagrama este prea mare pentru a fi exportată ca o singură imagine PNG.</value>
+  </data>
+  <data name="The profile photo cannot exceed 10 MB." xml:space="preserve">
+    <value>Fotografia de profil nu poate depăși 10 MB.</value>
+  </data>
+  <data name="The report will be removed. The scheduled job may generate it again later." xml:space="preserve">
+    <value>Raportul va fi șters. Este posibil ca sarcina programată să îl genereze din nou mai târziu.</value>
+  </data>
+  <data name="The workbook cannot exceed 10 MB." xml:space="preserve">
+    <value>Registrul de lucru nu poate depăși 10 MB.</value>
+  </data>
+  <data name="Thinking…" xml:space="preserve">
+    <value>Se gândește…</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>Acest panou nu are niciun card.</value>
+  </data>
+  <data name="This board has no columns" xml:space="preserve">
+    <value>Această tablă nu are coloane</value>
+  </data>
+  <data name="This board has no columns." xml:space="preserve">
+    <value>Această tablă nu are coloane.</value>
+  </data>
+  <data name="This board is view-only, so replies and edits are disabled." xml:space="preserve">
+    <value>Această tablă este doar pentru vizualizare, așa că răspunsurile și editările sunt dezactivate.</value>
+  </data>
+  <data name="This public board has no specific user or role shares." xml:space="preserve">
+    <value>Acest panou public nu are permisiuni de acces partajate cu anumiți utilizatori sau roluri.</value>
+  </data>
+  <data name="This reply will be permanently removed." xml:space="preserve">
+    <value>Acest răspuns va fi șters definitiv.</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>CRONOLOGIE</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titlu</value>
+  </data>
+  <data name="Title · A–Z" xml:space="preserve">
+    <value>Titlu · A–Z</value>
+  </data>
+  <data name="Title · Z–A" xml:space="preserve">
+    <value>Titlu · Z–A</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Titlu sau descriere</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>RAPOARTELE DE ASTĂZI</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="Transfer card" xml:space="preserve">
+    <value>Transferă cardul</value>
+  </data>
+  <data name="Transfer to another board" xml:space="preserve">
+    <value>Transferă pe alt panou</value>
+  </data>
+  <data name="Try another status, label, or assignee filter." xml:space="preserve">
+    <value>Încearcă un alt filtru pentru stare, etichetă sau responsabil.</value>
+  </data>
+  <data name="Type a message first" xml:space="preserve">
+    <value>Introduceți mai întâi un mesaj</value>
+  </data>
+  <data name="Unarchive" xml:space="preserve">
+    <value>Dezarhivează</value>
+  </data>
+  <data name="Unarchive board" xml:space="preserve">
+    <value>Dezarhivează tabla</value>
+  </data>
+  <data name="Unarchive board?" xml:space="preserve">
+    <value>Restabiliți arhivarea tablei?</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Neatribuit</value>
+  </data>
+  <data name="Unsubscribed from updates" xml:space="preserve">
+    <value>Dezabonat de la actualizări</value>
+  </data>
+  <data name="Uploading image {0} of {1}…" xml:space="preserve">
+    <value>Se încarcă imaginea {0} din {1}…</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Urgent</value>
+  </data>
+  <data name="Use 2 to 30 characters" xml:space="preserve">
+    <value>Folosiți între 2 și 30 de caractere</value>
+  </data>
+  <data name="Use at least 6 characters" xml:space="preserve">
+    <value>Folosiți cel puțin 6 caractere</value>
+  </data>
+  <data name="Use device setting" xml:space="preserve">
+    <value>Folosește setarea dispozitivului</value>
+  </data>
+  <data name="Use the same title, description, priority, and assignee filters as the board." xml:space="preserve">
+    <value>Folosește aceleași filtre pentru titlu, descriere, prioritate și responsabil ca pe tablă.</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Doar vizualizare</value>
+  </data>
+  <data name="Waiting for approval" xml:space="preserve">
+    <value>În așteptarea aprobării</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Săptămână</value>
+  </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>RAPORT SĂPTĂMÂNAL</value>
+  </data>
+  <data name="Weekly report discarded." xml:space="preserve">
+    <value>Raportul săptămânal a fost eliminat.</value>
+  </data>
+  <data name="Workbook attached" xml:space="preserve">
+    <value>Registrul de lucru a fost atașat</value>
+  </data>
+  <data name="Workspace" xml:space="preserve">
+    <value>Spațiu de lucru</value>
+  </data>
+  <data name="Write a reply" xml:space="preserve">
+    <value>Scrie un răspuns</value>
+  </data>
+  <data name="Write a reply first" xml:space="preserve">
+    <value>Scrie mai întâi un răspuns</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>An</value>
+  </data>
+  <data name="You can attach up to {0} images." xml:space="preserve">
+    <value>Puteți atașa până la {0} imagini.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>Aveți {0} notificare{1} necitită.</value>
+  </data>
+  <data name="You have no archived boards." xml:space="preserve">
+    <value>Nu aveți panouri arhivate.</value>
+  </data>
+  <data name="You have no unread notifications." xml:space="preserve">
+    <value>Nu ai notificări necitite.</value>
+  </data>
+  <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
+    <value>Dețineți {0} panouri. Ștergeți-le înainte de a vă șterge contul.</value>
+  </data>
+  <data name="Your account data will be removed. This cannot be undone." xml:space="preserve">
+    <value>Datele contului tău vor fi șterse. Această acțiune nu poate fi anulată.</value>
+  </data>
+  <data name="Your generated plans and summaries will appear here." xml:space="preserve">
+    <value>Planurile și rezumatele generate vor apărea aici.</value>
+  </data>
+  <data name="Your generated weekly reports will appear here." xml:space="preserve">
+    <value>Rapoartele săptămânale generate de tine vor apărea aici.</value>
+  </data>
+  <data name="Your latest activity across Kanban · {0} total" xml:space="preserve">
+    <value>Cea mai recentă activitate a ta în Kanban · {0} în total</value>
+  </data>
+  <data name="Your workspace" xml:space="preserve">
+    <value>Spațiul tău de lucru</value>
+  </data>
+
+</root>
