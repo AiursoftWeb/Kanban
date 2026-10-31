@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · alkaen {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} taulua · kaikki yhdessä näkymässä</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} korttia</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} korttia · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} korttia · {1} saraketta</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} saraketta · {1} korttia</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>{0} kuvaa ohitettiin. Käytä PNG-, JPEG-, GIF-, WebP- tai BMP-kuvia, joiden koko on enintään 10 Mt.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>Valittu {0}/{1}</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} avointa · {1} työn alla · {2} valmiina</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>{0} myöhässä</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} myöhässä · {1} ilman vastuuhenkilöä</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>{0} prioriteetti  ·  Määräpäivä {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} vastausta</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} raporttia</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} tulosta</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} ajastettu · {1} ilman täydellisiä päivämääriä</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} tehtävää</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0} palaa aktiiviseen työtilaasi.</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2} prioriteetti</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Avaa raportti.</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, käytössä {1} tehtävässä</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Näytä lisätiedot napauttamalla.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Napauta nähdäksesi lisätietoja. Siirrä pitämällä painettuna ja vetämällä.</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>Käyttäjän {0} tehtävät</value>
+  </data>
+  <data name="+  Add card" xml:space="preserve">
+    <value>+  Lisää kortti</value>
+  </data>
+  <data name="1 report" xml:space="preserve">
+    <value>1 raportti</value>
+  </data>
+  <data name="1 result" xml:space="preserve">
+    <value>1 tulos</value>
+  </data>
+  <data name="1 task" xml:space="preserve">
+    <value>1 tehtävä</value>
+  </data>
+  <data name="A copy will be added to the end of this column. Replies, attachments, and activity history will not be copied." xml:space="preserve">
+    <value>Kopio lisätään tämän sarakkeen loppuun. Vastauksia, liitteitä tai toimintohistoriaa ei kopioida.</value>
+  </data>
+  <data name="A little space for your next idea." xml:space="preserve">
+    <value>Pieni tila seuraavalle ideallesi.</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Käyttöoikeus poistettu</value>
+  </data>
+  <data name="ACTIONS" xml:space="preserve">
+    <value>TOIMINNOT</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Toteutunut</value>
+  </data>
+  <data name="Actual end" xml:space="preserve">
+    <value>Toteutunut päättyminen</value>
+  </data>
+  <data name="Actual end · earliest first" xml:space="preserve">
+    <value>Todellinen päättyminen · aikaisin ensin</value>
+  </data>
+  <data name="Actual end · latest first" xml:space="preserve">
+    <value>Toteutunut päättyminen · uusimmat ensin</value>
+  </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>Todellinen päättymisaika ei voi olla ennen todellista alkamisaikaa.</value>
+  </data>
+  <data name="Actual start" xml:space="preserve">
+    <value>Todellinen aloitus</value>
+  </data>
+  <data name="Actual start · earliest first" xml:space="preserve">
+    <value>Todellinen aloitus · aikaisin ensin</value>
+  </data>
+  <data name="Actual start · latest first" xml:space="preserve">
+    <value>Todellinen aloitus · uusimmat ensin</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="Add column" xml:space="preserve">
+    <value>Lisää sarake</value>
+  </data>
+  <data name="Add images" xml:space="preserve">
+    <value>Lisää kuvia</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>TEKOÄLYLLÄ TOIMIVA</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>Tekoälyraportin asetukset tallennettu</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="All caught up!" xml:space="preserve">
+    <value>Kaikki ajan tasalla!</value>
+  </data>
+  <data name="Already have an account? Sign in" xml:space="preserve">
+    <value>Onko sinulla jo tili? Kirjaudu sisään</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Ulkoasu</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Käytä</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Hyväksy</value>
+  </data>
+  <data name="Approve all {0} actions" xml:space="preserve">
+    <value>Hyväksy kaikki {0} toimintoa</value>
+  </data>
+  <data name="Approve all {0} proposed actions" xml:space="preserve">
+    <value>Hyväksy kaikki {0} ehdotettua toimintoa</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Arkistoi</value>
+  </data>
+  <data name="Archive board" xml:space="preserve">
+    <value>Arkistoi taulu</value>
+  </data>
+  <data name="Archive board?" xml:space="preserve">
+    <value>Arkistoidaanko taulu?</value>
+  </data>
+  <data name="Archive time unavailable" xml:space="preserve">
+    <value>Arkistointiaika ei ole käytettävissä</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>ARKISTOITU</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Arkistoitu · {0} · {1}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>Arkistoitu · Omistaja</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Arkistoitu {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived Boards" xml:space="preserve">
+    <value>Arkistoidut taulut</value>
+  </data>
+  <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
+    <value>Arkistoidut taulut ovat vain luku -tilassa, kunnes niiden omistaja palauttaa ne.</value>
+  </data>
+  <data name="Assigned cards across your Kanban boards." xml:space="preserve">
+    <value>Määritetyt kortit kaikilla Kanban-tauluillasi.</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Määritetyt tehtävät</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>VASTUUHENKILÖ</value>
+  </data>
+  <data name="Back to board" xml:space="preserve">
+    <value>Takaisin tauluun</value>
+  </data>
+  <data name="Back to board settings" xml:space="preserve">
+    <value>Takaisin taulun asetuksiin</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Takaisin Kanban-näkymään</value>
+  </data>
+  <data name="Back to reports" xml:space="preserve">
+    <value>Takaisin raportteihin</value>
+  </data>
+  <data name="Board archived" xml:space="preserve">
+    <value>Lauta arkistoitu</value>
+  </data>
+  <data name="Board deleted" xml:space="preserve">
+    <value>Taulu poistettu</value>
+  </data>
+  <data name="Board is now private" xml:space="preserve">
+    <value>Taulu on nyt yksityinen</value>
+  </data>
+  <data name="Board is now public" xml:space="preserve">
+    <value>Taulu on nyt julkinen</value>
+  </data>
+  <data name="Board name" xml:space="preserve">
+    <value>Taulun nimi</value>
+  </data>
+  <data name="Board restored" xml:space="preserve">
+    <value>Taulu palautettu</value>
+  </data>
+  <data name="Board settings saved" xml:space="preserve">
+    <value>Taulun asetukset tallennettu</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Taulut</value>
+  </data>
+  <data name="Boards shared with you will appear here." xml:space="preserve">
+    <value>Sinulle jaetut taulut näkyvät täällä.</value>
+  </data>
+  <data name="Boards you archive will appear here." xml:space="preserve">
+    <value>Arkistoimasi taulut näkyvät täällä.</value>
+  </data>
+  <data name="Can edit" xml:space="preserve">
+    <value>Voi muokata</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="Capture it now. Organize it by dragging later." xml:space="preserve">
+    <value>Tallenna se nyt. Järjestä se myöhemmin vetämällä.</value>
+  </data>
+  <data name="Card created" xml:space="preserve">
+    <value>Kortti luotu</value>
+  </data>
+  <data name="Card details" xml:space="preserve">
+    <value>Kortin tiedot</value>
+  </data>
+  <data name="Card moved" xml:space="preserve">
+    <value>Korttia siirretty</value>
+  </data>
+  <data name="Card title" xml:space="preserve">
+    <value>Kortin otsikko</value>
+  </data>
+  <data name="Card transferred" xml:space="preserve">
+    <value>Kortti siirretty</value>
+  </data>
+  <data name="Card updated" xml:space="preserve">
+    <value>Kortti päivitetty</value>
+  </data>
+  <data name="Cards across accessible boards" xml:space="preserve">
+    <value>Kortit kaikilla käytettävissä olevilla tauluilla</value>
+  </data>
+  <data name="Check the server address and network connection." xml:space="preserve">
+    <value>Tarkista palvelimen osoite ja verkkoyhteys.</value>
+  </data>
+  <data name="Choose a PNG, JPG, JPEG, or BMP image." xml:space="preserve">
+    <value>Valitse PNG-, JPG-, JPEG- tai BMP-kuva.</value>
+  </data>
+  <data name="Choose images to attach to this reply" xml:space="preserve">
+    <value>Valitse tähän vastaukseen liitettävät kuvat</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Tyhjennä</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>SARAKKE</value>
+  </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Sarake {0}</value>
+  </data>
+  <data name="Column added" xml:space="preserve">
+    <value>Sarake lisätty</value>
+  </data>
+  <data name="Column deleted" xml:space="preserve">
+    <value>Sarake poistettu</value>
+  </data>
+  <data name="Column name" xml:space="preserve">
+    <value>Sarakkeen nimi</value>
+  </data>
+  <data name="Column updated" xml:space="preserve">
+    <value>Sarake päivitetty</value>
+  </data>
+  <data name="Comment image" xml:space="preserve">
+    <value>Kommentin kuva</value>
+  </data>
+  <data name="Comment image preview" xml:space="preserve">
+    <value>Kommenttikuvan esikatselu</value>
+  </data>
+  <data name="Comment image unavailable" xml:space="preserve">
+    <value>Kommentin kuva ei ole saatavilla</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>KOMMENTIT  {0}</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="Completing secure sign-in…" xml:space="preserve">
+    <value>Viimeistellään suojattua kirjautumista…</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Yhdistä</value>
+  </data>
+  <data name="Connected. Sign in to continue." xml:space="preserve">
+    <value>Yhteys muodostettu. Kirjaudu sisään jatkaaksesi.</value>
+  </data>
+  <data name="Connecting securely…" xml:space="preserve">
+    <value>Yhdistetään suojatusti…</value>
+  </data>
+  <data name="Connection cancelled." xml:space="preserve">
+    <value>Yhteys peruutettu.</value>
+  </data>
+  <data name="Conversation history" xml:space="preserve">
+    <value>Keskusteluhistoria</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopioi</value>
+  </data>
+  <data name="Copy card" xml:space="preserve">
+    <value>Kopioi kortti</value>
+  </data>
+  <data name="Copy card?" xml:space="preserve">
+    <value>Kopioidaanko kortti?</value>
+  </data>
+  <data name="Could not create the account." xml:space="preserve">
+    <value>Tilin luominen epäonnistui.</value>
+  </data>
+  <data name="Could not load boards" xml:space="preserve">
+    <value>Taulujen lataaminen epäonnistui</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="Create a board" xml:space="preserve">
+    <value>Luo taulu</value>
+  </data>
+  <data name="Create a board to start organizing your work." xml:space="preserve">
+    <value>Luo taulu, niin pääset järjestämään työsi.</value>
+  </data>
+  <data name="Create a card" xml:space="preserve">
+    <value>Luo kortti</value>
+  </data>
+  <data name="Create a private board. You can manage visibility and sharing from board settings." xml:space="preserve">
+    <value>Luo yksityinen taulu. Voit hallita näkyvyyttä ja jakamista taulun asetuksista.</value>
+  </data>
+  <data name="Create account" xml:space="preserve">
+    <value>Luo tili</value>
+  </data>
+  <data name="Create an account" xml:space="preserve">
+    <value>Luo tili</value>
+  </data>
+  <data name="Create card" xml:space="preserve">
+    <value>Luo kortti</value>
+  </data>
+  <data name="Created by {0} · {1}" xml:space="preserve">
+    <value>Luonut: {0} · {1}</value>
+  </data>
+  <data name="Creating your account…" xml:space="preserve">
+    <value>Luodaan tiliäsi…</value>
+  </data>
+  <data name="DAILY PLAN" xml:space="preserve">
+    <value>PÄIVITTÄINEN SUUNNITELMA</value>
+  </data>
+  <data name="DAILY SUMMARY" xml:space="preserve">
+    <value>PÄIVITTÄINEN YHTEENVETO</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Tumma</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Päivä</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>Poistetaanko {0} ja sen {1} korttia? Tätä toimintoa ei voi perua.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>Poistetaanko {0}, kaikki {1} saraketta ja kaikki {2} korttia? Tätä toimintoa ei voi kumota.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>Poistetaanko {0}? Tätä ei voi peruuttaa.</value>
+  </data>
+  <data name="Delete account" xml:space="preserve">
+    <value>Poista tili</value>
+  </data>
+  <data name="Delete account permanently?" xml:space="preserve">
+    <value>Haluatko poistaa tiliksesi pysyvästi?</value>
+  </data>
+  <data name="Delete board permanently?" xml:space="preserve">
+    <value>Poistetaanko taulu pysyvästi?</value>
+  </data>
+  <data name="Delete card" xml:space="preserve">
+    <value>Poista kortti</value>
+  </data>
+  <data name="Delete card?" xml:space="preserve">
+    <value>Poistetaanko kortti?</value>
+  </data>
+  <data name="Delete column?" xml:space="preserve">
+    <value>Poistetaanko sarake?</value>
+  </data>
+  <data name="Delete reply?" xml:space="preserve">
+    <value>Poistetaanko vastaus?</value>
+  </data>
+  <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
+    <value>Tilisi poistaminen on pysyvää, eikä sitä voi perua.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>Hylkää</value>
+  </data>
+  <data name="Discard report" xml:space="preserve">
+    <value>Hylkää raportti</value>
+  </data>
+  <data name="Discard weekly report?" xml:space="preserve">
+    <value>Hylätäänkö viikkoraportti?</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="Drop a card here" xml:space="preserve">
+    <value>Pudota kortti tähän</value>
+  </data>
+  <data name="Drop on another column to move" xml:space="preserve">
+    <value>Siirrä pudottamalla toiseen sarakkeeseen</value>
+  </data>
+  <data name="Due" xml:space="preserve">
+    <value>Eräpäivä</value>
+  </data>
+  <data name="Due  {0}" xml:space="preserve">
+    <value>Erääntyy  {0}</value>
+  </data>
+  <data name="Due {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Määräpäivä {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Edit card" xml:space="preserve">
+    <value>Muokkaa korttia</value>
+  </data>
+  <data name="Editing actual times requires the Edit Actual Time permission." xml:space="preserve">
+    <value>Toteutuneiden aikojen muokkaaminen edellyttää Toteutuneiden aikojen muokkausoikeutta.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="Email or username" xml:space="preserve">
+    <value>Sähköposti tai käyttäjätunnus</value>
+  </data>
+  <data name="Enter a board name" xml:space="preserve">
+    <value>Anna taulun nimi</value>
+  </data>
+  <data name="Enter a card title" xml:space="preserve">
+    <value>Kirjoita kortin otsikko</value>
+  </data>
+  <data name="Enter a column name" xml:space="preserve">
+    <value>Anna sarakkeen nimi</value>
+  </data>
+  <data name="Enter a label name" xml:space="preserve">
+    <value>Kirjoita tunnisteen nimi</value>
+  </data>
+  <data name="Enter a search query" xml:space="preserve">
+    <value>Kirjoita hakusana</value>
+  </data>
+  <data name="Enter a value from 1 to 365" xml:space="preserve">
+    <value>Syötä arvo väliltä 1–365</value>
+  </data>
+  <data name="Enter a whole number" xml:space="preserve">
+    <value>Syötä kokonaisluku</value>
+  </data>
+  <data name="Enter your current password" xml:space="preserve">
+    <value>Syötä nykyinen salasanasi</value>
+  </data>
+  <data name="Enter your email" xml:space="preserve">
+    <value>Syötä sähköpostiosoitteesi</value>
+  </data>
+  <data name="Enter your email or username" xml:space="preserve">
+    <value>Anna sähköpostiosoitteesi tai käyttäjänimesi</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="Every {0} {1}" xml:space="preserve">
+    <value>Joka {0} {1}</value>
+  </data>
+  <data name="Excel · {0}" xml:space="preserve">
+    <value>Excel · {0}</value>
+  </data>
+  <data name="Export PNG" xml:space="preserve">
+    <value>Vie PNG</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Viedään…</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Suodata</value>
+  </data>
+  <data name="Filter ({0})" xml:space="preserve">
+    <value>Suodata ({0})</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Suodata kortteja</value>
+  </data>
+  <data name="Filter Gantt cards" xml:space="preserve">
+    <value>Suodata Gantt-kortteja</value>
+  </data>
+  <data name="Filters &amp; sorting" xml:space="preserve">
+    <value>Suodattimet ja lajittelu</value>
+  </data>
+  <data name="Find a board" xml:space="preserve">
+    <value>Etsi taulu</value>
+  </data>
+  <data name="Generated {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Luotu {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Global Search" xml:space="preserve">
+    <value>Yleishaku</value>
+  </data>
+  <data name="Hide editor" xml:space="preserve">
+    <value>Piilota muokkaja</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Korkea</value>
+  </data>
+  <data name="Hold to move {0}" xml:space="preserve">
+    <value>Siirrä pitämällä painettuna {0}</value>
+  </data>
+  <data name="In progress" xml:space="preserve">
+    <value>Käynnissä</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Puutteellinen</value>
+  </data>
+  <data name="Interval (1–365)" xml:space="preserve">
+    <value>Aikaväli (1–365)</value>
+  </data>
+  <data name="K" xml:space="preserve">
+    <value>K</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Kanban-näkymä</value>
+  </data>
+  <data name="Label added" xml:space="preserve">
+    <value>Tunniste lisätty</value>
+  </data>
+  <data name="Label removed" xml:space="preserve">
+    <value>Tunniste poistettu</value>
+  </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>TUNNISTEET</value>
+  </data>
+  <data name="Labels cannot exceed 100 characters" xml:space="preserve">
+    <value>Tunnisteet eivät voi olla yli 100 merkkiä pitkiä.</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Vaalea</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>PAIKALLINEN TILI</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Matala</value>
+  </data>
+  <data name="Make room for progress." xml:space="preserve">
+    <value>Tee tilaa edistykselle.</value>
+  </data>
+  <data name="Mark all read" xml:space="preserve">
+    <value>Merkitse kaikki luetuiksi</value>
+  </data>
+  <data name="Mark as read" xml:space="preserve">
+    <value>Merkitse luetuksi</value>
+  </data>
+  <data name="Match all" xml:space="preserve">
+    <value>Täsmää kaikki</value>
+  </data>
+  <data name="Match any" xml:space="preserve">
+    <value>Osi mikä tahansa</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Keskitaso</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Kuukausi</value>
+  </data>
+  <data name="Move {0} left" xml:space="preserve">
+    <value>Siirrä {0} vasemmalle</value>
+  </data>
+  <data name="Move {0} right" xml:space="preserve">
+    <value>Siirrä {0} oikealle</value>
+  </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Siirrä kortti</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>SIIRRÄ SARAKEKKEESEEN</value>
+  </data>
+  <data name="Move, copy or transfer" xml:space="preserve">
+    <value>Siirrä, kopioi tai siirrä toiseen paikkaan</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>OMAT AKTIIVISET TEHTÄVÄT  ·  {0} KESKEN</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>ARKISTOIDUT TAULUNI</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>OMA TAULU</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Omat taulut</value>
+  </data>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Omat toimintalokit</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Omat tehtävät</value>
+  </data>
+  <data name="Network issue · retrying" xml:space="preserve">
+    <value>Verkkoyhteysongelma · yritetään uudelleen</value>
+  </data>
+  <data name="New board" xml:space="preserve">
+    <value>Uusi lauta</value>
+  </data>
+  <data name="Newest first" xml:space="preserve">
+    <value>Uusimmat ensin</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Sinulle ei ole tällä hetkellä aktiivisia tehtäviä.</value>
+  </data>
+  <data name="No archived boards" xml:space="preserve">
+    <value>Ei arkistoituja tauluja</value>
+  </data>
+  <data name="No archived boards are shared with you." xml:space="preserve">
+    <value>Sinulle ei ole jaettu arkistoituja tauluja.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Sinulle ei ole vielä jaettu yhtään taulua.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Tauluja ei ole vielä luotu.</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>Tauluja ei vielä ole</value>
+  </data>
+  <data name="No cards" xml:space="preserve">
+    <value>Ei kortteja</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>Tässä tilassa ei ole kortteja, joilla olisi kaikki päivämäärät määritettyinä.</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Mikään kortti ei vastaa nykyisiä suodattimia.</value>
+  </data>
+  <data name="No columns yet. Add the first one here." xml:space="preserve">
+    <value>Sarakkeita ei vielä ole. Lisää ensimmäinen tähän.</value>
+  </data>
+  <data name="No description provided." xml:space="preserve">
+    <value>Kuvausta ei ole annettu.</value>
+  </data>
+  <data name="No description yet." xml:space="preserve">
+    <value>Ei kuvausta vielä.</value>
+  </data>
+  <data name="No document picker is available on this device." xml:space="preserve">
+    <value>Tässä laitteessa ei ole käytettävissä asiakirjanvalitsinta.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Ei eräpäivää</value>
+  </data>
+  <data name="No exportable chart is available in this mode." xml:space="preserve">
+    <value>Tässä tilassa ei ole vietävissä olevaa kaaviota.</value>
+  </data>
+  <data name="No image picker is available on this device." xml:space="preserve">
+    <value>Tässä laitteessa ei ole kuvavalitsinta.</value>
+  </data>
+  <data name="No image picker is available." xml:space="preserve">
+    <value>Kuvien valinta ei ole käytettävissä.</value>
+  </data>
+  <data name="No labels" xml:space="preserve">
+    <value>Ei tunnisteita</value>
+  </data>
+  <data name="No matching boards. Try a different name." xml:space="preserve">
+    <value>Vastaavia tauluja ei löytynyt. Kokeile toista nimeä.</value>
+  </data>
+  <data name="No matching cards" xml:space="preserve">
+    <value>Ei vastaavia kortteja</value>
+  </data>
+  <data name="No matching tasks" xml:space="preserve">
+    <value>Ei vastaavia tehtäviä</value>
+  </data>
+  <data name="No one else has access yet." xml:space="preserve">
+    <value>Kenelläkään muulla ei ole vielä käyttöoikeutta.</value>
+  </data>
+  <data name="No other editable board with columns is available." xml:space="preserve">
+    <value>Muita muokattavia saraketauluja ei ole saatavilla.</value>
+  </data>
+  <data name="No previous conversations yet." xml:space="preserve">
+    <value>Ei aiempia keskusteluja vielä.</value>
+  </data>
+  <data name="No replies yet." xml:space="preserve">
+    <value>Ei vielä vastauksia.</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Ei raportteja vielä</value>
+  </data>
+  <data name="No unread notifications." xml:space="preserve">
+    <value>Ei lukemattomia ilmoituksia.</value>
+  </data>
+  <data name="No user or role is available to share with." xml:space="preserve">
+    <value>Jaettavissa ei ole käyttäjiä eikä rooleja.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="Not started" xml:space="preserve">
+    <value>Ei aloitettu</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Ilmoitukset</value>
+  </data>
+  <data name="Oldest first" xml:space="preserve">
+    <value>Vanhin ensin</value>
+  </data>
+  <data name="Only .xlsx workbooks are supported." xml:space="preserve">
+    <value>Vain .xlsx-työkirjoja tuetaan.</value>
+  </data>
+  <data name="Open board" xml:space="preserve">
+    <value>Avaa taulu</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Avaa taulut</value>
+  </data>
+  <data name="Open card" xml:space="preserve">
+    <value>Avaa kortti</value>
+  </data>
+  <data name="Open comment image" xml:space="preserve">
+    <value>Avaa kommenttikuva</value>
+  </data>
+  <data name="Open original" xml:space="preserve">
+    <value>Avaa alkuperäinen</value>
+  </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>TOIMINTO</value>
+  </data>
+  <data name="Operation logging is not enabled on this server." xml:space="preserve">
+    <value>Toimintojen kirjaus ei ole käytössä tällä palvelimella.</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>ORGANISAATION KIRJAUTUMINEN</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Myöhässä</value>
+  </data>
+  <data name="Page {0} of {1}" xml:space="preserve">
+    <value>Sivu {0} / {1}</value>
+  </data>
+  <data name="Password changed" xml:space="preserve">
+    <value>Salasana vaihdettu</value>
+  </data>
+  <data name="Password must contain at least 6 characters" xml:space="preserve">
+    <value>Salasanan on sisällettävä vähintään 6 merkkiä</value>
+  </data>
+  <data name="Passwords do not match" xml:space="preserve">
+    <value>Salasanat eivät täsmää</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Suunniteltu</value>
+  </data>
+  <data name="Planned end · earliest first" xml:space="preserve">
+    <value>Suunniteltu päättyminen · aikaisin ensin</value>
+  </data>
+  <data name="Planned end · overdue first" xml:space="preserve">
+    <value>Suunniteltu päättyminen · myöhässä olevat ensin</value>
+  </data>
+  <data name="Planned start" xml:space="preserve">
+    <value>Suunniteltu aloitus</value>
+  </data>
+  <data name="Planned start · earliest first" xml:space="preserve">
+    <value>Suunniteltu aloitus · aikaisin ensin</value>
+  </data>
+  <data name="Planned start · latest first" xml:space="preserve">
+    <value>Suunniteltu aloitus · uusimmat ensin</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP tai BMP · 10 Mt kukin</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>TÄRKEYS</value>
+  </data>
+  <data name="Priority · low first" xml:space="preserve">
+    <value>Prioriteetti · pienin ensin</value>
+  </data>
+  <data name="Priority · urgent first" xml:space="preserve">
+    <value>Prioriteetti · kiireellisimmät ensin</value>
+  </data>
+  <data name="Profile photo updated" xml:space="preserve">
+    <value>Profiilikuva päivitetty</value>
+  </data>
+  <data name="Profile saved" xml:space="preserve">
+    <value>Profiili tallennettu</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>EHDOTETTU TOIMENPIDE</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="Recurring cards require a due date." xml:space="preserve">
+    <value>Toistuvilla korteilla on oltava eräpäivä.</value>
+  </data>
+  <data name="Recurring task" xml:space="preserve">
+    <value>Toistuva tehtävä</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Poista {0}</value>
+  </data>
+  <data name="Remove {0} from this board?" xml:space="preserve">
+    <value>Poistetaanko {0} tältä taululta?</value>
+  </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Poistetaanko käyttöoikeus?</value>
+  </data>
+  <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
+    <value>Vastaukset eivät saa ylittää 2 000 merkkiä</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Vastaa</value>
+  </data>
+  <data name="Reply added" xml:space="preserve">
+    <value>Vastaus lisätty</value>
+  </data>
+  <data name="Reply deleted" xml:space="preserve">
+    <value>Vastaus poistettu</value>
+  </data>
+  <data name="Report updated." xml:space="preserve">
+    <value>Raportti päivitetty.</value>
+  </data>
+  <data name="Resolve the current response before sending another message." xml:space="preserve">
+    <value>Ratkaise nykyinen pyyntö ennen uuden viestin lähettämistä.</value>
+  </data>
+  <data name="Results for “{0}”" xml:space="preserve">
+    <value>Tulokset hakuun “{0}”</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>Yritä uudelleen</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Tallenna muutokset</value>
+  </data>
+  <data name="Save pending edits before moving this card." xml:space="preserve">
+    <value>Tallenna odottavat muutokset ennen tämän kortin siirtämistä.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Hae</value>
+  </data>
+  <data name="Search Cards" xml:space="preserve">
+    <value>Hae kortteja</value>
+  </data>
+  <data name="Search cards, tasks, or documents" xml:space="preserve">
+    <value>Hae kortteja, tehtäviä tai asiakirjoja</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Hae tunnistetta tai luo sellainen</value>
+  </data>
+  <data name="Search this board and narrow it by priority." xml:space="preserve">
+    <value>Hae tältä taululta ja rajaa tuloksia prioriteetin mukaan.</value>
+  </data>
+  <data name="Search titles and descriptions across every board you can read." xml:space="preserve">
+    <value>Hae otsikoita ja kuvauksia kaikilta tauluilta, joita voit lukea.</value>
+  </data>
+  <data name="Sending…" xml:space="preserve">
+    <value>Lähetetään…</value>
+  </data>
+  <data name="Set a due date before enabling recurrence." xml:space="preserve">
+    <value>Aseta määräpäivä ennen toistuvuuden käyttöönottoa.</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>JAETUT ARKISTOIDUT TAULUT</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>JAETTU TAULU</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Jaetut taulut</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>Jaettu käyttäjälle {0}</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Jaettu minulle</value>
+  </data>
+  <data name="Sign in" xml:space="preserve">
+    <value>Kirjaudu sisään</value>
+  </data>
+  <data name="Sign-in failed." xml:space="preserve">
+    <value>Kirjautuminen epäonnistui.</value>
+  </data>
+  <data name="Signing you in…" xml:space="preserve">
+    <value>Kirjaudutaan sisään…</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>LAJITTELE</value>
+  </data>
+  <data name="Start  {0}" xml:space="preserve">
+    <value>Aloita  {0}</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Tilaa</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>Tilattu</value>
+  </data>
+  <data name="Subscribed to updates" xml:space="preserve">
+    <value>Tilattu päivityksiin</value>
+  </data>
+  <data name="Switch server" xml:space="preserve">
+    <value>Vaihda palvelinta</value>
+  </data>
+  <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
+    <value>Vastuuhenkilön määritys poistetaan, ja vastaukset säilyvät alkuperäisen kortin historiassa.</value>
+  </data>
+  <data name="The board becomes read-only and moves to Archived." xml:space="preserve">
+    <value>Taulua voi vain lukea, ja se siirretään arkistoituihin.</value>
+  </data>
+  <data name="The board returns to your active workspace." xml:space="preserve">
+    <value>Taulu siirtyy takaisin aktiiviseen työtilaasi.</value>
+  </data>
+  <data name="The card and all of its replies will be permanently removed." xml:space="preserve">
+    <value>Kortti ja kaikki sen vastaukset poistetaan pysyvästi.</value>
+  </data>
+  <data name="The card is already in this column." xml:space="preserve">
+    <value>Kortti on jo tässä sarakkeessa.</value>
+  </data>
+  <data name="The chart is too large to export as one PNG image." xml:space="preserve">
+    <value>Kaavio on liian suuri viemistä varten yhtenä PNG-kuvana.</value>
+  </data>
+  <data name="The profile photo cannot exceed 10 MB." xml:space="preserve">
+    <value>Profiilikuva saa olla enintään 10 Mt.</value>
+  </data>
+  <data name="The report will be removed. The scheduled job may generate it again later." xml:space="preserve">
+    <value>Raportti poistetaan. Ajastettu työ saattaa luoda sen uudelleen myöhemmin.</value>
+  </data>
+  <data name="The workbook cannot exceed 10 MB." xml:space="preserve">
+    <value>Työkirja saa olla enintään 10 Mt.</value>
+  </data>
+  <data name="Thinking…" xml:space="preserve">
+    <value>Miettii…</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>Tällä taululla ei ole kortteja.</value>
+  </data>
+  <data name="This board has no columns" xml:space="preserve">
+    <value>Tässä taulussa ei ole sarakkeita</value>
+  </data>
+  <data name="This board has no columns." xml:space="preserve">
+    <value>Tällä taululla ei ole sarakkeita.</value>
+  </data>
+  <data name="This board is view-only, so replies and edits are disabled." xml:space="preserve">
+    <value>Tämä taulu on vain katseltavissa, joten vastaaminen ja muokkaaminen on estetty.</value>
+  </data>
+  <data name="This public board has no specific user or role shares." xml:space="preserve">
+    <value>Tällä julkisella taululla ei ole jaettu käyttöoikeuksia yksittäisille käyttäjille tai rooleille.</value>
+  </data>
+  <data name="This reply will be permanently removed." xml:space="preserve">
+    <value>Tämä vastaus poistetaan pysyvästi.</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>AIKAJANA</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="Title · A–Z" xml:space="preserve">
+    <value>Otsikko · A–Ö</value>
+  </data>
+  <data name="Title · Z–A" xml:space="preserve">
+    <value>Otsikko · Z–A</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Otsikko tai kuvaus</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>TÄMÄN PÄIVÄN RAPORTIT</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Siirrä</value>
+  </data>
+  <data name="Transfer card" xml:space="preserve">
+    <value>Siirrä kortti</value>
+  </data>
+  <data name="Transfer to another board" xml:space="preserve">
+    <value>Siirrä toiselle taululle</value>
+  </data>
+  <data name="Try another status, label, or assignee filter." xml:space="preserve">
+    <value>Kokeile toista tilan, tunnisteen tai vastuuhenkilön suodatinta.</value>
+  </data>
+  <data name="Type a message first" xml:space="preserve">
+    <value>Kirjoita ensin viesti</value>
+  </data>
+  <data name="Unarchive" xml:space="preserve">
+    <value>Poista arkistosta</value>
+  </data>
+  <data name="Unarchive board" xml:space="preserve">
+    <value>Palauta lauta</value>
+  </data>
+  <data name="Unarchive board?" xml:space="preserve">
+    <value>Poistetaanko taulun arkistointi?</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Määrittämättä</value>
+  </data>
+  <data name="Unsubscribed from updates" xml:space="preserve">
+    <value>Päivitysten tilaus peruutettu</value>
+  </data>
+  <data name="Uploading image {0} of {1}…" xml:space="preserve">
+    <value>Ladataan kuvaa {0}/{1}…</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Kiireellinen</value>
+  </data>
+  <data name="Use 2 to 30 characters" xml:space="preserve">
+    <value>Käytä 2–30 merkkiä</value>
+  </data>
+  <data name="Use at least 6 characters" xml:space="preserve">
+    <value>Käytä vähintään 6 merkkiä</value>
+  </data>
+  <data name="Use device setting" xml:space="preserve">
+    <value>Käytä laitteen asetusta</value>
+  </data>
+  <data name="Use the same title, description, priority, and assignee filters as the board." xml:space="preserve">
+    <value>Käytä samoja otsikko-, kuvaus-, prioriteetti- ja vastuuhenkilösuodattimia kuin taulussa.</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Vain katseluoikeus</value>
+  </data>
+  <data name="Waiting for approval" xml:space="preserve">
+    <value>Odottaa hyväksyntää</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Viikko</value>
+  </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>VIIKKORAPORTTI</value>
+  </data>
+  <data name="Weekly report discarded." xml:space="preserve">
+    <value>Viikkoraportti hylätty.</value>
+  </data>
+  <data name="Workbook attached" xml:space="preserve">
+    <value>Työkirja liitetty</value>
+  </data>
+  <data name="Workspace" xml:space="preserve">
+    <value>Työtila</value>
+  </data>
+  <data name="Write a reply" xml:space="preserve">
+    <value>Kirjoita vastaus</value>
+  </data>
+  <data name="Write a reply first" xml:space="preserve">
+    <value>Kirjoita vastaus ensin</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Vuosi</value>
+  </data>
+  <data name="You can attach up to {0} images." xml:space="preserve">
+    <value>Voit liittää enintään {0} kuvaa.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>Sinulla on {0} lukematonta ilmoitusta{1}.</value>
+  </data>
+  <data name="You have no archived boards." xml:space="preserve">
+    <value>Sinulla ei ole arkistoituja tauluja.</value>
+  </data>
+  <data name="You have no unread notifications." xml:space="preserve">
+    <value>Sinulla ei ole lukemattomia ilmoituksia.</value>
+  </data>
+  <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
+    <value>Omistat {0} taulua. Poista ne ennen tilisi poistamista.</value>
+  </data>
+  <data name="Your account data will be removed. This cannot be undone." xml:space="preserve">
+    <value>Tilisi tiedot poistetaan. Tätä ei voi peruuttaa.</value>
+  </data>
+  <data name="Your generated plans and summaries will appear here." xml:space="preserve">
+    <value>Luomasi suunnitelmat ja yhteenvedot näkyvät tässä.</value>
+  </data>
+  <data name="Your generated weekly reports will appear here." xml:space="preserve">
+    <value>Luomasi viikkoraportit näkyvät täällä.</value>
+  </data>
+  <data name="Your latest activity across Kanban · {0} total" xml:space="preserve">
+    <value>Viimeisimmät tapahtumasi Kanbanissa · yhteensä {0}</value>
+  </data>
+  <data name="Your workspace" xml:space="preserve">
+    <value>Työtilasi</value>
+  </data>
+
+</root>
