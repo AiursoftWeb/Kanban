@@ -4,8 +4,8 @@ An optional native .NET Android client is available. See [Android app and OIDC d
 for identity-provider registration, server settings, APK building, and sideloading.
 
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aiursoftweb/kanban/blob/master/LICENSE)
-[![Pipeline stat](https://gitlab.aiursoft.com/aiursoft/kanban/badges/master/pipeline.svg)](https://gitlab.aiursoft.com/aiursoft/kanban/-/pipelines)
-[![Test Coverage](https://gitlab.aiursoft.com/aiursoft/kanban/badges/master/coverage.svg)](https://gitlab.aiursoft.com/aiursoft/kanban/-/pipelines)
+[![Pipeline stat](https://badge-proxy.aiursoft.com/aiursoft/kanban/badges/master/pipeline.svg)](https://gitlab.aiursoft.com/aiursoft/kanban/-/pipelines)
+[![Test Coverage](https://badge-proxy.aiursoft.com/aiursoft/kanban/badges/master/coverage.svg)](https://gitlab.aiursoft.com/aiursoft/kanban/-/pipelines)
 [![S360 compliance](https://s360.aiursoft.com/badge.svg?project=aiursoft%2Fkanban)](https://s360.aiursoft.com/SupplyChain?tab=projects&project=aiursoft%2Fkanban&scope=baseline&ecosystem=all)
 [![Man hours](https://manhours.aiursoft.com/r/github.com/aiursoftweb/kanban.svg)](https://manhours.aiursoft.com/r/github.com/aiursoftweb/kanban.html)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fkanban.aiursoft.com)](https://kanban.aiursoft.com)
