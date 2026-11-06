@@ -412,7 +412,6 @@ public sealed class KanbanApiController(
                 completedCards[index].Order = index;
             }
         }
-        card.LastUpdatedAt = now;
         await db.SaveChangesAsync();
 
         if (fromColumnId != card.ColumnId)

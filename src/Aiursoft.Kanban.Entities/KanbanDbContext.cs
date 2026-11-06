@@ -29,7 +29,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var entries = ChangeTracker.Entries<KanbanCard>()
-            .Where(e => e.State == EntityState.Modified);
+            .Where(e => e.State == EntityState.Modified &&
+                (e.Property(c => c.Title).IsModified || e.Property(c => c.Description).IsModified));
 
         foreach (var entry in entries)
         {
