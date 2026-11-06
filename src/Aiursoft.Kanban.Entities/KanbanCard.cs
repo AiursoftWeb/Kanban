@@ -53,6 +53,7 @@ public class KanbanCard
 
     public DateTime CreationTime { get; init; } = DateTime.UtcNow;
 
+    // Version of the title and description used to generate the embedding.
     public DateTime LastUpdatedAt { get; set; } = DateTime.UtcNow;
 
     public byte[]? Embedding { get; set; }

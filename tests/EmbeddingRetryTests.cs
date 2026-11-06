@@ -128,12 +128,121 @@ public class EmbeddingRetryTests
         Assert.IsNull(_item.Embedding);
     }
 
+    [TestMethod]
+    [DataRow("Order")]
+    [DataRow("Column")]
+    [DataRow("Priority")]
+    [DataRow("Assignee")]
+    [DataRow("Schedule")]
+    [DataRow("ActualTimes")]
+    [DataRow("Recurrence")]
+    public async Task MetadataChangesReuseTheExistingCardEmbedding(string change)
+    {
+        _item.LastEmbeddedAt = _item.LastUpdatedAt;
+        await _db.SaveChangesAsync();
+        var contentVersion = _item.LastUpdatedAt;
+        var vector = _item.Embedding!.ToArray();
+
+        switch (change)
+        {
+            case "Order": _item.Order++; break;
+            case "Column":
+                _item.Column = new KanbanColumn { Name = "Done", Board = _item.Column.Board };
+                break;
+            case "Priority": _item.Priority = Priority.Urgent; break;
+            case "Assignee": _item.AssignedUserId = "assignee"; break;
+            case "Schedule":
+                _item.DueDate = DateTime.UtcNow.AddDays(7);
+                _item.PlannedStartTime = DateTime.UtcNow;
+                break;
+            case "ActualTimes":
+                _item.ActualStartTime = DateTime.UtcNow;
+                _item.ActualEndTime = DateTime.UtcNow.AddHours(1);
+                break;
+            case "Recurrence":
+                _item.RecurrenceInterval = 1;
+                _item.RecurrenceUnit = RecurrenceUnit.Week;
+                break;
+        }
+        await _db.SaveChangesAsync();
+
+        using var handler = new EmbeddingHandler { ContextLimit = int.MaxValue };
+        using var provider = new ServiceCollection().AddSingleton<TemplateDbContext>(_db).BuildServiceProvider();
+        var job = new GenerateCardEmbeddingsJob(handler, provider.GetRequiredService<IServiceScopeFactory>(), _settings,
+            new RetryEngine(NullLogger<RetryEngine>.Instance), NullLogger<GenerateCardEmbeddingsJob>.Instance);
+        await job.ExecuteAsync();
+
+        Assert.AreEqual(0, handler.Inputs.Count, "Metadata changes must not call the embedding API.");
+        Assert.AreEqual(contentVersion, _item.LastUpdatedAt);
+        CollectionAssert.AreEqual(vector, _item.Embedding);
+    }
+
+    [TestMethod]
+    [DataRow(true)]
+    [DataRow(false)]
+    public async Task TextChangesRegenerateTheCardEmbeddingOnce(bool changeTitle)
+    {
+        _item.Description = "Original description";
+        await _db.SaveChangesAsync();
+        _item.LastEmbeddedAt = _item.LastUpdatedAt;
+        await _db.SaveChangesAsync();
+        if (changeTitle) _item.Title = "Changed title";
+        else _item.Description = "Changed description";
+        await _db.SaveChangesAsync();
+        Assert.IsTrue(_item.LastUpdatedAt > _item.LastEmbeddedAt);
+        _item.Order++;
+        await _db.SaveChangesAsync();
+
+        using var handler = new EmbeddingHandler { ContextLimit = int.MaxValue };
+        using var provider = new ServiceCollection().AddSingleton<TemplateDbContext>(_db).BuildServiceProvider();
+        var job = new GenerateCardEmbeddingsJob(handler, provider.GetRequiredService<IServiceScopeFactory>(), _settings,
+            new RetryEngine(NullLogger<RetryEngine>.Instance), NullLogger<GenerateCardEmbeddingsJob>.Instance);
+        await job.ExecuteAsync();
+        await job.ExecuteAsync();
+
+        Assert.HasCount(1, handler.Inputs);
+        Assert.AreEqual($"{_item.Title}\n{_item.Description}", handler.Inputs[0]);
+        Assert.AreEqual(_item.LastUpdatedAt, _item.LastEmbeddedAt);
+    }
+
+    [TestMethod]
+    [DataRow(true)]
+    [DataRow(false)]
+    public async Task OnlyConcurrentTextChangesDiscardAnEmbeddingResult(bool changeTitle)
+    {
+        _item.Embedding = null;
+        await _db.SaveChangesAsync();
+        using var handler = new EmbeddingHandler
+        {
+            ContextLimit = int.MaxValue,
+            OnFirstRequest = async () =>
+            {
+                if (changeTitle) _item.Title = "Edited during generation";
+                else _item.Order++;
+                await _db.SaveChangesAsync();
+            }
+        };
+        using var provider = new ServiceCollection().AddSingleton<TemplateDbContext>(_db).BuildServiceProvider();
+        var job = new GenerateCardEmbeddingsJob(handler, provider.GetRequiredService<IServiceScopeFactory>(), _settings,
+            new RetryEngine(NullLogger<RetryEngine>.Instance), NullLogger<GenerateCardEmbeddingsJob>.Instance);
+
+        await job.ExecuteAsync();
+        if (changeTitle) Assert.IsNull(_item.Embedding, "An old vector must not be saved after a text edit.");
+        else Assert.IsNotNull(_item.Embedding, "A move must not discard a valid vector.");
+        await job.ExecuteAsync();
+        await job.ExecuteAsync();
+
+        Assert.AreEqual(changeTitle ? 2 : 1, handler.Inputs.Count);
+        Assert.AreEqual(_item.LastUpdatedAt, _item.LastEmbeddedAt);
+    }
+
     private sealed class EmbeddingHandler : HttpMessageHandler, IHttpClientFactory
     {
         public List<string> Inputs { get; } = [];
         public HttpStatusCode ErrorStatus { get; init; } = HttpStatusCode.RequestEntityTooLarge;
         public string ErrorMessage { get; init; } = "{\"error\":\"the input length exceeds the context length\"}";
         public int ContextLimit { get; init; } = 2000;
+        public Func<Task>? OnFirstRequest { get; init; }
 
         public HttpClient CreateClient(string name) => new(this, disposeHandler: false);
 
@@ -144,6 +253,7 @@ public class EmbeddingRetryTests
             Assert.AreEqual("test-embedding-model", body.RootElement.GetProperty("model").GetString());
             var input = body.RootElement.GetProperty("input").GetString()!;
             Inputs.Add(input);
+            if (Inputs.Count == 1 && OnFirstRequest != null) await OnFirstRequest();
             return input.Length > ContextLimit
                 ? new HttpResponseMessage(ErrorStatus) { Content = new StringContent(ErrorMessage) }
                 : new HttpResponseMessage(HttpStatusCode.OK) { Content = JsonContent.Create(new { embeddings = new[] { new[] { 1f, 0f } } }) };

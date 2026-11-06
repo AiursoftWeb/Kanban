@@ -783,6 +783,27 @@ public sealed class KanbanApiTests : TestBase
         Assert.AreEqual(14, (card.DueDate.Value.Date - DateTime.UtcNow.Date).Days);
         Assert.AreEqual(4, (card.DueDate.Value - card.PlannedStartTime.Value).Days);
 
+        var sibling = AssertProtocol<CardResponse>(await controller.CreateCard(todo.Id,
+            new CreateCardRequest { Title = "Another card" })).Card;
+        var destination = AssertProtocol<CardResponse>(await controller.CreateCard(done.Id,
+            new CreateCardRequest { Title = "Already done" })).Card;
+        var trackedCards = await db.KanbanCards.Where(item =>
+            item.Id == card.Id || item.Id == sibling.Id || item.Id == destination.Id).ToListAsync();
+        foreach (var item in trackedCards)
+        {
+            item.Embedding = [1, 2, 3, 4];
+            item.LastEmbeddedAt = item.LastUpdatedAt;
+        }
+        await db.SaveChangesAsync();
+        var versions = trackedCards.ToDictionary(item => item.Id, item => item.LastUpdatedAt);
+
+        AssertProtocol<CardResponse>(await controller.MoveCard(sibling.Id, new MoveCardRequest
+        {
+            TargetColumnId = todo.Id,
+            NewOrder = 0
+        }));
+        Assert.AreEqual(1, trackedCards.Single(item => item.Id == card.Id).Order);
+
         var movedCardResult = await controller.MoveCard(card.Id, new MoveCardRequest
         {
             TargetColumnId = done.Id,
@@ -791,7 +812,16 @@ public sealed class KanbanApiTests : TestBase
         Assert.AreEqual(done.Id, AssertProtocol<CardResponse>(movedCardResult).Card.ColumnId);
 
         var loaded = AssertProtocol<BoardResponse>(await controller.Board(createdBoard.Id)).Board;
-        Assert.AreEqual(card.Id, loaded.Columns.Single(column => column.Id == done.Id).Cards.Single().Id);
+        var doneCards = loaded.Columns.Single(column => column.Id == done.Id).Cards;
+        Assert.AreEqual(card.Id, doneCards.First().Id);
+        Assert.AreEqual(destination.Id, doneCards.Last().Id);
+        foreach (var item in trackedCards)
+        {
+            await db.Entry(item).ReloadAsync();
+            Assert.AreEqual(versions[item.Id], item.LastUpdatedAt, "Moving cards must not change their embedding content version.");
+            Assert.AreEqual(item.LastUpdatedAt, item.LastEmbeddedAt);
+            CollectionAssert.AreEqual(new byte[] { 1, 2, 3, 4 }, item.Embedding);
+        }
     }
 
     [TestMethod]
