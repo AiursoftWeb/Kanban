@@ -212,13 +212,15 @@ public class EmbeddingRetryTests
     {
         _item.Embedding = null;
         await _db.SaveChangesAsync();
-        using var handler = new EmbeddingHandler { ContextLimit = int.MaxValue };
-        handler.OnRequest = async () =>
+        using var handler = new EmbeddingHandler
         {
-            if (handler.Inputs.Count != 1) return;
-            if (changeTitle) _item.Title = "Edited during generation";
-            else _item.Order++;
-            await _db.SaveChangesAsync();
+            ContextLimit = int.MaxValue,
+            OnFirstRequest = async () =>
+            {
+                if (changeTitle) _item.Title = "Edited during generation";
+                else _item.Order++;
+                await _db.SaveChangesAsync();
+            }
         };
         using var provider = new ServiceCollection().AddSingleton<TemplateDbContext>(_db).BuildServiceProvider();
         var job = new GenerateCardEmbeddingsJob(handler, provider.GetRequiredService<IServiceScopeFactory>(), _settings,
@@ -240,7 +242,7 @@ public class EmbeddingRetryTests
         public HttpStatusCode ErrorStatus { get; init; } = HttpStatusCode.RequestEntityTooLarge;
         public string ErrorMessage { get; init; } = "{\"error\":\"the input length exceeds the context length\"}";
         public int ContextLimit { get; init; } = 2000;
-        public Func<Task>? OnRequest { get; set; }
+        public Func<Task>? OnFirstRequest { get; init; }
 
         public HttpClient CreateClient(string name) => new(this, disposeHandler: false);
 
@@ -251,7 +253,7 @@ public class EmbeddingRetryTests
             Assert.AreEqual("test-embedding-model", body.RootElement.GetProperty("model").GetString());
             var input = body.RootElement.GetProperty("input").GetString()!;
             Inputs.Add(input);
-            if (OnRequest != null) await OnRequest();
+            if (Inputs.Count == 1 && OnFirstRequest != null) await OnFirstRequest();
             return input.Length > ContextLimit
                 ? new HttpResponseMessage(ErrorStatus) { Content = new StringContent(ErrorMessage) }
                 : new HttpResponseMessage(HttpStatusCode.OK) { Content = JsonContent.Create(new { embeddings = new[] { new[] { 1f, 0f } } }) };
