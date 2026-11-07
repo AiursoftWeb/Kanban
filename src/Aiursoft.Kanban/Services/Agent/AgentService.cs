@@ -12,6 +12,7 @@ namespace Aiursoft.Kanban.Services.Agent;
 public class AgentService : IAgentService
 {
     private readonly ConcurrentDictionary<Guid, AgentConversation> _conversations = new();
+    private readonly SemaphoreSlim _historyGate = new(1, 1);
     private readonly ServiceTaskQueue _taskQueue;
     private readonly AdviceService _adviceService;
     private readonly IServiceScopeFactory _scopeFactory;
@@ -76,7 +77,7 @@ public class AgentService : IAgentService
         _taskQueue.QueueWithDependency<IServiceProvider>(
             queueName: "KanbanAgent",
             taskName: $"AgentRun-{conversation.Id}",
-            task: async (sp) => await ExecuteReActLoop(sp, conversation.Id));
+            task: async (sp) => await ExecuteReActLoop(sp, conversation));
 
         return conversation.Id;
     }
@@ -215,19 +216,29 @@ public class AgentService : IAgentService
 
     public Guid? ContinueRun(Guid conversationId, string userId, string userMessage, string? excelMarkdown = null)
     {
-        if (!_conversations.TryGetValue(conversationId, out var conversation))
+        if (!_conversations.TryGetValue(conversationId, out var conversation) || conversation.CancellationToken.IsCancellationRequested)
             return null;
         return ContinueRunCore(conversation, userId, userMessage, excelMarkdown);
     }
 
     public async Task<Guid?> ContinueRunAsync(Guid conversationId, string userId, string userMessage, string? excelMarkdown = null)
     {
-        if (!_conversations.TryGetValue(conversationId, out var conversation))
+        if (!_conversations.TryGetValue(conversationId, out var conversation) || conversation.CancellationToken.IsCancellationRequested)
         {
-            conversation = await LoadConversationAsync(conversationId, userId);
-            if (conversation == null || conversation.State is AgentState.Thinking or AgentState.AwaitingApproval)
-                return null;
-            _conversations[conversationId] = conversation;
+            // Register a reloaded session under the same gate as history writes so an
+            // older cancelled run cannot overwrite a deliberately resumed session.
+            await _historyGate.WaitAsync();
+            try
+            {
+                conversation = await LoadConversationAsync(conversationId, userId);
+                if (conversation == null || conversation.State is AgentState.Thinking or AgentState.AwaitingApproval)
+                    return null;
+                _conversations[conversationId] = conversation;
+            }
+            finally
+            {
+                _historyGate.Release();
+            }
         }
         return ContinueRunCore(conversation, userId, userMessage, excelMarkdown);
     }
@@ -317,20 +328,20 @@ public class AgentService : IAgentService
         _taskQueue.QueueWithDependency<IServiceProvider>(
             queueName: "KanbanAgent",
             taskName: $"AgentContinue-{conversation.Id}",
-            task: async (sp) => await ExecuteReActLoop(sp, conversation.Id));
+            task: async (sp) => await ExecuteReActLoop(sp, conversation));
 
         return conversation.Id;
     }
 
     public AgentConversation? GetConversation(Guid conversationId)
     {
-        _conversations.TryGetValue(conversationId, out var conversation);
-        return conversation;
+        return _conversations.TryGetValue(conversationId, out var conversation) && !conversation.CancellationToken.IsCancellationRequested
+            ? conversation : null;
     }
 
     public async Task<AgentConversation?> GetConversationAsync(Guid conversationId, string userId)
     {
-        if (_conversations.TryGetValue(conversationId, out var conversation))
+        if (_conversations.TryGetValue(conversationId, out var conversation) && !conversation.CancellationToken.IsCancellationRequested)
             return conversation.UserId == userId ? conversation : null;
 
         return await LoadConversationAsync(conversationId, userId);
@@ -350,8 +361,24 @@ public class AgentService : IAgentService
 
     private async Task PersistAsync(AgentConversation conversation)
     {
-        using var scope = _scopeFactory.CreateScope();
-        await scope.ServiceProvider.GetRequiredService<AgentSessionHistoryService>().SaveAsync(conversation);
+        await _historyGate.WaitAsync();
+        try
+        {
+            if (_conversations.TryGetValue(conversation.Id, out var current) && !ReferenceEquals(current, conversation))
+                return;
+            if (conversation.CancellationToken.IsCancellationRequested)
+            {
+                conversation.State = AgentState.Error;
+                conversation.ErrorMessage = "Conversation cancelled.";
+                _adviceService.RemoveConversationAdvice(conversation.Id);
+            }
+            using var scope = _scopeFactory.CreateScope();
+            await scope.ServiceProvider.GetRequiredService<AgentSessionHistoryService>().SaveAsync(conversation);
+        }
+        finally
+        {
+            _historyGate.Release();
+        }
     }
 
     public void ApproveAdvice(Guid conversationId, Guid adviceId)
@@ -369,7 +396,7 @@ public class AgentService : IAgentService
             _taskQueue.QueueWithDependency<IServiceProvider>(
                 queueName: "KanbanAgent",
                 taskName: $"AdviceExecute-{adviceId}",
-                task: async (sp) => await ExecuteAdviceAndResume(sp, conversationId, adviceId));
+                task: async (sp) => await ExecuteAdviceAndResume(sp, conversation, adviceId));
         }
     }
 
@@ -404,7 +431,7 @@ public class AgentService : IAgentService
                 _taskQueue.QueueWithDependency<IServiceProvider>(
                     queueName: "KanbanAgent",
                     taskName: $"ResumeAfterReject-{adviceId}",
-                    task: async (sp) => await ExecuteReActLoop(sp, conversationId));
+                    task: async (sp) => await ExecuteReActLoop(sp, conversation));
             }
         }
     }
@@ -422,8 +449,11 @@ public class AgentService : IAgentService
 
     public void CancelRun(Guid conversationId)
     {
-        if (_conversations.TryRemove(conversationId, out var conversation))
+        // Keep the cancelled generation until normal TTL cleanup so an older run
+        // cannot overwrite it after this session is resumed and cancelled again.
+        if (_conversations.TryGetValue(conversationId, out var conversation) && !conversation.CancellationToken.IsCancellationRequested)
         {
+            conversation.Cancel();
             conversation.State = AgentState.Error;
             conversation.ErrorMessage = "Conversation cancelled.";
             conversation.LastActivity = _timeProvider.GetUtcNow().UtcDateTime;
@@ -432,17 +462,19 @@ public class AgentService : IAgentService
         }
     }
 
-    private async Task ExecuteReActLoop(IServiceProvider sp, Guid conversationId)
+    private async Task ExecuteReActLoop(IServiceProvider sp, AgentConversation conversation)
     {
-        if (!_conversations.TryGetValue(conversationId, out var conversation)) return;
-        await _productionAgentExecutor.ExecuteReActLoop(sp, conversation, new AgentExecutionOptions());
+        if (conversation.CancellationToken.IsCancellationRequested ||
+            !_conversations.TryGetValue(conversation.Id, out var current) || !ReferenceEquals(current, conversation)) return;
+        await _productionAgentExecutor.ExecuteReActLoop(sp, conversation, new AgentExecutionOptions(), conversation.CancellationToken);
         await PersistAsync(conversation);
     }
 
-    private async Task ExecuteAdviceAndResume(IServiceProvider sp, Guid conversationId, Guid adviceId)
+    private async Task ExecuteAdviceAndResume(IServiceProvider sp, AgentConversation conversation, Guid adviceId)
     {
-        if (!_conversations.TryGetValue(conversationId, out var conversation)) return;
-        await _productionAgentExecutor.ExecuteAdviceAndResume(sp, conversation, adviceId);
+        if (conversation.CancellationToken.IsCancellationRequested ||
+            !_conversations.TryGetValue(conversation.Id, out var current) || !ReferenceEquals(current, conversation)) return;
+        await _productionAgentExecutor.ExecuteAdviceAndResume(sp, conversation, adviceId, conversation.CancellationToken);
         await PersistAsync(conversation);
     }
 
@@ -760,10 +792,13 @@ public class AgentService : IAgentService
         foreach (var (id, conv) in _conversations)
         {
             if (conv.LastActivity < conversationCutoff && _conversations.TryRemove(id, out _))
+            {
+                conv.Cancel();
                 _adviceService.RemoveConversationAdvice(id);
+            }
         }
 
-        // Also sweep orphaned advice (from conversations removed by CancelRun)
+        // Also sweep orphaned advice from cancelled or expired conversations
         _adviceService.RemoveExpiredAdvice(adviceCutoff);
     }
 
