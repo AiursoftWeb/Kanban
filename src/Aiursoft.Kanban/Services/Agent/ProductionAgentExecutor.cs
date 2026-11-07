@@ -42,6 +42,7 @@ public class ProductionAgentExecutor(
                 conversation.LastActivity = _timeProvider.GetUtcNow().UtcDateTime;
 
                 var response = await CallLlmWithTools(conversation, cancellationToken);
+                cancellationToken.ThrowIfCancellationRequested();
 
                 var toolUses = response.GetToolUses();
                 if (toolUses.Count > 0)
@@ -70,12 +71,14 @@ public class ProductionAgentExecutor(
 
                     foreach (var tu in toolUses)
                     {
+                        cancellationToken.ThrowIfCancellationRequested();
                         if (string.IsNullOrEmpty(tu.Name)) continue;
                         var isWrite = _toolRegistry.IsWriteTool(tu.Name);
 
                         if (isWrite && !options.AutoApproveWrites)
                         {
                             var advice = await CreateAdvice(sp, conversationId, tu);
+                            cancellationToken.ThrowIfCancellationRequested();
                             adviceIds.Add(advice.Id);
                             continue;
                         }
@@ -84,6 +87,7 @@ public class ProductionAgentExecutor(
                         try
                         {
                             toolResult = await ExecuteTool(sp, tu, conversation.UserId, cancellationToken);
+                            cancellationToken.ThrowIfCancellationRequested();
                             _logger.LogInformation("{ToolKind} tool executed: {ToolName}",
                                 isWrite ? "Write" : "Read",
                                 tu.Name);
@@ -155,6 +159,11 @@ public class ProductionAgentExecutor(
             });
             conversation.State = AgentState.Completed;
         }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            conversation.State = AgentState.Error;
+            conversation.ErrorMessage = "Conversation cancelled.";
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Agent ReAct loop failed for conversation {ConversationId}", conversationId);
@@ -192,7 +201,8 @@ public class ProductionAgentExecutor(
     public async Task ExecuteAdviceAndResume(
         IServiceProvider sp,
         AgentConversation conversation,
-        Guid adviceId)
+        Guid adviceId,
+        CancellationToken cancellationToken = default)
     {
         var conversationId = conversation.Id;
 
@@ -201,6 +211,7 @@ public class ProductionAgentExecutor(
 
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var tool = _toolRegistry.GetTool(advice.ToolName);
             if (tool == null)
             {
@@ -212,7 +223,8 @@ public class ProductionAgentExecutor(
             // Remove any stale userId that may have been stored in advice params
             args.Remove("userId");
 
-            var result = await ExecuteToolWithArgs(sp, tool, args, conversation.UserId);
+            var result = await ExecuteToolWithArgs(sp, tool, args, conversation.UserId, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
 
             _adviceService.SetResult(adviceId, result, null);
 
@@ -237,6 +249,12 @@ public class ProductionAgentExecutor(
                 conversation.State = AgentState.Thinking;
             }
         }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            conversation.State = AgentState.Error;
+            conversation.ErrorMessage = "Conversation cancelled.";
+            return;
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Advice execution failed for {AdviceId}", adviceId);
@@ -258,7 +276,7 @@ public class ProductionAgentExecutor(
             }
         }
 
-        await ExecuteReActLoop(sp, conversation, new AgentExecutionOptions());
+        await ExecuteReActLoop(sp, conversation, new AgentExecutionOptions(), cancellationToken);
     }
 
     private async Task<ClaudeResponse> CallLlmWithTools(

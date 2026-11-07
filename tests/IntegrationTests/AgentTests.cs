@@ -297,9 +297,12 @@ public class AgentTests : TestBase
             }
 
             var result = _scriptedResults.Dequeue();
-            return result is Exception exception
-                ? Task.FromException<ClaudeResponse>(exception)
-                : Task.FromResult((ClaudeResponse)result);
+            return result switch
+            {
+                Exception exception => Task.FromException<ClaudeResponse>(exception),
+                Func<CancellationToken, Task<ClaudeResponse>> response => response(cancellationToken),
+                _ => Task.FromResult((ClaudeResponse)result)
+            };
         }
     }
 
@@ -700,6 +703,209 @@ public class AgentTests : TestBase
 
         service.CancelRun(conversationId);
         Assert.IsNull(service.GetConversation(conversationId));
+    }
+
+    [TestMethod]
+    public async Task AgentService_CancelRunningModelPreservesOtherSessionsAndHistory()
+    {
+        var started = new TaskCompletionSource<CancellationToken>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var modelClient = new ScriptedAgentModelClient(
+            (Func<CancellationToken, Task<ClaudeResponse>>)(async token =>
+            {
+                started.SetResult(token);
+                await Task.Delay(TimeSpan.FromSeconds(15), token);
+                return TextResponse("Must not complete");
+            }), TextResponse("Other session completed"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        var cancelledId = await service.StartRun("admin", boardId, "Cancel my running request");
+        var token = await started.Task.WaitAsync(TimeSpan.FromSeconds(10));
+        var otherId = await service.StartRun("admin", boardId, "Independent request");
+
+        service.CancelRun(cancelledId);
+        var other = await WaitForConversation(service, otherId, state => state == AgentState.Completed);
+
+        Assert.IsTrue(token.IsCancellationRequested);
+        Assert.IsNull(service.GetConversation(cancelledId));
+        var history = await service.GetConversationAsync(cancelledId, "admin");
+        Assert.IsNotNull(history);
+        Assert.AreEqual(AgentState.Error, history.State);
+        Assert.AreEqual("Conversation cancelled.", history.ErrorMessage);
+        Assert.AreEqual("Other session completed", other.Messages.Last().Content);
+        Assert.AreEqual(2, modelClient.Requests.Count);
+        Assert.IsFalse(modelClient.CancellationTokens[1].IsCancellationRequested);
+    }
+
+    [TestMethod]
+    public async Task AgentService_CancelDiscardsLateModelToolCalls()
+    {
+        var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var response = new TaskCompletionSource<ClaudeResponse>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var modelClient = new ScriptedAgentModelClient(
+            (Func<CancellationToken, Task<ClaudeResponse>>)(_ =>
+            {
+                started.SetResult();
+                return response.Task; // Deliberately simulate an upstream that ignores cancellation.
+            }), TextResponse("Independent request completed"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        var cancelledId = await service.StartRun("admin", boardId, "Cancel before the model responds");
+        await started.Task.WaitAsync(TimeSpan.FromSeconds(10));
+        service.CancelRun(cancelledId);
+        response.SetResult(ToolUseResponse("late-write", "CreateBoard", new() { ["name"] = "Late board" }));
+        var otherId = await service.StartRun("admin", boardId, "Keep working");
+        await WaitForConversation(service, otherId, state => state == AgentState.Completed);
+
+        Assert.AreEqual(0, GetService<AdviceService>().GetPendingForConversation(cancelledId).Count);
+        var history = await service.GetConversationAsync(cancelledId, "admin");
+        Assert.IsNotNull(history);
+        Assert.AreEqual(AgentState.Error, history.State);
+        Assert.AreEqual("Conversation cancelled.", history.ErrorMessage);
+        Assert.IsFalse(history.Messages.Any(message => message.ToolCalls?.Count > 0));
+        Assert.AreEqual(2, modelClient.Requests.Count);
+    }
+
+    [TestMethod]
+    public async Task AgentService_CancelQueuedConversationDoesNotCallModel()
+    {
+        var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var response = new TaskCompletionSource<ClaudeResponse>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var modelClient = new ScriptedAgentModelClient(
+            (Func<CancellationToken, Task<ClaudeResponse>>)(_ =>
+            {
+                started.SetResult();
+                return response.Task;
+            }), TextResponse("Last request completed"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        var firstId = await service.StartRun("admin", boardId, "First request");
+        await started.Task.WaitAsync(TimeSpan.FromSeconds(10));
+        var cancelledId = await service.StartRun("admin", boardId, "Queued request");
+        service.CancelRun(cancelledId);
+        response.SetResult(TextResponse("First request completed"));
+        var lastId = await service.StartRun("admin", boardId, "Last request");
+        await WaitForConversation(service, lastId, state => state == AgentState.Completed);
+
+        Assert.AreEqual(2, modelClient.Requests.Count);
+        Assert.AreEqual(AgentState.Completed, service.GetConversation(firstId)!.State);
+        Assert.IsNull(service.GetConversation(cancelledId));
+        var history = await service.GetConversationAsync(cancelledId, "admin");
+        Assert.IsNotNull(history);
+        Assert.AreEqual("Conversation cancelled.", history.ErrorMessage);
+    }
+
+    [TestMethod]
+    public async Task AgentService_CancelApprovalResumptionReachesModel()
+    {
+        var started = new TaskCompletionSource<CancellationToken>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var modelClient = new ScriptedAgentModelClient(
+            ToolUseResponse("approved-write", "CreateBoard", new() { ["name"] = "Approved board" }),
+            (Func<CancellationToken, Task<ClaudeResponse>>)(async token =>
+            {
+                started.SetResult(token);
+                await Task.Delay(TimeSpan.FromSeconds(15), token);
+                return TextResponse("Must not complete");
+            }), TextResponse("Other request completed"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        var cancelledId = await service.StartRun("admin", boardId, "Create a board");
+        var conversation = await WaitForConversation(service, cancelledId, state => state == AgentState.AwaitingApproval);
+        var advice = GetService<AdviceService>().GetPendingForConversation(conversation.Id).Single();
+        service.ApproveAdvice(cancelledId, advice.Id);
+        var token = await started.Task.WaitAsync(TimeSpan.FromSeconds(10));
+
+        service.CancelRun(cancelledId);
+        var otherId = await service.StartRun("admin", boardId, "Independent request");
+        await WaitForConversation(service, otherId, state => state == AgentState.Completed);
+
+        Assert.IsTrue(token.IsCancellationRequested);
+        var history = await service.GetConversationAsync(cancelledId, "admin");
+        Assert.IsNotNull(history);
+        Assert.AreEqual("Conversation cancelled.", history.ErrorMessage);
+        Assert.AreEqual(AgentState.Error, history.State);
+        Assert.AreEqual(0, GetService<AdviceService>().GetPendingForConversation(cancelledId).Count);
+        Assert.AreEqual(3, modelClient.Requests.Count);
+    }
+
+    [TestMethod]
+    public async Task AgentService_CancelledHistoryCanResumeWithoutOldRunOverwritingIt()
+    {
+        var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var response = new TaskCompletionSource<ClaudeResponse>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var modelClient = new ScriptedAgentModelClient(
+            (Func<CancellationToken, Task<ClaudeResponse>>)(_ =>
+            {
+                started.SetResult();
+                return response.Task;
+            }), TextResponse("Resumed request completed"), TextResponse("Barrier completed"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        var id = await service.StartRun("admin", boardId, "First request");
+        await started.Task.WaitAsync(TimeSpan.FromSeconds(10));
+        service.CancelRun(id);
+        // ListAsync uses a fresh context; wait until cancellation is durably recorded.
+        for (var attempt = 0; attempt < 500; attempt++)
+        {
+            var session = (await service.ListSessionsAsync("admin")).Single(item => item.Id == id);
+            if (session.State == nameof(AgentState.Error)) break;
+            await Task.Delay(20);
+        }
+        var resumedId = await service.ContinueRunAsync(id, "admin", "Continue deliberately");
+        response.SetResult(TextResponse("Late old response"));
+        Assert.AreEqual(id, resumedId);
+        var barrier = await service.StartRun("admin", boardId, "Barrier");
+        await WaitForConversation(service, barrier, state => state == AgentState.Completed);
+        var history = await service.GetConversationAsync(id, "admin");
+        Assert.IsNotNull(history);
+        Assert.AreEqual(AgentState.Completed, history.State);
+        Assert.AreEqual("Resumed request completed", history.Messages.Last().Content);
+        Assert.IsFalse(history.Messages.Any(message => message.Content == "Late old response"));
+        Assert.IsFalse(modelClient.CancellationTokens[1].IsCancellationRequested);
+    }
+
+    [TestMethod]
+    public async Task AgentService_ResumingCancelledQueueDoesNotExecuteTheOldQueuedCallback()
+    {
+        var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var response = new TaskCompletionSource<ClaudeResponse>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var modelClient = new ScriptedAgentModelClient(
+            (Func<CancellationToken, Task<ClaudeResponse>>)(_ =>
+            {
+                started.SetResult();
+                return response.Task;
+            }), TextResponse("Resumed once"), TextResponse("Barrier completed"));
+        await RestartServerWithModelClient(modelClient);
+        await LoginAsAdmin();
+        var (boardId, _) = await CreateBoardAndFirstColumnAsync();
+        var service = GetService<IAgentService>();
+        await service.StartRun("admin", boardId, "Keep queue occupied");
+        await started.Task.WaitAsync(TimeSpan.FromSeconds(10));
+        var id = await service.StartRun("admin", boardId, "Queued then cancelled");
+        service.CancelRun(id);
+        for (var attempt = 0; attempt < 500; attempt++)
+        {
+            var session = (await service.ListSessionsAsync("admin")).Single(item => item.Id == id);
+            if (session.State == nameof(AgentState.Error)) break;
+            await Task.Delay(20);
+        }
+        var resumed = await service.ContinueRunAsync(id, "admin", "Resume this queued conversation");
+        response.SetResult(TextResponse("Queue released"));
+        Assert.AreEqual(id, resumed);
+        var barrier = await service.StartRun("admin", boardId, "Barrier");
+        await WaitForConversation(service, barrier, state => state == AgentState.Completed);
+
+        Assert.AreEqual(3, modelClient.Requests.Count);
+        Assert.AreEqual("Resumed once", service.GetConversation(id)!.Messages.Last().Content);
     }
 
     // ── AgentController ─────────────────────────────────────
