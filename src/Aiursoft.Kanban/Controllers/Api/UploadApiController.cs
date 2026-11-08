@@ -27,7 +27,7 @@ public sealed class UploadApiController(StorageService storage) : ControllerBase
             Code = Code.ResultShown,
             Message = "Card image upload grant created.",
             UploadUrl = storage.GetUploadUrl(
-                "kanban-images",
+                $"kanban-images/{Guid.NewGuid():N}",
                 maxSizeInMb: CardImageMaxSizeInMb,
                 allowedExtensions: CardImageExtensions),
             MaxSizeInMb = CardImageMaxSizeInMb,

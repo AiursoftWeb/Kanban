@@ -115,7 +115,15 @@ public sealed class KanbanApiTests : TestBase
         Assert.IsNotNull(grant);
         Assert.AreEqual(10, grant.MaxSizeInMb);
         CollectionAssert.Contains(grant.AllowedExtensions, "png");
-        Assert.StartsWith("/upload/kanban-images?token=", grant.UploadUrl);
+        Assert.StartsWith("/upload/kanban-images/", grant.UploadUrl);
+        var uploadPath = new Uri("http://localhost" + grant.UploadUrl).AbsolutePath;
+        Assert.IsTrue(Guid.TryParseExact(uploadPath.Split('/')[3], "N", out _));
+        using var secondGrantResponse = await Http.GetAsync("/api/v1/uploads/card-images");
+        secondGrantResponse.EnsureSuccessStatusCode();
+        var secondGrant = JsonConvert.DeserializeObject<CardImageUploadGrantResponse>(
+            await secondGrantResponse.Content.ReadAsStringAsync());
+        Assert.IsNotNull(secondGrant);
+        Assert.AreNotEqual(uploadPath, new Uri("http://localhost" + secondGrant.UploadUrl).AbsolutePath);
 
         var pngBytes = Convert.FromBase64String(
             "iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAIAAAAW4yFwAAAAEElEQVR4nGP4z8DAxMDAAAAHCQEClNBcOwAAAABJRU5ErkJggg==");
