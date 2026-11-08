@@ -140,7 +140,7 @@ public class FilesController(
             return BadRequest("The uploaded file is not a valid raster image.");
         }
 
-        if (string.Equals(subfolder, "kanban-images", StringComparison.Ordinal))
+        if (uploadPolicy.GenerateUniqueFileName)
         {
             fileName = $"{Guid.NewGuid():N}{Path.GetExtension(fileName)}";
         }
