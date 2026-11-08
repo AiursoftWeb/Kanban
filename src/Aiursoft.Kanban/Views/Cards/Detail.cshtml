@@ -221,6 +221,40 @@
             color: #64748b;
         }
 
+        html[data-bs-theme="dark"] .card-detail-hero {
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 36%),
+                radial-gradient(circle at top right, rgba(139, 92, 246, 0.12), transparent 30%),
+                linear-gradient(180deg, var(--bs-body-bg), var(--bs-tertiary-bg));
+        }
+
+        html[data-bs-theme="dark"] .detail-surface {
+            background: var(--bs-body-bg);
+        }
+
+        html[data-bs-theme="dark"] .detail-meta-chip,
+        html[data-bs-theme="dark"] .detail-empty {
+            background: var(--bs-tertiary-bg);
+            color: var(--bs-body-color);
+        }
+
+        html[data-bs-theme="dark"] .detail-meta-chip i,
+        html[data-bs-theme="dark"] .detail-kv-label,
+        html[data-bs-theme="dark"] .detail-title-meta,
+        html[data-bs-theme="dark"] .detail-section-note,
+        html[data-bs-theme="dark"] .detail-avatar-copy .subtitle,
+        html[data-bs-theme="dark"] .detail-description-tabs .nav-link {
+            color: var(--bs-secondary-color);
+        }
+
+        html[data-bs-theme="dark"] .detail-avatar-copy .title {
+            color: var(--bs-body-color);
+        }
+
+        html[data-bs-theme="dark"] .detail-description-tabs .nav-link.active {
+            color: var(--bs-link-color);
+        }
+
         @@media (max-width: 991.98px) {
             .detail-sticky-stack {
                 position: static;
