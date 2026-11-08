@@ -8,7 +8,7 @@
     var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
     var returnBoardUrl = Url.Action("Index", "Kanban", new { boardId = Model.ReturnBoardId }) ?? "/Kanban";
     var backToBoardUrl = Url.Action("Index", "Kanban", new { boardId = Model.ReturnBoardId, highlightCard = Model.CardId }) ?? returnBoardUrl;
-    var kanbanImageUploadUrl = StorageService.GetUploadUrl("kanban-images");
+    var kanbanImageUploadUrl = StorageService.GetUploadUrl($"kanban-images/{Guid.NewGuid():N}");
 }
 
 @* ReSharper disable once Razor.SectionNotResolved *@

@@ -103,7 +103,9 @@ public sealed class OidcBearerApiTests
     }
 
     [TestMethod]
-    public async Task ValidOidcAccessTokenAuthenticatesAndLinksLocalUser()
+    [DataRow("OIDC")]
+    [DataRow("Local")]
+    public async Task OidcAccessTokenIsAcceptedOnlyInOidcMode(string authProvider)
     {
         using var identityReservation = new TestPortReservation();
         var identityPort = identityReservation.Port;
@@ -119,7 +121,7 @@ public sealed class OidcBearerApiTests
             await identityProvider.StartAsync();
             api = await AppAsync<Startup>(
             [
-                "--AppSettings:AuthProvider=OIDC",
+                $"--AppSettings:AuthProvider={authProvider}",
                 "--AppSettings:OIDC:Authority=http://web-provider.invalid",
                 $"--AppSettings:OIDC:MobileAuthority={authority}",
                 "--AppSettings:OIDC:RequireHttpsMetadata=false",
@@ -136,10 +138,11 @@ public sealed class OidcBearerApiTests
             var configuration = await Http.GetFromJsonAsync<MobileConfigurationResponse>(
                 $"http://127.0.0.1:{apiPort}/api/v1/config");
             Assert.IsNotNull(configuration);
-            Assert.AreEqual(authority, configuration.Authority);
-            Assert.AreEqual("test-android", configuration.ClientId);
+            Assert.AreEqual(authProvider, configuration.AuthenticationMode);
+            Assert.AreEqual(authProvider == "OIDC" ? authority : string.Empty, configuration.Authority);
+            Assert.AreEqual(authProvider == "OIDC" ? "test-android" : string.Empty, configuration.ClientId);
             CollectionAssert.AreEqual(
-                new[] { "openid", "profile", "email", "offline_access" },
+                authProvider == "OIDC" ? new[] { "openid", "profile", "email", "offline_access" } : [],
                 configuration.Scopes);
 
             var subject = $"mobile-{Guid.NewGuid():N}";
@@ -149,7 +152,7 @@ public sealed class OidcBearerApiTests
                 claims:
                 [
                     new Claim("sub", subject),
-                    new Claim("preferred_username", "mobile-user"),
+                    new Claim("preferred_username", $"mobile-user-{authProvider}"),
                     new Claim("name", "Mobile User"),
                     new Claim("email", $"{subject}@example.com")
                 ],
@@ -161,13 +164,20 @@ public sealed class OidcBearerApiTests
                 $"http://127.0.0.1:{apiPort}/api/v1/boards");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             using var response = await Http.SendAsync(request);
-            response.EnsureSuccessStatusCode();
+            Assert.AreEqual(authProvider == "OIDC" ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.Unauthorized, response.StatusCode);
 
             await using var scope = api.Services.CreateAsyncScope();
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
             var localUser = await userManager.FindByLoginAsync("OpenIdConnect", subject);
-            Assert.IsNotNull(localUser);
-            Assert.AreEqual("Mobile User", localUser.DisplayName);
+            if (authProvider == "Local")
+            {
+                Assert.IsNull(localUser);
+            }
+            else
+            {
+                Assert.IsNotNull(localUser);
+                Assert.AreEqual("Mobile User", localUser.DisplayName);
+            }
         }
         finally
         {

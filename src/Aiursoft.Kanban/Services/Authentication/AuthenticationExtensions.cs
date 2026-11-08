@@ -101,8 +101,8 @@ public static class AuthenticationExtensions
         }
 
         // Register the scheme in both modes so API callers receive a clean 401 response even
-        // when the deployment has deliberately disabled OIDC. Only OIDC deployments can issue
-        // tokens that pass the configured issuer and audience validation.
+        // when the deployment has deliberately disabled OIDC. Reject OIDC tokens in Local
+        // mode before discovery or account synchronization, even with a configured issuer.
         authBuilder.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
         {
             options.Authority = appSettings.OIDC.GetMobileAuthority();
@@ -121,7 +121,7 @@ public static class AuthenticationExtensions
             {
                 OnMessageReceived = context =>
                 {
-                    if (ApiKeyAuthenticationHandler.ReadToken(context.Request) != null)
+                    if (!appSettings.OIDCEnabled || ApiKeyAuthenticationHandler.ReadToken(context.Request) != null)
                     {
                         context.NoResult();
                     }
