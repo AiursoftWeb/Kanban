@@ -5,21 +5,21 @@
   "author": "Anduin Xue",
   "license": "MIT",
   "dependencies": {
-    "@aiursoft/uistack-markdown-ui": "1.2.6",
+    "@aiursoft/uistack-markdown-ui": "1.2.11",
     "@fontsource/cascadia-code": "5.3.0",
-    "@highlightjs/cdn-assets": "^11.11.1",
+    "@highlightjs/cdn-assets": "^11.12.0",
     "dropify": "^0.2.2",
     "html-to-image": "^1.11.13",
     "lucide": "0.378.0",
     "mathjax": "^3.2.2",
     "mermaid": "^12.3.0",
-    "monaco-editor": "^0.55.1",
-    "sortablejs": "^1.15.6"
+    "monaco-editor": "0.58.0-dev-20261103",
+    "sortablejs": "^1.15.7"
   },
   "devDependencies": {
     "@types/sortablejs": "^1.15.9",
-    "typescript": "^5.7.0",
-    "vite": "^7.0.0"
+    "typescript": "^5.9.3",
+    "vite": "^7.3.8"
   },
   "keep": {
     "@aiursoft/uistack-markdown-ui": "dist",
