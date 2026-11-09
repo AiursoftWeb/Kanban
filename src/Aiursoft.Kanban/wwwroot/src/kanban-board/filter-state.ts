@@ -11,6 +11,7 @@ export function matchesCardFilters(card: FilterCard, state: FilterState): boolea
 
 export function filterBoardData(data: BoardData, state: FilterState): BoardData {
   return { ...data, columns: data.columns.map(column => ({
-    ...column, cards: column.cards.filter(card => matchesCardFilters(card, state)),
+    ...column, cards: !state.statuses.length || state.statuses.includes(column.status)
+      ? column.cards.filter(card => matchesCardFilters(card, state)) : [],
   })) };
 }
