@@ -82,7 +82,7 @@ test('date-only plans keep the same calendar day in western and eastern timezone
 
 const first = { id: 1, title: 'Client REVIEW', description: 'Contract milestone', priority: 'High', assignee: { userId: 'alice', displayName: 'Alice' }, ...planned };
 const second = { id: 2, title: 'Draft', description: 'Client review preparation', priority: 'Low', assignee: { userId: 'bob', displayName: 'Bob' } };
-const empty = { searchText: '', priorities: [], assigneeIds: [] };
+const empty = { searchText: '', priorities: [], assigneeIds: [], statuses: [] };
 
 test('search matches title or description, ignoring case and surrounding whitespace', () => {
   for (const card of [first, second]) assert.equal(matchesCardFilters(card, { ...empty, searchText: '  CLIENT review  ' }), true);
@@ -103,4 +103,31 @@ test('Gantt filtering also includes undated matches, is reversible, and leaves s
   assert.deepEqual(filterBoardData(data, { ...empty, searchText: 'no match' }).columns[0].cards, []);
   assert.deepEqual(filterBoardData(data, empty).columns[0].cards, [first, second]);
   assert.equal(data.columns[0].cards.length, 2);
+});
+
+const statusBoard = {
+  id: 1,
+  columns: ['NotStarted', 'InProgress', 'Completed'].map((status, index) => ({
+    id: index + 1, status,
+    cards: [{ ...first, id: index * 2 + 1 }, { ...second, id: index * 2 + 2 }],
+  })),
+};
+const visibleIds = data => data.columns.flatMap(column => column.cards.map(card => card.id));
+
+for (const [status, ids] of [
+  ['NotStarted', [1, 2]], ['InProgress', [3, 4]], ['Completed', [5, 6]],
+]) {
+  test(`Gantt status filter selects ${status} using column status, including undated cards`, () => {
+    assert.deepEqual(visibleIds(filterBoardData(statusBoard, { ...empty, statuses: [status] })), ids);
+  });
+}
+
+test('multiple statuses combine as alternatives and intersect with the other filters', () => {
+  const statuses = ['NotStarted', 'Completed'];
+  assert.deepEqual(visibleIds(filterBoardData(statusBoard, { ...empty, statuses })), [1, 2, 5, 6]);
+  const state = { ...empty, statuses, searchText: 'review', priorities: ['High'], assigneeIds: ['alice'] };
+  assert.deepEqual(visibleIds(filterBoardData(statusBoard, state)), [1, 5]);
+  assert.deepEqual(visibleIds(filterBoardData(statusBoard, { ...state, assigneeIds: ['bob'] })), []);
+  assert.deepEqual(visibleIds(filterBoardData(statusBoard, empty)), [1, 2, 3, 4, 5, 6]);
+  assert.deepEqual(visibleIds(statusBoard), [1, 2, 3, 4, 5, 6]);
 });

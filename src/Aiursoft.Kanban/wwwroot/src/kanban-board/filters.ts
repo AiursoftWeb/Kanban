@@ -2,8 +2,8 @@
 // filters.ts — Client-side card filtering
 // ============================================================
 
-import type { BoardData, FilterState, Priority } from './types';
-import { PRIORITY_VALUES } from './types';
+import type { BoardData, ColumnStatus, FilterState, Priority } from './types';
+import { COLUMN_STATUS_VALUES, PRIORITY_VALUES } from './types';
 import { filterBoardData, matchesCardFilters } from './filter-state';
 
 export interface FilterInstance {
@@ -32,6 +32,7 @@ export function initFilters(
     searchText: '',
     priorities: [],
     assigneeIds: [],
+    statuses: [],
   };
 
   const searchInput = document.getElementById('kanbanFilterSearch') as HTMLInputElement | null;
@@ -91,6 +92,10 @@ export function initFilters(
     const priority: Priority = PRIORITY_VALUES[parseInt(priorityStr, 10)] ?? 'None';
     const assigneeId = cardEl.getAttribute('data-assigned-user-id') ?? '';
 
+    const statusValue = cardEl.closest<HTMLElement>('.kanban-column')?.dataset.columnStatus;
+    const status = statusValue === undefined ? undefined : COLUMN_STATUS_VALUES[Number(statusValue)];
+    if (state.statuses.length && (!status || !state.statuses.includes(status))) return false;
+
     return matchesCardFilters({
       title, description, priority,
       assignee: assigneeId ? { userId: assigneeId, displayName: '' } : undefined,
@@ -98,13 +103,15 @@ export function initFilters(
   }
 
   function apply(): void {
-    const hasFilters = !!(state.searchText || state.priorities.length || state.assigneeIds.length);
+    const hasFilters = !!(state.searchText || state.priorities.length || state.assigneeIds.length || state.statuses.length);
     document.getElementById('filterClearAll')?.classList.toggle('hidden', !hasFilters);
     filterBar?.querySelectorAll<HTMLElement>('[data-filter-type]').forEach(chip => {
       const value = chip.dataset.filterValue ?? '';
       const active = chip.dataset.filterType === 'priority'
         ? state.priorities.includes(PRIORITY_VALUES[Number(value)])
-        : state.assigneeIds.includes(value);
+        : chip.dataset.filterType === 'status'
+          ? state.statuses.includes(value as ColumnStatus)
+          : state.assigneeIds.includes(value);
       chip.classList.toggle('active', active);
       chip.setAttribute('aria-pressed', String(active));
     });
@@ -174,6 +181,7 @@ export function initFilters(
       if (chip.id === 'filterClearAll') {
         state.priorities = [];
         state.assigneeIds = [];
+        state.statuses = [];
         if (searchInput) {
           searchInput.value = '';
           state.searchText = '';
@@ -197,6 +205,12 @@ export function initFilters(
           state.priorities.push(priority);
           chip.classList.add('active');
         }
+      } else if (filterType === 'status' && filterValue
+        && Object.values(COLUMN_STATUS_VALUES).includes(filterValue as ColumnStatus)) {
+        const status = filterValue as ColumnStatus;
+        const idx = state.statuses.indexOf(status);
+        if (idx >= 0) state.statuses.splice(idx, 1);
+        else state.statuses.push(status);
       } else if (filterType === 'assignee' && filterValue) {
         const idx = state.assigneeIds.indexOf(filterValue);
         if (idx >= 0) {
@@ -219,7 +233,7 @@ export function initFilters(
   document.addEventListener('kanban:filters-apply', handleExternalApply as EventListener);
 
   return {
-    getState: () => ({ ...state, priorities: [...state.priorities], assigneeIds: [...state.assigneeIds] }),
+    getState: () => ({ ...state, priorities: [...state.priorities], assigneeIds: [...state.assigneeIds], statuses: [...state.statuses] }),
     setState(newState: Partial<FilterState>) {
       if (newState.searchText !== undefined) {
         state.searchText = newState.searchText;
@@ -227,6 +241,7 @@ export function initFilters(
       }
       if (newState.priorities !== undefined) state.priorities = [...newState.priorities];
       if (newState.assigneeIds !== undefined) state.assigneeIds = [...newState.assigneeIds];
+      if (newState.statuses !== undefined) state.statuses = [...newState.statuses];
       apply();
     },
     apply,

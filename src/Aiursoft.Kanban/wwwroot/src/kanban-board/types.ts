@@ -79,6 +79,7 @@ export interface FilterState {
   searchText: string;
   priorities: Priority[];
   assigneeIds: string[];
+  statuses: ColumnStatus[];
 }
 
 /** Callbacks the module invokes — host page handles all side effects */

@@ -56,6 +56,12 @@
     <div class="kanban-filter-bar" id="kanbanFilterBar">
         <div class="kanban-filter-bar-inner">
             <input type="text" class="kanban-filter-search" id="kanbanFilterSearch" placeholder="@Localizer["Search title or description..."]" autocomplete="off">
+            <div class="kanban-filter-group" id="statusFilterGroup" role="group" aria-label="@Localizer["Status:"]">
+                <span class="kanban-filter-label">@Localizer["Status:"]</span>
+                <button type="button" class="filter-chip" data-filter-type="status" data-filter-value="NotStarted" aria-pressed="false">@Localizer["Not Started"]</button>
+                <button type="button" class="filter-chip" data-filter-type="status" data-filter-value="InProgress" aria-pressed="false">@Localizer["In Progress"]</button>
+                <button type="button" class="filter-chip" data-filter-type="status" data-filter-value="Completed" aria-pressed="false">@Localizer["Completed"]</button>
+            </div>
             <div class="kanban-filter-group" id="priorityFilterGroup">
                 <span class="kanban-filter-label">@Localizer["Priority"]</span>
                 <button type="button" class="filter-chip" data-filter-type="priority" data-filter-value="0">@Localizer["Urgent"]</button>
