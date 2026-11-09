@@ -12,7 +12,7 @@
     "html-to-image": "^1.11.13",
     "lucide": "0.378.0",
     "mathjax": "^3.2.2",
-    "mermaid": "^11.16.0",
+    "mermaid": "^12.3.0",
     "monaco-editor": "^0.55.1",
     "sortablejs": "^1.15.6"
   },
