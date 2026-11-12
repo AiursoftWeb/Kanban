@@ -476,7 +476,7 @@ public class KanbanController(
                      (share.SharedWithUserId == userId ||
                       (share.SharedWithRoleId != null && userRoleIds.Contains(share.SharedWithRoleId))))))
             .Include(board => board.Columns)
-            .OrderBy(board => board.Name, StringComparer.CurrentCulture)
+            .OrderBy(board => board.Name)
             .ToListAsync();
 
         return Ok(boards.Select(board => new
@@ -1257,7 +1257,7 @@ public class KanbanController(
 
         var results = await labels
             .OrderByDescending(label => label.CardLabels.Count)
-            .ThenBy(label => label.Name, StringComparer.CurrentCulture)
+            .ThenBy(label => label.Name)
             .Take(10)
             .Select(label => new { label.Id, label.Name, label.Color })
             .ToListAsync();

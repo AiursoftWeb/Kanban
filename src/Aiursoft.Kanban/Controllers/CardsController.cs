@@ -167,7 +167,7 @@ public class CardsController(
                      s.Permission == SharePermission.Editable &&
                      (s.SharedWithUserId == userId ||
                       (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId))))))
-            .OrderBy(b => b.Name, StringComparer.CurrentCulture)
+            .OrderBy(b => b.Name)
             .Select(b => new BoardOptionViewModel
             {
                 Id = b.Id,

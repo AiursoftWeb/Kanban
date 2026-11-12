@@ -493,7 +493,7 @@ public class CardReadTools(
                 return $"Error: Invalid dateType \"{dateType}\". Use 'completed' or 'created'.";
         }
 
-        var cards = await query.OrderBy(c => c.Column.Board.Name, StringComparer.CurrentCulture)
+        var cards = await query.OrderBy(c => c.Column.Board.Name)
             .ThenBy(c => c.Column.Order)
             .ThenBy(c => c.Order)
             .Take(100)

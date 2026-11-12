@@ -82,7 +82,7 @@ public class DashboardController(
             .OrderBy(card => card.Priority)
             .ThenBy(card => card.DueDate == null ? 1 : 0)
             .ThenBy(card => card.DueDate)
-            .ThenBy(card => card.Title, StringComparer.CurrentCulture)
+            .ThenBy(card => card.Title)
             .Take(8)
             .ToListAsync();
 
