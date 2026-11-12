@@ -280,7 +280,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
                     .CountAsync(c => c.Column.BoardId == board.Id
                         && c.AssignedUserId == userId
                         && c.Column.ColumnStatus != ColumnStatus.Completed);
-                sb.AppendLine($"- **{board.Name}** (ID: {board.Id}): {assignedToYou} card(s) assigned to you");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- **{board.Name}** (ID: {board.Id}): {assignedToYou} card(s) assigned to you");
             }
             sb.AppendLine();
         }
@@ -308,7 +308,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
                 var overdue = card.DueDate.HasValue && card.DueDate.Value < now.Date
                     ? " ⚠️ OVERDUE"
                     : "";
-                sb.AppendLine($"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**{dueStr}{overdue}");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**{dueStr}{overdue}");
             }
             sb.AppendLine();
         }
@@ -330,7 +330,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
             foreach (var card in overdueCards)
             {
                 var daysOverdue = (now.Date - card.DueDate!.Value.Date).Days;
-                sb.AppendLine($"- [P{card.Priority}] \"{card.Title}\" on board **{card.Column.Board.Name}** — Due {card.DueDate:yyyy-MM-dd} ({daysOverdue} day(s) overdue!)");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" on board **{card.Column.Board.Name}** — Due {card.DueDate:yyyy-MM-dd} ({daysOverdue} day(s) overdue!)");
             }
             sb.AppendLine();
         }
@@ -352,7 +352,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
                 sb.AppendLine("## Completed Today");
                 foreach (var card in completedToday)
                 {
-                    sb.AppendLine($"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**");
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**");
                 }
                 sb.AppendLine();
             }

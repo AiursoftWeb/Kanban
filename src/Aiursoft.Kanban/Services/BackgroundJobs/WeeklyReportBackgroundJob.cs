@@ -209,7 +209,7 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
         var sb = new StringBuilder();
         sb.AppendLine("<context>");
         sb.AppendLine("The following cards were completed by the user during the current week");
-        sb.AppendLine($"({weekStart:yyyy-MM-dd} Monday – {weekStart.AddDays(6):yyyy-MM-dd} Sunday, UTC+8).");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"({weekStart:yyyy-MM-dd} Monday – {weekStart.AddDays(6):yyyy-MM-dd} Sunday, UTC+8).");
         sb.AppendLine("Use this data directly to produce the weekly report — you do NOT need to call");
         sb.AppendLine("GetMyTasks, GetUserBoards, or GetCardsByDateRange.");
         sb.AppendLine();
@@ -231,7 +231,7 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
                 var description = !string.IsNullOrWhiteSpace(card.Description)
                     ? $" — {TruncateForContext(card.Description, 200)}"
                     : "";
-                sb.AppendLine($"- \"{card.Title}\" on board **{card.Column.Board.Name}** (completed {card.ActualEndTime:yyyy-MM-dd}){description}");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- \"{card.Title}\" on board **{card.Column.Board.Name}** (completed {card.ActualEndTime:yyyy-MM-dd}){description}");
             }
             sb.AppendLine();
         }
