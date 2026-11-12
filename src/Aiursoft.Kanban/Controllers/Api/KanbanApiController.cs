@@ -159,7 +159,7 @@ public sealed class KanbanApiController(
                 share.SharedWithUserId == userId
                     ? "Direct share"
                     : $"Role: {roleNames.GetValueOrDefault(share.SharedWithRoleId!, share.SharedWithRoleId!)}"))
-            .OrderBy(board => board.Name)
+            .OrderBy(board => board.Name, StringComparer.CurrentCulture)
             .ToList();
 
         return this.Protocol(new ArchivedBoardListResponse
@@ -555,7 +555,7 @@ public sealed class KanbanApiController(
         CreationTime = card.CreationTime,
         AssignedUser = card.AssignedUser == null ? null : MobileApiMapper.ToUserDto(card.AssignedUser),
         Labels = card.CardLabels
-            .OrderBy(link => link.Label.Name)
+            .OrderBy(link => link.Label.Name, StringComparer.CurrentCulture)
             .Select(link => new CardLabelDto
             {
                 Id = link.LabelId,

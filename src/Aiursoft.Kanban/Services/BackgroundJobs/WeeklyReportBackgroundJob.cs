@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using Aiursoft.Canon.BackgroundJobs;
 using Aiursoft.Kanban.Entities;
@@ -51,14 +52,14 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "WeeklyReportBackgroundJob starting: UTC={UtcNow}, China={ChinaNow}",
-            nowUtc.ToString("O"), chinaNow.ToString("O"));
+            nowUtc.ToString("O", CultureInfo.InvariantCulture), chinaNow.ToString("O", CultureInfo.InvariantCulture));
 
         // Only run on Friday afternoon (UTC ≥ 6:00, i.e. UTC+8 ≥ 14:00)
         if (nowUtc.DayOfWeek != DayOfWeek.Friday || nowUtc.Hour < 6)
         {
             _logger.LogInformation(
                 "WeeklyReportBackgroundJob: Not Friday afternoon (UTC={Utc}), skipping.",
-                nowUtc.ToString("O"));
+                nowUtc.ToString("O", CultureInfo.InvariantCulture));
             return;
         }
 
@@ -66,7 +67,7 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "WeeklyReportBackgroundJob: Friday afternoon detected. Generating reports for week starting {WeekStart}.",
-            weekStart.ToString("yyyy-MM-dd"));
+            weekStart.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
 
         await ProcessGeneration(weekStart);
         _logger.LogInformation("WeeklyReportBackgroundJob completed.");
@@ -78,7 +79,7 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "Found {Count} users needing weekly report for week {WeekStart}",
-            userIds.Count, weekStart.ToString("yyyy-MM-dd"));
+            userIds.Count, weekStart.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
 
         var processed = 0;
         foreach (var userId in userIds)
@@ -292,6 +293,6 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "Saved weekly report for user {UserId}, week {WeekStart}, content length={Length} chars",
-            userId, weekStart.ToString("yyyy-MM-dd"), content.Length);
+            userId, weekStart.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), content.Length);
     }
 }

@@ -62,7 +62,7 @@ public class DashboardController(
                     .First();
                 return ToBoardSummary(share.Board, now, share.Permission);
             })
-            .OrderBy(board => board.Name)
+            .OrderBy(board => board.Name, StringComparer.CurrentCulture)
             .ToList();
 
         var assignedTasksQuery = db.KanbanCards
@@ -82,7 +82,7 @@ public class DashboardController(
             .OrderBy(card => card.Priority)
             .ThenBy(card => card.DueDate == null ? 1 : 0)
             .ThenBy(card => card.DueDate)
-            .ThenBy(card => card.Title)
+            .ThenBy(card => card.Title, StringComparer.CurrentCulture)
             .Take(8)
             .ToListAsync();
 

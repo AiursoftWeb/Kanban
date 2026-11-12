@@ -90,7 +90,7 @@ public class SearchController(
         else
         {
             // 4. Fallback to Keyword Search
-            var normalizedQ = q.ToUpper();
+            var normalizedQ = q.ToUpperInvariant();
             var keywordQuery = baseQuery
                 .Where(c => c.Title.ToUpper().Contains(normalizedQ) || 
                             (c.Description != null && c.Description.ToUpper().Contains(normalizedQ)));

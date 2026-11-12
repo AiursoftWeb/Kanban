@@ -50,7 +50,7 @@ public sealed class DashboardApiController(
                 .OrderByDescending(item => item.Permission)
                 .ThenByDescending(item => item.CreationTime)
                 .First())
-            .OrderBy(share => share.Board.Name)
+            .OrderBy(share => share.Board.Name, StringComparer.CurrentCulture)
             .Select(share => ToBoardDto(share.Board, now, share.Permission))
             .ToList();
 
@@ -71,7 +71,7 @@ public sealed class DashboardApiController(
             .OrderBy(card => card.Priority)
             .ThenBy(card => card.DueDate == null ? 1 : 0)
             .ThenBy(card => card.DueDate)
-            .ThenBy(card => card.Title)
+            .ThenBy(card => card.Title, StringComparer.CurrentCulture)
             .Take(8)
             .ToListAsync();
 

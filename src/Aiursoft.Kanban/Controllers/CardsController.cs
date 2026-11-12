@@ -1,3 +1,4 @@
+using System.Globalization;
 // ============================================================
 // CardsController — Card detail page (GET /Cards/{id})
 // Field updates are handled via fetch to existing KanbanController endpoints
@@ -71,7 +72,7 @@ public class CardsController(
             AuthorAvatarUrl = c.Author.AvatarRelativePath != Entities.User.DefaultAvatarPath
                 ? $"{storage.RelativePathToInternetUrl(c.Author.AvatarRelativePath)}?w=56&square=true"
                 : null,
-            CreatedAt = c.CreationTime.ToString("yyyy-MM-ddTHH:mmK"),
+            CreatedAt = c.CreationTime.ToString("yyyy-MM-ddTHH:mmK", CultureInfo.InvariantCulture),
             CanDelete = c.AuthorId == userId || canEdit
         }).ToList();
 
@@ -126,15 +127,15 @@ public class CardsController(
                 ? $"{storage.RelativePathToInternetUrl(card.CreatorUser.AvatarRelativePath)}?w=56&square=true"
                 : null,
             CreationTime = card.CreationTime,
-            DueDate = card.DueDate?.ToString("yyyy-MM-dd") ?? string.Empty,
-            PlannedStartDate = card.PlannedStartTime?.ToString("yyyy-MM-dd") ?? string.Empty,
+            DueDate = card.DueDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty,
+            PlannedStartDate = card.PlannedStartTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty,
             ActualStartDate = card.ActualStartTime,
             ActualEndDate = card.ActualEndTime,
             IsRecurring = card.RecurrenceInterval.HasValue && card.RecurrenceUnit != RecurrenceUnit.None,
             RecurrenceInterval = card.RecurrenceInterval?.ToString() ?? string.Empty,
             RecurrenceUnit = (int)card.RecurrenceUnit,
             Labels = card.CardLabels
-                .OrderBy(link => link.Label.Name)
+                .OrderBy(link => link.Label.Name, StringComparer.CurrentCulture)
                 .Select(link => new LabelViewModel
                 {
                     Id = link.LabelId,
@@ -166,7 +167,7 @@ public class CardsController(
                      s.Permission == SharePermission.Editable &&
                      (s.SharedWithUserId == userId ||
                       (s.SharedWithRoleId != null && userRoleIds.Contains(s.SharedWithRoleId))))))
-            .OrderBy(b => b.Name)
+            .OrderBy(b => b.Name, StringComparer.CurrentCulture)
             .Select(b => new BoardOptionViewModel
             {
                 Id = b.Id,

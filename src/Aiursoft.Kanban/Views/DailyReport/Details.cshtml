@@ -1,3 +1,4 @@
+@using System.Globalization
 @using Aiursoft.Kanban.Models.DailyReportViewModels
 @using Aiursoft.Kanban.Entities
 @using Aiursoft.WebTools
@@ -90,7 +91,7 @@
                 <span class="badge @(Model.Report.ReportType == DailyReportType.Plan ? "type-badge-plan" : "type-badge-summary") fs-6">
                     @(Model.Report.ReportType == DailyReportType.Plan ? Localizer["Plan"].Value : Localizer["Summary"].Value)
                 </span>
-                <h4 class="mb-0">@Model.Report.Date.ToString("yyyy-MM-dd")</h4>
+                <h4 class="mb-0">@Model.Report.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)</h4>
             </div>
 
             <div class="mb-3">

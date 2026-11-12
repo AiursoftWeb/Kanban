@@ -1,3 +1,4 @@
+using System.Globalization;
 using Aiursoft.Kanban.Authorization;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Events;
@@ -396,7 +397,7 @@ public class KanbanController(
             card.ColumnId,
             card.PlannedStartTime,
             card.DueDate,
-            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mmK"),
+            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mmK", CultureInfo.InvariantCulture),
             CreatorUserId = creator?.Id,
             CreatorUserName = GetUserDisplayName(creator),
             CreatorUserInitial = GetUserInitial(creator),
@@ -475,7 +476,7 @@ public class KanbanController(
                      (share.SharedWithUserId == userId ||
                       (share.SharedWithRoleId != null && userRoleIds.Contains(share.SharedWithRoleId))))))
             .Include(board => board.Columns)
-            .OrderBy(board => board.Name)
+            .OrderBy(board => board.Name, StringComparer.CurrentCulture)
             .ToListAsync();
 
         return Ok(boards.Select(board => new
@@ -695,9 +696,9 @@ public class KanbanController(
         {
             card.Id,
             card.ColumnId,
-            DueDate = card.DueDate?.ToString("yyyy-MM-ddTHH:mm:ssK"),
-            ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mmK"),
-            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mmK"),
+            DueDate = card.DueDate?.ToString("yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture),
+            ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mmK", CultureInfo.InvariantCulture),
+            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mmK", CultureInfo.InvariantCulture),
             RecurrenceApplied = shouldRecur,
             RecurrenceTargetColumnName = shouldRecur ? recurrenceTargetColumn?.Name : null
         });
@@ -927,8 +928,8 @@ public class KanbanController(
         return Ok(new
         {
             card.Id,
-            ActualStartTime = start?.ToString("O"),
-            ActualEndTime = end?.ToString("O")
+            ActualStartTime = start?.ToString("O", CultureInfo.InvariantCulture),
+            ActualEndTime = end?.ToString("O", CultureInfo.InvariantCulture)
         });
     }
 
@@ -1057,11 +1058,11 @@ public class KanbanController(
             card.Id,
             card.Title,
             card.Description,
-            PlannedStartTime = card.PlannedStartTime?.ToString("yyyy-MM-dd"),
-            DueDate = card.DueDate?.ToString("yyyy-MM-dd"),
-            ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mmK"),
-            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mmK"),
-            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mmK"),
+            PlannedStartTime = card.PlannedStartTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+            DueDate = card.DueDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+            ActualStartTime = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mmK", CultureInfo.InvariantCulture),
+            ActualEndTime = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mmK", CultureInfo.InvariantCulture),
+            CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mmK", CultureInfo.InvariantCulture),
             Priority = (int)card.Priority,
             PriorityText = card.Priority.ToString(),
             card.RecurrenceInterval,
@@ -1256,7 +1257,7 @@ public class KanbanController(
 
         var results = await labels
             .OrderByDescending(label => label.CardLabels.Count)
-            .ThenBy(label => label.Name)
+            .ThenBy(label => label.Name, StringComparer.CurrentCulture)
             .Take(10)
             .Select(label => new { label.Id, label.Name, label.Color })
             .ToListAsync();
@@ -1595,12 +1596,12 @@ public class KanbanController(
                                 Id = card.Id,
                                 Title = card.Title,
                                 Priority = card.Priority.ToString(),
-                                DueDate = card.DueDate?.ToString("yyyy-MM-dd"),
+                                DueDate = card.DueDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
                                 IsOverdue = card.DueDate.HasValue && card.DueDate.Value < now
                                     && col.ColumnStatus != ColumnStatus.Completed,
-                                PlannedStartDate = card.PlannedStartTime?.ToString("yyyy-MM-dd"),
-                                ActualStartDate = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mmK"),
-                                ActualEndDate = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mmK"),
+                                PlannedStartDate = card.PlannedStartTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                                ActualStartDate = card.ActualStartTime?.ToString("yyyy-MM-ddTHH:mmK", CultureInfo.InvariantCulture),
+                                ActualEndDate = card.ActualEndTime?.ToString("yyyy-MM-ddTHH:mmK", CultureInfo.InvariantCulture),
                                 Assignee = card.AssignedUser != null
                                     ? new UserSummary
                                     {
@@ -1621,9 +1622,9 @@ public class KanbanController(
                                             : null
                                     }
                                     : null,
-                                CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mmK"),
+                                CreationTime = card.CreationTime.ToString("yyyy-MM-ddTHH:mmK", CultureInfo.InvariantCulture),
                                 Labels = card.CardLabels
-                                    .OrderBy(link => link.Label.Name)
+                                    .OrderBy(link => link.Label.Name, StringComparer.CurrentCulture)
                                     .Select(link => new LabelSummary
                                     {
                                         Id = link.LabelId,

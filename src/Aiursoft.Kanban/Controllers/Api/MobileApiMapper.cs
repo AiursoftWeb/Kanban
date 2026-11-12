@@ -31,7 +31,7 @@ internal static class MobileApiMapper
         CreationTime = card.CreationTime,
         AssignedUser = card.AssignedUser == null ? null : ToUserDto(card.AssignedUser),
         Labels = card.CardLabels
-            .OrderBy(link => link.Label.Name)
+            .OrderBy(link => link.Label.Name, StringComparer.CurrentCulture)
             .Select(link => new CardLabelDto
             {
                 Id = link.LabelId,

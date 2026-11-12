@@ -1,3 +1,4 @@
+@using System.Globalization
 @using Aiursoft.Kanban.Models.WeeklyReportViewModels
 @using Aiursoft.WebTools
 @model WeeklyReportDetailsViewModel
@@ -83,7 +84,7 @@
                 <span class="badge type-badge-weekly fs-6">
                     @Localizer["Weekly Report"]
                 </span>
-                <h4 class="mb-0">@Model.Report.WeekStart.ToString("yyyy-MM-dd") – @Model.Report.WeekStart.AddDays(6).ToString("yyyy-MM-dd")</h4>
+                <h4 class="mb-0">@Model.Report.WeekStart.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) – @Model.Report.WeekStart.AddDays(6).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)</h4>
             </div>
 
             <div class="mb-3">

@@ -289,7 +289,7 @@ public sealed class CardApiController(
                     (share.SharedWithUserId == userId ||
                      (share.SharedWithRoleId != null && userRoleIds.Contains(share.SharedWithRoleId))))))
             .Include(board => board.Columns)
-            .OrderBy(board => board.Name)
+            .OrderBy(board => board.Name, StringComparer.CurrentCulture)
             .ToListAsync();
 
         return this.Protocol(new CardTransferTargetsResponse
@@ -676,7 +676,7 @@ public sealed class CardApiController(
                 .ToListAsync();
             availableLabels = await db.KanbanLabels
                 .OrderByDescending(label => label.CardLabels.Count)
-                .ThenBy(label => label.Name)
+                .ThenBy(label => label.Name, StringComparer.CurrentCulture)
                 .Take(20)
                 .Select(label => new CardLabelDto
                 {
@@ -714,7 +714,7 @@ public sealed class CardApiController(
             AvailableAssignees = assignees,
             AvailableColumns = columns,
             Labels = card.CardLabels
-                .OrderBy(link => link.Label.Name)
+                .OrderBy(link => link.Label.Name, StringComparer.CurrentCulture)
                 .Select(link => new CardLabelDto
                 {
                     Id = link.LabelId,

@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -218,7 +219,7 @@ public class ExamOrchestratorTests
                 new AssertionEvaluator(),
                 writer,
                 _ => new HttpClient(handler, false),
-                new TestTimeProvider(DateTimeOffset.Parse("2026-08-26T11:52:30Z")))
+                new TestTimeProvider(DateTimeOffset.Parse("2026-08-26T11:52:30Z", CultureInfo.InvariantCulture)))
                 .RunAsync(loaded);
 
             var run = writer.Reports.Single().Candidates.Single();
@@ -273,7 +274,7 @@ public class ExamOrchestratorTests
                 new AssertionEvaluator(),
                 writer,
                 _ => new HttpClient(handler, false),
-                new TestTimeProvider(DateTimeOffset.Parse("2026-08-26T11:52:30Z")))
+                new TestTimeProvider(DateTimeOffset.Parse("2026-08-26T11:52:30Z", CultureInfo.InvariantCulture)))
                 .RunAsync(Loaded(output, candidate, null));
 
             Assert.AreEqual(
@@ -303,7 +304,7 @@ public class ExamOrchestratorTests
             };
             var loaded = Loaded(output, candidate, null);
             var timeProvider = new TestTimeProvider(
-                DateTimeOffset.Parse("2026-08-26T11:52:30Z"));
+                DateTimeOffset.Parse("2026-08-26T11:52:30Z", CultureInfo.InvariantCulture));
             var first = new ExamOrchestrator(
                 new FakeScenarioLoader([scenario]),
                 new AssertionEvaluator(),
@@ -405,7 +406,7 @@ public class ExamOrchestratorTests
         Id = id,
         Name = id,
         Domain = "kanban",
-        FixedUtcNow = DateTimeOffset.Parse("2026-08-24T00:00:00Z"),
+        FixedUtcNow = DateTimeOffset.Parse("2026-08-24T00:00:00Z", CultureInfo.InvariantCulture),
         Setup = new ExamSetup(),
         Steps =
         [

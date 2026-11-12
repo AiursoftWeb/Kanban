@@ -1,3 +1,4 @@
+@using System.Globalization
 @using Aiursoft.Kanban.Models.WeeklyReportViewModels
 @using Aiursoft.WebTools
 @model WeeklyReportIndexViewModel
@@ -136,7 +137,7 @@
                 <span class="badge type-badge-weekly highlight-badge me-2">@Localizer["This Week's Report"]</span>
                 @if (Model.CurrentWeekStart.HasValue)
                 {
-                    <small class="text-muted">@Model.CurrentWeekStart.Value.ToString("yyyy-MM-dd") – @Model.CurrentWeekStart.Value.AddDays(6).ToString("yyyy-MM-dd")</small>
+                    <small class="text-muted">@Model.CurrentWeekStart.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) – @Model.CurrentWeekStart.Value.AddDays(6).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)</small>
                 }
             </div>
             <div class="d-flex gap-2">
@@ -165,7 +166,7 @@ else
                 <span class="badge type-badge-weekly highlight-badge me-2">@Localizer["This Week's Report"]</span>
                 @if (Model.CurrentWeekStart.HasValue)
                 {
-                    <small class="text-muted">@Model.CurrentWeekStart.Value.ToString("yyyy-MM-dd") – @Model.CurrentWeekStart.Value.AddDays(6).ToString("yyyy-MM-dd")</small>
+                    <small class="text-muted">@Model.CurrentWeekStart.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) – @Model.CurrentWeekStart.Value.AddDays(6).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)</small>
                 }
             </div>
             @if (Model.CanGenerate)
@@ -221,7 +222,7 @@ else
                         var isCurrentWeek = Model.CurrentWeekStart.HasValue && report.WeekStart.Date == Model.CurrentWeekStart.Value;
                         <tr class="clickable-row @(isCurrentWeek ? "table-active" : "")" data-href="/WeeklyReport/Details/@report.Id">
                             <td>
-                                @report.WeekStart.ToString("yyyy-MM-dd") – @report.WeekStart.AddDays(6).ToString("yyyy-MM-dd")
+                                @report.WeekStart.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) – @report.WeekStart.AddDays(6).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
                                 @if (isCurrentWeek)
                                 {
                                     <span class="badge bg-info ms-1">@Localizer["This Week"]</span>

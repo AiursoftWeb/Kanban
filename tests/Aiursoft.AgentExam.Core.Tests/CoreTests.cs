@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.Json;
 using Aiursoft.AgentExam.Core.Evaluation;
 using Aiursoft.AgentExam.Core.Loading;
@@ -175,7 +176,7 @@ public class EvaluatorTests
         Id = "scenario",
         Name = "Scenario",
         Domain = "kanban",
-        FixedUtcNow = DateTimeOffset.Parse("2026-08-24T00:00:00Z"),
+        FixedUtcNow = DateTimeOffset.Parse("2026-08-24T00:00:00Z", CultureInfo.InvariantCulture),
         Setup = new ExamSetup(),
         Steps = Enumerable.Range(0, stepCount).Select(_ => new ExamStep
         {
@@ -206,7 +207,7 @@ public class ReportWriterTests
         var output = Path.Combine(Path.GetTempPath(), $"agent-exam-report-{Guid.NewGuid():N}");
         var report = new ExamReport(
             "1.0",
-            DateTimeOffset.Parse("2026-08-24T00:00:00Z"),
+            DateTimeOffset.Parse("2026-08-24T00:00:00Z", CultureInfo.InvariantCulture),
             "hash",
             [new CandidateReport(
                 "candidate-one",
@@ -232,7 +233,7 @@ public class ReportWriterTests
         {
             var report = new ExamSummaryReport(
                 "1.0",
-                DateTimeOffset.Parse("2026-08-24T00:00:00Z"),
+                DateTimeOffset.Parse("2026-08-24T00:00:00Z", CultureInfo.InvariantCulture),
                 "hash",
                 [new CandidateSummary(
                     "candidate-one",

@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Collections.Concurrent;
 using System.Text;
 using Aiursoft.Canon.TaskQueue;
@@ -636,7 +637,7 @@ public class AgentService : IAgentService
             sb.Append(" [").Append(card.Priority).Append(']');
             if (card.DueDate.HasValue)
             {
-                sb.Append(" Due: ").Append(card.DueDate.Value.ToString("yyyy-MM-dd"));
+                sb.Append(" Due: ").Append(card.DueDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
             }
             sb.Append(" (Board: \"").Append(card.BoardName).Append('"');
             sb.Append(", Column: \"").Append(card.ColumnName).Append("\")");
@@ -720,7 +721,7 @@ public class AgentService : IAgentService
             < 60 => $"{(int)diff.TotalMinutes}m ago",
             < 1440 => $"{(int)diff.TotalHours}h ago",
             < 43200 => $"{(int)diff.TotalDays}d ago",
-            _ => utcTime.ToString("yyyy-MM-dd")
+            _ => utcTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
         };
     }
 

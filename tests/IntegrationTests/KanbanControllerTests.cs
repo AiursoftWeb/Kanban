@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Security.Claims;
 using Aiursoft.Kanban.Authorization;
@@ -446,7 +447,7 @@ public class KanbanControllerTests : TestBase
             {
                 { "cardId", card.Id.ToString() },
                 { "title", card.Title },
-                { "dueDate", dueDate.ToString("yyyy-MM-dd") },
+                { "dueDate", dueDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) },
                 { "recurrenceInterval", "2" },
                 { "recurrenceUnit", ((int)RecurrenceUnit.Week).ToString() }
             });
@@ -517,7 +518,7 @@ public class KanbanControllerTests : TestBase
             {
                 { "cardId", card.Id.ToString() },
                 { "title", card.Title },
-                { "dueDate", dueDate.ToString("yyyy-MM-dd") },
+                { "dueDate", dueDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) },
                 { "recurrenceInterval", "2" },
                 { "recurrenceUnit", ((int)RecurrenceUnit.Week).ToString() }
             });
@@ -590,7 +591,7 @@ public class KanbanControllerTests : TestBase
             {
                 { "cardId", card.Id.ToString() },
                 { "title", card.Title },
-                { "dueDate", dueDate.ToString("yyyy-MM-dd") }
+                { "dueDate", dueDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) }
             });
         Assert.AreEqual(HttpStatusCode.OK, setResponse.StatusCode);
 
@@ -688,7 +689,7 @@ public class KanbanControllerTests : TestBase
             {
                 { "cardId", card.Id.ToString() },
                 { "title", card.Title },
-                { "dueDate", dueDate.ToString("yyyy-MM-dd") },
+                { "dueDate", dueDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) },
                 { "recurrenceInterval", "1" },
                 { "recurrenceUnit", ((int)RecurrenceUnit.Month).ToString() }
             });

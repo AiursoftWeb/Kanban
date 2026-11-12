@@ -372,7 +372,7 @@ else
                     @if (card.CardLabels.Count > 0)
                     {
                         <div class="task-labels mb-2">
-                            @foreach (var label in card.CardLabels.OrderBy(link => link.Label.Name))
+                            @foreach (var label in card.CardLabels.OrderBy(link => link.Label.Name, StringComparer.CurrentCulture))
                             {
                                 <span class="label-chip" style="background-color:@(label.Label.Color)22;border-color:@label.Label.Color;color:@label.Label.Color;">
                                     @label.Label.Name

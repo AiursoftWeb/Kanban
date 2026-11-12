@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using Aiursoft.Canon.BackgroundJobs;
 using Aiursoft.Kanban.Entities;
@@ -55,7 +56,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "DailyReportBackgroundJob starting: UTC={UtcNow}, China={ChinaNow}, ChinaDate={ChinaDate}",
-            nowUtc.ToString("O"), chinaNow.ToString("O"), todayChina.ToString("yyyy-MM-dd"));
+            nowUtc.ToString("O", CultureInfo.InvariantCulture), chinaNow.ToString("O", CultureInfo.InvariantCulture), todayChina.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
 
         // Planning window: before 4pm UTC+8
         if (chinaNow.Hour < 16)
@@ -78,7 +79,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "Found {Count} users needing {ReportType} generation for {Date}",
-            usersNeedingGeneration.Count, reportType, todayChina.ToString("yyyy-MM-dd"));
+            usersNeedingGeneration.Count, reportType, todayChina.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
 
         var processed = 0;
         foreach (var userId in usersNeedingGeneration)
