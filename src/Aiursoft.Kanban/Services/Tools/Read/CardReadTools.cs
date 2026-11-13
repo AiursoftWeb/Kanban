@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.ComponentModel;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Services.Access;
@@ -42,7 +43,7 @@ public class CardReadTools(
                $"  Priority: {card.Priority}\n" +
                $"  Assigned: {assignee}\n" +
                $"  Labels: {labelStr}\n" +
-               $"  Due Date: {card.DueDate?.ToString("yyyy-MM-dd") ?? "none"}\n" +
+               $"  Due Date: {card.DueDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? "none"}\n" +
                $"  Created: {card.CreationTime:yyyy-MM-dd}";
     }
 
@@ -242,7 +243,7 @@ public class CardReadTools(
             .OrderBy(c => c.Priority)
             .ThenBy(c => c.DueDate == null ? 1 : 0)
             .ThenBy(c => c.DueDate)
-            .ThenBy(c => c.Title)
+            .ThenBy(c => c.Title, StringComparer.CurrentCulture)
             .ToList();
 
         if (ordered.Count == 0)
@@ -277,9 +278,9 @@ public class CardReadTools(
     {
         var userId = currentUser.UserId;
 
-        if (!DateTime.TryParse(startDate, out var start))
+        if (!DateTime.TryParse(startDate, CultureInfo.InvariantCulture, DateTimeStyles.None, out var start))
             return $"Error: Invalid start date \"{startDate}\". Use yyyy-MM-dd format.";
-        if (!DateTime.TryParse(endDate, out var end))
+        if (!DateTime.TryParse(endDate, CultureInfo.InvariantCulture, DateTimeStyles.None, out var end))
             return $"Error: Invalid end date \"{endDate}\". Use yyyy-MM-dd format.";
         if (start > end)
             return $"Error: Start date \"{startDate}\" is after end date \"{endDate}\".";
@@ -361,7 +362,7 @@ public class CardReadTools(
         }
 
         var ordered = accessible
-            .OrderBy(c => c.Column.Board.Name)
+            .OrderBy(c => c.Column.Board.Name, StringComparer.CurrentCulture)
             .ThenBy(c => c.Column.Order)
             .ThenBy(c => c.Order)
             .ToList();
@@ -472,13 +473,13 @@ public class CardReadTools(
                 return "Error: dateType is required when dateFrom or dateTo is set. Use 'completed' or 'created'.";
 
             DateTime from, to;
-            if (!string.IsNullOrWhiteSpace(dateFrom) && !DateTime.TryParse(dateFrom, out from))
+            if (!string.IsNullOrWhiteSpace(dateFrom) && !DateTime.TryParse(dateFrom, CultureInfo.InvariantCulture, DateTimeStyles.None, out from))
                 return $"Error: Invalid dateFrom \"{dateFrom}\". Use yyyy-MM-dd format.";
-            if (!string.IsNullOrWhiteSpace(dateTo) && !DateTime.TryParse(dateTo, out to))
+            if (!string.IsNullOrWhiteSpace(dateTo) && !DateTime.TryParse(dateTo, CultureInfo.InvariantCulture, DateTimeStyles.None, out to))
                 return $"Error: Invalid dateTo \"{dateTo}\". Use yyyy-MM-dd format.";
 
-            from = string.IsNullOrWhiteSpace(dateFrom) ? DateTime.MinValue : DateTime.Parse(dateFrom).Date;
-            to = string.IsNullOrWhiteSpace(dateTo) ? DateTime.MaxValue : DateTime.Parse(dateTo).Date.AddDays(1);
+            from = string.IsNullOrWhiteSpace(dateFrom) ? DateTime.MinValue : DateTime.Parse(dateFrom, CultureInfo.InvariantCulture).Date;
+            to = string.IsNullOrWhiteSpace(dateTo) ? DateTime.MaxValue : DateTime.Parse(dateTo, CultureInfo.InvariantCulture).Date.AddDays(1);
 
             if (from > to)
                 return $"Error: dateFrom \"{dateFrom}\" is after dateTo \"{dateTo}\".";

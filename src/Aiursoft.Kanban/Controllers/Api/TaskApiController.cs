@@ -80,7 +80,7 @@ public sealed class TaskApiController(
                 UsageCount = group.Count()
             })
             .OrderByDescending(label => label.UsageCount)
-            .ThenBy(label => label.Name)
+            .ThenBy(label => label.Name, StringComparer.CurrentCulture)
             .ToList();
 
         IEnumerable<KanbanCard> filteredCards = statusFilteredCards;
@@ -179,74 +179,74 @@ public sealed class TaskApiController(
                 .OrderBy(card => card.PlannedStartTime == null ? 1 : 0)
                 .ThenBy(card => card.PlannedStartTime)
                 .ThenBy(card => card.Priority)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList(),
             "planned-start-desc" => cards
                 .OrderBy(card => card.PlannedStartTime == null ? 1 : 0)
                 .ThenByDescending(card => card.PlannedStartTime)
                 .ThenBy(card => card.Priority)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList(),
             "planned-end-asc" => cards
                 .OrderBy(card => card.DueDate == null ? 1 : 0)
                 .ThenBy(card => card.DueDate)
                 .ThenBy(card => card.Priority)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList(),
             "priority-asc" => cards
                 .OrderByDescending(card => card.Priority)
                 .ThenBy(card => card.DueDate == null ? 1 : 0)
                 .ThenBy(card => card.DueDate)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList(),
             "priority-desc" => cards
                 .OrderBy(card => card.Priority)
                 .ThenBy(card => card.DueDate == null ? 1 : 0)
                 .ThenBy(card => card.DueDate)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList(),
             "actual-start-desc" => cards
                 .OrderBy(card => card.ActualStartTime == null ? 1 : 0)
                 .ThenByDescending(card => card.ActualStartTime)
                 .ThenBy(card => card.Priority)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList(),
             "actual-start-asc" => cards
                 .OrderBy(card => card.ActualStartTime == null ? 1 : 0)
                 .ThenBy(card => card.ActualStartTime)
                 .ThenBy(card => card.Priority)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList(),
             "actual-end-asc" => cards
                 .OrderBy(card => card.ActualEndTime == null ? 1 : 0)
                 .ThenBy(card => card.ActualEndTime)
                 .ThenBy(card => card.Priority)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList(),
             "actual-end-desc" => cards
                 .OrderBy(card => card.ActualEndTime == null ? 1 : 0)
                 .ThenByDescending(card => card.ActualEndTime)
                 .ThenBy(card => card.Priority)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList(),
             "creation-desc" => cards
                 .OrderByDescending(card => card.CreationTime)
                 .ThenBy(card => card.Priority)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList(),
             "creation-asc" => cards
                 .OrderBy(card => card.CreationTime)
                 .ThenBy(card => card.Priority)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList(),
             "title-asc" => cards
-                .OrderBy(card => card.Title)
+                .OrderBy(card => card.Title, StringComparer.CurrentCulture)
                 .ThenBy(card => card.Priority)
                 .ThenBy(card => card.DueDate == null ? 1 : 0)
                 .ThenBy(card => card.DueDate)
                 .ToList(),
             "title-desc" => cards
-                .OrderByDescending(card => card.Title)
+                .OrderByDescending(card => card.Title, StringComparer.CurrentCulture)
                 .ThenBy(card => card.Priority)
                 .ThenBy(card => card.DueDate == null ? 1 : 0)
                 .ThenBy(card => card.DueDate)
@@ -256,7 +256,7 @@ public sealed class TaskApiController(
                 .ThenBy(card => card.DueDate.HasValue && card.DueDate.Value < now ? 0 : 1)
                 .ThenBy(card => card.DueDate)
                 .ThenBy(card => card.Priority)
-                .ThenBy(card => card.Title)
+                .ThenBy(card => card.Title, StringComparer.CurrentCulture)
                 .ToList()
         };
     }

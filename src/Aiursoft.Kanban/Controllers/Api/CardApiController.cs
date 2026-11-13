@@ -714,7 +714,7 @@ public sealed class CardApiController(
             AvailableAssignees = assignees,
             AvailableColumns = columns,
             Labels = card.CardLabels
-                .OrderBy(link => link.Label.Name)
+                .OrderBy(link => link.Label.Name, StringComparer.CurrentCulture)
                 .Select(link => new CardLabelDto
                 {
                     Id = link.LabelId,

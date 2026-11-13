@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Security.Claims;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Models.KanbanViewModels;
@@ -65,16 +66,16 @@ public class PublicKanbanController(TemplateDbContext db) : Controller
                         Id = card.Id,
                         Title = card.Title,
                         Priority = card.Priority.ToString(),
-                        DueDate = card.DueDate?.ToString("yyyy-MM-dd"),
+                        DueDate = card.DueDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
                         IsOverdue = card.DueDate.HasValue && card.DueDate.Value < now
                             && col.ColumnStatus != ColumnStatus.Completed,
-                        PlannedStartDate = card.PlannedStartTime?.ToString("yyyy-MM-dd"),
+                        PlannedStartDate = card.PlannedStartTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
                         Assignee = card.AssignedUser != null ? new UserSummary
                         {
                             UserId = card.AssignedUser.Id,
                             DisplayName = card.AssignedUser.DisplayName
                         } : null,
-                        Labels = card.CardLabels.OrderBy(link => link.Label.Name).Select(link => new LabelSummary
+                        Labels = card.CardLabels.OrderBy(link => link.Label.Name, StringComparer.CurrentCulture).Select(link => new LabelSummary
                         {
                             Id = link.LabelId,
                             Name = link.Label.Name,

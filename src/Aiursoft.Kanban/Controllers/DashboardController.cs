@@ -62,7 +62,7 @@ public class DashboardController(
                     .First();
                 return ToBoardSummary(share.Board, now, share.Permission);
             })
-            .OrderBy(board => board.Name)
+            .OrderBy(board => board.Name, StringComparer.CurrentCulture)
             .ToList();
 
         var assignedTasksQuery = db.KanbanCards

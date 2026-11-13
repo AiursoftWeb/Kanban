@@ -1,3 +1,4 @@
+@using System.Globalization
 @using Aiursoft.Kanban.Models.DailyReportViewModels
 @using Aiursoft.Kanban.Entities
 @using Aiursoft.WebTools
@@ -272,7 +273,7 @@ else if (Model.CanSummarize)
                         var isToday = report.Date.Date == (DateTime.UtcNow + TimeSpan.FromHours(8)).Date;
                         <tr class="clickable-row @(isToday ? "table-active" : "")" data-href="/DailyReport/Details/@report.Id">
                             <td>
-                                @report.Date.ToString("yyyy-MM-dd")
+                                @report.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
                                 @if (isToday)
                                 {
                                     <span class="badge bg-info ms-1">@Localizer["Today"]</span>

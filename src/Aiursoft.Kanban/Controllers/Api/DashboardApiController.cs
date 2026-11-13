@@ -50,7 +50,7 @@ public sealed class DashboardApiController(
                 .OrderByDescending(item => item.Permission)
                 .ThenByDescending(item => item.CreationTime)
                 .First())
-            .OrderBy(share => share.Board.Name)
+            .OrderBy(share => share.Board.Name, StringComparer.CurrentCulture)
             .Select(share => ToBoardDto(share.Board, now, share.Permission))
             .ToList();
 

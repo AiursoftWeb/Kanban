@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Reflection;
 using System.Text;
@@ -2001,8 +2002,8 @@ public class AgentTests : TestBase
         db.KanbanCards.Add(new KanbanCard { Title = "Old Task", ColumnId = doneColumnId, Order = 2, ActualEndTime = thisWeekMonday.AddDays(-30), AssignedUserId = adminUser.Id });
         await db.SaveChangesAsync();
 
-        var start = thisWeekMonday.ToString("yyyy-MM-dd");
-        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd");
+        var start = thisWeekMonday.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var result = await cardTools.GetCardsByDateRange(start, end, boardId, "completed");
 
         StringAssert.Contains(result, "This Week Task A");
@@ -2063,8 +2064,8 @@ public class AgentTests : TestBase
         db.KanbanCards.Add(new KanbanCard { Title = "Completed Card", ColumnId = doneColumn.Id, Order = 0, ActualEndTime = thisWeekMonday, AssignedUserId = adminUser.Id });
         await db.SaveChangesAsync();
 
-        var start = thisWeekMonday.ToString("yyyy-MM-dd");
-        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd");
+        var start = thisWeekMonday.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var result = await cardTools.GetCardsByDateRange(start, end, dateType: "completed");
 
         StringAssert.Contains(result, "Completed Card");
@@ -2113,7 +2114,7 @@ public class AgentTests : TestBase
         db.KanbanCards.Add(new KanbanCard { Title = "Fresh Card", ColumnId = columnId, Order = 0, AssignedUserId = adminUser.Id });
         await db.SaveChangesAsync();
 
-        var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
+        var today = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var result = await cardTools.GetCardsByDateRange(today, today, boardId, "created");
 
         StringAssert.Contains(result, "Fresh Card");
@@ -2144,8 +2145,8 @@ public class AgentTests : TestBase
         db.KanbanCards.Add(new KanbanCard { Title = "Unassigned Task", ColumnId = doneColumn.Id, Order = 1, ActualEndTime = thisWeekMonday });
         await db.SaveChangesAsync();
 
-        var start = thisWeekMonday.ToString("yyyy-MM-dd");
-        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd");
+        var start = thisWeekMonday.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        var end = thisWeekMonday.AddDays(6).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var result = await cardTools.GetCardsByDateRange(start, end, dateType: "completed", assignedTo: "any");
 
         StringAssert.Contains(result, "Admin Task");
@@ -2182,8 +2183,8 @@ public class AgentTests : TestBase
         db.KanbanCards.Add(new KanbanCard { Title = "Low Priority Doc", ColumnId = doneCol.Id, Order = 1, Priority = Priority.Low, ActualEndTime = monday, AssignedUserId = adminUser.Id });
         await db.SaveChangesAsync();
 
-        var start = monday.ToString("yyyy-MM-dd");
-        var end = monday.AddDays(6).ToString("yyyy-MM-dd");
+        var start = monday.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        var end = monday.AddDays(6).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var result = await cardTools.FilterCards(
             keyword: "API", assignedTo: "me", priority: "Urgent",
             columnStatus: "Completed", dateType: "completed",

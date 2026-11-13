@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.ComponentModel;
 using Aiursoft.Kanban.Entities;
 using Aiursoft.Kanban.Notifications;
@@ -87,7 +88,7 @@ public class NotificationReadTools(
             < 60 => $"{(int)diff.TotalMinutes}m ago",
             < 1440 => $"{(int)diff.TotalHours}h ago",
             < 43200 => $"{(int)diff.TotalDays}d ago",
-            _ => utcTime.ToString("yyyy-MM-dd")
+            _ => utcTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
         };
     }
 }

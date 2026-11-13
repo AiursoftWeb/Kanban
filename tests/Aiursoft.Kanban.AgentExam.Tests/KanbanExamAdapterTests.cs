@@ -1,3 +1,4 @@
+using System.Globalization;
 using Aiursoft.Kanban.Tests.IntegrationTests;
 using Aiursoft.AgentExam.Core.Models;
 using Aiursoft.DbTools;
@@ -137,11 +138,11 @@ public class KanbanExamAdapterTests
         using var firstHost = await CreateHostAsync(
             firstModel,
             ToolSet(CreateCard),
-            DateTimeOffset.Parse("2026-01-01T00:00:00Z"));
+            DateTimeOffset.Parse("2026-01-01T00:00:00Z", CultureInfo.InvariantCulture));
         using var secondHost = await CreateHostAsync(
             secondModel,
             ToolSet(GetBoardById),
-            DateTimeOffset.Parse("2027-01-01T00:00:00Z"));
+            DateTimeOffset.Parse("2027-01-01T00:00:00Z", CultureInfo.InvariantCulture));
         using var firstScope = firstHost.Services.CreateScope();
         using var secondScope = secondHost.Services.CreateScope();
 
@@ -197,7 +198,7 @@ public class KanbanExamAdapterTests
         var host = await AppAsync<Startup>(
             [],
             port,
-            plugins: [new ExamPlugin(modelClient, enabledTools, new FixedTimeProvider(utcNow ?? DateTimeOffset.Parse("2026-08-24T00:00:00Z")))]);
+            plugins: [new ExamPlugin(modelClient, enabledTools, new FixedTimeProvider(utcNow ?? DateTimeOffset.Parse("2026-08-24T00:00:00Z", CultureInfo.InvariantCulture)))]);
         try
         {
             reservation.ConfigureServer(host);
@@ -218,7 +219,7 @@ public class KanbanExamAdapterTests
         Id = "adapter-scenario",
         Name = "Adapter scenario",
         Domain = "kanban",
-        FixedUtcNow = DateTimeOffset.Parse("2026-08-24T00:00:00Z"),
+        FixedUtcNow = DateTimeOffset.Parse("2026-08-24T00:00:00Z", CultureInfo.InvariantCulture),
         Setup = new ExamSetup
         {
             Users =

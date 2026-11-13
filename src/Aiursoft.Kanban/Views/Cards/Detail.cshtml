@@ -1,3 +1,4 @@
+@using System.Globalization
 @using System.Text.Json
 @using Aiursoft.WebTools
 @model Aiursoft.Kanban.Models.CardViewModels.CardDetailViewModel
@@ -613,13 +614,13 @@
                         <div class="detail-kv detail-time-row">
                             <label class="detail-kv-label" for="inputActualStart">@Localizer["Actual start"]</label>
                             <div class="detail-kv-value">
-                                <input type="datetime-local" id="inputActualStart" class="form-control detail-input" step="1" data-utc-value="@Model.ActualStartDate?.ToString("O")" @(Model.CanEditActualTime ? null : "disabled") />
+                                <input type="datetime-local" id="inputActualStart" class="form-control detail-input" step="1" data-utc-value="@Model.ActualStartDate?.ToString("O", CultureInfo.InvariantCulture)" @(Model.CanEditActualTime ? null : "disabled") />
                             </div>
                         </div>
                         <div class="detail-kv detail-time-row">
                             <label class="detail-kv-label" for="inputActualEnd">@Localizer["Actual end"]</label>
                             <div class="detail-kv-value">
-                                <input type="datetime-local" id="inputActualEnd" class="form-control detail-input" step="1" data-utc-value="@Model.ActualEndDate?.ToString("O")" @(Model.CanEditActualTime ? null : "disabled") />
+                                <input type="datetime-local" id="inputActualEnd" class="form-control detail-input" step="1" data-utc-value="@Model.ActualEndDate?.ToString("O", CultureInfo.InvariantCulture)" @(Model.CanEditActualTime ? null : "disabled") />
                             </div>
                         </div>
 

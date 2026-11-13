@@ -79,7 +79,7 @@ public sealed class SearchApiController(
 
         if (!usedAi)
         {
-            var upperQuery = normalizedQuery.ToUpper();
+            var upperQuery = normalizedQuery.ToUpperInvariant();
             var keywordQuery = baseQuery.Where(card =>
                 card.Title.ToUpper().Contains(upperQuery) ||
                 (card.Description != null && card.Description.ToUpper().Contains(upperQuery)));

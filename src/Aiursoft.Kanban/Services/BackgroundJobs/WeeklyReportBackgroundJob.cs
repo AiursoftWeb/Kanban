@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using Aiursoft.Canon.BackgroundJobs;
 using Aiursoft.Kanban.Entities;
@@ -51,14 +52,14 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "WeeklyReportBackgroundJob starting: UTC={UtcNow}, China={ChinaNow}",
-            nowUtc.ToString("O"), chinaNow.ToString("O"));
+            nowUtc.ToString("O", CultureInfo.InvariantCulture), chinaNow.ToString("O", CultureInfo.InvariantCulture));
 
         // Only run on Friday afternoon (UTC ≥ 6:00, i.e. UTC+8 ≥ 14:00)
         if (nowUtc.DayOfWeek != DayOfWeek.Friday || nowUtc.Hour < 6)
         {
             _logger.LogInformation(
                 "WeeklyReportBackgroundJob: Not Friday afternoon (UTC={Utc}), skipping.",
-                nowUtc.ToString("O"));
+                nowUtc.ToString("O", CultureInfo.InvariantCulture));
             return;
         }
 
@@ -66,7 +67,7 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "WeeklyReportBackgroundJob: Friday afternoon detected. Generating reports for week starting {WeekStart}.",
-            weekStart.ToString("yyyy-MM-dd"));
+            weekStart.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
 
         await ProcessGeneration(weekStart);
         _logger.LogInformation("WeeklyReportBackgroundJob completed.");
@@ -78,7 +79,7 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "Found {Count} users needing weekly report for week {WeekStart}",
-            userIds.Count, weekStart.ToString("yyyy-MM-dd"));
+            userIds.Count, weekStart.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
 
         var processed = 0;
         foreach (var userId in userIds)
@@ -208,7 +209,7 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
         var sb = new StringBuilder();
         sb.AppendLine("<context>");
         sb.AppendLine("The following cards were completed by the user during the current week");
-        sb.AppendLine($"({weekStart:yyyy-MM-dd} Monday – {weekStart.AddDays(6):yyyy-MM-dd} Sunday, UTC+8).");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"({weekStart:yyyy-MM-dd} Monday – {weekStart.AddDays(6):yyyy-MM-dd} Sunday, UTC+8).");
         sb.AppendLine("Use this data directly to produce the weekly report — you do NOT need to call");
         sb.AppendLine("GetMyTasks, GetUserBoards, or GetCardsByDateRange.");
         sb.AppendLine();
@@ -230,7 +231,7 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
                 var description = !string.IsNullOrWhiteSpace(card.Description)
                     ? $" — {TruncateForContext(card.Description, 200)}"
                     : "";
-                sb.AppendLine($"- \"{card.Title}\" on board **{card.Column.Board.Name}** (completed {card.ActualEndTime:yyyy-MM-dd}){description}");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- \"{card.Title}\" on board **{card.Column.Board.Name}** (completed {card.ActualEndTime:yyyy-MM-dd}){description}");
             }
             sb.AppendLine();
         }
@@ -292,6 +293,6 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "Saved weekly report for user {UserId}, week {WeekStart}, content length={Length} chars",
-            userId, weekStart.ToString("yyyy-MM-dd"), content.Length);
+            userId, weekStart.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), content.Length);
     }
 }

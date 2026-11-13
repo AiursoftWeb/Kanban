@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using Aiursoft.Canon.BackgroundJobs;
 using Aiursoft.Kanban.Entities;
@@ -55,7 +56,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "DailyReportBackgroundJob starting: UTC={UtcNow}, China={ChinaNow}, ChinaDate={ChinaDate}",
-            nowUtc.ToString("O"), chinaNow.ToString("O"), todayChina.ToString("yyyy-MM-dd"));
+            nowUtc.ToString("O", CultureInfo.InvariantCulture), chinaNow.ToString("O", CultureInfo.InvariantCulture), todayChina.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
 
         // Planning window: before 4pm UTC+8
         if (chinaNow.Hour < 16)
@@ -78,7 +79,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
 
         _logger.LogInformation(
             "Found {Count} users needing {ReportType} generation for {Date}",
-            usersNeedingGeneration.Count, reportType, todayChina.ToString("yyyy-MM-dd"));
+            usersNeedingGeneration.Count, reportType, todayChina.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
 
         var processed = 0;
         foreach (var userId in usersNeedingGeneration)
@@ -279,7 +280,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
                     .CountAsync(c => c.Column.BoardId == board.Id
                         && c.AssignedUserId == userId
                         && c.Column.ColumnStatus != ColumnStatus.Completed);
-                sb.AppendLine($"- **{board.Name}** (ID: {board.Id}): {assignedToYou} card(s) assigned to you");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- **{board.Name}** (ID: {board.Id}): {assignedToYou} card(s) assigned to you");
             }
             sb.AppendLine();
         }
@@ -307,7 +308,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
                 var overdue = card.DueDate.HasValue && card.DueDate.Value < now.Date
                     ? " ⚠️ OVERDUE"
                     : "";
-                sb.AppendLine($"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**{dueStr}{overdue}");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**{dueStr}{overdue}");
             }
             sb.AppendLine();
         }
@@ -329,7 +330,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
             foreach (var card in overdueCards)
             {
                 var daysOverdue = (now.Date - card.DueDate!.Value.Date).Days;
-                sb.AppendLine($"- [P{card.Priority}] \"{card.Title}\" on board **{card.Column.Board.Name}** — Due {card.DueDate:yyyy-MM-dd} ({daysOverdue} day(s) overdue!)");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" on board **{card.Column.Board.Name}** — Due {card.DueDate:yyyy-MM-dd} ({daysOverdue} day(s) overdue!)");
             }
             sb.AppendLine();
         }
@@ -351,7 +352,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
                 sb.AppendLine("## Completed Today");
                 foreach (var card in completedToday)
                 {
-                    sb.AppendLine($"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**");
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**");
                 }
                 sb.AppendLine();
             }
