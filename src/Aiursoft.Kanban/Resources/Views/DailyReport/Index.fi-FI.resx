@@ -27,17 +27,17 @@
   <data name="Date" xml:space="preserve">
     <value>Päivämäärä</value>
   </data>
-  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
-    <value>Luo aamusuunnitelma nähdäksesi, mihin sinun tulisi keskittyä tänään.</value>
-  </data>
-  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
-    <value>Luo iltapäivätiivistelmä, josta näet tämän päivän suorituksesi.</value>
-  </data>
   <data name="Generate Plan" xml:space="preserve">
     <value>Luo suunnitelma</value>
   </data>
   <data name="Generate Summary" xml:space="preserve">
     <value>Luo yhteenveto</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>Luo aamusuunnitelma nähdäksesi, mihin sinun tulisi keskittyä tänään.</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>Luo iltapäivätiivistelmä, josta näet tämän päivän suorituksesi.</value>
   </data>
   <data name="Generated" xml:space="preserve">
     <value>Luotu</value>

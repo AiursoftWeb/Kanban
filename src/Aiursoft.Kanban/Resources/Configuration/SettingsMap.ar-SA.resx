@@ -27,11 +27,11 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>رقم افتراضي للتجريب.</value>
   </data>
-  <data name="Agent System Prompt" xml:space="preserve">
-    <value>تعليمات نظام الوكيل</value>
-  </data>
   <data name="AI Model" xml:space="preserve">
     <value>نموذج الذكاء الاصطناعي</value>
+  </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>تعليمات نظام الوكيل</value>
   </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>تمكين المستخدم من تعديل الاسم المستعار</value>
@@ -105,17 +105,17 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>عنوان واجهة برمجة التطبيقات لرسائل Anthropic الذي يستخدمه وكيل Kanban الذكي. يجب أن يكون عنوان URL الكامل بما في ذلك /v1/messages، مثل https://ollama.example.com/v1/messages. اتركه فارغًا لتعطيل وكيل AI.</value>
   </data>
-  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
-    <value>الرابط الأساسي لواجهة برمجة التطبيقات (API) الخاصة بالتضمين (مثل Ollama). يجب ألا يتضمن المسار، على سبيل المثال http://localhost:11434. اتركه فارغًا لتعطيله.</value>
-  </data>
-  <data name="The brand name displayed in the footer." xml:space="preserve">
-    <value>اسم العلامة التجارية المُعرض في التذييل.</value>
-  </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>رقم ترخيص ICP للمستخدمين في الصين القارية. اتركه فارغًا لإخفائه.</value>
   </data>
   <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
     <value>اسم نموذج الذكاء الاصطناعي الكبير المستخدم في وكيل كانبان للذكاء الاصطناعي، على سبيل المثال aiursoft-instruct:latest أو claude-sonnet-4-5 أو deepseek-chat. يجب أن يكون متاحًا في نقطة نهاية واجهة برمجة تطبيقات Anthropic المذكورة أعلاه.</value>
+  </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>الرابط الأساسي لواجهة برمجة التطبيقات (API) الخاصة بالتضمين (مثل Ollama). يجب ألا يتضمن المسار، على سبيل المثال http://localhost:11434. اتركه فارغًا لتعطيله.</value>
+  </data>
+  <data name="The brand name displayed in the footer." xml:space="preserve">
+    <value>اسم العلامة التجارية المُعرض في التذييل.</value>
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>الشعار الخاص بالمشروع يتم عرضه في شريط التنقل والقدم. يدعم jpg، png، svg.</value>

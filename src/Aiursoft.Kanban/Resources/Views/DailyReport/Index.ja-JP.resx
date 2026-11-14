@@ -27,17 +27,17 @@
   <data name="Date" xml:space="preserve">
     <value>日付</value>
   </data>
-  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
-    <value>今日の注力すべきことを確認するために、朝のプランを生成してください。</value>
-  </data>
-  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
-    <value>本日の成果を振り返るための午後のサマリーを作成します。</value>
-  </data>
   <data name="Generate Plan" xml:space="preserve">
     <value>プランを生成</value>
   </data>
   <data name="Generate Summary" xml:space="preserve">
     <value>要約を生成</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>今日の注力すべきことを確認するために、朝のプランを生成してください。</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>本日の成果を振り返るための午後のサマリーを作成します。</value>
   </data>
   <data name="Generated" xml:space="preserve">
     <value>作成済み</value>

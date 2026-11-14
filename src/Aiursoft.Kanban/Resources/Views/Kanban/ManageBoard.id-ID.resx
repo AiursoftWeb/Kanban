@@ -45,9 +45,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>Batal</value>
   </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>kartu. Menghapus kolom juga akan menghapus semua kartunya secara permanen.</value>
-  </data>
   <data name="Cards" xml:space="preserve">
     <value>Kartu</value>
   </data>
@@ -155,6 +152,9 @@
   </data>
   <data name="Unknown error" xml:space="preserve">
     <value>Error tidak diketahui</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>kartu. Menghapus kolom juga akan menghapus semua kartunya secara permanen.</value>
   </data>
 
 </root>

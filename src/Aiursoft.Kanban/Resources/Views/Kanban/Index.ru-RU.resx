@@ -36,14 +36,14 @@
   <data name="Add" xml:space="preserve">
     <value>Добавить</value>
   </data>
-  <data name="Add a comment..." xml:space="preserve">
-    <value>Добавить комментарий...</value>
-  </data>
   <data name="Add Card" xml:space="preserve">
     <value>Добавить карточку</value>
   </data>
   <data name="Add Column" xml:space="preserve">
     <value>Добавить столбец</value>
+  </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>Добавить комментарий...</value>
   </data>
   <data name="Add more details..." xml:space="preserve">
     <value>Добавьте больше подробностей...</value>
@@ -78,9 +78,6 @@
   <data name="Assignee" xml:space="preserve">
     <value>Исполнитель</value>
   </data>
-  <data name="auto" xml:space="preserve">
-    <value>автоматически</value>
-  </data>
   <data name="Board Name" xml:space="preserve">
     <value>Имя доски</value>
   </data>
@@ -89,9 +86,6 @@
   </data>
   <data name="Card Details" xml:space="preserve">
     <value>Сведения о карточке</value>
-  </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>карт(ы). Удаление столбца также приведет к безвозвратному удалению всех его карточек.</value>
   </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Изменить цвет {{0}}</value>
@@ -104,9 +98,6 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>Закрыть</value>
-  </data>
-  <data name="column" xml:space="preserve">
-    <value>столбец</value>
   </data>
   <data name="Column Name" xml:space="preserve">
     <value>Название столбца</value>
@@ -153,9 +144,6 @@
   <data name="Custom color" xml:space="preserve">
     <value>Пользовательский цвет</value>
   </data>
-  <data name="d ago" xml:space="preserve">
-    <value>дн. назад</value>
-  </data>
   <data name="Day" xml:space="preserve">
     <value>День</value>
   </data>
@@ -171,14 +159,14 @@
   <data name="Delete Board" xml:space="preserve">
     <value>Удалить доску</value>
   </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>Удалить комментарий</value>
+  </data>
   <data name="Delete card" xml:space="preserve">
     <value>Удалить карточку</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Удалить столбец</value>
-  </data>
-  <data name="Delete Comment" xml:space="preserve">
-    <value>Удалить комментарий</value>
   </data>
   <data name="Delete empty column" xml:space="preserve">
     <value>Удалить пустой столбец</value>
@@ -228,20 +216,20 @@
   <data name="Failed to create column." xml:space="preserve">
     <value>Не удалось создать столбец.</value>
   </data>
-  <data name="Failed to delete board:" xml:space="preserve">
-    <value>Не удалось удалить доску:</value>
-  </data>
   <data name="Failed to delete board." xml:space="preserve">
     <value>Не удалось удалить доску.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>Не удалось удалить доску:</value>
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Не удалось удалить карточку.</value>
   </data>
-  <data name="Failed to delete column:" xml:space="preserve">
-    <value>Не удалось удалить столбец:</value>
-  </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Не удалось удалить столбец.</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>Не удалось удалить столбец:</value>
   </data>
   <data name="Failed to delete comment." xml:space="preserve">
     <value>Не удалось удалить комментарий.</value>
@@ -252,35 +240,35 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>Не удалось загрузить целевые доски для переноса.</value>
   </data>
-  <data name="Failed to move card:" xml:space="preserve">
-    <value>Не удалось переместить карточку:</value>
-  </data>
   <data name="Failed to move card." xml:space="preserve">
     <value>Не удалось переместить карточку.</value>
+  </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>Не удалось переместить карточку:</value>
   </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Не удалось удалить метку.</value>
   </data>
-  <data name="Failed to rename board:" xml:space="preserve">
-    <value>Не удалось переименовать доску:</value>
-  </data>
   <data name="Failed to rename board." xml:space="preserve">
     <value>Не удалось переименовать доску.</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>Не удалось переименовать доску:</value>
   </data>
   <data name="Failed to rename column:" xml:space="preserve">
     <value>Не удалось переименовать столбец:</value>
   </data>
-  <data name="Failed to save:" xml:space="preserve">
-    <value>Не удалось сохранить:</value>
-  </data>
   <data name="Failed to save." xml:space="preserve">
     <value>Не удалось сохранить.</value>
   </data>
-  <data name="Failed to transfer card:" xml:space="preserve">
-    <value>Не удалось перенести карточку:</value>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>Не удалось сохранить:</value>
   </data>
   <data name="Failed to transfer card." xml:space="preserve">
     <value>Не удалось перенести карточку.</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>Не удалось перенести карточку:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Не удалось обновить цвет метки.</value>
@@ -297,9 +285,6 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>Диаграмма Ганта</value>
   </data>
-  <data name="h ago" xml:space="preserve">
-    <value>ч. назад</value>
-  </data>
   <data name="High" xml:space="preserve">
     <value>Высокий</value>
   </data>
@@ -308,9 +293,6 @@
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>Незавершенные</value>
-  </data>
-  <data name="just now" xml:space="preserve">
-    <value>только что</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>Канбан</value>
@@ -329,9 +311,6 @@
   </data>
   <data name="Low" xml:space="preserve">
     <value>Низкий</value>
-  </data>
-  <data name="m ago" xml:space="preserve">
-    <value>мин. назад</value>
   </data>
   <data name="Medium" xml:space="preserve">
     <value>Средний</value>
@@ -392,9 +371,6 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>ОК</value>
-  </data>
-  <data name="optional" xml:space="preserve">
-    <value>необязательное</value>
   </data>
   <data name="Overdue" xml:space="preserve">
     <value>Просрочено</value>
@@ -554,6 +530,30 @@
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>Вы можете перетащить изображения сюда или вставить их из буфера обмена.</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>автоматически</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>карт(ы). Удаление столбца также приведет к безвозвратному удалению всех его карточек.</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>столбец</value>
+  </data>
+  <data name="d ago" xml:space="preserve">
+    <value>дн. назад</value>
+  </data>
+  <data name="h ago" xml:space="preserve">
+    <value>ч. назад</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>только что</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>мин. назад</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>необязательное</value>
   </data>
 
 </root>

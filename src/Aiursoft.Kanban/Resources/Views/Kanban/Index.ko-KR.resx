@@ -36,14 +36,14 @@
   <data name="Add" xml:space="preserve">
     <value>추가</value>
   </data>
-  <data name="Add a comment..." xml:space="preserve">
-    <value>댓글 추가...</value>
-  </data>
   <data name="Add Card" xml:space="preserve">
     <value>카드 추가</value>
   </data>
   <data name="Add Column" xml:space="preserve">
     <value>열 추가</value>
+  </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>댓글 추가...</value>
   </data>
   <data name="Add more details..." xml:space="preserve">
     <value>자세한 내용을 추가하세요...</value>
@@ -78,9 +78,6 @@
   <data name="Assignee" xml:space="preserve">
     <value>담당자</value>
   </data>
-  <data name="auto" xml:space="preserve">
-    <value>자동</value>
-  </data>
   <data name="Board Name" xml:space="preserve">
     <value>보드 이름</value>
   </data>
@@ -89,9 +86,6 @@
   </data>
   <data name="Card Details" xml:space="preserve">
     <value>카드 세부 정보</value>
-  </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>개의 카드가 있습니다. 열을 삭제하면 해당 열의 모든 카드도 영구적으로 삭제됩니다.</value>
   </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>{{0}} 색상 변경</value>
@@ -104,9 +98,6 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>닫기</value>
-  </data>
-  <data name="column" xml:space="preserve">
-    <value>열</value>
   </data>
   <data name="Column Name" xml:space="preserve">
     <value>열 이름</value>
@@ -153,9 +144,6 @@
   <data name="Custom color" xml:space="preserve">
     <value>사용자 정의 색상</value>
   </data>
-  <data name="d ago" xml:space="preserve">
-    <value>일 전</value>
-  </data>
   <data name="Day" xml:space="preserve">
     <value>요일</value>
   </data>
@@ -171,14 +159,14 @@
   <data name="Delete Board" xml:space="preserve">
     <value>보드 삭제</value>
   </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>댓글 삭제</value>
+  </data>
   <data name="Delete card" xml:space="preserve">
     <value>카드 삭제</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>열 삭제</value>
-  </data>
-  <data name="Delete Comment" xml:space="preserve">
-    <value>댓글 삭제</value>
   </data>
   <data name="Delete empty column" xml:space="preserve">
     <value>비어 있는 열 삭제</value>
@@ -228,20 +216,20 @@
   <data name="Failed to create column." xml:space="preserve">
     <value>열을 생성하지 못했습니다.</value>
   </data>
-  <data name="Failed to delete board:" xml:space="preserve">
-    <value>보드를 삭제하지 못했습니다:</value>
-  </data>
   <data name="Failed to delete board." xml:space="preserve">
     <value>보드를 삭제하지 못했습니다.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>보드를 삭제하지 못했습니다:</value>
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>카드 삭제에 실패했습니다.</value>
   </data>
-  <data name="Failed to delete column:" xml:space="preserve">
-    <value>열 제거에 실패했습니다:</value>
-  </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>열 삭제 실패</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>열 제거에 실패했습니다:</value>
   </data>
   <data name="Failed to delete comment." xml:space="preserve">
     <value>댓글을 삭제하지 못했습니다.</value>
@@ -252,35 +240,35 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>이동 대상 로드 실패.</value>
   </data>
-  <data name="Failed to move card:" xml:space="preserve">
-    <value>카드 이동을 실패했습니다:</value>
-  </data>
   <data name="Failed to move card." xml:space="preserve">
     <value>카드 이동에 실패했습니다.</value>
+  </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>카드 이동을 실패했습니다:</value>
   </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>라벨을 제거하지 못했습니다.</value>
   </data>
-  <data name="Failed to rename board:" xml:space="preserve">
-    <value>보드를 이름 변경하지 못했습니다:</value>
-  </data>
   <data name="Failed to rename board." xml:space="preserve">
     <value>게시판 이름 변경에 실패했습니다.</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>보드를 이름 변경하지 못했습니다:</value>
   </data>
   <data name="Failed to rename column:" xml:space="preserve">
     <value>열 이름 변경에 실패했습니다:</value>
   </data>
-  <data name="Failed to save:" xml:space="preserve">
-    <value>저장하지 못했습니다:</value>
-  </data>
   <data name="Failed to save." xml:space="preserve">
     <value>저장하지 못했습니다.</value>
   </data>
-  <data name="Failed to transfer card:" xml:space="preserve">
-    <value>카드 전송에 실패했습니다:</value>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>저장하지 못했습니다:</value>
   </data>
   <data name="Failed to transfer card." xml:space="preserve">
     <value>카드 이전 실패</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>카드 전송에 실패했습니다:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>레이블 색상을 업데이트하지 못했습니다.</value>
@@ -297,9 +285,6 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>간트 차트</value>
   </data>
-  <data name="h ago" xml:space="preserve">
-    <value>시간 전</value>
-  </data>
   <data name="High" xml:space="preserve">
     <value>높음</value>
   </data>
@@ -308,9 +293,6 @@
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>미완료</value>
-  </data>
-  <data name="just now" xml:space="preserve">
-    <value>지금 방금</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>간판</value>
@@ -329,9 +311,6 @@
   </data>
   <data name="Low" xml:space="preserve">
     <value>낮음</value>
-  </data>
-  <data name="m ago" xml:space="preserve">
-    <value>m 전</value>
   </data>
   <data name="Medium" xml:space="preserve">
     <value>중간</value>
@@ -392,9 +371,6 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>확인</value>
-  </data>
-  <data name="optional" xml:space="preserve">
-    <value>선택 사항</value>
   </data>
   <data name="Overdue" xml:space="preserve">
     <value>연체</value>
@@ -554,6 +530,30 @@
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>여기에 이미지를 드래그하거나 클립보드에서 붙여넣을 수 있습니다.</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>자동</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>개의 카드가 있습니다. 열을 삭제하면 해당 열의 모든 카드도 영구적으로 삭제됩니다.</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>열</value>
+  </data>
+  <data name="d ago" xml:space="preserve">
+    <value>일 전</value>
+  </data>
+  <data name="h ago" xml:space="preserve">
+    <value>시간 전</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>지금 방금</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>m 전</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>선택 사항</value>
   </data>
 
 </root>

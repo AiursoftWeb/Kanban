@@ -45,9 +45,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>tarjeta(s). Al eliminar la columna, también se eliminarán permanentemente todas sus tarjetas.</value>
-  </data>
   <data name="Cards" xml:space="preserve">
     <value>Tarjetas</value>
   </data>
@@ -155,6 +152,9 @@
   </data>
   <data name="Unknown error" xml:space="preserve">
     <value>Error desconocido</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>tarjeta(s). Al eliminar la columna, también se eliminarán permanentemente todas sus tarjetas.</value>
   </data>
 
 </root>

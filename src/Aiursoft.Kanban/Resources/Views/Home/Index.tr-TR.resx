@@ -39,6 +39,15 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Modern, zengin özelliklere sahip ve bir sonraki web uygulamanız için oldukça genişletilebilir bir temel.</value>
   </data>
+  <data name="AI Driven Translation" xml:space="preserve">
+    <value>Yapay Zeka Destekli Çeviri</value>
+  </data>
+  <data name="AI Readable" xml:space="preserve">
+    <value>AI Okunabilir</value>
+  </data>
+  <data name="AI-Powered Translations" xml:space="preserve">
+    <value>Yapay Zeka Destekli Çeviriler</value>
+  </data>
   <data name="Achieve more with Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Template ile daha fazlasını başarın</value>
   </data>
@@ -50,15 +59,6 @@
   </data>
   <data name="Agent" xml:space="preserve">
     <value>Ajan</value>
-  </data>
-  <data name="AI Driven Translation" xml:space="preserve">
-    <value>Yapay Zeka Destekli Çeviri</value>
-  </data>
-  <data name="AI Readable" xml:space="preserve">
-    <value>AI Okunabilir</value>
-  </data>
-  <data name="AI-Powered Translations" xml:space="preserve">
-    <value>Yapay Zeka Destekli Çeviriler</value>
   </data>
   <data name="Aiursoft Kanban" xml:space="preserve">
     <value>Aiursoft Kanban</value>
@@ -93,11 +93,11 @@
   <data name="Authentik &amp; Okta" xml:space="preserve">
     <value>Authentik &amp; Okta</value>
   </data>
-  <data name="Auto compression and privacy" xml:space="preserve">
-    <value>Otomatik sıkıştırma ve gizlilik</value>
-  </data>
   <data name="Auto Deployment" xml:space="preserve">
     <value>Otomatik Dağıtım</value>
+  </data>
+  <data name="Auto compression and privacy" xml:space="preserve">
+    <value>Otomatik sıkıştırma ve gizlilik</value>
   </data>
   <data name="Automatic AI translation into 28 languages." xml:space="preserve">
     <value>28 dilde otomatik yapay zeka çevirisi.</value>
@@ -162,9 +162,6 @@
   <data name="Built-in" xml:space="preserve">
     <value>Gömülü</value>
   </data>
-  <data name="Built-in administration panel" xml:space="preserve">
-    <value>Yerleşik yönetim paneli</value>
-  </data>
   <data name="Built-in Auth" xml:space="preserve">
     <value>Gömülü Kimlik Doğrulama</value>
   </data>
@@ -173,9 +170,6 @@
   </data>
   <data name="Built-in Job Queue GUI" xml:space="preserve">
     <value>Yerleşik İş Kuyruğu Arayüzü</value>
-  </data>
-  <data name="Built-in method-level security" xml:space="preserve">
-    <value>Yöntem düzeyinde yerleşik güvenlik</value>
   </data>
   <data name="Built-in OAuth2/OIDC client support" xml:space="preserve">
     <value>Dahili OAuth2/OIDC istemci desteği</value>
@@ -189,14 +183,20 @@
   <data name="Built-in Roslyn Analyzers" xml:space="preserve">
     <value>Dahili Roslyn Analizcileri</value>
   </data>
+  <data name="Built-in User Management" xml:space="preserve">
+    <value>Dahili Kullanıcı Yönetimi</value>
+  </data>
+  <data name="Built-in administration panel" xml:space="preserve">
+    <value>Yerleşik yönetim paneli</value>
+  </data>
+  <data name="Built-in method-level security" xml:space="preserve">
+    <value>Yöntem düzeyinde yerleşik güvenlik</value>
+  </data>
   <data name="Built-in timezone configuration" xml:space="preserve">
     <value>Dahili saat dilimi yapılandırması</value>
   </data>
   <data name="Built-in timezone support with USE_TZ" xml:space="preserve">
     <value>USE_TZ ile yerleşik saat dilimi desteği</value>
-  </data>
-  <data name="Built-in User Management" xml:space="preserve">
-    <value>Dahili Kullanıcı Yönetimi</value>
   </data>
   <data name="Card Discussion" xml:space="preserve">
     <value>Kart Tartışması</value>
@@ -252,14 +252,14 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Gösterge Paneli</value>
   </data>
+  <data name="Dashboard Website" xml:space="preserve">
+    <value>Kontrol Paneli Web Sitesi</value>
+  </data>
   <data name="Dashboard for background and scheduled tasks" xml:space="preserve">
     <value>Arka plan ve zamanlanmış görevler için kontrol paneli</value>
   </data>
   <data name="Dashboard for background tasks" xml:space="preserve">
     <value>Arka plan görevleri için kontrol paneli</value>
-  </data>
-  <data name="Dashboard Website" xml:space="preserve">
-    <value>Kontrol Paneli Web Sitesi</value>
   </data>
   <data name="Data Control" xml:space="preserve">
     <value>Veri Kontrolü</value>
@@ -291,14 +291,14 @@
   <data name="Dev &amp; Prod" xml:space="preserve">
     <value>Geliştirme &amp; Üretim</value>
   </data>
+  <data name="DevOps Native" xml:space="preserve">
+    <value>DevOps Uyumlu</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>UTC&apos;de özel olarak geliştirin, sistem tarihleri otomatik olarak kullanıcıya özel saat diliminde dönüştürür ve görüntüler.</value>
   </data>
   <data name="Developer Experience" xml:space="preserve">
     <value>Geliştirici Deneyimi</value>
-  </data>
-  <data name="DevOps Native" xml:space="preserve">
-    <value>DevOps Uyumlu</value>
   </data>
   <data name="Discussions page" xml:space="preserve">
     <value>Tartışmalar sayfası</value>
@@ -357,9 +357,6 @@
   <data name="Fast Deployment" xml:space="preserve">
     <value>Hızlı Dağıtım</value>
   </data>
-  <data name="faster" xml:space="preserve">
-    <value>daha hızlı</value>
-  </data>
   <data name="Feature tests available" xml:space="preserve">
     <value>Özellik testleri mevcut</value>
   </data>
@@ -393,9 +390,6 @@
   <data name="Flexible Storage" xml:space="preserve">
     <value>Esnek Depolama</value>
   </data>
-  <data name="for any inquiries or to report issues." xml:space="preserve">
-    <value>her türlü soru veya sorun bildirimi için.</value>
-  </data>
   <data name="Founder &amp; Architect at Aiursoft" xml:space="preserve">
     <value>Founder &amp; Architect at Aiursoft</value>
   </data>
@@ -405,11 +399,11 @@
   <data name="Free" xml:space="preserve">
     <value>Ücretsiz</value>
   </data>
-  <data name="Free for Commercial Use" xml:space="preserve">
-    <value>Ticari Kullanım İçin Ücretsiz</value>
-  </data>
   <data name="Free Software" xml:space="preserve">
     <value>Serbest Yazılım</value>
+  </data>
+  <data name="Free for Commercial Use" xml:space="preserve">
+    <value>Ticari Kullanım İçin Ücretsiz</value>
   </data>
   <data name="Frequently asked questions" xml:space="preserve">
     <value>Sıkça Sorulan Sorular</value>
@@ -429,11 +423,11 @@
   <data name="Fully Offline" xml:space="preserve">
     <value>Tamamen Çevrimdışı</value>
   </data>
-  <data name="Generic configuration" xml:space="preserve">
-    <value>Genel yapılandırma</value>
-  </data>
   <data name="Generic Dockerfile only" xml:space="preserve">
     <value>Sadece Genel Dockerfile</value>
+  </data>
+  <data name="Generic configuration" xml:space="preserve">
+    <value>Genel yapılandırma</value>
   </data>
   <data name="GitLab CI" xml:space="preserve">
     <value>GitLab CI</value>
@@ -462,14 +456,14 @@
   <data name="Handwritten based on Policies" xml:space="preserve">
     <value>Politikalar temelinde elle yazılmış</value>
   </data>
-  <data name="Health check package available" xml:space="preserve">
-    <value>Sağlık denetimi paketi mevcut</value>
-  </data>
   <data name="Health Checks &amp; Probes" xml:space="preserve">
     <value>Sağlık Kontrolleri ve Probes</value>
   </data>
   <data name="Health Checks middleware available" xml:space="preserve">
     <value>Health Checks middleware mevcut</value>
+  </data>
+  <data name="Health check package available" xml:space="preserve">
+    <value>Sağlık denetimi paketi mevcut</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>Merhaba Dünya!</value>
@@ -507,11 +501,11 @@
   <data name="Included" xml:space="preserve">
     <value>Dahil</value>
   </data>
-  <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
-    <value>Kapsamlı belgeler ve hızlı bir şekilde başlamanızı sağlayacak pratik örnekler içerir.</value>
-  </data>
   <data name="Includes Tutorials" xml:space="preserve">
     <value>Kılavuzlar Dahil</value>
+  </data>
+  <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
+    <value>Kapsamlı belgeler ve hızlı bir şekilde başlamanızı sağlayacak pratik örnekler içerir.</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Entegre Dosya Yönetimi</value>
@@ -525,17 +519,8 @@
   <data name="Interoperability" xml:space="preserve">
     <value>Uyumluluk</value>
   </data>
-  <data name="is Free Software" xml:space="preserve">
-    <value>Ücretsiz Yazılımdır</value>
-  </data>
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Aiursoft Template&apos;ı kullanmak ücretsiz mi?</value>
-  </data>
-  <data name="is Open Source" xml:space="preserve">
-    <value>Açık Kaynak</value>
-  </data>
-  <data name="java.time API available" xml:space="preserve">
-    <value>java.time API mevcut</value>
   </data>
   <data name="Job Queue &amp; Scheduling GUI" xml:space="preserve">
     <value>İş Kuyruğu ve Zamanlama Arayüzü</value>
@@ -567,6 +552,12 @@
   <data name="Lint Check" xml:space="preserve">
     <value>Lint Kontrolü</value>
   </data>
+  <data name="MIT Licence" xml:space="preserve">
+    <value>MIT Lisansı</value>
+  </data>
+  <data name="MIT License" xml:space="preserve">
+    <value>MIT Lisansı</value>
+  </data>
   <data name="Maintain High Code Quality" xml:space="preserve">
     <value>Yüksek Kod Kalitesini Koruyun</value>
   </data>
@@ -575,12 +566,6 @@
   </data>
   <data name="Markdown To HTML" xml:space="preserve">
     <value>Markdown&apos;dan HTML&apos;e</value>
-  </data>
-  <data name="MIT Licence" xml:space="preserve">
-    <value>MIT Lisansı</value>
-  </data>
-  <data name="MIT License" xml:space="preserve">
-    <value>MIT Lisansı</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Modeller, veri eklemelerine dayalı olarak hem istemci hem de sunucu tarafında doğrulanır.</value>
@@ -612,15 +597,6 @@
   <data name="Needs Celery + Flower" xml:space="preserve">
     <value>Celery + Flower gerektirir</value>
   </data>
-  <data name="Needs complex authentication logic" xml:space="preserve">
-    <value>Karmaşık kimlik doğrulama mantığı gerektirir</value>
-  </data>
-  <data name="Needs config/plugins" xml:space="preserve">
-    <value>Yapılandırma/eklenti gerektirir</value>
-  </data>
-  <data name="Needs django-health-check package" xml:space="preserve">
-    <value>django-health-check paketi gerekli</value>
-  </data>
   <data name="Needs ESLint/Prettier setup" xml:space="preserve">
     <value>ESLint/Prettier kurulumu gerekli</value>
   </data>
@@ -629,9 +605,6 @@
   </data>
   <data name="Needs Laravel Sail" xml:space="preserve">
     <value>Laravel Sail Gerektirir</value>
-  </data>
-  <data name="Needs manual configuration" xml:space="preserve">
-    <value>Manuel yapılandırma gerektirir</value>
   </data>
   <data name="Needs Medialibrary" xml:space="preserve">
     <value>Medialibrary Gerektirir</value>
@@ -645,11 +618,23 @@
   <data name="Needs Spring Security config" xml:space="preserve">
     <value>Spring Security yapılandırması gerektirir</value>
   </data>
-  <data name="Needs third-party plugins" xml:space="preserve">
-    <value>Üçüncü taraf eklentiler gerekli</value>
-  </data>
   <data name="Needs TypeORM or similar" xml:space="preserve">
     <value>TypeORM veya benzeri gereklidir</value>
+  </data>
+  <data name="Needs complex authentication logic" xml:space="preserve">
+    <value>Karmaşık kimlik doğrulama mantığı gerektirir</value>
+  </data>
+  <data name="Needs config/plugins" xml:space="preserve">
+    <value>Yapılandırma/eklenti gerektirir</value>
+  </data>
+  <data name="Needs django-health-check package" xml:space="preserve">
+    <value>django-health-check paketi gerekli</value>
+  </data>
+  <data name="Needs manual configuration" xml:space="preserve">
+    <value>Manuel yapılandırma gerektirir</value>
+  </data>
+  <data name="Needs third-party plugins" xml:space="preserve">
+    <value>Üçüncü taraf eklentiler gerekli</value>
   </data>
   <data name="No dependency on any cloud vendor. Run anywhere, any time." xml:space="preserve">
     <value>Herhangi bir bulut sağlayıcısına bağımlılık yok. Her yerde, her zaman çalıştırılabilir.</value>
@@ -657,11 +642,14 @@
   <data name="No paid tiers, no hosted lock-in, and no hidden workflow limits. Run it yourself and keep ownership of your project data." xml:space="preserve">
     <value>Ücretli kademeler yok, barındırma kilidi yok ve gizli iş akışı sınırları yok. Kendi sunucunuzda çalıştırın ve proje verilerinizin mülkiyetini elinizde tutun.</value>
   </data>
-  <data name="Offline Capable" xml:space="preserve">
-    <value>Çevrimdışı Kullanım Destekli</value>
-  </data>
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
+  </data>
+  <data name="ORM &amp; Migrations" xml:space="preserve">
+    <value>ORM ve Göçler</value>
+  </data>
+  <data name="Offline Capable" xml:space="preserve">
+    <value>Çevrimdışı Kullanım Destekli</value>
   </data>
   <data name="On Your Infrastructure" xml:space="preserve">
     <value>Altyapınızda</value>
@@ -669,20 +657,17 @@
   <data name="One Click Start" xml:space="preserve">
     <value>Bir Tıkla Başlat</value>
   </data>
-  <data name="Open boards" xml:space="preserve">
-    <value>Panoları Aç</value>
-  </data>
   <data name="Open Source" xml:space="preserve">
     <value>Açık Kaynak</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Panoları Aç</value>
   </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect Entegrasyonu</value>
   </data>
   <data name="Optimized Docker &amp; K8s config" xml:space="preserve">
     <value>Optimize edilmiş Docker &amp; K8s yapılandırması</value>
-  </data>
-  <data name="ORM &amp; Migrations" xml:space="preserve">
-    <value>ORM ve Göçler</value>
   </data>
   <data name="Out-of-the-box" xml:space="preserve">
     <value>Kutudan çıktığı gibi</value>
@@ -699,11 +684,11 @@
   <data name="Pre-configured /healthz and readiness probes" xml:space="preserve">
     <value>Önceden yapılandırılmış /healthz ve hazırlık kontrolleri</value>
   </data>
-  <data name="Pre-configured and tested" xml:space="preserve">
-    <value>Ön yapılandırılmış ve test edilmiş</value>
-  </data>
   <data name="Pre-configured CI/CD pipelines specifically for GitLab." xml:space="preserve">
     <value>GitLab için özel olarak önceden yapılandırılmış CI/CD boruları.</value>
+  </data>
+  <data name="Pre-configured and tested" xml:space="preserve">
+    <value>Ön yapılandırılmış ve test edilmiş</value>
   </data>
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>Geliştirme/üretim için önceden yapılandırılmış boru hatları</value>
@@ -783,17 +768,17 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Kullanıcının sistem ayarlarına otomatik olarak uyum sağlayan akıllı karanlık mod.</value>
   </data>
-  <data name="Standard implementation. Switch providers without compilation." xml:space="preserve">
-    <value>Standart uygulama. Derleme yapmadan sağlayıcıları değiştirin.</value>
-  </data>
   <data name="Standard OpenID" xml:space="preserve">
     <value>Standart OpenID</value>
   </data>
-  <data name="Start a new project" xml:space="preserve">
-    <value>Yeni bir proje başlat</value>
+  <data name="Standard implementation. Switch providers without compilation." xml:space="preserve">
+    <value>Standart uygulama. Derleme yapmadan sağlayıcıları değiştirin.</value>
   </data>
   <data name="Start Shipping Value." xml:space="preserve">
     <value>Değer Göndermeye Başla.</value>
+  </data>
+  <data name="Start a new project" xml:space="preserve">
+    <value>Yeni bir proje başlat</value>
   </data>
   <data name="Start with a single &apos;docker run&apos; command." xml:space="preserve">
     <value>Tek bir &apos;docker run&apos; komutuyla başlayın.</value>
@@ -810,23 +795,23 @@
   <data name="Strict Lint Rules" xml:space="preserve">
     <value>Katı Lint Kuralları</value>
   </data>
+  <data name="Strict Unit Testing" xml:space="preserve">
+    <value>Katı Birim Testi</value>
+  </data>
   <data name="Strict linting rules and zero warnings by default." xml:space="preserve">
     <value>Varsayılan olarak katı kod kontrol kuralları ve sıfır uyarı.</value>
   </data>
   <data name="Strict linting rules with 0 warnings in the default project." xml:space="preserve">
     <value>Varsayılan projede 0 uyarı ile sıkı kod denetimi kuralları.</value>
   </data>
-  <data name="Strict Unit Testing" xml:space="preserve">
-    <value>Katı Birim Testi</value>
-  </data>
   <data name="Strongly Consistent Linting" xml:space="preserve">
     <value>Kesin ve Tutulu Linting</value>
   </data>
-  <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
-    <value>Ortam değişkenleri ve veritabanı tabanlı ayarlar destekler, sorunsuz geçişler için ortam değişkenlerine otomatik öncelik verilir.</value>
-  </data>
   <data name="Supports JetBrains Rider for easy code style fixes." xml:space="preserve">
     <value>JetBrains Rider destekler, kolay kod stili düzeltmeleri için.</value>
+  </data>
+  <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
+    <value>Ortam değişkenleri ve veritabanı tabanlı ayarlar destekler, sorunsuz geçişler için ortam değişkenlerine otomatik öncelik verilir.</value>
   </data>
   <data name="Task Runner" xml:space="preserve">
     <value>Görev Çalıştırıcı</value>
@@ -846,14 +831,14 @@
   <data name="Testing module available" xml:space="preserve">
     <value>Test modülü mevcut</value>
   </data>
+  <data name="The Philosophy" xml:space="preserve">
+    <value>Felsefe</value>
+  </data>
   <data name="The definitive, battle-tested .NET enterprise foundation. From Auth to AI, we&apos;ve solved the hard parts so you don&apos;t have to." xml:space="preserve">
     <value>Kesin, savaştan sıyrılmış .NET enterprise temeli. Kimlik doğrulamadan yapay zekâya kadar, zor kısımları çözdük, sizin için yapmanıza gerek kalmadı.</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>Gezinme çubuğu, kullanıcı rollerine ve izinlerine göre otomatik olarak ayarlanır.</value>
-  </data>
-  <data name="The Philosophy" xml:space="preserve">
-    <value>Felsefe</value>
   </data>
   <data name="The template is built for easy deployment. It includes full Docker support, so you can containerize your app and run it anywhere. You can also deploy it directly to IIS, Azure App Service, or any server that supports ASP.NET Core." xml:space="preserve">
     <value>Şablon, kolay dağıtım için oluşturulmuştur. Tam Docker desteği içerir, böylece uygulamanızı konteynerleştirip her yerde çalıştırabilirsiniz. Ayrıca doğrudan IIS, Azure App Service veya ASP.NET Core destekleyen herhangi bir sunucuya dağıtabilirsiniz.</value>
@@ -864,11 +849,11 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Bu, yolculuğa başladığımız bir şablon projedir...</value>
   </data>
-  <data name="Timezone-aware fields" xml:space="preserve">
-    <value>Zaman dilimi farkındalığına sahip alanlar</value>
-  </data>
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>TimeZoneInfo API mevcut</value>
+  </data>
+  <data name="Timezone-aware fields" xml:space="preserve">
+    <value>Zaman dilimi farkındalığına sahip alanlar</value>
   </data>
   <data name="Track assignments, priorities, labels, due dates, overdue work, and active tasks from one dashboard." xml:space="preserve">
     <value>Atamaları, öncelikleri, etiketleri, son teslim tarihlerini, geciken işleri ve aktif görevleri tek bir panelden takip edin.</value>
@@ -885,11 +870,11 @@
   <data name="Usage" xml:space="preserve">
     <value>Kullanım</value>
   </data>
-  <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
-    <value>Onu SaaS&apos;ınız için bir temel, mobil uygulamanız için bir arka uç, bir kurumsal web sitesi veya kişisel bir blog olarak kullanın. Olanaklar sonsuzdur.</value>
-  </data>
   <data name="Use SQLite for simple hosting or MySQL when your team grows." xml:space="preserve">
     <value>Basit barındırma için SQLite, ekibiniz büyüdükçe MySQL kullanın.</value>
+  </data>
+  <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
+    <value>Onu SaaS&apos;ınız için bir temel, mobil uygulamanız için bir arka uç, bir kurumsal web sitesi veya kişisel bir blog olarak kullanın. Olanaklar sonsuzdur.</value>
   </data>
   <data name="Use the built-in assistant to read board state and help update routine project data." xml:space="preserve">
     <value>Tahtanın durumunu görüntülemek ve rutin proje verilerini güncellemeye yardımcı olmak için yerleşik asistanı kullanın.</value>
@@ -933,11 +918,11 @@
   <data name="You&apos;ll need the .NET 10 SDK, npm and your favorite IDE, like Visual Studio or JetBrains Rider. You can find the full setup guide in our documentation." xml:space="preserve">
     <value>.NET 10 SDK&apos;ye, npm&apos;ye ve Visual Studio veya JetBrains Rider gibi favori IDE&apos;nize ihtiyacınız olacak. Tüm kurulum kılavuzunu belgelerimizde bulabilirsiniz.</value>
   </data>
-  <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
-    <value>Şirketinizin kullanıcıları tekrar tekrar kayıt olmak zorunda kalmaz.</value>
-  </data>
   <data name="Your Workflow" xml:space="preserve">
     <value>İş Akışınız</value>
+  </data>
+  <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
+    <value>Şirketinizin kullanıcıları tekrar tekrar kayıt olmak zorunda kalmaz.</value>
   </data>
   <data name="Yubikey &amp; TOTP" xml:space="preserve">
     <value>Yubikey &amp; TOTP</value>
@@ -950,6 +935,21 @@
   </data>
   <data name="Zero Tolerance Lint" xml:space="preserve">
     <value>Sıfır Tolerans Lint</value>
+  </data>
+  <data name="faster" xml:space="preserve">
+    <value>daha hızlı</value>
+  </data>
+  <data name="for any inquiries or to report issues." xml:space="preserve">
+    <value>her türlü soru veya sorun bildirimi için.</value>
+  </data>
+  <data name="is Free Software" xml:space="preserve">
+    <value>Ücretsiz Yazılımdır</value>
+  </data>
+  <data name="is Open Source" xml:space="preserve">
+    <value>Açık Kaynak</value>
+  </data>
+  <data name="java.time API available" xml:space="preserve">
+    <value>java.time API mevcut</value>
   </data>
 
 </root>

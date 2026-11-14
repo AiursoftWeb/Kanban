@@ -39,6 +39,15 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Nowoczesna, bogata w funkcje i wysoce rozszerzalna podstawa dla Twojej następnej aplikacji internetowej.</value>
   </data>
+  <data name="AI Driven Translation" xml:space="preserve">
+    <value>Tłumaczenie napędzane AI</value>
+  </data>
+  <data name="AI Readable" xml:space="preserve">
+    <value>Czytelny dla AI</value>
+  </data>
+  <data name="AI-Powered Translations" xml:space="preserve">
+    <value>Tłumaczenia Wspomagane Sztuczną Inteligencją</value>
+  </data>
   <data name="Achieve more with Aiursoft Template" xml:space="preserve">
     <value>Osiągaj więcej z Aiursoft Template</value>
   </data>
@@ -50,15 +59,6 @@
   </data>
   <data name="Agent" xml:space="preserve">
     <value>Agent</value>
-  </data>
-  <data name="AI Driven Translation" xml:space="preserve">
-    <value>Tłumaczenie napędzane AI</value>
-  </data>
-  <data name="AI Readable" xml:space="preserve">
-    <value>Czytelny dla AI</value>
-  </data>
-  <data name="AI-Powered Translations" xml:space="preserve">
-    <value>Tłumaczenia Wspomagane Sztuczną Inteligencją</value>
   </data>
   <data name="Aiursoft Kanban" xml:space="preserve">
     <value>Aiursoft Kanban</value>
@@ -93,11 +93,11 @@
   <data name="Authentik &amp; Okta" xml:space="preserve">
     <value>Authentik &amp; Okta</value>
   </data>
-  <data name="Auto compression and privacy" xml:space="preserve">
-    <value>Automatyczne ściskanie i prywatność</value>
-  </data>
   <data name="Auto Deployment" xml:space="preserve">
     <value>Automatyczne wdrażanie</value>
+  </data>
+  <data name="Auto compression and privacy" xml:space="preserve">
+    <value>Automatyczne ściskanie i prywatność</value>
   </data>
   <data name="Automatic AI translation into 28 languages." xml:space="preserve">
     <value>Automatyczne tłumaczenie AI na 28 języków.</value>
@@ -162,9 +162,6 @@
   <data name="Built-in" xml:space="preserve">
     <value>Wbudowane</value>
   </data>
-  <data name="Built-in administration panel" xml:space="preserve">
-    <value>Wbudowany panel administracyjny</value>
-  </data>
   <data name="Built-in Auth" xml:space="preserve">
     <value>Wbudowane uwierzytelnianie</value>
   </data>
@@ -173,9 +170,6 @@
   </data>
   <data name="Built-in Job Queue GUI" xml:space="preserve">
     <value>Wbudowany interfejs GUI kolejki zadań</value>
-  </data>
-  <data name="Built-in method-level security" xml:space="preserve">
-    <value>Wbudowane zabezpieczenia na poziomie metod</value>
   </data>
   <data name="Built-in OAuth2/OIDC client support" xml:space="preserve">
     <value>Wbudowana obsługa klienta OAuth2/OIDC</value>
@@ -189,14 +183,20 @@
   <data name="Built-in Roslyn Analyzers" xml:space="preserve">
     <value>Wbudowane analizatory Roslyn</value>
   </data>
+  <data name="Built-in User Management" xml:space="preserve">
+    <value>Wbudowane zarządzanie użytkownikami</value>
+  </data>
+  <data name="Built-in administration panel" xml:space="preserve">
+    <value>Wbudowany panel administracyjny</value>
+  </data>
+  <data name="Built-in method-level security" xml:space="preserve">
+    <value>Wbudowane zabezpieczenia na poziomie metod</value>
+  </data>
   <data name="Built-in timezone configuration" xml:space="preserve">
     <value>Wbudowana konfiguracja stref czasowych</value>
   </data>
   <data name="Built-in timezone support with USE_TZ" xml:space="preserve">
     <value>Wbudowane wsparcie dla stref czasowych z USE_TZ</value>
-  </data>
-  <data name="Built-in User Management" xml:space="preserve">
-    <value>Wbudowane zarządzanie użytkownikami</value>
   </data>
   <data name="Card Discussion" xml:space="preserve">
     <value>Dyskusja na karcie</value>
@@ -252,14 +252,14 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Panel sterowania</value>
   </data>
+  <data name="Dashboard Website" xml:space="preserve">
+    <value>Strona pulpitu</value>
+  </data>
   <data name="Dashboard for background and scheduled tasks" xml:space="preserve">
     <value>Panel do zadań w tle i harmonogramu</value>
   </data>
   <data name="Dashboard for background tasks" xml:space="preserve">
     <value>Pulpit dla zadań w tle</value>
-  </data>
-  <data name="Dashboard Website" xml:space="preserve">
-    <value>Strona pulpitu</value>
   </data>
   <data name="Data Control" xml:space="preserve">
     <value>Kontrola danych</value>
@@ -291,14 +291,14 @@
   <data name="Dev &amp; Prod" xml:space="preserve">
     <value>Dev &amp; Prod</value>
   </data>
+  <data name="DevOps Native" xml:space="preserve">
+    <value>Natywny DevOps</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Twórz wyłączni w UTC, podczas gdy system automatycznie konwertuje i wyświetla daty w strefie czasowej użytkownika.</value>
   </data>
   <data name="Developer Experience" xml:space="preserve">
     <value>Doświadczenie programisty</value>
-  </data>
-  <data name="DevOps Native" xml:space="preserve">
-    <value>Natywny DevOps</value>
   </data>
   <data name="Discussions page" xml:space="preserve">
     <value>Strona dyskusji</value>
@@ -357,9 +357,6 @@
   <data name="Fast Deployment" xml:space="preserve">
     <value>Szybkie wdrożenie</value>
   </data>
-  <data name="faster" xml:space="preserve">
-    <value>szybciej</value>
-  </data>
   <data name="Feature tests available" xml:space="preserve">
     <value>Dostępne testy funkcjonalne</value>
   </data>
@@ -393,9 +390,6 @@
   <data name="Flexible Storage" xml:space="preserve">
     <value>Elastyczne przechowywanie danych</value>
   </data>
-  <data name="for any inquiries or to report issues." xml:space="preserve">
-    <value>w przypadku jakichkolwiek pytań lub zgłaszania problemów.</value>
-  </data>
   <data name="Founder &amp; Architect at Aiursoft" xml:space="preserve">
     <value>Założyciel i Architekt w Aiursoft</value>
   </data>
@@ -405,11 +399,11 @@
   <data name="Free" xml:space="preserve">
     <value>Bezpłatne</value>
   </data>
-  <data name="Free for Commercial Use" xml:space="preserve">
-    <value>Bezpłatne do użytku komercyjnego</value>
-  </data>
   <data name="Free Software" xml:space="preserve">
     <value>Oprogramowanie wolne</value>
+  </data>
+  <data name="Free for Commercial Use" xml:space="preserve">
+    <value>Bezpłatne do użytku komercyjnego</value>
   </data>
   <data name="Frequently asked questions" xml:space="preserve">
     <value>Często zadawane pytania</value>
@@ -429,11 +423,11 @@
   <data name="Fully Offline" xml:space="preserve">
     <value>Pełna offline</value>
   </data>
-  <data name="Generic configuration" xml:space="preserve">
-    <value>Konfiguracja ogólna</value>
-  </data>
   <data name="Generic Dockerfile only" xml:space="preserve">
     <value>Tylko ogólny plik Dockerfile</value>
+  </data>
+  <data name="Generic configuration" xml:space="preserve">
+    <value>Konfiguracja ogólna</value>
   </data>
   <data name="GitLab CI" xml:space="preserve">
     <value>GitLab CI</value>
@@ -462,14 +456,14 @@
   <data name="Handwritten based on Policies" xml:space="preserve">
     <value>Ręcznie napisane na podstawie zasad (Policies)</value>
   </data>
-  <data name="Health check package available" xml:space="preserve">
-    <value>Dostępny pakiet do sprawdzania stanu zdrowia</value>
-  </data>
   <data name="Health Checks &amp; Probes" xml:space="preserve">
     <value>Kontrola stanu i sondy</value>
   </data>
   <data name="Health Checks middleware available" xml:space="preserve">
     <value>Dostępne middleware do kontroli zdrowia</value>
+  </data>
+  <data name="Health check package available" xml:space="preserve">
+    <value>Dostępny pakiet do sprawdzania stanu zdrowia</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>Witaj Świecie!</value>
@@ -507,11 +501,11 @@
   <data name="Included" xml:space="preserve">
     <value>Dołączone</value>
   </data>
-  <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
-    <value>Zawiera obszerną dokumentację i praktyczne przykłady, które pozwolą Ci szybko rozpocząć pracę.</value>
-  </data>
   <data name="Includes Tutorials" xml:space="preserve">
     <value>Zawiera samouczki</value>
+  </data>
+  <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
+    <value>Zawiera obszerną dokumentację i praktyczne przykłady, które pozwolą Ci szybko rozpocząć pracę.</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Zintegrowany System Zarządzania Plikami</value>
@@ -525,17 +519,8 @@
   <data name="Interoperability" xml:space="preserve">
     <value>Zgodność</value>
   </data>
-  <data name="is Free Software" xml:space="preserve">
-    <value>to Oprogramowanie Wolne</value>
-  </data>
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Czy korzystanie z Aiursoft Template jest bezpłatne?</value>
-  </data>
-  <data name="is Open Source" xml:space="preserve">
-    <value>jest Open Source</value>
-  </data>
-  <data name="java.time API available" xml:space="preserve">
-    <value>Dostępne API java.time</value>
   </data>
   <data name="Job Queue &amp; Scheduling GUI" xml:space="preserve">
     <value>Interfejs graficzny kolejki zadań i harmonogramowania</value>
@@ -567,6 +552,12 @@
   <data name="Lint Check" xml:space="preserve">
     <value>Sprawdzenie kodu</value>
   </data>
+  <data name="MIT Licence" xml:space="preserve">
+    <value>Licencja MIT</value>
+  </data>
+  <data name="MIT License" xml:space="preserve">
+    <value>Licencja MIT</value>
+  </data>
   <data name="Maintain High Code Quality" xml:space="preserve">
     <value>Utrzymuj wysoką jakość kodu</value>
   </data>
@@ -575,12 +566,6 @@
   </data>
   <data name="Markdown To HTML" xml:space="preserve">
     <value>Markdown na HTML</value>
-  </data>
-  <data name="MIT Licence" xml:space="preserve">
-    <value>Licencja MIT</value>
-  </data>
-  <data name="MIT License" xml:space="preserve">
-    <value>Licencja MIT</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Modele są weryfikowane po stronie klienta i serwera na podstawie adnotacji danych.</value>
@@ -612,15 +597,6 @@
   <data name="Needs Celery + Flower" xml:space="preserve">
     <value>Wymaga Celery + Flower</value>
   </data>
-  <data name="Needs complex authentication logic" xml:space="preserve">
-    <value>Wymaga złożonej logiki uwierzytelniania</value>
-  </data>
-  <data name="Needs config/plugins" xml:space="preserve">
-    <value>Wymaga konfiguracji/wtyczek</value>
-  </data>
-  <data name="Needs django-health-check package" xml:space="preserve">
-    <value>Wymaga pakietu django-health-check</value>
-  </data>
   <data name="Needs ESLint/Prettier setup" xml:space="preserve">
     <value>Wymaga konfiguracji ESLint/Prettier</value>
   </data>
@@ -629,9 +605,6 @@
   </data>
   <data name="Needs Laravel Sail" xml:space="preserve">
     <value>Wymaga Laravel Sail</value>
-  </data>
-  <data name="Needs manual configuration" xml:space="preserve">
-    <value>Wymaga ręcznej konfiguracji</value>
   </data>
   <data name="Needs Medialibrary" xml:space="preserve">
     <value>Wymaga Medialibrary</value>
@@ -645,11 +618,23 @@
   <data name="Needs Spring Security config" xml:space="preserve">
     <value>Wymaga konfiguracji Spring Security</value>
   </data>
-  <data name="Needs third-party plugins" xml:space="preserve">
-    <value>Wymaga wtyczek сторонних dostawców</value>
-  </data>
   <data name="Needs TypeORM or similar" xml:space="preserve">
     <value>Wymaga TypeORM lub podobnego narzędzia</value>
+  </data>
+  <data name="Needs complex authentication logic" xml:space="preserve">
+    <value>Wymaga złożonej logiki uwierzytelniania</value>
+  </data>
+  <data name="Needs config/plugins" xml:space="preserve">
+    <value>Wymaga konfiguracji/wtyczek</value>
+  </data>
+  <data name="Needs django-health-check package" xml:space="preserve">
+    <value>Wymaga pakietu django-health-check</value>
+  </data>
+  <data name="Needs manual configuration" xml:space="preserve">
+    <value>Wymaga ręcznej konfiguracji</value>
+  </data>
+  <data name="Needs third-party plugins" xml:space="preserve">
+    <value>Wymaga wtyczek сторонних dostawców</value>
   </data>
   <data name="No dependency on any cloud vendor. Run anywhere, any time." xml:space="preserve">
     <value>Brak zależności od żadnego dostawcy chmury. Uruchamiaj wszędzie, kiedy chcesz.</value>
@@ -657,11 +642,14 @@
   <data name="No paid tiers, no hosted lock-in, and no hidden workflow limits. Run it yourself and keep ownership of your project data." xml:space="preserve">
     <value>Brak płatnych planów, brak zablokowania na hostingu i brak ukrytych ograniczeń przepływu pracy. Uruchom je samodzielnie i zachowaj własność danych swojego projektu.</value>
   </data>
-  <data name="Offline Capable" xml:space="preserve">
-    <value>Działa offline</value>
-  </data>
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
+  </data>
+  <data name="ORM &amp; Migrations" xml:space="preserve">
+    <value>ORM i migracje</value>
+  </data>
+  <data name="Offline Capable" xml:space="preserve">
+    <value>Działa offline</value>
   </data>
   <data name="On Your Infrastructure" xml:space="preserve">
     <value>Na Twojej infrastrukturze</value>
@@ -669,20 +657,17 @@
   <data name="One Click Start" xml:space="preserve">
     <value>Jedno kliknięcie, start</value>
   </data>
-  <data name="Open boards" xml:space="preserve">
-    <value>Otwórz tablice</value>
-  </data>
   <data name="Open Source" xml:space="preserve">
     <value>Otwarte Źródło</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Otwórz tablice</value>
   </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>Integracja OpenID Connect</value>
   </data>
   <data name="Optimized Docker &amp; K8s config" xml:space="preserve">
     <value>Zoptymalizowana konfiguracja Docker &amp; K8s</value>
-  </data>
-  <data name="ORM &amp; Migrations" xml:space="preserve">
-    <value>ORM i migracje</value>
   </data>
   <data name="Out-of-the-box" xml:space="preserve">
     <value>Gotowe do użycia</value>
@@ -699,11 +684,11 @@
   <data name="Pre-configured /healthz and readiness probes" xml:space="preserve">
     <value>Skonfigurowane sondy /healthz i gotowości</value>
   </data>
-  <data name="Pre-configured and tested" xml:space="preserve">
-    <value>Wstępnie skonfigurowane i przetestowane</value>
-  </data>
   <data name="Pre-configured CI/CD pipelines specifically for GitLab." xml:space="preserve">
     <value>Wstępnie skonfigurowane potoki CI/CD specjalnie dla GitLab.</value>
+  </data>
+  <data name="Pre-configured and tested" xml:space="preserve">
+    <value>Wstępnie skonfigurowane i przetestowane</value>
   </data>
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>Wstępnie skonfigurowane potoki dla środowisk dev/prod</value>
@@ -783,17 +768,17 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Inteligentny tryb ciemny, który automatycznie dostosowuje się do ustawień systemowych użytkownika.</value>
   </data>
-  <data name="Standard implementation. Switch providers without compilation." xml:space="preserve">
-    <value>Standardowa implementacja. Przełączaj dostawców bez kompilacji.</value>
-  </data>
   <data name="Standard OpenID" xml:space="preserve">
     <value>Standard OpenID</value>
   </data>
-  <data name="Start a new project" xml:space="preserve">
-    <value>Rozpocznij nowy projekt</value>
+  <data name="Standard implementation. Switch providers without compilation." xml:space="preserve">
+    <value>Standardowa implementacja. Przełączaj dostawców bez kompilacji.</value>
   </data>
   <data name="Start Shipping Value." xml:space="preserve">
     <value>Rozpocznij wysyłanie wartości.</value>
+  </data>
+  <data name="Start a new project" xml:space="preserve">
+    <value>Rozpocznij nowy projekt</value>
   </data>
   <data name="Start with a single &apos;docker run&apos; command." xml:space="preserve">
     <value>Rozpocznij jednym poleceniem &apos;docker run&apos;.</value>
@@ -810,23 +795,23 @@
   <data name="Strict Lint Rules" xml:space="preserve">
     <value>Ścisłe zasady lintowania</value>
   </data>
+  <data name="Strict Unit Testing" xml:space="preserve">
+    <value>Streści testy jednostkowe</value>
+  </data>
   <data name="Strict linting rules and zero warnings by default." xml:space="preserve">
     <value>Ścisłe zasady lintingu i brak ostrzeżeń domyślnie.</value>
   </data>
   <data name="Strict linting rules with 0 warnings in the default project." xml:space="preserve">
     <value>Ścisłe zasady formatowania kodu z 0 ostrzeżeniami w projekcie domyślnym.</value>
   </data>
-  <data name="Strict Unit Testing" xml:space="preserve">
-    <value>Streści testy jednostkowe</value>
-  </data>
   <data name="Strongly Consistent Linting" xml:space="preserve">
     <value>Silne spójne sprawdzanie kodu</value>
   </data>
-  <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
-    <value>Obsługuje zarówno zmienne środowiskowe, jak i ustawienia oparte na bazie danych, przy czym zmienne środowiskowe mają automatyczny priorytet dla bezproblemowego zastępowania.</value>
-  </data>
   <data name="Supports JetBrains Rider for easy code style fixes." xml:space="preserve">
     <value>Obsługuje JetBrains Rider do łatwego poprawiania stylu kodu.</value>
+  </data>
+  <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
+    <value>Obsługuje zarówno zmienne środowiskowe, jak i ustawienia oparte na bazie danych, przy czym zmienne środowiskowe mają automatyczny priorytet dla bezproblemowego zastępowania.</value>
   </data>
   <data name="Task Runner" xml:space="preserve">
     <value>Uruchomnik zadań</value>
@@ -846,14 +831,14 @@
   <data name="Testing module available" xml:space="preserve">
     <value>Moduł testowy dostępny</value>
   </data>
+  <data name="The Philosophy" xml:space="preserve">
+    <value>Filozofia</value>
+  </data>
   <data name="The definitive, battle-tested .NET enterprise foundation. From Auth to AI, we&apos;ve solved the hard parts so you don&apos;t have to." xml:space="preserve">
     <value>Definitywny, sprawdzony w praktyce fundament dla firmowego środowiska .NET. Od uwierzytelniania po sztuczną inteligencję — rozwiązaliśmy trudne problemy, dzięki czemu nie musisz tego robić sam.</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>Pasek nawigacyjny automatycznie dostosowuje się w oparciu o role i uprawnienia użytkownika.</value>
-  </data>
-  <data name="The Philosophy" xml:space="preserve">
-    <value>Filozofia</value>
   </data>
   <data name="The template is built for easy deployment. It includes full Docker support, so you can containerize your app and run it anywhere. You can also deploy it directly to IIS, Azure App Service, or any server that supports ASP.NET Core." xml:space="preserve">
     <value>Szablon został zaprojektowany z myślą o łatwym wdrażaniu. Zawiera pełne wsparcie dla Dockera, więc możesz skonteneryzować swoją aplikację i uruchomić ją wszędzie. Możesz również wdrożyć ją bezpośrednio na IIS, Azure App Service lub dowolnym serwerze obsługującym ASP.NET Core.</value>
@@ -864,11 +849,11 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>To jest projekt szablonowy, od którego rozpoczynamy naszą podróż...</value>
   </data>
-  <data name="Timezone-aware fields" xml:space="preserve">
-    <value>Pola uwzględniające strefy czasowe</value>
-  </data>
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>API TimeZoneInfo jest dostępna</value>
+  </data>
+  <data name="Timezone-aware fields" xml:space="preserve">
+    <value>Pola uwzględniające strefy czasowe</value>
   </data>
   <data name="Track assignments, priorities, labels, due dates, overdue work, and active tasks from one dashboard." xml:space="preserve">
     <value>Śledź zadania, priorytety, etykiety, terminy wykonania, zaległości i aktywne zadania z jednego panelu.</value>
@@ -885,11 +870,11 @@
   <data name="Usage" xml:space="preserve">
     <value>Wykorzystanie</value>
   </data>
-  <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
-    <value>Użyj go jako fundamentu dla swojego SaaS, zaplecza dla aplikacji mobilnej, strony korporacyjnej lub osobistego bloga. Możliwości są nieograniczone.</value>
-  </data>
   <data name="Use SQLite for simple hosting or MySQL when your team grows." xml:space="preserve">
     <value>Użyj SQLite do prostego hostowania lub MySQL, gdy Twój zespół się powiększy.</value>
+  </data>
+  <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
+    <value>Użyj go jako fundamentu dla swojego SaaS, zaplecza dla aplikacji mobilnej, strony korporacyjnej lub osobistego bloga. Możliwości są nieograniczone.</value>
   </data>
   <data name="Use the built-in assistant to read board state and help update routine project data." xml:space="preserve">
     <value>Użyj wbudowanego asystenta do odczytania stanu tablicy i pomocy w aktualizowaniu rutynowych danych projektu.</value>
@@ -933,11 +918,11 @@
   <data name="You&apos;ll need the .NET 10 SDK, npm and your favorite IDE, like Visual Studio or JetBrains Rider. You can find the full setup guide in our documentation." xml:space="preserve">
     <value>Będziesz potrzebować .NET 10 SDK, npm oraz ulubionego środowiska IDE, takiego jak Visual Studio lub JetBrains Rider. Pełny przewodnik konfiguracji znajdziesz w naszej dokumentacji.</value>
   </data>
-  <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
-    <value>Twoje użytkownicy korporacyjni nie muszą się ponownie rejestrować.</value>
-  </data>
   <data name="Your Workflow" xml:space="preserve">
     <value>Twój przepływ pracy</value>
+  </data>
+  <data name="Your enterprise users don&apos;t need to register repeatedly." xml:space="preserve">
+    <value>Twoje użytkownicy korporacyjni nie muszą się ponownie rejestrować.</value>
   </data>
   <data name="Yubikey &amp; TOTP" xml:space="preserve">
     <value>Yubikey &amp; TOTP</value>
@@ -950,6 +935,21 @@
   </data>
   <data name="Zero Tolerance Lint" xml:space="preserve">
     <value>Lint z zerową tolerancją</value>
+  </data>
+  <data name="faster" xml:space="preserve">
+    <value>szybciej</value>
+  </data>
+  <data name="for any inquiries or to report issues." xml:space="preserve">
+    <value>w przypadku jakichkolwiek pytań lub zgłaszania problemów.</value>
+  </data>
+  <data name="is Free Software" xml:space="preserve">
+    <value>to Oprogramowanie Wolne</value>
+  </data>
+  <data name="is Open Source" xml:space="preserve">
+    <value>jest Open Source</value>
+  </data>
+  <data name="java.time API available" xml:space="preserve">
+    <value>Dostępne API java.time</value>
   </data>
 
 </root>

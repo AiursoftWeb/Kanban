@@ -36,14 +36,14 @@
   <data name="Add" xml:space="preserve">
     <value>Thêm</value>
   </data>
-  <data name="Add a comment..." xml:space="preserve">
-    <value>Thêm bình luận...</value>
-  </data>
   <data name="Add Card" xml:space="preserve">
     <value>Thêm Thẻ</value>
   </data>
   <data name="Add Column" xml:space="preserve">
     <value>Thêm cột</value>
+  </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>Thêm bình luận...</value>
   </data>
   <data name="Add more details..." xml:space="preserve">
     <value>Thêm chi tiết...</value>
@@ -78,9 +78,6 @@
   <data name="Assignee" xml:space="preserve">
     <value>Người phụ trách</value>
   </data>
-  <data name="auto" xml:space="preserve">
-    <value>tự động</value>
-  </data>
   <data name="Board Name" xml:space="preserve">
     <value>Tên bảng</value>
   </data>
@@ -89,9 +86,6 @@
   </data>
   <data name="Card Details" xml:space="preserve">
     <value>Chi tiết thẻ</value>
-  </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>thẻ. Việc xóa cột cũng sẽ xóa vĩnh viễn tất cả các thẻ trong đó.</value>
   </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Đổi màu {{0}}</value>
@@ -104,9 +98,6 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>Đóng</value>
-  </data>
-  <data name="column" xml:space="preserve">
-    <value>cột</value>
   </data>
   <data name="Column Name" xml:space="preserve">
     <value>Tên cột</value>
@@ -153,9 +144,6 @@
   <data name="Custom color" xml:space="preserve">
     <value>Màu tùy chỉnh</value>
   </data>
-  <data name="d ago" xml:space="preserve">
-    <value>ngày trước</value>
-  </data>
   <data name="Day" xml:space="preserve">
     <value>Ngày</value>
   </data>
@@ -171,14 +159,14 @@
   <data name="Delete Board" xml:space="preserve">
     <value>Xóa Bảng</value>
   </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>Xóa bình luận</value>
+  </data>
   <data name="Delete card" xml:space="preserve">
     <value>Xóa thẻ</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Xóa cột</value>
-  </data>
-  <data name="Delete Comment" xml:space="preserve">
-    <value>Xóa bình luận</value>
   </data>
   <data name="Delete empty column" xml:space="preserve">
     <value>Xóa cột trống</value>
@@ -228,20 +216,20 @@
   <data name="Failed to create column." xml:space="preserve">
     <value>Không thể tạo cột.</value>
   </data>
-  <data name="Failed to delete board:" xml:space="preserve">
-    <value>Không thể xóa bảng:</value>
-  </data>
   <data name="Failed to delete board." xml:space="preserve">
     <value>Không thể xóa bảng.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>Không thể xóa bảng:</value>
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Không thể xóa thẻ.</value>
   </data>
-  <data name="Failed to delete column:" xml:space="preserve">
-    <value>Không thể xóa cột:</value>
-  </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Không thể xóa cột.</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>Không thể xóa cột:</value>
   </data>
   <data name="Failed to delete comment." xml:space="preserve">
     <value>Không thể xóa bình luận.</value>
@@ -252,35 +240,35 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>Không thể tải đích chuyển đổi.</value>
   </data>
-  <data name="Failed to move card:" xml:space="preserve">
-    <value>Không thể di chuyển thẻ:</value>
-  </data>
   <data name="Failed to move card." xml:space="preserve">
     <value>Không thể di chuyển thẻ.</value>
+  </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>Không thể di chuyển thẻ:</value>
   </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Không thể xóa nhãn.</value>
   </data>
-  <data name="Failed to rename board:" xml:space="preserve">
-    <value>Không thể đổi tên bảng:</value>
-  </data>
   <data name="Failed to rename board." xml:space="preserve">
     <value>Không thể đổi tên bảng.</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>Không thể đổi tên bảng:</value>
   </data>
   <data name="Failed to rename column:" xml:space="preserve">
     <value>Không thể đổi tên cột:</value>
   </data>
-  <data name="Failed to save:" xml:space="preserve">
-    <value>Không thể lưu:</value>
-  </data>
   <data name="Failed to save." xml:space="preserve">
     <value>Lưu thất bại.</value>
   </data>
-  <data name="Failed to transfer card:" xml:space="preserve">
-    <value>Không thể chuyển thẻ:</value>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>Không thể lưu:</value>
   </data>
   <data name="Failed to transfer card." xml:space="preserve">
     <value>Không thể chuyển thẻ.</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>Không thể chuyển thẻ:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Không thể cập nhật màu nhãn.</value>
@@ -297,9 +285,6 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>Biểu đồ Gantt</value>
   </data>
-  <data name="h ago" xml:space="preserve">
-    <value>giờ trước</value>
-  </data>
   <data name="High" xml:space="preserve">
     <value>Cao</value>
   </data>
@@ -308,9 +293,6 @@
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>Chưa hoàn thành</value>
-  </data>
-  <data name="just now" xml:space="preserve">
-    <value>vừa xong</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>Kanban</value>
@@ -329,9 +311,6 @@
   </data>
   <data name="Low" xml:space="preserve">
     <value>Thấp</value>
-  </data>
-  <data name="m ago" xml:space="preserve">
-    <value>phút trước</value>
   </data>
   <data name="Medium" xml:space="preserve">
     <value>Trung bình</value>
@@ -392,9 +371,6 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>Đồng ý</value>
-  </data>
-  <data name="optional" xml:space="preserve">
-    <value>tùy chọn</value>
   </data>
   <data name="Overdue" xml:space="preserve">
     <value>Quá hạn</value>
@@ -554,6 +530,30 @@
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>Bạn có thể kéo ảnh vào đây hoặc dán từ clipboard.</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>tự động</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>thẻ. Việc xóa cột cũng sẽ xóa vĩnh viễn tất cả các thẻ trong đó.</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>cột</value>
+  </data>
+  <data name="d ago" xml:space="preserve">
+    <value>ngày trước</value>
+  </data>
+  <data name="h ago" xml:space="preserve">
+    <value>giờ trước</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>vừa xong</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>phút trước</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>tùy chọn</value>
   </data>
 
 </root>

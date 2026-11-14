@@ -27,17 +27,17 @@
   <data name="Date" xml:space="preserve">
     <value>दिनांक</value>
   </data>
-  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
-    <value>आज आपका ध्यान कहाँ देना चाहिए, यह देखने के लिए एक प्रातःकालीन योजना बनाएं।</value>
-  </data>
-  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
-    <value>आज आपने जो कुछ हासिल किया है, उस पर विचार करने के लिए एक दोपहर का सारांश बनाएँ।</value>
-  </data>
   <data name="Generate Plan" xml:space="preserve">
     <value>योजना बनाएं</value>
   </data>
   <data name="Generate Summary" xml:space="preserve">
     <value>सारांश जनित करें</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>आज आपका ध्यान कहाँ देना चाहिए, यह देखने के लिए एक प्रातःकालीन योजना बनाएं।</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>आज आपने जो कुछ हासिल किया है, उस पर विचार करने के लिए एक दोपहर का सारांश बनाएँ।</value>
   </data>
   <data name="Generated" xml:space="preserve">
     <value>उत्पन्न</value>

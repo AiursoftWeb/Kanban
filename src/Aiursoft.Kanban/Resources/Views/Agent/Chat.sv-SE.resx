@@ -27,9 +27,6 @@
   <data name="Attach Excel file" xml:space="preserve">
     <value>Bifoga Excel-fil</value>
   </data>
-  <data name="click to expand" xml:space="preserve">
-    <value>klicka för att expandera</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>Fel</value>
   </data>
@@ -86,6 +83,9 @@
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Väntar på godkännande</value>
+  </data>
+  <data name="click to expand" xml:space="preserve">
+    <value>klicka för att expandera</value>
   </data>
 
 </root>

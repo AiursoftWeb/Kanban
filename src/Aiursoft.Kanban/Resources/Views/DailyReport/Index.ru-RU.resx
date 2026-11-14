@@ -27,17 +27,17 @@
   <data name="Date" xml:space="preserve">
     <value>Дата</value>
   </data>
-  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
-    <value>Составьте утренний план, чтобы понять, на чем нужно сосредоточиться сегодня.</value>
-  </data>
-  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
-    <value>Создайте краткий обзор дня, чтобы проанализировать свои сегодняшние достижения.</value>
-  </data>
   <data name="Generate Plan" xml:space="preserve">
     <value>Создать план</value>
   </data>
   <data name="Generate Summary" xml:space="preserve">
     <value>Создать сводку</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>Составьте утренний план, чтобы понять, на чем нужно сосредоточиться сегодня.</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>Создайте краткий обзор дня, чтобы проанализировать свои сегодняшние достижения.</value>
   </data>
   <data name="Generated" xml:space="preserve">
     <value>Создано</value>

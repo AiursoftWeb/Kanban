@@ -27,9 +27,6 @@
   <data name="Attach Excel file" xml:space="preserve">
     <value>Excel dosyası ekle</value>
   </data>
-  <data name="click to expand" xml:space="preserve">
-    <value>genişletmek için tıklayın</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>Hata</value>
   </data>
@@ -86,6 +83,9 @@
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Onay bekleniyor</value>
+  </data>
+  <data name="click to expand" xml:space="preserve">
+    <value>genişletmek için tıklayın</value>
   </data>
 
 </root>

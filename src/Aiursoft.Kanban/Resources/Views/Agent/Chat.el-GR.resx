@@ -27,9 +27,6 @@
   <data name="Attach Excel file" xml:space="preserve">
     <value>Επισύναψη αρχείου Excel</value>
   </data>
-  <data name="click to expand" xml:space="preserve">
-    <value>κλικ για επέκταση</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>Σφάλμα</value>
   </data>
@@ -86,6 +83,9 @@
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Αναμονή έγκρισης</value>
+  </data>
+  <data name="click to expand" xml:space="preserve">
+    <value>κλικ για επέκταση</value>
   </data>
 
 </root>

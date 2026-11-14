@@ -18,79 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
-    <value>{0} · {1} · siden {2:yyyy-MM-dd}</value>
-  </data>
-  <data name="{0} boards · one clear view" xml:space="preserve">
-    <value>{0} tavler · ét klart overblik</value>
-  </data>
-  <data name="{0} cards" xml:space="preserve">
-    <value>{0} kort</value>
-  </data>
-  <data name="{0} cards · {1}" xml:space="preserve">
-    <value>{0} kort · {1}</value>
-  </data>
-  <data name="{0} cards · {1} columns" xml:space="preserve">
-    <value>{0} kort · {1} kolonner</value>
-  </data>
-  <data name="{0} columns · {1} cards" xml:space="preserve">
-    <value>{0} kolonner · {1} kort</value>
-  </data>
-  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
-    <value>{0} billede(r) blev sprunget over. Brug PNG, JPEG, GIF, WebP eller BMP på op til 10 MB.</value>
-  </data>
-  <data name="{0} of {1} selected" xml:space="preserve">
-    <value>{0} af {1} valgt</value>
-  </data>
-  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
-    <value>{0} åbne · {1} i gang · {2} færdige</value>
-  </data>
-  <data name="{0} overdue" xml:space="preserve">
-    <value>{0} forfaldne</value>
-  </data>
-  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
-    <value>{0} forsinkede · {1} ikke tildelte</value>
-  </data>
-  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
-    <value>{0} prioritet  ·  Forfalder {1}</value>
-  </data>
-  <data name="{0} replies" xml:space="preserve">
-    <value>{0} svar</value>
-  </data>
-  <data name="{0} reports" xml:space="preserve">
-    <value>{0} rapporter</value>
-  </data>
-  <data name="{0} results" xml:space="preserve">
-    <value>{0} resultater</value>
-  </data>
-  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
-    <value>{0} planlagt · {1} uden fuldstændige datoer</value>
-  </data>
-  <data name="{0} tasks" xml:space="preserve">
-    <value>{0} opgaver</value>
-  </data>
-  <data name="{0} will return to your active workspace." xml:space="preserve">
-    <value>{0} vender tilbage til dit aktive arbejdsområde.</value>
-  </data>
-  <data name="{0}, {1}, {2} priority" xml:space="preserve">
-    <value>{0}, {1}, {2} prioritet</value>
-  </data>
-  <data name="{0}, {1}. Open report." xml:space="preserve">
-    <value>{0}, {1}. Åbn rapporten.</value>
-  </data>
-  <data name="{0}, used by {1} tasks" xml:space="preserve">
-    <value>{0}, bruges af {1} opgaver</value>
-  </data>
-  <data name="{0}. Tap for details." xml:space="preserve">
-    <value>{0}. Tryk for at få flere oplysninger.</value>
-  </data>
-  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
-    <value>{0}. Tryk for at få flere oplysninger. Hold nede, og træk for at flytte.</value>
-  </data>
-  <data name="{0}&apos;s Tasks" xml:space="preserve">
-    <value>{0}s opgaver</value>
-  </data>
-  <data name="+  Add card" xml:space="preserve">
+      <data name="+  Add card" xml:space="preserve">
     <value>+  Tilføj kort</value>
   </data>
   <data name="1 report" xml:space="preserve">
@@ -108,11 +36,23 @@
   <data name="A little space for your next idea." xml:space="preserve">
     <value>Lidt plads til din næste idé.</value>
   </data>
-  <data name="Access removed" xml:space="preserve">
-    <value>Adgang fjernet</value>
-  </data>
   <data name="ACTIONS" xml:space="preserve">
     <value>HANDLINGER</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>DREVET AF AI</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>Indstillinger for AI-rapporten er gemt</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>ARKIVERET</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>TILDELT</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Adgang fjernet</value>
   </data>
   <data name="Actual" xml:space="preserve">
     <value>Faktisk</value>
@@ -120,14 +60,14 @@
   <data name="Actual end" xml:space="preserve">
     <value>Faktisk slutdato</value>
   </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>Det faktiske sluttidspunkt kan ikke ligge før det faktiske starttidspunkt.</value>
+  </data>
   <data name="Actual end · earliest first" xml:space="preserve">
     <value>Faktisk slutning · tidligste først</value>
   </data>
   <data name="Actual end · latest first" xml:space="preserve">
     <value>Faktisk slutdato · seneste først</value>
-  </data>
-  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
-    <value>Det faktiske sluttidspunkt kan ikke ligge før det faktiske starttidspunkt.</value>
   </data>
   <data name="Actual start" xml:space="preserve">
     <value>Faktisk start</value>
@@ -146,12 +86,6 @@
   </data>
   <data name="Add images" xml:space="preserve">
     <value>Tilføj billeder</value>
-  </data>
-  <data name="AI POWERED" xml:space="preserve">
-    <value>DREVET AF AI</value>
-  </data>
-  <data name="AI report settings saved" xml:space="preserve">
-    <value>Indstillinger for AI-rapporten er gemt</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>Alle</value>
@@ -189,23 +123,20 @@
   <data name="Archive time unavailable" xml:space="preserve">
     <value>Arkiveringstidspunkt er ikke tilgængeligt</value>
   </data>
-  <data name="ARCHIVED" xml:space="preserve">
-    <value>ARKIVERET</value>
-  </data>
-  <data name="Archived · {0} · {1}" xml:space="preserve">
-    <value>Arkiveret · {0} · {1}</value>
-  </data>
-  <data name="Archived · Owner" xml:space="preserve">
-    <value>Arkiveret · Ejer</value>
-  </data>
-  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
-    <value>Arkiveret {0:yyyy-MM-dd HH:mm}</value>
-  </data>
   <data name="Archived Boards" xml:space="preserve">
     <value>Arkiverede tavler</value>
   </data>
   <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
     <value>Arkiverede tavler er skrivebeskyttede, indtil deres ejer gendanner dem.</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Arkiveret {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>Arkiveret · Ejer</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Arkiveret · {0} · {1}</value>
   </data>
   <data name="Assigned cards across your Kanban boards." xml:space="preserve">
     <value>Tildelte kort på tværs af dine Kanban-tavler.</value>
@@ -213,17 +144,14 @@
   <data name="Assigned tasks" xml:space="preserve">
     <value>Tildelte opgaver</value>
   </data>
-  <data name="ASSIGNEE" xml:space="preserve">
-    <value>TILDELT</value>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Tilbage til Kanban</value>
   </data>
   <data name="Back to board" xml:space="preserve">
     <value>Tilbage til tavlen</value>
   </data>
   <data name="Back to board settings" xml:space="preserve">
     <value>Tilbage til tavleindstillinger</value>
-  </data>
-  <data name="Back to Kanban" xml:space="preserve">
-    <value>Tilbage til Kanban</value>
   </data>
   <data name="Back to reports" xml:space="preserve">
     <value>Tilbage til rapporter</value>
@@ -257,6 +185,12 @@
   </data>
   <data name="Boards you archive will appear here." xml:space="preserve">
     <value>Tavler, du arkiverer, vises her.</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>KOLONNE</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>KOMMENTARER  {0}</value>
   </data>
   <data name="Can edit" xml:space="preserve">
     <value>Kan redigere</value>
@@ -303,12 +237,6 @@
   <data name="Close" xml:space="preserve">
     <value>Luk</value>
   </data>
-  <data name="COLUMN" xml:space="preserve">
-    <value>KOLONNE</value>
-  </data>
-  <data name="Column {0}" xml:space="preserve">
-    <value>Kolonne {0}</value>
-  </data>
   <data name="Column added" xml:space="preserve">
     <value>Kolonne tilføjet</value>
   </data>
@@ -321,6 +249,9 @@
   <data name="Column updated" xml:space="preserve">
     <value>Kolonnen er opdateret</value>
   </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Kolonne {0}</value>
+  </data>
   <data name="Comment image" xml:space="preserve">
     <value>Kommentarbillede</value>
   </data>
@@ -329,9 +260,6 @@
   </data>
   <data name="Comment image unavailable" xml:space="preserve">
     <value>Kommentarbilledet er ikke tilgængeligt</value>
-  </data>
-  <data name="COMMENTS  {0}" xml:space="preserve">
-    <value>KOMMENTARER  {0}</value>
   </data>
   <data name="Completed" xml:space="preserve">
     <value>Fuldført</value>
@@ -414,15 +342,6 @@
   <data name="Delete" xml:space="preserve">
     <value>Slet</value>
   </data>
-  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
-    <value>Slet {0} og dets {1} kort? Dette kan ikke fortrydes.</value>
-  </data>
-  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
-    <value>Slet {0}, alle {1} kolonner og alle {2} kort? Dette kan ikke fortrydes.</value>
-  </data>
-  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
-    <value>Slet {0}? Dette kan ikke fortrydes.</value>
-  </data>
   <data name="Delete account" xml:space="preserve">
     <value>Slet konto</value>
   </data>
@@ -443,6 +362,15 @@
   </data>
   <data name="Delete reply?" xml:space="preserve">
     <value>Slet svar?</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>Slet {0} og dets {1} kort? Dette kan ikke fortrydes.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>Slet {0}, alle {1} kolonner og alle {2} kort? Dette kan ikke fortrydes.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>Slet {0}? Dette kan ikke fortrydes.</value>
   </data>
   <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
     <value>Når du sletter din konto, er det permanent og kan ikke fortrydes.</value>
@@ -540,11 +468,11 @@
   <data name="Filter ({0})" xml:space="preserve">
     <value>Filtrer ({0})</value>
   </data>
-  <data name="Filter cards" xml:space="preserve">
-    <value>Filtrer kort</value>
-  </data>
   <data name="Filter Gantt cards" xml:space="preserve">
     <value>Filtrer Gantt-kort</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Filtrer kort</value>
   </data>
   <data name="Filters &amp; sorting" xml:space="preserve">
     <value>Filtre og sortering</value>
@@ -582,14 +510,17 @@
   <data name="Kanban Dashboard" xml:space="preserve">
     <value>Kanban-dashboard</value>
   </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>ETIKETTER</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>LOKAL KONTO</value>
+  </data>
   <data name="Label added" xml:space="preserve">
     <value>Etiket tilføjet</value>
   </data>
   <data name="Label removed" xml:space="preserve">
     <value>Etiket fjernet</value>
-  </data>
-  <data name="LABELS" xml:space="preserve">
-    <value>ETIKETTER</value>
   </data>
   <data name="Labels cannot exceed 100 characters" xml:space="preserve">
     <value>Etiketter må ikke overstige 100 tegn</value>
@@ -597,11 +528,20 @@
   <data name="Light" xml:space="preserve">
     <value>Lys</value>
   </data>
-  <data name="LOCAL ACCOUNT" xml:space="preserve">
-    <value>LOKAL KONTO</value>
-  </data>
   <data name="Low" xml:space="preserve">
     <value>Lav</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>FLYT TIL KOLONNE</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>MINE AKTIVE OPGAVER  ·  {0} I GANG</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>MINE ARKIVEREDE TAVLER</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>MITT BOARD</value>
   </data>
   <data name="Make room for progress." xml:space="preserve">
     <value>Gør plads til fremskridt.</value>
@@ -624,35 +564,23 @@
   <data name="Month" xml:space="preserve">
     <value>Måned</value>
   </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Flyt kort</value>
+  </data>
   <data name="Move {0} left" xml:space="preserve">
     <value>Flyt {0} til venstre</value>
   </data>
   <data name="Move {0} right" xml:space="preserve">
     <value>Flyt {0} til højre</value>
   </data>
-  <data name="Move card" xml:space="preserve">
-    <value>Flyt kort</value>
-  </data>
-  <data name="MOVE TO COLUMN" xml:space="preserve">
-    <value>FLYT TIL KOLONNE</value>
-  </data>
   <data name="Move, copy or transfer" xml:space="preserve">
     <value>Flyt, kopiér eller overfør</value>
   </data>
-  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
-    <value>MINE AKTIVE OPGAVER  ·  {0} I GANG</value>
-  </data>
-  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
-    <value>MINE ARKIVEREDE TAVLER</value>
-  </data>
-  <data name="MY BOARD" xml:space="preserve">
-    <value>MITT BOARD</value>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Mine handlingslogge</value>
   </data>
   <data name="My boards" xml:space="preserve">
     <value>Mine boards</value>
-  </data>
-  <data name="My Operation Logs" xml:space="preserve">
-    <value>Mine handlingslogge</value>
   </data>
   <data name="My tasks" xml:space="preserve">
     <value>Mine opgaver</value>
@@ -759,6 +687,12 @@
   <data name="Notifications" xml:space="preserve">
     <value>Notifikationer</value>
   </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>HANDLING</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>ORGANISATIONENS LOG IND</value>
+  </data>
   <data name="Oldest first" xml:space="preserve">
     <value>Ældste først</value>
   </data>
@@ -780,17 +714,20 @@
   <data name="Open original" xml:space="preserve">
     <value>Åbn originalen</value>
   </data>
-  <data name="OPERATION" xml:space="preserve">
-    <value>HANDLING</value>
-  </data>
   <data name="Operation logging is not enabled on this server." xml:space="preserve">
     <value>Logning af handlinger er ikke aktiveret på denne server.</value>
   </data>
-  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
-    <value>ORGANISATIONENS LOG IND</value>
-  </data>
   <data name="Overdue" xml:space="preserve">
     <value>Forfalden</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP eller BMP · 10 MB pr. stk.</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>PRIORITET</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>FORESLÅET HANDLING</value>
   </data>
   <data name="Page {0} of {1}" xml:space="preserve">
     <value>Side {0} af {1}</value>
@@ -822,12 +759,6 @@
   <data name="Planned start · latest first" xml:space="preserve">
     <value>Planlagt start · seneste først</value>
   </data>
-  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
-    <value>PNG, JPEG, GIF, WebP eller BMP · 10 MB pr. stk.</value>
-  </data>
-  <data name="PRIORITY" xml:space="preserve">
-    <value>PRIORITET</value>
-  </data>
   <data name="Priority · low first" xml:space="preserve">
     <value>Prioritet · lav først</value>
   </data>
@@ -839,9 +770,6 @@
   </data>
   <data name="Profile saved" xml:space="preserve">
     <value>Profil gemt</value>
-  </data>
-  <data name="PROPOSED ACTION" xml:space="preserve">
-    <value>FORESLÅET HANDLING</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Klar</value>
@@ -855,14 +783,14 @@
   <data name="Remove" xml:space="preserve">
     <value>Fjern</value>
   </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Fjern adgang?</value>
+  </data>
   <data name="Remove {0}" xml:space="preserve">
     <value>Fjern {0}</value>
   </data>
   <data name="Remove {0} from this board?" xml:space="preserve">
     <value>Fjern {0} fra denne tavle?</value>
-  </data>
-  <data name="Remove access?" xml:space="preserve">
-    <value>Fjern adgang?</value>
   </data>
   <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
     <value>Svar må ikke overstige 2.000 tegn</value>
@@ -887,6 +815,15 @@
   </data>
   <data name="Retry" xml:space="preserve">
     <value>Prøv igen</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>DELTE ARKIVEREDE TAVLER</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>DELT TAVLE</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>SORTÉR</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Gem</value>
@@ -921,20 +858,14 @@
   <data name="Set a due date before enabling recurrence." xml:space="preserve">
     <value>Angiv en forfaldsdato, før gentagelse aktiveres.</value>
   </data>
-  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
-    <value>DELTE ARKIVEREDE TAVLER</value>
-  </data>
-  <data name="SHARED BOARD" xml:space="preserve">
-    <value>DELT TAVLE</value>
-  </data>
   <data name="Shared boards" xml:space="preserve">
     <value>Delte tavler</value>
   </data>
-  <data name="Shared with {0}" xml:space="preserve">
-    <value>Delt med {0}</value>
-  </data>
   <data name="Shared with me" xml:space="preserve">
     <value>Delt med mig</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>Delt med {0}</value>
   </data>
   <data name="Sign in" xml:space="preserve">
     <value>Log ind</value>
@@ -944,9 +875,6 @@
   </data>
   <data name="Signing you in…" xml:space="preserve">
     <value>Logger dig ind…</value>
-  </data>
-  <data name="SORT" xml:space="preserve">
-    <value>SORTÉR</value>
   </data>
   <data name="Start  {0}" xml:space="preserve">
     <value>Start  {0}</value>
@@ -962,6 +890,12 @@
   </data>
   <data name="Switch server" xml:space="preserve">
     <value>Skift server</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>TIDSLINJE</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>DAGENS RAPPORTER</value>
   </data>
   <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
     <value>Den tildelte person fjernes, og svarene bliver i kildens kort historik.</value>
@@ -1011,23 +945,17 @@
   <data name="This reply will be permanently removed." xml:space="preserve">
     <value>Dette svar vil blive fjernet permanent.</value>
   </data>
-  <data name="TIMELINE" xml:space="preserve">
-    <value>TIDSLINJE</value>
-  </data>
   <data name="Title" xml:space="preserve">
     <value>Titel</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Titel eller beskrivelse</value>
   </data>
   <data name="Title · A–Z" xml:space="preserve">
     <value>Titel · A–Z</value>
   </data>
   <data name="Title · Z–A" xml:space="preserve">
     <value>Titel · Z–A</value>
-  </data>
-  <data name="Title or description" xml:space="preserve">
-    <value>Titel eller beskrivelse</value>
-  </data>
-  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
-    <value>DAGENS RAPPORTER</value>
   </data>
   <data name="Transfer" xml:space="preserve">
     <value>Overfør</value>
@@ -1080,14 +1008,14 @@
   <data name="View only" xml:space="preserve">
     <value>Kun visning</value>
   </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>UGENTLIG RAPPORT</value>
+  </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Venter på godkendelse</value>
   </data>
   <data name="Week" xml:space="preserve">
     <value>Uge</value>
-  </data>
-  <data name="WEEKLY REPORT" xml:space="preserve">
-    <value>UGENTLIG RAPPORT</value>
   </data>
   <data name="Weekly report discarded." xml:space="preserve">
     <value>Ugentlig rapport kasseret.</value>
@@ -1110,14 +1038,14 @@
   <data name="You can attach up to {0} images." xml:space="preserve">
     <value>Du kan vedhæfte op til {0} billeder.</value>
   </data>
-  <data name="You have {0} unread notification{1}." xml:space="preserve">
-    <value>Du har {0} ulæst notifikation{1}.</value>
-  </data>
   <data name="You have no archived boards." xml:space="preserve">
     <value>Du har ingen arkiverede tavler.</value>
   </data>
   <data name="You have no unread notifications." xml:space="preserve">
     <value>Du har ingen ulæste notifikationer.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>Du har {0} ulæst notifikation{1}.</value>
   </data>
   <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
     <value>Du ejer {0} tavle(r). Slet dem, før du sletter din konto.</value>
@@ -1136,6 +1064,78 @@
   </data>
   <data name="Your workspace" xml:space="preserve">
     <value>Dit arbejdsområde</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} tavler · ét klart overblik</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} kort</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} kort · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} kort · {1} kolonner</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} kolonner · {1} kort</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>{0} billede(r) blev sprunget over. Brug PNG, JPEG, GIF, WebP eller BMP på op til 10 MB.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>{0} af {1} valgt</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} åbne · {1} i gang · {2} færdige</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>{0} forfaldne</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} forsinkede · {1} ikke tildelte</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>{0} prioritet  ·  Forfalder {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} svar</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} rapporter</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} resultater</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} planlagt · {1} uden fuldstændige datoer</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} opgaver</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0} vender tilbage til dit aktive arbejdsområde.</value>
+  </data>
+  <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · siden {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>{0}s opgaver</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, bruges af {1} opgaver</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2} prioritet</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Åbn rapporten.</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Tryk for at få flere oplysninger.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Tryk for at få flere oplysninger. Hold nede, og træk for at flytte.</value>
   </data>
 
 </root>

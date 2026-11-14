@@ -45,9 +45,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>Peruuta</value>
   </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>korttia(-a). Sarakkeen poistaminen poistaa pysyvästi myös kaikki sen kortit.</value>
-  </data>
   <data name="Cards" xml:space="preserve">
     <value>Kortit</value>
   </data>
@@ -155,6 +152,9 @@
   </data>
   <data name="Unknown error" xml:space="preserve">
     <value>Tuntematon virhe</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>korttia(-a). Sarakkeen poistaminen poistaa pysyvästi myös kaikki sen kortit.</value>
   </data>
 
 </root>

@@ -27,11 +27,11 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Ένας εικονικός αριθμός για δοκιμές.</value>
   </data>
-  <data name="Agent System Prompt" xml:space="preserve">
-    <value>Πρότροπο Συστήματος Πράκτορα</value>
-  </data>
   <data name="AI Model" xml:space="preserve">
     <value>Πρότυπο Τεχνητής Νοημοσύνης</value>
+  </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Πρότροπο Συστήματος Πράκτορα</value>
   </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Επιτρέψτε στον Χρήστη να Τροποποιήσει το Παρασκήνιο Όνομα</value>
@@ -105,17 +105,17 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>Το endpoint της Anthropic Messages API που χρησιμοποιείται από τον Kanban AI agent. Πρέπει να είναι η πλήρης διεύθυνση URL συμπεριλαμβανομένου του /v1/messages, π.χ. https://ollama.example.com/v1/messages. Αφήστε το κενό για απενεργοποίηση του AI agent.</value>
   </data>
-  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
-    <value>Η βασική διεύθυνση URL του API ενσωμάτωσης (π.χ. Ollama). Δεν πρέπει να περιλαμβάνει διαδρομή, π.χ. http://localhost:11434. Αφήστε κενό για απενεργοποίηση.</value>
-  </data>
-  <data name="The brand name displayed in the footer." xml:space="preserve">
-    <value>Το όνομα της εταιρείας που εμφανίζεται στον ποδόσκαλο.</value>
-  </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Ο αριθμός άδειας ICP για χρήστες της κυρίως Κίνας. Αφήστε κενό για να κρυφτεί.</value>
   </data>
   <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
     <value>Το όνομα του μοντέλου LLM που χρησιμοποιείται για τον Kanban AI agent, π.χ. aiursoft-instruct:latest, claude-sonnet-4-5 ή deepseek-chat. Πρέπει να είναι διαθέσιμο στο Anthropic API Endpoint παραπάνω.</value>
+  </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>Η βασική διεύθυνση URL του API ενσωμάτωσης (π.χ. Ollama). Δεν πρέπει να περιλαμβάνει διαδρομή, π.χ. http://localhost:11434. Αφήστε κενό για απενεργοποίηση.</value>
+  </data>
+  <data name="The brand name displayed in the footer." xml:space="preserve">
+    <value>Το όνομα της εταιρείας που εμφανίζεται στον ποδόσκαλο.</value>
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Το λογότυπο του έργου που εμφανίζεται στην ναβιγατόρια και τον ποδοσκαλο. Υποστήριξη jpg, png, svg.</value>

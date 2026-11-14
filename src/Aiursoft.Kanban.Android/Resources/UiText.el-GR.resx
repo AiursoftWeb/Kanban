@@ -18,79 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
-    <value>{0} · {1} · από τις {2:yyyy-MM-dd}</value>
-  </data>
-  <data name="{0} boards · one clear view" xml:space="preserve">
-    <value>{0} πίνακες · μια ξεκάθαρη προβολή</value>
-  </data>
-  <data name="{0} cards" xml:space="preserve">
-    <value>{0} κάρτες</value>
-  </data>
-  <data name="{0} cards · {1}" xml:space="preserve">
-    <value>{0} κάρτες · {1}</value>
-  </data>
-  <data name="{0} cards · {1} columns" xml:space="preserve">
-    <value>{0} κάρτες · {1} στήλες</value>
-  </data>
-  <data name="{0} columns · {1} cards" xml:space="preserve">
-    <value>{0} στήλες · {1} κάρτες</value>
-  </data>
-  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
-    <value>Παραλείφθηκαν {0} εικόνες. Χρησιμοποιήστε PNG, JPEG, GIF, WebP ή BMP έως 10 MB.</value>
-  </data>
-  <data name="{0} of {1} selected" xml:space="preserve">
-    <value>Επιλέχθηκαν {0} από {1}</value>
-  </data>
-  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
-    <value>{0} ανοιχτές · {1} σε εξέλιξη · {2} ολοκληρωμένες</value>
-  </data>
-  <data name="{0} overdue" xml:space="preserve">
-    <value>{0} εκπρόθεσμα</value>
-  </data>
-  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
-    <value>{0} εκπρόθεσμα · {1} χωρίς ανάθεση</value>
-  </data>
-  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
-    <value>Προτεραιότητα {0}  ·  Προθεσμία {1}</value>
-  </data>
-  <data name="{0} replies" xml:space="preserve">
-    <value>{0} απαντήσεις</value>
-  </data>
-  <data name="{0} reports" xml:space="preserve">
-    <value>{0} αναφορές</value>
-  </data>
-  <data name="{0} results" xml:space="preserve">
-    <value>{0} αποτελέσματα</value>
-  </data>
-  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
-    <value>{0} προγραμματισμένες · {1} χωρίς πλήρεις ημερομηνίες</value>
-  </data>
-  <data name="{0} tasks" xml:space="preserve">
-    <value>{0} εργασίες</value>
-  </data>
-  <data name="{0} will return to your active workspace." xml:space="preserve">
-    <value>Ο/Η {0} θα επιστρέψει στον ενεργό χώρο εργασίας σας.</value>
-  </data>
-  <data name="{0}, {1}, {2} priority" xml:space="preserve">
-    <value>{0}, {1}, {2} προτεραιότητα</value>
-  </data>
-  <data name="{0}, {1}. Open report." xml:space="preserve">
-    <value>{0}, {1}. Άνοιγμα αναφοράς.</value>
-  </data>
-  <data name="{0}, used by {1} tasks" xml:space="preserve">
-    <value>{0}, χρησιμοποιείται σε {1} εργασίες</value>
-  </data>
-  <data name="{0}. Tap for details." xml:space="preserve">
-    <value>{0}. Πατήστε για λεπτομέρειες.</value>
-  </data>
-  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
-    <value>{0}. Πατήστε για λεπτομέρειες. Πατήστε παρατεταμένα και σύρετε για μετακίνηση.</value>
-  </data>
-  <data name="{0}&apos;s Tasks" xml:space="preserve">
-    <value>Εργασίες του/της {0}</value>
-  </data>
-  <data name="+  Add card" xml:space="preserve">
+      <data name="+  Add card" xml:space="preserve">
     <value>+  Προσθήκη κάρτας</value>
   </data>
   <data name="1 report" xml:space="preserve">
@@ -108,11 +36,23 @@
   <data name="A little space for your next idea." xml:space="preserve">
     <value>Λίγος χώρος για την επόμενη ιδέα σας.</value>
   </data>
-  <data name="Access removed" xml:space="preserve">
-    <value>Αφαιρέθηκε η πρόσβαση</value>
-  </data>
   <data name="ACTIONS" xml:space="preserve">
     <value>ΕΝΕΡΓΕΙΕΣ</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>ΜΕ ΤΕΧΝΗΤΗ ΝΟΗΜΟΣΥΝΗ</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>Οι ρυθμίσεις της αναφοράς AI αποθηκεύτηκαν</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>ΑΡΧΕΙΟΘΕΤΗΜΕΝΟ</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>ΑΝΑΤΕΘΕΙΣΑ</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Αφαιρέθηκε η πρόσβαση</value>
   </data>
   <data name="Actual" xml:space="preserve">
     <value>Πραγματικό</value>
@@ -120,14 +60,14 @@
   <data name="Actual end" xml:space="preserve">
     <value>Πραγματική λήξη</value>
   </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>Η πραγματική ώρα λήξης δεν μπορεί να είναι νωρίτερα από την πραγματική ώρα έναρξης.</value>
+  </data>
   <data name="Actual end · earliest first" xml:space="preserve">
     <value>Πραγματική λήξη · πρώτα η νωρίτερη</value>
   </data>
   <data name="Actual end · latest first" xml:space="preserve">
     <value>Πραγματική λήξη · πρώτα η πιο πρόσφατη</value>
-  </data>
-  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
-    <value>Η πραγματική ώρα λήξης δεν μπορεί να είναι νωρίτερα από την πραγματική ώρα έναρξης.</value>
   </data>
   <data name="Actual start" xml:space="preserve">
     <value>Πραγματική έναρξη</value>
@@ -146,12 +86,6 @@
   </data>
   <data name="Add images" xml:space="preserve">
     <value>Προσθήκη εικόνων</value>
-  </data>
-  <data name="AI POWERED" xml:space="preserve">
-    <value>ΜΕ ΤΕΧΝΗΤΗ ΝΟΗΜΟΣΥΝΗ</value>
-  </data>
-  <data name="AI report settings saved" xml:space="preserve">
-    <value>Οι ρυθμίσεις της αναφοράς AI αποθηκεύτηκαν</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>Όλα</value>
@@ -189,23 +123,20 @@
   <data name="Archive time unavailable" xml:space="preserve">
     <value>Δεν είναι διαθέσιμη η ώρα αρχειοθέτησης</value>
   </data>
-  <data name="ARCHIVED" xml:space="preserve">
-    <value>ΑΡΧΕΙΟΘΕΤΗΜΕΝΟ</value>
-  </data>
-  <data name="Archived · {0} · {1}" xml:space="preserve">
-    <value>Αρχειοθετήθηκε · {0} · {1}</value>
-  </data>
-  <data name="Archived · Owner" xml:space="preserve">
-    <value>Αρχειοθετήθηκε · Ιδιοκτήτης</value>
-  </data>
-  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
-    <value>Αρχειοθετήθηκε {0:yyyy-MM-dd HH:mm}</value>
-  </data>
   <data name="Archived Boards" xml:space="preserve">
     <value>Αρχειοθετημένοι πίνακες</value>
   </data>
   <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
     <value>Οι αρχειοθετημένοι πίνακες είναι μόνο για ανάγνωση μέχρι να τους επαναφέρει ο κάτοχός τους.</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Αρχειοθετήθηκε {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>Αρχειοθετήθηκε · Ιδιοκτήτης</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Αρχειοθετήθηκε · {0} · {1}</value>
   </data>
   <data name="Assigned cards across your Kanban boards." xml:space="preserve">
     <value>Κάρτες που σας έχουν ανατεθεί σε όλους τους πίνακες Kanban σας.</value>
@@ -213,17 +144,14 @@
   <data name="Assigned tasks" xml:space="preserve">
     <value>Ανατεθειμένες εργασίες</value>
   </data>
-  <data name="ASSIGNEE" xml:space="preserve">
-    <value>ΑΝΑΤΕΘΕΙΣΑ</value>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Επιστροφή στο Kanban</value>
   </data>
   <data name="Back to board" xml:space="preserve">
     <value>Επιστροφή στον πίνακα</value>
   </data>
   <data name="Back to board settings" xml:space="preserve">
     <value>Επιστροφή στις ρυθμίσεις του πίνακα</value>
-  </data>
-  <data name="Back to Kanban" xml:space="preserve">
-    <value>Επιστροφή στο Kanban</value>
   </data>
   <data name="Back to reports" xml:space="preserve">
     <value>Επιστροφή στις αναφορές</value>
@@ -257,6 +185,12 @@
   </data>
   <data name="Boards you archive will appear here." xml:space="preserve">
     <value>Οι πίνακες που αρχειοθετείτε θα εμφανίζονται εδώ.</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>ΣΤΗΛΗ</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>ΣΧΟΛΙΑ  {0}</value>
   </data>
   <data name="Can edit" xml:space="preserve">
     <value>Μπορεί να επεξεργαστεί</value>
@@ -303,12 +237,6 @@
   <data name="Close" xml:space="preserve">
     <value>Κλείσιμο</value>
   </data>
-  <data name="COLUMN" xml:space="preserve">
-    <value>ΣΤΗΛΗ</value>
-  </data>
-  <data name="Column {0}" xml:space="preserve">
-    <value>Στήλη {0}</value>
-  </data>
   <data name="Column added" xml:space="preserve">
     <value>Η στήλη προστέθηκε</value>
   </data>
@@ -321,6 +249,9 @@
   <data name="Column updated" xml:space="preserve">
     <value>Η στήλη ενημερώθηκε</value>
   </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Στήλη {0}</value>
+  </data>
   <data name="Comment image" xml:space="preserve">
     <value>Εικόνα σχολίου</value>
   </data>
@@ -329,9 +260,6 @@
   </data>
   <data name="Comment image unavailable" xml:space="preserve">
     <value>Η εικόνα του σχολίου δεν είναι διαθέσιμη</value>
-  </data>
-  <data name="COMMENTS  {0}" xml:space="preserve">
-    <value>ΣΧΟΛΙΑ  {0}</value>
   </data>
   <data name="Completed" xml:space="preserve">
     <value>Ολοκληρωμένα</value>
@@ -414,15 +342,6 @@
   <data name="Delete" xml:space="preserve">
     <value>Διαγραφή</value>
   </data>
-  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
-    <value>Να διαγραφεί το {0} και οι {1} κάρτες του; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</value>
-  </data>
-  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
-    <value>Να διαγραφούν τα {0}, όλες οι {1} στήλες και όλες οι {2} κάρτες; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</value>
-  </data>
-  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
-    <value>Να διαγραφεί το {0}; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</value>
-  </data>
   <data name="Delete account" xml:space="preserve">
     <value>Διαγραφή λογαριασμού</value>
   </data>
@@ -443,6 +362,15 @@
   </data>
   <data name="Delete reply?" xml:space="preserve">
     <value>Να διαγραφεί η απάντηση;</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>Να διαγραφεί το {0} και οι {1} κάρτες του; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>Να διαγραφούν τα {0}, όλες οι {1} στήλες και όλες οι {2} κάρτες; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>Να διαγραφεί το {0}; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</value>
   </data>
   <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
     <value>Η διαγραφή του λογαριασμού σας είναι οριστική και δεν μπορεί να αναιρεθεί.</value>
@@ -540,11 +468,11 @@
   <data name="Filter ({0})" xml:space="preserve">
     <value>Φίλτρο ({0})</value>
   </data>
-  <data name="Filter cards" xml:space="preserve">
-    <value>Φιλτράρισμα καρτών</value>
-  </data>
   <data name="Filter Gantt cards" xml:space="preserve">
     <value>Φιλτράρισμα καρτών Gantt</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Φιλτράρισμα καρτών</value>
   </data>
   <data name="Filters &amp; sorting" xml:space="preserve">
     <value>Φίλτρα και ταξινόμηση</value>
@@ -582,14 +510,17 @@
   <data name="Kanban Dashboard" xml:space="preserve">
     <value>Πίνακας ελέγχου Kanban</value>
   </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>ΕΤΙΚΕΤΕΣ</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>ΤΟΠΙΚΟΣ ΛΟΓΑΡΙΑΣΜΟΣ</value>
+  </data>
   <data name="Label added" xml:space="preserve">
     <value>Η ετικέτα προστέθηκε</value>
   </data>
   <data name="Label removed" xml:space="preserve">
     <value>Η ετικέτα αφαιρέθηκε</value>
-  </data>
-  <data name="LABELS" xml:space="preserve">
-    <value>ΕΤΙΚΕΤΕΣ</value>
   </data>
   <data name="Labels cannot exceed 100 characters" xml:space="preserve">
     <value>Οι ετικέτες δεν μπορούν να υπερβαίνουν τους 100 χαρακτήρες</value>
@@ -597,11 +528,20 @@
   <data name="Light" xml:space="preserve">
     <value>Ανοιχτό</value>
   </data>
-  <data name="LOCAL ACCOUNT" xml:space="preserve">
-    <value>ΤΟΠΙΚΟΣ ΛΟΓΑΡΙΑΣΜΟΣ</value>
-  </data>
   <data name="Low" xml:space="preserve">
     <value>Χαμηλή</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>ΜΕΤΑΚΙΝΗΣΗ ΣΕ ΣΤΗΛΗ</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>ΟΙ ΕΝΕΡΓΕΣ ΕΡΓΑΣΙΕΣ ΜΟΥ  ·  {0} ΣΕ ΕΞΕΛΙΞΗ</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>Οι αρχειοθετημένοι πίνακές μου</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>ΤΟ ΔΙΚΟ ΜΟΥ BOARD</value>
   </data>
   <data name="Make room for progress." xml:space="preserve">
     <value>Κάντε χώρο για πρόοδο.</value>
@@ -624,35 +564,23 @@
   <data name="Month" xml:space="preserve">
     <value>Μήνας</value>
   </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Μετακίνηση κάρτας</value>
+  </data>
   <data name="Move {0} left" xml:space="preserve">
     <value>Μετακίνηση {0} αριστερά</value>
   </data>
   <data name="Move {0} right" xml:space="preserve">
     <value>Μετακίνηση {0} προς τα δεξιά</value>
   </data>
-  <data name="Move card" xml:space="preserve">
-    <value>Μετακίνηση κάρτας</value>
-  </data>
-  <data name="MOVE TO COLUMN" xml:space="preserve">
-    <value>ΜΕΤΑΚΙΝΗΣΗ ΣΕ ΣΤΗΛΗ</value>
-  </data>
   <data name="Move, copy or transfer" xml:space="preserve">
     <value>Μετακίνηση, αντιγραφή ή μεταφορά</value>
   </data>
-  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
-    <value>ΟΙ ΕΝΕΡΓΕΣ ΕΡΓΑΣΙΕΣ ΜΟΥ  ·  {0} ΣΕ ΕΞΕΛΙΞΗ</value>
-  </data>
-  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
-    <value>Οι αρχειοθετημένοι πίνακές μου</value>
-  </data>
-  <data name="MY BOARD" xml:space="preserve">
-    <value>ΤΟ ΔΙΚΟ ΜΟΥ BOARD</value>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Τα αρχεία καταγραφής ενεργειών μου</value>
   </data>
   <data name="My boards" xml:space="preserve">
     <value>Τα έργα μου</value>
-  </data>
-  <data name="My Operation Logs" xml:space="preserve">
-    <value>Τα αρχεία καταγραφής ενεργειών μου</value>
   </data>
   <data name="My tasks" xml:space="preserve">
     <value>Οι εργασίες μου</value>
@@ -759,6 +687,12 @@
   <data name="Notifications" xml:space="preserve">
     <value>Ειδοποιήσεις</value>
   </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>ΛΕΙΤΟΥΡΓΙΑ</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>ΣΥΝΔΕΣΗ ΣΤΟΝ ΟΡΓΑΝΙΣΜΟ</value>
+  </data>
   <data name="Oldest first" xml:space="preserve">
     <value>Παλαιότερα πρώτα</value>
   </data>
@@ -780,17 +714,20 @@
   <data name="Open original" xml:space="preserve">
     <value>Άνοιγμα πρωτοτύπου</value>
   </data>
-  <data name="OPERATION" xml:space="preserve">
-    <value>ΛΕΙΤΟΥΡΓΙΑ</value>
-  </data>
   <data name="Operation logging is not enabled on this server." xml:space="preserve">
     <value>Η καταγραφή λειτουργιών δεν είναι ενεργοποιημένη σε αυτόν τον διακομιστή.</value>
   </data>
-  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
-    <value>ΣΥΝΔΕΣΗ ΣΤΟΝ ΟΡΓΑΝΙΣΜΟ</value>
-  </data>
   <data name="Overdue" xml:space="preserve">
     <value>Εκπρόθεσμο</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP ή BMP · 10 MB το καθένα</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>ΠΡΟΤΕΡΑΙΟΤΗΤΑ</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>ΠΡΟΤΕΙΝΟΜΕΝΗ ΕΝΕΡΓΕΙΑ</value>
   </data>
   <data name="Page {0} of {1}" xml:space="preserve">
     <value>Σελίδα {0} από {1}</value>
@@ -822,12 +759,6 @@
   <data name="Planned start · latest first" xml:space="preserve">
     <value>Προγραμματισμένη έναρξη · πρώτα οι πιο πρόσφατες</value>
   </data>
-  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
-    <value>PNG, JPEG, GIF, WebP ή BMP · 10 MB το καθένα</value>
-  </data>
-  <data name="PRIORITY" xml:space="preserve">
-    <value>ΠΡΟΤΕΡΑΙΟΤΗΤΑ</value>
-  </data>
   <data name="Priority · low first" xml:space="preserve">
     <value>Προτεραιότητα · χαμηλότερη πρώτα</value>
   </data>
@@ -839,9 +770,6 @@
   </data>
   <data name="Profile saved" xml:space="preserve">
     <value>Το προφίλ αποθηκεύτηκε</value>
-  </data>
-  <data name="PROPOSED ACTION" xml:space="preserve">
-    <value>ΠΡΟΤΕΙΝΟΜΕΝΗ ΕΝΕΡΓΕΙΑ</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Έτοιμο</value>
@@ -855,14 +783,14 @@
   <data name="Remove" xml:space="preserve">
     <value>Αφαίρεση</value>
   </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Να καταργηθεί η πρόσβαση;</value>
+  </data>
   <data name="Remove {0}" xml:space="preserve">
     <value>Αφαίρεση {0}</value>
   </data>
   <data name="Remove {0} from this board?" xml:space="preserve">
     <value>Να αφαιρεθεί το {0} από αυτόν τον πίνακα;</value>
-  </data>
-  <data name="Remove access?" xml:space="preserve">
-    <value>Να καταργηθεί η πρόσβαση;</value>
   </data>
   <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
     <value>Οι απαντήσεις δεν μπορούν να υπερβαίνουν τους 2.000 χαρακτήρες</value>
@@ -887,6 +815,15 @@
   </data>
   <data name="Retry" xml:space="preserve">
     <value>Επανάληψη</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>ΚΟΙΝΟΧΡΗΣΤΟΙ ΑΡΧΕΙΟΘΕΤΗΜΕΝΟΙ ΠΙΝΑΚΕΣ</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>ΚΟΙΝΟΧΡΗΣΤΟΣ ΠΙΝΑΚΑΣ</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>ΤΑΞΙΝΟΜΗΣΗ</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Αποθήκευση</value>
@@ -921,20 +858,14 @@
   <data name="Set a due date before enabling recurrence." xml:space="preserve">
     <value>Ορίστε προθεσμία πριν ενεργοποιήσετε την επανάληψη.</value>
   </data>
-  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
-    <value>ΚΟΙΝΟΧΡΗΣΤΟΙ ΑΡΧΕΙΟΘΕΤΗΜΕΝΟΙ ΠΙΝΑΚΕΣ</value>
-  </data>
-  <data name="SHARED BOARD" xml:space="preserve">
-    <value>ΚΟΙΝΟΧΡΗΣΤΟΣ ΠΙΝΑΚΑΣ</value>
-  </data>
   <data name="Shared boards" xml:space="preserve">
     <value>Κοινόχρηστοι πίνακες</value>
   </data>
-  <data name="Shared with {0}" xml:space="preserve">
-    <value>Κοινή χρήση με {0}</value>
-  </data>
   <data name="Shared with me" xml:space="preserve">
     <value>Κοινόχρηστα με εμένα</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>Κοινή χρήση με {0}</value>
   </data>
   <data name="Sign in" xml:space="preserve">
     <value>Σύνδεση</value>
@@ -944,9 +875,6 @@
   </data>
   <data name="Signing you in…" xml:space="preserve">
     <value>Σύνδεσή σας σε εξέλιξη…</value>
-  </data>
-  <data name="SORT" xml:space="preserve">
-    <value>ΤΑΞΙΝΟΜΗΣΗ</value>
   </data>
   <data name="Start  {0}" xml:space="preserve">
     <value>Έναρξη  {0}</value>
@@ -962,6 +890,12 @@
   </data>
   <data name="Switch server" xml:space="preserve">
     <value>Αλλαγή διακομιστή</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>ΧΡΟΝΟΛΟΓΙΟ</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>ΑΝΑΦΟΡΕΣ ΣΗΜΕΡΑ</value>
   </data>
   <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
     <value>Καταργείται ο υπεύθυνος ανάθεσης και οι απαντήσεις παραμένουν στο ιστορικό της αρχικής κάρτας.</value>
@@ -1011,23 +945,17 @@
   <data name="This reply will be permanently removed." xml:space="preserve">
     <value>Αυτή η απάντηση θα διαγραφεί οριστικά.</value>
   </data>
-  <data name="TIMELINE" xml:space="preserve">
-    <value>ΧΡΟΝΟΛΟΓΙΟ</value>
-  </data>
   <data name="Title" xml:space="preserve">
     <value>Τίτλος</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Τίτλος ή περιγραφή</value>
   </data>
   <data name="Title · A–Z" xml:space="preserve">
     <value>Τίτλος · Α–Ω</value>
   </data>
   <data name="Title · Z–A" xml:space="preserve">
     <value>Τίτλος · Ω–Α</value>
-  </data>
-  <data name="Title or description" xml:space="preserve">
-    <value>Τίτλος ή περιγραφή</value>
-  </data>
-  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
-    <value>ΑΝΑΦΟΡΕΣ ΣΗΜΕΡΑ</value>
   </data>
   <data name="Transfer" xml:space="preserve">
     <value>Μεταφορά</value>
@@ -1080,14 +1008,14 @@
   <data name="View only" xml:space="preserve">
     <value>Μόνο προβολή</value>
   </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>ΕΒΔΟΜΑΔΙΑΙΑ ΑΝΑΦΟΡΑ</value>
+  </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Αναμονή έγκρισης</value>
   </data>
   <data name="Week" xml:space="preserve">
     <value>Εβδομάδα</value>
-  </data>
-  <data name="WEEKLY REPORT" xml:space="preserve">
-    <value>ΕΒΔΟΜΑΔΙΑΙΑ ΑΝΑΦΟΡΑ</value>
   </data>
   <data name="Weekly report discarded." xml:space="preserve">
     <value>Η εβδομαδιαία αναφορά απορρίφθηκε.</value>
@@ -1110,14 +1038,14 @@
   <data name="You can attach up to {0} images." xml:space="preserve">
     <value>Μπορείτε να επισυνάψετε έως και {0} εικόνες.</value>
   </data>
-  <data name="You have {0} unread notification{1}." xml:space="preserve">
-    <value>Έχετε {0} μη αναγνωστές ειδοποιήσεις{1}.</value>
-  </data>
   <data name="You have no archived boards." xml:space="preserve">
     <value>Δεν έχετε αρχειοθετημένους πίνακες.</value>
   </data>
   <data name="You have no unread notifications." xml:space="preserve">
     <value>Δεν έχετε αδιάβαστες ειδοποιήσεις.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>Έχετε {0} μη αναγνωστές ειδοποιήσεις{1}.</value>
   </data>
   <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
     <value>Έχετε στην κατοχή σας {0} πίνακες. Διαγράψτε τους πριν διαγράψετε τον λογαριασμό σας.</value>
@@ -1136,6 +1064,78 @@
   </data>
   <data name="Your workspace" xml:space="preserve">
     <value>Ο χώρος εργασίας σας</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} πίνακες · μια ξεκάθαρη προβολή</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} κάρτες</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} κάρτες · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} κάρτες · {1} στήλες</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} στήλες · {1} κάρτες</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>Παραλείφθηκαν {0} εικόνες. Χρησιμοποιήστε PNG, JPEG, GIF, WebP ή BMP έως 10 MB.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>Επιλέχθηκαν {0} από {1}</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} ανοιχτές · {1} σε εξέλιξη · {2} ολοκληρωμένες</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>{0} εκπρόθεσμα</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} εκπρόθεσμα · {1} χωρίς ανάθεση</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>Προτεραιότητα {0}  ·  Προθεσμία {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} απαντήσεις</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} αναφορές</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} αποτελέσματα</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} προγραμματισμένες · {1} χωρίς πλήρεις ημερομηνίες</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} εργασίες</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>Ο/Η {0} θα επιστρέψει στον ενεργό χώρο εργασίας σας.</value>
+  </data>
+  <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · από τις {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>Εργασίες του/της {0}</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, χρησιμοποιείται σε {1} εργασίες</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2} προτεραιότητα</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Άνοιγμα αναφοράς.</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Πατήστε για λεπτομέρειες.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Πατήστε για λεπτομέρειες. Πατήστε παρατεταμένα και σύρετε για μετακίνηση.</value>
   </data>
 
 </root>

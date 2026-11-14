@@ -27,11 +27,11 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>테스트용 가짜 번호입니다.</value>
   </data>
-  <data name="Agent System Prompt" xml:space="preserve">
-    <value>에이전트 시스템 프롬프트</value>
-  </data>
   <data name="AI Model" xml:space="preserve">
     <value>AI 모델</value>
+  </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>에이전트 시스템 프롬프트</value>
   </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>사용자 닉네임 조정 허용</value>
@@ -105,17 +105,17 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>Kanban AI 에이전트에서 사용하는 Anthropic Messages API 엔드포인트입니다. /v1/messages를 포함한 전체 URL이어야 합니다. 예: https://ollama.example.com/v1/messages. AI 에이전트를 비활성화하려면 비워 두세요.</value>
   </data>
-  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
-    <value>임베딩 API의 기본 URL(예: Ollama). 경로를 포함해서는 안 되며, 예: http://localhost:11434. 비활성화하려면 비워 둡니다.</value>
-  </data>
-  <data name="The brand name displayed in the footer." xml:space="preserve">
-    <value>푸터에 표시되는 브랜드 이름</value>
-  </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>중국 대륙 사용자를 위한 ICP 라이선스 번호. 비워두면 숨깁니다.</value>
   </data>
   <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
     <value>Kanban AI 에이전트에 사용되는 LLM 모델 이름(예: aiursoft-instruct:latest, claude-sonnet-4-5, deepseek-chat). 위에서 제공된 Anthropic API 엔드포인트에서 해당 모델을 사용할 수 있어야 합니다.</value>
+  </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>임베딩 API의 기본 URL(예: Ollama). 경로를 포함해서는 안 되며, 예: http://localhost:11434. 비활성화하려면 비워 둡니다.</value>
+  </data>
+  <data name="The brand name displayed in the footer." xml:space="preserve">
+    <value>푸터에 표시되는 브랜드 이름</value>
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>네비게이션 바와 푸터에 표시되는 프로젝트의 로고입니다. jpg, png, svg 형식을 지원합니다.</value>

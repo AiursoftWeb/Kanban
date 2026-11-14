@@ -69,9 +69,6 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Integrierte Benutzerverwaltung</value>
   </data>
-  <data name="cards" xml:space="preserve">
-    <value>Karten</value>
-  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Kommt mit Docker-Unterstützung für vereinfachte und konsistente Bereitstellungen.</value>
   </data>
@@ -95,9 +92,6 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Docker-basiert für eine einfache Bereitstellung</value>
-  </data>
-  <data name="done" xml:space="preserve">
-    <value>erledigt</value>
   </data>
   <data name="Due:" xml:space="preserve">
     <value>Fällig:</value>
@@ -131,9 +125,6 @@
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>Hallo Welt!</value>
-  </data>
-  <data name="in progress" xml:space="preserve">
-    <value>in Bearbeitung</value>
   </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Umfangreiche Dokumentation und praktische Beispiele für einen schnellen Einstieg.</value>
@@ -173,9 +164,6 @@
   </data>
   <data name="No due date" xml:space="preserve">
     <value>Kein Fälligkeitsdatum</value>
-  </data>
-  <data name="open" xml:space="preserve">
-    <value>offen</value>
   </data>
   <data name="Open boards" xml:space="preserve">
     <value>Boards öffnen</value>
@@ -254,6 +242,18 @@
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Warum das Aiursoft Template verwenden?</value>
+  </data>
+  <data name="cards" xml:space="preserve">
+    <value>Karten</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>erledigt</value>
+  </data>
+  <data name="in progress" xml:space="preserve">
+    <value>in Bearbeitung</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>offen</value>
   </data>
 
 </root>

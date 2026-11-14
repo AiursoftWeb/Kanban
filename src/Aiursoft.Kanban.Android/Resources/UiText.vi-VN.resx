@@ -18,79 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
-    <value>{0} · {1} · kể từ {2:yyyy-MM-dd}</value>
-  </data>
-  <data name="{0} boards · one clear view" xml:space="preserve">
-    <value>{0} bảng · tất cả trong một chế độ xem rõ ràng</value>
-  </data>
-  <data name="{0} cards" xml:space="preserve">
-    <value>{0} thẻ</value>
-  </data>
-  <data name="{0} cards · {1}" xml:space="preserve">
-    <value>{0} thẻ · {1}</value>
-  </data>
-  <data name="{0} cards · {1} columns" xml:space="preserve">
-    <value>{0} thẻ · {1} cột</value>
-  </data>
-  <data name="{0} columns · {1} cards" xml:space="preserve">
-    <value>{0} cột · {1} thẻ</value>
-  </data>
-  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
-    <value>Đã bỏ qua {0} ảnh. Sử dụng định dạng PNG, JPEG, GIF, WebP hoặc BMP, tối đa 10 MB.</value>
-  </data>
-  <data name="{0} of {1} selected" xml:space="preserve">
-    <value>Đã chọn {0}/{1}</value>
-  </data>
-  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
-    <value>{0} đang mở · {1} đang thực hiện · {2} đã hoàn thành</value>
-  </data>
-  <data name="{0} overdue" xml:space="preserve">
-    <value>{0} quá hạn</value>
-  </data>
-  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
-    <value>{0} quá hạn · {1} chưa được giao</value>
-  </data>
-  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
-    <value>Ưu tiên {0}  ·  Hạn chót {1}</value>
-  </data>
-  <data name="{0} replies" xml:space="preserve">
-    <value>{0} câu trả lời</value>
-  </data>
-  <data name="{0} reports" xml:space="preserve">
-    <value>{0} báo cáo</value>
-  </data>
-  <data name="{0} results" xml:space="preserve">
-    <value>{0} kết quả</value>
-  </data>
-  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
-    <value>{0} đã lên lịch · {1} chưa có ngày đầy đủ</value>
-  </data>
-  <data name="{0} tasks" xml:space="preserve">
-    <value>{0} nhiệm vụ</value>
-  </data>
-  <data name="{0} will return to your active workspace." xml:space="preserve">
-    <value>{0} sẽ quay lại không gian làm việc đang hoạt động của bạn.</value>
-  </data>
-  <data name="{0}, {1}, {2} priority" xml:space="preserve">
-    <value>{0}, {1}, {2}, mức độ ưu tiên</value>
-  </data>
-  <data name="{0}, {1}. Open report." xml:space="preserve">
-    <value>{0}, {1}. Mở báo cáo.</value>
-  </data>
-  <data name="{0}, used by {1} tasks" xml:space="preserve">
-    <value>{0}, được sử dụng trong {1} tác vụ</value>
-  </data>
-  <data name="{0}. Tap for details." xml:space="preserve">
-    <value>{0}. Nhấn để xem chi tiết.</value>
-  </data>
-  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
-    <value>{0}. Nhấn để xem chi tiết. Nhấn giữ và kéo để di chuyển.</value>
-  </data>
-  <data name="{0}&apos;s Tasks" xml:space="preserve">
-    <value>Công việc của {0}</value>
-  </data>
-  <data name="+  Add card" xml:space="preserve">
+      <data name="+  Add card" xml:space="preserve">
     <value>+  Thêm thẻ</value>
   </data>
   <data name="1 report" xml:space="preserve">
@@ -108,11 +36,23 @@
   <data name="A little space for your next idea." xml:space="preserve">
     <value>Một chút không gian cho ý tưởng tiếp theo của bạn.</value>
   </data>
-  <data name="Access removed" xml:space="preserve">
-    <value>Đã xóa quyền truy cập</value>
-  </data>
   <data name="ACTIONS" xml:space="preserve">
     <value>HÀNH ĐỘNG</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>ĐƯỢC HỖ TRỢ BỞI AI</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>Đã lưu cài đặt báo cáo AI</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>ĐÃ LƯU TRỮ</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>NGƯỜI ĐƯỢC PHÂN CÔNG</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Đã xóa quyền truy cập</value>
   </data>
   <data name="Actual" xml:space="preserve">
     <value>Thực tế</value>
@@ -120,14 +60,14 @@
   <data name="Actual end" xml:space="preserve">
     <value>Ngày kết thúc thực tế</value>
   </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>Thời gian kết thúc thực tế không thể sớm hơn thời gian bắt đầu thực tế.</value>
+  </data>
   <data name="Actual end · earliest first" xml:space="preserve">
     <value>Kết thúc thực tế · sớm nhất trước</value>
   </data>
   <data name="Actual end · latest first" xml:space="preserve">
     <value>Ngày kết thúc thực tế · mới nhất trước</value>
-  </data>
-  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
-    <value>Thời gian kết thúc thực tế không thể sớm hơn thời gian bắt đầu thực tế.</value>
   </data>
   <data name="Actual start" xml:space="preserve">
     <value>Thời điểm bắt đầu thực tế</value>
@@ -146,12 +86,6 @@
   </data>
   <data name="Add images" xml:space="preserve">
     <value>Thêm hình ảnh</value>
-  </data>
-  <data name="AI POWERED" xml:space="preserve">
-    <value>ĐƯỢC HỖ TRỢ BỞI AI</value>
-  </data>
-  <data name="AI report settings saved" xml:space="preserve">
-    <value>Đã lưu cài đặt báo cáo AI</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>Tất cả</value>
@@ -189,23 +123,20 @@
   <data name="Archive time unavailable" xml:space="preserve">
     <value>Không có thời gian lưu trữ</value>
   </data>
-  <data name="ARCHIVED" xml:space="preserve">
-    <value>ĐÃ LƯU TRỮ</value>
-  </data>
-  <data name="Archived · {0} · {1}" xml:space="preserve">
-    <value>Đã lưu trữ · {0} · {1}</value>
-  </data>
-  <data name="Archived · Owner" xml:space="preserve">
-    <value>Đã lưu trữ · Chủ sở hữu</value>
-  </data>
-  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
-    <value>Đã lưu trữ lúc {0:yyyy-MM-dd HH:mm}</value>
-  </data>
   <data name="Archived Boards" xml:space="preserve">
     <value>Bảng đã lưu trữ</value>
   </data>
   <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
     <value>Các bảng đã lưu trữ chỉ có thể xem cho đến khi chủ sở hữu khôi phục chúng.</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Đã lưu trữ lúc {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>Đã lưu trữ · Chủ sở hữu</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Đã lưu trữ · {0} · {1}</value>
   </data>
   <data name="Assigned cards across your Kanban boards." xml:space="preserve">
     <value>Các thẻ được giao trên các bảng Kanban của bạn.</value>
@@ -213,17 +144,14 @@
   <data name="Assigned tasks" xml:space="preserve">
     <value>Công việc được giao</value>
   </data>
-  <data name="ASSIGNEE" xml:space="preserve">
-    <value>NGƯỜI ĐƯỢC PHÂN CÔNG</value>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Quay lại bảng Kanban</value>
   </data>
   <data name="Back to board" xml:space="preserve">
     <value>Quay lại bảng</value>
   </data>
   <data name="Back to board settings" xml:space="preserve">
     <value>Quay lại cài đặt bảng</value>
-  </data>
-  <data name="Back to Kanban" xml:space="preserve">
-    <value>Quay lại bảng Kanban</value>
   </data>
   <data name="Back to reports" xml:space="preserve">
     <value>Quay lại báo cáo</value>
@@ -257,6 +185,12 @@
   </data>
   <data name="Boards you archive will appear here." xml:space="preserve">
     <value>Các bảng bạn lưu trữ sẽ xuất hiện ở đây.</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>CỘT</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>BÌNH LUẬN  {0}</value>
   </data>
   <data name="Can edit" xml:space="preserve">
     <value>Có thể chỉnh sửa</value>
@@ -303,12 +237,6 @@
   <data name="Close" xml:space="preserve">
     <value>Đóng</value>
   </data>
-  <data name="COLUMN" xml:space="preserve">
-    <value>CỘT</value>
-  </data>
-  <data name="Column {0}" xml:space="preserve">
-    <value>Cột {0}</value>
-  </data>
   <data name="Column added" xml:space="preserve">
     <value>Đã thêm cột</value>
   </data>
@@ -321,6 +249,9 @@
   <data name="Column updated" xml:space="preserve">
     <value>Cột đã được cập nhật</value>
   </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Cột {0}</value>
+  </data>
   <data name="Comment image" xml:space="preserve">
     <value>Hình ảnh bình luận</value>
   </data>
@@ -329,9 +260,6 @@
   </data>
   <data name="Comment image unavailable" xml:space="preserve">
     <value>Không có ảnh bình luận</value>
-  </data>
-  <data name="COMMENTS  {0}" xml:space="preserve">
-    <value>BÌNH LUẬN  {0}</value>
   </data>
   <data name="Completed" xml:space="preserve">
     <value>Đã hoàn thành</value>
@@ -414,15 +342,6 @@
   <data name="Delete" xml:space="preserve">
     <value>Xóa</value>
   </data>
-  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
-    <value>Xóa {0} và {1} thẻ của mục này? Thao tác này không thể hoàn tác.</value>
-  </data>
-  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
-    <value>Xóa {0}, toàn bộ {1} cột và toàn bộ {2} thẻ? Thao tác này không thể hoàn tác.</value>
-  </data>
-  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
-    <value>Xóa {0}? Thao tác này không thể hoàn tác.</value>
-  </data>
   <data name="Delete account" xml:space="preserve">
     <value>Xóa tài khoản</value>
   </data>
@@ -443,6 +362,15 @@
   </data>
   <data name="Delete reply?" xml:space="preserve">
     <value>Xóa câu trả lời?</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>Xóa {0} và {1} thẻ của mục này? Thao tác này không thể hoàn tác.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>Xóa {0}, toàn bộ {1} cột và toàn bộ {2} thẻ? Thao tác này không thể hoàn tác.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>Xóa {0}? Thao tác này không thể hoàn tác.</value>
   </data>
   <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
     <value>Việc xóa tài khoản của bạn là vĩnh viễn và không thể hoàn tác.</value>
@@ -540,11 +468,11 @@
   <data name="Filter ({0})" xml:space="preserve">
     <value>Bộ lọc ({0})</value>
   </data>
-  <data name="Filter cards" xml:space="preserve">
-    <value>Lọc thẻ</value>
-  </data>
   <data name="Filter Gantt cards" xml:space="preserve">
     <value>Lọc thẻ Gantt</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Lọc thẻ</value>
   </data>
   <data name="Filters &amp; sorting" xml:space="preserve">
     <value>Bộ lọc và sắp xếp</value>
@@ -582,14 +510,17 @@
   <data name="Kanban Dashboard" xml:space="preserve">
     <value>Bảng điều khiển Kanban</value>
   </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>Nhãn</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>TÀI KHOẢN CỤC BỘ</value>
+  </data>
   <data name="Label added" xml:space="preserve">
     <value>Đã thêm nhãn</value>
   </data>
   <data name="Label removed" xml:space="preserve">
     <value>Đã xóa nhãn</value>
-  </data>
-  <data name="LABELS" xml:space="preserve">
-    <value>Nhãn</value>
   </data>
   <data name="Labels cannot exceed 100 characters" xml:space="preserve">
     <value>Nhãn không được vượt quá 100 ký tự</value>
@@ -597,11 +528,20 @@
   <data name="Light" xml:space="preserve">
     <value>Sáng</value>
   </data>
-  <data name="LOCAL ACCOUNT" xml:space="preserve">
-    <value>TÀI KHOẢN CỤC BỘ</value>
-  </data>
   <data name="Low" xml:space="preserve">
     <value>Thấp</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>DI CHUYỂN ĐẾN CỘT</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>CÔNG VIỆC ĐANG THỰC HIỆN CỦA TÔI  ·  {0} ĐANG TIẾN HÀNH</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>BẢNG ĐÃ LƯU TRỮ CỦA TÔI</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>BẢNG CỦA TÔI</value>
   </data>
   <data name="Make room for progress." xml:space="preserve">
     <value>Tạo không gian để tiến bộ.</value>
@@ -624,35 +564,23 @@
   <data name="Month" xml:space="preserve">
     <value>Tháng</value>
   </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Di chuyển thẻ</value>
+  </data>
   <data name="Move {0} left" xml:space="preserve">
     <value>Di chuyển {0} sang trái</value>
   </data>
   <data name="Move {0} right" xml:space="preserve">
     <value>Di chuyển {0} sang phải</value>
   </data>
-  <data name="Move card" xml:space="preserve">
-    <value>Di chuyển thẻ</value>
-  </data>
-  <data name="MOVE TO COLUMN" xml:space="preserve">
-    <value>DI CHUYỂN ĐẾN CỘT</value>
-  </data>
   <data name="Move, copy or transfer" xml:space="preserve">
     <value>Di chuyển, sao chép hoặc chuyển giao</value>
   </data>
-  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
-    <value>CÔNG VIỆC ĐANG THỰC HIỆN CỦA TÔI  ·  {0} ĐANG TIẾN HÀNH</value>
-  </data>
-  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
-    <value>BẢNG ĐÃ LƯU TRỮ CỦA TÔI</value>
-  </data>
-  <data name="MY BOARD" xml:space="preserve">
-    <value>BẢNG CỦA TÔI</value>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Nhật ký thao tác của tôi</value>
   </data>
   <data name="My boards" xml:space="preserve">
     <value>Bảng của tôi</value>
-  </data>
-  <data name="My Operation Logs" xml:space="preserve">
-    <value>Nhật ký thao tác của tôi</value>
   </data>
   <data name="My tasks" xml:space="preserve">
     <value>Việc của tôi</value>
@@ -759,6 +687,12 @@
   <data name="Notifications" xml:space="preserve">
     <value>Thông báo</value>
   </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>HOẠT ĐỘNG</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>ĐĂNG NHẬP TỔ CHỨC</value>
+  </data>
   <data name="Oldest first" xml:space="preserve">
     <value>Cũ nhất trước</value>
   </data>
@@ -780,17 +714,20 @@
   <data name="Open original" xml:space="preserve">
     <value>Mở bản gốc</value>
   </data>
-  <data name="OPERATION" xml:space="preserve">
-    <value>HOẠT ĐỘNG</value>
-  </data>
   <data name="Operation logging is not enabled on this server." xml:space="preserve">
     <value>Tính năng ghi nhật ký thao tác chưa được bật trên máy chủ này.</value>
   </data>
-  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
-    <value>ĐĂNG NHẬP TỔ CHỨC</value>
-  </data>
   <data name="Overdue" xml:space="preserve">
     <value>Quá hạn</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP hoặc BMP · tối đa 10 MB mỗi tệp</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>MỨC ĐỘ ƯU TIÊN</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>HÀNH ĐỘNG ĐỀ XUẤT</value>
   </data>
   <data name="Page {0} of {1}" xml:space="preserve">
     <value>Trang {0} trên {1}</value>
@@ -822,12 +759,6 @@
   <data name="Planned start · latest first" xml:space="preserve">
     <value>Thời gian bắt đầu dự kiến · mới nhất trước</value>
   </data>
-  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
-    <value>PNG, JPEG, GIF, WebP hoặc BMP · tối đa 10 MB mỗi tệp</value>
-  </data>
-  <data name="PRIORITY" xml:space="preserve">
-    <value>MỨC ĐỘ ƯU TIÊN</value>
-  </data>
   <data name="Priority · low first" xml:space="preserve">
     <value>Độ ưu tiên · thấp trước</value>
   </data>
@@ -839,9 +770,6 @@
   </data>
   <data name="Profile saved" xml:space="preserve">
     <value>Đã lưu hồ sơ</value>
-  </data>
-  <data name="PROPOSED ACTION" xml:space="preserve">
-    <value>HÀNH ĐỘNG ĐỀ XUẤT</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Sẵn sàng</value>
@@ -855,14 +783,14 @@
   <data name="Remove" xml:space="preserve">
     <value>Xóa</value>
   </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Gỡ quyền truy cập?</value>
+  </data>
   <data name="Remove {0}" xml:space="preserve">
     <value>Xóa {0}</value>
   </data>
   <data name="Remove {0} from this board?" xml:space="preserve">
     <value>Xóa {0} khỏi bảng này?</value>
-  </data>
-  <data name="Remove access?" xml:space="preserve">
-    <value>Gỡ quyền truy cập?</value>
   </data>
   <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
     <value>Nội dung trả lời không được vượt quá 2.000 ký tự</value>
@@ -887,6 +815,15 @@
   </data>
   <data name="Retry" xml:space="preserve">
     <value>Thử lại</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>BẢNG ĐÃ LƯU TRỮ ĐƯỢC CHIA SẺ</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>BẢNG ĐƯỢC CHIA SẺ</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>SẮP XẾP</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Lưu</value>
@@ -921,20 +858,14 @@
   <data name="Set a due date before enabling recurrence." xml:space="preserve">
     <value>Đặt ngày đến hạn trước khi bật tính năng lặp lại.</value>
   </data>
-  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
-    <value>BẢNG ĐÃ LƯU TRỮ ĐƯỢC CHIA SẺ</value>
-  </data>
-  <data name="SHARED BOARD" xml:space="preserve">
-    <value>BẢNG ĐƯỢC CHIA SẺ</value>
-  </data>
   <data name="Shared boards" xml:space="preserve">
     <value>Các bảng được chia sẻ</value>
   </data>
-  <data name="Shared with {0}" xml:space="preserve">
-    <value>Đã chia sẻ với {0}</value>
-  </data>
   <data name="Shared with me" xml:space="preserve">
     <value>Được chia sẻ với tôi</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>Đã chia sẻ với {0}</value>
   </data>
   <data name="Sign in" xml:space="preserve">
     <value>Đăng nhập</value>
@@ -944,9 +875,6 @@
   </data>
   <data name="Signing you in…" xml:space="preserve">
     <value>Đang đăng nhập cho bạn…</value>
-  </data>
-  <data name="SORT" xml:space="preserve">
-    <value>SẮP XẾP</value>
   </data>
   <data name="Start  {0}" xml:space="preserve">
     <value>Bắt đầu  {0}</value>
@@ -962,6 +890,12 @@
   </data>
   <data name="Switch server" xml:space="preserve">
     <value>Chuyển đổi máy chủ</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>DÒNG THỜI GIAN</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>BÁO CÁO HÔM NAY</value>
   </data>
   <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
     <value>Người được giao nhiệm vụ sẽ được xóa và các câu trả lời vẫn được lưu trong lịch sử của thẻ gốc.</value>
@@ -1011,23 +945,17 @@
   <data name="This reply will be permanently removed." xml:space="preserve">
     <value>Phản hồi này sẽ bị xóa vĩnh viễn.</value>
   </data>
-  <data name="TIMELINE" xml:space="preserve">
-    <value>DÒNG THỜI GIAN</value>
-  </data>
   <data name="Title" xml:space="preserve">
     <value>Tiêu đề</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Tiêu đề hoặc mô tả</value>
   </data>
   <data name="Title · A–Z" xml:space="preserve">
     <value>Tiêu đề · A–Z</value>
   </data>
   <data name="Title · Z–A" xml:space="preserve">
     <value>Tiêu đề · Z–A</value>
-  </data>
-  <data name="Title or description" xml:space="preserve">
-    <value>Tiêu đề hoặc mô tả</value>
-  </data>
-  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
-    <value>BÁO CÁO HÔM NAY</value>
   </data>
   <data name="Transfer" xml:space="preserve">
     <value>Chuyển</value>
@@ -1080,14 +1008,14 @@
   <data name="View only" xml:space="preserve">
     <value>Chỉ xem</value>
   </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>BÁO CÁO HẰNG TUẦN</value>
+  </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Đang chờ phê duyệt</value>
   </data>
   <data name="Week" xml:space="preserve">
     <value>Tuần</value>
-  </data>
-  <data name="WEEKLY REPORT" xml:space="preserve">
-    <value>BÁO CÁO HẰNG TUẦN</value>
   </data>
   <data name="Weekly report discarded." xml:space="preserve">
     <value>Báo cáo hàng tuần đã bị loại bỏ.</value>
@@ -1110,14 +1038,14 @@
   <data name="You can attach up to {0} images." xml:space="preserve">
     <value>Bạn có thể đính kèm tối đa {0} hình ảnh.</value>
   </data>
-  <data name="You have {0} unread notification{1}." xml:space="preserve">
-    <value>Bạn có {0} thông báo chưa đọc{1}.</value>
-  </data>
   <data name="You have no archived boards." xml:space="preserve">
     <value>Bạn không có bảng nào đã lưu trữ.</value>
   </data>
   <data name="You have no unread notifications." xml:space="preserve">
     <value>Bạn không có thông báo nào chưa đọc.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>Bạn có {0} thông báo chưa đọc{1}.</value>
   </data>
   <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
     <value>Bạn sở hữu {0} bảng. Hãy xóa các bảng đó trước khi xóa tài khoản của bạn.</value>
@@ -1136,6 +1064,78 @@
   </data>
   <data name="Your workspace" xml:space="preserve">
     <value>Không gian làm việc của bạn</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} bảng · tất cả trong một chế độ xem rõ ràng</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} thẻ</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} thẻ · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} thẻ · {1} cột</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} cột · {1} thẻ</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>Đã bỏ qua {0} ảnh. Sử dụng định dạng PNG, JPEG, GIF, WebP hoặc BMP, tối đa 10 MB.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>Đã chọn {0}/{1}</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} đang mở · {1} đang thực hiện · {2} đã hoàn thành</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>{0} quá hạn</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} quá hạn · {1} chưa được giao</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>Ưu tiên {0}  ·  Hạn chót {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} câu trả lời</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} báo cáo</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} kết quả</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} đã lên lịch · {1} chưa có ngày đầy đủ</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} nhiệm vụ</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0} sẽ quay lại không gian làm việc đang hoạt động của bạn.</value>
+  </data>
+  <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · kể từ {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>Công việc của {0}</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, được sử dụng trong {1} tác vụ</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2}, mức độ ưu tiên</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Mở báo cáo.</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Nhấn để xem chi tiết.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Nhấn để xem chi tiết. Nhấn giữ và kéo để di chuyển.</value>
   </data>
 
 </root>

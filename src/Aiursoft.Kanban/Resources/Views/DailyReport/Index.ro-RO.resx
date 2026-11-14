@@ -27,17 +27,17 @@
   <data name="Date" xml:space="preserve">
     <value>Dată</value>
   </data>
-  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
-    <value>Generează un plan dimineață pentru a vedea la ce te vei concentra astăzi.</value>
-  </data>
-  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
-    <value>Generează un rezumat de după-amiază pentru a reflecta asupra ceea ce ai realizat astăzi.</value>
-  </data>
   <data name="Generate Plan" xml:space="preserve">
     <value>Generează planul</value>
   </data>
   <data name="Generate Summary" xml:space="preserve">
     <value>Generează rezumat</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>Generează un plan dimineață pentru a vedea la ce te vei concentra astăzi.</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>Generează un rezumat de după-amiază pentru a reflecta asupra ceea ce ai realizat astăzi.</value>
   </data>
   <data name="Generated" xml:space="preserve">
     <value>Generat</value>

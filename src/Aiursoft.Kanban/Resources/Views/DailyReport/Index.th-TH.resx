@@ -27,17 +27,17 @@
   <data name="Date" xml:space="preserve">
     <value>วันที่</value>
   </data>
-  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
-    <value>สร้างแผนการตอนเช้าเพื่อดูสิ่งที่คุณควรให้ความสำคัญในวันนี้</value>
-  </data>
-  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
-    <value>สร้างสรุปช่วงบ่ายเพื่อทบทวนสิ่งที่ทำได้ในวันนี้</value>
-  </data>
   <data name="Generate Plan" xml:space="preserve">
     <value>สร้างแผนงาน</value>
   </data>
   <data name="Generate Summary" xml:space="preserve">
     <value>สร้างสรุปผล</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>สร้างแผนการตอนเช้าเพื่อดูสิ่งที่คุณควรให้ความสำคัญในวันนี้</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>สร้างสรุปช่วงบ่ายเพื่อทบทวนสิ่งที่ทำได้ในวันนี้</value>
   </data>
   <data name="Generated" xml:space="preserve">
     <value>สร้างแล้ว</value>

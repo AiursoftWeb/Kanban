@@ -18,17 +18,14 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Account Management" xml:space="preserve">
-    <value>Διαχείριση Λογαριασμού</value>
-  </data>
-  <data name="AI" xml:space="preserve">
+      <data name="AI" xml:space="preserve">
     <value>Τεχνητή Νοημοσύνη</value>
   </data>
   <data name="AI Report Settings" xml:space="preserve">
     <value>Ρυθμίσεις Αναφοράς AI</value>
   </data>
-  <data name="auth provider" xml:space="preserve">
-    <value>παροχέας ταυτοποίησης</value>
+  <data name="Account Management" xml:space="preserve">
+    <value>Διαχείριση Λογαριασμού</value>
   </data>
   <data name="Avatar settings" xml:space="preserve">
     <value>Ρυθμίσεις Avatar</value>
@@ -68,6 +65,9 @@
   </data>
   <data name="You can&apos;t change your password because local authentication is disabled. Please edit your profile from the auth provider." xml:space="preserve">
     <value>Δεν μπορείτε να αλλάξετε τον κωδικό πρόσβασής σας, επειδή η τοπική πιστοποίηση είναι απενεργοποιημένη. Παρακαλούμε επεξεργαστείτε το προφίλ σας από τον πάροχο ταυτοποίησης.</value>
+  </data>
+  <data name="auth provider" xml:space="preserve">
+    <value>παροχέας ταυτοποίησης</value>
   </data>
 
 </root>

@@ -69,9 +69,6 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>內建用戶管理</value>
   </data>
-  <data name="cards" xml:space="preserve">
-    <value>卡片</value>
-  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>內建 Docker 支援，簡化並確保部署的一致性。</value>
   </data>
@@ -95,9 +92,6 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Docker 化，輕鬆部署</value>
-  </data>
-  <data name="done" xml:space="preserve">
-    <value>已完成</value>
   </data>
   <data name="Due:" xml:space="preserve">
     <value>截止日期：</value>
@@ -131,9 +125,6 @@
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>你好世界！</value>
-  </data>
-  <data name="in progress" xml:space="preserve">
-    <value>處理中</value>
   </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>包含詳盡嘅說明文件同埋實用例子，助你快速上手。</value>
@@ -173,9 +164,6 @@
   </data>
   <data name="No due date" xml:space="preserve">
     <value>無到期日</value>
-  </data>
-  <data name="open" xml:space="preserve">
-    <value>進行中</value>
   </data>
   <data name="Open boards" xml:space="preserve">
     <value>開啟看板</value>
@@ -254,6 +242,18 @@
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>點解要使用 Aiursoft 模板？</value>
+  </data>
+  <data name="cards" xml:space="preserve">
+    <value>卡片</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="in progress" xml:space="preserve">
+    <value>處理中</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>進行中</value>
   </data>
 
 </root>

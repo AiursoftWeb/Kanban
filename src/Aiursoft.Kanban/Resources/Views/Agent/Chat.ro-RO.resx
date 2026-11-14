@@ -27,9 +27,6 @@
   <data name="Attach Excel file" xml:space="preserve">
     <value>Atașează fișierul Excel</value>
   </data>
-  <data name="click to expand" xml:space="preserve">
-    <value>click pentru a extinde</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>Eroare</value>
   </data>
@@ -86,6 +83,9 @@
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Se așteaptă aprobarea</value>
+  </data>
+  <data name="click to expand" xml:space="preserve">
+    <value>click pentru a extinde</value>
   </data>
 
 </root>

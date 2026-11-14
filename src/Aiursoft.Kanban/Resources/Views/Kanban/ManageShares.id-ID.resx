@@ -24,41 +24,11 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(Tidak ada - gunakan pengguna di atas)</value>
   </data>
-  <data name="{0} and {1} other user" xml:space="preserve">
-    <value>{0} dan {1} pengguna lainnya</value>
-  </data>
-  <data name="{0} and {1} other users" xml:space="preserve">
-    <value>{0} dan {1} pengguna lainnya</value>
-  </data>
-  <data name="{0} can edit." xml:space="preserve">
-    <value>{0} dapat mengedit.</value>
-  </data>
-  <data name="{0} can view." xml:space="preserve">
-    <value>{0} dapat melihat.</value>
-  </data>
-  <data name="{0} role" xml:space="preserve">
-    <value>Peran {0}</value>
-  </data>
-  <data name="{0} roles" xml:space="preserve">
-    <value>{0} peran</value>
-  </data>
-  <data name="{0} user" xml:space="preserve">
-    <value>{0} pengguna</value>
-  </data>
-  <data name="{0} users" xml:space="preserve">
-    <value>{0} pengguna</value>
-  </data>
-  <data name="{0}, {1}" xml:space="preserve">
-    <value>{0}, {1}</value>
-  </data>
   <data name="About access" xml:space="preserve">
     <value>Tentang akses</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Aksi</value>
-  </data>
-  <data name="Add access" xml:space="preserve">
-    <value>Tambahkan akses</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Tambahkan Berbagi Baru</value>
@@ -66,20 +36,23 @@
   <data name="Add Share" xml:space="preserve">
     <value>Tambahkan Bagikan</value>
   </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Tambahkan akses</value>
+  </data>
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Izinkan peninjauan anonim (Publik)</value>
   </data>
   <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
     <value>Melihat secara anonim tidak mengubah izin pengguna atau peran di atas.</value>
   </data>
-  <data name="Anyone — view only" xml:space="preserve">
-    <value>Siapa saja — hanya dapat melihat</value>
-  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Siapa pun yang memiliki tautan dapat melihat papan ini.</value>
   </data>
   <data name="Anyone with the link can view without signing in." xml:space="preserve">
     <value>Siapa pun yang memiliki tautannya dapat melihat tanpa perlu masuk.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Siapa saja — hanya dapat melihat</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Kembali ke Papan</value>
@@ -108,11 +81,11 @@
   <data name="Could not copy. Select and copy the link above." xml:space="preserve">
     <value>Tidak dapat menyalin. Pilih dan salin tautan di atas.</value>
   </data>
-  <data name="Current access" xml:space="preserve">
-    <value>Akses saat ini</value>
-  </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Bagian Saat Ini</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Akses saat ini</value>
   </data>
   <data name="Editable" xml:space="preserve">
     <value>Dapat Diedit</value>
@@ -207,11 +180,11 @@
   <data name="Share with User" xml:space="preserve">
     <value>Bagikan dengan Pengguna</value>
   </data>
-  <data name="Shared access" xml:space="preserve">
-    <value>Akses bersama</value>
-  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Dibagikan Dengan</value>
+  </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Akses bersama</value>
   </data>
   <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
     <value>Anda harus masuk dan sudah memiliki akses. Menyalin tautan tidak memberikan akses.</value>
@@ -239,6 +212,33 @@
   </data>
   <data name="Who can use the link?" xml:space="preserve">
     <value>Siapa yang dapat menggunakan tautan ini?</value>
+  </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} dan {1} pengguna lainnya</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} dan {1} pengguna lainnya</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} dapat mengedit.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} dapat melihat.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>Peran {0}</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} peran</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} pengguna</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>{0} pengguna</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
   </data>
 
 </root>

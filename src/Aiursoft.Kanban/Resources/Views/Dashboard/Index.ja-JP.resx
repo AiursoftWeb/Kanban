@@ -69,9 +69,6 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>組み込みユーザー管理</value>
   </data>
-  <data name="cards" xml:space="preserve">
-    <value>カード</value>
-  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Docker対応を備えており、シンプルで一貫性のあるデプロイを実現します。</value>
   </data>
@@ -95,9 +92,6 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Docker対応でデプロイが簡単</value>
-  </data>
-  <data name="done" xml:space="preserve">
-    <value>完了</value>
   </data>
   <data name="Due:" xml:space="preserve">
     <value>期限：</value>
@@ -131,9 +125,6 @@
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>こんにちは、世界！</value>
-  </data>
-  <data name="in progress" xml:space="preserve">
-    <value>進行中</value>
   </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>豊富なドキュメントと実用的なサンプルが含まれており、素早く使い始めることができます。</value>
@@ -173,9 +164,6 @@
   </data>
   <data name="No due date" xml:space="preserve">
     <value>期限なし</value>
-  </data>
-  <data name="open" xml:space="preserve">
-    <value>未完了</value>
   </data>
   <data name="Open boards" xml:space="preserve">
     <value>ボードを開く</value>
@@ -254,6 +242,18 @@
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Aiursoftテンプレートを使用する理由</value>
+  </data>
+  <data name="cards" xml:space="preserve">
+    <value>カード</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="in progress" xml:space="preserve">
+    <value>進行中</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>未完了</value>
   </data>
 
 </root>

@@ -27,17 +27,17 @@
   <data name="Date" xml:space="preserve">
     <value>日期</value>
   </data>
-  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
-    <value>生成晨间计划，了解今日重点。</value>
-  </data>
-  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
-    <value>生成下午总结，回顾您今天的 accomplishments。</value>
-  </data>
   <data name="Generate Plan" xml:space="preserve">
     <value>生成计划</value>
   </data>
   <data name="Generate Summary" xml:space="preserve">
     <value>生成总结</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>生成晨间计划，了解今日重点。</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>生成下午总结，回顾您今天的 accomplishments。</value>
   </data>
   <data name="Generated" xml:space="preserve">
     <value>已生成</value>
