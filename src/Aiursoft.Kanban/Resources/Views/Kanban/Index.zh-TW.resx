@@ -36,14 +36,14 @@
   <data name="Add" xml:space="preserve">
     <value>新增</value>
   </data>
-  <data name="Add a comment..." xml:space="preserve">
-    <value>新增留言...</value>
-  </data>
   <data name="Add Card" xml:space="preserve">
     <value>新增卡片</value>
   </data>
   <data name="Add Column" xml:space="preserve">
     <value>新增欄位</value>
+  </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>新增留言...</value>
   </data>
   <data name="Add more details..." xml:space="preserve">
     <value>新增更多詳細資訊...</value>
@@ -78,9 +78,6 @@
   <data name="Assignee" xml:space="preserve">
     <value>指派對象</value>
   </data>
-  <data name="auto" xml:space="preserve">
-    <value>自動</value>
-  </data>
   <data name="Board Name" xml:space="preserve">
     <value>看板名稱</value>
   </data>
@@ -89,9 +86,6 @@
   </data>
   <data name="Card Details" xml:space="preserve">
     <value>卡片詳細資料</value>
-  </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>張卡片。刪除這欄也會永久刪除其中所有卡片。</value>
   </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>變更 {{0}} 色彩</value>
@@ -104,9 +98,6 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>關閉</value>
-  </data>
-  <data name="column" xml:space="preserve">
-    <value>欄位</value>
   </data>
   <data name="Column Name" xml:space="preserve">
     <value>欄位名稱</value>
@@ -153,9 +144,6 @@
   <data name="Custom color" xml:space="preserve">
     <value>自訂色彩</value>
   </data>
-  <data name="d ago" xml:space="preserve">
-    <value>天前</value>
-  </data>
   <data name="Day" xml:space="preserve">
     <value>天</value>
   </data>
@@ -171,14 +159,14 @@
   <data name="Delete Board" xml:space="preserve">
     <value>刪除看板</value>
   </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>刪除註解</value>
+  </data>
   <data name="Delete card" xml:space="preserve">
     <value>刪除卡片</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>刪除欄位</value>
-  </data>
-  <data name="Delete Comment" xml:space="preserve">
-    <value>刪除註解</value>
   </data>
   <data name="Delete empty column" xml:space="preserve">
     <value>刪除空白欄位</value>
@@ -228,20 +216,20 @@
   <data name="Failed to create column." xml:space="preserve">
     <value>建立資料欄失敗。</value>
   </data>
-  <data name="Failed to delete board:" xml:space="preserve">
-    <value>刪除看板失敗：</value>
-  </data>
   <data name="Failed to delete board." xml:space="preserve">
     <value>無法刪除看板。</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>刪除看板失敗：</value>
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>刪除卡片失敗。</value>
   </data>
-  <data name="Failed to delete column:" xml:space="preserve">
-    <value>刪除欄位失敗：</value>
-  </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>無法刪除資料欄位。</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>刪除欄位失敗：</value>
   </data>
   <data name="Failed to delete comment." xml:space="preserve">
     <value>刪除留言失敗。</value>
@@ -252,35 +240,35 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>無法載入移轉目標。</value>
   </data>
-  <data name="Failed to move card:" xml:space="preserve">
-    <value>移動卡片失敗：</value>
-  </data>
   <data name="Failed to move card." xml:space="preserve">
     <value>無法移動卡片。</value>
+  </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>移動卡片失敗：</value>
   </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>移除標籤失敗。</value>
   </data>
-  <data name="Failed to rename board:" xml:space="preserve">
-    <value>重新命名看板失敗：</value>
-  </data>
   <data name="Failed to rename board." xml:space="preserve">
     <value>重新命名板子失敗。</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>重新命名看板失敗：</value>
   </data>
   <data name="Failed to rename column:" xml:space="preserve">
     <value>重新命名欄位失敗：</value>
   </data>
-  <data name="Failed to save:" xml:space="preserve">
-    <value>儲存失敗：</value>
-  </data>
   <data name="Failed to save." xml:space="preserve">
     <value>儲存失敗。</value>
   </data>
-  <data name="Failed to transfer card:" xml:space="preserve">
-    <value>卡片轉移失敗：</value>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>儲存失敗：</value>
   </data>
   <data name="Failed to transfer card." xml:space="preserve">
     <value>轉移卡片失敗。</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>卡片轉移失敗：</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>更新標籤色彩失敗。</value>
@@ -297,9 +285,6 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>甘特圖</value>
   </data>
-  <data name="h ago" xml:space="preserve">
-    <value>小時前</value>
-  </data>
   <data name="High" xml:space="preserve">
     <value>高</value>
   </data>
@@ -308,9 +293,6 @@
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>未完成</value>
-  </data>
-  <data name="just now" xml:space="preserve">
-    <value>剛才</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>看板</value>
@@ -329,9 +311,6 @@
   </data>
   <data name="Low" xml:space="preserve">
     <value>低</value>
-  </data>
-  <data name="m ago" xml:space="preserve">
-    <value>分鐘前</value>
   </data>
   <data name="Medium" xml:space="preserve">
     <value>中</value>
@@ -392,9 +371,6 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>確定</value>
-  </data>
-  <data name="optional" xml:space="preserve">
-    <value>選填</value>
   </data>
   <data name="Overdue" xml:space="preserve">
     <value>逾期</value>
@@ -554,6 +530,30 @@
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>您可以在此拖放圖片，或從剪貼簿貼上。</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>自動</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>張卡片。刪除這欄也會永久刪除其中所有卡片。</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>欄位</value>
+  </data>
+  <data name="d ago" xml:space="preserve">
+    <value>天前</value>
+  </data>
+  <data name="h ago" xml:space="preserve">
+    <value>小時前</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>剛才</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>分鐘前</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>選填</value>
   </data>
 
 </root>

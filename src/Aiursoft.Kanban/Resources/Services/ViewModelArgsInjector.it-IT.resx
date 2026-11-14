@@ -18,7 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Access Denied" xml:space="preserve">
+      <data name="AI Assistant" xml:space="preserve">
+    <value>Assistente AI</value>
+  </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>Impostazioni rapporto AI</value>
+  </data>
+  <data name="API Keys" xml:space="preserve">
+    <value>Chiavi API</value>
+  </data>
+  <data name="Access Denied" xml:space="preserve">
     <value>Accesso negato</value>
   </data>
   <data name="Admin" xml:space="preserve">
@@ -26,12 +35,6 @@
   </data>
   <data name="Administration" xml:space="preserve">
     <value>Amministrazione</value>
-  </data>
-  <data name="AI Assistant" xml:space="preserve">
-    <value>Assistente AI</value>
-  </data>
-  <data name="AI Report Settings" xml:space="preserve">
-    <value>Impostazioni rapporto AI</value>
   </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Modello Aiursoft</value>
@@ -41,9 +44,6 @@
   </data>
   <data name="Anonymous" xml:space="preserve">
     <value>Anonimo</value>
-  </data>
-  <data name="API Keys" xml:space="preserve">
-    <value>Chiavi API</value>
   </data>
   <data name="Archived" xml:space="preserve">
     <value>Archiviato</value>

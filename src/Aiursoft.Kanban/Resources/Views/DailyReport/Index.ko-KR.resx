@@ -27,17 +27,17 @@
   <data name="Date" xml:space="preserve">
     <value>날짜</value>
   </data>
-  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
-    <value>오늘의 초점을 파악하기 위해 아침 계획을 생성하세요.</value>
-  </data>
-  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
-    <value>오늘의 성과를 되돌아보기 위해 오후 요약을 생성하세요.</value>
-  </data>
   <data name="Generate Plan" xml:space="preserve">
     <value>계획 생성</value>
   </data>
   <data name="Generate Summary" xml:space="preserve">
     <value>요약 생성</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>오늘의 초점을 파악하기 위해 아침 계획을 생성하세요.</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>오늘의 성과를 되돌아보기 위해 오후 요약을 생성하세요.</value>
   </data>
   <data name="Generated" xml:space="preserve">
     <value>생성됨</value>

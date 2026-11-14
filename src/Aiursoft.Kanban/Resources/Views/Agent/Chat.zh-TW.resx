@@ -27,9 +27,6 @@
   <data name="Attach Excel file" xml:space="preserve">
     <value>附加 Excel 檔案</value>
   </data>
-  <data name="click to expand" xml:space="preserve">
-    <value>按一下展開</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>錯誤</value>
   </data>
@@ -86,6 +83,9 @@
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>等待批准中</value>
+  </data>
+  <data name="click to expand" xml:space="preserve">
+    <value>按一下展開</value>
   </data>
 
 </root>

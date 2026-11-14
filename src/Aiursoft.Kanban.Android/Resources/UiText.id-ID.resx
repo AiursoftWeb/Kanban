@@ -18,79 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
-    <value>{0} · {1} · sejak {2:yyyy-MM-dd}</value>
-  </data>
-  <data name="{0} boards · one clear view" xml:space="preserve">
-    <value>{0} papan · semua terlihat jelas</value>
-  </data>
-  <data name="{0} cards" xml:space="preserve">
-    <value>{0} kartu</value>
-  </data>
-  <data name="{0} cards · {1}" xml:space="preserve">
-    <value>{0} kartu · {1}</value>
-  </data>
-  <data name="{0} cards · {1} columns" xml:space="preserve">
-    <value>{0} kartu · {1} kolom</value>
-  </data>
-  <data name="{0} columns · {1} cards" xml:space="preserve">
-    <value>{0} kolom · {1} kartu</value>
-  </data>
-  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
-    <value>{0} gambar dilewati. Gunakan PNG, JPEG, GIF, WebP, atau BMP dengan ukuran maksimal 10 MB.</value>
-  </data>
-  <data name="{0} of {1} selected" xml:space="preserve">
-    <value>{0} dari {1} dipilih</value>
-  </data>
-  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
-    <value>{0} terbuka · {1} sedang dikerjakan · {2} selesai</value>
-  </data>
-  <data name="{0} overdue" xml:space="preserve">
-    <value>{0} terlambat</value>
-  </data>
-  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
-    <value>{0} terlambat · {1} belum ditugaskan</value>
-  </data>
-  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
-    <value>Prioritas {0}  ·  Tenggat {1}</value>
-  </data>
-  <data name="{0} replies" xml:space="preserve">
-    <value>{0} balasan</value>
-  </data>
-  <data name="{0} reports" xml:space="preserve">
-    <value>{0} laporan</value>
-  </data>
-  <data name="{0} results" xml:space="preserve">
-    <value>{0} hasil</value>
-  </data>
-  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
-    <value>{0} dijadwalkan · {1} tanpa tanggal lengkap</value>
-  </data>
-  <data name="{0} tasks" xml:space="preserve">
-    <value>{0} tugas</value>
-  </data>
-  <data name="{0} will return to your active workspace." xml:space="preserve">
-    <value>{0} akan kembali ke ruang kerja aktif Anda.</value>
-  </data>
-  <data name="{0}, {1}, {2} priority" xml:space="preserve">
-    <value>{0}, {1}, {2} prioritas</value>
-  </data>
-  <data name="{0}, {1}. Open report." xml:space="preserve">
-    <value>{0}, {1}. Buka laporan.</value>
-  </data>
-  <data name="{0}, used by {1} tasks" xml:space="preserve">
-    <value>{0}, digunakan oleh {1} tugas</value>
-  </data>
-  <data name="{0}. Tap for details." xml:space="preserve">
-    <value>{0}. Ketuk untuk mengetahui detail.</value>
-  </data>
-  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
-    <value>{0}. Ketuk untuk detail. Tahan dan seret untuk memindahkan.</value>
-  </data>
-  <data name="{0}&apos;s Tasks" xml:space="preserve">
-    <value>Tugas milik {0}</value>
-  </data>
-  <data name="+  Add card" xml:space="preserve">
+      <data name="+  Add card" xml:space="preserve">
     <value>+  Tambahkan kartu</value>
   </data>
   <data name="1 report" xml:space="preserve">
@@ -108,11 +36,23 @@
   <data name="A little space for your next idea." xml:space="preserve">
     <value>Sedikit ruang untuk ide Anda berikutnya.</value>
   </data>
-  <data name="Access removed" xml:space="preserve">
-    <value>Akses dihapus</value>
-  </data>
   <data name="ACTIONS" xml:space="preserve">
     <value>TINDAKAN</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>DIDUKUNG AI</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>Pengaturan laporan AI tersimpan</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>DIARSIPKAN</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>PENERIMA TUGAS</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Akses dihapus</value>
   </data>
   <data name="Actual" xml:space="preserve">
     <value>Aktual</value>
@@ -120,14 +60,14 @@
   <data name="Actual end" xml:space="preserve">
     <value>Akhir aktual</value>
   </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>Waktu selesai sebenarnya tidak boleh lebih awal daripada waktu mulai sebenarnya.</value>
+  </data>
   <data name="Actual end · earliest first" xml:space="preserve">
     <value>Akhir aktual · paling awal terlebih dahulu</value>
   </data>
   <data name="Actual end · latest first" xml:space="preserve">
     <value>Akhir aktual · terbaru terlebih dahulu</value>
-  </data>
-  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
-    <value>Waktu selesai sebenarnya tidak boleh lebih awal daripada waktu mulai sebenarnya.</value>
   </data>
   <data name="Actual start" xml:space="preserve">
     <value>Mulai aktual</value>
@@ -146,12 +86,6 @@
   </data>
   <data name="Add images" xml:space="preserve">
     <value>Tambahkan gambar</value>
-  </data>
-  <data name="AI POWERED" xml:space="preserve">
-    <value>DIDUKUNG AI</value>
-  </data>
-  <data name="AI report settings saved" xml:space="preserve">
-    <value>Pengaturan laporan AI tersimpan</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>Semua</value>
@@ -189,23 +123,20 @@
   <data name="Archive time unavailable" xml:space="preserve">
     <value>Waktu pengarsipan tidak tersedia</value>
   </data>
-  <data name="ARCHIVED" xml:space="preserve">
-    <value>DIARSIPKAN</value>
-  </data>
-  <data name="Archived · {0} · {1}" xml:space="preserve">
-    <value>Diarsipkan · {0} · {1}</value>
-  </data>
-  <data name="Archived · Owner" xml:space="preserve">
-    <value>Diarsipkan · Pemilik</value>
-  </data>
-  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
-    <value>Diarsipkan {0:yyyy-MM-dd HH:mm}</value>
-  </data>
   <data name="Archived Boards" xml:space="preserve">
     <value>Papan yang Diarsipkan</value>
   </data>
   <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
     <value>Papan yang diarsipkan bersifat hanya-baca sampai pemiliknya memulihkannya.</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Diarsipkan {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>Diarsipkan · Pemilik</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Diarsipkan · {0} · {1}</value>
   </data>
   <data name="Assigned cards across your Kanban boards." xml:space="preserve">
     <value>Kartu yang ditugaskan di seluruh papan Kanban Anda.</value>
@@ -213,17 +144,14 @@
   <data name="Assigned tasks" xml:space="preserve">
     <value>Tugas yang ditugaskan</value>
   </data>
-  <data name="ASSIGNEE" xml:space="preserve">
-    <value>PENERIMA TUGAS</value>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Kembali ke Kanban</value>
   </data>
   <data name="Back to board" xml:space="preserve">
     <value>Kembali ke papan</value>
   </data>
   <data name="Back to board settings" xml:space="preserve">
     <value>Kembali ke pengaturan papan</value>
-  </data>
-  <data name="Back to Kanban" xml:space="preserve">
-    <value>Kembali ke Kanban</value>
   </data>
   <data name="Back to reports" xml:space="preserve">
     <value>Kembali ke laporan</value>
@@ -257,6 +185,12 @@
   </data>
   <data name="Boards you archive will appear here." xml:space="preserve">
     <value>Papan yang Anda arsipkan akan muncul di sini.</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>KOLOM</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>KOMENTAR  {0}</value>
   </data>
   <data name="Can edit" xml:space="preserve">
     <value>Dapat mengedit</value>
@@ -303,12 +237,6 @@
   <data name="Close" xml:space="preserve">
     <value>Tutup</value>
   </data>
-  <data name="COLUMN" xml:space="preserve">
-    <value>KOLOM</value>
-  </data>
-  <data name="Column {0}" xml:space="preserve">
-    <value>Kolom {0}</value>
-  </data>
   <data name="Column added" xml:space="preserve">
     <value>Kolom ditambahkan</value>
   </data>
@@ -321,6 +249,9 @@
   <data name="Column updated" xml:space="preserve">
     <value>Kolom diperbarui</value>
   </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Kolom {0}</value>
+  </data>
   <data name="Comment image" xml:space="preserve">
     <value>Gambar komentar</value>
   </data>
@@ -329,9 +260,6 @@
   </data>
   <data name="Comment image unavailable" xml:space="preserve">
     <value>Gambar komentar tidak tersedia</value>
-  </data>
-  <data name="COMMENTS  {0}" xml:space="preserve">
-    <value>KOMENTAR  {0}</value>
   </data>
   <data name="Completed" xml:space="preserve">
     <value>Selesai</value>
@@ -414,15 +342,6 @@
   <data name="Delete" xml:space="preserve">
     <value>Hapus</value>
   </data>
-  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
-    <value>Hapus {0} beserta {1} kartunya? Tindakan ini tidak dapat dibatalkan.</value>
-  </data>
-  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
-    <value>Hapus {0}, semua {1} kolom, dan semua {2} kartu? Tindakan ini tidak dapat dibatalkan.</value>
-  </data>
-  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
-    <value>Hapus {0}? Tindakan ini tidak dapat dibatalkan.</value>
-  </data>
   <data name="Delete account" xml:space="preserve">
     <value>Hapus akun</value>
   </data>
@@ -443,6 +362,15 @@
   </data>
   <data name="Delete reply?" xml:space="preserve">
     <value>Hapus balasan?</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>Hapus {0} beserta {1} kartunya? Tindakan ini tidak dapat dibatalkan.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>Hapus {0}, semua {1} kolom, dan semua {2} kartu? Tindakan ini tidak dapat dibatalkan.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>Hapus {0}? Tindakan ini tidak dapat dibatalkan.</value>
   </data>
   <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
     <value>Penghapusan akun Anda bersifat permanen dan tidak dapat dibatalkan.</value>
@@ -540,11 +468,11 @@
   <data name="Filter ({0})" xml:space="preserve">
     <value>Filter ({0})</value>
   </data>
-  <data name="Filter cards" xml:space="preserve">
-    <value>Filter kartu</value>
-  </data>
   <data name="Filter Gantt cards" xml:space="preserve">
     <value>Filter kartu Gantt</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Filter kartu</value>
   </data>
   <data name="Filters &amp; sorting" xml:space="preserve">
     <value>Filter &amp; pengurutan</value>
@@ -582,14 +510,17 @@
   <data name="Kanban Dashboard" xml:space="preserve">
     <value>Dasbor Kanban</value>
   </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>LABEL</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>AKUN LOKAL</value>
+  </data>
   <data name="Label added" xml:space="preserve">
     <value>Label ditambahkan</value>
   </data>
   <data name="Label removed" xml:space="preserve">
     <value>Label dihapus</value>
-  </data>
-  <data name="LABELS" xml:space="preserve">
-    <value>LABEL</value>
   </data>
   <data name="Labels cannot exceed 100 characters" xml:space="preserve">
     <value>Label tidak boleh melebihi 100 karakter</value>
@@ -597,11 +528,20 @@
   <data name="Light" xml:space="preserve">
     <value>Terang</value>
   </data>
-  <data name="LOCAL ACCOUNT" xml:space="preserve">
-    <value>AKUN LOKAL</value>
-  </data>
   <data name="Low" xml:space="preserve">
     <value>Rendah</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>PINDAHKAN KE KOLOM</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>TUGAS AKTIF SAYA  ·  {0} SEDANG BERLANGSUNG</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>ARSIP PAPAN SAYA</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>PAPAN SAYA</value>
   </data>
   <data name="Make room for progress." xml:space="preserve">
     <value>Beri ruang untuk kemajuan.</value>
@@ -624,35 +564,23 @@
   <data name="Month" xml:space="preserve">
     <value>Bulan</value>
   </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Pindahkan kartu</value>
+  </data>
   <data name="Move {0} left" xml:space="preserve">
     <value>Pindahkan {0} ke kiri</value>
   </data>
   <data name="Move {0} right" xml:space="preserve">
     <value>Pindahkan {0} ke kanan</value>
   </data>
-  <data name="Move card" xml:space="preserve">
-    <value>Pindahkan kartu</value>
-  </data>
-  <data name="MOVE TO COLUMN" xml:space="preserve">
-    <value>PINDAHKAN KE KOLOM</value>
-  </data>
   <data name="Move, copy or transfer" xml:space="preserve">
     <value>Pindahkan, salin, atau transfer</value>
   </data>
-  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
-    <value>TUGAS AKTIF SAYA  ·  {0} SEDANG BERLANGSUNG</value>
-  </data>
-  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
-    <value>ARSIP PAPAN SAYA</value>
-  </data>
-  <data name="MY BOARD" xml:space="preserve">
-    <value>PAPAN SAYA</value>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>Log Operasi Saya</value>
   </data>
   <data name="My boards" xml:space="preserve">
     <value>Papan saya</value>
-  </data>
-  <data name="My Operation Logs" xml:space="preserve">
-    <value>Log Operasi Saya</value>
   </data>
   <data name="My tasks" xml:space="preserve">
     <value>Tugas saya</value>
@@ -759,6 +687,12 @@
   <data name="Notifications" xml:space="preserve">
     <value>Notifikasi</value>
   </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>OPERASI</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>MASUK DENGAN AKUN ORGANISASI</value>
+  </data>
   <data name="Oldest first" xml:space="preserve">
     <value>Terlama dahulu</value>
   </data>
@@ -780,17 +714,20 @@
   <data name="Open original" xml:space="preserve">
     <value>Buka asli</value>
   </data>
-  <data name="OPERATION" xml:space="preserve">
-    <value>OPERASI</value>
-  </data>
   <data name="Operation logging is not enabled on this server." xml:space="preserve">
     <value>Pencatatan operasi tidak diaktifkan di server ini.</value>
   </data>
-  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
-    <value>MASUK DENGAN AKUN ORGANISASI</value>
-  </data>
   <data name="Overdue" xml:space="preserve">
     <value>Terlambat</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP, atau BMP · masing-masing 10 MB</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>PRIORITAS</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>TINDAKAN YANG DIUSULKAN</value>
   </data>
   <data name="Page {0} of {1}" xml:space="preserve">
     <value>Halaman {0} dari {1}</value>
@@ -822,12 +759,6 @@
   <data name="Planned start · latest first" xml:space="preserve">
     <value>Awal rencana · paling akhir dahulu</value>
   </data>
-  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
-    <value>PNG, JPEG, GIF, WebP, atau BMP · masing-masing 10 MB</value>
-  </data>
-  <data name="PRIORITY" xml:space="preserve">
-    <value>PRIORITAS</value>
-  </data>
   <data name="Priority · low first" xml:space="preserve">
     <value>Prioritas · terendah dahulu</value>
   </data>
@@ -839,9 +770,6 @@
   </data>
   <data name="Profile saved" xml:space="preserve">
     <value>Profil tersimpan</value>
-  </data>
-  <data name="PROPOSED ACTION" xml:space="preserve">
-    <value>TINDAKAN YANG DIUSULKAN</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Siap</value>
@@ -855,14 +783,14 @@
   <data name="Remove" xml:space="preserve">
     <value>Hapus</value>
   </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Hapus akses?</value>
+  </data>
   <data name="Remove {0}" xml:space="preserve">
     <value>Hapus {0}</value>
   </data>
   <data name="Remove {0} from this board?" xml:space="preserve">
     <value>Hapus {0} dari papan ini?</value>
-  </data>
-  <data name="Remove access?" xml:space="preserve">
-    <value>Hapus akses?</value>
   </data>
   <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
     <value>Balasan tidak boleh melebihi 2.000 karakter</value>
@@ -887,6 +815,15 @@
   </data>
   <data name="Retry" xml:space="preserve">
     <value>Coba lagi</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>PAPAN ARSIP YANG DIBAGIKAN</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>PAPAN BERSAMA</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>URUTKAN</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Simpan</value>
@@ -921,20 +858,14 @@
   <data name="Set a due date before enabling recurrence." xml:space="preserve">
     <value>Tetapkan tenggat waktu sebelum mengaktifkan pengulangan.</value>
   </data>
-  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
-    <value>PAPAN ARSIP YANG DIBAGIKAN</value>
-  </data>
-  <data name="SHARED BOARD" xml:space="preserve">
-    <value>PAPAN BERSAMA</value>
-  </data>
   <data name="Shared boards" xml:space="preserve">
     <value>Papan bersama</value>
   </data>
-  <data name="Shared with {0}" xml:space="preserve">
-    <value>Dibagikan dengan {0}</value>
-  </data>
   <data name="Shared with me" xml:space="preserve">
     <value>Dibagikan kepada saya</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>Dibagikan dengan {0}</value>
   </data>
   <data name="Sign in" xml:space="preserve">
     <value>Masuk</value>
@@ -944,9 +875,6 @@
   </data>
   <data name="Signing you in…" xml:space="preserve">
     <value>Sedang memasukkan Anda…</value>
-  </data>
-  <data name="SORT" xml:space="preserve">
-    <value>URUTKAN</value>
   </data>
   <data name="Start  {0}" xml:space="preserve">
     <value>Mulai  {0}</value>
@@ -962,6 +890,12 @@
   </data>
   <data name="Switch server" xml:space="preserve">
     <value>Ganti server</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>LINIMASA</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>LAPORAN HARI INI</value>
   </data>
   <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
     <value>Penanggung jawab dihapus, dan balasan tetap tersimpan dalam riwayat kartu sumber.</value>
@@ -1011,23 +945,17 @@
   <data name="This reply will be permanently removed." xml:space="preserve">
     <value>Balasan ini akan dihapus secara permanen.</value>
   </data>
-  <data name="TIMELINE" xml:space="preserve">
-    <value>LINIMASA</value>
-  </data>
   <data name="Title" xml:space="preserve">
     <value>Judul</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Judul atau deskripsi</value>
   </data>
   <data name="Title · A–Z" xml:space="preserve">
     <value>Judul · A–Z</value>
   </data>
   <data name="Title · Z–A" xml:space="preserve">
     <value>Judul · Z–A</value>
-  </data>
-  <data name="Title or description" xml:space="preserve">
-    <value>Judul atau deskripsi</value>
-  </data>
-  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
-    <value>LAPORAN HARI INI</value>
   </data>
   <data name="Transfer" xml:space="preserve">
     <value>Pindahkan</value>
@@ -1080,14 +1008,14 @@
   <data name="View only" xml:space="preserve">
     <value>Hanya lihat</value>
   </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>LAPORAN MINGGUAN</value>
+  </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Menunggu persetujuan</value>
   </data>
   <data name="Week" xml:space="preserve">
     <value>Minggu</value>
-  </data>
-  <data name="WEEKLY REPORT" xml:space="preserve">
-    <value>LAPORAN MINGGUAN</value>
   </data>
   <data name="Weekly report discarded." xml:space="preserve">
     <value>Laporan mingguan dibuang.</value>
@@ -1110,14 +1038,14 @@
   <data name="You can attach up to {0} images." xml:space="preserve">
     <value>Anda dapat melampirkan hingga {0} gambar.</value>
   </data>
-  <data name="You have {0} unread notification{1}." xml:space="preserve">
-    <value>Anda memiliki {0} notifikasi yang belum dibaca{1}.</value>
-  </data>
   <data name="You have no archived boards." xml:space="preserve">
     <value>Anda tidak memiliki papan yang diarsipkan.</value>
   </data>
   <data name="You have no unread notifications." xml:space="preserve">
     <value>Anda tidak memiliki notifikasi yang belum dibaca.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>Anda memiliki {0} notifikasi yang belum dibaca{1}.</value>
   </data>
   <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
     <value>Anda memiliki {0} papan. Hapus papan tersebut sebelum menghapus akun Anda.</value>
@@ -1136,6 +1064,78 @@
   </data>
   <data name="Your workspace" xml:space="preserve">
     <value>Ruang kerja Anda</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} papan · semua terlihat jelas</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} kartu</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} kartu · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} kartu · {1} kolom</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} kolom · {1} kartu</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>{0} gambar dilewati. Gunakan PNG, JPEG, GIF, WebP, atau BMP dengan ukuran maksimal 10 MB.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>{0} dari {1} dipilih</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} terbuka · {1} sedang dikerjakan · {2} selesai</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>{0} terlambat</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} terlambat · {1} belum ditugaskan</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>Prioritas {0}  ·  Tenggat {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} balasan</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} laporan</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} hasil</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} dijadwalkan · {1} tanpa tanggal lengkap</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} tugas</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0} akan kembali ke ruang kerja aktif Anda.</value>
+  </data>
+  <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · sejak {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>Tugas milik {0}</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, digunakan oleh {1} tugas</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2} prioritas</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Buka laporan.</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Ketuk untuk mengetahui detail.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Ketuk untuk detail. Tahan dan seret untuk memindahkan.</value>
   </data>
 
 </root>

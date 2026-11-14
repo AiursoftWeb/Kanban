@@ -45,9 +45,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>بطاقة (بطاقات). سيؤدي حذف العمود أيضًا إلى حذف جميع بطاقاته نهائيًا.</value>
-  </data>
   <data name="Cards" xml:space="preserve">
     <value>البطاقات</value>
   </data>
@@ -155,6 +152,9 @@
   </data>
   <data name="Unknown error" xml:space="preserve">
     <value>خطأ غير معروف</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>بطاقة (بطاقات). سيؤدي حذف العمود أيضًا إلى حذف جميع بطاقاته نهائيًا.</value>
   </data>
 
 </root>

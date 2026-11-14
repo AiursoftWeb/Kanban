@@ -36,14 +36,14 @@
   <data name="Add" xml:space="preserve">
     <value>إضافة</value>
   </data>
-  <data name="Add a comment..." xml:space="preserve">
-    <value>إضافة تعليق...</value>
-  </data>
   <data name="Add Card" xml:space="preserve">
     <value>إضافة بطاقة</value>
   </data>
   <data name="Add Column" xml:space="preserve">
     <value>إضافة عمود</value>
+  </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>إضافة تعليق...</value>
   </data>
   <data name="Add more details..." xml:space="preserve">
     <value>أضف المزيد من التفاصيل...</value>
@@ -78,9 +78,6 @@
   <data name="Assignee" xml:space="preserve">
     <value>المسؤول</value>
   </data>
-  <data name="auto" xml:space="preserve">
-    <value>تلقائي</value>
-  </data>
   <data name="Board Name" xml:space="preserve">
     <value>اسم اللوحة</value>
   </data>
@@ -89,9 +86,6 @@
   </data>
   <data name="Card Details" xml:space="preserve">
     <value>تفاصيل البطاقة</value>
-  </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>بطاقة (بطاقات). سيؤدي حذف العمود أيضًا إلى حذف جميع بطاقاته نهائيًا.</value>
   </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>تغيير لون {{0}}</value>
@@ -104,9 +98,6 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>إغلاق</value>
-  </data>
-  <data name="column" xml:space="preserve">
-    <value>عمود</value>
   </data>
   <data name="Column Name" xml:space="preserve">
     <value>اسم العمود</value>
@@ -153,9 +144,6 @@
   <data name="Custom color" xml:space="preserve">
     <value>لون مخصص</value>
   </data>
-  <data name="d ago" xml:space="preserve">
-    <value>د قبل</value>
-  </data>
   <data name="Day" xml:space="preserve">
     <value>اليوم</value>
   </data>
@@ -171,14 +159,14 @@
   <data name="Delete Board" xml:space="preserve">
     <value>حذف اللوحة</value>
   </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>حذف التعليق</value>
+  </data>
   <data name="Delete card" xml:space="preserve">
     <value>حذف البطاقة</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>حذف العمود</value>
-  </data>
-  <data name="Delete Comment" xml:space="preserve">
-    <value>حذف التعليق</value>
   </data>
   <data name="Delete empty column" xml:space="preserve">
     <value>حذف العمود الفارغ</value>
@@ -228,20 +216,20 @@
   <data name="Failed to create column." xml:space="preserve">
     <value>فشل في إنشاء العمود.</value>
   </data>
-  <data name="Failed to delete board:" xml:space="preserve">
-    <value>فشل في حذف اللوحة:</value>
-  </data>
   <data name="Failed to delete board." xml:space="preserve">
     <value>فشل حذف اللوحة.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>فشل في حذف اللوحة:</value>
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>فشل حذف البطاقة.</value>
   </data>
-  <data name="Failed to delete column:" xml:space="preserve">
-    <value>فشل في حذف العمود:</value>
-  </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>فشل حذف العمود.</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>فشل في حذف العمود:</value>
   </data>
   <data name="Failed to delete comment." xml:space="preserve">
     <value>فشل في حذف التعليق.</value>
@@ -252,35 +240,35 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>فشل في تحميل أهداف النقل.</value>
   </data>
-  <data name="Failed to move card:" xml:space="preserve">
-    <value>فشل في نقل البطاقة:</value>
-  </data>
   <data name="Failed to move card." xml:space="preserve">
     <value>فشل نقل البطاقة.</value>
+  </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>فشل في نقل البطاقة:</value>
   </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>فشل في إزالة التسمية.</value>
   </data>
-  <data name="Failed to rename board:" xml:space="preserve">
-    <value>فشل في إعادة تسمية اللوحة:</value>
-  </data>
   <data name="Failed to rename board." xml:space="preserve">
     <value>فشل في إعادة تسمية اللوحة.</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>فشل في إعادة تسمية اللوحة:</value>
   </data>
   <data name="Failed to rename column:" xml:space="preserve">
     <value>فشل في إعادة تسمية العمود:</value>
   </data>
-  <data name="Failed to save:" xml:space="preserve">
-    <value>فشل في الحفظ:</value>
-  </data>
   <data name="Failed to save." xml:space="preserve">
     <value>فشل الحفظ.</value>
   </data>
-  <data name="Failed to transfer card:" xml:space="preserve">
-    <value>فشل في نقل البطاقة:</value>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>فشل في الحفظ:</value>
   </data>
   <data name="Failed to transfer card." xml:space="preserve">
     <value>فشل نقل البطاقة.</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>فشل في نقل البطاقة:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>فشل في تحديث لون التسمية.</value>
@@ -297,9 +285,6 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>مخطط جانت</value>
   </data>
-  <data name="h ago" xml:space="preserve">
-    <value>ساعات مضت</value>
-  </data>
   <data name="High" xml:space="preserve">
     <value>عالية</value>
   </data>
@@ -308,9 +293,6 @@
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>غير مكتمل</value>
-  </data>
-  <data name="just now" xml:space="preserve">
-    <value>الآن فقط</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>كانبان</value>
@@ -329,9 +311,6 @@
   </data>
   <data name="Low" xml:space="preserve">
     <value>منخفضة</value>
-  </data>
-  <data name="m ago" xml:space="preserve">
-    <value>م قبل</value>
   </data>
   <data name="Medium" xml:space="preserve">
     <value>متوسط</value>
@@ -392,9 +371,6 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>موافق</value>
-  </data>
-  <data name="optional" xml:space="preserve">
-    <value>اختياري</value>
   </data>
   <data name="Overdue" xml:space="preserve">
     <value>متأخرة</value>
@@ -554,6 +530,30 @@
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>يمكنك سحب الصور إلى هنا أو لصقها من الحافظة.</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>تلقائي</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>بطاقة (بطاقات). سيؤدي حذف العمود أيضًا إلى حذف جميع بطاقاته نهائيًا.</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>عمود</value>
+  </data>
+  <data name="d ago" xml:space="preserve">
+    <value>د قبل</value>
+  </data>
+  <data name="h ago" xml:space="preserve">
+    <value>ساعات مضت</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>الآن فقط</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>م قبل</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>اختياري</value>
   </data>
 
 </root>

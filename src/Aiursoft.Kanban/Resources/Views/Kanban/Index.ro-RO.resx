@@ -36,14 +36,14 @@
   <data name="Add" xml:space="preserve">
     <value>Adaugă</value>
   </data>
-  <data name="Add a comment..." xml:space="preserve">
-    <value>Adaugă un comentariu...</value>
-  </data>
   <data name="Add Card" xml:space="preserve">
     <value>Adaugă card</value>
   </data>
   <data name="Add Column" xml:space="preserve">
     <value>Adaugă coloană</value>
+  </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>Adaugă un comentariu...</value>
   </data>
   <data name="Add more details..." xml:space="preserve">
     <value>Adăugați mai multe detalii...</value>
@@ -78,9 +78,6 @@
   <data name="Assignee" xml:space="preserve">
     <value>Atribuit</value>
   </data>
-  <data name="auto" xml:space="preserve">
-    <value>automat</value>
-  </data>
   <data name="Board Name" xml:space="preserve">
     <value>Numele tabelei</value>
   </data>
@@ -89,9 +86,6 @@
   </data>
   <data name="Card Details" xml:space="preserve">
     <value>Detalii card</value>
-  </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>carduri. Ștergerea coloanei va șterge, de asemenea, definitiv toate cardurile sale.</value>
   </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Schimbați culoarea {{0}}</value>
@@ -104,9 +98,6 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>Închidere</value>
-  </data>
-  <data name="column" xml:space="preserve">
-    <value>coloană</value>
   </data>
   <data name="Column Name" xml:space="preserve">
     <value>Nume coloană</value>
@@ -153,9 +144,6 @@
   <data name="Custom color" xml:space="preserve">
     <value>Culoare personalizată</value>
   </data>
-  <data name="d ago" xml:space="preserve">
-    <value>d în urmă</value>
-  </data>
   <data name="Day" xml:space="preserve">
     <value>Zi</value>
   </data>
@@ -171,14 +159,14 @@
   <data name="Delete Board" xml:space="preserve">
     <value>Șterge panoul</value>
   </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>Șterge comentariul</value>
+  </data>
   <data name="Delete card" xml:space="preserve">
     <value>Șterge cardul</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Șterge coloana</value>
-  </data>
-  <data name="Delete Comment" xml:space="preserve">
-    <value>Șterge comentariul</value>
   </data>
   <data name="Delete empty column" xml:space="preserve">
     <value>Șterge coloana goală</value>
@@ -228,20 +216,20 @@
   <data name="Failed to create column." xml:space="preserve">
     <value>Nu s-a putut crea coloana.</value>
   </data>
-  <data name="Failed to delete board:" xml:space="preserve">
-    <value>Nu s-a putut șterge tabloul:</value>
-  </data>
   <data name="Failed to delete board." xml:space="preserve">
     <value>Eșec la ștergerea planșei.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>Nu s-a putut șterge tabloul:</value>
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Nu s-a reușit ștergerea cardului.</value>
   </data>
-  <data name="Failed to delete column:" xml:space="preserve">
-    <value>Nu s-a putut șterge coloana:</value>
-  </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Nu s-a reușit ștergerea coloanei.</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>Nu s-a putut șterge coloana:</value>
   </data>
   <data name="Failed to delete comment." xml:space="preserve">
     <value>Eșec la ștergerea comentariului.</value>
@@ -252,35 +240,35 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>Nu s-au putut încărca destinațiile de transfer.</value>
   </data>
-  <data name="Failed to move card:" xml:space="preserve">
-    <value>Nu s-a putut muta cartea:</value>
-  </data>
   <data name="Failed to move card." xml:space="preserve">
     <value>Nu s-a reușit mutarea cardului.</value>
+  </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>Nu s-a putut muta cartea:</value>
   </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Eșec la ștergerea etichetei.</value>
   </data>
-  <data name="Failed to rename board:" xml:space="preserve">
-    <value>Nu s-a putut redenumi tabloul:</value>
-  </data>
   <data name="Failed to rename board." xml:space="preserve">
     <value>Nu s-a putut redenumi tabla.</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>Nu s-a putut redenumi tabloul:</value>
   </data>
   <data name="Failed to rename column:" xml:space="preserve">
     <value>Nepreîntâlnit redenumirea coloanei:</value>
   </data>
-  <data name="Failed to save:" xml:space="preserve">
-    <value>Salvarea a eșuat:</value>
-  </data>
   <data name="Failed to save." xml:space="preserve">
     <value>Nu s-a putut salva.</value>
   </data>
-  <data name="Failed to transfer card:" xml:space="preserve">
-    <value>Transferul cardului a eșuat:</value>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>Salvarea a eșuat:</value>
   </data>
   <data name="Failed to transfer card." xml:space="preserve">
     <value>Transferarea cardului a eșuat.</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>Transferul cardului a eșuat:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Actualizarea culorii etichetei a eșuat.</value>
@@ -297,9 +285,6 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>Diagramă Gantt</value>
   </data>
-  <data name="h ago" xml:space="preserve">
-    <value>acum o oră</value>
-  </data>
   <data name="High" xml:space="preserve">
     <value>Înaltă</value>
   </data>
@@ -308,9 +293,6 @@
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>Neterminate</value>
-  </data>
-  <data name="just now" xml:space="preserve">
-    <value>acum</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>Kanban</value>
@@ -329,9 +311,6 @@
   </data>
   <data name="Low" xml:space="preserve">
     <value>Scăzută</value>
-  </data>
-  <data name="m ago" xml:space="preserve">
-    <value>min în urmă</value>
   </data>
   <data name="Medium" xml:space="preserve">
     <value>Mediu</value>
@@ -392,9 +371,6 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>Ok</value>
-  </data>
-  <data name="optional" xml:space="preserve">
-    <value>opțional</value>
   </data>
   <data name="Overdue" xml:space="preserve">
     <value>În întârziere</value>
@@ -554,6 +530,30 @@
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>Aici puteți trage imagini sau le puteți lipi din clipboard.</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>automat</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>carduri. Ștergerea coloanei va șterge, de asemenea, definitiv toate cardurile sale.</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>coloană</value>
+  </data>
+  <data name="d ago" xml:space="preserve">
+    <value>d în urmă</value>
+  </data>
+  <data name="h ago" xml:space="preserve">
+    <value>acum o oră</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>acum</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>min în urmă</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>opțional</value>
   </data>
 
 </root>

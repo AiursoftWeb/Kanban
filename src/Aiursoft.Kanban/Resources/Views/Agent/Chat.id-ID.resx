@@ -27,9 +27,6 @@
   <data name="Attach Excel file" xml:space="preserve">
     <value>Lampirkan file Excel</value>
   </data>
-  <data name="click to expand" xml:space="preserve">
-    <value>klik untuk memperluas</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>Kesalahan</value>
   </data>
@@ -86,6 +83,9 @@
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Menunggu persetujuan</value>
+  </data>
+  <data name="click to expand" xml:space="preserve">
+    <value>klik untuk memperluas</value>
   </data>
 
 </root>

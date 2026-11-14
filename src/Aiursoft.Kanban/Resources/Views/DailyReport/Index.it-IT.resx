@@ -27,17 +27,17 @@
   <data name="Date" xml:space="preserve">
     <value>Data</value>
   </data>
-  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
-    <value>Genera un piano mattutino per sapere su cosa concentrarti oggi.</value>
-  </data>
-  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
-    <value>Genera un riepilogo del pomeriggio per riflettere su ciò che hai realizzato oggi.</value>
-  </data>
   <data name="Generate Plan" xml:space="preserve">
     <value>Genera piano</value>
   </data>
   <data name="Generate Summary" xml:space="preserve">
     <value>Genera riepilogo</value>
+  </data>
+  <data name="Generate a morning plan to see what you should focus on today." xml:space="preserve">
+    <value>Genera un piano mattutino per sapere su cosa concentrarti oggi.</value>
+  </data>
+  <data name="Generate an afternoon summary to reflect on what you accomplished today." xml:space="preserve">
+    <value>Genera un riepilogo del pomeriggio per riflettere su ciò che hai realizzato oggi.</value>
   </data>
   <data name="Generated" xml:space="preserve">
     <value>Generato</value>

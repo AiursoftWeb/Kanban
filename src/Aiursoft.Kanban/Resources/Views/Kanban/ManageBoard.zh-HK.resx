@@ -45,9 +45,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>張（張數）。刪除欄位亦會永久刪除所有其內卡片。</value>
-  </data>
   <data name="Cards" xml:space="preserve">
     <value>卡片</value>
   </data>
@@ -155,6 +152,9 @@
   </data>
   <data name="Unknown error" xml:space="preserve">
     <value>未知錯誤</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>張（張數）。刪除欄位亦會永久刪除所有其內卡片。</value>
   </data>
 
 </root>

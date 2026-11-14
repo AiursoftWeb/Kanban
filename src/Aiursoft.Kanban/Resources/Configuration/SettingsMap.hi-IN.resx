@@ -27,11 +27,11 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>परीक्षण के लिए एक डमी संख्या।</value>
   </data>
-  <data name="Agent System Prompt" xml:space="preserve">
-    <value>एजेंट सिस्टम प्रॉम्प्ट</value>
-  </data>
   <data name="AI Model" xml:space="preserve">
     <value>AI मॉडल</value>
+  </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>एजेंट सिस्टम प्रॉम्प्ट</value>
   </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>उपयोगकर्ता नाम समायोजित करने की अनुमति दें</value>
@@ -105,17 +105,17 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>काबन AI एजेंट द्वारा उपयोग किए जाने वाले Anthropic Messages API अंतर्बिंदु। /v1/messages सहित पूर्ण URL होना आवश्यक है, उदा. https://ollama.example.com/v1/messages। AI एजेंट को निष्क्रिय करने के लिए खाली छोड़ दें।</value>
   </data>
-  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
-    <value>इम्बेडिंग API का बेस URL (जैसे Ollama)। इसमें पथ शामिल नहीं होना चाहिए, जैसे http://localhost:11434। अक्षम करने के लिए खाली छोड़ दें।</value>
-  </data>
-  <data name="The brand name displayed in the footer." xml:space="preserve">
-    <value>फुटर में दिखाई देने वाला ब्रांड नाम</value>
-  </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>चीन मुख्यभूमि के उपयोगकर्ताओं के लिए ICP लाइसेंस संख्या। छिपाने के लिए खाली छोड़ दें।</value>
   </data>
   <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
     <value>Kanban AI एजेंट के लिए उपयोग किया गया LLM मॉडल नाम, जैसे aiursoft-instruct:latest, claude-sonnet-4-5, या deepseek-chat। यह ऊपर दिए गए Anthropic API Endpoint पर उपलब्ध होना आवश्यक है।</value>
+  </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>इम्बेडिंग API का बेस URL (जैसे Ollama)। इसमें पथ शामिल नहीं होना चाहिए, जैसे http://localhost:11434। अक्षम करने के लिए खाली छोड़ दें।</value>
+  </data>
+  <data name="The brand name displayed in the footer." xml:space="preserve">
+    <value>फुटर में दिखाई देने वाला ब्रांड नाम</value>
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>प्रोजेक्ट का लोगो नेवबार और फुटर में प्रदर्शित किया जाता है। jpg, png, svg समर्थित हैं।</value>

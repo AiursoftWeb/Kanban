@@ -18,17 +18,14 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Account Management" xml:space="preserve">
-    <value>Gestión de la cuenta</value>
-  </data>
-  <data name="AI" xml:space="preserve">
+      <data name="AI" xml:space="preserve">
     <value>IA</value>
   </data>
   <data name="AI Report Settings" xml:space="preserve">
     <value>Configuración de informes de IA</value>
   </data>
-  <data name="auth provider" xml:space="preserve">
-    <value>proveedor de autenticación</value>
+  <data name="Account Management" xml:space="preserve">
+    <value>Gestión de la cuenta</value>
   </data>
   <data name="Avatar settings" xml:space="preserve">
     <value>Configuración del avatar</value>
@@ -68,6 +65,9 @@
   </data>
   <data name="You can&apos;t change your password because local authentication is disabled. Please edit your profile from the auth provider." xml:space="preserve">
     <value>No puede cambiar su contraseña porque la autenticación local está deshabilitada. Por favor, edite su perfil desde el proveedor de autenticación.</value>
+  </data>
+  <data name="auth provider" xml:space="preserve">
+    <value>proveedor de autenticación</value>
   </data>
 
 </root>

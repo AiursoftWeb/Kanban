@@ -36,14 +36,14 @@
   <data name="Add" xml:space="preserve">
     <value>Aggiungi</value>
   </data>
-  <data name="Add a comment..." xml:space="preserve">
-    <value>Aggiungi un commento...</value>
-  </data>
   <data name="Add Card" xml:space="preserve">
     <value>Aggiungi carta</value>
   </data>
   <data name="Add Column" xml:space="preserve">
     <value>Aggiungi colonna</value>
+  </data>
+  <data name="Add a comment..." xml:space="preserve">
+    <value>Aggiungi un commento...</value>
   </data>
   <data name="Add more details..." xml:space="preserve">
     <value>Aggiungi altri dettagli...</value>
@@ -78,9 +78,6 @@
   <data name="Assignee" xml:space="preserve">
     <value>Assegnatario</value>
   </data>
-  <data name="auto" xml:space="preserve">
-    <value>automatico</value>
-  </data>
   <data name="Board Name" xml:space="preserve">
     <value>Nome bacheca</value>
   </data>
@@ -89,9 +86,6 @@
   </data>
   <data name="Card Details" xml:space="preserve">
     <value>Dettagli della scheda</value>
-  </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>carta(e). L&apos;eliminazione della colonna eliminerà anche in modo permanente tutte le sue carte.</value>
   </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Cambia colore {{0}}</value>
@@ -104,9 +98,6 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>Chiudi</value>
-  </data>
-  <data name="column" xml:space="preserve">
-    <value>colonna</value>
   </data>
   <data name="Column Name" xml:space="preserve">
     <value>Nome colonna</value>
@@ -153,9 +144,6 @@
   <data name="Custom color" xml:space="preserve">
     <value>Colore personalizzato</value>
   </data>
-  <data name="d ago" xml:space="preserve">
-    <value>d fa</value>
-  </data>
   <data name="Day" xml:space="preserve">
     <value>Giorno</value>
   </data>
@@ -171,14 +159,14 @@
   <data name="Delete Board" xml:space="preserve">
     <value>Elimina bacheca</value>
   </data>
+  <data name="Delete Comment" xml:space="preserve">
+    <value>Elimina commento</value>
+  </data>
   <data name="Delete card" xml:space="preserve">
     <value>Elimina carta</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Elimina colonna</value>
-  </data>
-  <data name="Delete Comment" xml:space="preserve">
-    <value>Elimina commento</value>
   </data>
   <data name="Delete empty column" xml:space="preserve">
     <value>Elimina colonna vuota</value>
@@ -228,20 +216,20 @@
   <data name="Failed to create column." xml:space="preserve">
     <value>Impossibile creare la colonna.</value>
   </data>
-  <data name="Failed to delete board:" xml:space="preserve">
-    <value>Impossibile eliminare la lavagna:</value>
-  </data>
   <data name="Failed to delete board." xml:space="preserve">
     <value>Impossibile eliminare la board.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>Impossibile eliminare la lavagna:</value>
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Impossibile eliminare la carta.</value>
   </data>
-  <data name="Failed to delete column:" xml:space="preserve">
-    <value>Eliminazione della colonna non riuscita:</value>
-  </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Eliminazione della colonna non riuscita.</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>Eliminazione della colonna non riuscita:</value>
   </data>
   <data name="Failed to delete comment." xml:space="preserve">
     <value>Impossibile eliminare il commento.</value>
@@ -252,35 +240,35 @@
   <data name="Failed to load transfer targets." xml:space="preserve">
     <value>Impossibile caricare i destinations del trasferimento.</value>
   </data>
-  <data name="Failed to move card:" xml:space="preserve">
-    <value>Non è stato possibile spostare la scheda:</value>
-  </data>
   <data name="Failed to move card." xml:space="preserve">
     <value>Impossibile spostare la scheda.</value>
+  </data>
+  <data name="Failed to move card:" xml:space="preserve">
+    <value>Non è stato possibile spostare la scheda:</value>
   </data>
   <data name="Failed to remove label." xml:space="preserve">
     <value>Impossibile rimuovere l&apos;etichetta.</value>
   </data>
-  <data name="Failed to rename board:" xml:space="preserve">
-    <value>Impossibile rinominare la bacheca:</value>
-  </data>
   <data name="Failed to rename board." xml:space="preserve">
     <value>Impossibile rinominare la scheda.</value>
+  </data>
+  <data name="Failed to rename board:" xml:space="preserve">
+    <value>Impossibile rinominare la bacheca:</value>
   </data>
   <data name="Failed to rename column:" xml:space="preserve">
     <value>Impossibile rinominare la colonna:</value>
   </data>
-  <data name="Failed to save:" xml:space="preserve">
-    <value>Salvataggio non riuscito:</value>
-  </data>
   <data name="Failed to save." xml:space="preserve">
     <value>Salvataggio non riuscito.</value>
   </data>
-  <data name="Failed to transfer card:" xml:space="preserve">
-    <value>Impossibile trasferire la scheda:</value>
+  <data name="Failed to save:" xml:space="preserve">
+    <value>Salvataggio non riuscito:</value>
   </data>
   <data name="Failed to transfer card." xml:space="preserve">
     <value>Trasferimento della scheda non riuscito.</value>
+  </data>
+  <data name="Failed to transfer card:" xml:space="preserve">
+    <value>Impossibile trasferire la scheda:</value>
   </data>
   <data name="Failed to update label color." xml:space="preserve">
     <value>Impossibile aggiornare il colore dell&apos;etichetta.</value>
@@ -297,9 +285,6 @@
   <data name="Gantt Chart" xml:space="preserve">
     <value>Diagramma di Gantt</value>
   </data>
-  <data name="h ago" xml:space="preserve">
-    <value>h fa</value>
-  </data>
   <data name="High" xml:space="preserve">
     <value>Alta</value>
   </data>
@@ -308,9 +293,6 @@
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>Completati</value>
-  </data>
-  <data name="just now" xml:space="preserve">
-    <value>proprio ora</value>
   </data>
   <data name="Kanban" xml:space="preserve">
     <value>Kanban</value>
@@ -329,9 +311,6 @@
   </data>
   <data name="Low" xml:space="preserve">
     <value>Bassa</value>
-  </data>
-  <data name="m ago" xml:space="preserve">
-    <value>m fa</value>
   </data>
   <data name="Medium" xml:space="preserve">
     <value>Media</value>
@@ -392,9 +371,6 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
-  </data>
-  <data name="optional" xml:space="preserve">
-    <value>opzionale</value>
   </data>
   <data name="Overdue" xml:space="preserve">
     <value>Scaduto</value>
@@ -554,6 +530,30 @@
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>Puoi trascinare le immagini qui oppure incollare dagli appunti.</value>
+  </data>
+  <data name="auto" xml:space="preserve">
+    <value>automatico</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>carta(e). L&apos;eliminazione della colonna eliminerà anche in modo permanente tutte le sue carte.</value>
+  </data>
+  <data name="column" xml:space="preserve">
+    <value>colonna</value>
+  </data>
+  <data name="d ago" xml:space="preserve">
+    <value>d fa</value>
+  </data>
+  <data name="h ago" xml:space="preserve">
+    <value>h fa</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>proprio ora</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>m fa</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>opzionale</value>
   </data>
 
 </root>

@@ -18,79 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
-    <value>{0} · {1} · since {2:yyyy-MM-dd}</value>
-  </data>
-  <data name="{0} boards · one clear view" xml:space="preserve">
-    <value>{0} boards · one clear view</value>
-  </data>
-  <data name="{0} cards" xml:space="preserve">
-    <value>{0} cards</value>
-  </data>
-  <data name="{0} cards · {1}" xml:space="preserve">
-    <value>{0} cards · {1}</value>
-  </data>
-  <data name="{0} cards · {1} columns" xml:space="preserve">
-    <value>{0} cards · {1} columns</value>
-  </data>
-  <data name="{0} columns · {1} cards" xml:space="preserve">
-    <value>{0} columns · {1} cards</value>
-  </data>
-  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
-    <value>{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP or BMP up to 10 MB.</value>
-  </data>
-  <data name="{0} of {1} selected" xml:space="preserve">
-    <value>{0} of {1} selected</value>
-  </data>
-  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
-    <value>{0} open · {1} in progress · {2} complete</value>
-  </data>
-  <data name="{0} overdue" xml:space="preserve">
-    <value>{0} overdue</value>
-  </data>
-  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
-    <value>{0} overdue · {1} unassigned</value>
-  </data>
-  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
-    <value>{0} priority  ·  Due {1}</value>
-  </data>
-  <data name="{0} replies" xml:space="preserve">
-    <value>{0} replies</value>
-  </data>
-  <data name="{0} reports" xml:space="preserve">
-    <value>{0} reports</value>
-  </data>
-  <data name="{0} results" xml:space="preserve">
-    <value>{0} results</value>
-  </data>
-  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
-    <value>{0} scheduled · {1} without complete dates</value>
-  </data>
-  <data name="{0} tasks" xml:space="preserve">
-    <value>{0} tasks</value>
-  </data>
-  <data name="{0} will return to your active workspace." xml:space="preserve">
-    <value>{0} will return to your active workspace.</value>
-  </data>
-  <data name="{0}, {1}, {2} priority" xml:space="preserve">
-    <value>{0}, {1}, {2} priority</value>
-  </data>
-  <data name="{0}, {1}. Open report." xml:space="preserve">
-    <value>{0}, {1}. Open report.</value>
-  </data>
-  <data name="{0}, used by {1} tasks" xml:space="preserve">
-    <value>{0}, used by {1} tasks</value>
-  </data>
-  <data name="{0}. Tap for details." xml:space="preserve">
-    <value>{0}. Tap for details.</value>
-  </data>
-  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
-    <value>{0}. Tap for details. Press and drag to move.</value>
-  </data>
-  <data name="{0}&apos;s Tasks" xml:space="preserve">
-    <value>Tasks for {0}</value>
-  </data>
-  <data name="+  Add card" xml:space="preserve">
+      <data name="+  Add card" xml:space="preserve">
     <value>+  Add card</value>
   </data>
   <data name="1 report" xml:space="preserve">
@@ -108,11 +36,23 @@
   <data name="A little space for your next idea." xml:space="preserve">
     <value>A little space for your next idea.</value>
   </data>
-  <data name="Access removed" xml:space="preserve">
-    <value>Access removed</value>
-  </data>
   <data name="ACTIONS" xml:space="preserve">
     <value>ACTIONS</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>AI-powered</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>AI report settings saved</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>ARCHIVED</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>ASSIGNEE</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Access removed</value>
   </data>
   <data name="Actual" xml:space="preserve">
     <value>Actual</value>
@@ -120,14 +60,14 @@
   <data name="Actual end" xml:space="preserve">
     <value>Actual end</value>
   </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>The actual end time cannot be earlier than the actual start time.</value>
+  </data>
   <data name="Actual end · earliest first" xml:space="preserve">
     <value>Actual end · earliest first</value>
   </data>
   <data name="Actual end · latest first" xml:space="preserve">
     <value>Actual end · latest first</value>
-  </data>
-  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
-    <value>The actual end time cannot be earlier than the actual start time.</value>
   </data>
   <data name="Actual start" xml:space="preserve">
     <value>Actual start</value>
@@ -146,12 +86,6 @@
   </data>
   <data name="Add images" xml:space="preserve">
     <value>Add images</value>
-  </data>
-  <data name="AI POWERED" xml:space="preserve">
-    <value>AI-powered</value>
-  </data>
-  <data name="AI report settings saved" xml:space="preserve">
-    <value>AI report settings saved</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>All</value>
@@ -189,23 +123,20 @@
   <data name="Archive time unavailable" xml:space="preserve">
     <value>Archive time unavailable</value>
   </data>
-  <data name="ARCHIVED" xml:space="preserve">
-    <value>ARCHIVED</value>
-  </data>
-  <data name="Archived · {0} · {1}" xml:space="preserve">
-    <value>Archived · {0} · {1}</value>
-  </data>
-  <data name="Archived · Owner" xml:space="preserve">
-    <value>Archived · Owner</value>
-  </data>
-  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
-    <value>Archived {0:yyyy-MM-dd HH:mm}</value>
-  </data>
   <data name="Archived Boards" xml:space="preserve">
     <value>Archived Boards</value>
   </data>
   <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
     <value>Archived boards are read-only until their owner restores them.</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Archived {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>Archived · Owner</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Archived · {0} · {1}</value>
   </data>
   <data name="Assigned cards across your Kanban boards." xml:space="preserve">
     <value>Cards assigned across your Kanban boards.</value>
@@ -213,17 +144,14 @@
   <data name="Assigned tasks" xml:space="preserve">
     <value>Assigned tasks</value>
   </data>
-  <data name="ASSIGNEE" xml:space="preserve">
-    <value>ASSIGNEE</value>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Back to Kanban</value>
   </data>
   <data name="Back to board" xml:space="preserve">
     <value>Back to board</value>
   </data>
   <data name="Back to board settings" xml:space="preserve">
     <value>Back to board settings</value>
-  </data>
-  <data name="Back to Kanban" xml:space="preserve">
-    <value>Back to Kanban</value>
   </data>
   <data name="Back to reports" xml:space="preserve">
     <value>Back to reports</value>
@@ -257,6 +185,12 @@
   </data>
   <data name="Boards you archive will appear here." xml:space="preserve">
     <value>Boards you archive will appear here.</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>COLUMN</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>COMMENTS  {0}</value>
   </data>
   <data name="Can edit" xml:space="preserve">
     <value>Can edit</value>
@@ -303,12 +237,6 @@
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
-  <data name="COLUMN" xml:space="preserve">
-    <value>COLUMN</value>
-  </data>
-  <data name="Column {0}" xml:space="preserve">
-    <value>Column {0}</value>
-  </data>
   <data name="Column added" xml:space="preserve">
     <value>Column added</value>
   </data>
@@ -321,6 +249,9 @@
   <data name="Column updated" xml:space="preserve">
     <value>Column updated</value>
   </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Column {0}</value>
+  </data>
   <data name="Comment image" xml:space="preserve">
     <value>Comment image</value>
   </data>
@@ -329,9 +260,6 @@
   </data>
   <data name="Comment image unavailable" xml:space="preserve">
     <value>Comment image unavailable</value>
-  </data>
-  <data name="COMMENTS  {0}" xml:space="preserve">
-    <value>COMMENTS  {0}</value>
   </data>
   <data name="Completed" xml:space="preserve">
     <value>Completed</value>
@@ -414,15 +342,6 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
-    <value>Delete {0} and its {1} card(s)? This action cannot be undone.</value>
-  </data>
-  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
-    <value>Delete {0}, all {1} columns and all {2} cards? This cannot be undone.</value>
-  </data>
-  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
-    <value>Delete {0}? This cannot be undone.</value>
-  </data>
   <data name="Delete account" xml:space="preserve">
     <value>Delete account</value>
   </data>
@@ -443,6 +362,15 @@
   </data>
   <data name="Delete reply?" xml:space="preserve">
     <value>Delete reply?</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>Delete {0} and its {1} card(s)? This action cannot be undone.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>Delete {0}, all {1} columns and all {2} cards? This cannot be undone.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>Delete {0}? This cannot be undone.</value>
   </data>
   <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
     <value>Deleting your account is permanent and cannot be undone.</value>
@@ -540,11 +468,11 @@
   <data name="Filter ({0})" xml:space="preserve">
     <value>Filter ({0})</value>
   </data>
-  <data name="Filter cards" xml:space="preserve">
-    <value>Filter cards</value>
-  </data>
   <data name="Filter Gantt cards" xml:space="preserve">
     <value>Filter Gantt cards</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Filter cards</value>
   </data>
   <data name="Filters &amp; sorting" xml:space="preserve">
     <value>Filters &amp; sorting</value>
@@ -582,14 +510,17 @@
   <data name="Kanban Dashboard" xml:space="preserve">
     <value>Kanban Dashboard</value>
   </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>LABELS</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>LOCAL ACCOUNT</value>
+  </data>
   <data name="Label added" xml:space="preserve">
     <value>Label added</value>
   </data>
   <data name="Label removed" xml:space="preserve">
     <value>Label removed</value>
-  </data>
-  <data name="LABELS" xml:space="preserve">
-    <value>LABELS</value>
   </data>
   <data name="Labels cannot exceed 100 characters" xml:space="preserve">
     <value>Labels cannot exceed 100 characters</value>
@@ -597,11 +528,20 @@
   <data name="Light" xml:space="preserve">
     <value>Light</value>
   </data>
-  <data name="LOCAL ACCOUNT" xml:space="preserve">
-    <value>LOCAL ACCOUNT</value>
-  </data>
   <data name="Low" xml:space="preserve">
     <value>Low</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>MOVE TO COLUMN</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>MY ACTIVE TASKS  ·  {0} IN PROGRESS</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>MY ARCHIVED BOARDS</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>MY BOARD</value>
   </data>
   <data name="Make room for progress." xml:space="preserve">
     <value>Make room for progress.</value>
@@ -624,35 +564,23 @@
   <data name="Month" xml:space="preserve">
     <value>Month</value>
   </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Move card</value>
+  </data>
   <data name="Move {0} left" xml:space="preserve">
     <value>Move {0} left</value>
   </data>
   <data name="Move {0} right" xml:space="preserve">
     <value>Move {0} right</value>
   </data>
-  <data name="Move card" xml:space="preserve">
-    <value>Move card</value>
-  </data>
-  <data name="MOVE TO COLUMN" xml:space="preserve">
-    <value>MOVE TO COLUMN</value>
-  </data>
   <data name="Move, copy or transfer" xml:space="preserve">
     <value>Move, copy or transfer</value>
   </data>
-  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
-    <value>MY ACTIVE TASKS  ·  {0} IN PROGRESS</value>
-  </data>
-  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
-    <value>MY ARCHIVED BOARDS</value>
-  </data>
-  <data name="MY BOARD" xml:space="preserve">
-    <value>MY BOARD</value>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>My Operation Logs</value>
   </data>
   <data name="My boards" xml:space="preserve">
     <value>My boards</value>
-  </data>
-  <data name="My Operation Logs" xml:space="preserve">
-    <value>My Operation Logs</value>
   </data>
   <data name="My tasks" xml:space="preserve">
     <value>My tasks</value>
@@ -759,6 +687,12 @@
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>OPERATION</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>ORGANISATION SIGN-IN</value>
+  </data>
   <data name="Oldest first" xml:space="preserve">
     <value>Oldest first</value>
   </data>
@@ -780,17 +714,20 @@
   <data name="Open original" xml:space="preserve">
     <value>Open original</value>
   </data>
-  <data name="OPERATION" xml:space="preserve">
-    <value>OPERATION</value>
-  </data>
   <data name="Operation logging is not enabled on this server." xml:space="preserve">
     <value>Operation logging is not enabled on this server.</value>
   </data>
-  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
-    <value>ORGANISATION SIGN-IN</value>
-  </data>
   <data name="Overdue" xml:space="preserve">
     <value>Overdue</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP or BMP · 10 MB each</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>PRIORITY</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>PROPOSED ACTION</value>
   </data>
   <data name="Page {0} of {1}" xml:space="preserve">
     <value>Page {0} of {1}</value>
@@ -822,12 +759,6 @@
   <data name="Planned start · latest first" xml:space="preserve">
     <value>Planned start · latest first</value>
   </data>
-  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
-    <value>PNG, JPEG, GIF, WebP or BMP · 10 MB each</value>
-  </data>
-  <data name="PRIORITY" xml:space="preserve">
-    <value>PRIORITY</value>
-  </data>
   <data name="Priority · low first" xml:space="preserve">
     <value>Priority · lowest first</value>
   </data>
@@ -839,9 +770,6 @@
   </data>
   <data name="Profile saved" xml:space="preserve">
     <value>Profile saved</value>
-  </data>
-  <data name="PROPOSED ACTION" xml:space="preserve">
-    <value>PROPOSED ACTION</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
@@ -855,14 +783,14 @@
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Remove access?</value>
+  </data>
   <data name="Remove {0}" xml:space="preserve">
     <value>Remove {0}</value>
   </data>
   <data name="Remove {0} from this board?" xml:space="preserve">
     <value>Remove {0} from this board?</value>
-  </data>
-  <data name="Remove access?" xml:space="preserve">
-    <value>Remove access?</value>
   </data>
   <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
     <value>Replies cannot exceed 2,000 characters</value>
@@ -887,6 +815,15 @@
   </data>
   <data name="Retry" xml:space="preserve">
     <value>Retry</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>SHARED ARCHIVED BOARDS</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>SHARED BOARD</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>SORT</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
@@ -921,20 +858,14 @@
   <data name="Set a due date before enabling recurrence." xml:space="preserve">
     <value>Set a due date before enabling recurrence.</value>
   </data>
-  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
-    <value>SHARED ARCHIVED BOARDS</value>
-  </data>
-  <data name="SHARED BOARD" xml:space="preserve">
-    <value>SHARED BOARD</value>
-  </data>
   <data name="Shared boards" xml:space="preserve">
     <value>Shared boards</value>
   </data>
-  <data name="Shared with {0}" xml:space="preserve">
-    <value>Shared with {0}</value>
-  </data>
   <data name="Shared with me" xml:space="preserve">
     <value>Shared with me</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>Shared with {0}</value>
   </data>
   <data name="Sign in" xml:space="preserve">
     <value>Sign in</value>
@@ -944,9 +875,6 @@
   </data>
   <data name="Signing you in…" xml:space="preserve">
     <value>Signing you in…</value>
-  </data>
-  <data name="SORT" xml:space="preserve">
-    <value>SORT</value>
   </data>
   <data name="Start  {0}" xml:space="preserve">
     <value>Start  {0}</value>
@@ -962,6 +890,12 @@
   </data>
   <data name="Switch server" xml:space="preserve">
     <value>Switch server</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>TIMELINE</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>TODAY&apos;S REPORTS</value>
   </data>
   <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
     <value>The assignee is cleared and replies stay in the original card’s history.</value>
@@ -1011,23 +945,17 @@
   <data name="This reply will be permanently removed." xml:space="preserve">
     <value>This reply will be permanently removed.</value>
   </data>
-  <data name="TIMELINE" xml:space="preserve">
-    <value>TIMELINE</value>
-  </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Title or description</value>
   </data>
   <data name="Title · A–Z" xml:space="preserve">
     <value>Title · A–Z</value>
   </data>
   <data name="Title · Z–A" xml:space="preserve">
     <value>Title · Z–A</value>
-  </data>
-  <data name="Title or description" xml:space="preserve">
-    <value>Title or description</value>
-  </data>
-  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
-    <value>TODAY&apos;S REPORTS</value>
   </data>
   <data name="Transfer" xml:space="preserve">
     <value>Transfer</value>
@@ -1080,14 +1008,14 @@
   <data name="View only" xml:space="preserve">
     <value>View only</value>
   </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>WEEKLY REPORT</value>
+  </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Awaiting approval</value>
   </data>
   <data name="Week" xml:space="preserve">
     <value>Week</value>
-  </data>
-  <data name="WEEKLY REPORT" xml:space="preserve">
-    <value>WEEKLY REPORT</value>
   </data>
   <data name="Weekly report discarded." xml:space="preserve">
     <value>Weekly report discarded.</value>
@@ -1110,14 +1038,14 @@
   <data name="You can attach up to {0} images." xml:space="preserve">
     <value>You can attach up to {0} images.</value>
   </data>
-  <data name="You have {0} unread notification{1}." xml:space="preserve">
-    <value>You have {0} unread notification{1}.</value>
-  </data>
   <data name="You have no archived boards." xml:space="preserve">
     <value>You have no archived boards.</value>
   </data>
   <data name="You have no unread notifications." xml:space="preserve">
     <value>You have no unread notifications.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>You have {0} unread notification{1}.</value>
   </data>
   <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
     <value>You own {0} boards. Delete them before deleting your account.</value>
@@ -1136,6 +1064,78 @@
   </data>
   <data name="Your workspace" xml:space="preserve">
     <value>Your workspace</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} boards · one clear view</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} cards</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} cards · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} cards · {1} columns</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} columns · {1} cards</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP or BMP up to 10 MB.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>{0} of {1} selected</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} open · {1} in progress · {2} complete</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>{0} overdue</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} overdue · {1} unassigned</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>{0} priority  ·  Due {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} replies</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} reports</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} results</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} scheduled · {1} without complete dates</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} tasks</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0} will return to your active workspace.</value>
+  </data>
+  <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · since {2:yyyy-MM-dd}</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>Tasks for {0}</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, used by {1} tasks</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2} priority</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Open report.</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Tap for details.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Tap for details. Press and drag to move.</value>
   </data>
 
 </root>

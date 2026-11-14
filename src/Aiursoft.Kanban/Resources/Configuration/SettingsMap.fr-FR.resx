@@ -27,11 +27,11 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Un nombre fictif à des fins de test.</value>
   </data>
-  <data name="Agent System Prompt" xml:space="preserve">
-    <value>Invite système de l&apos;agent</value>
-  </data>
   <data name="AI Model" xml:space="preserve">
     <value>Modèle d&apos;IA</value>
+  </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Invite système de l&apos;agent</value>
   </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Autoriser l&apos;utilisateur à modifier son surnom</value>
@@ -105,17 +105,17 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>Le point de terminaison de l&apos;API Messages Anthropic utilisé par l&apos;agent IA Kanban. Doit être l&apos;URL complète incluant /v1/messages, par ex. https://ollama.example.com/v1/messages. Laissez vide pour désactiver l&apos;agent IA.</value>
   </data>
-  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
-    <value>L&apos;URL de base de l&apos;API d&apos;intégration (par ex. Ollama). Ne doit pas inclure de chemin, par ex. http://localhost:11434. Laissez vide pour désactiver.</value>
-  </data>
-  <data name="The brand name displayed in the footer." xml:space="preserve">
-    <value>Le nom de la marque affiché dans le pied de page.</value>
-  </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Le numéro de licence ICP pour les utilisateurs du continent chinois. Laissez vide pour masquer.</value>
   </data>
   <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
     <value>Le nom du modèle LLM utilisé pour l&apos;agent IA Kanban, par ex. aiursoft-instruct:latest, claude-sonnet-4-5 ou deepseek-chat. Doit être disponible au point de terminaison API Anthropic ci-dessus.</value>
+  </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>L&apos;URL de base de l&apos;API d&apos;intégration (par ex. Ollama). Ne doit pas inclure de chemin, par ex. http://localhost:11434. Laissez vide pour désactiver.</value>
+  </data>
+  <data name="The brand name displayed in the footer." xml:space="preserve">
+    <value>Le nom de la marque affiché dans le pied de page.</value>
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Le logo du projet affiché dans la barre de navigation et le pied de page. Prise en charge des formats jpg, png, svg.</value>

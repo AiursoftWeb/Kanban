@@ -45,9 +45,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>thẻ. Xóa cột này cũng sẽ xóa vĩnh viễn tất cả các thẻ trong đó.</value>
-  </data>
   <data name="Cards" xml:space="preserve">
     <value>Thẻ</value>
   </data>
@@ -155,6 +152,9 @@
   </data>
   <data name="Unknown error" xml:space="preserve">
     <value>Lỗi không xác định</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>thẻ. Xóa cột này cũng sẽ xóa vĩnh viễn tất cả các thẻ trong đó.</value>
   </data>
 
 </root>

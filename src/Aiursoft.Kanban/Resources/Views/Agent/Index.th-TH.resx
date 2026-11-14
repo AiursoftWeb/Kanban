@@ -18,10 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="— Select a board —" xml:space="preserve">
-    <value>— เลือกบอร์ด —</value>
-  </data>
-  <data name="Ask the AI to help manage your Kanban boards — create cards, move items, update details, and more." xml:space="preserve">
+      <data name="Ask the AI to help manage your Kanban boards — create cards, move items, update details, and more." xml:space="preserve">
     <value>สอบถาม AI เพื่อช่วยจัดการบอร์ด Kanban ของคุณ — สร้างการ์ด ย้ายรายการ อัปเดตรายละเอียด และอื่นๆ</value>
   </data>
   <data name="Board:" xml:space="preserve">
@@ -59,6 +56,9 @@
   </data>
   <data name="You don&apos;t have any boards yet. Create one on the Kanban page first." xml:space="preserve">
     <value>คุณยังไม่มีกระดานใด ๆ สร้างกระดานในหน้า Kanban ก่อน</value>
+  </data>
+  <data name="— Select a board —" xml:space="preserve">
+    <value>— เลือกบอร์ด —</value>
   </data>
 
 </root>

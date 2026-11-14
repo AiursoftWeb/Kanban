@@ -18,10 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="— Select a board —" xml:space="preserve">
-    <value>— Wybierz tablicę —</value>
-  </data>
-  <data name="Ask the AI to help manage your Kanban boards — create cards, move items, update details, and more." xml:space="preserve">
+      <data name="Ask the AI to help manage your Kanban boards — create cards, move items, update details, and more." xml:space="preserve">
     <value>Poproś AI o pomoc w zarządzaniu tablicami Kanban — tworzenie kart, przesuwanie elementów, aktualizacja danych i wiele więcej.</value>
   </data>
   <data name="Board:" xml:space="preserve">
@@ -59,6 +56,9 @@
   </data>
   <data name="You don&apos;t have any boards yet. Create one on the Kanban page first." xml:space="preserve">
     <value>Nie masz jeszcze żadnych tablic. Najpierw utwórz jedną na stronie Kanban.</value>
+  </data>
+  <data name="— Select a board —" xml:space="preserve">
+    <value>— Wybierz tablicę —</value>
   </data>
 
 </root>

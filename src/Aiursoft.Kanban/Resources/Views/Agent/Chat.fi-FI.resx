@@ -27,9 +27,6 @@
   <data name="Attach Excel file" xml:space="preserve">
     <value>Liitä Excel-tiedosto</value>
   </data>
-  <data name="click to expand" xml:space="preserve">
-    <value>napsauta laajentaaksesi</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>Virhe</value>
   </data>
@@ -86,6 +83,9 @@
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Odotetaan hyväksyntää</value>
+  </data>
+  <data name="click to expand" xml:space="preserve">
+    <value>napsauta laajentaaksesi</value>
   </data>
 
 </root>

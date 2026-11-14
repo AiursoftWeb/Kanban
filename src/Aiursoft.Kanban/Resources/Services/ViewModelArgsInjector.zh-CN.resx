@@ -18,7 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Access Denied" xml:space="preserve">
+      <data name="AI Assistant" xml:space="preserve">
+    <value>AI 助手</value>
+  </data>
+  <data name="AI Report Settings" xml:space="preserve">
+    <value>AI 报告设置</value>
+  </data>
+  <data name="API Keys" xml:space="preserve">
+    <value>API 密钥</value>
+  </data>
+  <data name="Access Denied" xml:space="preserve">
     <value>访问被拒绝</value>
   </data>
   <data name="Account Settings" xml:space="preserve">
@@ -30,12 +39,6 @@
   <data name="Administration" xml:space="preserve">
     <value>管理</value>
   </data>
-  <data name="AI Assistant" xml:space="preserve">
-    <value>AI 助手</value>
-  </data>
-  <data name="AI Report Settings" xml:space="preserve">
-    <value>AI 报告设置</value>
-  </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft 模板项目</value>
   </data>
@@ -44,9 +47,6 @@
   </data>
   <data name="Anonymous" xml:space="preserve">
     <value>匿名</value>
-  </data>
-  <data name="API Keys" xml:space="preserve">
-    <value>API 密钥</value>
   </data>
   <data name="Archived" xml:space="preserve">
     <value>已归档</value>

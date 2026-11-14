@@ -75,39 +75,6 @@
   <data name=" - urgency descending." xml:space="preserve">
     <value> - 按紧急程度倒序。</value>
   </data>
-  <data name="{0} day overdue" xml:space="preserve">
-    <value>逾期 {0} 天</value>
-  </data>
-  <data name="{0} days overdue" xml:space="preserve">
-    <value>逾期 {0} 天</value>
-  </data>
-  <data name="⏳ Due Soon / Overdue" xml:space="preserve">
-    <value>⏳ 即将到期 / 已逾期</value>
-  </data>
-  <data name="▶️ Actual Start ↑" xml:space="preserve">
-    <value>▶️ 实际开始 ↑</value>
-  </data>
-  <data name="▶️ Actual Start ↓" xml:space="preserve">
-    <value>▶️ 实际开始 ↓</value>
-  </data>
-  <data name="📅 Due Date ↑" xml:space="preserve">
-    <value>📅 到期时间 ↑</value>
-  </data>
-  <data name="📜 Oldest First" xml:space="preserve">
-    <value>📜 最早优先</value>
-  </data>
-  <data name="🔤 Title A-Z" xml:space="preserve">
-    <value>🔤 标题 A-Z</value>
-  </data>
-  <data name="🔤 Title Z-A" xml:space="preserve">
-    <value>🔤 标题 Z-A</value>
-  </data>
-  <data name="🔥 Urgency ↑" xml:space="preserve">
-    <value>🔥 紧急程度 ↑</value>
-  </data>
-  <data name="🔽 Urgency ↓" xml:space="preserve">
-    <value>🔽 紧急程度 ↓</value>
-  </data>
   <data name="Actual End (newest first)" xml:space="preserve">
     <value>实际结束时间（最新优先）</value>
   </data>
@@ -165,9 +132,6 @@
   <data name="My Tasks" xml:space="preserve">
     <value>我的任务</value>
   </data>
-  <data name="🆕 Newest First" xml:space="preserve">
-    <value>🆕 最新优先</value>
-  </data>
   <data name="No tasks found" xml:space="preserve">
     <value>未找到任务</value>
   </data>
@@ -224,6 +188,42 @@
   </data>
   <data name="You are currently viewing tasks assigned to" xml:space="preserve">
     <value>您当前正在查看分配给</value>
+  </data>
+  <data name="{0} day overdue" xml:space="preserve">
+    <value>逾期 {0} 天</value>
+  </data>
+  <data name="{0} days overdue" xml:space="preserve">
+    <value>逾期 {0} 天</value>
+  </data>
+  <data name="⏳ Due Soon / Overdue" xml:space="preserve">
+    <value>⏳ 即将到期 / 已逾期</value>
+  </data>
+  <data name="▶️ Actual Start ↑" xml:space="preserve">
+    <value>▶️ 实际开始 ↑</value>
+  </data>
+  <data name="▶️ Actual Start ↓" xml:space="preserve">
+    <value>▶️ 实际开始 ↓</value>
+  </data>
+  <data name="🆕 Newest First" xml:space="preserve">
+    <value>🆕 最新优先</value>
+  </data>
+  <data name="📅 Due Date ↑" xml:space="preserve">
+    <value>📅 到期时间 ↑</value>
+  </data>
+  <data name="📜 Oldest First" xml:space="preserve">
+    <value>📜 最早优先</value>
+  </data>
+  <data name="🔤 Title A-Z" xml:space="preserve">
+    <value>🔤 标题 A-Z</value>
+  </data>
+  <data name="🔤 Title Z-A" xml:space="preserve">
+    <value>🔤 标题 Z-A</value>
+  </data>
+  <data name="🔥 Urgency ↑" xml:space="preserve">
+    <value>🔥 紧急程度 ↑</value>
+  </data>
+  <data name="🔽 Urgency ↓" xml:space="preserve">
+    <value>🔽 紧急程度 ↓</value>
   </data>
 
 </root>

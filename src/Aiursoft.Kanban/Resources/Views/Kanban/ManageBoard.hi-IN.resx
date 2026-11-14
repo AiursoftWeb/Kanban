@@ -45,9 +45,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>रद्द करें</value>
   </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>कार्ड(स)। कॉलम को हटाने से उसके सभी कार्ड स्थायी रूप से हट जाएंगे।</value>
-  </data>
   <data name="Cards" xml:space="preserve">
     <value>कार्ड</value>
   </data>
@@ -155,6 +152,9 @@
   </data>
   <data name="Unknown error" xml:space="preserve">
     <value>अज्ञात त्रुटि</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>कार्ड(स)। कॉलम को हटाने से उसके सभी कार्ड स्थायी रूप से हट जाएंगे।</value>
   </data>
 
 </root>

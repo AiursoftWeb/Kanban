@@ -45,9 +45,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>취소</value>
   </data>
-  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
-    <value>개의 카드가 있습니다. 열을 삭제하면 해당 열의 모든 카드도 영구적으로 삭제됩니다.</value>
-  </data>
   <data name="Cards" xml:space="preserve">
     <value>카드</value>
   </data>
@@ -155,6 +152,9 @@
   </data>
   <data name="Unknown error" xml:space="preserve">
     <value>알 수 없는 오류</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>개의 카드가 있습니다. 열을 삭제하면 해당 열의 모든 카드도 영구적으로 삭제됩니다.</value>
   </data>
 
 </root>

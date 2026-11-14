@@ -27,9 +27,6 @@
   <data name="Attach Excel file" xml:space="preserve">
     <value>Excel ファイルを添付</value>
   </data>
-  <data name="click to expand" xml:space="preserve">
-    <value>クリックして展開</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>エラー</value>
   </data>
@@ -86,6 +83,9 @@
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>承認を待機中</value>
+  </data>
+  <data name="click to expand" xml:space="preserve">
+    <value>クリックして展開</value>
   </data>
 
 </root>

@@ -27,11 +27,11 @@
   <data name="A dummy number for testing." xml:space="preserve">
     <value>Un număr dummy pentru testare.</value>
   </data>
-  <data name="Agent System Prompt" xml:space="preserve">
-    <value>Solicitarea sistemului agentului</value>
-  </data>
   <data name="AI Model" xml:space="preserve">
     <value>Model AI</value>
+  </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Solicitarea sistemului agentului</value>
   </data>
   <data name="Allow User Adjust Nickname" xml:space="preserve">
     <value>Permite utilizatorului să-și ajusteze nickname-ul</value>
@@ -105,17 +105,17 @@
   <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
     <value>Punctul final al API-ului Anthropic Messages folosit de agentul AI Kanban. Trebuie să fie URL-ul complet, inclusiv /v1/messages, de exemplu, https://ollama.example.com/v1/messages. Lăsați necompletat pentru a dezactiva agentul AI.</value>
   </data>
-  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
-    <value>URL-ul de bază al API-ului de embedding (de ex. Ollama). Nu trebuie să includă calea, de ex. http://localhost:11434. Lăsați gol pentru a dezactiva.</value>
-  </data>
-  <data name="The brand name displayed in the footer." xml:space="preserve">
-    <value>Numele mărcii afișat în subsol.</value>
-  </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Numărul de înregistrare ICP pentru utilizatorii din China continentală. Lăsați gol pentru a ascunde.</value>
   </data>
   <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
     <value>Numele modelului LLM utilizat pentru agentul AI Kanban, de exemplu aiursoft-instruct:latest, claude-sonnet-4-5 sau deepseek-chat. Trebuie să fie disponibil la capătul Endpoint API Anthropic de mai sus.</value>
+  </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>URL-ul de bază al API-ului de embedding (de ex. Ollama). Nu trebuie să includă calea, de ex. http://localhost:11434. Lăsați gol pentru a dezactiva.</value>
+  </data>
+  <data name="The brand name displayed in the footer." xml:space="preserve">
+    <value>Numele mărcii afișat în subsol.</value>
   </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Logoul proiectului afișat în bara de navigare și în subsol. Suportă jpg, png, svg.</value>

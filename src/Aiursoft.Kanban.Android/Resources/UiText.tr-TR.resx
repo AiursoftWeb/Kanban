@@ -18,79 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
-    <value>{0} · {1} · {2:yyyy-MM-dd} tarihinden beri</value>
-  </data>
-  <data name="{0} boards · one clear view" xml:space="preserve">
-    <value>{0} pano · tek net görünüm</value>
-  </data>
-  <data name="{0} cards" xml:space="preserve">
-    <value>{0} kart</value>
-  </data>
-  <data name="{0} cards · {1}" xml:space="preserve">
-    <value>{0} kart · {1}</value>
-  </data>
-  <data name="{0} cards · {1} columns" xml:space="preserve">
-    <value>{0} kart · {1} sütun</value>
-  </data>
-  <data name="{0} columns · {1} cards" xml:space="preserve">
-    <value>{0} sütun · {1} kart</value>
-  </data>
-  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
-    <value>{0} görsel atlandı. En fazla 10 MB boyutunda PNG, JPEG, GIF, WebP veya BMP kullanın.</value>
-  </data>
-  <data name="{0} of {1} selected" xml:space="preserve">
-    <value>{0} / {1} seçildi</value>
-  </data>
-  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
-    <value>{0} açık · {1} devam ediyor · {2} tamamlandı</value>
-  </data>
-  <data name="{0} overdue" xml:space="preserve">
-    <value>{0} gecikmiş</value>
-  </data>
-  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
-    <value>{0} gecikmiş · {1} atanmamış</value>
-  </data>
-  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
-    <value>{0} öncelik  ·  Son tarih {1}</value>
-  </data>
-  <data name="{0} replies" xml:space="preserve">
-    <value>{0} yanıt</value>
-  </data>
-  <data name="{0} reports" xml:space="preserve">
-    <value>{0} rapor</value>
-  </data>
-  <data name="{0} results" xml:space="preserve">
-    <value>{0} sonuç</value>
-  </data>
-  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
-    <value>{0} planlandı · {1} için tarihler eksik</value>
-  </data>
-  <data name="{0} tasks" xml:space="preserve">
-    <value>{0} görev</value>
-  </data>
-  <data name="{0} will return to your active workspace." xml:space="preserve">
-    <value>{0}, etkin çalışma alanınıza geri dönecek.</value>
-  </data>
-  <data name="{0}, {1}, {2} priority" xml:space="preserve">
-    <value>{0}, {1}, {2} öncelik</value>
-  </data>
-  <data name="{0}, {1}. Open report." xml:space="preserve">
-    <value>{0}, {1}. Raporu aç.</value>
-  </data>
-  <data name="{0}, used by {1} tasks" xml:space="preserve">
-    <value>{0}, {1} görev tarafından kullanılıyor</value>
-  </data>
-  <data name="{0}. Tap for details." xml:space="preserve">
-    <value>{0}. Ayrıntılar için dokunun.</value>
-  </data>
-  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
-    <value>{0}. Ayrıntılar için dokunun. Taşımak için basılı tutup sürükleyin.</value>
-  </data>
-  <data name="{0}&apos;s Tasks" xml:space="preserve">
-    <value>{0} adlı kişinin görevleri</value>
-  </data>
-  <data name="+  Add card" xml:space="preserve">
+      <data name="+  Add card" xml:space="preserve">
     <value>+  Kart ekle</value>
   </data>
   <data name="1 report" xml:space="preserve">
@@ -108,11 +36,23 @@
   <data name="A little space for your next idea." xml:space="preserve">
     <value>Yeni fikriniz için küçük bir alan.</value>
   </data>
-  <data name="Access removed" xml:space="preserve">
-    <value>Erişim kaldırıldı</value>
-  </data>
   <data name="ACTIONS" xml:space="preserve">
     <value>EYLEMLER</value>
+  </data>
+  <data name="AI POWERED" xml:space="preserve">
+    <value>Yapay Zekâ Destekli</value>
+  </data>
+  <data name="AI report settings saved" xml:space="preserve">
+    <value>Yapay zeka raporu ayarları kaydedildi</value>
+  </data>
+  <data name="ARCHIVED" xml:space="preserve">
+    <value>ARŞİVLENDİ</value>
+  </data>
+  <data name="ASSIGNEE" xml:space="preserve">
+    <value>ATANAN KİŞİ</value>
+  </data>
+  <data name="Access removed" xml:space="preserve">
+    <value>Erişim kaldırıldı</value>
   </data>
   <data name="Actual" xml:space="preserve">
     <value>Gerçekleşen</value>
@@ -120,14 +60,14 @@
   <data name="Actual end" xml:space="preserve">
     <value>Gerçek bitiş</value>
   </data>
+  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
+    <value>Gerçek bitiş zamanı, gerçek başlangıç zamanından önce olamaz.</value>
+  </data>
   <data name="Actual end · earliest first" xml:space="preserve">
     <value>Gerçek bitiş · önce en erken</value>
   </data>
   <data name="Actual end · latest first" xml:space="preserve">
     <value>Gerçek bitiş · en son tarih önce</value>
-  </data>
-  <data name="Actual end time cannot be earlier than actual start time." xml:space="preserve">
-    <value>Gerçek bitiş zamanı, gerçek başlangıç zamanından önce olamaz.</value>
   </data>
   <data name="Actual start" xml:space="preserve">
     <value>Gerçek başlangıç</value>
@@ -146,12 +86,6 @@
   </data>
   <data name="Add images" xml:space="preserve">
     <value>Görseller ekle</value>
-  </data>
-  <data name="AI POWERED" xml:space="preserve">
-    <value>Yapay Zekâ Destekli</value>
-  </data>
-  <data name="AI report settings saved" xml:space="preserve">
-    <value>Yapay zeka raporu ayarları kaydedildi</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>Tümü</value>
@@ -189,23 +123,20 @@
   <data name="Archive time unavailable" xml:space="preserve">
     <value>Arşiv zamanı kullanılamıyor</value>
   </data>
-  <data name="ARCHIVED" xml:space="preserve">
-    <value>ARŞİVLENDİ</value>
-  </data>
-  <data name="Archived · {0} · {1}" xml:space="preserve">
-    <value>Arşivlendi · {0} · {1}</value>
-  </data>
-  <data name="Archived · Owner" xml:space="preserve">
-    <value>Arşivlendi · Sahibi</value>
-  </data>
-  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
-    <value>Arşivlenme zamanı: {0:yyyy-MM-dd HH:mm}</value>
-  </data>
   <data name="Archived Boards" xml:space="preserve">
     <value>Arşivlenmiş Panolar</value>
   </data>
   <data name="Archived boards are read-only until their owner restores them." xml:space="preserve">
     <value>Arşivlenen panolar, sahibi geri yükleyene kadar salt okunur durumdadır.</value>
+  </data>
+  <data name="Archived {0:yyyy-MM-dd HH:mm}" xml:space="preserve">
+    <value>Arşivlenme zamanı: {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Archived · Owner" xml:space="preserve">
+    <value>Arşivlendi · Sahibi</value>
+  </data>
+  <data name="Archived · {0} · {1}" xml:space="preserve">
+    <value>Arşivlendi · {0} · {1}</value>
   </data>
   <data name="Assigned cards across your Kanban boards." xml:space="preserve">
     <value>Kanban panolarınızdaki size atanmış kartlar.</value>
@@ -213,17 +144,14 @@
   <data name="Assigned tasks" xml:space="preserve">
     <value>Atanan görevler</value>
   </data>
-  <data name="ASSIGNEE" xml:space="preserve">
-    <value>ATANAN KİŞİ</value>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Kanban&apos;a dön</value>
   </data>
   <data name="Back to board" xml:space="preserve">
     <value>Panoya geri dön</value>
   </data>
   <data name="Back to board settings" xml:space="preserve">
     <value>Pano ayarlarına geri dön</value>
-  </data>
-  <data name="Back to Kanban" xml:space="preserve">
-    <value>Kanban&apos;a dön</value>
   </data>
   <data name="Back to reports" xml:space="preserve">
     <value>Raporlara dön</value>
@@ -257,6 +185,12 @@
   </data>
   <data name="Boards you archive will appear here." xml:space="preserve">
     <value>Arşivlediğiniz panolar burada görünür.</value>
+  </data>
+  <data name="COLUMN" xml:space="preserve">
+    <value>SÜTUN</value>
+  </data>
+  <data name="COMMENTS  {0}" xml:space="preserve">
+    <value>YORUMLAR  {0}</value>
   </data>
   <data name="Can edit" xml:space="preserve">
     <value>Düzenleyebilir</value>
@@ -303,12 +237,6 @@
   <data name="Close" xml:space="preserve">
     <value>Kapat</value>
   </data>
-  <data name="COLUMN" xml:space="preserve">
-    <value>SÜTUN</value>
-  </data>
-  <data name="Column {0}" xml:space="preserve">
-    <value>Sütun {0}</value>
-  </data>
   <data name="Column added" xml:space="preserve">
     <value>Sütun eklendi</value>
   </data>
@@ -321,6 +249,9 @@
   <data name="Column updated" xml:space="preserve">
     <value>Sütun güncellendi</value>
   </data>
+  <data name="Column {0}" xml:space="preserve">
+    <value>Sütun {0}</value>
+  </data>
   <data name="Comment image" xml:space="preserve">
     <value>Yorum görseli</value>
   </data>
@@ -329,9 +260,6 @@
   </data>
   <data name="Comment image unavailable" xml:space="preserve">
     <value>Yorum görseli kullanılamıyor</value>
-  </data>
-  <data name="COMMENTS  {0}" xml:space="preserve">
-    <value>YORUMLAR  {0}</value>
   </data>
   <data name="Completed" xml:space="preserve">
     <value>Tamamlandı</value>
@@ -414,15 +342,6 @@
   <data name="Delete" xml:space="preserve">
     <value>Sil</value>
   </data>
-  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
-    <value>{0} ve ona ait {1} kart silinsin mi? Bu işlem geri alınamaz.</value>
-  </data>
-  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
-    <value>{0}, tüm {1} sütun ve {2} kart silinsin mi? Bu işlem geri alınamaz.</value>
-  </data>
-  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
-    <value>{0} silinsin mi? Bu işlem geri alınamaz.</value>
-  </data>
   <data name="Delete account" xml:space="preserve">
     <value>Hesabı sil</value>
   </data>
@@ -443,6 +362,15 @@
   </data>
   <data name="Delete reply?" xml:space="preserve">
     <value>Yanıt silinsin mi?</value>
+  </data>
+  <data name="Delete {0} and its {1} card(s)? This cannot be undone." xml:space="preserve">
+    <value>{0} ve ona ait {1} kart silinsin mi? Bu işlem geri alınamaz.</value>
+  </data>
+  <data name="Delete {0}, all {1} columns, and all {2} cards? This cannot be undone." xml:space="preserve">
+    <value>{0}, tüm {1} sütun ve {2} kart silinsin mi? Bu işlem geri alınamaz.</value>
+  </data>
+  <data name="Delete {0}? This cannot be undone." xml:space="preserve">
+    <value>{0} silinsin mi? Bu işlem geri alınamaz.</value>
   </data>
   <data name="Deleting your account is permanent and cannot be undone." xml:space="preserve">
     <value>Hesabınızı silmeniz kalıcıdır ve bu işlem geri alınamaz.</value>
@@ -540,11 +468,11 @@
   <data name="Filter ({0})" xml:space="preserve">
     <value>Filtre ({0})</value>
   </data>
-  <data name="Filter cards" xml:space="preserve">
-    <value>Kartları filtrele</value>
-  </data>
   <data name="Filter Gantt cards" xml:space="preserve">
     <value>Gantt kartlarını filtrele</value>
+  </data>
+  <data name="Filter cards" xml:space="preserve">
+    <value>Kartları filtrele</value>
   </data>
   <data name="Filters &amp; sorting" xml:space="preserve">
     <value>Filtreler ve sıralama</value>
@@ -582,14 +510,17 @@
   <data name="Kanban Dashboard" xml:space="preserve">
     <value>Kanban Panosu</value>
   </data>
+  <data name="LABELS" xml:space="preserve">
+    <value>ETİKETLER</value>
+  </data>
+  <data name="LOCAL ACCOUNT" xml:space="preserve">
+    <value>YEREL HESAP</value>
+  </data>
   <data name="Label added" xml:space="preserve">
     <value>Etiket eklendi</value>
   </data>
   <data name="Label removed" xml:space="preserve">
     <value>Etiket kaldırıldı</value>
-  </data>
-  <data name="LABELS" xml:space="preserve">
-    <value>ETİKETLER</value>
   </data>
   <data name="Labels cannot exceed 100 characters" xml:space="preserve">
     <value>Etiketler 100 karakteri aşamaz</value>
@@ -597,11 +528,20 @@
   <data name="Light" xml:space="preserve">
     <value>Açık</value>
   </data>
-  <data name="LOCAL ACCOUNT" xml:space="preserve">
-    <value>YEREL HESAP</value>
-  </data>
   <data name="Low" xml:space="preserve">
     <value>Düşük</value>
+  </data>
+  <data name="MOVE TO COLUMN" xml:space="preserve">
+    <value>SÜTUNA TAŞI</value>
+  </data>
+  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
+    <value>AKTİF GÖREVLERİM  ·  {0} DEVAM EDİYOR</value>
+  </data>
+  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
+    <value>ARŞİVLEDİĞİM PANOLAR</value>
+  </data>
+  <data name="MY BOARD" xml:space="preserve">
+    <value>PANOM</value>
   </data>
   <data name="Make room for progress." xml:space="preserve">
     <value>İlerleme için yer açın.</value>
@@ -624,35 +564,23 @@
   <data name="Month" xml:space="preserve">
     <value>Ay</value>
   </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Kartı taşı</value>
+  </data>
   <data name="Move {0} left" xml:space="preserve">
     <value>{0} öğesini sola taşı</value>
   </data>
   <data name="Move {0} right" xml:space="preserve">
     <value>{0} öğesini sağa taşı</value>
   </data>
-  <data name="Move card" xml:space="preserve">
-    <value>Kartı taşı</value>
-  </data>
-  <data name="MOVE TO COLUMN" xml:space="preserve">
-    <value>SÜTUNA TAŞI</value>
-  </data>
   <data name="Move, copy or transfer" xml:space="preserve">
     <value>Taşı, kopyala veya aktar</value>
   </data>
-  <data name="MY ACTIVE TASKS  ·  {0} IN PROGRESS" xml:space="preserve">
-    <value>AKTİF GÖREVLERİM  ·  {0} DEVAM EDİYOR</value>
-  </data>
-  <data name="MY ARCHIVED BOARDS" xml:space="preserve">
-    <value>ARŞİVLEDİĞİM PANOLAR</value>
-  </data>
-  <data name="MY BOARD" xml:space="preserve">
-    <value>PANOM</value>
+  <data name="My Operation Logs" xml:space="preserve">
+    <value>İşlem Günlüklerim</value>
   </data>
   <data name="My boards" xml:space="preserve">
     <value>Panolarım</value>
-  </data>
-  <data name="My Operation Logs" xml:space="preserve">
-    <value>İşlem Günlüklerim</value>
   </data>
   <data name="My tasks" xml:space="preserve">
     <value>Görevlerim</value>
@@ -759,6 +687,12 @@
   <data name="Notifications" xml:space="preserve">
     <value>Bildirimler</value>
   </data>
+  <data name="OPERATION" xml:space="preserve">
+    <value>İŞLEM</value>
+  </data>
+  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
+    <value>KURULUŞ GİRİŞİ</value>
+  </data>
   <data name="Oldest first" xml:space="preserve">
     <value>En eskiler önce</value>
   </data>
@@ -780,17 +714,20 @@
   <data name="Open original" xml:space="preserve">
     <value>Orijinali aç</value>
   </data>
-  <data name="OPERATION" xml:space="preserve">
-    <value>İŞLEM</value>
-  </data>
   <data name="Operation logging is not enabled on this server." xml:space="preserve">
     <value>Bu sunucuda işlem günlüğü etkin değil.</value>
   </data>
-  <data name="ORGANIZATION SIGN-IN" xml:space="preserve">
-    <value>KURULUŞ GİRİŞİ</value>
-  </data>
   <data name="Overdue" xml:space="preserve">
     <value>Gecikmiş</value>
+  </data>
+  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
+    <value>PNG, JPEG, GIF, WebP veya BMP · her biri 10 MB</value>
+  </data>
+  <data name="PRIORITY" xml:space="preserve">
+    <value>ÖNCELİK</value>
+  </data>
+  <data name="PROPOSED ACTION" xml:space="preserve">
+    <value>ÖNERİLEN EYLEM</value>
   </data>
   <data name="Page {0} of {1}" xml:space="preserve">
     <value>{1} sayfadan {0}. sayfa</value>
@@ -822,12 +759,6 @@
   <data name="Planned start · latest first" xml:space="preserve">
     <value>Planlanan başlangıç · en geç olan önce</value>
   </data>
-  <data name="PNG, JPEG, GIF, WebP, or BMP · 10 MB each" xml:space="preserve">
-    <value>PNG, JPEG, GIF, WebP veya BMP · her biri 10 MB</value>
-  </data>
-  <data name="PRIORITY" xml:space="preserve">
-    <value>ÖNCELİK</value>
-  </data>
   <data name="Priority · low first" xml:space="preserve">
     <value>Öncelik · düşük olan önce</value>
   </data>
@@ -839,9 +770,6 @@
   </data>
   <data name="Profile saved" xml:space="preserve">
     <value>Profil kaydedildi</value>
-  </data>
-  <data name="PROPOSED ACTION" xml:space="preserve">
-    <value>ÖNERİLEN EYLEM</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Hazır</value>
@@ -855,14 +783,14 @@
   <data name="Remove" xml:space="preserve">
     <value>Kaldır</value>
   </data>
+  <data name="Remove access?" xml:space="preserve">
+    <value>Erişim kaldırılsın mı?</value>
+  </data>
   <data name="Remove {0}" xml:space="preserve">
     <value>{0} öğesini kaldır</value>
   </data>
   <data name="Remove {0} from this board?" xml:space="preserve">
     <value>{0} bu panodan kaldırılsın mı?</value>
-  </data>
-  <data name="Remove access?" xml:space="preserve">
-    <value>Erişim kaldırılsın mı?</value>
   </data>
   <data name="Replies cannot exceed 2,000 characters" xml:space="preserve">
     <value>Yanıtlar 2.000 karakteri aşamaz</value>
@@ -887,6 +815,15 @@
   </data>
   <data name="Retry" xml:space="preserve">
     <value>Yeniden dene</value>
+  </data>
+  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
+    <value>PAYLAŞILAN ARŞİVLENMİŞ PANOLAR</value>
+  </data>
+  <data name="SHARED BOARD" xml:space="preserve">
+    <value>PAYLAŞILAN PANO</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>SIRALA</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Kaydet</value>
@@ -921,20 +858,14 @@
   <data name="Set a due date before enabling recurrence." xml:space="preserve">
     <value>Yinelemeyi etkinleştirmeden önce bir son tarih belirleyin.</value>
   </data>
-  <data name="SHARED ARCHIVED BOARDS" xml:space="preserve">
-    <value>PAYLAŞILAN ARŞİVLENMİŞ PANOLAR</value>
-  </data>
-  <data name="SHARED BOARD" xml:space="preserve">
-    <value>PAYLAŞILAN PANO</value>
-  </data>
   <data name="Shared boards" xml:space="preserve">
     <value>Paylaşılan panolar</value>
   </data>
-  <data name="Shared with {0}" xml:space="preserve">
-    <value>{0} ile paylaşıldı</value>
-  </data>
   <data name="Shared with me" xml:space="preserve">
     <value>Benimle paylaşılanlar</value>
+  </data>
+  <data name="Shared with {0}" xml:space="preserve">
+    <value>{0} ile paylaşıldı</value>
   </data>
   <data name="Sign in" xml:space="preserve">
     <value>Giriş yap</value>
@@ -944,9 +875,6 @@
   </data>
   <data name="Signing you in…" xml:space="preserve">
     <value>Oturumunuz açılıyor…</value>
-  </data>
-  <data name="SORT" xml:space="preserve">
-    <value>SIRALA</value>
   </data>
   <data name="Start  {0}" xml:space="preserve">
     <value>Başlat  {0}</value>
@@ -962,6 +890,12 @@
   </data>
   <data name="Switch server" xml:space="preserve">
     <value>Sunucuyu değiştir</value>
+  </data>
+  <data name="TIMELINE" xml:space="preserve">
+    <value>ZAMAN ÇİZELGESİ</value>
+  </data>
+  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
+    <value>BUGÜNÜN RAPORLARI</value>
   </data>
   <data name="The assignee is cleared and replies stay with the source card history." xml:space="preserve">
     <value>Atanan kişi kaldırılır ve yanıtlar kaynak kartın geçmişinde kalır.</value>
@@ -1011,23 +945,17 @@
   <data name="This reply will be permanently removed." xml:space="preserve">
     <value>Bu yanıt kalıcı olarak silinecek.</value>
   </data>
-  <data name="TIMELINE" xml:space="preserve">
-    <value>ZAMAN ÇİZELGESİ</value>
-  </data>
   <data name="Title" xml:space="preserve">
     <value>Başlık</value>
+  </data>
+  <data name="Title or description" xml:space="preserve">
+    <value>Başlık veya açıklama</value>
   </data>
   <data name="Title · A–Z" xml:space="preserve">
     <value>Başlık · A–Z</value>
   </data>
   <data name="Title · Z–A" xml:space="preserve">
     <value>Başlık · Z–A</value>
-  </data>
-  <data name="Title or description" xml:space="preserve">
-    <value>Başlık veya açıklama</value>
-  </data>
-  <data name="TODAY&apos;S REPORTS" xml:space="preserve">
-    <value>BUGÜNÜN RAPORLARI</value>
   </data>
   <data name="Transfer" xml:space="preserve">
     <value>Aktar</value>
@@ -1080,14 +1008,14 @@
   <data name="View only" xml:space="preserve">
     <value>Yalnızca görüntüle</value>
   </data>
+  <data name="WEEKLY REPORT" xml:space="preserve">
+    <value>HAFTALIK RAPOR</value>
+  </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>Onay bekleniyor</value>
   </data>
   <data name="Week" xml:space="preserve">
     <value>Hafta</value>
-  </data>
-  <data name="WEEKLY REPORT" xml:space="preserve">
-    <value>HAFTALIK RAPOR</value>
   </data>
   <data name="Weekly report discarded." xml:space="preserve">
     <value>Haftalık rapor silindi.</value>
@@ -1110,14 +1038,14 @@
   <data name="You can attach up to {0} images." xml:space="preserve">
     <value>En fazla {0} resim ekleyebilirsiniz.</value>
   </data>
-  <data name="You have {0} unread notification{1}." xml:space="preserve">
-    <value>{0} okunmamış bildiriminiz var{1}.</value>
-  </data>
   <data name="You have no archived boards." xml:space="preserve">
     <value>Arşivlenmiş panonuz yok.</value>
   </data>
   <data name="You have no unread notifications." xml:space="preserve">
     <value>Okunmamış bildiriminiz yok.</value>
+  </data>
+  <data name="You have {0} unread notification{1}." xml:space="preserve">
+    <value>{0} okunmamış bildiriminiz var{1}.</value>
   </data>
   <data name="You own {0} board(s). Delete them before deleting your account." xml:space="preserve">
     <value>{0} panonuz var. Hesabınızı silmeden önce panoları silin.</value>
@@ -1136,6 +1064,78 @@
   </data>
   <data name="Your workspace" xml:space="preserve">
     <value>Çalışma alanınız</value>
+  </data>
+  <data name="{0} boards · one clear view" xml:space="preserve">
+    <value>{0} pano · tek net görünüm</value>
+  </data>
+  <data name="{0} cards" xml:space="preserve">
+    <value>{0} kart</value>
+  </data>
+  <data name="{0} cards · {1}" xml:space="preserve">
+    <value>{0} kart · {1}</value>
+  </data>
+  <data name="{0} cards · {1} columns" xml:space="preserve">
+    <value>{0} kart · {1} sütun</value>
+  </data>
+  <data name="{0} columns · {1} cards" xml:space="preserve">
+    <value>{0} sütun · {1} kart</value>
+  </data>
+  <data name="{0} image(s) were skipped. Use PNG, JPEG, GIF, WebP, or BMP up to 10 MB." xml:space="preserve">
+    <value>{0} görsel atlandı. En fazla 10 MB boyutunda PNG, JPEG, GIF, WebP veya BMP kullanın.</value>
+  </data>
+  <data name="{0} of {1} selected" xml:space="preserve">
+    <value>{0} / {1} seçildi</value>
+  </data>
+  <data name="{0} open · {1} in progress · {2} done" xml:space="preserve">
+    <value>{0} açık · {1} devam ediyor · {2} tamamlandı</value>
+  </data>
+  <data name="{0} overdue" xml:space="preserve">
+    <value>{0} gecikmiş</value>
+  </data>
+  <data name="{0} overdue · {1} unassigned" xml:space="preserve">
+    <value>{0} gecikmiş · {1} atanmamış</value>
+  </data>
+  <data name="{0} priority  ·  Due {1}" xml:space="preserve">
+    <value>{0} öncelik  ·  Son tarih {1}</value>
+  </data>
+  <data name="{0} replies" xml:space="preserve">
+    <value>{0} yanıt</value>
+  </data>
+  <data name="{0} reports" xml:space="preserve">
+    <value>{0} rapor</value>
+  </data>
+  <data name="{0} results" xml:space="preserve">
+    <value>{0} sonuç</value>
+  </data>
+  <data name="{0} scheduled · {1} without complete dates" xml:space="preserve">
+    <value>{0} planlandı · {1} için tarihler eksik</value>
+  </data>
+  <data name="{0} tasks" xml:space="preserve">
+    <value>{0} görev</value>
+  </data>
+  <data name="{0} will return to your active workspace." xml:space="preserve">
+    <value>{0}, etkin çalışma alanınıza geri dönecek.</value>
+  </data>
+  <data name="{0} · {1} · since {2:yyyy-MM-dd}" xml:space="preserve">
+    <value>{0} · {1} · {2:yyyy-MM-dd} tarihinden beri</value>
+  </data>
+  <data name="{0}&apos;s Tasks" xml:space="preserve">
+    <value>{0} adlı kişinin görevleri</value>
+  </data>
+  <data name="{0}, used by {1} tasks" xml:space="preserve">
+    <value>{0}, {1} görev tarafından kullanılıyor</value>
+  </data>
+  <data name="{0}, {1}, {2} priority" xml:space="preserve">
+    <value>{0}, {1}, {2} öncelik</value>
+  </data>
+  <data name="{0}, {1}. Open report." xml:space="preserve">
+    <value>{0}, {1}. Raporu aç.</value>
+  </data>
+  <data name="{0}. Tap for details." xml:space="preserve">
+    <value>{0}. Ayrıntılar için dokunun.</value>
+  </data>
+  <data name="{0}. Tap for details. Hold and drag to move." xml:space="preserve">
+    <value>{0}. Ayrıntılar için dokunun. Taşımak için basılı tutup sürükleyin.</value>
   </data>
 
 </root>

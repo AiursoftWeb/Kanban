@@ -18,7 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Actions" xml:space="preserve">
+      <data name="API Keys" xml:space="preserve">
+    <value>Clés API</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
   <data name="Active" xml:space="preserve">
@@ -26,9 +29,6 @@
   </data>
   <data name="An API key has the same permissions as its owner. Send it using Authorization: Bearer." xml:space="preserve">
     <value>Une clé API dispose des mêmes autorisations que son propriétaire. Envoyez-la en utilisant Authorization: Bearer.</value>
-  </data>
-  <data name="API Keys" xml:space="preserve">
-    <value>Clés API</value>
   </data>
   <data name="Copy this key now. It will not be shown again." xml:space="preserve">
     <value>Copiez cette clé maintenant. Elle ne sera plus affichée.</value>

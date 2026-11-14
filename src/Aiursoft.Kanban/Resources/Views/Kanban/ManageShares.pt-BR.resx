@@ -24,41 +24,11 @@
   <data name="(None - use user above)" xml:space="preserve">
     <value>(Nenhum - use o usuário acima)</value>
   </data>
-  <data name="{0} and {1} other user" xml:space="preserve">
-    <value>{0} e mais {1} usuário</value>
-  </data>
-  <data name="{0} and {1} other users" xml:space="preserve">
-    <value>{0} e {1} outros usuários</value>
-  </data>
-  <data name="{0} can edit." xml:space="preserve">
-    <value>{0} pode editar.</value>
-  </data>
-  <data name="{0} can view." xml:space="preserve">
-    <value>{0} pode visualizar.</value>
-  </data>
-  <data name="{0} role" xml:space="preserve">
-    <value>{0} função</value>
-  </data>
-  <data name="{0} roles" xml:space="preserve">
-    <value>{0} funções</value>
-  </data>
-  <data name="{0} user" xml:space="preserve">
-    <value>{0} usuário</value>
-  </data>
-  <data name="{0} users" xml:space="preserve">
-    <value>{0} usuários</value>
-  </data>
-  <data name="{0}, {1}" xml:space="preserve">
-    <value>{0}, {1}</value>
-  </data>
   <data name="About access" xml:space="preserve">
     <value>Sobre o acesso</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Ações</value>
-  </data>
-  <data name="Add access" xml:space="preserve">
-    <value>Adicionar acesso</value>
   </data>
   <data name="Add New Share" xml:space="preserve">
     <value>Adicionar Nova Compartilhar</value>
@@ -66,20 +36,23 @@
   <data name="Add Share" xml:space="preserve">
     <value>Adicionar Compartilhamento</value>
   </data>
+  <data name="Add access" xml:space="preserve">
+    <value>Adicionar acesso</value>
+  </data>
   <data name="Allow anonymous viewing (Public)" xml:space="preserve">
     <value>Permitir visualização anônima (Público)</value>
   </data>
   <data name="Anonymous viewing does not change the user or role permissions above." xml:space="preserve">
     <value>A visualização anônima não altera as permissões de usuário ou de função definidas acima.</value>
   </data>
-  <data name="Anyone — view only" xml:space="preserve">
-    <value>Qualquer pessoa — somente visualização</value>
-  </data>
   <data name="Anyone with the link can view this board." xml:space="preserve">
     <value>Qualquer pessoa com o link pode visualizar este quadro.</value>
   </data>
   <data name="Anyone with the link can view without signing in." xml:space="preserve">
     <value>Qualquer pessoa com o link pode visualizar sem fazer login.</value>
+  </data>
+  <data name="Anyone — view only" xml:space="preserve">
+    <value>Qualquer pessoa — somente visualização</value>
   </data>
   <data name="Back to Board" xml:space="preserve">
     <value>Voltar ao Quadro</value>
@@ -108,11 +81,11 @@
   <data name="Could not copy. Select and copy the link above." xml:space="preserve">
     <value>Não foi possível copiar. Selecione e copie o link acima.</value>
   </data>
-  <data name="Current access" xml:space="preserve">
-    <value>Acesso atual</value>
-  </data>
   <data name="Current Shares" xml:space="preserve">
     <value>Compartilhamentos Atuais</value>
+  </data>
+  <data name="Current access" xml:space="preserve">
+    <value>Acesso atual</value>
   </data>
   <data name="Editable" xml:space="preserve">
     <value>Editável</value>
@@ -207,11 +180,11 @@
   <data name="Share with User" xml:space="preserve">
     <value>Compartilhar com Usuário</value>
   </data>
-  <data name="Shared access" xml:space="preserve">
-    <value>Acesso compartilhado</value>
-  </data>
   <data name="Shared With" xml:space="preserve">
     <value>Compartilhado Com</value>
+  </data>
+  <data name="Shared access" xml:space="preserve">
+    <value>Acesso compartilhado</value>
   </data>
   <data name="Sign-in and existing access are required. Copying a link does not grant access." xml:space="preserve">
     <value>É necessário fazer login e já ter acesso. Copiar um link não concede acesso.</value>
@@ -239,6 +212,33 @@
   </data>
   <data name="Who can use the link?" xml:space="preserve">
     <value>Quem pode usar o link?</value>
+  </data>
+  <data name="{0} and {1} other user" xml:space="preserve">
+    <value>{0} e mais {1} usuário</value>
+  </data>
+  <data name="{0} and {1} other users" xml:space="preserve">
+    <value>{0} e {1} outros usuários</value>
+  </data>
+  <data name="{0} can edit." xml:space="preserve">
+    <value>{0} pode editar.</value>
+  </data>
+  <data name="{0} can view." xml:space="preserve">
+    <value>{0} pode visualizar.</value>
+  </data>
+  <data name="{0} role" xml:space="preserve">
+    <value>{0} função</value>
+  </data>
+  <data name="{0} roles" xml:space="preserve">
+    <value>{0} funções</value>
+  </data>
+  <data name="{0} user" xml:space="preserve">
+    <value>{0} usuário</value>
+  </data>
+  <data name="{0} users" xml:space="preserve">
+    <value>{0} usuários</value>
+  </data>
+  <data name="{0}, {1}" xml:space="preserve">
+    <value>{0}, {1}</value>
   </data>
 
 </root>

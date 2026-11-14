@@ -69,9 +69,6 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>내장된 사용자 관리</value>
   </data>
-  <data name="cards" xml:space="preserve">
-    <value>카드</value>
-  </data>
   <data name="Comes with Docker support for simplified and consistent deployments." xml:space="preserve">
     <value>Docker 지원이 포함되어 있어 배포를 간소화하고 일관성 있게 할 수 있습니다.</value>
   </data>
@@ -95,9 +92,6 @@
   </data>
   <data name="Dockerized for Easy Deployment" xml:space="preserve">
     <value>Docker를 사용하여 배포를 간편하게</value>
-  </data>
-  <data name="done" xml:space="preserve">
-    <value>완료됨</value>
   </data>
   <data name="Due:" xml:space="preserve">
     <value>기한:</value>
@@ -131,9 +125,6 @@
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>안녕하세요 세계!</value>
-  </data>
-  <data name="in progress" xml:space="preserve">
-    <value>진행 중</value>
   </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>방대한 문서와 실용적인 예제를 포함하여 빠르게 시작할 수 있도록 도와줍니다.</value>
@@ -173,9 +164,6 @@
   </data>
   <data name="No due date" xml:space="preserve">
     <value>마감일 없음</value>
-  </data>
-  <data name="open" xml:space="preserve">
-    <value>미완료</value>
   </data>
   <data name="Open boards" xml:space="preserve">
     <value>보드 열기</value>
@@ -254,6 +242,18 @@
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Aiursoft 템플릿을 사용하는 이유는 무엇인가요?</value>
+  </data>
+  <data name="cards" xml:space="preserve">
+    <value>카드</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>완료됨</value>
+  </data>
+  <data name="in progress" xml:space="preserve">
+    <value>진행 중</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>미완료</value>
   </data>
 
 </root>

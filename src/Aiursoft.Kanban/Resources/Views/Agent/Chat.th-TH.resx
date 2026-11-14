@@ -27,9 +27,6 @@
   <data name="Attach Excel file" xml:space="preserve">
     <value>แนบไฟล์ Excel</value>
   </data>
-  <data name="click to expand" xml:space="preserve">
-    <value>คลิกเพื่อขยาย</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>ข้อผิดพลาด</value>
   </data>
@@ -86,6 +83,9 @@
   </data>
   <data name="Waiting for approval" xml:space="preserve">
     <value>รอการอนุมัติ</value>
+  </data>
+  <data name="click to expand" xml:space="preserve">
+    <value>คลิกเพื่อขยาย</value>
   </data>
 
 </root>
