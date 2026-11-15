@@ -13,27 +13,13 @@ for identity-provider registration, server settings, APK building, and sideloadi
 
 Aiursoft Kanban is a self-hosted project management and workflow planning system built on ASP.NET Core (.NET 10). It helps teams organize boards, columns, cards, labels, priorities, assignees, due dates, comments, and shared access in one lightweight web application.
 
-## CLI & SDK
-
-Install the CLI with the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0):
-
-```bash
-dotnet tool install --global Aiursoft.Kanban.Client --add-source https://nuget.aiursoft.com/v3/index.json
-```
-
-Run `kanban --help` to explore commands. See [CLI usage](docs/cli.md) for authentication and examples.
-
-The [SDK source](src/Aiursoft.Kanban.SDK) is included in this repository; it is not published as a separate NuGet package.
-
 ![screenshot](./screenshot.png)
 
 Default user name is `admin@default.com` and default password is `Admin@123456!`.
 
-## Try
+## Overview
 
-Try a running Kanban [here](https://kanban.aiursoft.com).
-
-## Why Kanban for Your Organization
+### Why Kanban for Your Organization
 
 Kanban provides a practical workspace for teams that need transparent task flow without adopting a heavyweight project management suite. It is designed for self-hosting, fast deployment, and clear ownership of your workflow data.
 
@@ -48,6 +34,22 @@ Key features include:
 **Team-Ready Collaboration.** Use labels, comments, card descriptions, public board links, and the built-in Kanban assistant to coordinate work across a team.
 
 **Self-Hosted Infrastructure.** Run with SQLite for small deployments, MySQL for production scale, or in-memory storage for tests while keeping authentication, RBAC, localization, Docker deployment, and system management in the same application.
+
+## CLI & SDK
+
+Install the CLI with the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0):
+
+```bash
+dotnet tool install --global Aiursoft.Kanban.Client --add-source https://nuget.aiursoft.com/v3/index.json
+```
+
+Run `kanban --help` to explore commands. See [CLI usage](docs/cli.md) for authentication and examples.
+
+The [SDK source](src/Aiursoft.Kanban.SDK) is included in this repository; it is not published as a separate NuGet package.
+
+## Try
+
+Try a running Kanban [here](https://kanban.aiursoft.com).
 
 ## Install with Docker
 
@@ -98,6 +100,11 @@ The docker image has the following context:
 | Data path   | /data                           |
 | Config path | /data/appsettings.json          |
 
+## Documentation
+
+- [CLI authentication and usage](docs/cli.md)
+- [Android app and OIDC setup](docs/android.md)
+
 ## How to contribute
 
 There are many ways to contribute to the project: logging bugs, submitting pull requests, reporting issues, and creating suggestions.
@@ -105,3 +112,7 @@ There are many ways to contribute to the project: logging bugs, submitting pull 
 Even if you with push rights on the repository, you should create a personal fork and create feature branches there when you need them. This keeps the main repository clean and your workflow cruft out of sight.
 
 We're also interested in your feedback on the future of this project. You can submit a suggestion or feature request through the issue tracker. To make this process more effective, we're asking that these include more information to help define them more clearly.
+
+## License
+
+Licensed under the [MIT License](LICENSE).
