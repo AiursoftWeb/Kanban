@@ -64,7 +64,13 @@ See [CLI usage](https://github.com/aiursoftweb/kanban/blob/master/docs/cli.md) f
 
 ### SDK
 
-The [SDK source](https://github.com/aiursoftweb/kanban/tree/master/src/Aiursoft.Kanban.SDK) is included in this repository; it is not published as a separate NuGet package.
+Add the SDK to your .NET project after version `10.0.0` is published by the default-branch release pipeline:
+
+```bash
+dotnet add package Aiursoft.Kanban.SDK
+```
+
+The SDK connects to your own Kanban server; install and configure that server separately. The existing release pipeline publishes the same package to NuGet.org and the internal Nupkg registry. See the [SDK source](https://github.com/aiursoftweb/kanban/tree/master/src/Aiursoft.Kanban.SDK) for the available client methods and models.
 
 ### Android app
 
