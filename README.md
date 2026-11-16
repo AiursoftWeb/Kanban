@@ -10,7 +10,7 @@
 
 Aiursoft Kanban is a self-hosted project management and workflow planning system built on ASP.NET Core (.NET 10). It helps teams organize boards, columns, cards, labels, priorities, assignees, due dates, comments, and shared access in one lightweight web application.
 
-![screenshot](https://github.com/aiursoftweb/kanban/blob/master/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/aiursoftweb/kanban/master/screenshot.png)
 
 Default user name is `admin@default.com` and default password is `Admin@123456!`.
 
