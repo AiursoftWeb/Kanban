@@ -205,6 +205,7 @@ public class CardsController(
 
     private async Task<bool> HasReadAccess(KanbanBoard board, string userId)
     {
+        if ((await authorizationService.AuthorizeAsync(User, AppPermissionNames.CanManageAnyBoard)).Succeeded) return true;
         if (board.IsPublic) return true;
         if (board.UserId == userId) return true;
 

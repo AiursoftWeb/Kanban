@@ -336,6 +336,10 @@
                     }
                 </div>
                 <div class="detail-surface-body">
+                    @if (!Model.CanEdit)
+                    {
+                        <textarea id="descInitialValue" hidden>@Model.Description</textarea>
+                    }
                     <div id="descriptionView">
                         <div id="descriptionEmpty" class="detail-empty @(string.IsNullOrWhiteSpace(Model.Description) ? string.Empty : "d-none")">
                             @Localizer["No description yet. Capture the context, plan, or acceptance notes for this card here."]
