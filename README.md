@@ -18,7 +18,9 @@ Default user name is `admin@default.com` and default password is `Admin@123456!`
 
 ## Overview
 
-### Why Kanban for Your Organization
+### What is Kanban?
+
+<a name="why-kanban-for-your-organization"></a>
 
 Kanban provides a practical workspace for teams that need transparent task flow without adopting a heavyweight project management suite. It is designed for self-hosting, fast deployment, and clear ownership of your workflow data.
 
