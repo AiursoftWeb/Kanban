@@ -27,6 +27,9 @@
   <data name="Allows assigning or removing roles for any user." xml:space="preserve">
     <value>Herhangi bir kullanıcıya rol atanmasına veya kaldırılmasına izin verir.</value>
   </data>
+  <data name="Allows browsing, renaming and permanently deleting any board from the all boards administration page." xml:space="preserve">
+    <value>Tüm panolar yönetim sayfasından herhangi bir panonun taranmasına, yeniden adlandırılmasına ve kalıcı olarak silinmesine izin verir.</value>
+  </data>
   <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
     <value>Herhangi bir panonun paylaşım ve görünürlük ayarlarını yönetmeye olanak tanır.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
     <value>Uygulama örneğini yeniden başlatma iznini verir. Kullanılabilirlik kesintilerine neden olabilir ancak tüm ayarlar ve önbellek yeniden yüklenecektir.</value>
+  </data>
+  <data name="Manage Any Board" xml:space="preserve">
+    <value>Herhangi Bir Panoyu Yönet</value>
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>Herhangi Bir Panoyu Paylaşımı Yönet</value>

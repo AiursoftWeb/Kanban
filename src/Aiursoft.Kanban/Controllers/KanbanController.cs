@@ -189,6 +189,42 @@ public class KanbanController(
         });
     }
 
+    [Authorize(Policy = AppPermissionNames.CanManageAnyBoard)]
+    [RenderInNavBar(
+        NavGroupName = "Administration",
+        NavGroupOrder = 9999,
+        CascadedLinksGroupName = "Kanban",
+        CascadedLinksIcon = "columns-3",
+        CascadedLinksOrder = 2,
+        LinkText = "All Boards",
+        LinkOrder = 1)]
+    public async Task<IActionResult> AllBoards(string? search, int page = 1)
+    {
+        const int pageSize = 50;
+        search = search?.Trim();
+        var query = db.KanbanBoards.AsNoTracking();
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(board => board.Name.Contains(search) ||
+                (board.User != null && (board.User.DisplayName.Contains(search) ||
+                    (board.User.UserName != null && board.User.UserName.Contains(search)))));
+        }
+
+        var total = await query.CountAsync();
+        var totalPages = Math.Max(1, (int)Math.Ceiling(total / (double)pageSize));
+        page = Math.Clamp(page, 1, totalPages);
+        return this.StackView(new AllBoardsViewModel
+        {
+            Boards = await query.Include(board => board.User)
+                .OrderBy(board => board.Id)
+                .Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(),
+            Search = search,
+            Page = page,
+            TotalPages = totalPages,
+            Total = total
+        });
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateBoard(string name)
@@ -818,14 +854,16 @@ public class KanbanController(
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> RenameBoard(int boardId, string name)
     {
-        if (string.IsNullOrWhiteSpace(name))
+        if (string.IsNullOrWhiteSpace(name) || name.Trim().Length > 100)
             return BadRequest("Board name is required.");
 
         var board = await db.KanbanBoards.FindAsync(boardId);
         if (board == null) return NotFound();
 
         var userId = userManager.GetUserId(User)!;
-        if (board.UserId != userId) return Forbid();
+        if (board.UserId != userId &&
+            !(await authorizationService.AuthorizeAsync(User, AppPermissionNames.CanManageAnyBoard)).Succeeded)
+            return Forbid();
 
         board.Name = name.Trim();
         await db.SaveChangesAsync();
@@ -861,7 +899,9 @@ public class KanbanController(
         if (board == null) return NotFound();
 
         var userId = userManager.GetUserId(User)!;
-        if (board.UserId != userId) return Forbid();
+        if (board.UserId != userId &&
+            !(await authorizationService.AuthorizeAsync(User, AppPermissionNames.CanManageAnyBoard)).Succeeded)
+            return Forbid();
 
         foreach (var column in board.Columns.ToList())
         {
@@ -1696,6 +1736,7 @@ public class KanbanController(
 
     private async Task<bool> HasReadAccess(KanbanBoard board, string userId)
     {
+        if ((await authorizationService.AuthorizeAsync(User, AppPermissionNames.CanManageAnyBoard)).Succeeded) return true;
         if (board.IsPublic) return true;
         if (board.UserId == userId) return true;
         var userRoles = await db.UserRoles

@@ -1,0 +1,96 @@
+@model Aiursoft.Kanban.Models.KanbanViewModels.AllBoardsViewModel
+
+<h1 class="h3 mb-3">@Localizer["All Boards"]</h1>
+
+<form method="get" asp-action="AllBoards" class="d-flex gap-2 mb-3">
+    <input type="search" name="search" value="@Model.Search" class="form-control" placeholder="@Localizer["Search by board name or creator"]" aria-label="@Localizer["Search by board name or creator"]" />
+    <button type="submit" class="btn btn-primary text-nowrap">@Localizer["Search"]</button>
+</form>
+<p class="text-muted">@string.Format(@Localizer["{0} boards"].Value, Model.Total)</p>
+<div id="allBoardsError" class="alert alert-danger d-none" role="alert"><div class="alert-message"></div></div>
+@if (Model.Boards.Count == 0)
+{
+    <div class="alert alert-info" role="alert"><div class="alert-message">@Localizer["No boards found."]</div></div>
+}
+else
+{
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                <tr>
+                    <th>@Localizer["ID"]</th>
+                    <th>@Localizer["Board Name"]</th>
+                    <th>@Localizer["Creator"]</th>
+                    <th>@Localizer["Status"]</th>
+                    <th>@Localizer["Actions"]</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var board in Model.Boards)
+                {
+                    <tr data-board-id="@board.Id">
+                        <td>@board.Id</td>
+                        <td style="min-width: 20rem;">
+                            <form method="post" asp-action="RenameBoard" class="d-flex gap-2 board-rename-form">
+                                <input type="hidden" name="boardId" value="@board.Id" />
+                                <input name="name" value="@board.Name" class="form-control" required maxlength="100" aria-label="@Localizer["Board Name"]" />
+                                <button type="submit" class="btn btn-outline-primary text-nowrap">@Localizer["Rename"]</button>
+                            </form>
+                        </td>
+                        <td>@(board.User == null ? @Localizer["Deleted user"].Value : string.IsNullOrWhiteSpace(board.User.DisplayName) ? board.User.UserName : board.User.DisplayName)</td>
+                        <td>
+                            @if (board.IsArchived)
+                            {
+                                <span class="badge bg-secondary">@Localizer["Archived"]</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">@Localizer["Active"]</span>
+                            }
+                        </td>
+                        <td class="text-nowrap">
+                            <a asp-action="Index" asp-route-boardId="@board.Id" class="btn btn-outline-secondary">@Localizer["Browse"]</a>
+                            <button type="button" class="btn btn-outline-danger board-delete-button" data-board-id="@board.Id" data-board-name="@board.Name" data-bs-toggle="modal" data-bs-target="#deleteBoardModal">@Localizer["Delete"]</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <nav aria-label="@Localizer["Pagination"]" class="mt-3">
+        <ul class="pagination">
+            <li class="page-item @(Model.Page <= 1 ? "disabled" : "")"><a class="page-link" asp-action="AllBoards" asp-route-page="@(Model.Page - 1)" asp-route-search="@Model.Search">@Localizer["Previous"]</a></li>
+            <li class="page-item disabled"><span class="page-link">@Model.Page / @Model.TotalPages</span></li>
+            <li class="page-item @(Model.Page >= Model.TotalPages ? "disabled" : "")"><a class="page-link" asp-action="AllBoards" asp-route-page="@(Model.Page + 1)" asp-route-search="@Model.Search">@Localizer["Next"]</a></li>
+        </ul>
+    </nav>
+}
+
+<div class="modal fade" id="deleteBoardModal" tabindex="-1" aria-labelledby="deleteBoardModalTitle" aria-hidden="true">
+    <div class="modal-dialog"><div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="deleteBoardModalTitle">@Localizer["Delete Board"]</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
+        </div>
+        <div class="modal-body">
+            <p id="deleteBoardName" class="fw-semibold text-break"></p>
+            <p>@Localizer["This will permanently delete the board and all its columns, cards and comments. This action cannot be undone."]</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+            <form method="post" asp-action="DeleteBoard" id="deleteBoardForm">
+                <input type="hidden" name="boardId" id="deleteBoardId" />
+                <button type="submit" class="btn btn-danger">@Localizer["Delete Board"]</button>
+            </form>
+        </div>
+    </div></div>
+</div>
+<div id="allBoardsLocalization" hidden>
+    <span data-key="failed">@Localizer["The board could not be updated. Refresh the page and try again."]</span>
+</div>
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+    <script src="~/js/all-boards.js" asp-append-version="true"></script>
+}

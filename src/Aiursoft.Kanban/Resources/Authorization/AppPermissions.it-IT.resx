@@ -27,6 +27,9 @@
   <data name="Allows assigning or removing roles for any user." xml:space="preserve">
     <value>Consente di assegnare o rimuovere ruoli per qualsiasi utente.</value>
   </data>
+  <data name="Allows browsing, renaming and permanently deleting any board from the all boards administration page." xml:space="preserve">
+    <value>Consente di sfogliare, rinominare ed eliminare definitivamente qualsiasi scheda dalla pagina di amministrazione di tutte le schede.</value>
+  </data>
   <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
     <value>Consente di gestire le impostazioni di condivisione e visibilità per qualsiasi board.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
     <value>Concede il permesso di riavviare l&apos;istanza dell&apos;applicazione. Potrebbe causare interruzioni della disponibilità, ma tutte le impostazioni e la cache verranno ricaricate.</value>
+  </data>
+  <data name="Manage Any Board" xml:space="preserve">
+    <value>Gestisci qualsiasi board</value>
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>Gestisci qualsiasi condivisione di board</value>

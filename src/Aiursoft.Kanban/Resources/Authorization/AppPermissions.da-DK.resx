@@ -27,6 +27,9 @@
   <data name="Allows assigning or removing roles for any user." xml:space="preserve">
     <value>Giver mulighed for at tildele eller fjerne roller for enhver bruger.</value>
   </data>
+  <data name="Allows browsing, renaming and permanently deleting any board from the all boards administration page." xml:space="preserve">
+    <value>Giver mulighed for at gennemse, omdøbe og permanent slette ethvert board fra administrations siden for alle boards.</value>
+  </data>
   <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
     <value>Tillader styring af delings- og synlighedsindstillinger for ethvert board.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
     <value>Giver tilladelse til at genstarte applikationsinstansen. Kan forårsage afbrydelser i tilgængeligheden, men alle indstillinger og cache vil blive genindlæst.</value>
+  </data>
+  <data name="Manage Any Board" xml:space="preserve">
+    <value>Administrer ethvert board</value>
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>Administrer enhver tavle-del</value>

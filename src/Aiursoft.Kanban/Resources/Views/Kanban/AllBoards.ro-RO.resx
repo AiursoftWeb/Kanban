@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Acțiuni</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Activ</value>
+  </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Toate tabelele</value>
+  </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Arhivat</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>Numele tabelei</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Răsfoire</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anulare</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Creator</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>Șterge Panoul</value>
+  </data>
+  <data name="Deleted user" xml:space="preserve">
+    <value>Utilizator șters</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Următorul</value>
+  </data>
+  <data name="No boards found." xml:space="preserve">
+    <value>Nicio tablier găsit.</value>
+  </data>
+  <data name="Pagination" xml:space="preserve">
+    <value>Paginare</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Redenumește</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Caută</value>
+  </data>
+  <data name="Search by board name or creator" xml:space="preserve">
+    <value>Cautare după numele tablei sau creator</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stare</value>
+  </data>
+  <data name="The board could not be updated. Refresh the page and try again." xml:space="preserve">
+    <value>Tabloul nu a putut fi actualizat. Reîncărcați pagina și încercați din nou.</value>
+  </data>
+  <data name="This will permanently delete the board and all its columns, cards and comments. This action cannot be undone." xml:space="preserve">
+    <value>Aceasta va șterge definitiv tablo și toate coloanele, cardurile și comentariile sale. Această acțiune nu poate fi anulată.</value>
+  </data>
+  <data name="{0} boards" xml:space="preserve">
+    <value>{0} tabele</value>
+  </data>
+
+</root>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Azioni</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Attivo</value>
+  </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Tutte le board</value>
+  </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Archiviato</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>Nome della board</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Sfoglia</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Creatore</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>Elimina board</value>
+  </data>
+  <data name="Deleted user" xml:space="preserve">
+    <value>Utente eliminato</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Successivo</value>
+  </data>
+  <data name="No boards found." xml:space="preserve">
+    <value>Nessuna board trovata.</value>
+  </data>
+  <data name="Pagination" xml:space="preserve">
+    <value>Paginazione</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Precedente</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rinomina</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="Search by board name or creator" xml:space="preserve">
+    <value>Cerca per nome della board o creatore</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+  <data name="The board could not be updated. Refresh the page and try again." xml:space="preserve">
+    <value>Non è stato possibile aggiornare la scheda. Aggiorna la pagina e riprova.</value>
+  </data>
+  <data name="This will permanently delete the board and all its columns, cards and comments. This action cannot be undone." xml:space="preserve">
+    <value>Questo eliminerà definitivamente la bacheca e tutte le sue colonne, carte e commenti. Questa azione non può essere annullata.</value>
+  </data>
+  <data name="{0} boards" xml:space="preserve">
+    <value>{0} board</value>
+  </data>
+
+</root>
