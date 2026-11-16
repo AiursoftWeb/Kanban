@@ -4,7 +4,7 @@
 
 <form method="get" asp-action="AllBoards" class="d-flex gap-2 mb-3">
     <input type="search" name="search" value="@Model.Search" class="form-control" placeholder="@Localizer["Search by board name or creator"]" aria-label="@Localizer["Search by board name or creator"]" />
-    <button type="submit" class="btn btn-primary">@Localizer["Search"]</button>
+    <button type="submit" class="btn btn-primary text-nowrap">@Localizer["Search"]</button>
 </form>
 <p class="text-muted">@string.Format(@Localizer["{0} boards"].Value, Model.Total)</p>
 <div id="allBoardsError" class="alert alert-danger d-none" role="alert"><div class="alert-message"></div></div>
@@ -31,14 +31,14 @@ else
                 {
                     <tr data-board-id="@board.Id">
                         <td>@board.Id</td>
-                        <td>
+                        <td style="min-width: 20rem;">
                             <form method="post" asp-action="RenameBoard" class="d-flex gap-2 board-rename-form">
                                 <input type="hidden" name="boardId" value="@board.Id" />
                                 <input name="name" value="@board.Name" class="form-control" required maxlength="100" aria-label="@Localizer["Board Name"]" />
                                 <button type="submit" class="btn btn-outline-primary text-nowrap">@Localizer["Rename"]</button>
                             </form>
                         </td>
-                        <td>@(board.User == null ? Localizer["Deleted user"].Value : string.IsNullOrWhiteSpace(board.User.DisplayName) ? board.User.UserName : board.User.DisplayName)</td>
+                        <td>@(board.User == null ? @Localizer["Deleted user"].Value : string.IsNullOrWhiteSpace(board.User.DisplayName) ? board.User.UserName : board.User.DisplayName)</td>
                         <td>
                             @if (board.IsArchived)
                             {

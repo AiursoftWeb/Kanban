@@ -10,6 +10,27 @@ namespace Aiursoft.Kanban.Tests.IntegrationTests;
 [TestClass]
 public class AllBoardsTests : TestBase
 {
+    private readonly string _prefix = $"AllBoards-{Guid.NewGuid():N}";
+    private readonly List<int> _boardIds = [];
+    private readonly List<int> _cardIds = [];
+
+    [TestCleanup]
+    public override async Task CleanServer()
+    {
+        if (Server != null)
+        {
+            using var scope = Server.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.KanbanCardComments.RemoveRange(await db.KanbanCardComments.Where(c => _cardIds.Contains(c.CardId)).ToListAsync());
+            db.BoardShares.RemoveRange(await db.BoardShares.Where(s => _boardIds.Contains(s.BoardId)).ToListAsync());
+            db.KanbanCards.RemoveRange(await db.KanbanCards.Where(c => _cardIds.Contains(c.Id)).ToListAsync());
+            db.KanbanColumns.RemoveRange(await db.KanbanColumns.Where(c => _boardIds.Contains(c.BoardId)).ToListAsync());
+            db.KanbanBoards.RemoveRange(await db.KanbanBoards.Where(b => _boardIds.Contains(b.Id) || b.Name.StartsWith(_prefix)).ToListAsync());
+            await db.SaveChangesAsync();
+        }
+        await base.CleanServer();
+    }
+
     [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
@@ -18,8 +39,8 @@ public class AllBoardsTests : TestBase
         var (boardId, cardId) = await CreateOtherBoard(archived);
         await RegisterManager();
 
-        var all = await Http.GetStringAsync("/Kanban/AllBoards");
-        Assert.Contains("Other private board", all);
+        var all = await Http.GetStringAsync($"/Kanban/AllBoards?search={_prefix}");
+        Assert.Contains($"{_prefix} Other private board", all);
         Assert.Contains(archived ? "Archived" : "Active", all);
         var board = await Http.GetStringAsync($"/Kanban/Index?boardId={boardId}");
         Assert.Contains("Other private board", board);
@@ -66,7 +87,7 @@ public class AllBoardsTests : TestBase
         AssertDenied(await PostForm("/Kanban/DeleteBoard", new() { ["boardId"] = boardId.ToString() }, "/Manage/ChangePassword"));
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-        Assert.AreEqual("Other private board", (await db.KanbanBoards.FindAsync(boardId))!.Name);
+        Assert.AreEqual($"{_prefix} Other private board", (await db.KanbanBoards.FindAsync(boardId))!.Name);
     }
 
     [TestMethod]
@@ -114,16 +135,16 @@ public class AllBoardsTests : TestBase
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            db.KanbanBoards.AddRange(Enumerable.Range(0, 51).Select(i => new KanbanBoard { Name = $"Orphan-{i:D2}" }));
+            db.KanbanBoards.AddRange(Enumerable.Range(0, 51).Select(i => new KanbanBoard { Name = $"{_prefix} Orphan-{i:D2}" }));
             await db.SaveChangesAsync();
         }
-        var first = await Http.GetStringAsync("/Kanban/AllBoards");
+        var first = await Http.GetStringAsync($"/Kanban/AllBoards?search={_prefix}");
         Assert.Contains("Orphan-00", first);
         Assert.DoesNotContain("Orphan-50", first);
-        var second = await Http.GetStringAsync("/Kanban/AllBoards?page=2");
+        var second = await Http.GetStringAsync($"/Kanban/AllBoards?search={_prefix}&page=2");
         Assert.Contains("Orphan-50", second);
         Assert.Contains("Deleted user", second);
-        var found = await Http.GetStringAsync("/Kanban/AllBoards?search=Orphan-50&page=999");
+        var found = await Http.GetStringAsync($"/Kanban/AllBoards?search={_prefix}%20Orphan-50&page=999");
         Assert.Contains("Orphan-50", found);
         Assert.DoesNotContain("Orphan-00", found);
         var empty = await Http.GetStringAsync("/Kanban/AllBoards?search=Nonexistent");
@@ -136,13 +157,15 @@ public class AllBoardsTests : TestBase
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var user = await db.Users.SingleAsync(u => u.Email == email);
-        var board = new KanbanBoard { Name = "Other private board", UserId = user.Id, IsArchived = archived };
+        var board = new KanbanBoard { Name = $"{_prefix} Other private board", UserId = user.Id, IsArchived = archived };
         var column = new KanbanColumn { Name = "Private column", Board = board };
         var card = new KanbanCard { Title = "Private card", Description = "Private description", Column = column };
         db.KanbanCards.Add(card);
         db.KanbanCardComments.Add(new KanbanCardComment { Card = card, AuthorId = user.Id, Content = "Private comment" });
         db.BoardShares.Add(new BoardShare { BoardId = 0, Board = board, SharedWithUserId = user.Id, Permission = SharePermission.ReadOnly });
         await db.SaveChangesAsync();
+        _boardIds.Add(board.Id);
+        _cardIds.Add(card.Id);
         await LogoutAsync();
         return (board.Id, card.Id);
     }

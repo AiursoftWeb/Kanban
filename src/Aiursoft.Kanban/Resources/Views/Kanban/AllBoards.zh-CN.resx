@@ -54,6 +54,9 @@
   <data name="Delete Board" xml:space="preserve">
     <value>删除看板</value>
   </data>
+  <data name="Deleted user" xml:space="preserve">
+    <value>已删除的用户</value>
+  </data>
   <data name="ID" xml:space="preserve">
     <value>ID</value>
   </data>
