@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Aksi</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Semua Papan</value>
+  </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Diarsipkan</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>Nama Papan</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Jelajahi</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Pembuat</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>Hapus Papan</value>
+  </data>
+  <data name="Deleted user" xml:space="preserve">
+    <value>Pengguna terhapus</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Berikutnya</value>
+  </data>
+  <data name="No boards found." xml:space="preserve">
+    <value>Tidak ada papan yang ditemukan.</value>
+  </data>
+  <data name="Pagination" xml:space="preserve">
+    <value>Paginasi</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Sebelumnya</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Ganti Nama</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Cari</value>
+  </data>
+  <data name="Search by board name or creator" xml:space="preserve">
+    <value>Cari berdasarkan nama papan atau pembuat</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="The board could not be updated. Refresh the page and try again." xml:space="preserve">
+    <value>Papan tidak dapat diperbarui. Muat ulang halaman dan coba lagi.</value>
+  </data>
+  <data name="This will permanently delete the board and all its columns, cards and comments. This action cannot be undone." xml:space="preserve">
+    <value>Hal ini akan menghapus papan secara permanen beserta semua kolom, kartu, dan komentarnya. Tindakan ini tidak dapat dibatalkan.</value>
+  </data>
+  <data name="{0} boards" xml:space="preserve">
+    <value>{0} papan</value>
+  </data>
+
+</root>

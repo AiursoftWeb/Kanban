@@ -27,6 +27,9 @@
   <data name="Allows assigning or removing roles for any user." xml:space="preserve">
     <value>Permet d&apos;attribuer ou de retirer des rôles à tout utilisateur.</value>
   </data>
+  <data name="Allows browsing, renaming and permanently deleting any board from the all boards administration page." xml:space="preserve">
+    <value>Permet de parcourir, de renommer et de supprimer définitivement n&apos;importe quel tableau depuis la page d&apos;administration de tous les tableaux.</value>
+  </data>
   <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
     <value>Permet de gérer les paramètres de partage et de visibilité pour n&apos;importe quel tableau.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
     <value>Accorde l&apos;autorisation de redémarrer l&apos;instance de l&apos;application. Peut entraîner des interruptions de disponibilité, mais tous les paramètres et le cache seront rechargés.</value>
+  </data>
+  <data name="Manage Any Board" xml:space="preserve">
+    <value>Gérer tout tableau</value>
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>Gérer le partage de tout tableau</value>

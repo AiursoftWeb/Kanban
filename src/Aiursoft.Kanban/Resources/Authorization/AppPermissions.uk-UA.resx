@@ -27,6 +27,9 @@
   <data name="Allows assigning or removing roles for any user." xml:space="preserve">
     <value>Дозволяє призначати або знімати ролі для будь-кого користувача.</value>
   </data>
+  <data name="Allows browsing, renaming and permanently deleting any board from the all boards administration page." xml:space="preserve">
+    <value>Дозволяє переглядати, перейменовувати та безповоротно видаляти будь-яку дошку зі сторінки адміністрування всіх дошок.</value>
+  </data>
   <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
     <value>Дозволяє керувати налаштуваннями спільного доступу та видимості для будь-якої дошки.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
     <value>Надає дозвіл на перезапуск екземпляра програми. Може призвести до перерв у доступності, але всі налаштування та кеш буде перезавантажено.</value>
+  </data>
+  <data name="Manage Any Board" xml:space="preserve">
+    <value>Керувати будь-якою дошкою</value>
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>Керування спільним доступом до будь-якої дошки</value>

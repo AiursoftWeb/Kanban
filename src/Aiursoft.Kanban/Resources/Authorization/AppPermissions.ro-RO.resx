@@ -27,6 +27,9 @@
   <data name="Allows assigning or removing roles for any user." xml:space="preserve">
     <value>Permite atribuirea sau eliminarea rolurilor pentru orice utilizator.</value>
   </data>
+  <data name="Allows browsing, renaming and permanently deleting any board from the all boards administration page." xml:space="preserve">
+    <value>Permite vizualizarea, redenumirea și ștergerea definitivă a oricărui panou din pagina de administrare a tuturor panourilor.</value>
+  </data>
   <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
     <value>Permite gestionarea setărilor de partajare și vizibilitate pentru orice tablou.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
     <value>Acordă permisiunea de a reporni instanța aplicației. Poate cauza întreruperi de disponibilitate, dar toate setările și memoria cache vor fi reîncărcate.</value>
+  </data>
+  <data name="Manage Any Board" xml:space="preserve">
+    <value>Gestionează orice panou</value>
   </data>
   <data name="Manage Any Board Share" xml:space="preserve">
     <value>Gestionați partajarea oricărei planșe</value>
