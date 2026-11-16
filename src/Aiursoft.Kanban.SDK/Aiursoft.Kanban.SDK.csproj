@@ -10,6 +10,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Aiursoft.AiurProtocol" Version="10.0.33" />
+    <PackageReference Include="Aiursoft.AiurProtocol" Version="10.0.34" />
   </ItemGroup>
 </Project>
