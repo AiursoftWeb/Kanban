@@ -322,4 +322,7 @@
     <value>分钟前</value>
   </data>
 
+  <data name="Task category" xml:space="preserve">
+    <value>任务分类</value>
+  </data>
 </root>
