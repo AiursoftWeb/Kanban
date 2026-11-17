@@ -220,8 +220,8 @@ public sealed class KanbanApiController(
             Order = maxOrder + 100,
             Columns =
             [
-                new KanbanColumn { Name = "To Do", Order = 0, ColumnStatus = ColumnStatus.NotStarted },
-                new KanbanColumn { Name = "In Progress", Order = 1, ColumnStatus = ColumnStatus.InProgress },
+                new KanbanColumn { Name = "Todo", Order = 0, ColumnStatus = ColumnStatus.NotStarted },
+                new KanbanColumn { Name = "Working", Order = 1, ColumnStatus = ColumnStatus.InProgress },
                 new KanbanColumn { Name = "Done", Order = 2, ColumnStatus = ColumnStatus.Completed }
             ]
         };
@@ -290,8 +290,11 @@ public sealed class KanbanApiController(
             return this.Protocol(Code.Unauthorized, "The board is read-only.");
         }
 
+        if (request.CategoryId.HasValue && !await db.KanbanCategories.AnyAsync(c => c.Id == request.CategoryId && c.BoardId == column.BoardId))
+            return this.Protocol(Code.InvalidInput, "Category does not belong to this board.");
         var card = new KanbanCard
         {
+            CategoryId = request.CategoryId ?? 0,
             ColumnId = column.Id,
             Title = request.Title.Trim(),
             Description = request.Description?.Trim(),
@@ -466,6 +469,7 @@ public sealed class KanbanApiController(
         ?? throw new InvalidOperationException("The authenticated token is not linked to a local user.");
 
     private Task<KanbanBoard?> LoadBoardAsync(int boardId) => db.KanbanBoards
+        .Include(board => board.Categories)
         .Include(board => board.Columns)
             .ThenInclude(column => column.Cards)
                 .ThenInclude(card => card.AssignedUser)
@@ -514,6 +518,7 @@ public sealed class KanbanApiController(
             .ToDictionary(group => group.Key, group => group.Count());
         return new BoardDto
         {
+            Categories = board.Categories.OrderBy(c => c.Order).Select(c => new CategoryDto { Id = c.Id, Name = c.Name, Order = c.Order, IsDefault = c.IsDefault }).ToList(),
             Id = board.Id,
             Name = board.Name,
             IsOwner = board.UserId == userId,
@@ -542,6 +547,8 @@ public sealed class KanbanApiController(
     {
         Id = card.Id,
         ColumnId = card.ColumnId,
+        CategoryId = card.CategoryId,
+        CategoryOrder = card.CategoryOrder,
         Title = card.Title,
         Description = card.Description,
         Order = card.Order,

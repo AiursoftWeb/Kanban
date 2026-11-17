@@ -46,6 +46,11 @@
         scrollbar-width: none;
     }
 
+    .kanban-topbar > .d-flex > .d-flex.gap-2 > * {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
     .kanban-topbar > .d-flex > .d-flex.gap-2::-webkit-scrollbar {
         display: none;
     }
@@ -112,9 +117,9 @@
     }
 
     .kanban-column {
-        flex: 0 0 calc(100vw - 2rem);
-        width: calc(100vw - 2rem);
-        max-width: calc(100vw - 2rem);
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
         height: 100%;
         border-radius: 12px;
         scroll-snap-align: start;

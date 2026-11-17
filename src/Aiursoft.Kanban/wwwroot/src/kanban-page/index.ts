@@ -46,23 +46,56 @@ function initBoardPage(options: KanbanIndexPageOptions): void {
   const container = document.getElementById('kanban-root');
   if (!container || !options.boardData) return;
 
+  const categoryView = new URLSearchParams(window.location.search).get('groupBy') === 'category';
+  container.dataset.grouping = categoryView ? 'category' : 'status';
+  const data = options.boardData;
+  const addColumn = document.getElementById('btnAddColumn');
+  if (categoryView && addColumn) addColumn.textContent = t('add-category', 'Add Category');
+  document.querySelectorAll<HTMLElement>('[data-group-by]').forEach(button => {
+    const active = button.dataset.groupBy === container.dataset.grouping;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
+
   KanbanBoard({
     container,
     data: options.boardData,
     highlightCardId: options.highlightCardId,
     callbacks: {
-      onCardClicked: cardId => {
-        window.location.href = `/Cards/${cardId}?returnBoardId=${options.boardId}`;
-      },
-      onCardCreatedQuick: async (columnId, title) => {
+      ...(options.canEditCurrentBoard ? {
+      onCardCreatedQuick: async (columnId: number, title: string) => {
+        const categoryId = categoryView ? columnId : data.categories?.find(c => c.isDefault)?.id;
+        if (categoryView) columnId = data.columns.find(c => c.status === 'NotStarted')?.id ?? data.columns[0]?.id ?? 0;
+        if (!columnId) throw new Error(t('status-column-required', 'Create a status column before adding cards.'));
         const response = await postForm('/Kanban/CreateCard', {
           columnId,
           title,
+          ...(categoryId ? { categoryId } : {}),
         }, options.csrfToken);
         const result = await readJsonOrThrow<Record<string, unknown>>(response);
+        window.location.reload();
         return mapCreatedCard(result);
       },
-      onCardMoved: async (cardId, targetColumnId, newOrder) => {
+      onCardMoved: async (cardId: number, targetColumnId: number, newOrder: number) => {
+        if (categoryView) {
+          const card = data.columns.flatMap(c => c.cards).find(c => c.id === cardId);
+          const from = data.categories?.find(c => c.id === card?.categoryId);
+          const to = data.categories?.find(c => c.id === targetColumnId);
+          if (!card || !from || !to) return false;
+          if (from.id !== to.id) {
+            const message = t('confirm-category-change', 'You are changing the category of "{0}" from "{1}" to "{2}". Continue?')
+              .replace(/\{([012])\}/g, (_, index: string) => [card.title, from.name, to.name][Number(index)]);
+            if (!await confirmCategoryChange(message)) return false;
+          }
+          try {
+            await ensureOk(postForm('/Categories/MoveCard', { cardId, categoryId: targetColumnId, newOrder }, options.csrfToken));
+            window.location.reload();
+          } catch (problem) {
+            showFriendlyDialog(getErrorMessage(problem, t('failed-change-category', 'Failed to change category.')));
+            throw problem;
+          }
+          return;
+        }
         const response = await postForm('/Kanban/MoveCard', {
           cardId,
           targetColumnId,
@@ -71,19 +104,24 @@ function initBoardPage(options: KanbanIndexPageOptions): void {
         const result = await readJsonOrThrow<Record<string, unknown>>(response);
         syncMovedCard(container, cardId, targetColumnId, result);
       },
-      onColumnReordered: async (columnId, newOrder) => {
+      onColumnReordered: categoryView ? undefined : async (columnId: number, newOrder: number) => {
         await ensureOk(postForm('/Kanban/MoveColumn', {
           columnId,
           newOrder,
         }, options.csrfToken));
       },
-      onColumnRenamed: async (columnId, newName) => {
+      onColumnRenamed: async (columnId: number, newName: string) => {
+        if (categoryView) {
+          await ensureOk(postForm('/Categories/Rename', { categoryId: columnId, name: newName }, options.csrfToken));
+          window.location.reload();
+          return;
+        }
         await ensureOk(postForm('/Kanban/RenameColumn', {
           columnId,
           name: newName,
         }, options.csrfToken));
       },
-      onColumnStatusChanged: async (columnId, newStatus) => {
+      onColumnStatusChanged: async (columnId: number, newStatus: string) => {
         await ensureOk(postForm('/Kanban/UpdateColumnStatus', {
           columnId,
           status: newStatus,
@@ -97,11 +135,24 @@ function initBoardPage(options: KanbanIndexPageOptions): void {
           rerenderCardElement(cardEl);
         });
       },
-      onColumnDeleted: async columnId => {
+      onColumnDeleted: async (columnId: number) => {
+        if (categoryView) {
+          const category = data.categories?.find(c => c.id === columnId);
+          if (!await confirmCategoryChange(t('confirm-delete-category', 'Delete category "{0}"? Only empty categories can be deleted.').replace('{0}', () => category?.name ?? ''))) return;
+          try {
+            await ensureOk(postForm('/Categories/Delete', { categoryId: columnId }, options.csrfToken));
+            window.location.reload();
+          } catch (problem) { showFriendlyDialog(getErrorMessage(problem, t('failed-delete-category', 'Failed to delete category.'))); }
+          return;
+        }
         await deleteColumnWithConfirmation(columnId, options.csrfToken);
       },
       onCreateColumn: () => {
         showModalById('addColumnModal');
+      },
+      } : {}),
+      onCardClicked: (cardId: number) => {
+        window.location.href = `/Cards/${cardId}?returnBoardId=${options.boardId}&returnGroupBy=${categoryView ? 'category' : 'status'}`;
       },
     },
   });
@@ -111,7 +162,7 @@ function initBoardPage(options: KanbanIndexPageOptions): void {
   });
 
   initBoardRename(options);
-  initAddColumnModal(options);
+  initAddColumnModal(options, categoryView);
   refreshIcons(container);
 }
 
@@ -173,12 +224,17 @@ function initBoardRename(options: KanbanIndexPageOptions): void {
   });
 }
 
-function initAddColumnModal(options: KanbanIndexPageOptions): void {
+function initAddColumnModal(options: KanbanIndexPageOptions, categoryView: boolean): void {
   const saveButton = document.getElementById('btnSaveColumn') as HTMLButtonElement | null;
   const input = document.getElementById('columnNameInput') as HTMLInputElement | null;
   const error = document.getElementById('columnError');
   const modalElement = document.getElementById('addColumnModal');
   if (!saveButton || !input || !modalElement) return;
+  if (categoryView) {
+    const title = modalElement.querySelector('.modal-title');
+    if (title) title.textContent = t('add-category', 'Add Category');
+    input.placeholder = t('category-name', 'Category name');
+  }
 
   saveButton.addEventListener('click', async () => {
     const name = input.value.trim();
@@ -193,7 +249,7 @@ function initAddColumnModal(options: KanbanIndexPageOptions): void {
 
     saveButton.disabled = true;
     try {
-      await ensureOk(postForm('/Kanban/CreateColumn', {
+      await ensureOk(postForm(categoryView ? '/Categories/Create' : '/Kanban/CreateColumn', {
         boardId: options.boardId,
         name,
       }, options.csrfToken));
@@ -599,4 +655,23 @@ function getErrorMessage(error: unknown, fallback: string): string {
     return error.message;
   }
   return fallback;
+}
+
+async function confirmCategoryChange(message: string): Promise<boolean> {
+  const modal = document.getElementById('categoryConfirmModal');
+  const body = document.getElementById('categoryConfirmMessage');
+  const confirm = document.getElementById('confirmCategoryChange');
+  if (!modal || !body || !confirm) return false;
+  body.textContent = message;
+  return new Promise(resolve => {
+    let accepted = false;
+    const onConfirm = () => { accepted = true; hideModal(modal); };
+    const onHidden = () => {
+      confirm.removeEventListener('click', onConfirm);
+      resolve(accepted);
+    };
+    confirm.addEventListener('click', onConfirm, { once: true });
+    modal.addEventListener('hidden.bs.modal', onHidden, { once: true });
+    showModal(modal);
+  });
 }

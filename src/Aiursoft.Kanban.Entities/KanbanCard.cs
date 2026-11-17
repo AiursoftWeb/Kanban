@@ -21,6 +21,10 @@ public class KanbanCard
     public int ColumnId { get; set; }
     public KanbanColumn Column { get; set; } = null!;
 
+    public int CategoryId { get; set; }
+    public KanbanCategory Category { get; set; } = null!;
+    public int CategoryOrder { get; set; }
+
     public Priority Priority { get; set; } = Priority.None;
 
     [StringLength(450)]

@@ -241,8 +241,8 @@ public class KanbanController(
 
         var defaultColumns = new[]
         {
-            new KanbanColumn { Name = "To Do", Order = 0, Board = board, ColumnStatus = ColumnStatus.NotStarted },
-            new KanbanColumn { Name = "In Progress", Order = 1, Board = board, ColumnStatus = ColumnStatus.InProgress },
+            new KanbanColumn { Name = "Todo", Order = 0, Board = board, ColumnStatus = ColumnStatus.NotStarted },
+            new KanbanColumn { Name = "Working", Order = 1, Board = board, ColumnStatus = ColumnStatus.InProgress },
             new KanbanColumn { Name = "Done", Order = 2, Board = board, ColumnStatus = ColumnStatus.Completed }
         };
         db.KanbanColumns.AddRange(defaultColumns);
@@ -391,7 +391,7 @@ public class KanbanController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateCard(int columnId, string title, string? description)
+    public async Task<IActionResult> CreateCard(int columnId, string title, string? description, int? categoryId = null)
     {
         if (string.IsNullOrWhiteSpace(title))
             return BadRequest("Title is required.");
@@ -408,9 +408,13 @@ public class KanbanController(
             .Where(c => c.ColumnId == columnId)
             .MaxAsync(c => (int?)c.Order) ?? -1;
 
+        if (categoryId.HasValue && !await db.KanbanCategories.AnyAsync(c => c.Id == categoryId && c.BoardId == column.BoardId))
+            return BadRequest("Category does not belong to this board.");
+
         var card = new KanbanCard
         {
             Title = title.Trim(),
+            CategoryId = categoryId ?? 0,
             Description = description?.Trim(),
             Order = maxOrder + 1,
             ColumnId = columnId,
@@ -983,7 +987,8 @@ public class KanbanController(
         int priority = (int)Priority.None,
         string? assignedUserId = null,
         int? recurrenceInterval = null,
-        int recurrenceUnit = (int)RecurrenceUnit.None)
+        int recurrenceUnit = (int)RecurrenceUnit.None,
+        int? categoryId = null)
     {
         if (string.IsNullOrWhiteSpace(title))
             return BadRequest("Title is required.");
@@ -1020,7 +1025,14 @@ public class KanbanController(
         if (!await CanAssignUserToBoardAsync(card.Column.Board, normalizedAssignedUserId))
             return BadRequest("Assigned user does not have access to this board.");
 
+        if (categoryId.HasValue && !await db.KanbanCategories.AnyAsync(c => c.Id == categoryId && c.BoardId == card.Column.BoardId))
+            return BadRequest("Category does not belong to this board.");
         var changedFields = new List<string>();
+        if (categoryId.HasValue && categoryId.Value != card.CategoryId)
+        {
+            card.CategoryId = categoryId.Value;
+            changedFields.Add("category");
+        }
         if (!string.Equals(card.Title, title.Trim(), StringComparison.Ordinal))
             changedFields.Add("title");
         var newDescription = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
@@ -1614,6 +1626,7 @@ public class KanbanController(
             Id = board.Id,
             Name = board.Name,
             CanEdit = canEdit,
+            Categories = board.Categories.OrderBy(c => c.Order).Select(c => new CategoryData { Id = c.Id, Name = c.Name, Order = c.Order, IsDefault = c.IsDefault }).ToList(),
             Columns = board.Columns
                 .OrderBy(c => c.Order)
                 .Select(col =>
@@ -1634,6 +1647,8 @@ public class KanbanController(
                             .Select(card => new CardSummary
                             {
                                 Id = card.Id,
+                                CategoryId = card.CategoryId,
+                                CategoryOrder = card.CategoryOrder,
                                 Title = card.Title,
                                 Priority = card.Priority.ToString(),
                                 DueDate = card.DueDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
@@ -1690,6 +1705,7 @@ public class KanbanController(
     {
         return db.KanbanBoards
             .Include(b => b.User)
+            .Include(b => b.Categories)
             .Include(b => b.Columns.OrderBy(c => c.Order))
                 .ThenInclude(c => c.Cards.OrderBy(card => card.Order))
                     .ThenInclude(card => card.CardLabels)

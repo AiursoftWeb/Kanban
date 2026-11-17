@@ -18,9 +18,15 @@
     }
 </div>
 
-<div class="kanban-container" id="kanban-root"></div>
+<div class="btn-group btn-group-sm mb-3" role="group" aria-label="@Localizer["Group tasks by"]">
+    <a class="btn btn-outline-primary @(Context.Request.Query["groupBy"] != "category" ? "active" : "")" asp-route-boardId="@Model.Board.Id" asp-route-groupBy="status">@Localizer["Status"]</a>
+    <a class="btn btn-outline-primary @(Context.Request.Query["groupBy"] == "category" ? "active" : "")" asp-route-boardId="@Model.Board.Id" asp-route-groupBy="category">@Localizer["Category"]</a>
+</div>
+<div class="kanban-container" id="kanban-root" data-grouping="@(Context.Request.Query["groupBy"] == "category" ? "category" : "status")"></div>
 
 <div id="loc-data" hidden>
+    <span data-key="status">@Localizer["Status"]</span>
+    <span data-key="task-category">@Localizer["Task category"]</span>
     <span data-key="not-started">@Localizer["Not Started"]</span>
     <span data-key="in-progress">@Localizer["In Progress"]</span>
     <span data-key="completed">@Localizer["Completed"]</span>

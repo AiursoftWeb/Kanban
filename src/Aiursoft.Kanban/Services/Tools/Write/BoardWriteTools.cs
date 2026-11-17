@@ -12,7 +12,7 @@ public class BoardWriteTools(
     TemplateDbContext db,
     CurrentUserService currentUser) : IScopedDependency
 {
-    [McpServerTool, Description("Create a new kanban board with default columns (To Do, In Progress, Done)")]
+    [McpServerTool, Description("Create a new kanban board with default columns (Todo, Working, Done)")]
     [Advice]
     public async Task<string> CreateBoard(
         [Description("Board name")] string name)
@@ -30,14 +30,14 @@ public class BoardWriteTools(
 
         var defaultColumns = new[]
         {
-            new KanbanColumn { Name = "To Do", Order = 0, Board = board, ColumnStatus = ColumnStatus.NotStarted },
-            new KanbanColumn { Name = "In Progress", Order = 1, Board = board, ColumnStatus = ColumnStatus.InProgress },
+            new KanbanColumn { Name = "Todo", Order = 0, Board = board, ColumnStatus = ColumnStatus.NotStarted },
+            new KanbanColumn { Name = "Working", Order = 1, Board = board, ColumnStatus = ColumnStatus.InProgress },
             new KanbanColumn { Name = "Done", Order = 2, Board = board, ColumnStatus = ColumnStatus.Completed }
         };
         db.KanbanColumns.AddRange(defaultColumns);
         await db.SaveChangesAsync();
 
-        return $"Board created: #{board.Id} \"{board.Name}\" with columns: To Do, In Progress, Done.";
+        return $"Board created: #{board.Id} \"{board.Name}\" with columns: Todo, Working, Done.";
     }
 
     [McpServerTool, Description("Rename an existing board")]

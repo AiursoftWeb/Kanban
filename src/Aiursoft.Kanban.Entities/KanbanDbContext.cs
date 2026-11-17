@@ -14,6 +14,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<GlobalSetting> GlobalSettings => Set<GlobalSetting>();
     public DbSet<KanbanBoard> KanbanBoards => Set<KanbanBoard>();
     public DbSet<KanbanColumn> KanbanColumns => Set<KanbanColumn>();
+    public DbSet<KanbanCategory> KanbanCategories => Set<KanbanCategory>();
     public DbSet<KanbanCard> KanbanCards => Set<KanbanCard>();
     public DbSet<KanbanLabel> KanbanLabels => Set<KanbanLabel>();
     public DbSet<KanbanCardLabel> KanbanCardLabels => Set<KanbanCardLabel>();
@@ -26,8 +27,9 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<SearchEmbedding> SearchEmbeddings => Set<SearchEmbedding>();
     public DbSet<AgentSession> AgentSessions => Set<AgentSession>();
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
+        await PrepareCategoriesAsync(cancellationToken);
         var entries = ChangeTracker.Entries<KanbanCard>()
             .Where(e => e.State == EntityState.Modified &&
                 (e.Property(c => c.Title).IsModified || e.Property(c => c.Description).IsModified));
@@ -37,7 +39,41 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             entry.Entity.LastUpdatedAt = DateTime.UtcNow;
         }
 
-        return base.SaveChangesAsync(cancellationToken);
+        return await base.SaveChangesAsync(cancellationToken);
+    }
+
+    private async Task PrepareCategoriesAsync(CancellationToken cancellationToken)
+    {
+        foreach (var entry in ChangeTracker.Entries<KanbanBoard>().Where(e => e.State == EntityState.Added).ToList())
+        {
+            if (!entry.Entity.Categories.Any(c => c.IsDefault))
+            {
+                KanbanCategories.Add(new KanbanCategory { Name = "Default", IsDefault = true, Board = entry.Entity });
+            }
+        }
+
+        var cards = ChangeTracker.Entries<KanbanCard>()
+            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified &&
+                (e.Property(c => c.CategoryId).IsModified || e.Property(c => c.ColumnId).IsModified))
+            .Select(e => e.Entity).ToList();
+        foreach (var card in cards)
+        {
+            var column = Entry(card).Reference(c => c.Column).TargetEntry?.Entity ?? await KanbanColumns.FindAsync([card.ColumnId], cancellationToken)
+                ?? throw new InvalidOperationException("Card column not found.");
+            if (card.CategoryId == 0 && Entry(card).Reference(c => c.Category).TargetEntry == null)
+            {
+                card.Category = Entry(column).Reference(c => c.Board).TargetEntry?.Entity.Categories.FirstOrDefault(c => c.IsDefault)
+                    ?? KanbanCategories.Local.FirstOrDefault(c => c.IsDefault && c.BoardId == column.BoardId)
+                    ?? await KanbanCategories.SingleAsync(c => c.BoardId == column.BoardId && c.IsDefault, cancellationToken);
+            }
+            var category = Entry(card).Reference(c => c.Category).TargetEntry?.Entity ?? await KanbanCategories.FindAsync([card.CategoryId], cancellationToken)
+                ?? throw new InvalidOperationException("Card category not found.");
+            if (category.BoardId != column.BoardId ||
+                category.BoardId == 0 && !ReferenceEquals(category.Board, column.Board))
+            {
+                throw new InvalidOperationException("The category and status column must belong to the same board.");
+            }
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -53,6 +89,10 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<PersonalApiKey>().HasIndex(key => key.KeyHash).IsUnique();
         builder.Entity<PersonalApiKey>().HasOne(key => key.User).WithMany()
             .HasForeignKey(key => key.UserId).OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<KanbanCategory>().HasIndex(category => new { category.BoardId, category.Name }).IsUnique();
+        builder.Entity<KanbanCard>().HasOne(card => card.Category).WithMany(category => category.Cards)
+            .HasForeignKey(card => card.CategoryId).OnDelete(DeleteBehavior.Cascade);
 
         ConfigureKanbanCardLabel(builder.Entity<KanbanCardLabel>());
         builder.Entity<KanbanCard>()

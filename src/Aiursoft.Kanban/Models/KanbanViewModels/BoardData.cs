@@ -15,6 +15,7 @@ public class BoardData
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public bool CanEdit { get; set; }
+    public List<CategoryData> Categories { get; set; } = [];
     public List<ColumnData> Columns { get; set; } = [];
 }
 
@@ -32,8 +33,18 @@ public class ColumnData
     public List<CardSummary> Cards { get; set; } = [];
 }
 
+public class CategoryData
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public int Order { get; set; }
+    public bool IsDefault { get; set; }
+}
+
 public class CardSummary
 {
+    public int CategoryId { get; set; }
+    public int CategoryOrder { get; set; }
     public int Id { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Priority { get; set; } = "None";

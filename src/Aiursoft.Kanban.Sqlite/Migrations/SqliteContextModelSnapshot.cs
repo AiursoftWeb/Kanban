@@ -15,7 +15,7 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.13");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.15");
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.AgentSession", b =>
                 {
@@ -195,6 +195,12 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CategoryOrder")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("ColumnId")
                         .HasColumnType("INTEGER");
 
@@ -246,6 +252,8 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AssignedUserId");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("ColumnId");
 
@@ -322,6 +330,34 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("KanbanCardSubscriptions");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BoardId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoardId", "Name")
+                        .IsUnique();
+
+                    b.ToTable("KanbanCategories");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>
@@ -810,6 +846,12 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .HasForeignKey("AssignedUserId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("Aiursoft.Kanban.Entities.KanbanCategory", "Category")
+                        .WithMany("Cards")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Aiursoft.Kanban.Entities.KanbanColumn", "Column")
                         .WithMany("Cards")
                         .HasForeignKey("ColumnId")
@@ -822,6 +864,8 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("AssignedUser");
+
+                    b.Navigation("Category");
 
                     b.Navigation("Column");
 
@@ -883,6 +927,17 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.Navigation("Card");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCategory", b =>
+                {
+                    b.HasOne("Aiursoft.Kanban.Entities.KanbanBoard", "Board")
+                        .WithMany("Categories")
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Board");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>
@@ -1012,6 +1067,8 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                 {
                     b.Navigation("BoardShares");
 
+                    b.Navigation("Categories");
+
                     b.Navigation("Columns");
                 });
 
@@ -1020,6 +1077,11 @@ namespace Aiursoft.Kanban.Sqlite.Migrations
                     b.Navigation("CardLabels");
 
                     b.Navigation("Subscriptions");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCategory", b =>
+                {
+                    b.Navigation("Cards");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>

@@ -36,6 +36,8 @@ export interface UserSummary {
 
 /** Summary data for a single card on the board */
 export interface CardSummary {
+  categoryId?: number;
+  categoryOrder?: number;
   id: number;
   title: string;
   priority: Priority;
@@ -67,7 +69,15 @@ export interface ColumnData {
 }
 
 /** Full board data passed to the module */
+export interface CategoryData {
+  id: number;
+  name: string;
+  order: number;
+  isDefault: boolean;
+}
+
 export interface BoardData {
+  categories?: CategoryData[];
   id: number;
   name: string;
   canEdit: boolean;
@@ -88,7 +98,7 @@ export interface KanbanCallbacks {
   onCardClicked?: (cardId: number) => void;
 
   /** Card dragged to new position → POST /Kanban/MoveCard */
-  onCardMoved?: (cardId: number, targetColumnId: number, newOrder: number) => Promise<void>;
+  onCardMoved?: (cardId: number, targetColumnId: number, newOrder: number) => Promise<void | boolean>;
 
   /** Column dragged to new position → POST /Kanban/MoveColumn */
   onColumnReordered?: (columnId: number, newOrder: number) => Promise<void>;

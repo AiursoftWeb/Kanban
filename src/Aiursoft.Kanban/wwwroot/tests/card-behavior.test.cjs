@@ -9,7 +9,7 @@ const path = require('node:path');
 const output = mkdtempSync(path.join(tmpdir(), 'kanban-card-tests-'));
 after(() => rmSync(output, { recursive: true }));
 execFileSync(process.execPath, [require.resolve('typescript/bin/tsc'),
-  'src/kanban-board/card-dates.ts', 'src/kanban-board/filter-state.ts', 'src/gantt-chart/types.ts',
+  'src/kanban-board/grouping.ts', 'src/kanban-board/card-dates.ts', 'src/kanban-board/filter-state.ts', 'src/gantt-chart/types.ts',
   '--outDir', output, '--rootDir', 'src', '--module', 'commonjs', '--moduleResolution', 'node',
   '--target', 'ES2020', '--strict', '--skipLibCheck',
 ], { cwd: path.resolve(__dirname, '..'), stdio: 'pipe' });
@@ -130,4 +130,20 @@ test('multiple statuses combine as alternatives and intersect with the other fil
   assert.deepEqual(visibleIds(filterBoardData(statusBoard, { ...state, assigneeIds: ['bob'] })), []);
   assert.deepEqual(visibleIds(filterBoardData(statusBoard, empty)), [1, 2, 3, 4, 5, 6]);
   assert.deepEqual(visibleIds(statusBoard), [1, 2, 3, 4, 5, 6]);
+});
+
+const { groupColumns, dotClass } = require(path.join(output, 'kanban-board/grouping.js'));
+test('category projection preserves each card and its status data without mutating the board', () => {
+  const data = { categories: [{ id: 10, name: 'Default', order: 0 }, { id: 11, name: 'Design', order: 1 }], columns: [
+    { id: 1, name: 'Todo', status: 'NotStarted', cards: [{ id: 1, categoryId: 11, categoryOrder: 3 }] },
+    { id: 2, name: 'Done', status: 'Completed', cards: [{ id: 2, categoryId: 11, categoryOrder: 0 }, { id: 3, categoryId: 10, categoryOrder: 0 }] },
+  ] };
+  const before = JSON.stringify(data);
+  const groups = groupColumns(data, 'category');
+  assert.deepEqual(groups.map(c => c.cards.map(k => k.id)), [[3], [2, 1]]);
+  assert.equal(groups[1].cards[0], data.columns[1].cards[0]);
+  assert.equal(JSON.stringify(data), before);
+  assert.equal(groupColumns(data, 'status'), data.columns);
+  assert.equal(groups[1].dotClass, dotClass(11));
+  assert.equal(groupColumns({ ...data, categories: [...data.categories].reverse() }, 'category')[1].dotClass, dotClass(11));
 });

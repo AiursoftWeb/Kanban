@@ -15,6 +15,7 @@ import type {
 } from './types';
 import { PRIORITY_VALUES, RECURRENCE_UNIT_VALUES } from './types';
 import { t } from './i18n';
+import { dotClass, groupColumns } from './grouping';
 import { resolveCardDateRows } from './card-dates';
 
 /**
@@ -150,7 +151,9 @@ function setUserDataAttributes(cardEl: HTMLElement, prefix: 'assigned-user' | 'c
 function readCardSummaryFromElement(cardEl: HTMLElement): CardSummary {
   const priorityIndex = parseInt(cardEl.getAttribute('data-priority') ?? '4', 10);
   const labels = parseCardLabels(cardEl.getAttribute('data-labels'));
-  const columnStatus = cardEl.closest<HTMLElement>('.kanban-column')?.getAttribute('data-column-status') ?? '';
+  const columnStatus = cardEl.closest<HTMLElement>('[data-grouping]')?.dataset.grouping === 'category'
+    ? cardEl.dataset.statusValue ?? ''
+    : cardEl.closest<HTMLElement>('.kanban-column')?.getAttribute('data-column-status') ?? '';
 
   const assignedUserId = cardEl.getAttribute('data-assigned-user-id') ?? '';
   const assignedUserName = cardEl.getAttribute('data-assigned-user-name') ?? '';
@@ -300,6 +303,7 @@ export function syncCardElementData(cardEl: HTMLElement, card: CardSummary, canD
   cardEl.className = `kanban-card${canDrag ? ' can-drag' : ''}`;
   cardEl.setAttribute('data-card-id', String(card.id));
   setOptionalDataAttribute(cardEl, 'title', card.title);
+  setOptionalDataAttribute(cardEl, 'category-id', card.categoryId);
   setOptionalDataAttribute(cardEl, 'description', card.description);
   setOptionalDataAttribute(
     cardEl,
@@ -330,6 +334,19 @@ export function rerenderCardElement(cardEl: HTMLElement, mode?: DateDisplayMode)
 
   const topLeft = document.createElement('div');
   topLeft.className = 'd-flex flex-wrap align-items-center gap-2';
+
+  const grouping = cardEl.closest<HTMLElement>('[data-grouping]')?.dataset.grouping;
+  const indicatorName = cardEl.dataset.indicatorName;
+  if (indicatorName) {
+    const indicator = document.createElement('span');
+    indicator.className = 'card-dimension-indicator';
+    indicator.title = `${grouping === 'category' ? t('status', 'Status') : t('task-category', 'Task category')}: ${indicatorName}`;
+    const dot = document.createElement('span');
+    dot.className = `column-dot ${cardEl.dataset.indicatorDot ?? ''}`;
+    dot.setAttribute('aria-hidden', 'true');
+    indicator.append(dot, document.createTextNode(indicatorName));
+    topLeft.appendChild(indicator);
+  }
 
   const priorityBadge = renderPriorityBadge(card.priority);
   if (priorityBadge) {
@@ -510,14 +527,32 @@ export function renderBoard(container: HTMLElement, data: BoardData, mode: DateD
   container.innerHTML = '';
   container.dataset.dateDisplayMode = mode;
 
-  const dotColors = ['dot-blue', 'dot-orange', 'dot-green', 'dot-purple', 'dot-pink', 'dot-teal', 'dot-amber', 'dot-indigo'];
-
-  data.columns.forEach((column, index) => {
-    const columnWithDot = {
-      ...column,
-      dotClass: column.dotClass || dotColors[index % dotColors.length],
-    };
-    container.appendChild(renderColumn(columnWithDot, data.canEdit, mode));
+  const grouping = container.dataset.grouping === 'category' ? 'category' : 'status';
+  const statuses = new Map(data.columns.flatMap(column => column.cards.map(card => [card.id, column] as const)));
+  groupColumns(data, grouping).forEach(column => {
+    const colEl = renderColumn({ ...column, dotClass: dotClass(column.id) }, data.canEdit, mode);
+    if (grouping === 'category') {
+      colEl.querySelector('.column-status-select')?.remove();
+      const category = data.categories?.find(c => c.id === column.id);
+      const deleteButton = colEl.querySelector<HTMLButtonElement>('.btn-delete-column');
+      if (deleteButton && category?.isDefault) deleteButton.remove();
+      colEl.querySelector('.btn-edit-column-title')?.setAttribute('title', t('rename-category', 'Rename category'));
+      deleteButton?.setAttribute('title', t('delete-category', 'Delete category'));
+    }
+    container.appendChild(colEl);
+    colEl.querySelectorAll<HTMLElement>('.kanban-card').forEach(cardEl => {
+      const status = statuses.get(Number(cardEl.dataset.cardId));
+      const category = data.categories?.find(c => c.id === Number(cardEl.dataset.categoryId));
+      cardEl.dataset.statusValue = String(status?.status === 'Completed' ? 2 : status?.status === 'InProgress' ? 1 : 0);
+      if (grouping === 'category' && status) {
+        cardEl.dataset.indicatorName = status.name;
+        cardEl.dataset.indicatorDot = dotClass(status.id);
+      } else if ((data.categories?.length ?? 0) > 1 && category) {
+        cardEl.dataset.indicatorName = category.name;
+        cardEl.dataset.indicatorDot = dotClass(category.id);
+      }
+      rerenderCardElement(cardEl, mode);
+    });
   });
 }
 

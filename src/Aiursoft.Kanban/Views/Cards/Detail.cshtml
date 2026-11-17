@@ -7,8 +7,8 @@
 @{
     var isDarkMode = Context.Request.Cookies["prefer-dark"] == true.ToString();
     var token = Antiforgery.GetAndStoreTokens(Context).RequestToken;
-    var returnBoardUrl = Url.Action("Index", "Kanban", new { boardId = Model.ReturnBoardId }) ?? "/Kanban";
-    var backToBoardUrl = Url.Action("Index", "Kanban", new { boardId = Model.ReturnBoardId, highlightCard = Model.CardId }) ?? returnBoardUrl;
+    var returnBoardUrl = Url.Action("Index", "Kanban", new { boardId = Model.ReturnBoardId, groupBy = Model.ReturnGroupBy }) ?? "/Kanban";
+    var backToBoardUrl = Url.Action("Index", "Kanban", new { boardId = Model.ReturnBoardId, highlightCard = Model.CardId, groupBy = Model.ReturnGroupBy }) ?? returnBoardUrl;
     var kanbanImageUploadUrl = StorageService.GetUploadUrl($"kanban-images/{Guid.NewGuid():N}");
 }
 
@@ -465,6 +465,17 @@
                         <div class="detail-kv">
                             <div class="detail-kv-label">@Localizer["Board"]</div>
                             <div class="detail-kv-value fw-semibold">@Model.BoardName</div>
+                        </div>
+                        <div class="detail-kv">
+                            <label class="detail-kv-label" for="cardCategory">@Localizer["Task category"]</label>
+                            <div class="detail-kv-value">
+                                <select id="cardCategory" class="form-select detail-select" disabled="@(!Model.CanEdit)">
+                                    @foreach (var category in Model.Categories)
+                                    {
+                                        <!option value="@category.Id" @(category.Id == Model.CategoryId ? "selected" : null)>@category.Name</!option>
+                                    }
+                                </select>
+                            </div>
                         </div>
                         <div class="detail-kv">
                             <div class="detail-kv-label">@Localizer["Column"]</div>

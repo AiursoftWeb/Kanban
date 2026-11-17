@@ -92,7 +92,9 @@ export function initFilters(
     const priority: Priority = PRIORITY_VALUES[parseInt(priorityStr, 10)] ?? 'None';
     const assigneeId = cardEl.getAttribute('data-assigned-user-id') ?? '';
 
-    const statusValue = cardEl.closest<HTMLElement>('.kanban-column')?.dataset.columnStatus;
+    const statusValue = container?.dataset.grouping === 'category'
+      ? cardEl.dataset.statusValue
+      : cardEl.closest<HTMLElement>('.kanban-column')?.dataset.columnStatus;
     const status = statusValue === undefined ? undefined : COLUMN_STATUS_VALUES[Number(statusValue)];
     if (state.statuses.length && (!status || !state.statuses.includes(status))) return false;
 

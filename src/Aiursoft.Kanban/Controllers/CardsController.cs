@@ -29,7 +29,7 @@ public class CardsController(
     /// Shows the full card detail page.
     /// </summary>
     [HttpGet("/Cards/{id:int}")]
-    public async Task<IActionResult> Detail(int id, [FromQuery] int? returnBoardId)
+    public async Task<IActionResult> Detail(int id, [FromQuery] int? returnBoardId, [FromQuery] string? returnGroupBy)
     {
         var userId = userManager.GetUserId(User)!;
 
@@ -95,11 +95,15 @@ public class CardsController(
             Title = card.Title,
             Description = card.Description ?? string.Empty,
             Priority = (int)card.Priority,
+            CategoryId = card.CategoryId,
+            Categories = await db.KanbanCategories.Where(c => c.BoardId == board.Id).OrderBy(c => c.Order)
+                .Select(c => new ColumnOptionViewModel { Id = c.Id, Name = c.Name }).ToListAsync(),
             ColumnId = card.ColumnId,
             ColumnName = card.Column.Name,
             BoardId = board.Id,
             BoardName = board.Name,
             ReturnBoardId = returnBoardId ?? board.Id,
+            ReturnGroupBy = returnGroupBy == "category" ? "category" : "status",
             CanEdit = canEdit,
             CanEditActualTime = canEdit && (await authorizationService.AuthorizeAsync(User, AppPermissionNames.EditActualTime)).Succeeded,
             IsSubscribed = await db.KanbanCardSubscriptions.AnyAsync(s => s.CardId == id && s.UserId == userId),
