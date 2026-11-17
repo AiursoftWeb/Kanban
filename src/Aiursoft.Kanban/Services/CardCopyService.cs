@@ -39,6 +39,8 @@ public sealed class CardCopyService(
             Description = sourceCard.Description,
             Order = maxOrder + 1,
             ColumnId = sourceCard.ColumnId,
+            CategoryId = sourceCard.CategoryId,
+            CategoryOrder = sourceCard.CategoryOrder,
             Priority = sourceCard.Priority,
             AssignedUserId = sourceCard.AssignedUserId,
             CreatorUserId = userId,

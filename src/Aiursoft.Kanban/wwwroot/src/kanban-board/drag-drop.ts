@@ -67,11 +67,18 @@ export function initDragDrop(
         const toColumnId = parseInt(toColumnEl?.getAttribute('data-column-id') ?? '0', 10);
         const newOrder = evt.newIndex ?? 0;
 
+        const restore = () => {
+          const originalCards = Array.from(evt.from.children).filter(el => el.classList.contains('kanban-card') && el !== cardEl);
+          evt.from.insertBefore(cardEl, originalCards[evt.oldDraggableIndex ?? 0] ?? null);
+          updateAllColumnCounts(container);
+        };
         if (cardId && toColumnId && callbacks.onCardMoved) {
-          callbacks.onCardMoved(cardId, toColumnId, newOrder).then(() => {
+          callbacks.onCardMoved(cardId, toColumnId, newOrder).then(result => {
+            if (result === false) restore();
             // Update column counts after successful move
             updateAllColumnCounts(container);
           }).catch(err => {
+            restore();
             console.error('onCardMoved failed:', err);
           });
         }

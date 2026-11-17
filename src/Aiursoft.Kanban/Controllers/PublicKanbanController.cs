@@ -23,6 +23,7 @@ public class PublicKanbanController(TemplateDbContext db) : Controller
     public async Task<IActionResult> View(int boardId)
     {
         var board = await db.KanbanBoards
+            .Include(b => b.Categories)
             .Include(b => b.Columns.OrderBy(c => c.Order))
                 .ThenInclude(c => c.Cards.OrderBy(cd => cd.Order))
                     .ThenInclude(card => card.CardLabels)
@@ -47,8 +48,9 @@ public class PublicKanbanController(TemplateDbContext db) : Controller
         var boardData = new BoardData
         {
             Id = board.Id,
+            Categories = board.Categories.OrderBy(c => c.Order).Select(c => new CategoryData { Id = c.Id, Name = c.Name, Order = c.Order, IsDefault = c.IsDefault }).ToList(),
             Name = board.Name,
-            CanEdit = canEdit,
+            CanEdit = false,
             Columns = board.Columns.OrderBy(c => c.Order).Select(col =>
             {
                 var dotClass = DotColors[dotIndex % DotColors.Length];
@@ -64,6 +66,8 @@ public class PublicKanbanController(TemplateDbContext db) : Controller
                     Cards = col.Cards.OrderBy(c => c.Order).Select(card => new CardSummary
                     {
                         Id = card.Id,
+                        CategoryId = card.CategoryId,
+                        CategoryOrder = card.CategoryOrder,
                         Title = card.Title,
                         Priority = card.Priority.ToString(),
                         DueDate = card.DueDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),

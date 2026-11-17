@@ -443,3 +443,12 @@
 
 .card-date-range.overdue { color: var(--bs-danger); }
 .card-date-source { font-size: 0.65rem; opacity: 0.8; }
+
+.card-dimension-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .75rem;
+  color: var(--bs-secondary-color, #6c757d);
+}
+.card-dimension-indicator .column-dot { flex-shrink: 0; }

@@ -300,6 +300,7 @@ public sealed class ArchivedBoardDto
 
 public sealed class BoardDto : BoardSummaryDto
 {
+    public List<CategoryDto> Categories { get; set; } = [];
     public int Order { get; set; }
     public bool IsPublic { get; set; }
     public List<ColumnDto> Columns { get; set; } = [];
@@ -330,8 +331,18 @@ public sealed class ColumnDto
     public List<CardDto> Cards { get; set; } = [];
 }
 
+public sealed class CategoryDto
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public int Order { get; set; }
+    public bool IsDefault { get; set; }
+}
+
 public sealed class CardDto
 {
+    public int CategoryId { get; set; }
+    public int CategoryOrder { get; set; }
     public int Id { get; set; }
     public int ColumnId { get; set; }
     public string Title { get; set; } = string.Empty;
@@ -352,6 +363,8 @@ public sealed class CardDto
 
 public sealed class CardDetailsDto
 {
+    public int CategoryId { get; set; }
+    public List<CategoryDto> AvailableCategories { get; set; } = [];
     public bool CanEditActualTime { get; set; }
     public int Id { get; set; }
     public int BoardId { get; set; }
@@ -624,6 +637,9 @@ public sealed class MoveColumnRequest
 
 public sealed class CreateCardRequest
 {
+    [Range(1, int.MaxValue)]
+    public int? CategoryId { get; set; }
+
     [Required, StringLength(200, MinimumLength = 1)]
     public string Title { get; set; } = string.Empty;
 
@@ -651,6 +667,9 @@ public sealed class TransferCardRequest
 
 public sealed class UpdateCardRequest
 {
+    [Range(1, int.MaxValue)]
+    public int? CategoryId { get; set; }
+
     [Required, StringLength(200, MinimumLength = 1)]
     public string Title { get; set; } = string.Empty;
 

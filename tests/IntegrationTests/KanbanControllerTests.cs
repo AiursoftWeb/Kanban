@@ -57,8 +57,8 @@ public class KanbanControllerTests : TestBase
         var indexResponse = await Http.GetAsync(response.Headers.Location!);
         var html = await indexResponse.Content.ReadAsStringAsync();
         Assert.Contains("My Board", html);
-        Assert.Contains("To Do", html);
-        Assert.Contains("In Progress", html);
+        Assert.Contains("Todo", html);
+        Assert.Contains("Working", html);
         Assert.Contains("Done", html);
     }
 
@@ -365,13 +365,13 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
         // Columns are now rendered client-side from JSON. Verify the JSON data
-        // has columns in the correct order (To Do before In Progress).
+        // has columns in the correct order (Todo before Working).
         var page = await Http.GetAsync($"/Kanban/Index?boardId={boardId}");
         var html = await page.Content.ReadAsStringAsync();
-        var toDoIdx = html.IndexOf("\"name\":\"To Do\"", StringComparison.Ordinal);
-        var inProgressIdx = html.IndexOf("\"name\":\"In Progress\"", StringComparison.Ordinal);
-        Assert.IsTrue(toDoIdx >= 0, "Should find 'To Do' column in JSON data");
-        Assert.IsTrue(inProgressIdx >= 0, "Should find 'In Progress' column in JSON data");
+        var toDoIdx = html.IndexOf("\"name\":\"Todo\"", StringComparison.Ordinal);
+        var inProgressIdx = html.IndexOf("\"name\":\"Working\"", StringComparison.Ordinal);
+        Assert.IsTrue(toDoIdx >= 0, "Should find 'Todo' column in JSON data");
+        Assert.IsTrue(inProgressIdx >= 0, "Should find 'Working' column in JSON data");
         Assert.IsTrue(toDoIdx < inProgressIdx,
             "Source column should appear before dest column in JSON data order");
     }
@@ -478,7 +478,7 @@ public class KanbanControllerTests : TestBase
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         var movePayload = JsonDocument.Parse(await response.Content.ReadAsStringAsync()).RootElement;
         Assert.IsTrue(movePayload.GetProperty("RecurrenceApplied").GetBoolean());
-        Assert.AreEqual("To Do", movePayload.GetProperty("RecurrenceTargetColumnName").GetString());
+        Assert.AreEqual("Todo", movePayload.GetProperty("RecurrenceTargetColumnName").GetString());
 
         using var verificationScope = Server!.Services.CreateScope();
         var verificationDb = verificationScope.ServiceProvider.GetRequiredService<TemplateDbContext>();

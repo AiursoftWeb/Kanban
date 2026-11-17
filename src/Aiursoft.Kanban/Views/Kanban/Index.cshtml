@@ -106,6 +106,10 @@
         <div class="d-flex gap-2">
             @if (Model.CurrentBoard != null)
             {
+                <div class="btn-group btn-group-sm" role="group" aria-label="@Localizer["Group tasks by"]">
+                    <a class="btn btn-outline-primary" data-group-by="status" asp-action="Index" asp-route-boardId="@Model.CurrentBoard.Id" asp-route-groupBy="status">@Localizer["Status"]</a>
+                    <a class="btn btn-outline-primary" data-group-by="category" asp-action="Index" asp-route-boardId="@Model.CurrentBoard.Id" asp-route-groupBy="category">@Localizer["Category"]</a>
+                </div>
                 @if (Model.CanEditCurrentBoard)
                 {
                     <button class="btn btn-primary btn-sm" id="btnAddColumn">
@@ -412,7 +416,29 @@
 </div>
 
 @* ── Localization data (read by module's i18n.ts) ── *@
+<div class="modal fade" id="categoryConfirmModal" tabindex="-1" aria-labelledby="categoryConfirmTitle" aria-hidden="true">
+    <div class="modal-dialog"><div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title" id="categoryConfirmTitle">@Localizer["Confirm category change"]</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button></div>
+        <div class="modal-body" id="categoryConfirmMessage"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+            <button type="button" class="btn btn-primary" id="confirmCategoryChange">@Localizer["Confirm"]</button>
+        </div>
+    </div></div>
+</div>
 <div id="loc-data" hidden>
+    <span data-key="status">@Localizer["Status"]</span>
+    <span data-key="task-category">@Localizer["Task category"]</span>
+    <span data-key="rename-category">@Localizer["Rename category"]</span>
+    <span data-key="delete-category">@Localizer["Delete category"]</span>
+    <span data-key="add-category">@Localizer["Add Category"]</span>
+    <span data-key="category-name">@Localizer["Category name"]</span>
+    <span data-key="status-column-required">@Localizer["Create a status column before adding cards."]</span>
+    <span data-key="confirm-category-change">@Localizer["You are changing the category of \"{0}\" from \"{1}\" to \"{2}\". Continue?"].Value</span>
+    <span data-key="failed-change-category">@Localizer["Failed to change category."]</span>
+    <span data-key="confirm-delete-category">@Localizer["Delete category \"{0}\"? Only empty categories can be deleted."].Value</span>
+    <span data-key="failed-delete-category">@Localizer["Failed to delete category."]</span>
     <span data-key="start">@Localizer["Start"]</span>
     <span data-key="end">@Localizer["End"]</span>
     <span data-key="actual">@Localizer["Actual"]</span>

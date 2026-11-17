@@ -391,6 +391,17 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
       });
     });
 
+    const categorySelect = document.getElementById('cardCategory') as HTMLSelectElement | null;
+    let savedCategory = categorySelect?.value;
+    categorySelect?.addEventListener('change', () => {
+      if (!options.canEdit) return;
+      categorySelect.disabled = true;
+      saveCardDetails().then(() => { savedCategory = categorySelect.value; showSavedToast(); }).catch(problem => {
+        categorySelect.value = savedCategory ?? '';
+        showFriendlyDialog(getErrorMessage(problem, t('failed-save', 'Failed to save.')));
+      }).finally(() => { categorySelect.disabled = false; });
+    });
+
     refs.plannedStartInput?.addEventListener('change', () => {
       if (!options.canEdit) return;
       saveCardDetails().then(() => showSavedToast()).catch(problem => {
@@ -722,6 +733,7 @@ export function initCardDetailPage(options: CardDetailPageOptions): void {
     const response = await postForm('/Kanban/UpdateCardDetails', {
       cardId: options.cardId,
       title,
+      categoryId: (document.getElementById('cardCategory') as HTMLSelectElement | null)?.value ?? '',
       description: getDescriptionValue(),
       plannedStartTime: refs.plannedStartInput?.value ?? '',
       dueDate: refs.dueDateInput?.value ?? '',

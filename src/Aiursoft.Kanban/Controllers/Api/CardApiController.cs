@@ -101,7 +101,14 @@ public sealed class CardApiController(
         var description = string.IsNullOrWhiteSpace(request.Description) ? null : request.Description.Trim();
         var plannedStartTime = NormalizeDateTime(request.PlannedStartTime);
         var dueDate = NormalizeDateTime(request.DueDate);
+        if (request.CategoryId.HasValue && !await db.KanbanCategories.AnyAsync(c => c.Id == request.CategoryId && c.BoardId == card.Column.BoardId))
+            return this.Protocol(Code.InvalidInput, "Category does not belong to this board.");
         var changedFields = new List<string>();
+        if (request.CategoryId.HasValue && request.CategoryId.Value != card.CategoryId)
+        {
+            card.CategoryId = request.CategoryId.Value;
+            changedFields.Add("category");
+        }
         AddChangedField(changedFields, "title", card.Title != title);
         AddChangedField(changedFields, "description", card.Description != description);
         AddChangedField(changedFields, "planned start time", card.PlannedStartTime != plannedStartTime);
@@ -693,6 +700,9 @@ public sealed class CardApiController(
             BoardId = card.Column.BoardId,
             BoardName = card.Column.Board.Name,
             ColumnId = card.ColumnId,
+            CategoryId = card.CategoryId,
+            AvailableCategories = await db.KanbanCategories.Where(c => c.BoardId == card.Column.BoardId).OrderBy(c => c.Order)
+                .Select(c => new CategoryDto { Id = c.Id, Name = c.Name, Order = c.Order, IsDefault = c.IsDefault }).ToListAsync(),
             ColumnName = card.Column.Name,
             Title = card.Title,
             Description = card.Description,

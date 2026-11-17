@@ -20,11 +20,14 @@ public class CardDetailViewModel : UiStackLayoutViewModel
     public int Priority { get; set; }
 
     // Column & Board context
+    public int CategoryId { get; set; }
+    public List<ColumnOptionViewModel> Categories { get; set; } = [];
     public int ColumnId { get; set; }
     public string ColumnName { get; set; } = string.Empty;
     public int BoardId { get; set; }
     public string BoardName { get; set; } = string.Empty;
     public int ReturnBoardId { get; set; }
+    public string ReturnGroupBy { get; set; } = "status";
 
     // Permissions
     public bool CanEdit { get; set; }

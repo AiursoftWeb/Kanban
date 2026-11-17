@@ -17,7 +17,7 @@ namespace Aiursoft.Kanban.MySql.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.13")
+                .HasAnnotation("ProductVersion", "10.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -204,6 +204,12 @@ namespace Aiursoft.Kanban.MySql.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("varchar(450)");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryOrder")
+                        .HasColumnType("int");
+
                     b.Property<int>("ColumnId")
                         .HasColumnType("int");
 
@@ -255,6 +261,8 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AssignedUserId");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("ColumnId");
 
@@ -333,6 +341,36 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("KanbanCardSubscriptions");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BoardId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoardId", "Name")
+                        .IsUnique();
+
+                    b.ToTable("KanbanCategories");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>
@@ -835,6 +873,12 @@ namespace Aiursoft.Kanban.MySql.Migrations
                         .HasForeignKey("AssignedUserId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("Aiursoft.Kanban.Entities.KanbanCategory", "Category")
+                        .WithMany("Cards")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Aiursoft.Kanban.Entities.KanbanColumn", "Column")
                         .WithMany("Cards")
                         .HasForeignKey("ColumnId")
@@ -847,6 +891,8 @@ namespace Aiursoft.Kanban.MySql.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("AssignedUser");
+
+                    b.Navigation("Category");
 
                     b.Navigation("Column");
 
@@ -908,6 +954,17 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.Navigation("Card");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCategory", b =>
+                {
+                    b.HasOne("Aiursoft.Kanban.Entities.KanbanBoard", "Board")
+                        .WithMany("Categories")
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Board");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>
@@ -1037,6 +1094,8 @@ namespace Aiursoft.Kanban.MySql.Migrations
                 {
                     b.Navigation("BoardShares");
 
+                    b.Navigation("Categories");
+
                     b.Navigation("Columns");
                 });
 
@@ -1045,6 +1104,11 @@ namespace Aiursoft.Kanban.MySql.Migrations
                     b.Navigation("CardLabels");
 
                     b.Navigation("Subscriptions");
+                });
+
+            modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanCategory", b =>
+                {
+                    b.Navigation("Cards");
                 });
 
             modelBuilder.Entity("Aiursoft.Kanban.Entities.KanbanColumn", b =>
