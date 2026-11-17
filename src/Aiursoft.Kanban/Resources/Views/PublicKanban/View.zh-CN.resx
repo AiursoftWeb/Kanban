@@ -43,4 +43,16 @@
     <value>只读视图</value>
   </data>
 
+  <data name="Category" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>按以下项分组任务</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>任务分类</value>
+  </data>
 </root>
