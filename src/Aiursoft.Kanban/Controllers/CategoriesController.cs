@@ -53,19 +53,22 @@ public class CategoriesController(
     [HttpPost]
     public async Task<IActionResult> Delete(int categoryId)
     {
-        await using var transaction = db.Database.IsRelational()
-            ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable)
-            : null;
-        var category = await db.KanbanCategories.Include(c => c.Board).FirstOrDefaultAsync(c => c.Id == categoryId);
-        if (category == null) return NotFound();
-        if (!await access.CanEditAsync(category.Board, userManager.GetUserId(User)!)) return Forbid();
-        if (category.IsDefault) return BadRequest("The default category cannot be deleted.");
-        if (await db.KanbanCards.AnyAsync(c => c.CategoryId == categoryId))
-            return BadRequest("Move all cards to another category before deleting this category.");
-        db.KanbanCategories.Remove(category);
-        await db.SaveChangesAsync();
-        if (transaction != null) await transaction.CommitAsync();
-        return Ok();
+        return await db.Database.CreateExecutionStrategy().ExecuteAsync<IActionResult>(async () =>
+        {
+            await using var transaction = db.Database.IsRelational()
+                ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable)
+                : null;
+            var category = await db.KanbanCategories.Include(c => c.Board).FirstOrDefaultAsync(c => c.Id == categoryId);
+            if (category == null) return NotFound();
+            if (!await access.CanEditAsync(category.Board, userManager.GetUserId(User)!)) return Forbid();
+            if (category.IsDefault) return BadRequest("The default category cannot be deleted.");
+            if (await db.KanbanCards.AnyAsync(c => c.CategoryId == categoryId))
+                return BadRequest("Move all cards to another category before deleting this category.");
+            db.KanbanCategories.Remove(category);
+            await db.SaveChangesAsync();
+            if (transaction != null) await transaction.CommitAsync();
+            return Ok();
+        });
     }
 
     [HttpPost]
