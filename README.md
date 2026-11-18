@@ -95,13 +95,13 @@ Installation starts after three seconds; press Ctrl+C to cancel. Then open `http
 Requirements about how to run
 
 1. Install [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) and [Node.js](https://nodejs.org/).
-2. Execute `npm ci --prefix src/Aiursoft.Kanban/wwwroot` and `npm run build --prefix src/Aiursoft.Kanban/wwwroot` from the repository root to prepare the frontend assets.
+2. The .NET build automatically runs `npm ci` and `npm run build` to prepare the frontend assets. Node.js and npm must be available when building from source.
 3. Execute `dotnet run --project src/Aiursoft.Kanban/Aiursoft.Kanban.csproj -- --urls http://localhost:5000` to run the app.
 4. Use your browser to view [http://localhost:5000](http://localhost:5000).
 
 ## Run in Microsoft Visual Studio
 
-1. Prepare the frontend assets as described above.
+1. Install the requirements described above; the build prepares the frontend assets.
 2. Open `Aiursoft.Kanban.sln`, select `Aiursoft.Kanban` as the startup project, and press `F5`.
 
 ## Run in Docker
