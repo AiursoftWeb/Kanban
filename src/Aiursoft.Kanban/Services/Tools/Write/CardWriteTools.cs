@@ -26,7 +26,8 @@ public class CardWriteTools(
         [Description("Target column ID")] int columnId,
         [Description("Card title")] string title,
         [Description("Optional card description")] string? description,
-        [Description("Optional user ID to assign. Defaults to current user if not specified. Pass empty string to leave unassigned.")] string? assignedUserId = null)
+        [Description("Optional user ID to assign. Defaults to current user if not specified. Pass empty string to leave unassigned.")] string? assignedUserId = null,
+        [Description("Optional category ID from the same board. Omit to use the board's default category.")] int? categoryId = null)
     {
         var userId = currentUser.UserId;
         if (string.IsNullOrWhiteSpace(title))
@@ -35,6 +36,9 @@ public class CardWriteTools(
         var column = await db.KanbanColumns.Include(c => c.Board).FirstOrDefaultAsync(c => c.Id == columnId);
         if (column == null) return "Error: Column not found.";
         if (!await access.HasEditAccess(column.Board, userId)) return "Error: You do not have permission to edit this board.";
+
+        if (categoryId.HasValue && !await db.KanbanCategories.AnyAsync(c => c.Id == categoryId.Value && c.BoardId == column.BoardId))
+            return "Error: Category does not belong to this board.";
 
         // Default to current user if not specified; empty string means unassigned.
         var resolvedAssignee = assignedUserId switch
@@ -56,6 +60,7 @@ public class CardWriteTools(
             Description = description?.Trim(),
             Order = maxOrder + 1,
             ColumnId = columnId,
+            CategoryId = categoryId ?? 0,
             CreatorUserId = userId,
             AssignedUserId = resolvedAssignee
         };
@@ -65,10 +70,11 @@ public class CardWriteTools(
             .Select(id => new KanbanCardSubscription { Card = card, UserId = id! }));
         await db.SaveChangesAsync();
 
-        return $"Card created: #{card.Id} \"{card.Title}\" in column \"{column.Name}\" (Board: \"{column.Board.Name}\").";
+        await db.Entry(card).Reference(c => c.Category).LoadAsync();
+        return $"Card created: #{card.Id} \"{card.Title}\" in column \"{column.Name}\" (Board: \"{column.Board.Name}\", Category: \"{card.Category.Name}\" (#{card.CategoryId})).";
     }
 
-    [McpServerTool, Description("Move a card to a different column and/or position")]
+    [McpServerTool, Description("Move a card to a different status column and/or position without changing its category. Use SetCardCategory to change category.")]
     [Advice]
     public async Task<string> MoveCard(
         [Description("Card ID to move")] int cardId,
@@ -120,7 +126,7 @@ public class CardWriteTools(
         return $"Card #{cardId} \"{card.Title}\" moved from \"{oldColumnName}\" to \"{column.Name}\" at position {newOrder}.";
     }
 
-    [McpServerTool, Description("Update card details including title, description, dates, priority, and assignee")]
+    [McpServerTool, Description("Update card details including title, description, dates, priority, and assignee. Preserves category; use SetCardCategory to change it.")]
     [Advice]
     public async Task<string> UpdateCardDetails(
         [Description("Card ID")] int cardId,

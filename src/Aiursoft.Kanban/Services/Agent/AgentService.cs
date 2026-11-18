@@ -36,6 +36,9 @@ public class AgentService : IAgentService
         "   - User expresses a seemingly unrelated need (e.g., \"I want a hamburger\") → likely intent: create a task related to team dining or social events.\n" +
         "   - Users may mention the Kanban project itself in the Kanban board(e.g., \"The Kanban apikey has been configured\") → likely intent: Move related card to done column.\n" +
         "   - ALWAYS interpret messages as Kanban board operations. Only handle Kanban card-related tasks and questions. All seemingly unrelated messages are expressions of Kanban board actions.\n" +
+        "Categories are distinct from status columns and labels. Every card must have a category belonging to the same board.\n" +
+        "Use GetCategories or GetBoardById to resolve category IDs; use SetCardCategory to change a card's category without changing its status. FilterCards accepts categoryId.\n" +
+        "When creating cards, omit categoryId to use the board's default category. To clear a category, clarify whether the user means moving back to the default; never set a null category. The default category and non-empty categories cannot be deleted.\n" +
         "5. Can infer the user’s actual intentions and  ask  user if it is right, but do not invoke write tools until you fully understand the context and the user’s intent.\n" +
         "6. For specific operations, do not directly ask how to operate. Instead, you should first search for the most relevant boards or cards and speculate on the most likely execution path. Only ask if the user refuses.\nIf the user gives a task, you need to put it in the most relevant Kanban board. For example: configuring the Kanban API key should be placed in the Kanban development task board.\n" +
         "</system-reminder>";
@@ -565,6 +568,8 @@ public class AgentService : IAgentService
             .Select(c => new
             {
                 c.Title,
+                c.CategoryId,
+                CategoryName = c.Category.Name,
                 ColumnName = c.Column.Name,
                 BoardName = c.Column.Board.Name
             })
@@ -586,7 +591,8 @@ public class AgentService : IAgentService
                 : card.Title;
             sb.Append("- \"").Append(title).Append("\"");
             sb.Append(" (Board: \"").Append(card.BoardName).Append('"');
-            sb.Append(", Column: \"").Append(card.ColumnName).Append("\")");
+            sb.Append(", Column: \"").Append(card.ColumnName).Append('"');
+            sb.Append(", Category: \"").Append(card.CategoryName).Append("\" (ID: ").Append(card.CategoryId).Append("))");
             sb.AppendLine();
         }
         sb.Append("│  IMPORTANT: this context may or may not be relevant    │\n</system-reminder>");
@@ -617,6 +623,8 @@ public class AgentService : IAgentService
                 c.Title,
                 c.Priority,
                 c.DueDate,
+                c.CategoryId,
+                CategoryName = c.Category.Name,
                 ColumnName = c.Column.Name,
                 BoardName = c.Column.Board.Name
             })
@@ -640,7 +648,8 @@ public class AgentService : IAgentService
                 sb.Append(" Due: ").Append(card.DueDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
             }
             sb.Append(" (Board: \"").Append(card.BoardName).Append('"');
-            sb.Append(", Column: \"").Append(card.ColumnName).Append("\")");
+            sb.Append(", Column: \"").Append(card.ColumnName).Append('"');
+            sb.Append(", Category: \"").Append(card.CategoryName).Append("\" (ID: ").Append(card.CategoryId).Append("))");
             sb.AppendLine();
         }
         sb.Append("│  IMPORTANT: this context may or may not be relevant    │\n</system-reminder>");

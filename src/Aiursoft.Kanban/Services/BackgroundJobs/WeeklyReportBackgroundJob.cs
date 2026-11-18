@@ -215,6 +215,7 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
         sb.AppendLine();
 
         var completedCards = await db.KanbanCards
+            .Include(c => c.Category)
             .Include(c => c.Column).ThenInclude(col => col.Board)
             .Where(c => c.AssignedUserId == userId
                 && c.Column.ColumnStatus == ColumnStatus.Completed
@@ -231,7 +232,7 @@ public class WeeklyReportBackgroundJob : IBackgroundJob
                 var description = !string.IsNullOrWhiteSpace(card.Description)
                     ? $" — {TruncateForContext(card.Description, 200)}"
                     : "";
-                sb.AppendLine(CultureInfo.InvariantCulture, $"- \"{card.Title}\" on board **{card.Column.Board.Name}** (completed {card.ActualEndTime:yyyy-MM-dd}){description}");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- \"{card.Title}\" on board **{card.Column.Board.Name}** (Category: {card.Category.Name}, ID: {card.CategoryId}; completed {card.ActualEndTime:yyyy-MM-dd}){description}");
             }
             sb.AppendLine();
         }
