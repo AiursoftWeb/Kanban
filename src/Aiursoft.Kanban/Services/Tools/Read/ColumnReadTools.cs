@@ -62,7 +62,7 @@ public class ColumnReadTools(
         var userId = currentUser.UserId;
         var column = await db.KanbanColumns
             .Include(c => c.Board)
-            .Include(c => c.Cards.OrderBy(card => card.Order))
+            .Include(c => c.Cards.OrderBy(card => card.Order)).ThenInclude(card => card.Category)
             .FirstOrDefaultAsync(c => c.Id == columnId);
 
         if (column == null) return "Column not found.";
@@ -73,7 +73,7 @@ public class ColumnReadTools(
         var lines = new List<string> { $"Cards in column \"{column.Name}\":" };
         foreach (var card in column.Cards)
         {
-            lines.Add($"- #{card.Id} [{card.Priority}] {card.Title}");
+            lines.Add($"- #{card.Id} [{card.Priority}] {card.Title} (Category: \"{card.Category.Name}\" (#{card.CategoryId}))");
         }
         return string.Join("\n", lines);
     }

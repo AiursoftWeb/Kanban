@@ -289,6 +289,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
         var now = DateTime.UtcNow;
         var incompleteCards = await db.KanbanCards
             .Include(c => c.Column).ThenInclude(col => col.Board)
+            .Include(c => c.Category)
             .Where(c => c.AssignedUserId == userId
                 && c.Column.ColumnStatus != ColumnStatus.Completed)
             .OrderBy(c => c.Priority)
@@ -308,7 +309,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
                 var overdue = card.DueDate.HasValue && card.DueDate.Value < now.Date
                     ? " ⚠️ OVERDUE"
                     : "";
-                sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**{dueStr}{overdue}");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}** (Category: {card.Category.Name}, ID: {card.CategoryId}){dueStr}{overdue}");
             }
             sb.AppendLine();
         }
@@ -330,7 +331,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
             foreach (var card in overdueCards)
             {
                 var daysOverdue = (now.Date - card.DueDate!.Value.Date).Days;
-                sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" on board **{card.Column.Board.Name}** — Due {card.DueDate:yyyy-MM-dd} ({daysOverdue} day(s) overdue!)");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" on board **{card.Column.Board.Name}** (Category: {card.Category.Name}, ID: {card.CategoryId}) — Due {card.DueDate:yyyy-MM-dd} ({daysOverdue} day(s) overdue!)");
             }
             sb.AppendLine();
         }
@@ -341,6 +342,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
             var todayStart = now.Date;
             var completedToday = await db.KanbanCards
                 .Include(c => c.Column).ThenInclude(col => col.Board)
+                .Include(c => c.Category)
                 .Where(c => c.AssignedUserId == userId
                     && c.Column.ColumnStatus == ColumnStatus.Completed
                     && c.ActualEndTime >= todayStart)
@@ -352,7 +354,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
                 sb.AppendLine("## Completed Today");
                 foreach (var card in completedToday)
                 {
-                    sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}**");
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"- [P{card.Priority}] \"{card.Title}\" in **{card.Column.Name}** on board **{card.Column.Board.Name}** (Category: {card.Category.Name}, ID: {card.CategoryId})");
                 }
                 sb.AppendLine();
             }

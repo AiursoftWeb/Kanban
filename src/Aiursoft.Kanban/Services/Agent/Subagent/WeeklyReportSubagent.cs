@@ -31,6 +31,8 @@ public class WeeklyReportSubagent : SubagentBase, ISingletonDependency
         - GetCardsInColumn / GetColumns: to understand column structure
         - FilterCards: for custom queries beyond the provided context
 
+        Categories are board-scoped and independent of status columns and labels. Use the provided category names/IDs when relevant; a category does not indicate completion status.
+
         Analyze the provided data and produce a weekly report.
 
         ## Output Format

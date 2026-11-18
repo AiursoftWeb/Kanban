@@ -44,14 +44,18 @@ public class BoardReadTools(
     {
         var userId = currentUser.UserId;
         var board = await db.KanbanBoards
+            .Include(b => b.Categories.OrderBy(c => c.Order))
             .Include(b => b.Columns.OrderBy(c => c.Order))
-                .ThenInclude(c => c.Cards.OrderBy(card => card.Order))
+                .ThenInclude(c => c.Cards.OrderBy(card => card.Order)).ThenInclude(card => card.Category)
             .FirstOrDefaultAsync(b => b.Id == boardId);
 
         if (board == null) return "Board not found.";
         if (!await access.HasReadAccess(board, userId)) return "You do not have access to this board.";
 
         var lines = new List<string> { $"Board #{board.Id}: \"{board.Name}\"" };
+        lines.Add("  Categories (independent of status columns and labels):");
+        foreach (var category in board.Categories)
+            lines.Add($"    - Category #{category.Id} \"{category.Name}\" (Default: {category.IsDefault}, Order: {category.Order})");
         foreach (var col in board.Columns)
         {
             lines.Add($"  Column \"{col.Name}\" (#{col.Id}, Status: {col.ColumnStatus}):");
@@ -60,7 +64,7 @@ public class BoardReadTools(
                 var assignee = card.AssignedUserId != null
                     ? (await userManager.FindByIdAsync(card.AssignedUserId))?.DisplayName ?? card.AssignedUserId
                     : "unassigned";
-                lines.Add($"    - #{card.Id} [{card.Priority}] {card.Title} (assigned: {assignee})");
+                lines.Add($"    - #{card.Id} [{card.Priority}] {card.Title} (assigned: {assignee}, Category: \"{card.Category.Name}\" (#{card.CategoryId}))");
             }
         }
         return string.Join("\n", lines);

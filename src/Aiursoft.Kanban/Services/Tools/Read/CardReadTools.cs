@@ -22,6 +22,7 @@ public class CardReadTools(
     {
         var userId = currentUser.UserId;
         var card = await db.KanbanCards
+            .Include(c => c.Category)
             .Include(c => c.Column).ThenInclude(col => col.Board)
             .Include(c => c.AssignedUser)
             .Include(c => c.CardLabels).ThenInclude(cl => cl.Label)
@@ -40,6 +41,7 @@ public class CardReadTools(
                $"  Description: {card.Description ?? "(none)"}\n" +
                $"  Column: \"{card.Column.Name}\" (#{card.ColumnId})\n" +
                $"  Board: \"{card.Column.Board.Name}\" (#{card.Column.BoardId})\n" +
+               $"  Category: \"{card.Category.Name}\" (#{card.CategoryId})\n" +
                $"  Priority: {card.Priority}\n" +
                $"  Assigned: {assignee}\n" +
                $"  Labels: {labelStr}\n" +
@@ -55,6 +57,7 @@ public class CardReadTools(
         var userId = currentUser.UserId;
         var normalized = query.Trim().ToUpperInvariant();
         var cardsQuery = db.KanbanCards
+            .Include(c => c.Category)
             .Include(c => c.Column).ThenInclude(col => col.Board)
             .Where(c => c.Title.ToUpper().Contains(normalized) ||
                         (c.Description != null && c.Description.ToUpper().Contains(normalized)));
@@ -78,7 +81,7 @@ public class CardReadTools(
         var lines = new List<string> { $"Found {accessible.Count} card(s):" };
         foreach (var card in accessible)
         {
-            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{card.Column.Board.Name}\")");
+            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{card.Column.Board.Name}\", Category: \"{card.Category.Name}\" (#{card.CategoryId}))");
         }
         return string.Join("\n", lines);
     }
@@ -94,6 +97,7 @@ public class CardReadTools(
 
         var now = timeProvider.GetUtcNow().UtcDateTime;
         var cards = await db.KanbanCards
+            .Include(c => c.Category)
             .Include(c => c.Column)
             .Where(c => c.Column.BoardId == boardId &&
                         c.DueDate.HasValue &&
@@ -108,7 +112,7 @@ public class CardReadTools(
         foreach (var card in cards)
         {
             var daysOverdue = (now - card.DueDate!.Value).Days;
-            lines.Add($"- #{card.Id} \"{card.Title}\" (Due: {card.DueDate:yyyy-MM-dd}, {daysOverdue} days overdue, Column: \"{card.Column.Name}\")");
+            lines.Add($"- #{card.Id} \"{card.Title}\" (Due: {card.DueDate:yyyy-MM-dd}, {daysOverdue} days overdue, Column: \"{card.Column.Name}\", Category: \"{card.Category.Name}\" (#{card.CategoryId}))");
         }
         return string.Join("\n", lines);
     }
@@ -127,6 +131,7 @@ public class CardReadTools(
             return $"Invalid priority \"{priority}\". Valid values: Urgent, High, Medium, Low, None.";
 
         var cards = await db.KanbanCards
+            .Include(c => c.Category)
             .Include(c => c.Column)
             .Where(c => c.Column.BoardId == boardId && c.Priority == priorityEnum)
             .OrderBy(c => c.Order)
@@ -137,7 +142,7 @@ public class CardReadTools(
         var lines = new List<string> { $"Found {cards.Count} {priority} priority card(s):" };
         foreach (var card in cards)
         {
-            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\"");
+            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\" (Category: \"{card.Category.Name}\" (#{card.CategoryId}))");
         }
         return string.Join("\n", lines);
     }
@@ -152,6 +157,7 @@ public class CardReadTools(
         if (!await access.HasReadAccess(board, userId)) return "You do not have access to this board.";
 
         var cards = await db.KanbanCards
+            .Include(c => c.Category)
             .Include(c => c.Column)
             .Where(c => c.Column.BoardId == boardId && c.AssignedUserId == null)
             .OrderBy(c => c.Order)
@@ -162,7 +168,7 @@ public class CardReadTools(
         var lines = new List<string> { $"Found {cards.Count} unassigned card(s):" };
         foreach (var card in cards)
         {
-            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\"");
+            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\" (Category: \"{card.Category.Name}\" (#{card.CategoryId}))");
         }
         return string.Join("\n", lines);
     }
@@ -175,6 +181,7 @@ public class CardReadTools(
         var userId = currentUser.UserId;
         var normalized = labelName.Trim().ToUpperInvariant();
         var cardsQuery = db.KanbanCardLabels
+            .Include(cl => cl.Card).ThenInclude(c => c.Category)
             .Include(cl => cl.Card).ThenInclude(c => c.Column).ThenInclude(col => col.Board)
             .Include(cl => cl.Label)
             .Where(cl => cl.Label.Name.ToUpper() == normalized);
@@ -198,7 +205,7 @@ public class CardReadTools(
         var lines = new List<string> { $"Found {accessible.Count} card(s) with label \"{labelName}\":" };
         foreach (var (card, boardName) in accessible)
         {
-            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{boardName}\")");
+            lines.Add($"- #{card.Id} \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{boardName}\", Category: \"{card.Category.Name}\" (#{card.CategoryId}))");
         }
         return string.Join("\n", lines);
     }
@@ -219,6 +226,7 @@ public class CardReadTools(
         };
 
         var query = db.KanbanCards
+            .Include(c => c.Category)
             .Include(c => c.Column).ThenInclude(col => col.Board)
             .Include(c => c.AssignedUser)
             .Where(c => c.AssignedUserId == userId);
@@ -263,7 +271,7 @@ public class CardReadTools(
         foreach (var card in ordered)
         {
             var dueStr = card.DueDate.HasValue ? $" (Due: {card.DueDate:yyyy-MM-dd})" : "";
-            lines.Add($"- [#{card.Id}] [{card.Priority}] \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{card.Column.Board.Name}\"){dueStr}");
+            lines.Add($"- [#{card.Id}] [{card.Priority}] \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{card.Column.Board.Name}\", Category: \"{card.Category.Name}\" (#{card.CategoryId})){dueStr}");
         }
         return string.Join("\n", lines);
     }
@@ -296,6 +304,7 @@ public class CardReadTools(
         };
 
         var query = db.KanbanCards
+            .Include(c => c.Category)
             .Include(c => c.Column).ThenInclude(col => col.Board)
             .AsQueryable();
 
@@ -386,12 +395,12 @@ public class CardReadTools(
             var completedStr = card.ActualEndTime.HasValue
                 ? $" Completed: {card.ActualEndTime:yyyy-MM-dd}"
                 : "";
-            lines.Add($"- [#{card.Id}] \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{card.Column.Board.Name}\"){completedStr}");
+            lines.Add($"- [#{card.Id}] \"{card.Title}\" in \"{card.Column.Name}\" (Board: \"{card.Column.Board.Name}\", Category: \"{card.Category.Name}\" (#{card.CategoryId})){completedStr}");
         }
         return string.Join("\n", lines);
     }
 
-    [McpServerTool, Description("Advanced card filter — combine keyword, assignee, priority, label, status, and date range in one query. Use for complex tasks like 'find all urgent cards assigned to me with the API label completed this week'. Each filter is optional and combined with AND logic.")]
+    [McpServerTool, Description("Advanced card filter — combine keyword, assignee, priority, label, category, status, and date range in one query. Use for complex tasks like 'find all urgent cards assigned to me with the API label completed this week'. Each filter is optional and combined with AND logic.")]
     public async Task<string> FilterCards(
         [Description("Keyword to search in card title and description")] string? keyword = null,
         [Description("Optional board ID to limit results")] int? boardId = null,
@@ -401,11 +410,13 @@ public class CardReadTools(
         [Description("Column status: NotStarted, InProgress, or Completed")] string? columnStatus = null,
         [Description("Date type: 'completed' (ActualEndTime) or 'created' (CreationTime). Required if dateFrom/dateTo are set.")] string? dateType = null,
         [Description("Start date in yyyy-MM-dd format, inclusive. Requires dateType.")] string? dateFrom = null,
-        [Description("End date in yyyy-MM-dd format, inclusive. Requires dateType.")] string? dateTo = null)
+        [Description("End date in yyyy-MM-dd format, inclusive. Requires dateType.")] string? dateTo = null,
+        [Description("Category ID from GetCategories or GetBoardById. Independent of status columns and labels. Must belong to boardId when both are specified.")] int? categoryId = null)
     {
         var userId = currentUser.UserId;
 
         var query = db.KanbanCards
+            .Include(c => c.Category)
             .Include(c => c.Column).ThenInclude(col => col.Board)
             .Include(c => c.CardLabels).ThenInclude(cl => cl.Label)
             .AsQueryable();
@@ -413,6 +424,18 @@ public class CardReadTools(
         // Board filter
         if (boardId.HasValue)
             query = query.Where(c => c.Column.BoardId == boardId.Value);
+
+        if (categoryId.HasValue)
+        {
+            var category = await db.KanbanCategories.Include(c => c.Board)
+                .FirstOrDefaultAsync(c => c.Id == categoryId.Value);
+            if (category == null) return "Error: Category not found.";
+            if (!await access.HasReadAccess(category.Board, userId))
+                return "Error: You do not have access to this board.";
+            if (boardId.HasValue && category.BoardId != boardId.Value)
+                return "Error: Category does not belong to this board.";
+            query = query.Where(c => c.CategoryId == categoryId.Value);
+        }
 
         // Keyword filter (title or description)
         if (!string.IsNullOrWhiteSpace(keyword))
@@ -511,14 +534,14 @@ public class CardReadTools(
         {
             var filterSummary = BuildFilterSummary(
                 keyword, assignedTo, priority, label, columnStatus,
-                dateType, dateFrom, dateTo, boardId);
+                dateType, dateFrom, dateTo, boardId, categoryId);
             return $"No cards match the specified filters.\n{filterSummary}";
         }
 
         var lines = new List<string>
         {
             BuildFilterSummary(keyword, assignedTo, priority, label, columnStatus,
-                dateType, dateFrom, dateTo, boardId),
+                dateType, dateFrom, dateTo, boardId, categoryId),
             $"Found {accessible.Count} card(s):"
         };
         foreach (var card in accessible)
@@ -526,7 +549,7 @@ public class CardReadTools(
             var parts = new List<string>();
             parts.Add($"- [#{card.Id}] [{card.Priority}] \"{card.Title}\"");
             parts.Add($"in \"{card.Column.Name}\"");
-            parts.Add($"(Board: \"{card.Column.Board.Name}\")");
+            parts.Add($"(Board: \"{card.Column.Board.Name}\", Category: \"{card.Category.Name}\" (#{card.CategoryId}))");
             var assignee = card.AssignedUserId != null ? "Assigned" : "Unassigned";
             parts.Add($"({assignee})");
             if (card.ActualEndTime.HasValue)
@@ -539,7 +562,7 @@ public class CardReadTools(
     private static string BuildFilterSummary(
         string? keyword, string? assignedTo, string? priority, string? label,
         string? columnStatus, string? dateType, string? dateFrom, string? dateTo,
-        int? boardId)
+        int? boardId, int? categoryId)
     {
         var parts = new List<string>();
         if (!string.IsNullOrWhiteSpace(keyword)) parts.Add($"keyword=\"{keyword}\"");
@@ -559,6 +582,7 @@ public class CardReadTools(
             parts.Add($"date={dateType}({range})");
         }
         if (boardId.HasValue) parts.Add($"boardId={boardId}");
+        if (categoryId.HasValue) parts.Add($"categoryId={categoryId}");
         return parts.Count > 0
             ? $"Query: {string.Join(", ", parts)}."
             : "Query: all cards (no filters).";

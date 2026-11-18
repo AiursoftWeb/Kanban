@@ -33,6 +33,8 @@ public class DailyPlanningSubagent : SubagentBase, ISingletonDependency
         - FilterCards: for custom queries beyond the provided context
         - GetCardsByDateRange: for historical context if needed
 
+        Categories are board-scoped and independent of status columns and labels. Use the provided category names/IDs when relevant; a category does not indicate completion status.
+
         Analyze the provided data and produce a plan.
 
         ## Output Format

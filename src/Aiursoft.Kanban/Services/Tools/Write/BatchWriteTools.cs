@@ -22,7 +22,7 @@ public class BatchWriteTools(
     [Advice]
     public async Task<string> BatchCreateCards(
         [Description("Target column ID")] int columnId,
-        [Description("JSON array of cards with title, optional description, optional assignedUserId, optional plannedStartTime (yyyy-MM-dd), and optional dueDate (yyyy-MM-dd). Example: [{\"title\":\"Card A\",\"description\":\"Desc\",\"assignedUserId\":\"user-id\",\"plannedStartTime\":\"2026-07-01\",\"dueDate\":\"2026-07-15\"},{\"title\":\"Card B\"}]")]
+        [Description("JSON array of cards with title, optional description, optional assignedUserId, optional categoryId (same board; omit for default category), optional plannedStartTime (yyyy-MM-dd), and optional dueDate (yyyy-MM-dd). Example: [{\"title\":\"Card A\",\"description\":\"Desc\",\"assignedUserId\":\"user-id\",\"plannedStartTime\":\"2026-07-01\",\"dueDate\":\"2026-07-15\"},{\"title\":\"Card B\"}]")]
         string cardsJson)
     {
         var userId = currentUser.UserId;
@@ -50,6 +50,10 @@ public class BatchWriteTools(
         {
             if (string.IsNullOrWhiteSpace(inputs[i].Title))
                 return $"Error: Card at index {i} has an empty title.";
+
+            if (inputs[i].CategoryId.HasValue && !await db.KanbanCategories.AnyAsync(c =>
+                    c.Id == inputs[i].CategoryId && c.BoardId == column.BoardId))
+                return $"Error: Category for card at index {i} does not belong to this board.";
 
             var rawAssignee = inputs[i].AssignedUserId;
             var assignee = rawAssignee switch
@@ -83,6 +87,7 @@ public class BatchWriteTools(
                 Description = input.Description?.Trim(),
                 Order = maxOrder,
                 ColumnId = columnId,
+                CategoryId = input.CategoryId ?? 0,
                 CreatorUserId = userId,
                 AssignedUserId = resolvedAssignee
             };
@@ -234,6 +239,7 @@ public class BatchWriteTools(
 
     private class BatchCardInput
     {
+        public int? CategoryId { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }
         public string? AssignedUserId { get; set; }

@@ -61,7 +61,10 @@ public class TaskPlanningSubagent : SubagentBase, ISingletonDependency
 
         ## Important
 
-        - Use IDs found via FilterCards when referencing boards, columns, or cards.
+        - Categories are board-scoped and independent of status columns and labels. Each card has one category.
+        - FilterCards returns category IDs/names and accepts categoryId. Use SetCardCategory to plan category changes, not MoveCard.
+        - New cards use the board's default category when categoryId is omitted. Never invent category IDs.
+        - Use IDs found via FilterCards when referencing boards, columns, categories, or cards.
         - If FilterCards returns relevant results, cite them in your plan.
         - Think about edge cases: duplicates, missing data, dependencies between steps.
         """;
