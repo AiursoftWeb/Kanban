@@ -31,8 +31,9 @@ public class CategoryWriteTools(
         var board = await db.KanbanBoards.FindAsync(boardId);
         if (board == null) return "Error: Board not found.";
         if (!await CanEditAsync(board)) return "Error: You do not have permission to edit this board.";
-        name = name?.Trim() ?? string.Empty;
-        if (name.Length is < 1 or > 100) return "Error: Category name must contain 1 to 100 characters.";
+        if (string.IsNullOrWhiteSpace(name)) return "Error: Category name is required.";
+        name = name.Trim();
+        if (name.Length > 100) return "Error: Category name must contain 1 to 100 characters.";
         if (await db.KanbanCategories.AnyAsync(c => c.BoardId == boardId && c.Name == name))
             return "Error: A category with this name already exists.";
         var order = await db.KanbanCategories.Where(c => c.BoardId == boardId).MaxAsync(c => (int?)c.Order) ?? 0;
@@ -51,8 +52,9 @@ public class CategoryWriteTools(
         var category = await db.KanbanCategories.Include(c => c.Board).FirstOrDefaultAsync(c => c.Id == categoryId);
         if (category == null) return "Error: Category not found.";
         if (!await CanEditAsync(category.Board)) return "Error: You do not have permission to edit this board.";
-        name = name?.Trim() ?? string.Empty;
-        if (name.Length is < 1 or > 100) return "Error: Category name must contain 1 to 100 characters.";
+        if (string.IsNullOrWhiteSpace(name)) return "Error: Category name is required.";
+        name = name.Trim();
+        if (name.Length > 100) return "Error: Category name must contain 1 to 100 characters.";
         if (await db.KanbanCategories.AnyAsync(c => c.BoardId == category.BoardId && c.Id != categoryId && c.Name == name))
             return "Error: A category with this name already exists.";
         category.Name = name;
