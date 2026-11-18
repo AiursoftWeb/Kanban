@@ -169,6 +169,26 @@ public sealed class CategoryTests : TestBase
     }
 
     [TestMethod]
+    public async Task EmptyCategoryCanBeDeletedWithoutChangingCardsOrDefaultCategory()
+    {
+        var board = await CreateBoard();
+        var categoryId = await AddCategory(board.Id, "Empty category");
+        var card = (await Read<CardResponse>(await Http.PostAsync($"/api/v1/columns/{board.Columns[0].Id}/cards",
+            Json(new CreateCardRequest { Title = "Preserved task" })))).Card;
+
+        var response = await PostForm("/Categories/Delete", new() { ["categoryId"] = categoryId.ToString() });
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsFalse(await db.KanbanCategories.AnyAsync(c => c.Id == categoryId));
+        Assert.IsTrue(await db.KanbanCategories.AnyAsync(c => c.Id == board.Categories[0].Id && c.IsDefault));
+        var preserved = await db.KanbanCards.SingleAsync(c => c.Id == card.Id);
+        Assert.AreEqual(card.CategoryId, preserved.CategoryId);
+        Assert.AreEqual(card.ColumnId, preserved.ColumnId);
+    }
+
+    [TestMethod]
     public async Task DefaultAndPopulatedCategoriesCannotBeDeletedAndArchivedBoardsCannotChange()
     {
         var board = await CreateBoard();
