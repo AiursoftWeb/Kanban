@@ -18,6 +18,7 @@ public class GenerateCardEmbeddingsJob(
     ILogger<GenerateCardEmbeddingsJob> logger) : IBackgroundJob
 {
     internal const int MaxDocumentsPerRun = 50;
+    internal const int MaxInputCharacters = 8192;
     private static readonly SemaphoreSlim RunLock = new(1, 1);
 
     public string Name => "Generate Card Embeddings";
@@ -142,12 +143,12 @@ public class GenerateCardEmbeddingsJob(
         string embedEndpoint, string model, HttpClient http, KanbanCard card)
     {
         var rawText = $"{card.Title}\n{card.Description ?? ""}".Trim();
-        var maxChars = 8000;
+        var maxChars = MaxInputCharacters;
 
-        while (maxChars >= 500)
+        while (maxChars >= 512)
         {
             var input = TruncateForEmbedding(rawText, maxChars);
-            var requestBody = new { model, input };
+            var requestBody = new { model, input, truncate = false };
             var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8,
                 "application/json");
 
@@ -170,7 +171,7 @@ public class GenerateCardEmbeddingsJob(
             // If the input is too long, halve the limit and retry. Otherwise fail.
             var errorBody = await response.Content.ReadAsStringAsync();
             var isContextError = EmbeddingHelper.IsContextLengthError(response.StatusCode, errorBody);
-            if (!isContextError || maxChars <= 500)
+            if (!isContextError || maxChars <= 512)
             {
                 throw new HttpRequestException(
                     $"Ollama embedding request failed for card #{card.Id} (HTTP {(int)response.StatusCode}): {errorBody}");
@@ -218,10 +219,17 @@ public class GenerateCardEmbeddingsJob(
     internal static string TruncateForEmbedding(string text, int maxChars)
     {
         if (text.Length <= maxChars) return text;
-        var head = (int)(maxChars * 0.75);
-        var tail = maxChars - head - 5; // 5 for "\n...\n" separator
-        if (tail <= 0) return text[..maxChars];
-        return string.Concat(text.AsSpan(0, head), "\n...\n", text.AsSpan(text.Length - tail));
+
+        const string separator = "\n...\n";
+        var contentBudget = maxChars - separator.Length;
+        var head = contentBudget * 4 / 5;
+        var tailStart = text.Length - (contentBudget - head);
+
+        // Do not split a UTF-16 surrogate pair at either retained boundary.
+        if (char.IsHighSurrogate(text[head - 1]) && char.IsLowSurrogate(text[head])) head--;
+        if (char.IsLowSurrogate(text[tailStart]) && char.IsHighSurrogate(text[tailStart - 1])) tailStart++;
+
+        return string.Concat(text.AsSpan(0, head), separator, text.AsSpan(tailStart));
     }
 
     private class OllamaEmbedResponse
