@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>Adaugă card</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>Adăugare categorie</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>Adaugă coloană</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>Detalii card</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>Numele categoriei</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Schimbați culoarea {{0}}</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>Finalizat</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmare</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>Confirmare schimbare categorie</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>Creează tablică</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>Creează panou nou</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>Creați o coloană de stare înainte de a adăuga carduri.</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>Creați primul tabel Kanban pentru a începe.</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>Șterge cardul</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>Șterge categoria</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>Ștergeți categoria „{0}&quot;? Doar categoriile goale pot fi șterse.</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Șterge coloana</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>Eșec la adăugarea etichetei.</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>Schimbarea categoriei a eșuat.</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>Crearea cardului a eșuat.</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Nu s-a reușit ștergerea cardului.</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>Ștergerea categoriei a eșuat.</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Nu s-a reușit ștergerea coloanei.</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>Diagramă Gantt</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Grupează sarcinile după</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>Înaltă</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>Redenumește panoul</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>Redenumire categorie</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>Redenumire coloană</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Panou țintă</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>Coloană țintă</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Categorie de sarcini</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Această acțiune nu poate fi anulată.</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>Ani</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>Schimbați categoria pentru „{0}” de la „{1}” la „{2}”. Continuați?</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>Aici puteți trage imagini sau le puteți lipi din clipboard.</value>

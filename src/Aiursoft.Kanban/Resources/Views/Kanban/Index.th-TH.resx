@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>เพิ่มการ์ด</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>เพิ่มหมวดหมู่</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>เพิ่มคอลัมน์</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>รายละเอียดการ์ด</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>หมวดหมู่</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>ชื่อหมวดหมู่</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>เปลี่ยนสี{{0}}</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>เสร็จสิ้น</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>ยืนยัน</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>ยืนยันการเปลี่ยนหมวดหมู่</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>สร้างกระดาน</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>สร้างกระดานใหม่</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>สร้างคอลัมน์สถานะก่อนเพิ่มการ์ด</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>สร้างบอร์ด Kanban แรกของคุณเพื่อเริ่มต้นใช้งาน</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>ลบการ์ด</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>ลบหมวดหมู่</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>ลบหมวดหมู่ &quot;{0}&quot; หรือไม่? สามารถลบได้เฉพาะหมวดหมู่ที่ว่างเท่านั้น</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>ลบคอลัมน์</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>เพิ่มป้ายกำกับไม่สำเร็จ</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>การเปลี่ยนหมวดหมู่ล้มเหลว</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>ไม่สามารถสร้างการ์ดได้</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>ไม่สามารถลบการ์ดได้</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>ไม่สามารถลบหมวดหมู่ได้</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>ไม่สามารถลบคอลัมน์ได้</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>แผนภูมิแกนต์</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>จัดกลุ่มงานตาม</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>สูง</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>เปลี่ยนชื่อกระดาน</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>เปลี่ยนชื่อหมวดหมู่</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>เปลี่ยนชื่อคอลัมน์</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>บอร์ดปลายทาง</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>คอลัมน์เป้าหมาย</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>หมวดงาน</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>การดำเนินการนี้ไม่สามารถย้อนกลับได้</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>ปี</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>คุณกำลังเปลี่ยนหมวดหมู่ของ &quot;{0}&quot; จาก &quot;{1}&quot; เป็น &quot;{2}&quot; ดำเนินการต่อหรือไม่?</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>คุณสามารถลากภาพ сюда หรือวางจากคลิปบอร์ดได้</value>

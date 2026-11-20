@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>เพิ่มการ์ด</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>หมวดหมู่</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>เสร็จสิ้น</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>แก้ไขบอร์ด</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>จัดกลุ่มงานตาม</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>กำลังดำเนินการ</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>มุมมองแบบอ่านอย่างเดียว</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>หมวดหมู่งาน</value>
   </data>
 
 </root>

@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>Προσθήκη Κάρτας</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Κατηγορία</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Ολοκληρώθηκε</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Επεξεργασία Πίνακα</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Ομαδοποίηση εργασιών κατά</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>Σε εξέλιξη</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>Προβολή μόνο για ανάγνωση</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Κατηγορία εργασίας</value>
   </data>
 
 </root>

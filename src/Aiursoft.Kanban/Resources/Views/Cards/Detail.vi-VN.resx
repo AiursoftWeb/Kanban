@@ -261,6 +261,9 @@
   <data name="Subscribers are notified when this card changes." xml:space="preserve">
     <value>Người đăng ký sẽ được thông báo khi thẻ này thay đổi.</value>
   </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Danh mục công việc</value>
+  </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>This action cannot be undone.</value>
   </data>

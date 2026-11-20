@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>Dodaj kartę</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Ukończone</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Edytuj planszę</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Grupuj zadania według</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>W trakcie</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>Widok tylko do odczytu</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Kategoria zadania</value>
   </data>
 
 </root>

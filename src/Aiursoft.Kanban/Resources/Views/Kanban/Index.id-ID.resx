@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>Tambah Kartu</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>Tambah Kategori</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>Tambah Kolom</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>Detail Kartu</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>Nama kategori</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Ubah warna {{0}}</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>Selesai</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Konfirmasi</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>Konfirmasi perubahan kategori</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>Buat Papan</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>Buat Papan Baru</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>Buat kolom status sebelum menambahkan kartu.</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>Buat papan Kanban pertama Anda untuk memulai.</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>Hapus kartu</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>Hapus kategori</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>Hapus kategori &quot;{0}&quot;? Hanya kategori kosong yang dapat dihapus.</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Hapus kolom</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>Gagal menambahkan label.</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>Gagal mengubah kategori.</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>Gagal membuat kartu.</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Gagal menghapus kartu.</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>Gagal menghapus kategori.</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Gagal menghapus kolom.</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>Bagan Gantt</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Kelompokkan tugas berdasarkan</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>Tinggi</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>Ubah nama papan</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>Ubah nama kategori</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>Ubah nama kolom</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Papan Sasaran</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>Kolom Target</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Kategori tugas</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Tindakan ini tidak dapat dibatalkan.</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>Tahun</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>Anda sedang mengubah kategori &quot;{0}&quot; dari &quot;{1}&quot; menjadi &quot;{2}&quot;. Lanjutkan?</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>Anda dapat seret gambar ke sini atau tempel dari clipboard.</value>

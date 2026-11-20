@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>Ajouter une carte</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>Ajouter une catégorie</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>Ajouter une colonne</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>Détails de la carte</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Catégorie</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>Nom de la catégorie</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Modifier la couleur de {{0}}</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>Terminé</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmer</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>Confirmer le changement de catégorie</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>Créer un tableau</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>Créer un nouveau tableau</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>Créez une colonne de statut avant d&apos;ajouter des cartes.</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>Créez votre premier tableau Kanban pour commencer.</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>Supprimer la carte</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>Supprimer la catégorie</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>Supprimer la catégorie « {0} » ? Seules les catégories vides peuvent être supprimées.</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Supprimer la colonne</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>Impossible d&apos;ajouter l&apos;étiquette.</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>Échec de la modification de la catégorie.</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>Échec de la création de la carte.</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Échec de la suppression de la carte.</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>Échec de la suppression de la catégorie.</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Impossible de supprimer la colonne.</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>Diagramme de Gantt</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Grouper les tâches par</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>Élevée</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>Renommer le tableau</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>Renommer la catégorie</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>Renommer la colonne</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Tableau cible</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>Colonne cible</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Catégorie de tâche</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Cette action est irréversible.</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>Années</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>Vous changez la catégorie de « {0} » de « {1} » à « {2} ». Continuer ?</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>Vous pouvez glisser des images ici ou les coller depuis le presse-papiers.</value>

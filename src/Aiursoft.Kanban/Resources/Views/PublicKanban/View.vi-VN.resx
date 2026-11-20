@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>Thêm thẻ</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Danh mục</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Đã hoàn thành</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Chỉnh sửa Bảng</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Nhóm tác vụ theo</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>Đang tiến hành</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>Chế độ xem chỉ đọc</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Danh mục tác vụ</value>
   </data>
 
 </root>

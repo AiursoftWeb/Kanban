@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>Adaugă card</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Finalizat</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Editează tablia</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Grupează task-urile după</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>În curs de desfășurare</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>Vizualizare doar în citire</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stare</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Categorie de sarcini</value>
   </data>
 
 </root>
