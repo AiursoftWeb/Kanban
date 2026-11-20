@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>新增卡片</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>類別</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>已完成</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>編輯看板</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>按以下項目分組任務</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>進行中</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>唯讀模式</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>任務類別</value>
   </data>
 
 </root>

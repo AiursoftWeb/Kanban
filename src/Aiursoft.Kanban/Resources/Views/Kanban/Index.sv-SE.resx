@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>Lägg till kort</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>Lägg till kategori</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>Lägg till kolumn</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>Kortinformation</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>Kategorinamn</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Ändra {{0}}-färg</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>Avslutade</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Bekräfta</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>Bekräfta kategoribyten</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>Skapa tavla</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>Skapa nytt bord</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>Skapa en statuskolumn innan du lägger till kort.</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>Skapa ditt första Kanban-bräde för att komma igång.</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>Ta bort kort</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>Ta bort kategori</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>Ta bort kategorin &quot;{0}&quot;? Endast tomma kategorier kan tas bort.</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Ta bort kolumn</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>Misslyckades med att lägga till etikett.</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>Det gick inte att ändra kategori.</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>Det gick inte att skapa kortet.</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Misslyckades med att ta bort kortet.</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>Det gick inte att ta bort kategorin.</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Det gick inte att ta bort kolumnen.</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>Ganttdiagram</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Gruppera uppgifter efter</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>Hög</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>Byt namn på tavla</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>Byt namn på kategori</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>Byt namn på kolumn</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Måltavla</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>Målbehållare</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Uppgiftskategori</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Denna åtgärd kan inte ångras.</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>År</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>Du ändrar kategorin för &quot;{0}&quot; från &quot;{1}&quot; till &quot;{2}&quot;. Fortsätt?</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>Du kan dra bilder hit eller klistra in från urklipp.</value>

@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>Lägg till kort</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Avklarad</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Redigera kort</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Gruppera uppgifter efter</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>Pågående</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>Skrivskyddad vy</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Uppgiftskategori</value>
   </data>
 
 </root>

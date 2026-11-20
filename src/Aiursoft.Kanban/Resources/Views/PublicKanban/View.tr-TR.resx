@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>Kart Ekle</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Tamamlandı</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Paneli Düzenle</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Görevleri şuna göre grupla</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>Devam Ediyor</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>Salt okunabilir görünüm</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Görev kategorisi</value>
   </data>
 
 </root>

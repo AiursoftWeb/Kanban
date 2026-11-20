@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>Add Card</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>Add Category</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>Add Column</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>Card Details</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>Category name</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Change {{0}} colour</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>Completed</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>Confirm category change</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>Create Board</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>Create New Board</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>Create a status column before adding cards.</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>Create your first Kanban board to get started.</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>Delete card</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>Delete category</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>Delete category &quot;{0}&quot;? Only empty categories can be deleted.</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Delete column</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>Failed to add label.</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>Failed to change category.</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>Failed to create card.</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Failed to delete card.</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>Failed to delete category.</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Failed to delete column.</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>Gantt chart</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Group tasks by</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>High</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>Rename board</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>Rename category</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>Rename column</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Target Board</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>Target Column</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Task category</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>This action cannot be undone.</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>Years</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>You are changing the category of “{0}” from “{1}” to “{2}”. Continue?</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>You can drag images here or paste from the clipboard.</value>

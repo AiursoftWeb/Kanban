@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>Kaart toevoegen</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>Categorie toevoegen</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>Kolom toevoegen</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>Kaartgegevens</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>Categorienaam</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Verander de kleur van {{0}}</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>Voltooid</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Bevestigen</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>Categorieverandering bevestigen</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>Board aanmaken</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>Nieuw bord maken</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>Maak een statuskolom aan voordat u kaarten toevoegt.</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>Maak je eerste Kanban-board om aan de slag te gaan.</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>Kaart verwijderen</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>Categorie verwijderen</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>Categorie &quot;{0}&quot; verwijderen? Alleen lege categorieën kunnen worden verwijderd.</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Kolom verwijderen</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>Label toevoegen mislukt.</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>Categorie wijzigen mislukt.</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>Kaarten aanmaken mislukt.</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Kan kaart niet verwijderen.</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>Categorie verwijderen mislukt.</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Kolom verwijderen mislukt.</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>Gantt-diagram</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Takenen groeperen op</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>Hoog</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>Naam van board wijzigen</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>Categorie hernoemen</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>Kolom hernoemen</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Doelbord</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>Doelkolom</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Taakcategorie</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Deze actie kan niet ongedaan worden gemaakt.</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>Jaren</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>U wijzigt de categorie van &quot;{0}&quot; van &quot;{1}&quot; naar &quot;{2}&quot;. Doorgaan?</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>U kunt hier afbeeldingen slepen of plakken vanuit het klembord.</value>

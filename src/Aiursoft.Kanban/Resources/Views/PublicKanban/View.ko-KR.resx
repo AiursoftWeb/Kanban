@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>카드 추가</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>카테고리</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>완료됨</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>보드 편집</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>작업 그룹화 기준</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>진행 중</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>읽기 전용 보기</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>작업 카테고리</value>
   </data>
 
 </root>

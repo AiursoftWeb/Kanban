@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>Lisää kortti</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Valmis</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Muokkaa alustaa</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Ryhmittele tehtävät mukaan</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>Käynnissä</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>Vain lukunäkymä</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Tehtäväkategoria</value>
   </data>
 
 </root>

@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>Tambah Kartu</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Selesai</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Edit Papan</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Kelompokkan tugas berdasarkan</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>Sedang Dikerjakan</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>Tampilan baca saja</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Kategori tugas</value>
   </data>
 
 </root>

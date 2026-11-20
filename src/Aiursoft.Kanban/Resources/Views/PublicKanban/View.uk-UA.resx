@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>Додати картку</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категорія</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>Завершено</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>Редагувати дошку</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Групувати завдання за</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>В роботі</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>Перегляд лише для читання</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Категорія завдання</value>
   </data>
 
 </root>

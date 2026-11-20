@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>カードを追加</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>カテゴリを追加</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>列を追加</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>カードの詳細</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>カテゴリ</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>カテゴリ名</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>{{0}}の色を変更</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>完了</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>カテゴリ変更の確認</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>ボードを作成</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>新しいボードを作成</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>カードを追加する前に、ステータス列を作成してください。</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>まず最初のKanbanボードを作成して始めましょう。</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>カードを削除</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>カテゴリを削除</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>カテゴリ「{0}」を削除しますか？空のカテゴリのみ削除できます。</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>列を削除</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>ラベルの追加に失敗しました。</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>カテゴリの変更に失敗しました。</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>カードの作成に失敗しました。</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>カードの削除に失敗しました。</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>カテゴリの削除に失敗しました。</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>列の削除に失敗しました。</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>ガントチャート</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>タスクのグループ化</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>高</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>ボード名を変更</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>カテゴリ名の変更</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>列の名前を変更</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>移動先ボード</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>ターゲット列</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>タスクカテゴリ</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>この操作は取り消せません。</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>年</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>「{0}」のカテゴリを「{1}」から「{2}」に変更します。続行しますか？</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>画像をここにドラッグするか、クリップボードから貼り付けることができます。</value>

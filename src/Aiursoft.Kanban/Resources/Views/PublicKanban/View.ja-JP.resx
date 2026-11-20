@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>カードを追加</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>カテゴリ</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>完了</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>ボードを編集</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>タスクをグループ化</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>進行中</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>読み取り専用ビュー</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>タスクカテゴリ</value>
   </data>
 
 </root>

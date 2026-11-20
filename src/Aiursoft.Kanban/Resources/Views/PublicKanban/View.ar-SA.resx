@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>إضافة بطاقة</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>الفئة</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>مكتمل</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>تعديل اللوحة</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>تجميع المهام حسب</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>قيد التنفيذ</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>عرض للقراءة فقط</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>فئة المهمة</value>
   </data>
 
 </root>

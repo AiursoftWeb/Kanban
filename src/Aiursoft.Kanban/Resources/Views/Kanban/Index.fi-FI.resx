@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>Lisää kortti</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>Lisää kategoria</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>Lisää sarake</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>Kortin tiedot</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>Kategorian nimi</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Muuta {{0}} väriä</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>Valmiit</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Vahvista</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>Vahvista luokan muutos</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>Luo taulu</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>Luo uusi taulu</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>Luo tila-sarake ennen korttien lisäämistä.</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>Luo ensimmäinen Kanban-luettelosi päästäksesi alkuun.</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>Poista kortti</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>Poista kategoria</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>Poistetaanko kategoria &quot;{0}&quot;? Vain tyhjiä kategorioita voidaan poistaa.</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Poista sarake</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>Tunnisteen lisääminen epäonnistui.</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>Kategorian muuttaminen epäonnistui.</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>Kortin luonti epäonnistui.</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Kortin poisto epäonnistui.</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>Luokan poisto epäonnistui.</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Pylvään poisto epäonnistui.</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>Gantt-kaavio</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Ryhmittele tehtävät</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>Korkea</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>Nimeä taulu uudelleen</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>Nimeä uudelleen kategoria</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>Nimeä uudelleen sarake</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Tila</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Kohdelauta</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>Kohdesarake</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Tehtäväkategoria</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Tätä toimintoa ei voi peruuttaa.</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>Vuodet</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>Muutatteko kohteen &quot;{0}&quot; kategorian arvon &quot;{1}&quot; arvoksi &quot;{2}&quot;? Jatkuuko?</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>Voit vetää kuvia tähän tai liittää leikepöydältä.</value>

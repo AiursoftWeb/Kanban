@@ -261,6 +261,9 @@
   <data name="Subscribers are notified when this card changes." xml:space="preserve">
     <value>当此卡片发生更改时，订阅者将收到通知。</value>
   </data>
+  <data name="Task category" xml:space="preserve">
+    <value>任务分类</value>
+  </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>此操作无法撤消。</value>
   </data>
@@ -322,7 +325,4 @@
     <value>分钟前</value>
   </data>
 
-  <data name="Task category" xml:space="preserve">
-    <value>任务分类</value>
-  </data>
 </root>

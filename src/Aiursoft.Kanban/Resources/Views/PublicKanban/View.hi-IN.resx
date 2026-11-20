@@ -21,6 +21,9 @@
       <data name="Add Card" xml:space="preserve">
     <value>कार्ड जोड़ें</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>श्रेणी</value>
+  </data>
   <data name="Completed" xml:space="preserve">
     <value>पूर्ण</value>
   </data>
@@ -29,6 +32,9 @@
   </data>
   <data name="Edit Board" xml:space="preserve">
     <value>बोर्ड संपादित करें</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>कार्यों को इसके अनुसार समूहबद्ध करें</value>
   </data>
   <data name="In Progress" xml:space="preserve">
     <value>प्रगति में</value>
@@ -41,6 +47,12 @@
   </data>
   <data name="Read-only view" xml:space="preserve">
     <value>केवल-पठन दृश्य</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>स्थिति</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>कार्य श्रेणी</value>
   </data>
 
 </root>

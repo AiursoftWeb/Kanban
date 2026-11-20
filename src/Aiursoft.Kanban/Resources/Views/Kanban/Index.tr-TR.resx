@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>Kart Ekle</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>Kategori Ekle</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>Sütun Ekle</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>Kart Detayları</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>Kategori adı</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>{{0}} rengini değiştir</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>Tamamlanan</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Onayla</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>Kategori değişikliğini onayla</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>Pano Oluştur</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>Yeni Panolu Oluştur</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>Kart eklemeden önce bir durum sütunu oluşturun.</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>Başlamak için ilk Kanban panonuzu oluşturun.</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>Kartı sil</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>Kategoriyi sil</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>&quot;{0}&quot; kategorisi silinsin mi? Sadece boş kategoriler silinebilir.</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Sütunu sil</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>Etiket eklenemedi.</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>Kategori değiştirilemedi.</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>Kart oluşturulamadı.</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Kart silinemedi.</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>Kategori silinemedi.</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Sütun silinemedi.</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>Gantt Çizelgesi</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Görevleri grupla</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>Yüksek</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>Pano adını değiştir</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>Kategoriyi yeniden adlandır</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>Sütunu yeniden adlandır</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Durum</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Hedef Panosu</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>Hedef Sütun</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Görev kategorisi</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Bu işlem geri alınamaz.</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>Yıl</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>&quot;{0}&quot; öğesinin kategorisi &quot;{1}&quot; değerinden &quot;{2}&quot; değerine değiştirilecek. Devam edilsin mi?</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>Resimleri buraya sürükleyebilir veya panodan yapıştırabilirsiniz.</value>

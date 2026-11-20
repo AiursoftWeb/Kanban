@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>Додати картку</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>Додати категорію</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>Додати колонку</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>Деталі картки</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категорія</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>Назва категорії</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>Змінити колір {{0}}</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>Виконано</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Підтвердити</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>Підтвердження зміни категорії</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>Створити дошку</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>Створити нову дошку</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>Створіть стовпець статусу, перш ніж додавати картки.</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>Створіть свою першу дошку Kanban, щоб розпочати роботу.</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>Видалити картку</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>Видалити категорію</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>Видалити категорію &quot;{0}&quot;? Можна видалити лише порожні категорії.</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>Видалити колонку</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>Не вдалося додати мітку.</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>Не вдалося змінити категорію.</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>Не вдалося створити картку.</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>Не вдалося видалити картку.</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>Не вдалося видалити категорію.</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>Не вдалося видалити стовпець.</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>Діаграма Ганта</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Групувати завдання за</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>Високий</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>Перейменувати дошку</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>Перейменувати категорію</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>Перейменувати стовпець</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>Дошка призначення</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>Цільова колонка</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Категорія завдання</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>Цю дію не можна скасувати.</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>Років</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>Ви змінюєте категорію «{0}» з «{1}» на «{2}». Продовжити?</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>Ви можете перетягнути сюди зображення або вставити їх із буфера обміну.</value>

@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>कार्ड जोड़ें</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>श्रेणी जोड़ें</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>कॉलम जोड़ें</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>कार्ड विवरण</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>श्रेणी</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>श्रेणी का नाम</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>{{0}} का रंग बदलें</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>पूरा हुआ</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>पुष्टि करें</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>श्रेणी परिवर्तन की पुष्टि करें</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>बोर्ड बनाएं</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>नया बोर्ड बनाएं</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>कार्ड जोड़ने से पहले एक स्थिति कॉलम बनाएं।</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>शुरू करने के लिए अपना पहला कनबन बोर्ड बनाएं।</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>कार्ड हटाएँ</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>श्रेणी हटाएँ</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>श्रेणी &quot;{0}&quot; को हटाएं? केवल खाली श्रेणियों को हटाया जा सकता है।</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>कोलम हटाएं</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>लेबल जोड़ने में विफल।</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>श्रेणी बदलने में विफल रहा।</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>कार्ड बनाने में विफल।</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>कार्ड डिलीट करने में विफल।</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>श्रेणी हटाने में विफल रहा।</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>कॉलम डिलीट करने में विफल।</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>गैन्ट चार्ट</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>कार्यों को समूहित करें</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>उच्च</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>बोर्ड का नाम बदलें</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>श्रेणी का नाम बदलें</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>सтолम्न का नाम बदलें</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>स्थिति</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>लक्ष्य बोर्ड</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>लक्ष्य स्तंभ</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>कार्य श्रेणी</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>इस कार्य को वापस नहीं किया जा सकता।</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>वर्ष</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>आप &quot;{0}&quot; की श्रेणी को &quot;{1}&quot; से &quot;{2}&quot; में बदल रहे हैं। जारी रखें?</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>आप यहाँ चित्र खींचकर ला सकते हैं या क्लिपबोर्ड से पेस्ट कर सकते हैं।</value>

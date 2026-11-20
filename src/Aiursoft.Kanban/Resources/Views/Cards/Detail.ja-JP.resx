@@ -261,6 +261,9 @@
   <data name="Subscribers are notified when this card changes." xml:space="preserve">
     <value>このカードが変更されると、購読者に通知されます。</value>
   </data>
+  <data name="Task category" xml:space="preserve">
+    <value>タスクカテゴリ</value>
+  </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>This action cannot be undone.</value>
   </data>

@@ -39,6 +39,9 @@
   <data name="Add Card" xml:space="preserve">
     <value>新增卡片</value>
   </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>新增分類</value>
+  </data>
   <data name="Add Column" xml:space="preserve">
     <value>新增欄位</value>
   </data>
@@ -87,6 +90,12 @@
   <data name="Card Details" xml:space="preserve">
     <value>卡片詳細資料</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>類別</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>分類名稱</value>
+  </data>
   <data name="Change {{0}} color" xml:space="preserve">
     <value>變更 {{0}} 色彩</value>
   </data>
@@ -126,11 +135,20 @@
   <data name="Completed" xml:space="preserve">
     <value>已完成</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>確認分類變更</value>
+  </data>
   <data name="Create Board" xml:space="preserve">
     <value>建立看板</value>
   </data>
   <data name="Create New Board" xml:space="preserve">
     <value>建立新看板</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>新增卡片前，請先建立狀態欄位。</value>
   </data>
   <data name="Create your first Kanban board to get started." xml:space="preserve">
     <value>建立您的第一個看板和看板以開始使用。</value>
@@ -164,6 +182,12 @@
   </data>
   <data name="Delete card" xml:space="preserve">
     <value>刪除卡片</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>刪除分類</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>刪除分類「{0}」？只有空分類才能被刪除。</value>
   </data>
   <data name="Delete column" xml:space="preserve">
     <value>刪除欄位</value>
@@ -210,6 +234,9 @@
   <data name="Failed to add label." xml:space="preserve">
     <value>無法新增標籤。</value>
   </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>變更分類失敗。</value>
+  </data>
   <data name="Failed to create card." xml:space="preserve">
     <value>建立卡片失敗。</value>
   </data>
@@ -224,6 +251,9 @@
   </data>
   <data name="Failed to delete card." xml:space="preserve">
     <value>刪除卡片失敗。</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>刪除分類失敗。</value>
   </data>
   <data name="Failed to delete column." xml:space="preserve">
     <value>無法刪除資料欄位。</value>
@@ -284,6 +314,9 @@
   </data>
   <data name="Gantt Chart" xml:space="preserve">
     <value>甘特圖</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>依群組任務</value>
   </data>
   <data name="High" xml:space="preserve">
     <value>高</value>
@@ -414,6 +447,9 @@
   <data name="Rename board" xml:space="preserve">
     <value>重新命名看板</value>
   </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>重新命名分類</value>
+  </data>
   <data name="Rename column" xml:space="preserve">
     <value>重新命名欄位</value>
   </data>
@@ -459,11 +495,17 @@
   <data name="Start" xml:space="preserve">
     <value>開始</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>狀態</value>
+  </data>
   <data name="Target Board" xml:space="preserve">
     <value>目標看板</value>
   </data>
   <data name="Target Column" xml:space="preserve">
     <value>目標欄位</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>任務類別</value>
   </data>
   <data name="This action cannot be undone." xml:space="preserve">
     <value>此操作無法復原。</value>
@@ -527,6 +569,9 @@
   </data>
   <data name="Years" xml:space="preserve">
     <value>年</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>您正在將「{0}」的類別從「{1}」變更為「{2}」。是否繼續？</value>
   </data>
   <data name="You can drag images here or paste from clipboard." xml:space="preserve">
     <value>您可以在此拖放圖片，或從剪貼簿貼上。</value>
