@@ -13,7 +13,6 @@ using Aiursoft.Kanban.Services.Agent;
 using Aiursoft.Kanban.Services.Agent.Subagent;
 using Aiursoft.Kanban.Services.BackgroundJobs;
 using Aiursoft.Kanban.Sqlite;
-using Aiursoft.UiStack;
 using Aiursoft.UiStack.Layout;
 using Aiursoft.UiStack.Navigation;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -158,7 +157,6 @@ public class Startup : IWebStartup
     {
         app.UseExceptionHandler("/Error/Code500");
         app.UseStatusCodePagesWithReExecute("/Error/Code{0}");
-        app.UseUIStack();
         app.UseStaticFiles();
         app.UseRouting();
         app.UseAuthentication();
