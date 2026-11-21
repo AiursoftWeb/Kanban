@@ -72,7 +72,7 @@ public class CardsController(
             AuthorAvatarUrl = c.Author.AvatarRelativePath != Entities.User.DefaultAvatarPath
                 ? $"{storage.RelativePathToInternetUrl(c.Author.AvatarRelativePath)}?w=56&square=true"
                 : null,
-            CreatedAt = c.CreationTime.ToString("yyyy-MM-ddTHH:mmK", CultureInfo.InvariantCulture),
+            CreatedAt = DateTime.SpecifyKind(c.CreationTime, DateTimeKind.Utc).ToString("O", CultureInfo.InvariantCulture),
             CanDelete = c.AuthorId == userId || canEdit
         }).ToList();
 

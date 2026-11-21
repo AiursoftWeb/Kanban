@@ -407,7 +407,7 @@
                                     <div class="comment-body">
                                         <div class="comment-header">
                                             <span class="comment-author">@comment.AuthorName</span>
-                                            <span class="comment-time">@comment.CreatedAt</span>
+                                            <span class="comment-time" data-utc-time="@comment.CreatedAt"></span>
                                             @if (comment.CanDelete)
                                             {
                                                 <button class="comment-delete-btn" data-comment-id="@comment.Id" title="@Localizer["Delete comment"]">
@@ -846,10 +846,6 @@
     <span data-key="failed-transfer">@Localizer["Failed to transfer card."]</span>
     <span data-key="recurring-task-returned">@Localizer["Recurring task has been returned to {0}.", "{0}"]</span>
     <span data-key="server-error">@Localizer["Server error"]</span>
-    <span data-key="just-now">@Localizer["just now"]</span>
-    <span data-key="m-ago">@Localizer["m ago"]</span>
-    <span data-key="h-ago">@Localizer["h ago"]</span>
-    <span data-key="d-ago">@Localizer["d ago"]</span>
     <span data-key="unassigned">@Localizer["Unassigned"]</span>
     <span data-key="none">@Localizer["None"]</span>
     <span data-key="labels">@Localizer["Labels"]</span>

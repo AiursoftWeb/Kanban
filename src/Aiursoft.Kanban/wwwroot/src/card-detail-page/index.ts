@@ -1161,7 +1161,7 @@ function renderCommentHtml(comment: CommentDto): string {
       <div class="comment-body">
         <div class="comment-header">
           <span class="comment-author">${escapeHtml(comment.AuthorName ?? '')}</span>
-          <span class="comment-time" title="${escapeHtml(formatCommentFullTime(comment.CreationTime))}">${escapeHtml(formatCommentTime(comment.CreationTime))}</span>
+          <span class="comment-time" data-utc-time="${escapeHtml(comment.CreationTime).replace(/"/g, '&quot;')}"></span>
           ${comment.CanDelete ? `<button type="button" class="comment-delete-btn" data-comment-id="${comment.Id}" title="${escapeHtml(t('delete-comment', 'Delete comment'))}"><i class="align-middle" data-lucide="trash-2" style="width:14px;height:14px"></i></button>` : ''}
         </div>
         <div class="comment-text">${renderSafeCommentHtml(comment.Content)}</div>
@@ -1439,32 +1439,6 @@ function readString(value: unknown): string {
 function readOptionalString(value: unknown): string | undefined {
   const text = readString(value).trim();
   return text ? text : undefined;
-}
-
-function formatCommentFullTime(value: string): string {
-  return parseCommentDate(value)?.toLocaleString() ?? value;
-}
-
-function formatCommentTime(value: string): string {
-  const parsed = parseCommentDate(value);
-  if (!parsed) return value;
-
-  const diffMinutes = Math.floor((Date.now() - parsed.getTime()) / 60000);
-  if (diffMinutes < 1) return t('just-now', 'just now');
-  if (diffMinutes < 60) return `${diffMinutes}${t('m-ago', 'm ago')}`;
-
-  const diffHours = Math.floor(diffMinutes / 60);
-  if (diffHours < 24) return `${diffHours}${t('h-ago', 'h ago')}`;
-
-  const diffDays = Math.floor(diffHours / 24);
-  if (diffDays < 7) return `${diffDays}${t('d-ago', 'd ago')}`;
-
-  return parsed.toLocaleString();
-}
-
-function parseCommentDate(value: string): Date | null {
-  const parsed = /Z|[+-]\d{2}:?\d{2}$/.test(value) ? new Date(value) : new Date(`${value}Z`);
-  return Number.isNaN(parsed.getTime()) ? null : parsed;
 }
 
 function clearInlineAlert(alertElement: HTMLElement | null): void {
