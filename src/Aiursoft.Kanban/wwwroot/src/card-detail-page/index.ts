@@ -1161,7 +1161,7 @@ function renderCommentHtml(comment: CommentDto): string {
       <div class="comment-body">
         <div class="comment-header">
           <span class="comment-author">${escapeHtml(comment.AuthorName ?? '')}</span>
-          <span class="comment-time" data-utc-time="${escapeHtml(comment.CreationTime).replaceAll('"', '&quot;')}"></span>
+          <span class="comment-time" data-utc-time="${escapeHtml(comment.CreationTime).replace(/"/g, '&quot;')}"></span>
           ${comment.CanDelete ? `<button type="button" class="comment-delete-btn" data-comment-id="${comment.Id}" title="${escapeHtml(t('delete-comment', 'Delete comment'))}"><i class="align-middle" data-lucide="trash-2" style="width:14px;height:14px"></i></button>` : ''}
         </div>
         <div class="comment-text">${renderSafeCommentHtml(comment.Content)}</div>
