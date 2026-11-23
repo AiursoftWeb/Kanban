@@ -25,9 +25,9 @@ public sealed class AccountSettingsActivity : AppCompatActivity
 {
     private const int AvatarPickerRequestCode = 7701;
     private const long MaxAvatarBytes = 10L * 1024 * 1024;
-    private static readonly string[] LanguageCodes = ["en", "zh", "ja", "ko"];
+    private static readonly string[] LanguageCodes = ["en", "zh", "ja", "ko", "hr"];
     private static readonly string[] LanguageLabels =
-        ["English", "中文 (Chinese)", "日本語 (Japanese)", "한국어 (Korean)"];
+        ["English", "中文 (Chinese)", "日本語 (Japanese)", "한국어 (Korean)", "Hrvatski"];
 
     private View _root = null!;
     private global::AndroidX.Core.Widget.NestedScrollView _scroll = null!;

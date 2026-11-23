@@ -447,6 +447,7 @@ public class DailyReportBackgroundJob : IBackgroundJob
         "zh" => "Chinese (中文)",
         "ja" => "Japanese (日本語)",
         "ko" => "Korean (한국어)",
+        "hr" => "Croatian (Hrvatski)",
         _ => "English"
     };
 }
