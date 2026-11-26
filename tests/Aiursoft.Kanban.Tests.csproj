@@ -36,4 +36,8 @@
     <ProjectReference Include="..\src\Aiursoft.Kanban\Aiursoft.Kanban.csproj" />
     <ProjectReference Include="../src/Aiursoft.Kanban.Client/Aiursoft.Kanban.Client.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="../src/Aiursoft.Kanban/wwwroot/scripts/uploader.js" TargetPath="wwwroot/scripts/uploader.js" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../src/Aiursoft.Kanban/wwwroot/styles/uploader.css" TargetPath="wwwroot/styles/uploader.css" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
