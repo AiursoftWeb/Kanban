@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actual" xml:space="preserve">
+    <value>Stvarno</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Dodučitelj</value>
+  </data>
+  <data name="Assignee:" xml:space="preserve">
+    <value>Dodijeljeno:</value>
+  </data>
+  <data name="Back to Kanban" xml:space="preserve">
+    <value>Natrag na Kanban</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Kartice</value>
+  </data>
+  <data name="Cards without dates" xml:space="preserve">
+    <value>Kartice bez datuma</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Očisti</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Očisti sve filtre</value>
+  </data>
+  <data name="Column:" xml:space="preserve">
+    <value>Stupac:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Završeno</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Zadano</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Izvoz</value>
+  </data>
+  <data name="Exporting…" xml:space="preserve">
+    <value>Izvoz…</value>
+  </data>
+  <data name="Failed to export the Gantt chart. Please try again." xml:space="preserve">
+    <value>Izvoz Ganttovog dijagrama nije uspio. Pokušajte ponovno.</value>
+  </data>
+  <data name="Gantt display mode" xml:space="preserve">
+    <value>Način prikaza Gantta</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Visoka</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>U tijeku</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Niska</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Srednja</value>
+  </data>
+  <data name="Missing actual end date" xml:space="preserve">
+    <value>Nedostaje stvarni datum završetka</value>
+  </data>
+  <data name="Missing actual start and end date" xml:space="preserve">
+    <value>Nedostaju stvarni datum početka i završetka</value>
+  </data>
+  <data name="Missing actual start date" xml:space="preserve">
+    <value>Nedostaje stvarni datum početka</value>
+  </data>
+  <data name="Missing date information (planned or actual dates are incomplete)" xml:space="preserve">
+    <value>Nedostaju informacije o datumu (planirani ili stvarni datumi nisu potpuni)</value>
+  </data>
+  <data name="Missing due date" xml:space="preserve">
+    <value>Nedostaje rok</value>
+  </data>
+  <data name="Missing planned start and due date" xml:space="preserve">
+    <value>Nedostaju planirani datum početka i rok</value>
+  </data>
+  <data name="Missing planned start date" xml:space="preserve">
+    <value>Nedostaje planirani datum početka</value>
+  </data>
+  <data name="No cards have complete dates in this mode." xml:space="preserve">
+    <value>Nijedna kartica nema kompletne datume u ovom načinu.</value>
+  </data>
+  <data name="No cards have complete dates to export in this mode." xml:space="preserve">
+    <value>Nijedna kartica nema potpune datume za izvoz u ovom načinu rada.</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nijedna kartica ne odgovara trenutnim filtrima.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nijedna</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Nije započeto</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>U redu</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planirano</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="Priority:" xml:space="preserve">
+    <value>Prioritet:</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Samo za čitanje</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Pretraži naslov ili opis...</value>
+  </data>
+  <data name="Status:" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="The chart is too large to export as a PNG image." xml:space="preserve">
+    <value>Dijagram je prevelik za izvoz kao PNG slika.</value>
+  </data>
+  <data name="This board has no cards." xml:space="preserve">
+    <value>Ova ploča nema kartica.</value>
+  </data>
+  <data name="Time:" xml:space="preserve">
+    <value>Vrijeme:</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Hitno</value>
+  </data>
+
+</root>

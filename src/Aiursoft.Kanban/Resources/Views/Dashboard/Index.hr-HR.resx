@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Ask the Kanban agent" xml:space="preserve">
+    <value>Pitajte Kanban agenta</value>
+  </data>
+  <data name="Assigned tasks" xml:space="preserve">
+    <value>Dijeljeni zadaci</value>
+  </data>
+  <data name="Create or manage boards" xml:space="preserve">
+    <value>Izradite ili upravljajte pločama</value>
+  </data>
+  <data name="Due:" xml:space="preserve">
+    <value>Rok:</value>
+  </data>
+  <data name="Generated at:" xml:space="preserve">
+    <value>Generirano u:</value>
+  </data>
+  <data name="Get help reading and updating board state with the built-in assistant." xml:space="preserve">
+    <value>Dobijte pomoć za čitanje i ažuriranje stanja ploče pomoću ugrađenog asistenta.</value>
+  </data>
+  <data name="Kanban Dashboard" xml:space="preserve">
+    <value>Kanban nadzorna ploča</value>
+  </data>
+  <data name="My active tasks" xml:space="preserve">
+    <value>Moje aktivne zadaće</value>
+  </data>
+  <data name="My boards" xml:space="preserve">
+    <value>Moje daske</value>
+  </data>
+  <data name="My tasks" xml:space="preserve">
+    <value>Moje zadaci</value>
+  </data>
+  <data name="No active tasks assigned to you right now." xml:space="preserve">
+    <value>Trenutno nema aktivnih zadataka dodijeljenih vama.</value>
+  </data>
+  <data name="No boards are shared with you yet." xml:space="preserve">
+    <value>Trenutno nema dasaka podijeljenih s vama.</value>
+  </data>
+  <data name="No boards created yet." xml:space="preserve">
+    <value>Još nema kreiranih ploča.</value>
+  </data>
+  <data name="No due date" xml:space="preserve">
+    <value>Nema roka</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Otvori daske</value>
+  </data>
+  <data name="Open boards shared with you through direct or role-based access." xml:space="preserve">
+    <value>Otvorite daske s kojima ste podijeljeni putem izravnog ili ulogom temeljenog pristupa.</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Zakašnjelo</value>
+  </data>
+  <data name="Plan columns, cards, priorities, labels, assignees, and due dates." xml:space="preserve">
+    <value>Planirajte stupce, kartice, prioritete, oznake, dodijeljene osobe i rokove.</value>
+  </data>
+  <data name="Quick actions" xml:space="preserve">
+    <value>Brzi postupci</value>
+  </data>
+  <data name="Review shared boards" xml:space="preserve">
+    <value>Pregledajte dijeljene daske</value>
+  </data>
+  <data name="Shared boards" xml:space="preserve">
+    <value>Podijeljene ploče</value>
+  </data>
+  <data name="Shared with me" xml:space="preserve">
+    <value>Podijeljeno sa mnom</value>
+  </data>
+  <data name="Today&apos;s Plan" xml:space="preserve">
+    <value>Današnji plan</value>
+  </data>
+  <data name="Today&apos;s Summary" xml:space="preserve">
+    <value>Današni sažetak</value>
+  </data>
+  <data name="cards" xml:space="preserve">
+    <value>kartice</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>gotovo</value>
+  </data>
+  <data name="in progress" xml:space="preserve">
+    <value>u tijeku</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>otvoreno</value>
+  </data>
+
+</root>

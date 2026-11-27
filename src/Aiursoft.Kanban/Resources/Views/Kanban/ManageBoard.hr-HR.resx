@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Akcije</value>
+  </data>
+  <data name="Add Column" xml:space="preserve">
+    <value>Dodaj stupac</value>
+  </data>
+  <data name="Are you sure you want to delete the board" xml:space="preserve">
+    <value>Jeste li sigurni da želite obrisati ploču</value>
+  </data>
+  <data name="Are you sure you want to delete the column" xml:space="preserve">
+    <value>Jeste li sigurni da želite obrisati stupac</value>
+  </data>
+  <data name="Back to Board" xml:space="preserve">
+    <value>Natrag na tablu</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>Naziv daske</value>
+  </data>
+  <data name="Board name is required." xml:space="preserve">
+    <value>Ime daske je obavezno.</value>
+  </data>
+  <data name="Board name updated." xml:space="preserve">
+    <value>Naziv daske je ažuriran.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Kartice</value>
+  </data>
+  <data name="Column Name" xml:space="preserve">
+    <value>Naziv stupca</value>
+  </data>
+  <data name="Column name is required." xml:space="preserve">
+    <value>Naziv stupca je obavezan.</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Stupci</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Završeno</value>
+  </data>
+  <data name="Danger Zone" xml:space="preserve">
+    <value>Zona opasnosti</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Obriši</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>Obriši dasku</value>
+  </data>
+  <data name="Delete Column" xml:space="preserve">
+    <value>Obriši stupac</value>
+  </data>
+  <data name="Deleting a board permanently removes all columns and cards. This action cannot be undone." xml:space="preserve">
+    <value>Brisanje daske trajno uklanja sve stupce i kartice. Ova radnja ne može se poništiti.</value>
+  </data>
+  <data name="Deleting..." xml:space="preserve">
+    <value>Brisanje...</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>Uredi dasku</value>
+  </data>
+  <data name="Failed to create column." xml:space="preserve">
+    <value>Neuspjelo stvaranje stupca.</value>
+  </data>
+  <data name="Failed to delete board:" xml:space="preserve">
+    <value>Neuspjelo brisanje daske:</value>
+  </data>
+  <data name="Failed to delete column:" xml:space="preserve">
+    <value>Neuspjelo brisanje stupca:</value>
+  </data>
+  <data name="Failed to rename column:" xml:space="preserve">
+    <value>Neuspjelo preimenovanje stupca:</value>
+  </data>
+  <data name="Failed to save." xml:space="preserve">
+    <value>Neuspješno spremanje.</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>U tijeku</value>
+  </data>
+  <data name="Manage board name and columns." xml:space="preserve">
+    <value>Upravljajte nazivom i stupcima tablice.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="No columns yet." xml:space="preserve">
+    <value>Još nema stupaca.</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Nije započeto</value>
+  </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Obavijest</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>U redu</value>
+  </data>
+  <data name="Order updated." xml:space="preserve">
+    <value>Redoslijed ažuriran.</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Preimenuj</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Pregled</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="Saving..." xml:space="preserve">
+    <value>Spremanje...</value>
+  </data>
+  <data name="Server error" xml:space="preserve">
+    <value>Greška servera</value>
+  </data>
+  <data name="Sort Order" xml:space="preserve">
+    <value>Redos sortiranja</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="This action cannot be undone." xml:space="preserve">
+    <value>Ova radnja ne može se poništiti.</value>
+  </data>
+  <data name="This action permanently removes all columns and cards. This cannot be undone." xml:space="preserve">
+    <value>Ova radnja trajno uklanja sve stupce i kartice. Ovo se ne može poništiti.</value>
+  </data>
+  <data name="This column contains" xml:space="preserve">
+    <value>Ova stupaca sadrži</value>
+  </data>
+  <data name="Unknown error" xml:space="preserve">
+    <value>Nepoznata pogreška</value>
+  </data>
+  <data name="card(s). Deleting the column will also permanently delete all its cards." xml:space="preserve">
+    <value>kartica/kartice. Brisanjem stupca trajno će se obrisati i sve njegove kartice.</value>
+  </data>
+
+</root>
