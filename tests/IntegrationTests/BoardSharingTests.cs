@@ -594,7 +594,9 @@ public class BoardSharingTests : TestBase
     }
 
     [TestMethod]
-    public async Task RemoveShare_RemovesSubscriptionsForUserWhoLosesReadAccess()
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task RemovingDirectShareKeepsSubscriptionOnlyWithRemainingRoleAccess(bool hasRoleShare)
     {
         var (ownerEmail, ownerPassword) = await RegisterAndLoginAsync();
         var ownerId = await GetUserIdByEmailAsync(ownerEmail);
@@ -603,6 +605,11 @@ public class BoardSharingTests : TestBase
         var subscriberId = await RegisterUserAndGetIdAsync();
         await LogoutAsync();
         await CreateShare(boardId, subscriberId, null, SharePermission.ReadOnly);
+        if (hasRoleShare)
+        {
+            var roleId = await CreateRoleWithUser($"readers-{Guid.NewGuid():N}", subscriberId);
+            await CreateShare(boardId, null, roleId, SharePermission.ReadOnly);
+        }
         var cardId = await CreateCard(boardId, "Subscribed card");
         await AddSubscription(cardId, subscriberId);
 
@@ -619,7 +626,10 @@ public class BoardSharingTests : TestBase
 
         var response = await PostForm($"/Kanban/RemoveShare?id={shareId}", new Dictionary<string, string>());
         AssertRedirect(response, "/Kanban/ManageShares", exact: false);
-        Assert.IsFalse(await HasSubscription(cardId, subscriberId));
+        using var verification = Server.Services.CreateScope();
+        var shares = verification.ServiceProvider.GetRequiredService<TemplateDbContext>().BoardShares;
+        Assert.IsFalse(await shares.AnyAsync(share => share.Id == shareId));
+        Assert.AreEqual(hasRoleShare, await HasSubscription(cardId, subscriberId));
     }
 
     [TestMethod]
