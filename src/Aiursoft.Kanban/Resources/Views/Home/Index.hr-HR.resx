@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A lightweight, self-hosted Kanban workspace for planning boards, tracking cards, assigning work, and sharing progress across your team." xml:space="preserve">
+    <value>Lagana, samostalna Kanban radna površina za planiranje tablica, praćenje kartica, dodjelu poslova i dijeljenje napretka s vašim timom.</value>
+  </data>
+  <data name="Agent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="Aiursoft Kanban" xml:space="preserve">
+    <value>Aiursoft Kanban</value>
+  </data>
+  <data name="Aiursoft Kanban." xml:space="preserve">
+    <value>Aiursoft Kanban.</value>
+  </data>
+  <data name="Ask for board summaries and guided updates in plain language." xml:space="preserve">
+    <value>Zatražite sažetke dasaka i vođena ažuriranja jednostavnim jezikom.</value>
+  </data>
+  <data name="Authentication, RBAC, OpenID Connect, localization, and system management are included." xml:space="preserve">
+    <value>Autentikacija, RBAC, OpenID Connect, lokalizacija i upravljanje sustavom uključeni su.</value>
+  </data>
+  <data name="Board-Centered Planning" xml:space="preserve">
+    <value>Planiranje usredotočeno na ploče</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Ploče</value>
+  </data>
+  <data name="Built-in Identity" xml:space="preserve">
+    <value>Ugrađena identitetska provjera</value>
+  </data>
+  <data name="Card Discussion" xml:space="preserve">
+    <value>Razgovor o kartici</value>
+  </data>
+  <data name="Create boards, columns, cards, labels, priorities, and assignments." xml:space="preserve">
+    <value>Kreirajte ploče, stupce, kartice, oznake, prioritete i dodjele.</value>
+  </data>
+  <data name="Create boards, organize columns, and move cards through clear workflow states from idea to done." xml:space="preserve">
+    <value>Stvorite daske, organizirajte stupce i pomičite kartice kroz jasna stanja radnog toka od ideje do završene.</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Nadzorna ploča</value>
+  </data>
+  <data name="Data Control" xml:space="preserve">
+    <value>Upravljanje podacima</value>
+  </data>
+  <data name="Deploy Kanban in minutes with Docker, SQLite for small teams, or MySQL for larger installations." xml:space="preserve">
+    <value>Postavite Kanban u nekoliko minuta pomoću Docker, SQLite za male timove ili MySQL za veće instalacije.</value>
+  </data>
+  <data name="Docker" xml:space="preserve">
+    <value>Docker</value>
+  </data>
+  <data name="Everything your team needs to move work forward." xml:space="preserve">
+    <value>Sve što vašem timu treba da bi napredovao s poslom.</value>
+  </data>
+  <data name="Fast Deployment" xml:space="preserve">
+    <value>Brzo postavljanje</value>
+  </data>
+  <data name="Filter your assigned cards by status, labels, and priority." xml:space="preserve">
+    <value>Filtrirajte svoje dodijeljene kartice prema statusu, oznakama i prioritetu.</value>
+  </data>
+  <data name="Flexible Board Sharing" xml:space="preserve">
+    <value>Fleksibilno dijeljenje ploča</value>
+  </data>
+  <data name="Flexible Storage" xml:space="preserve">
+    <value>Fleksibilno pohranjivanje</value>
+  </data>
+  <data name="Free Software" xml:space="preserve">
+    <value>Besplatni softver</value>
+  </data>
+  <data name="Free for Commercial Use" xml:space="preserve">
+    <value>Besplatno za komercijalnu upotrebu</value>
+  </data>
+  <data name="Full Stack Open Source" xml:space="preserve">
+    <value>Otvoreni kod za cijeli stack</value>
+  </data>
+  <data name="Go to dashboard" xml:space="preserve">
+    <value>Idi na nadzornu ploču</value>
+  </data>
+  <data name="Group cards with labels, mark priority, assign owners, and surface the most important work first." xml:space="preserve">
+    <value>Grupirajte kartice oznakama, označite prioritet, dodijelite vlasnike i istaknite najvažnije poslove na vrh.</value>
+  </data>
+  <data name="Jump directly into your daily workflow." xml:space="preserve">
+    <value>Uronite izravno u svoj dnevni radni tok.</value>
+  </data>
+  <data name="Kanban Assistant" xml:space="preserve">
+    <value>Kanban pomoćnik</value>
+  </data>
+  <data name="Keep task context close to the work with descriptions, comments, and public board views." xml:space="preserve">
+    <value>Zadržite kontekst zadataka blizu posla pomoću opisa, komentara i javnih prikaza ploča.</value>
+  </data>
+  <data name="Labels and Priorities" xml:space="preserve">
+    <value>Oznake i prioriteti</value>
+  </data>
+  <data name="MIT Licence" xml:space="preserve">
+    <value>MIT licenca</value>
+  </data>
+  <data name="MIT License" xml:space="preserve">
+    <value>MIT licenca</value>
+  </data>
+  <data name="My Tasks" xml:space="preserve">
+    <value>Moji zadaci</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Navigacija</value>
+  </data>
+  <data name="No paid tiers, no hosted lock-in, and no hidden workflow limits. Run it yourself and keep ownership of your project data." xml:space="preserve">
+    <value>Nema plaćenih razina, nema vezivanja za hostani sustav i nema skrivenih ograničenja radnih tokova. Pokrenite ga sami i zadržite vlasništvo nad podacima svog projekta.</value>
+  </data>
+  <data name="On Your Infrastructure" xml:space="preserve">
+    <value>Na vašoj infrastrukturi</value>
+  </data>
+  <data name="Open Source" xml:space="preserve">
+    <value>Otvoreni izvor</value>
+  </data>
+  <data name="Open boards" xml:space="preserve">
+    <value>Otvori daske</value>
+  </data>
+  <data name="Personal Task Focus" xml:space="preserve">
+    <value>Osobni fokus na zadacima</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Privatno</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Spremno</value>
+  </data>
+  <data name="Ready to organize your next project?" xml:space="preserve">
+    <value>Spremni organizirati svoj sljedeći projekt?</value>
+  </data>
+  <data name="Review active tasks, owned boards, shared boards, and urgent work." xml:space="preserve">
+    <value>Pregledajte aktivne zadatke, vlastite daske, podijeljene daske i hitne poslove.</value>
+  </data>
+  <data name="Self Hosted" xml:space="preserve">
+    <value>Samopostavljanje</value>
+  </data>
+  <data name="Share boards with users or roles, choose read-only or editable access, and keep private work isolated." xml:space="preserve">
+    <value>Podijelite daske s korisnicima ili ulogama, odaberite pristup samo za čitanje ili uređivanje i zadržite privatne poslove odvojenima.</value>
+  </data>
+  <data name="Start with the install script or a single Docker container." xml:space="preserve">
+    <value>Počnite s instalacijskim skriptom ili jednim Docker kontejnerom.</value>
+  </data>
+  <data name="Track assignments, priorities, labels, due dates, overdue work, and active tasks from one dashboard." xml:space="preserve">
+    <value>Pratite dodjele, prioritete, oznake, rokove, posao s isteklim rokom i aktivne zadatke s jedne nadzorne ploče.</value>
+  </data>
+  <data name="Use SQLite for simple hosting or MySQL when your team grows." xml:space="preserve">
+    <value>Koristite SQLite za jednostavno hostanje ili MySQL kada vaš tim raste.</value>
+  </data>
+  <data name="Use the built-in assistant to read board state and help update routine project data." xml:space="preserve">
+    <value>Koristite ugrađeni asistent za čitanje stanja ploče i pomoć pri ažuriranju rutinskih podataka projekta.</value>
+  </data>
+  <data name="View on GitHub" xml:space="preserve">
+    <value>Pogledaj na GitHubu</value>
+  </data>
+  <data name="Work Made Visible." xml:space="preserve">
+    <value>Rad učini vidljivim.</value>
+  </data>
+  <data name="Workflow Management" xml:space="preserve">
+    <value>Upravljanje radnim tokom</value>
+  </data>
+  <data name="Your Workflow" xml:space="preserve">
+    <value>Vaš radni tok</value>
+  </data>
+  <data name="is Open Source" xml:space="preserve">
+    <value>je otvorenog koda</value>
+  </data>
+
+</root>

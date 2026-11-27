@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="AI-generated weekly summary of your completed tasks, available every Friday afternoon." xml:space="preserve">
+    <value>Tjedni sažetak vaših dovršenih zadataka generiran umjetnom inteligencijom, dostupan svaki petak popodne.</value>
+  </data>
+  <data name="Are you sure you want to discard this weekly report? A new one will be generated on the next hourly run." xml:space="preserve">
+    <value>Jeste li sigurni da želite otkazati ovaj tjedni izvještaj? Novi će se generirati pri sljedećem satnom pokretanju.</value>
+  </data>
+  <data name="Click to generate your weekly report summarizing all completed tasks this week." xml:space="preserve">
+    <value>Kliknite za generiranje tjednog izvješća koje sažima sve završene zadatke iz ovog tjedna.</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>Odbaci</value>
+  </data>
+  <data name="Generate Report" xml:space="preserve">
+    <value>Generiraj izvještaj</value>
+  </data>
+  <data name="Generated At" xml:space="preserve">
+    <value>Generirano u</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Povijest</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Dalje</value>
+  </data>
+  <data name="No reports yet" xml:space="preserve">
+    <value>Još nema izvještaja</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Pregled</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Prethodna</value>
+  </data>
+  <data name="This Week" xml:space="preserve">
+    <value>Ovaj tjedan</value>
+  </data>
+  <data name="This Week&apos;s Report" xml:space="preserve">
+    <value>Ovogodišnji tjedni izvještaj</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Pogled</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Tjedan</value>
+  </data>
+  <data name="Weekly Report" xml:space="preserve">
+    <value>Tjedni izvještaj</value>
+  </data>
+  <data name="Weekly reports become available every Friday afternoon (UTC+8). Check back then!" xml:space="preserve">
+    <value>Tjedna izvještaja dostupna su svake petak poslijepodne (UTC+8). Provjerite tada!</value>
+  </data>
+  <data name="Your weekly reports will appear here." xml:space="preserve">
+    <value>Vaši tjedni izvještaji će se ovdje pojaviti.</value>
+  </data>
+
+</root>

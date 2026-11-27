@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="?" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Akcije</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Stvarno</value>
+  </data>
+  <data name="Actual End" xml:space="preserve">
+    <value>Stvarni kraj</value>
+  </data>
+  <data name="Actual Start" xml:space="preserve">
+    <value>Stvarni početak</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="Add Card" xml:space="preserve">
+    <value>Dodaj karticu</value>
+  </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>Dodaj kategoriju</value>
+  </data>
+  <data name="Add Column" xml:space="preserve">
+    <value>Dodaj stupac</value>
+  </data>
+  <data name="Add more details..." xml:space="preserve">
+    <value>Dodajte više detalja...</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Sve</value>
+  </data>
+  <data name="All Boards" xml:space="preserve">
+    <value>Sve ploče</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Arhiviraj</value>
+  </data>
+  <data name="Archive this board?" xml:space="preserve">
+    <value>Arhivirati ovu ploču?</value>
+  </data>
+  <data name="Are you sure you want to delete" xml:space="preserve">
+    <value>Jeste li sigurni da želite obrisati</value>
+  </data>
+  <data name="Are you sure you want to delete the column" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati stupac</value>
+  </data>
+  <data name="Assigned to" xml:space="preserve">
+    <value>Dijeljeno s</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Dodijeljeni</value>
+  </data>
+  <data name="Board Name" xml:space="preserve">
+    <value>Naziv daske</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="Card Details" xml:space="preserve">
+    <value>Detalji kartice</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorija</value>
+  </data>
+  <data name="Category name" xml:space="preserve">
+    <value>Naziv kategorije</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Očisti</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Očisti sve filtre</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="Column Name" xml:space="preserve">
+    <value>Naziv stupca</value>
+  </data>
+  <data name="Column name is required." xml:space="preserve">
+    <value>Ime stupca je obavezno.</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Stupci</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="Comment is too long (max 2000 characters)." xml:space="preserve">
+    <value>Komentar je predugačak (maks. 2000 znakova).</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentari</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Završeno</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Potvrdi</value>
+  </data>
+  <data name="Confirm category change" xml:space="preserve">
+    <value>Potvrdi promjenu kategorije</value>
+  </data>
+  <data name="Create Board" xml:space="preserve">
+    <value>Kreiraj dasku</value>
+  </data>
+  <data name="Create New Board" xml:space="preserve">
+    <value>Kreiraj novu ploču</value>
+  </data>
+  <data name="Create a status column before adding cards." xml:space="preserve">
+    <value>Napravite stupac statusa prije dodavanja kartica.</value>
+  </data>
+  <data name="Create your first Kanban board to get started." xml:space="preserve">
+    <value>Izradite svoju prvu Kanban ploču da biste započeli.</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Kreirano</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Kreator</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Dan</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Dana</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Zadano</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="Delete Board" xml:space="preserve">
+    <value>Obriši dasku</value>
+  </data>
+  <data name="Delete Column" xml:space="preserve">
+    <value>Obriši stupac</value>
+  </data>
+  <data name="Delete card" xml:space="preserve">
+    <value>Obriši karticu</value>
+  </data>
+  <data name="Delete category" xml:space="preserve">
+    <value>Izbriši kategoriju</value>
+  </data>
+  <data name="Delete category &quot;{0}&quot;? Only empty categories can be deleted." xml:space="preserve">
+    <value>Brisati kategoriju &quot;{0}&quot;? Samo prazne kategorije se mogu obrisati.</value>
+  </data>
+  <data name="Delete comment" xml:space="preserve">
+    <value>Obriši komentar</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="Drag to reorder" xml:space="preserve">
+    <value>Povucite za promjenu redoslijeda</value>
+  </data>
+  <data name="Drop cards here" xml:space="preserve">
+    <value>Ispustite kartice ovdje</value>
+  </data>
+  <data name="Due Date" xml:space="preserve">
+    <value>Rok</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="Edit Board" xml:space="preserve">
+    <value>Uredi ploču</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Kraj</value>
+  </data>
+  <data name="Every" xml:space="preserve">
+    <value>Svaki</value>
+  </data>
+  <data name="Failed to add comment." xml:space="preserve">
+    <value>Dodavanje komentara nije uspjelo.</value>
+  </data>
+  <data name="Failed to add label." xml:space="preserve">
+    <value>Neuspjelo dodavanje oznake.</value>
+  </data>
+  <data name="Failed to change category." xml:space="preserve">
+    <value>Promjena kategorije nije uspjela.</value>
+  </data>
+  <data name="Failed to create column." xml:space="preserve">
+    <value>Neuspjelo kreiranje stupca.</value>
+  </data>
+  <data name="Failed to delete board." xml:space="preserve">
+    <value>Neuspjelo je brisanje daske.</value>
+  </data>
+  <data name="Failed to delete card." xml:space="preserve">
+    <value>Neuspjelo brisanje kartice.</value>
+  </data>
+  <data name="Failed to delete category." xml:space="preserve">
+    <value>Brisanje kategorije nije uspjelo.</value>
+  </data>
+  <data name="Failed to delete column." xml:space="preserve">
+    <value>Neuspjelo brisanje stupca.</value>
+  </data>
+  <data name="Failed to delete comment." xml:space="preserve">
+    <value>Neuspjelo brisanje komentara.</value>
+  </data>
+  <data name="Failed to load transfer targets." xml:space="preserve">
+    <value>Neuspješno učitavanje ciljeva prijenosa.</value>
+  </data>
+  <data name="Failed to move card." xml:space="preserve">
+    <value>Pomicanje kartice nije uspjelo.</value>
+  </data>
+  <data name="Failed to remove label." xml:space="preserve">
+    <value>Uklanjanje oznake nije uspjelo.</value>
+  </data>
+  <data name="Failed to rename board." xml:space="preserve">
+    <value>Promjena imena daske nije uspjela.</value>
+  </data>
+  <data name="Failed to save." xml:space="preserve">
+    <value>Snimanje nije uspjelo.</value>
+  </data>
+  <data name="Failed to transfer card." xml:space="preserve">
+    <value>Prijenos kartice nije uspio.</value>
+  </data>
+  <data name="Failed to upload image." xml:space="preserve">
+    <value>Prenos slike nije uspio.</value>
+  </data>
+  <data name="Failed to upload pasted image." xml:space="preserve">
+    <value>Prijenos zalijepljene slike nije uspio.</value>
+  </data>
+  <data name="Gantt Chart" xml:space="preserve">
+    <value>Ganttov dijagram</value>
+  </data>
+  <data name="Group tasks by" xml:space="preserve">
+    <value>Grupiraj zadatke prema</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Visoko</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>U tijeku</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Nepotpuno</value>
+  </data>
+  <data name="Kanban" xml:space="preserve">
+    <value>Kanban</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Oznake</value>
+  </data>
+  <data name="Loading target boards..." xml:space="preserve">
+    <value>Učitavanje ciljnih dasaka...</value>
+  </data>
+  <data name="Loading..." xml:space="preserve">
+    <value>Učitavanje...</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Niska</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Srednje</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Mjesec</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>Mjeseci</value>
+  </data>
+  <data name="Move card" xml:space="preserve">
+    <value>Pomakni karticu</value>
+  </data>
+  <data name="My Board" xml:space="preserve">
+    <value>Moja ploča</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="New Board" xml:space="preserve">
+    <value>Nova ploča</value>
+  </data>
+  <data name="Next column" xml:space="preserve">
+    <value>Sljedeća stupac</value>
+  </data>
+  <data name="No boards yet" xml:space="preserve">
+    <value>Još nema dasaka</value>
+  </data>
+  <data name="No cards match the current filters." xml:space="preserve">
+    <value>Nijedna kartica ne odgovara trenutnim filterima.</value>
+  </data>
+  <data name="No comments yet." xml:space="preserve">
+    <value>Još nema komentara.</value>
+  </data>
+  <data name="No editable target boards are available." xml:space="preserve">
+    <value>Nema dostupnih uredivih ciljnih tabli.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nijedna</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Nije započeto</value>
+  </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Obavijest</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>U redu</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Zakašnjelo</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planirano</value>
+  </data>
+  <data name="Planned Start" xml:space="preserve">
+    <value>Planirani početak</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Pregled</value>
+  </data>
+  <data name="Previous column" xml:space="preserve">
+    <value>Prethodna stupac</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Samo za čitanje</value>
+  </data>
+  <data name="Recurrence" xml:space="preserve">
+    <value>Ponavljanje</value>
+  </data>
+  <data name="Recurring" xml:space="preserve">
+    <value>Ponovljajuće</value>
+  </data>
+  <data name="Release to add images" xml:space="preserve">
+    <value>Pustite za dodavanje slika</value>
+  </data>
+  <data name="Rename board" xml:space="preserve">
+    <value>Preimenuj ploču</value>
+  </data>
+  <data name="Rename category" xml:space="preserve">
+    <value>Preimenuj kategoriju</value>
+  </data>
+  <data name="Rename column" xml:space="preserve">
+    <value>Preimenuj stupac</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Pregled</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pretraži</value>
+  </data>
+  <data name="Search or create a label" xml:space="preserve">
+    <value>Pretraži ili stvori oznaku</value>
+  </data>
+  <data name="Search title or description..." xml:space="preserve">
+    <value>Pretraži naslov ili opis...</value>
+  </data>
+  <data name="Select a board" xml:space="preserve">
+    <value>Odaberite ploču</value>
+  </data>
+  <data name="Select a column" xml:space="preserve">
+    <value>Odaberite stupac</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Pošalji</value>
+  </data>
+  <data name="Sending..." xml:space="preserve">
+    <value>Slanje...</value>
+  </data>
+  <data name="Server error" xml:space="preserve">
+    <value>Greška poslužitelja</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Podijeli</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Početak</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Task category" xml:space="preserve">
+    <value>Kategorija zadatka</value>
+  </data>
+  <data name="This action cannot be undone." xml:space="preserve">
+    <value>Ova radnja ne može se poništiti.</value>
+  </data>
+  <data name="This action permanently removes all columns and cards. This cannot be undone." xml:space="preserve">
+    <value>Ova radnja trajno uklanja sve stupce i kartice. To se ne može poništiti.</value>
+  </data>
+  <data name="This column contains cards that will be deleted together." xml:space="preserve">
+    <value>Ovaj stupac sadrži kartice koje će biti obrisane zajedno.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Vrijeme</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Prijenos</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Nedodijeljeno</value>
+  </data>
+  <data name="Uploading images..." xml:space="preserve">
+    <value>Učitavanje slika...</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Hitno</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Pogled</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Tjedan</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Tjedani</value>
+  </data>
+  <data name="What needs to be done?" xml:space="preserve">
+    <value>Što treba učiniti?</value>
+  </data>
+  <data name="Write a comment..." xml:space="preserve">
+    <value>Napišite komentar...</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Godina</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Godine</value>
+  </data>
+  <data name="You are changing the category of &quot;{0}&quot; from &quot;{1}&quot; to &quot;{2}&quot;. Continue?" xml:space="preserve">
+    <value>Mijenjate kategoriju za &quot;{0}&quot; iz &quot;{1}&quot; u &quot;{2}&quot;. Nastaviti?</value>
+  </data>
+  <data name="You can drag images here or paste from clipboard." xml:space="preserve">
+    <value>Možete povući slike ovdje ili zalijepiti iz međuspremnika.</value>
+  </data>
+  <data name="d ago" xml:space="preserve">
+    <value>prije d</value>
+  </data>
+  <data name="h ago" xml:space="preserve">
+    <value>prije h</value>
+  </data>
+  <data name="just now" xml:space="preserve">
+    <value>upravo sada</value>
+  </data>
+  <data name="m ago" xml:space="preserve">
+    <value>prije m</value>
+  </data>
+  <data name="optional" xml:space="preserve">
+    <value>neobavezno</value>
+  </data>
+
+</root>
