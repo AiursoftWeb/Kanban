@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" The link to the brand&apos;s home page." xml:space="preserve">
+    <value>Poveznica na početnu stranicu brenda.</value>
+  </data>
+  <data name="A dummy choice for testing." xml:space="preserve">
+    <value>Lažna opcija za testiranje.</value>
+  </data>
+  <data name="A dummy number for testing." xml:space="preserve">
+    <value>Lažni broj za testiranje.</value>
+  </data>
+  <data name="AI Model" xml:space="preserve">
+    <value>AI model</value>
+  </data>
+  <data name="Agent System Prompt" xml:space="preserve">
+    <value>Sistemska uputa agenta</value>
+  </data>
+  <data name="Allow User Adjust Nickname" xml:space="preserve">
+    <value>Dozvoli korisniku prilagodbu nadimka</value>
+  </data>
+  <data name="Allow users to adjust their nickname in the profile management page." xml:space="preserve">
+    <value>Dopusti korisnicima da prilagode svoje nadimke na stranici za upravljanje profilom.</value>
+  </data>
+  <data name="Anthropic API Endpoint" xml:space="preserve">
+    <value>Anthropic API Endpoint</value>
+  </data>
+  <data name="Anthropic API Token" xml:space="preserve">
+    <value>Anthropic API Token</value>
+  </data>
+  <data name="Auto Set Due Date" xml:space="preserve">
+    <value>Automatsko postavljanje roka</value>
+  </data>
+  <data name="Auto Set Planned Start Time" xml:space="preserve">
+    <value>Automatsko postavljanje planiranog vremena početka</value>
+  </data>
+  <data name="Brand Home URL" xml:space="preserve">
+    <value>URL početne stranice brenda</value>
+  </data>
+  <data name="Brand Name" xml:space="preserve">
+    <value>Naziv brenda</value>
+  </data>
+  <data name="Due Date Advance Days" xml:space="preserve">
+    <value>Dana unaprijed za rok</value>
+  </data>
+  <data name="Dummy Choice" xml:space="preserve">
+    <value>Lažni izbor</value>
+  </data>
+  <data name="Dummy Number" xml:space="preserve">
+    <value>Lažni broj</value>
+  </data>
+  <data name="Embedding API Endpoint" xml:space="preserve">
+    <value>Endpoint Embedding API-ja</value>
+  </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>API žeton za ugrađene vektore</value>
+  </data>
+  <data name="Embedding Model Name" xml:space="preserve">
+    <value>Naziv modela ugrađivanja</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>Ograničenje predmemorije upita za ugradnje</value>
+  </data>
+  <data name="Enable Embedding-based Search" xml:space="preserve">
+    <value>Omogući pretragu temeljenu na umetanju</value>
+  </data>
+  <data name="Enable semantic vector search powered by an embedding model. Fallbacks to plain text search if disabled or unavailable." xml:space="preserve">
+    <value>Omogućite semantičku vektorsku pretragu pokretanu modelom ugrađivanja. Ako je onemogućeno ili nedostupno, koristi se obična tekstualna pretraga.</value>
+  </data>
+  <data name="ICP Number" xml:space="preserve">
+    <value>ICP broj</value>
+  </data>
+  <data name="Maximum number of query embeddings to cache in the database. Defaults to 2000." xml:space="preserve">
+    <value>Maksimalan broj upitnih embeddinga za spremanje u bazu podataka. Zadano je 2000.</value>
+  </data>
+  <data name="Optional Bearer token for authenticating with the embedding API." xml:space="preserve">
+    <value>Opcionalni Bearer token za autenticiranje s embedding API-jem.</value>
+  </data>
+  <data name="Planned Start Time Advance Days" xml:space="preserve">
+    <value>Dana unaprijed za planirano vrijeme početka</value>
+  </data>
+  <data name="Project Logo" xml:space="preserve">
+    <value>Logo projekta</value>
+  </data>
+  <data name="Project Name" xml:space="preserve">
+    <value>Naziv projekta</value>
+  </data>
+  <data name="The Anthropic Messages API endpoint used by the Kanban AI agent. Must be the full URL including /v1/messages, e.g. https://ollama.example.com/v1/messages. Leave empty to disable the AI agent." xml:space="preserve">
+    <value>Anthropic Messages API krajnja točka koju koristi Kanban AI agent. Mora biti puni URL koji uključuje /v1/messages, npr. https://ollama.example.com/v1/messages. Ostavite prazno za onemogućavanje AI agenta.</value>
+  </data>
+  <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
+    <value>ICP broj licence za korisnike iz kontinentalne Kine. Ostavite prazno za skrivanje.</value>
+  </data>
+  <data name="The LLM model name used for the Kanban AI agent, e.g. aiursoft-instruct:latest, claude-sonnet-4-5, or deepseek-chat. Must be available at the Anthropic API Endpoint above." xml:space="preserve">
+    <value>Naziv LLM modela koji se koristi za Kanban AI agent, npr. aiursoft-instruct:latest, claude-sonnet-4-5 ili deepseek-chat. Mora biti dostupan na Anthropic API Endpointu gore.</value>
+  </data>
+  <data name="The base URL of the embedding API (e.g. Ollama). Must not include path, e.g. http://localhost:11434. Leave empty to disable." xml:space="preserve">
+    <value>Osnovni URL ugrađene API-je (npr. Ollama). Ne smije sadržavati putanju, npr. http://localhost:11434. Ostavite prazno za onemogućavanje.</value>
+  </data>
+  <data name="The brand name displayed in the footer." xml:space="preserve">
+    <value>Naziv brenda prikazan u podnožju.</value>
+  </data>
+  <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
+    <value>Logo projekta prikazan u navigacijskoj traci i podnožju. Podržani formati: jpg, png, svg.</value>
+  </data>
+  <data name="The model name used for embeddings, e.g. bge-m3:latest. Requires dimensions to match the float32 array serialization (1024 for bge-m3)." xml:space="preserve">
+    <value>Naziv modela koji se koristi za embeddings, npr. bge-m3:latest. Dimenzije moraju odgovarati float32 nizu za serializaciju (1024 za bge-m3).</value>
+  </data>
+  <data name="The name of the project displayed in the frontend." xml:space="preserve">
+    <value>Ime projekta prikazano u sučelju.</value>
+  </data>
+  <data name="The system prompt sent to the LLM as the role definition for the Kanban AI agent. Supports placeholder: {userContext} — injected at runtime with the current user&apos;s name, roles, owned boards, and the active board name/ID. Supports {currentDateTime} for the current UTC time." xml:space="preserve">
+    <value>Sustavni uput (system prompt) koji se šalje LLM-u kao definicija uloge za Kanban AI agent. Podržava placeholder: {{userContext}} — ubrizgava se u vrijeme izvršavanja s imenom, ulogama, vlastitim tablama i nazivom/ID-om aktivne tablice trenutnog korisnika. Podržava {{currentDateTime}} za trenutno UTC vrijeme.</value>
+  </data>
+  <data name="The x-api-key token for authenticating with the Anthropic API Endpoint. Leave empty if the endpoint does not require authentication." xml:space="preserve">
+    <value>x-api-key token za autenticiranje s Anthropic API krajnjom točkom. Ostavite prazno ako krajnja točka ne zahtijeva autenticiranje.</value>
+  </data>
+  <data name="When auto-setting a due date, the number of days after card creation when the card will be due." xml:space="preserve">
+    <value>Prilikom automatskog postavljanja roka, broj dana nakon stvaranja kartice kada kartica dospijeva.</value>
+  </data>
+  <data name="When auto-setting planned start time, the number of days to advance before the due date." xml:space="preserve">
+    <value>Kada se automatski postavlja planirano vrijeme početka, broj dana unaprijed prije roka isporuke.</value>
+  </data>
+  <data name="When enabled, cards with a due date but no planned start time will automatically have their planned start time set based on the advance days setting." xml:space="preserve">
+    <value>Kada je omogućeno, kartice s datumom isteka, ali bez planiranog vremena početka, automatski će imati postavljeno planirano vrijeme početka na temelju postavke unaprijed dana.</value>
+  </data>
+  <data name="When enabled, new cards without a due date will automatically be due after the configured number of days." xml:space="preserve">
+    <value>Kada je omogućeno, nove kartice bez roka isporuke automatski će imati rok isporuke nakon konfiguriranog broja dana.</value>
+  </data>
+
+</root>

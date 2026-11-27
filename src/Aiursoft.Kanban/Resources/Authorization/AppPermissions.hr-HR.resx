@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Add New Roles" xml:space="preserve">
+    <value>Dodaj nove uloge</value>
+  </data>
+  <data name="Add New Users" xml:space="preserve">
+    <value>Dodavanje novih korisnika</value>
+  </data>
+  <data name="Allows assigning or removing roles for any user." xml:space="preserve">
+    <value>Omogućuje dodjelu ili uklanjanje uloga za bilo kojeg korisnika.</value>
+  </data>
+  <data name="Allows browsing, renaming and permanently deleting any board from the all boards administration page." xml:space="preserve">
+    <value>Omogućuje pregled, preimenovanje i trajno brisanje bilo koje ploče s administrativne stranice svih ploča.</value>
+  </data>
+  <data name="Allows managing sharing and visibility settings for any board." xml:space="preserve">
+    <value>Omogućuje upravljanje postavkama dijeljenja i vidljivosti bilo koje ploče.</value>
+  </data>
+  <data name="Allows manually editing actual card start and end times on editable boards." xml:space="preserve">
+    <value>Omogućuje ručno uređivanje stvarnih početnih i završnih vremena kartica na uređivanim daskama.</value>
+  </data>
+  <data name="Allows modification of role names and their assigned permissions." xml:space="preserve">
+    <value>Omogućuje promjenu imena uloga i njihovih dodijeljenih dopuštenja.</value>
+  </data>
+  <data name="Allows modification of user details like email and roles, and can also reset user passwords." xml:space="preserve">
+    <value>Omogućuje izmjenu korisničkih podataka poput e-maila i uloga, te resetiranje korisničkih lozinki.</value>
+  </data>
+  <data name="Allows the permanent deletion of roles." xml:space="preserve">
+    <value>Dozvoljava trajno brisanje uloga.</value>
+  </data>
+  <data name="Allows the permanent deletion of user accounts." xml:space="preserve">
+    <value>Omogućuje trajno brisanje korisničkih računa.</value>
+  </data>
+  <data name="Allows viewing and managing daily plans and summaries for all users." xml:space="preserve">
+    <value>Omogućuje pregled i upravljanje dnevnim planovima i sažecima za sve korisnike.</value>
+  </data>
+  <data name="Allows viewing and managing weekly reports for all users." xml:space="preserve">
+    <value>Omogućuje pregled i upravljanje tjednim izvještajima za sve korisnike.</value>
+  </data>
+  <data name="Allows viewing and modifying global application settings." xml:space="preserve">
+    <value>Omogućuje pregled i izmjenu globalnih postavki aplikacije.</value>
+  </data>
+  <data name="Allows viewing operation logs for all users." xml:space="preserve">
+    <value>Omogućuje pregled dnevnika operacija za sve korisnike.</value>
+  </data>
+  <data name="Allows viewing system-level information and settings." xml:space="preserve">
+    <value>Omogućuje pregled informacija i postavki sustavne razine.</value>
+  </data>
+  <data name="Allows viewing the background job dashboard and managing jobs." xml:space="preserve">
+    <value>Omogućuje pregled nadzorne ploče pozadinskih poslova i upravljanje poslovima.</value>
+  </data>
+  <data name="Allows viewing the list of all permissions and their assignments to roles and users." xml:space="preserve">
+    <value>Omogućuje pregled popisa svih dopuštenja i njihovih dodjela ulogama i korisnicima.</value>
+  </data>
+  <data name="Allows viewing the list of all users." xml:space="preserve">
+    <value>Omogućuje pregled popisa svih korisnika.</value>
+  </data>
+  <data name="Allows viewing the list of roles and their assigned permissions." xml:space="preserve">
+    <value>Omogućuje pregled popisa uloga i imenovanih dozvola.</value>
+  </data>
+  <data name="Allows viewing the task list of any user in the system." xml:space="preserve">
+    <value>Omogućuje pregled popisa zadataka bilo kojeg korisnika u sustavu.</value>
+  </data>
+  <data name="Assign Roles to Users" xml:space="preserve">
+    <value>Dodijeli uloge korisnicima</value>
+  </data>
+  <data name="Delete Roles" xml:space="preserve">
+    <value>Brisanje uloga</value>
+  </data>
+  <data name="Delete Users" xml:space="preserve">
+    <value>Brisanje korisnika</value>
+  </data>
+  <data name="Edit Actual Time" xml:space="preserve">
+    <value>Uredi stvarno vrijeme</value>
+  </data>
+  <data name="Edit Role Information" xml:space="preserve">
+    <value>Uredi informacije o ulozi</value>
+  </data>
+  <data name="Edit User Information" xml:space="preserve">
+    <value>Uredi korisničke podatke</value>
+  </data>
+  <data name="Grants permission to create new roles." xml:space="preserve">
+    <value>Daje dopuštenje za stvaranje novih uloga.</value>
+  </data>
+  <data name="Grants permission to create new user accounts." xml:space="preserve">
+    <value>Odobrava dopuštenje za stvaranje novih korisničkih računa.</value>
+  </data>
+  <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
+    <value>Dodjeljuje dopuštenje za ponovno pokretanje instance aplikacije. Može uzrokovati prekide dostupnosti, ali će se svi postavke i predmemorija ponovno učitati.</value>
+  </data>
+  <data name="Manage Any Board" xml:space="preserve">
+    <value>Upravljanje bilo kojom pločom</value>
+  </data>
+  <data name="Manage Any Board Share" xml:space="preserve">
+    <value>Upravljaj dijeljenjem bilo koje ploče</value>
+  </data>
+  <data name="Manage Any Daily Report" xml:space="preserve">
+    <value>Upravljaj bilo kojim dnevnim izvještajem</value>
+  </data>
+  <data name="Manage Any Weekly Report" xml:space="preserve">
+    <value>Upravljaj bilo kojim tjednim izvještajem</value>
+  </data>
+  <data name="Manage Global Settings" xml:space="preserve">
+    <value>Upravljanje globalnim postavkama</value>
+  </data>
+  <data name="Read Audit Logs" xml:space="preserve">
+    <value>Čitaj dnevnik revizije</value>
+  </data>
+  <data name="Read Permissions" xml:space="preserve">
+    <value>Čitanje dopuštenja</value>
+  </data>
+  <data name="Read Roles" xml:space="preserve">
+    <value>Pregled uloga</value>
+  </data>
+  <data name="Read Users" xml:space="preserve">
+    <value>Čitanje korisnika</value>
+  </data>
+  <data name="Reboot This App" xml:space="preserve">
+    <value>Ponovno pokreni ovu aplikaciju</value>
+  </data>
+  <data name="View Any User Tasks" xml:space="preserve">
+    <value>Prikaz zadataka bilo kojeg korisnika</value>
+  </data>
+  <data name="View Background Jobs" xml:space="preserve">
+    <value>Pregled pozadinskih poslova</value>
+  </data>
+  <data name="View System Context" xml:space="preserve">
+    <value>Pregled konteksta sustava</value>
+  </data>
+
+</root>
